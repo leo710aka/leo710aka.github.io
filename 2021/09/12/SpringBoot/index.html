@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SpringBoot | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="为什么有了SpringFramework还会诞生SpringBoot？简单而言，因为虽然Spring的组件代码是轻量级的，但它的配置却是重量级的；所以SpringBoot的设计策略是通过开箱即用和约定大于配置 来解决配置重的问题的。 Spring Boot 是一个用于简化 Spring 应用程序开发的框架，它提供了大量的注解来简化配置和开发。 Spring Boot 注解 @SpringBootA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot">
+<meta property="og:url" content="http://example.com/2021/09/12/SpringBoot/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="为什么有了SpringFramework还会诞生SpringBoot？简单而言，因为虽然Spring的组件代码是轻量级的，但它的配置却是重量级的；所以SpringBoot的设计策略是通过开箱即用和约定大于配置 来解决配置重的问题的。 Spring Boot 是一个用于简化 Spring 应用程序开发的框架，它提供了大量的注解来简化配置和开发。 Spring Boot 注解 @SpringBootA">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-12T03:49:42.000Z">
+<meta property="article:modified_time" content="2023-12-02T10:34:31.454Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SpringBoot" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/09/12/SpringBoot/" class="article-date">
+  <time class="dt-published" datetime="2021-09-12T03:49:42.000Z" itemprop="datePublished">2021-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SpringBoot
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>为什么有了SpringFramework还会诞生SpringBoot？简单而言，因为虽然Spring的组件代码是轻量级的，但它的配置却是重量级的；所以SpringBoot的设计策略是通过开箱即用和约定大于配置 来解决配置重的问题的。</p>
+<p>Spring Boot 是一个用于简化 Spring 应用程序开发的框架，它提供了大量的注解来简化配置和开发。</p>
+<h2 id="Spring-Boot-注解"><a href="#Spring-Boot-注解" class="headerlink" title="Spring Boot 注解"></a>Spring Boot 注解</h2><ol>
+<li><code>@SpringBootApplication</code>：该注解用于标记主应用程序类，通常位于项目的顶层包中。它包含了 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code> 注解，用于自动配置和组件扫描。</li>
+<li><code>@RestController</code>：用于标记一个类，表示它是一个控制器类，处理 HTTP 请求并返回 JSON 或 XML 等数据。</li>
+<li><code>@RequestMapping</code>：用于将 HTTP 请求映射到控制器方法上，指定请求的 URL 路径和请求方法（GET、POST、PUT、DELETE 等） <strong>@RequestMapping(path &#x3D; “&#x2F;user&#x2F;detail”, method &#x3D; RequestMethod.POST)</strong></li>
+<li><code>@GetMapping</code>、<code>@PostMapping</code>、<code>@PutMapping</code>、<code>@DeleteMapping</code>：这些注解分别用于将 HTTP GET、POST、PUT 和 DELETE 请求映射到相应的处理方法上。</li>
+<li><code>@RequestParam</code>：用于从请求参数中获取值，并将其传递给控制器方法的参数。</li>
+<li><code>@PathVariable</code>：用于从 URL 路径中获取值，并将其传递给控制器方法的参数。</li>
+<li><code>@RequestBody</code>：用于将请求体中的数据绑定到控制器方法的参数上，通常用于接收 JSON 或 XML 数据。<br><code>@ResponseBody</code>： 表示方法返回的对象应该直接写入HTTP响应体，而不是通过视图解析器进行渲染。</li>
+<li><code>@Autowired</code> 是 Spring 框架自带的注解用于进行<strong>依赖注入</strong>，将 Spring 托管的 bean 注入到需要它们的类中。<br><code>@Resource</code>是 Java EE 提供的注解，用于实现<strong>依赖注入</strong>。它可以用于字段、setter 方法、构造函数等地方，用于告诉容器注入指定名称或类型的 bean。</li>
+<li><code>@Service</code>、<code>@Repository</code>、<code>@Controller</code>：这些注解分别用于标记服务类、仓库类和控制器类，以便 Spring Boot 可以自动扫描并创建这些组件。都属于 @Component 的衍生注解，用于更明确地表示类的职责。<br><code>@Component</code> 是 Spring 框架中用于<strong>声明一个类为 Spring 管理的组件（Bean）</strong>的注解。</li>
+<li><code>@Configuration</code>：用于定义配置类，通常与 @Bean 注解一起使用，用于配置第三方库或复杂的 bean。<br><code>@Bean</code>： 用于定义Spring Bean，通常在 @Configuration 类中使用。</li>
+<li><code>@Override</code> 是Java中的一个注解（Annotation），用于标识方法是否是一个覆盖（重写）了父类或接口中的方法。它提供了编译时的检查，确保您正确地重写了父类或接口中的方法，以防止由于拼写错误或方法签名不匹配而导致的错误。</li>
+<li><code>@Value</code>：用于注入属性值，从配置文件中获取属性值。</li>
+<li><code>@Profile</code>：用于定义不同环境下的配置文件，可以根据不同的配置文件加载不同的配置。</li>
+<li><code>@Conditional</code>：用于根据条件决定是否创建某个 bean。</li>
+<li><code>@EnableAutoConfiguration</code>：用于自动配置Spring Boot应用程序的组件，通常与 <code>@SpringBootApplication</code> 一起使用。</li>
+<li><code>@Param</code>：给参数变量起别名。如果只有一个参数，并且在mapper对应的xml文件中<if>里使用，则必须加别名。</li>
+<li><code>@Async</code> 是 Spring 框架中用于实现异步方法调用的注解。通过在方法上添加 @Async 注解，Spring Boot 就会在调用该方法时使用另一个线程来执行，而不是阻塞当前线程等待方法执行完成。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clr243m5q000ojkv55q8d77z6" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          计 算 机 网 络
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/11/Spring/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java 数据结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="数组数组是一种连续存储线性结构，数组尺寸不能改变。元素类型相同，大小相等，通过使用整型索引值来访问他们的元素。数组是多维的。数组能够容纳基本数据类型（int、char等）或者对象引用（如类对象）。数组的优点：存取速度快数组的缺点：事先必须知道数组的长度、插入删除元素很慢、空间通常有限制、需要大块连续内存块、插入删除元素的效率很低Java没有指针，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 数据结构">
+<meta property="og:url" content="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数组数组是一种连续存储线性结构，数组尺寸不能改变。元素类型相同，大小相等，通过使用整型索引值来访问他们的元素。数组是多维的。数组能够容纳基本数据类型（int、char等）或者对象引用（如类对象）。数组的优点：存取速度快数组的缺点：事先必须知道数组的长度、插入删除元素很慢、空间通常有限制、需要大块连续内存块、插入删除元素的效率很低Java没有指针，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-tree-14.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-tree-13.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-tree-15.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-tree-16.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-graph-store-1.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-graph-store-2.png">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-graph-store-3.jpg">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-graph-store-4.jpg">
+<meta property="og:image" content="https://pdai.tech/images/alg/alg-sort-overview-1.png">
+<meta property="article:published_time" content="2021-09-02T03:49:42.000Z">
+<meta property="article:modified_time" content="2023-12-17T04:15:09.783Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pdai.tech/images/alg/alg-tree-14.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Java数据结构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="article-date">
+  <time class="dt-published" datetime="2021-09-02T03:49:42.000Z" itemprop="datePublished">2021-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java 数据结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><strong>数组</strong>是一种连续存储线性结构，数组尺寸不能改变。元素类型相同，大小相等，通过使用整型索引值来访问他们的元素。数组是多维的。数组能够容纳基本数据类型（int、char等）或者对象引用（如类对象）。<br><strong>数组的优点</strong>：存取速度快<br><strong>数组的缺点</strong>：事先必须知道数组的长度、插入删除元素很慢、空间通常有限制、需要大块连续内存块、插入删除元素的效率很低<br>Java没有指针，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机。所以看不到每个元素的地址情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] numbers;                               <span class="comment">// 声明一个 int 数组</span></span><br><span class="line">numbers = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];                        <span class="comment">// 初始化一个长度为 5 的 int 数组</span></span><br><span class="line"><span class="type">int</span>[] values = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;              <span class="comment">// 声明并初始化一个 int 数组</span></span><br><span class="line">... <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i, j&#125;;                  <span class="comment">// 在方法中返回</span></span><br><span class="line"><span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> arr.length;                     <span class="comment">// 获取数组的长度</span></span><br><span class="line"><span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> arr[<span class="number">1</span>];                          <span class="comment">// 获取索引为 1 的元素</span></span><br><span class="line"><span class="type">int</span>[][] twoDimArray = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][<span class="number">4</span>];         <span class="comment">// 创建一个 3x4 的二维数组</span></span><br><span class="line"><span class="type">int</span>[][][] threeDimArray = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][<span class="number">4</span>][<span class="number">2</span>];  <span class="comment">// 创建一个 3x4x2 的三维数组</span></span><br><span class="line">System.out.println(twoDimArray[<span class="number">0</span>]);          <span class="comment">// [I@7852e922：16进制数值，不是真正的地址，是处理后的</span></span><br></pre></td></tr></table></figure>
+<p><code>int[] numbers;</code> 只是声明了一个名为 numbers 的整数数组的引用，它并没有创建数组对象，并没有分配内存或存储数据。<br><code>int[] numbers = new int[5];</code> 在这里，new int[5] 表示创建一个能够存储 5 个整数的整型数组，并将该数组的引用赋给 numbers 变量。这是一个基本的数组类型，而不是 Arrays、ArrayList 或 Vector 对象。<br>数组是基本的数据结构，而 Arrays 和 ArrayList 是 Java 中的类，提供了用于操作和管理数组的方法。</p>
+<h4 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h4><p><code>Arrays 类</code>是 Java API 中的一个工具类，它提供了一系列静态方法来操作数组，比如排序、搜索、比较等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];</span><br><span class="line">Arrays.fill(arr, <span class="number">10</span>);                           <span class="comment">//  fill()：将数组的所有元素设置为指定值。</span></span><br><span class="line">String[] array = &#123;<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;orange&quot;</span>&#125;;</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(array);       <span class="comment">//  asList()：将数组转换为 `List`。</span></span><br><span class="line"><span class="type">int</span>[] numbers = &#123;<span class="number">5</span>, <span class="number">2</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line">Arrays.sort(numbers);                           <span class="comment">//  sort()：对数组进行排序。</span></span><br><span class="line"><span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> Arrays.binarySearch(numbers, <span class="number">3</span>);    <span class="comment">//  binarySearch()：在排序数组中执行二分查找。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> Arrays.toString(numbers);          <span class="comment">//  toString()：将数组转换为字符串表示形式。</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEqual</span> <span class="operator">=</span> Arrays.equals(arr, numbers);  <span class="comment">//  equals()：比较两个数组是否相等。</span></span><br><span class="line"><span class="comment">//  copyOf() 和 copyOfRange()：复制数组或复制数组的指定范围。</span></span><br><span class="line"><span class="type">int</span>[] copy1 = Arrays.copyOf(arr, source.length);</span><br><span class="line"><span class="type">int</span>[] copy2 = Arrays.copyOfRange(arr, <span class="number">2</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p><code>Vector</code> 是一个同步的动态数组类，类似于 <code>ArrayList</code>，可以自动增长和缩小以容纳对象。<br><strong>ArrayList 和 Vector 都是动态数组实现的集合</strong>，而 <code>Arrays</code> 类主要用于数组的各种操作。<br><code>Vector</code> 是线程安全的（是同步的），而 <code>Arrays</code> 不是（没有提供同步）。<code>Vector</code> 在对集合进行操作时会进行同步，适用于多线程环境。单线程环境下，推荐使用 <code>ArrayList</code> 而不是 <code>Vector</code>，因为 <code>ArrayList</code> 不是同步的，性能更高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vector&lt;String&gt; vector = <span class="keyword">new</span> <span class="title class_">Vector</span>&lt;&gt;();            <span class="comment">// 创建 Vector</span></span><br><span class="line">vector.add(<span class="string">&quot;Element 1&quot;</span>);                           <span class="comment">// 添加元素</span></span><br><span class="line"><span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> vector.size();                          <span class="comment">// 获取 Vector 的大小</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty</span> <span class="operator">=</span> vector.isEmpty();                <span class="comment">// 检查 Vector 是否为空</span></span><br><span class="line"><span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> vector.get(<span class="number">0</span>);                    <span class="comment">// 访问 Vector 中的元素：获取索引为0的元素</span></span><br><span class="line"><span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> vector.indexOf(<span class="string">&quot;Element 2&quot;</span>);           <span class="comment">// 查找元素在 Vector 中的位置</span></span><br><span class="line">vector.remove(<span class="number">1</span>);                                  <span class="comment">// 删除 Vector 中的元素：删除索引为1的元素</span></span><br><span class="line"><span class="keyword">for</span> (String element : vector) &#123; ...&#125;               <span class="comment">// 遍历 Vector 中的元素</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>ArrayList是基于<strong>动态数组</strong>实现的，可以自动扩容。（动态数组是一种数据结构，而非类，是一种具有自动扩容能力的数组<br>它支持快速随机访问元素，但在插入和删除元素时可能会比较耗时。适用于需要随机访问元素、按索引查找和遍历集合的场景。<br>1、<code>add(E e)</code>：在尾部添加元素。<br>2、<code>get(int index)</code>：获取指定位置的元素。<br>3、<code>set(int index, E element)</code>：用于替换指定索引处的元素。<br>4、<code>remove(int index)</code>：移除指定位置的元素。<br>5、 <code>size()</code>：返回集合大小。</p>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>LinkedList是基于<strong>双向链表</strong>实现的，每个节点都存储了对前一个和后一个元素的引用。它在插入和删除元素时效率较高，但在随机访问元素时效率较低。LinkedList适用于需要频繁的插入、删除操作的场景。<br>1、<code>add(E e)</code>：在尾部添加元素。<br>2、<code>addFirst(E e)</code>：在头部添加元素。<br>3、<code>get(int index)</code>：获取指定位置的元素。<br>4、<code>remove(int index)</code>：移除指定位置的元素。<br>5、<code>size()</code>：返回集合大小。</p>
+<hr>
+
+
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p><strong>链表</strong>由一个节点序列组成，每个节点包含数据和指向下一个节点的引用。n个节点离散分配，每个节点只有一个前驱节点和一个后续节点，首节点没有前驱节点，尾节点没有后续节点。当你创建一个链表时，你持有的引用实际上指向链表中第一个节点的地址，也就是头节点。头节点存储了链表的起始地址，通过这个地址可以访问整个链表。<br><strong>链表优点</strong>：空间没有限制、插入删除元素很快。<strong>链表缺点</strong>：存取速度很慢</p>
+<h4 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h4><p>单链表的每个节点包含两个部分：数据和指向下一个节点的引用。第一个节点称为头节点，最后一个节点的下一个节点为空<code>null</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Node</span> &#123;   <span class="comment">// Java中单链表的节点（Node）通常会被定义为一个内部类。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> data;  <span class="comment">// 数据域</span></span><br><span class="line">    <span class="keyword">public</span> Node next; <span class="comment">// 指针域，指向下一个节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">()</span> &#123;    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> data)</span> &#123;        <span class="built_in">this</span>.data = data;    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> data, Node next)</span> &#123;        <span class="built_in">this</span>.data = data;        <span class="built_in">this</span>.next = next;    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SinglyLinkedList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Node head;</span><br><span class="line">    <span class="comment">// 添加新节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addNode</span><span class="params">(<span class="type">int</span> data)</span> &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">newNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(data);</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span>) &#123;</span><br><span class="line">            head = newNode;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">current</span> <span class="operator">=</span> head;</span><br><span class="line">            <span class="keyword">while</span> (current.next != <span class="literal">null</span>) &#123;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            current.next = newNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他操作（删除节点、查找节点等）可以根据需要实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>双向链表</strong> 中的每个节点都有两个指针：一个指向前一个节点，一个指向后一个节点。双向链表允许在节点之间双向遍历。<br>将两种(双向&#x2F;单向)链表的最后一个结点指向第一个结点从而实现 <strong>循环链表</strong>，能通过任何一个节点找到其他所有的节点。</p>
+<hr>
+
+
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。<br>哈希表使用 <strong>O(N)</strong> 空间复杂度存储数据，并且以 <strong>O(1)</strong> 时间复杂度求解问题。</p>
+<ul>
+<li><strong>HashSet</strong> 用于存储一个集合，可以查找元素是否在集合中。<br>但是，如果元素有穷，并且范围不大，那么可以用一个布尔数组来存储一个元素是否存在，就足够了。</li>
+<li><strong>HashMap</strong> 主要用于映射关系，从而把两个元素联系起来。HashMap 也可以用来对元素进行计数统计，此时键为元素，值为计数。和 HashSet 类似，如果元素有穷并且范围不大，可以用整型数组来进行统计。</li>
+</ul>
+<h4 id="HashMap-常用方法"><a href="#HashMap-常用方法" class="headerlink" title="HashMap 常用方法"></a>HashMap 常用方法</h4><p><code>put(key, value)</code>：将指定的键值对添加到哈希表中；如果该键已存在于 HashMap 中，则其旧值会被新值替换。<br><code>get(key)</code>：根据键获取对应的值。<br><code>containsKey(key)</code>：检查哈希表中是否包含指定的键。<code>containsValue(value)</code>：检查哈希表中是否包含指定的值。<br><code>remove(key)</code>：根据键移除键值对。<br><code>size()</code>：返回哈希表中键值对的数量。<br><code>isEmpty()</code>：检查哈希表是否为空。<br><code>keySet()</code>：返回哈希表中所有键的集合。<code>values()</code>：返回哈希表中所有值的集合。<code>entrySet()</code>：返回键值对的集合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line">Map&lt;String, Integer&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();  <span class="comment">// 创建一个HashMap</span></span><br><span class="line">hashMap.put(<span class="string">&quot;Three&quot;</span>, <span class="number">3</span>);  hashMap.remove(<span class="string">&quot;Three&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (!hashMap.containsKey(<span class="string">&quot;Three&quot;</span>))  hashMap.put(<span class="string">&quot;Three&quot;</span>, <span class="number">3</span>); </span><br><span class="line"><span class="comment">// 遍历kv：2种方法</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : hashMap.entrySet()) &#123;  </span><br><span class="line">    System.out.println(<span class="string">&quot;Key: &quot;</span> + entry.getKey() + <span class="string">&quot;, Value: &quot;</span> + entry.getValue());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(String s : hashMap.keySet()) System.out.println(<span class="string">&quot;Key: &quot;</span> + s + <span class="string">&quot;, Value: &quot;</span> + hashMap.get(s));</span><br></pre></td></tr></table></figure>
+
+<h4 id="HashSet-常用方法"><a href="#HashSet-常用方法" class="headerlink" title="HashSet 常用方法"></a>HashSet 常用方法</h4><p><code>add(E e)</code>: 向集合中添加元素。<code>addAll(Collection&lt;? extends E&gt; c)</code>: 将另一个集合的所有元素添加到当前集合。<br><code>remove(Object o)</code>: 移除指定的元素。<code>removeAll(Collection&lt;?&gt; c)</code>: 移除当前集合中包含在指定集合中的所有元素。<br><code>contains(Object o)</code>: 判断集合中是否包含指定元素。containsAll(Collection&lt;?&gt; c): 判断集合是否包含指定集合中的所有元素。<br><code>size()</code>: 返回集合的大小（元素个数）。<br><code>isEmpty()</code>: 判断集合是否为空。<br><code>clear()</code>: 清空集合中的所有元素。<br><code>iterator()</code>: 返回用于遍历集合的迭代器。</p>
+<hr>
+
+
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><strong>String</strong> 内部使用 char 数组存储数据。该数组被声明为 final，因此它不可被继承，初始化之后就不能再引用其它数组。并且 String 内部没有改变 value 数组的方法，因此可以保证 <strong>不可变</strong>。String 是一个类，而不是基本数据类型或容器。表示的是一个字符序列。<br>字符串是一个<strong>引用类型</strong>，因此在创建 String 对象时，实际上是在内存中分配了一块存储空间来存储字符串的值。(字符串常量池，堆，栈，</p>
+<ul>
+<li><strong>获取字符串信息</strong>：<br><code>length()</code>：返回字符串的长度。<br><code>charAt(int index)</code>：返回指定索引处的字符。<br><code>substring(int beginIndex)</code>：返回从 beginIndex 开始到字符串末尾的子字符串。<br><code>substring(int beginIndex, int endIndex)</code>：返回从 beginIndex 到 endIndex（不含）之间的子字符串</li>
+<li><strong>字符串拼接</strong>：直接使用 <code>+</code> 运算符，或 <code>concat(String str)</code>：将指定字符串 str 连接到原字符串的末尾。<br>String 不可变，+&#x3D; 操作符或 concat()实际上创建了一个新的字符串对象，该对象包含 字符串值修改后的内容，然后将其分配给了原 str变量，使 str 引用了新的字符串对象，而原始的空字符串对象仍然存在，没有被修改。</li>
+<li><strong>字符串查找和比较</strong>：<br><code>indexOf(String str)</code>：返回指定子字符串 str 在主字符串中第一次出现的位置。<code>lastIndexOf()</code>：返回最后一次..<br><code>equals(Object another)</code>：比较两个字符串是否相等。<code>equalsIgnoreCase()</code>：忽略大小写比较..。</li>
+<li><strong>字符串转换</strong>：<br><code>toLowerCase()</code>：将字符串转换为小写，<code>toUpperCase()</code>：转大写。对于字符，有 <code>Character.toLowerCase()</code> 方法；<br><code>trim()</code>：去除字符串首尾的空格。</li>
+<li><strong>切割字符串：</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> <span class="string">&quot;Hello world! This is a Java example.&quot;</span>;</span><br><span class="line"><span class="comment">// 使用空格切割字符串: `\\s+` 是一个正则表达式，表示一个或多个空格</span></span><br><span class="line">String[] words = text.split(<span class="string">&quot;\\s+&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><strong>字符串替换</strong>：<br><code>replace(char oldChar, char newChar)</code>：将字符串中的 <code>oldChar</code> 替换为 <code>newChar</code>。<br><code>replaceAll(String regex, String replace)</code>：使用新字符串<code>replace</code>替换所有与 <code>regex</code>匹配的字符串。<br><code>replaceFirst(String regex, String replacement)</code>：替换第一个匹配的字符串。</li>
+<li><strong>字符串翻转</strong>：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">original</span> <span class="operator">=</span> <span class="string">&quot;Hello, World!&quot;</span>;</span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">reversed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(original).reverse();</span><br><span class="line"><span class="type">String</span> <span class="variable">reversedString</span> <span class="operator">=</span> reversed.toString();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+
+<h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><p>数组和链表都是线性存储结构的基础，栈和队列都是线性存储结构的应用</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>栈是一种后进先出（LIFO，Last-In-First-Out）的数据结构。在Java中，可以使用 <code>java.util.Stack</code> 类实现栈的功能，也可以使用 <code>Deque</code> 接口（比如 <code>ArrayDeque</code> 或 <code>LinkedList</code>）来模拟栈的行为。<br>Java 中，Stack 类实际上继承自 Vector 类。Vector 类实现了一个动态数组，而 Stack 在 Vector 的基础上提供了栈的常见操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line">Stack&lt;Integer&gt; stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">stack.push(<span class="number">10</span>); stack.push(<span class="number">20</span>);         <span class="comment">// push(E item)：将元素压入栈顶。</span></span><br><span class="line">System.out.println(stack.pop());        <span class="comment">// pop()：移除并返回栈顶元素。输出 30</span></span><br><span class="line">System.out.println(stack.peek());       <span class="comment">// peek()：返回但不移除栈顶元素。输出 20</span></span><br><span class="line">System.out.println(stack.isEmpty());    <span class="comment">// isEmpty()：检查队列是否为空。输出 false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a>队列（Queue）</h3><p>队列是一种先进先出（FIFO，First-In-First-Out）的数据结构。在Java中，可以使用 <code>java.util.Queue</code> 接口和它的实现类来实现队列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line">Queue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">queue.offer(<span class="number">10</span>); queue.offer(<span class="number">20</span>);       <span class="comment">// offer(E e)：将元素插入队列。</span></span><br><span class="line">System.out.println(queue.poll());       <span class="comment">// poll()：移除并返回队列头部的元素。输出 10</span></span><br><span class="line">System.out.println(queue.peek());       <span class="comment">// peek()：返回但不移除队列头部的元素。输出 20</span></span><br><span class="line">System.out.println(queue.isEmpty());    <span class="comment">// isEmpty()：检查队列是否为空。输出 false</span></span><br></pre></td></tr></table></figure>
+
+<p>JDK中实现：源码解析<a target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-collection-Queue&Stack.html">https://pdai.tech/md/java/collection/java-collection-Queue&amp;Stack.html</a></p>
+<hr>
+
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><p>树：它是n(n&gt;&#x3D;0)个节点的有限集。n&#x3D;0时为空树。n&gt;0时，有限集的元素构成一个具有层次感的数据结构。<br>区别于线性表一对一的元素关系，树中的节点是一对多的关系。树具有以下特点:<br>1、n&gt;0时，根节点是唯一的，不可能存在多个根节点。<br>2、每个节点有零个至多个子节点；除了根节点外，每个节点有且仅有一个父节点。根节点没有父节点。</p>
+<ul>
+<li>基本概念：<ul>
+<li>子树: 除了根节点外，每个子节点都可以分为多个不相交的子树。</li>
+<li>孩子与双亲: 若一个结点有子树，那么该结点称为子树根的”双亲”，子树的根是该结点的”孩子”。</li>
+<li>兄弟: 具有相同双亲的节点互为兄弟。</li>
+<li>节点的度: 一个节点拥有子树的数目。</li>
+<li>叶子: 没有子树，也即是度为0的节点。</li>
+<li>分支节点: 除了叶子节点之外的节点，也即是度不为0的节点。</li>
+<li>内部节点: 除了根节点之外的分支节点。</li>
+<li>层次: 根节点为第一层，其余节点的层次等于其双亲节点的层次加1.</li>
+<li>树的高度: 也称为树的深度，树中节点的最大层次。</li>
+<li>有序树: 树中节点各子树之间的次序是重要的，不可以随意交换位置。</li>
+<li>无序树: 树种节点各子树之间的次序是不重要的。可以随意交换位置。</li>
+<li>森林: 0或多棵互不相交的树的集合。</li>
+</ul>
+</li>
+<li>二叉树：最多有两棵子树的树被称为二叉树<ul>
+<li>满二叉树: 二叉树中所有非叶子结点的度都是2，且叶子结点都在同一层次上</li>
+<li>完全二叉树: 如果一个二叉树与满二叉树前m个节点的结构相同，这样的二叉树被称为完全二叉树</li>
+<li>插入</li>
+<li>删除</li>
+<li>遍历：前序遍历、中序遍历、后序遍历</li>
+<li>搜索</li>
+</ul>
+</li>
+<li>动态查找树<ul>
+<li><strong>二叉搜索树 BST</strong><ul>
+<li>指一棵空树或者具有下列性质的二叉树：若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值；任意节点的左、右子树也分别为二叉查找树；没有键值相等的节点。</li>
+<li>二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低为 O(logn) 。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构，如集合、多重集、关联数组等。</li>
+</ul>
+</li>
+<li><strong>二叉平衡树 AVL</strong><ul>
+<li>含有相同节点的二叉查找树可以有不同的形态，而二叉查找树的平均查找长度与树的深度有关，所以需要找出一个查找平均长度最小的一棵，那就是平衡二叉树</li>
+<li>具有以下性质：要么是棵空树，要么其根节点左右子树的深度之差的绝对值不超过1；其左右子树也都是平衡二叉树；二叉树节点的平衡因子定义为该节点的左子树的深度减去右子树的深度。则AVL的所有节点的平衡因子只可能是-1,0,1。</li>
+</ul>
+</li>
+<li><strong>红黑树</strong>：红黑树也是一种自平衡的二叉查找树。<ul>
+<li>1、每个结点要么是红的要么是黑的。(红或黑)  2、根结点是黑的。(根黑)  3、每个叶结点(叶结点即指树尾端NIL指针或NULL结点)都是黑的。(叶黑)  4、如果一个结点是红的，那么它的两个儿子都是黑的。(红子黑) 5、对于任意结点而言，其到叶结点树尾端NIL指针的每条路径都包含相同数目的黑结点。(路径下黑相同)  <img src="https://pdai.tech/images/alg/alg-tree-14.png" width="400" height="300" alt=""></li>
+<li>用法最广：Java ConcurrentHashMap &amp; TreeMap；C++ STL: map &amp; set；linux进程调度Completely Fair Scheduler,用红黑树管理进程控制块；epoll在内核中的实现，用红黑树管理事件块；nginx中，用红黑树管理timer等</li>
+</ul>
+</li>
+<li>哈夫曼树：哈夫曼又称最优二叉树。是一种带权路径长度最短的二叉树，一般可以按下面步骤构建:<ul>
+<li>将所有左，右子树都为空的作为根节点。在森林中选出两棵根节点的权值最小的树作为一棵新树的左，右子树，且置新树的附加根节点的权值为其左，右子树上根节点的权值之和。注意，左子树的权值应小于右子树的权值。从森林中删除这两棵树，同时把新树加入到森林中。重复2，3步骤，直到森林中只有一棵树为止，此树便是哈夫曼树。  <img src="https://pdai.tech/images/alg/alg-tree-13.png" width="400" height="300" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多路查找树<ul>
+<li><strong>B 树</strong>：是一种自平衡的树，能够保持数据有序。这种数据结构能够让查找数据、顺序访问、插入数据及删除的动作，都在对数时间内完成。B树，概括来说是一种自平衡的m阶树，与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。<ul>
+<li>根结点至少有两个子女。</li>
+<li>每个中间节点都包含k-1个元素和k个孩子，其中 m&#x2F;2 &lt;&#x3D; k &lt;&#x3D; m</li>
+<li>每一个叶子节点都包含k-1个元素，其中 m&#x2F;2 &lt;&#x3D; k &lt;&#x3D; m</li>
+<li>所有的叶子结点都位于同一层。</li>
+<li>每个节点中的元素从小到大排列，节点当中k-1个元素正好是k个孩子包含的元素的值域分划。<br>  B-Tree中的每个节点根据实际情况可以包含大量的关键字信息和分支，如下图所示为一个3阶的B-Tree:  <img src="https://pdai.tech/images/alg/alg-tree-15.png" width="600" height="300" alt=""></li>
+</ul>
+</li>
+<li><strong>B+ 树</strong>：B+ 树是一种树数据结构，通常用于关系型数据库(如Mysql)和操作系统的文件系统中。<ul>
+<li>B+ 树的特点是能够保持数据稳定有序，其插入与修改拥有较稳定的对数时间复杂度。自底向上插入，与二叉树相反。</li>
+<li>在B树基础上，为叶子结点增加链表指针(B树+叶子有序链表)，所有关键字都在叶子结点 中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中。</li>
+<li>b+树的非叶子节点不保存数据，只保存子树的临界值(最大或者最小)，所以同样大小的节点，b+树相对于b树能够有更多的分支，使得这棵树更加矮胖，查询时做的IO操作次数也更少。<br>  将上一节中的B-Tree优化，由于B+Tree的非叶子节点只存储键值信息，假设每个磁盘块能存储4个键值及指针信息，则变成B+Tree后其结构如下图所示:  <img src="https://pdai.tech/images/alg/alg-tree-16.png" width="600" height="300" alt=""></li>
+</ul>
+</li>
+<li>B* 树</li>
+<li>R 树：R树是用来做空间数据存储的树状数据结构。例如给地理位置，矩形和多边形这类多维数据建立索引。</li>
+</ul>
+</li>
+</ul>
+<p><code>数组</code>的下标寻址十分迅速，但计算机的内存是有限的，故数组的长度也是有限的；而且无序数组的查找最坏情况需要遍历整个数组；后来人们提出了<code>二分查找</code>，要求数组的构造一定有序，二分法查找解决了普通数组查找复杂度过高的问题。任何一种数组无法解决的问题就是插入、删除操作比较复杂，因此，在一个增删查改比较频繁的数据结构中，数组不会被优先考虑<br><code>普通链表</code>由于它的结构特点被证明根本不适合进行查找<br><code>哈希表</code>是数组和链表的折中，同时它的设计依赖散列函数的设计，数组不能无限长、链表也不适合查找，所以也不适合大规模的查找 ??? ???<br><code>二叉查找树</code>因为可能退化成链表，同样不适合进行查找<br><code>AVL树</code>是为了解决可能退化成链表问题，但是AVL树的旋转过程非常麻烦，因此插入和删除很慢，也就是构建AVL树比较麻烦<br><code>红黑树</code>是平衡二叉树和AVL树的折中，是比较合适的。集合类中的Map、关联数组具有较高的查询效率，它们的底层实现就是红黑树。<br><code>多路查找树</code> 是大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的(如果元素数量非常多的话，查找就退化成节点内部的线性查找了)，这样导致二叉查找树结构由于树的深度过大而造成磁盘I&#x2F;O读写过于频繁，进而导致查询效率低下。<br><code>B树</code>与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。它的应用是文件系统及部分非关系型数据库索引。<br><code>B+树</code>在B树基础上，为叶子结点增加链表指针(B树+叶子有序链表)，所有关键字都在叶子结点 中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中。通常用于关系型数据库(如Mysql)和操作系统的文件系统中。<br><code>B* 树</code>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针, 在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1&#x2F;2提高到2&#x2F;3。<br><code>R树</code>是用来做空间数据存储的树状数据结构。例如给地理位置，矩形和多边形这类多维数据建立索引。Trie树是自然语言处理中最常用的数据结构，很多字符串处理任务都会用到。<br><code>Trie树</code>本身是一种有限状态自动机，还有很多变体。什么模式匹配、正则表达式，都与这有关。<br><strong>针对大量数据，如果在内存中作业优先考虑红黑树(map,set之类多为RB-tree实现)，如果在硬盘中作业优先考虑B系列树</strong></p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>在Java中，二叉树是一种常见的树形数据结构，每个节点最多有两个子节点，分别为左子节点和右子节点。二叉树的节点类似于一个结构体，包含了数据、左子节点和右子节点的引用。以下是一个简单的二叉树的实现示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode(<span class="type">int</span> val) &#123;   <span class="built_in">this</span>.val = val;    <span class="built_in">this</span>.left = <span class="literal">null</span>;    <span class="built_in">this</span>.right = <span class="literal">null</span>;   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinaryTree</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> TreeNode root;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinaryTree</span><span class="params">()</span> &#123;    root = <span class="literal">null</span>;   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        root = insertRec(root, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> TreeNode <span class="title function_">insertRec</span><span class="params">(TreeNode root, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            root = <span class="keyword">new</span> <span class="title class_">TreeNode</span>(val);</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; root.val) &#123;</span><br><span class="line">            root.left = insertRec(root.left, val);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &gt; root.val) &#123;</span><br><span class="line">            root.right = insertRec(root.right, val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他操作（搜索节点、删除节点等）可以根据需要实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>各树详解：<a target="_blank" rel="noopener" href="https://pdai.tech/md/algorithm/alg-basic-tree-search.html">https://pdai.tech/md/algorithm/alg-basic-tree-search.html</a></p>
+<hr>
+
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>图(Graph)是由顶点和连接顶点的边构成的离散结构。图是最灵活的数据结构之一，很多问题都可以使用图模型进行建模求解。<br>理解：图基础，图的遍历，最小生成树(Prim &amp; Kruskal)，最短路径(Dijkstra &amp; Frolyd)，拓扑排序(Topological sort)，AOE &amp; 关键路径等。</p>
+<ul>
+<li>图的定义：图是由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为: G(V,E)，其中，G表示一个图，V是图G中顶点的集合，E是图G中边的集合。和线性表，树的差异:<ul>
+<li>线性表中我们把数据元素叫元素，树中将数据元素叫结点，在图中数据元素，我们则称之为顶点(Vertex)。</li>
+<li>线性表可以没有元素，称为空表；树中可以没有节点，称为空树；但是，在图中不允许没有顶点(有穷非空性)。</li>
+<li>线性表中的各元素是线性关系，树中的各元素是层次关系，而图中各顶点的关系是用边来表示(边集可以为空)</li>
+</ul>
+</li>
+<li>相关术语<ul>
+<li>顶点的度：顶点Vi的度(Degree)是指在图中与Vi相关联的边的条数。对于有向图来说，有入度(In-degree)和出度(Out-degree)之分，有向图顶点的度等于该顶点的入度和出度之和。</li>
+<li>邻接：若无向图中的两个顶点V1和V2存在一条边(V1,V2)，则称顶点V1和V2邻接(Adjacent)；若有向图中存在一条边&lt;V3,V2&gt;，则称顶点V3与顶点V2邻接，且是V3邻接到V2或V2邻接直V3；</li>
+<li>路径：在无向图中，若从顶点Vi出发有一组边可到达顶点Vj，则称该顶点序列为从顶点Vi到顶点Vj的路径(Path)。</li>
+<li>连通：若从Vi到Vj有路径可通，则称顶点Vi和顶点Vj是连通(Connected)的。</li>
+<li>权(Weight)：有些图的边或弧具有与它相关的数字，这种与图的边或弧相关的数叫做权(Weight)。</li>
+</ul>
+</li>
+<li>类型<ul>
+<li>无向图：如果图中任意两个顶点之间的边都是无向边(没有方向的边)，则称该图为无向图。边使用小括号“()”表示;如 (V1,V2);</li>
+<li>有向图：如果图中任意两个顶点之间的边都是有向边(有方向的边)，则称该图为有向图。边使用尖括号“&lt;&gt;”表示;如 &lt;V1,V2&gt;</li>
+<li>无向完全图: 在无向图中，如果任意两个顶点之间都存在边，则称该图为无向完全图。(有(n*(n-1))&#x2F;2条边)</li>
+<li>有向完全图: 在有向图中，如果任意两个顶点之间都存在方向互为相反的两条弧，则称该图为有向完全图。(含有n个顶点的有向完全图有n*(n-1)条边)</li>
+</ul>
+</li>
+<li>图的存储结构<ul>
+<li>邻接矩阵表示法：用两个数组来表示图。一个一维数组存储图中顶点信息，一个二维数组(称为邻接矩阵)存储图中的边或弧的信息。  <img src="https://pdai.tech/images/alg/alg-graph-store-1.png" width="400" height="300" alt="">
+  <img src="https://pdai.tech/images/alg/alg-graph-store-2.png" width="400" height="300" alt="">
+  不足: 由于存在n个顶点的图需要n*n个数组元素进行存储，当图为稀疏图时，使用邻接矩阵存储方法将会出现大量0元素，这会造成极大的空间浪费。这时，可以考虑使用邻接表表示法来存储图中的数据</li>
+<li>邻接表表示法：邻接表由表头节点和表节点两部分组成，图中每个顶点均对应一个存储在数组中的表头节点。如果这个表头节点所对应的顶点存在邻接节点，则把邻接节点依次存放于表头节点所指向的单向链表中。  <img src="https://pdai.tech/images/alg/alg-graph-store-3.jpg" width="400" height="300" alt="">
+  <img src="https://pdai.tech/images/alg/alg-graph-store-4.jpg" width="400" height="300" alt=""></li>
+</ul>
+</li>
+</ul>
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><p>深度优先搜索: 假设初始状态是图中所有顶点均未被访问，则从某个顶点v出发，首先访问该顶点，然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到。 若此时尚有其他顶点未被访问到，则另选一个未被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到为止。显然，深度优先搜索是一个递归的过程。<br>DFS &amp; BFS 实现 <a target="_blank" rel="noopener" href="https://pdai.tech/md/algorithm/alg-basic-graph-bfs-dfs.html">https://pdai.tech/md/algorithm/alg-basic-graph-bfs-dfs.html</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">vexnode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="type">bool</span> visited;</span><br><span class="line">    vector&lt;vexnode*&gt; neighbors;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vexnode *g[], <span class="type">int</span> v1)</span> </span>&#123;</span><br><span class="line">    stack&lt;vexnode*&gt; stk;</span><br><span class="line">    stk.<span class="built_in">push</span>(g[v1]);</span><br><span class="line">    g[v1]-&gt;visited = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        vexnode *cur = stk.<span class="built_in">top</span>();</span><br><span class="line">        stk.<span class="built_in">pop</span>();</span><br><span class="line">        cout &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (vexnode *neighbor : cur-&gt;neighbors) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!neighbor-&gt;visited) &#123;</span><br><span class="line">                neighbor-&gt;visited = <span class="literal">true</span>;</span><br><span class="line">                stk.<span class="built_in">push</span>(neighbor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><p>广度优先搜索算法(Breadth First Search)，又称为”宽度优先搜索”或”横向优先搜索”。<br>它的思想是: 从图中某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到。如果此时图中尚有顶点未被访问，则需要另选一个未曾被访问过的顶点作为新的起始点，重复上述过程，直至图中所有顶点都被访问到为止。<br>换句话说，广度优先搜索遍历图的过程是以v为起点，由近至远，依次访问和v有路径相通且路径长度为1,2…的顶点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">(vexnode *g[], <span class="type">int</span> v1)</span> </span>&#123;</span><br><span class="line">    queue&lt;vexnode*&gt; que;</span><br><span class="line">    que.<span class="built_in">push</span>(g[v1]);</span><br><span class="line">    g[v1]-&gt;visited = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!que.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        vexnode *cur = que.<span class="built_in">front</span>();</span><br><span class="line">        que.<span class="built_in">pop</span>();</span><br><span class="line">        cout &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (vexnode *neighbor : cur-&gt;neighbors) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!neighbor-&gt;visited) &#123;</span><br><span class="line">                neighbor-&gt;visited = <span class="literal">true</span>;</span><br><span class="line">                que.<span class="built_in">push</span>(neighbor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>java实现？</p>
+<hr>
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
+<li>时间复杂度是一种用来衡量算法运行时间与输入规模之间关系的概念。它不是用来精确测量程序运行时间的，而是描述在输入规模变化时，算法运行时间的增长趋势。</li>
+<li>大O表示上界，当用它作为算法的最坏情况运行时间的上界，就是对任意数据输入的运行时间的上界。<br>O(1) &lt; O(logn) &lt; O(n) &lt; O(nlogn) &lt; O(n^2) &lt; O(n^3) &lt; O(2^n) &lt; O(n!)</li>
+</ul>
+<h2 id="♥常见排序算法知识体系详解♥"><a href="#♥常见排序算法知识体系详解♥" class="headerlink" title="♥常见排序算法知识体系详解♥"></a>♥常见排序算法知识体系详解♥</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/">https://leo710aka.github.io/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/</a><br><img src="https://pdai.tech/images/alg/alg-sort-overview-1.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clr243m5l000ejkv58fep1klp" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/09/03/Java%E9%9B%86%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java 集合
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/01/Java%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java 基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

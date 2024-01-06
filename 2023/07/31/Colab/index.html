@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Colab | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Google Colab是谷歌提供的免费Jupyter笔记本环境，不需要配置环境（本质是Linux虚拟机），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Colab">
+<meta property="og:url" content="http://example.com/2023/07/31/Colab/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Google Colab是谷歌提供的免费Jupyter笔记本环境，不需要配置环境（本质是Linux虚拟机），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-31T02:25:07.000Z">
+<meta property="article:modified_time" content="2023-08-01T02:42:12.913Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Colab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/31/Colab/" class="article-date">
+  <time class="dt-published" datetime="2023-07-31T02:25:07.000Z" itemprop="datePublished">2023-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Colab
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Google Colab</strong>是谷歌提供的免费<strong>Jupyter</strong>笔记本环境，不需要配置环境（本质是<strong>Linux虚拟机</strong>），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍。Colab Pro+ 订阅者还可获享更高的稳定性。</p>
+<p>使用Colab训练比较重要的是处理好路径的关系，找到哪个文件在哪里，文件夹的执行目录在哪里，就可以比较简单的运行起程序了，不过Colab确实存在断线问题，我们需要时刻保存好文件，因此我将权值直接保存在云盘上，这样也不会丢失。<br><strong>12h</strong>的限额比较难受，有时候没到时间就限额了。因此需要及时保存训练的模型，长时间不用gpu的情况下也会被限额（Pro版也一样），因此训练完建议及时改成gpu或停止。</p>
+<h3 id="Google-Drive"><a href="#Google-Drive" class="headerlink" title="Google Drive"></a>Google Drive</h3><p>谷歌云盘，谷歌云端硬盘。免费用户可以获取15G的空间，付费用户根据套餐可以选择最大20TB的储存空间。<br><strong>虚拟机根目录为 &#x2F;content，谷歌云盘地址为 &#x2F;content&#x2F;Drive&#x2F;MyDrive</strong></p>
+<h3 id="深度学习库的下载"><a href="#深度学习库的下载" class="headerlink" title="深度学习库的下载"></a>深度学习库的下载</h3><p>使用git clone指令进行下载，然后通过cd指令将根目录转移到了xx文件夹。<strong>此时根目录为 &#x2F;content&#x2F;xx</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!git <span class="built_in">clone</span> https://github.com/xx/xx.git</span><br><span class="line">%<span class="built_in">cd</span> xx/</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据集与预训练权重的上传"><a href="#数据集与预训练权重的上传" class="headerlink" title="数据集与预训练权重的上传"></a>数据集与预训练权重的上传</h3><p>数据集压缩，上传Google Drive，在colab中打开的jupyter文件（等于打开了一个Linux<strong>虚拟机本地</strong>）中挂载Google Drive；将数据集从Drive中复制到当前根目录，解压。<strong>直接将数据集布置在谷歌云盘会导致大量的云盘数据传输，且谷歌云盘和虚拟机之间存在通信带宽，速度远不及本地(虚拟机)文件，因此需要将数据集复制解压到本地(虚拟机)里进行处理。</strong> (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501</a>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">cp</span> /content/Drive/MyDrive/xx.zip ./</span><br><span class="line">!unzip ./xx.zip -d ./</span><br></pre></td></tr></table></figure>
+<p>预训练权重存放在 &#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx，然后创建logs和model_data。model_data放置的是预训练文件,logs放置的是网络训练过程中产生的权值。</p>
+<h3 id="保存路径设置"><a href="#保存路径设置" class="headerlink" title="保存路径设置"></a>保存路径设置</h3><p>如果将权值保存在当前根目录下的logs文件夹（&#x2F;content&#x2F;xx&#x2F;logs），发生断线网络就白训练了，浪费大量的时间。<br>可以将google云盘软连接到根目录下，那么即使断线，权值也保留在云盘中。<br>本文之前在云盘中创建了logs文件夹（&#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx&#x2F;logs），将该文件夹链接到当前根目录下的logs文件夹中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">ln</span> -s /content/Drive/MyDrive/Models/xx/logs logs   <span class="comment"># 即/content/xx/logs</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>1、标注文件的处理<br>2、训练文件的处理<br>1）预训练文件的使用。<br>2）保存周期的设置，这个设置是因为云盘的存储空间有限，每代都保存会导致存储空间满出。<br>3、开始训练：!python train.py</p>
+<h3 id="常用-colab-命令"><a href="#常用-colab-命令" class="headerlink" title="常用 colab 命令"></a>常用 colab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import shutil</span><br><span class="line">shutil.copytree(<span class="string">&quot;复制的文件夹&quot;</span>,<span class="string">&quot;目标路径+目标路径下的文件夹&quot;</span>)  <span class="comment"># 复制路径下的文件夹</span></span><br><span class="line">shutil.copytree(<span class="string">&quot;/content/drive/My Drive/channel&quot;</span>,<span class="string">&quot;/content/drive/My Drive/channel10&quot;</span>) <span class="comment"># ex</span></span><br><span class="line">shutil.rmtree(<span class="string">&quot;移除路径下的文件夹&quot;</span>) <span class="comment"># 移除路径下的文件夹</span></span><br><span class="line">shutil.copy(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>) <span class="comment"># 复制单个文件的命令  同上</span></span><br><span class="line"><span class="comment"># 删除单个文件可以右键删除</span></span><br><span class="line">!<span class="built_in">pwd</span> <span class="comment"># 显示当前目录, /content 为根目录</span></span><br><span class="line">import os </span><br><span class="line">os.chdir(<span class="string">&quot;/content/federated-learning&quot;</span>) <span class="comment"># 变更根目录操作</span></span><br><span class="line">!python <span class="string">&quot;/content/federated-learning/main_nn.py&quot;</span> <span class="comment"># 运行python 文件</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clr243m5f0005jkv565p10wz0" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/10/%E6%8A%80%E8%83%BD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          寄 能
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/14/Pytorch/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Pytorch</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

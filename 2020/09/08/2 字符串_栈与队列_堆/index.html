@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>字符串 | 栈与队列 | 堆 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="字符串 Java 中并没有像 Cpp中的 getline 函数，而是可以使用 Scanner 或者 BufferedReader 从控制台读取一行文本。12345import java.util.Scanner;&#x2F;&#x2F; ...Scanner scanner &#x3D; new Scanner(System.in);String line &#x3D; scanner.nextLine(); &#x2F;&#x2F; ...scanner">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串 | 栈与队列 | 堆">
+<meta property="og:url" content="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="字符串 Java 中并没有像 Cpp中的 getline 函数，而是可以使用 Scanner 或者 BufferedReader 从控制台读取一行文本。12345import java.util.Scanner;&#x2F;&#x2F; ...Scanner scanner &#x3D; new Scanner(System.in);String line &#x3D; scanner.nextLine(); &#x2F;&#x2F; ...scanner">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-08T09:23:20.000Z">
+<meta property="article:modified_time" content="2023-12-02T03:34:13.388Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2 字符串_栈与队列_堆" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" class="article-date">
+  <time class="dt-published" datetime="2020-09-08T09:23:20.000Z" itemprop="datePublished">2020-09-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      字符串 | 栈与队列 | 堆
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><ul>
+<li>Java 中并没有像 Cpp中的 <code>getline</code> 函数，而是可以使用 <code>Scanner</code> 或者 <code>BufferedReader</code> 从控制台读取一行文本。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"><span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> scanner.nextLine(); <span class="comment">// ...</span></span><br><span class="line">scanner.close();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(System.in));</span><br><span class="line"><span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> reader.readLine();</span><br><span class="line">reader.close();</span><br></pre></td></tr></table></figure></li>
+<li><font color= "#87CEFA"> <strong>翻转字符串里的单词：</strong> </font>移除多余空格、将整个字符串反转、将每个单词反转<br>移除多余空格：参考快慢指针原地去除数组特定元素的方法<a target="_blank" rel="noopener" href="https://programmercarl.com/0151.%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D.html#%E6%80%9D%E8%B7%AF">（题目见）</a><br><strong>翻转问题：</strong>考虑 <strong>部分翻转 + 整体翻转</strong><br><strong>同构字符串：</strong>需要我们判断 s 和 t 每个位置上的字符是否都一一对应，即 s 的任意一个字符被 t 中唯一的字符对应，同时 t 的任意一个字符被 s 中唯一的字符对应。这也被称为「双射」的关系。<br>因此，我们维护两张哈希表，第一张哈希表 s2t 以 s 中字符为键，映射至 t 的字符为值，第二张哈希表 t2s 以 t 中字符为键，映射至 s 的字符为值。从左至右遍历两个字符串的字符，不断更新两张哈希表，如果出现冲突（即遍历 s 当前下标 i 已经存在映射 s2t.get(s.charAt(i)) 且不为 t.charAt(i)，或遍历 t 当前下标 i 已经存在映射 t2s.get(t.charAt(i)) 且不为 s.charAt(i)）说明两个字符串无法构成同构，返回 false</li>
+<li><font color= "#87CEFA"> <strong>KMP模式匹配：</strong> </font>当出现字符串不匹配时，可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配了。<br><strong>子串和主串匹配出现冲突 -&gt; 寻找子、主串匹配冲突位置前部分的最长相等前后缀（查冲突位置前一位在前缀表中的值[next数组]） -&gt; 子串匹配位置返回到相等前缀后一位（即冲突位置在next中的值），主串匹配位置不移动（也即返回到相等后缀后一位），再次开始匹配。</strong><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">getNext</span><span class="params">(<span class="type">int</span>* next, <span class="type">const</span> string&amp; s)</span> </span>&#123;      <span class="comment">// 1. 利用模式串s，构造前缀表next</span></span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;                                  <span class="comment">// （若j为 -1，前缀表要进行统一减一的操作）</span></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>;                                <span class="comment">// next[i] 表示 i（包括i）之前最长相等的前后缀长度</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123;         <span class="comment">// 注意i从1开始</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) &#123;         <span class="comment">// j前后缀不相同了（要保证大于0，因为下面有取j-1作为数组下标的操作</span></span><br><span class="line">            j = next[j - <span class="number">1</span>];                    <span class="comment">// 向前回退（注意这里，是要找前一位的对应的回退位置了</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (s[i] == s[j]) &#123;                     <span class="comment">// 找到相同的前后缀</span></span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        next[i] = j;                            <span class="comment">// 将j（前缀的长度）赋给next[i]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span>&#123;        <span class="comment">// 2. 用模式串needle 匹配主串haystack </span></span><br><span class="line">    <span class="keyword">if</span> (needle.<span class="built_in">size</span>() == <span class="number">0</span>)  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> next[needle.<span class="built_in">size</span>()]; </span><br><span class="line">    <span class="built_in">getNext</span>(next, needle);                          <span class="comment">// 用模式串创建next数组 O(n)</span></span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;                                      <span class="comment">// 模式串中当前匹配位置</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; haystack.<span class="built_in">size</span>(); i++) &#123;     <span class="comment">// O(m)，则KMP算法为O(m+n)</span></span><br><span class="line">        <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; haystack[i] != needle[j]) &#123;  <span class="comment">// 不匹配，j 寻找之前匹配的位置</span></span><br><span class="line">            j = next[j - <span class="number">1</span>];                        </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (haystack[i] == needle[j]) &#123;             <span class="comment">// 匹配，j和i同时向后移动</span></span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == needle.<span class="built_in">size</span>() ) &#123;                  <span class="comment">// 文本串s里出现了模式串t</span></span><br><span class="line">            <span class="keyword">return</span> (i - needle.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+
+<h1 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h1><ul>
+<li><font color= "#87CEFA"> <strong>匹配问题都是栈的强项：</strong> </font>括号匹配，相邻元素匹配，逆波兰式匹配<strong>（注意后从栈中弹出的数，是操作符的左操作数）</strong>，，</li>
+<li><font color= "#87CEFA"> <strong>滑动窗口最大值：</strong> </font>给定数组 nums，有大小为 k 的滑动窗口从数组的最左侧一位位移向最右侧。每次返回滑动窗口中的最大值。<br><code>单调队列</code>：<strong>维护一个单调递增（减）的队列，最大（小）值在队首。单调队列没有必要维护窗口里的所有元素，只需要维护有可能成为窗口里最大值的元素就可以了，同时保证队列里的元素数值是由大到小（小到大）的。</strong>具体做法是：<br>pop()时：若要从滑动窗口中去掉的元素，其值等于此时单调队列队首值（即最大值），那么将队首元素从deque.front()弹出。滑动窗口每次向右滑动，先pop()，后push()。<br>push()时：从双向队列末尾push数值，若大于前面的数，那么将前面的数从deque.back()弹出，直到push的数值小于等于其前面元素的数值为止。这样就保持了队列里的数值是单调从大到小的了，且最大值在队首deque.front()。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span> &#123; </span><br><span class="line"><span class="keyword">public</span>:                 <span class="comment">// !!！ 注意别漏了public，否则默认private无法从变量访问</span></span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; que; </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">(<span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!que.<span class="built_in">empty</span>() &amp;&amp; value == que.<span class="built_in">front</span>()) &#123;</span><br><span class="line">            que.<span class="built_in">pop_front</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!que.<span class="built_in">empty</span>() &amp;&amp; value &gt; que.<span class="built_in">back</span>()) &#123;</span><br><span class="line">            que.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        que.<span class="built_in">push_back</span>(value);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">front</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> que.<span class="built_in">front</span>();  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><font color= "#87CEFA"> <strong>前 K 个高频元素：</strong> </font>给定一个非空的整数数组，返回出现频率前 k 高的元素。<br><strong><code>优先级队列</code><strong>：</strong>其实就是一个披着队列外衣的堆，对外接口只是从队头取元素，从队尾添加元素，且优先级队列内部元素是自动依照元素的权值排列。</strong>  缺省情况下priority_queue利用max-heap（大顶堆）完成对元素的排序，这个大顶堆是以vector为表现形式的complete binary tree（完全二叉树）。<br><strong><code>堆</code></strong> 是一棵完全二叉树，树中每个结点的值都不小于（或不大于）其左右孩子的值。 如果父亲结点是大于等于左右孩子就是大顶堆，小于等于左右孩子就是小顶堆。每次pop()弹出堆顶元素。<br><code>priority_queue</code>：c++中已实现的数据结构，其底层实现等同于堆，从小到大排就是小顶堆，从大到小排就是大顶堆。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">mycomparison</span> &#123;                <span class="comment">// 小顶堆</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&amp; lhs, <span class="type">const</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&amp; rhs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lhs.second &gt; rhs.second;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;                    </span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; map;        <span class="comment">// 要统计元素出现频率                  </span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">    map[nums[i]]++; &#125;</span><br><span class="line"><span class="comment">// 对频率排序, 维护一个大小固定为k的小顶堆，扫面所有频率的数值</span></span><br><span class="line">priority_queue&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, mycomparison&gt; pri_que;  </span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> pair : map) &#123;</span><br><span class="line">    pri_que.<span class="built_in">push</span>(pair);</span><br><span class="line">    <span class="keyword">if</span> (pri_que.<span class="built_in">size</span>() &gt; k) &#123;       <span class="comment">// 如果堆的大小大于了K，则队列弹出，保证堆的大小一直为k</span></span><br><span class="line">        pri_que.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="LinkedList（双向链表）"><a href="#LinkedList（双向链表）" class="headerlink" title="LinkedList（双向链表）"></a><code>LinkedList</code>（双向链表）</h3><p>在 Java 中，<code>LinkedList</code> 是双向链表的实现，每个元素都包含一个指向前一个元素和一个指向后一个元素的指针。这使得插入和删除操作在链表中非常高效，但随机访问较慢。以下是 <code>LinkedList</code> 的一些常见用法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; myList = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        myList.addLast(<span class="number">1</span>);                          <span class="comment">// 插入元素到链表尾部</span></span><br><span class="line">        myList.addFirst(<span class="number">2</span>);                         <span class="comment">// 插入元素到链表头部</span></span><br><span class="line">        myList.add(<span class="number">1</span>, <span class="number">3</span>);                           <span class="comment">// 在指定位置插入元素</span></span><br><span class="line">        myList.removeLast();                        <span class="comment">// 移除链表尾部元素</span></span><br><span class="line">        myList.removeFirst();                       <span class="comment">// 移除链表头部元素</span></span><br><span class="line">        myList.remove(<span class="number">1</span>);                            <span class="comment">// 移除指定位置的元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> item : myList) &#123; System.out.print(item + <span class="string">&quot; &quot;</span>); &#125; <span class="comment">// 遍历链表</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Deque（双端队列）"><a href="#Deque（双端队列）" class="headerlink" title="Deque（双端队列）"></a><code>Deque</code>（双端队列）</h3><p><code>Deque</code> 是双端队列容器的实现，支持在两端进行高效的插入和删除操作，并且允许随机访问。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayDeque;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Deque&lt;Integer&gt; myDeque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        myDeque.addLast(<span class="number">1</span>);                         <span class="comment">// 插入元素到队列尾部</span></span><br><span class="line">        myDeque.addFirst(<span class="number">2</span>);                        <span class="comment">// 插入元素到队列头部</span></span><br><span class="line">        myDeque.removeLast();                       <span class="comment">// 移除队列尾部元素</span></span><br><span class="line">        myDeque.removeFirst();                      <span class="comment">// 移除队列头部元素</span></span><br><span class="line">        myDeque.addLast(<span class="number">3</span>);                         <span class="comment">// 随机访问队列</span></span><br><span class="line">        myDeque.addLast(<span class="number">4</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> myDeque.peekFirst();            <span class="comment">// 访问第一个元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> item : myDeque) &#123; System.out.print(item + <span class="string">&quot; &quot;</span>); &#125; <span class="comment">// 遍历队列</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PriorityQueue（优先队列）"><a href="#PriorityQueue（优先队列）" class="headerlink" title="PriorityQueue（优先队列）"></a><code>PriorityQueue</code>（优先队列）</h3><p>在 Java 中，<code>PriorityQueue</code> 可以实现最大堆和最小堆。默认情况下是最小堆，可通过提供自定的比较器来实现最大堆或最小堆。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"><span class="comment">// 实现最大堆：</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; maxHeap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; b - a); <span class="comment">// 创建最大堆</span></span><br><span class="line">maxHeap.offer(<span class="number">5</span>);  maxHeap.offer(<span class="number">2</span>);  maxHeap.offer(<span class="number">8</span>);  maxHeap.offer(<span class="number">1</span>); <span class="comment">// 向堆中插入元素</span></span><br><span class="line">System.out.println(<span class="string">&quot;最大值：&quot;</span> + maxHeap.peek()); <span class="comment">// 访问堆顶元素（最大值）</span></span><br><span class="line">maxHeap.poll(); <span class="comment">// 弹出堆顶元素</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现最小堆：</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(); <span class="comment">// 创建最小堆</span></span><br><span class="line">minHeap.offer(<span class="number">5</span>);  minHeap.offer(<span class="number">2</span>);  minHeap.offer(<span class="number">8</span>);  minHeap.offer(<span class="number">1</span>); <span class="comment">// 向堆中插入元素</span></span><br><span class="line">System.out.println(<span class="string">&quot;最小值：&quot;</span> + minHeap.peek()); <span class="comment">// 访问堆顶元素（最小值）</span></span><br><span class="line">minHeap.poll(); <span class="comment">// 弹出堆顶元素</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clr243m5d0002jkv53rjohq5m" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          二叉树 | 图论
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数组 | 链表 | 哈希表</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
