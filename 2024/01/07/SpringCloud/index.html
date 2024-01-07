@@ -6,12 +6,12 @@
   
   <title>SpringCloud | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="微服务单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点:架构简单、部署成本低。缺点:耦合度高，扩展性差，适合小型项目。例如:学生管理系统分布式架构：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远">
+  <meta name="description" content="微服务单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统分布式架构：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud">
 <meta property="og:url" content="http://example.com/2024/01/07/SpringCloud/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="微服务单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点:架构简单、部署成本低。缺点:耦合度高，扩展性差，适合小型项目。例如:学生管理系统分布式架构：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远">
+<meta property="og:description" content="微服务单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统分布式架构：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/1.png?raw=true">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/5.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true">
 <meta property="article:published_time" content="2024-01-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2024-01-07T05:55:12.757Z">
+<meta property="article:modified_time" content="2024-01-07T08:04:30.138Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true">
@@ -100,7 +100,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点:架构简单、部署成本低。缺点:耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true" width="500" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
+        <h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true" width="500" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
 <p><strong>微服务</strong>：一种良好的分布式架构方案。<br>优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高<br>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。<br>面向服务：微服务对外暴露业务接口<br>自治：团队独立、技术独立、数据独立、部署独立<br>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题</p>
 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/1.png?raw=true" width="700" height="200"> 
 再加上服务异常定位、节点状态监控、自动化部署
@@ -114,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clr333pou000pvkv52bfm8y3z" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clr3c3rde000rw0v5be3ufmin" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
