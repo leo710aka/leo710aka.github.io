@@ -14,7 +14,7 @@
 <meta property="og:description" content="Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：6379 启动 Redis由于已经在环境变量中配好reids的安装目录，直接打开cmd，启动 Redis 客户端启动客户端后, 在客户端cmd窗口中测试Redis 是否正常工作，设置密码（命令行设置">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-15T03:49:42.000Z">
-<meta property="article:modified_time" content="2023-11-09T13:31:08.175Z">
+<meta property="article:modified_time" content="2024-01-07T14:52:21.127Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -178,8 +178,13 @@
 </ol>
 </li>
 <li>实战场景 - 排行榜：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户关注数，更新时间，字数等打分，做排行。</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd myscoreset 100 hao 90 xiaohao  <span class="comment"># 将一个带有给定分值的成员添加到有序集合里面</span></span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE myscoreset 0 -1              <span class="comment"># 根据元素在有序集合中所处位置，从有序集合中获取多个元素</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE myscoreset hao</span><br><span class="line"><span class="string">&quot;100&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; zrem myscoreset hao                 <span class="comment"># 如果给定元素成员存在于有序集合中，那么就移除这个元素</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd myscoreset 100 hao 90 xiaohao  <span class="comment"># 将一个带有给定分值的成员添加到有序集合里面</span></span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE myscoreset 0 -1            <span class="comment"># 根据元素在有序集合中所处位置，从有序集合中获取多个元素</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE myscoreset hao</span><br><span class="line"><span class="string">&quot;100&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; zrem myscoreset hao               <span class="comment"># 如果给定元素成员存在于有序集合中，那么就移除这个元素</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><p>采用一种基数算法，用于完成独立总数的统计。（同一个人多次访问，只记一访问量）（独立访客）<br>占据空间小，无论统计多少个数据，只占12K的内存空间<br>不精确的统计算法，标准误差为 0.81%。</p>
+<h3 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h3><p>不是一种独立的数据结构，实际上就是字符串<br>支持按位存取数据，可以将其看成是byte数组<br>适合存储索大量的连续的数据的布尔值。（记录一个人连续一年每天的签到情况 0&#x2F;1）（日活跃用户）</p>
+<hr>
+
+
 <h2 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h2><ul>
 <li>Spring Boot提供了<code>RedisTemplate</code>作为与Redis交互的强大工具。通过<code>RedisTemplate</code>，您可以在java项目中执行各种Redis命令来操作数据，包括字符串、列表、集合、散列、有序集合等。以下是一些常见的Redis操作示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储数据：</span></span><br><span class="line">redisTemplate.opsForValue().set(<span class="string">&quot;myKey&quot;</span>, <span class="string">&quot;myValue&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> (String) redisTemplate.opsForValue().get(<span class="string">&quot;myKey&quot;</span>);</span><br><span class="line"><span class="comment">// 列表操作：</span></span><br><span class="line">redisTemplate.opsForList().leftPush(<span class="string">&quot;myList&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">List&lt;String&gt; myList = redisTemplate.opsForList().range(<span class="string">&quot;myList&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 集合操作：</span></span><br><span class="line">redisTemplate.opsForSet().add(<span class="string">&quot;mySet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="string">&quot;member2&quot;</span>);</span><br><span class="line">Set&lt;String&gt; mySet = redisTemplate.opsForSet().members(<span class="string">&quot;mySet&quot;</span>);</span><br><span class="line"><span class="comment">// 散列操作：</span></span><br><span class="line">Map&lt;String, String&gt; myHash = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">myHash.put(<span class="string">&quot;field1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">myHash.put(<span class="string">&quot;field2&quot;</span>, <span class="string">&quot;value2&quot;</span>);</span><br><span class="line">redisTemplate.opsForHash().putAll(<span class="string">&quot;myHash&quot;</span>, myHash);</span><br><span class="line"><span class="type">String</span> <span class="variable">fieldValue</span> <span class="operator">=</span> (String) redisTemplate.opsForHash().get(<span class="string">&quot;myHash&quot;</span>, <span class="string">&quot;field1&quot;</span>);</span><br><span class="line"><span class="comment">// 有序集合操作：</span></span><br><span class="line">redisTemplate.opsForZSet().add(<span class="string">&quot;myZSet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="number">1.0</span>);</span><br><span class="line">Set&lt;String&gt; myZSet = redisTemplate.opsForZSet().range(<span class="string">&quot;myZSet&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
 <li>公共命令<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redisTemplate.delete(key);  <span class="comment">// 删除一个数据结构</span></span><br><span class="line">redisTemplate.hasKey(key);  <span class="comment">// 是否存在一个数据结构</span></span><br></pre></td></tr></table></figure></li>
@@ -187,9 +192,8 @@
 <h3 id="Redis-事务管理"><a href="#Redis-事务管理" class="headerlink" title="Redis 事务管理"></a>Redis 事务管理</h3><ul>
 <li>要使用编程式事务<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testTransaction</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> redisTemplate.execute(<span class="keyword">new</span> <span class="title class_">SessionCallback</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Object <span class="title function_">execute</span><span class="params">(RedisOperations redisOperations)</span> <span class="keyword">throws</span> DataAccessException &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">redisKey</span> <span class="operator">=</span> <span class="string">&quot;text:tx&quot;</span>;           </span><br><span class="line">            redisOperations.multi();         <span class="comment">// 启用事务</span></span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;wangwu&quot;</span>);</span><br><span class="line">            <span class="comment">// redis事务内做查询，无效</span></span><br><span class="line">            <span class="comment">// redis事务中的所有代码在事务提交后一起执行</span></span><br><span class="line">            System.out.println(redisOperations.opsForSet().members(redisKey));            </span><br><span class="line">            <span class="keyword">return</span> redisOperations.exec();   <span class="comment">// 提交事务</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><p>采用一种基数算法，用于完成独立总数的统计。（同一个人多次访问，只记一访问量）（独立访客）<br>占据空间小，无论统计多少个数据，只占12K的内存空间<br>不精确的统计算法，标准误差为 0.81%。</p>
-<h3 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h3><p>不是一种独立的数据结构，实际上就是字符串<br>支持按位存取数据，可以将其看成是byte数组<br>适合存储索大量的连续的数据的布尔值。（记录一个人连续一年每天的签到情况 0&#x2F;1）（日活跃用户）</p>
 <hr>
+
 
 <h2 id="Redis缓存问题"><a href="#Redis缓存问题" class="headerlink" title="Redis缓存问题"></a>Redis缓存问题</h2><p>在高并发的业务场景下，数据库大多数情况都是用户并发访问最薄弱的环节。所以，就需要使用redis做一个缓冲操作，让请求先访问到redis，而不是直接访问Mysql等数据库。这样可以大大缓解数据库的压力。<strong>当缓存库出现时，必须要考虑如下问题：</strong></p>
 <ol>
@@ -242,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/15/Redis/" data-id="clr3c3rde000nw0v54m37h71e" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/15/Redis/" data-id="clr4xtj5f000odwv5hk06b79k" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -310,6 +314,10 @@
           </li>
         
           <li>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏伯</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
           </li>
         
@@ -327,10 +335,6 @@
         
           <li>
             <a href="/2023/07/10/Anaconda/">Anaconda</a>
-          </li>
-        
-          <li>
-            <a href="/2023/04/14/Docker/">Docker</a>
           </li>
         
       </ul>

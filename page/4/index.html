@@ -69,6 +69,155 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-5 索引_排序_" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" class="article-date">
+  <time class="dt-published" datetime="2020-09-09T12:23:20.000Z" itemprop="datePublished">2020-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/">索引 | 排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>索引是数据库中用于提高查询效率的数据结构，主要目的是加速对表中数据的检索操作，如图书的目录。</p>
+<ul>
+<li><strong>单列索引：</strong> 对表中的单一列建立的索引。</li>
+<li><strong>复合索引：</strong> 对表中的多个列组合建立的索引。</li>
+<li><strong>线性索引</strong>：对于保存在磁盘中的原始数据记录，在索引中保存对应的关键字，以及保存了数据记录位置的指针。</li>
+<li><strong>哈希索引</strong>：基于哈希函数的原理，将关键字映射到索引的位置。通常用于等值查询，不适用于范围查询。存在哈希碰撞问题：当两个不同的关键字经过哈希函数得到相同的索引位置时，产生冲突。</li>
+<li><strong>树索引</strong>：基于树结构的索引。树结构通常有更严格的平衡性和有序性。<br>每一个节点中保存了：（1）键值（关键字）即表中的主键。（2）指针，存储子节点的信息。（3）表记录中除主键外的数据。<ol>
+<li><code>二叉排序树 BST</code>：每个节点的左子树包含的所有节点的值都小于该节点的值，右子树所有节点的值都大于该节点的值。<br>  但若子节点分布不均，查找效率就不高。</li>
+<li><code>平衡二叉树 AVL</code>：插入数据的同时保持平衡的二叉排序树，左子树和右子树高度之差的绝对值不大于1。<br>  解决了 BST的问题。但若插入操作比查询操作频繁，效率就低。</li>
+<li><code>红黑树</code>：最长子树不超过最短子树的 2倍即可。解决了 AVL的问题。<br>  但对于二叉树，随着数据的插入树的深度会变深，意味着IO次数越多，影响读取的效率；不适合做文件系统的索引。</li>
+<li><code>B树</code>：有序的多路查询树（N叉树）为减少磁盘IO的次数，B树结点的大小通常设置为一次磁盘IO所能读取的最大数据量<br>  <strong>N叉树</strong>特点：(1)树中每个结点至多有<strong>N个</strong>孩子结点（即至多有<strong>N-1</strong>个关键字）。  (2)除根节点外，其他结点至少有<strong>m&#x2F;2的上取整个</strong>孩子结点；若根节点不是叶子结点，则根结点至少有两个孩子结点。  (3)所有叶子结点都在同一层上，即B树是所有结点的平衡因子均等于0的多路查找树。查找效率为O(log(n))，插入，，分裂，，<br>  但由于每个节点上都保存了数据，一次从硬盘上获取一个分页到内存，，？，数据增加会导致树的层数增大。</li>
+<li><code>B+树</code>：在B树的基础上做了一些改进，将所有关键字都存放在叶子节点形成有序链表。</li>
+</ol>
+</li>
+<li>红黑树、B树 和 B+树都是用于实现有序集合的树状数据结构，在数据库和文件系统等领域得到广泛应用，具体选择取决于应用场景和性能需求。在内存中，红黑树可能更适合，而在外部存储（内存&lt;–&gt;硬盘）中，B树和B+树通常更为合适。</li>
+<li>索引的优点：<ol>
+<li><strong>提高查询性能：</strong> 通过减少需要扫描的数据量，加速数据检索。</li>
+<li><strong>加速排序和分组：</strong> 当排序或分组查询时，索引可以加速这些操作。</li>
+<li><strong>加速连接操作：</strong> 在连接操作中，索引可以加速表的关联。</li>
+</ol>
+</li>
+<li>索引的缺点：<ol>
+<li><strong>占用存储空间：</strong> 索引需要额外的存储空间。</li>
+<li><strong>降低写操作性能：</strong> 插入、更新和删除操作可能变得更慢，因为需要更新索引。</li>
+<li><strong>维护成本：</strong> 随着表的变化，索引需要进行维护，增加了系统的开销。</li>
+<li><strong>选择不当可能降低性能：</strong> 不正确选择索引或过多索引可能导致性能下降。</li>
+</ol>
+</li>
+<li>如何选择索引：<ol>
+<li><strong>根据查询模式：</strong> 根据实际查询模式选择建立合适的索引。</li>
+<li><strong>根据表大小：</strong> 表较小时，全表扫描可能更有效；表较大时，索引更有优势。</li>
+<li><strong>根据写操作频率：</strong> 如果写操作频繁，考虑减少索引。</li>
+</ol>
+</li>
+</ul>
+<h3 id="数据库中的实际应用："><a href="#数据库中的实际应用：" class="headerlink" title="数据库中的实际应用："></a>数据库中的实际应用：</h3><ol>
+<li><strong>主键索引：</strong> 唯一标识表中的每一行数据，通常是单列索引。</li>
+<li><strong>唯一索引：</strong> 确保列中的所有值都是唯一的，可以是单列或复合索引。</li>
+<li><strong>聚集索引：</strong> 决定表的物理排序方式，通常是主键索引。</li>
+<li><strong>非聚集索引：</strong> 不影响表的物理排序，通常是普通的单列或复合索引。</li>
+</ol>
+<h3 id="红黑树（Red-Black-Tree）："><a href="#红黑树（Red-Black-Tree）：" class="headerlink" title="红黑树（Red-Black Tree）："></a>红黑树（Red-Black Tree）：</h3><ol>
+<li><strong>特性：</strong><ul>
+<li>是一种自平衡的二叉搜索树。每个节点有两个子节点。</li>
+<li>每个节点有一个颜色属性，红色或黑色。</li>
+<li>保持了二叉搜索树的有序性。</li>
+<li>通过一些规则保持了树的平衡，确保最长路径不超过最短路径的两倍。</li>
+</ul>
+</li>
+<li><strong>插入和删除：</strong>插入和删除操作会通过颜色调整来保持红黑树的平衡，相对较快，但不适合范围查询。</li>
+<li><strong>应用：</strong>通常用于内存中的数据结构。在很多语言的标准库中用于实现关联容器，如C++的<code>map</code>和<code>set</code>。</li>
+</ol>
+<h3 id="B树（B-Tree）："><a href="#B树（B-Tree）：" class="headerlink" title="B树（B-Tree）："></a>B树（B-Tree）：</h3><ol>
+<li><strong>特性：</strong><ul>
+<li>是一种自平衡的搜索树。多路搜索树，每个节点可以包含多个子节点。</li>
+<li>保持了树的平衡，通过调整节点的大小，确保所有叶子节点到根节点的距离相等。</li>
+</ul>
+</li>
+<li><strong>插入和删除：</strong>插入和删除操作可能需要调整节点的大小和结构。（分裂，，）</li>
+<li><strong>应用：</strong>通常应用于文件系统和数据库索引，以提供高效的查找和插入操作。</li>
+</ol>
+<h3 id="B-树（B-Tree）："><a href="#B-树（B-Tree）：" class="headerlink" title="B+树（B+ Tree）："></a>B+树（B+ Tree）：</h3><ol>
+<li><strong>特性：</strong><ul>
+<li>是B树的一种变体。</li>
+<li>所有关键字只出现在叶子节点的链表中，内部节点只包含关键字的信息和指向子树的指针。</li>
+<li>叶子节点形成了一个有序链表，便于范围查询和顺序访问。</li>
+</ul>
+</li>
+<li><strong>插入和删除：</strong>插入和删除操作可能需要调整节点的大小和结构，但与B树相比，B+树更简单。</li>
+<li><strong>应用：</strong>常用于数据库索引设计，支持高效的范围查询和顺序访问。</li>
+</ol>
+<hr>
+
+<h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><p>A. 重点理解几个排序之间的对比，时间和空间复杂度，以及应用。PS：越简单越要提高认知效率，做到战略上藐视战术上重视。<br>B. 具体分析各种排序及其复杂度，查漏补缺；在综合复杂度及稳定性情况下，通常希尔, 快排和 归并需要重点掌握。<br><img src="https://pdai.tech/images/alg/alg-sort-overview-1.png"></p>
+<ul>
+<li>冒泡排序(Bubble Sort)它是一种较简单的排序算法。它会遍历若干次要排序的数列，每次遍历时，它都会从前往后依次的比较相邻两个数的大小；如果前者比后者大，则交换它们的位置。这样，一次遍历之后，最大的元素就在数列的末尾！ 采用相同的方法再次遍历时，第二大的元素就被排列在最大元素之前。重复此操作，直到整个数列都有序为止<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">bubbleSort</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                swap(arr[j], arr[j+<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;  <span class="comment">// 在一趟排序中，一次交换都没有发生过</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>快速排序(Quick Sort)是：采用分治的思想，将一个数组分成两个子数组，然后递归地对子数组进行排序。它选择一个元素作为”pivot”（基准），并将数组中小于基准的元素放在基准的左边，大于基准的元素放在基准的右边，然后对左右子数组进行递归排序。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">quickSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="type">int</span> pivot = arr[left];</span><br><span class="line">        <span class="type">int</span> i = left, j = right;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt;= pivot) j--;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; j) arr[i++] = arr[j];</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= pivot) i++;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; j) arr[j--] = arr[i];</span><br><span class="line">        &#125;</span><br><span class="line">        arr[i] = pivot;</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, left, i - <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, i + <span class="number">1</span>, right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">quickSort</span>(arr, <span class="number">0</span>, n - <span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
+<li>插入排序(Insertion Sort)的基本思想是: 把n个待排序的元素看成为一个有序表和一个无序表。开始时有序表中只包含1个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，将它插入到有序表中的适当位置，使之成为新的有序表，重复n-1次可完成排序过程。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> len)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; len; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">			<span class="keyword">if</span> (arr[j] &gt; arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">				<span class="built_in">swap</span>(arr[j], arr[j+<span class="number">1</span>]);</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Shell排序(Shell Sort)，希尔排序实质上是一种分组插入方法。它的基本思想是: 对于n个待排序的数列，取一个小于n的整数gap(gap被称为步长)将待排序元素分成若干个组子序列，所有距离为gap的倍数的记录放在同一个组中；然后，对各组内的元素进行直接插入排序。 这一趟排序完成之后，每一个组的元素都是有序的。然后减小gap的值，并重复执行上述的分组和排序。重复这样的操作，当gap&#x3D;1时，整个数列就是有序的。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">shellSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = arr.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> gap = n / <span class="number">2</span>; gap &gt; <span class="number">0</span>; gap /= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = gap; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> temp = arr[i];</span><br><span class="line">            <span class="type">int</span> j;</span><br><span class="line">            <span class="keyword">for</span> (j = i; j &gt;= gap &amp;&amp; arr[j - gap] &gt; temp; j -= gap) &#123;</span><br><span class="line">                arr[j] = arr[j - gap];</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>选择排序(Selection sort)它的基本思想是: 首先在未排序的数列中找到最小(or最大)元素，然后将其存放到数列的起始位置；接着，再从剩余未排序的元素中继续寻找最小(or最大)元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">SelectionSort</span><span class="params">(<span class="type">int</span> a[], <span class="type">int</span> len)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123; </span><br><span class="line">		<span class="type">int</span> minIndex = i;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt;len; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(a[j] &lt; a[minIndex]) &#123;</span><br><span class="line">				minIndex = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">swap</span>(a[i], a[minIndex]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>堆排序(Heap Sort)堆排序是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。<img src="https://github.com/leo710aka/bk/blob/main/HeapSort.png?raw=true" width="300" height="200" alt=""> 
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdjustDwon</span><span class="params">(<span class="type">int</span>* a, <span class="type">int</span> size, <span class="type">int</span> parent)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; size) &#123;</span><br><span class="line">		<span class="keyword">if</span> (child + <span class="number">1</span> &lt; size &amp;&amp; a[child + <span class="number">1</span>] &gt; a[child]) &#123;</span><br><span class="line">			++child;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a[child] &gt; a[parent]) &#123;</span><br><span class="line">			<span class="built_in">swap</span>(a[child], a[parent]);</span><br><span class="line">			parent = child;</span><br><span class="line">			child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapSort</span><span class="params">(<span class="type">int</span>* a, <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = (n - <span class="number">1</span> - <span class="number">1</span>) / <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">		<span class="built_in">AdjustDwon</span>(a, n, i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> end = n - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (end &gt; <span class="number">0</span>)	&#123;</span><br><span class="line">		<span class="built_in">swap</span>(a[<span class="number">0</span>], a[end]);</span><br><span class="line">		<span class="built_in">AdjustDwon</span>(a, end, <span class="number">0</span>);</span><br><span class="line">		--end;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>归并排序(Merge Sort)，采用分治的思想将一个大问题分割成多个小问题来解决。<br>具体来说，归并排序的过程包括分割、排序和合并三个步骤。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n1 = mid - left + <span class="number">1</span>, n2 = right - mid;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">leftArr</span><span class="params">(n1)</span>, <span class="title">rightArr</span><span class="params">(n2)</span></span>;                        <span class="comment">// 创建临时数组来存储左右两部分的数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n1; i++)  leftArr[i] = arr[left + i];     <span class="comment">// 将数据复制到临时数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n2; i++)  rightArr[i] = arr[mid + <span class="number">1</span> + i];    </span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = left;                                   <span class="comment">// 合并两个临时数组</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; n1 &amp;&amp; j &lt; n2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (leftArr[i] &lt;= rightArr[j]) arr[k++] = leftArr[i++];  </span><br><span class="line">        <span class="keyword">else</span> arr[k++] = rightArr[j++]; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; n1)  arr[k++] = leftArr[i++];                      <span class="comment">// 处理剩余元素</span></span><br><span class="line">    <span class="keyword">while</span> (j &lt; n2)  arr[k++] = rightArr[j++];  </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mergeSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;           <span class="comment">// 归并排序主函数</span></span><br><span class="line">    <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="type">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">mergeSort</span>(arr, left, mid);                                <span class="comment">// 分割左右两部分</span></span><br><span class="line">        <span class="built_in">mergeSort</span>(arr, mid + <span class="number">1</span>, right); </span><br><span class="line">        <span class="built_in">merge</span>(arr, left, mid, right);                             <span class="comment">// 合并已排序的两部分</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>桶排序(Bucket Sort)桶排序(Bucket Sort)的原理很简单，将数组分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）</li>
+<li>基数排序(Radix Sort)它的基本思想是: 将整数按位数切割成不同的数字，然后按每个位数分别比较。具体做法是: 将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列<table>
+<thead>
+<tr>
+<th>排序场景</th>
+<th>排序效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Random</td>
+<td>希尔&gt;快排&gt;归并</td>
+</tr>
+<tr>
+<td>Few unique</td>
+<td>快排&gt;希尔&gt;归并</td>
+</tr>
+<tr>
+<td>Reversed</td>
+<td>快排&gt;希尔&gt;归并</td>
+</tr>
+<tr>
+<td>Almost sorted</td>
+<td>插入排序&gt;基数排序&gt;快排&gt;希尔&gt;归并</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>	</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" data-id="clr4xtj570005dwv5fvfohafk" data-title="索引 | 排序" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-4 回溯_动态规划_贪心_" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" class="article-date">
@@ -138,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="clr3c3rd60003w0v54riy1qfe" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="clr4xtj550003dwv54w9tgtil" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -203,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="clr3c3rda000cw0v5fo72cw9o" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="clr4xtj570004dwv517oe361v" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -262,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clr3c3rd50001w0v57unq9je7" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clr4xtj4w0001dwv543n0g5az" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -334,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="clr3c3rd20000w0v5d8vp39hc" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="clr4xtj4t0000dwv56t67b3o2" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -576,7 +725,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clr3c3rd70005w0v5eh6673bs" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clr4xtj590008dwv538ec7m1a" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -618,7 +767,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/01/SCUT/" data-id="clr3c3rdd000lw0v5dog84ell" data-title="SCUT" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/01/SCUT/" data-id="clr4xtj5e000ndwv5d21me0ze" data-title="SCUT" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -674,6 +823,10 @@
           </li>
         
           <li>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏伯</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/11/%E9%9D%A2%E8%AF%95/">面 逝</a>
           </li>
         
@@ -691,10 +844,6 @@
         
           <li>
             <a href="/2023/07/10/Anaconda/">Anaconda</a>
-          </li>
-        
-          <li>
-            <a href="/2023/04/14/Docker/">Docker</a>
           </li>
         
       </ul>
