@@ -148,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clr4yc4d4000x90v5cgl9271i" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clr6ex160000wlkv5bw9ca0xs" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -391,30 +391,39 @@
 </ol>
 </li>
 </ul>
-<h2 id="3-2-TCP-重传、滑动窗口、流量控制、拥塞控制（小林p？）"><a href="#3-2-TCP-重传、滑动窗口、流量控制、拥塞控制（小林p？）" class="headerlink" title="3.2 TCP 重传、滑动窗口、流量控制、拥塞控制（小林p？）"></a>3.2 TCP 重传、滑动窗口、流量控制、拥塞控制（小林p？）</h2><h2 id="3-3-TCP-实战抓包分析（小林p？）"><a href="#3-3-TCP-实战抓包分析（小林p？）" class="headerlink" title="3.3 TCP 实战抓包分析（小林p？）"></a>3.3 TCP 实战抓包分析（小林p？）</h2><h2 id="3-4-TCP-半链接队列和全连接队列（小林p？）"><a href="#3-4-TCP-半链接队列和全连接队列（小林p？）" class="headerlink" title="3.4 TCP 半链接队列和全连接队列（小林p？）"></a>3.4 TCP 半链接队列和全连接队列（小林p？）</h2><h2 id="3-5-TCP-内核参数（小林p？）"><a href="#3-5-TCP-内核参数（小林p？）" class="headerlink" title="3.5 TCP 内核参数（小林p？）"></a>3.5 TCP 内核参数（小林p？）</h2><hr>
+<h2 id="3-2-TCP-重传、滑动窗口、流量控制、拥塞控制（小林p？）"><a href="#3-2-TCP-重传、滑动窗口、流量控制、拥塞控制（小林p？）" class="headerlink" title="3.2 TCP 重传、滑动窗口、流量控制、拥塞控制（小林p？）"></a>3.2 TCP 重传、滑动窗口、流量控制、拥塞控制（小林p？）</h2><p>- </p>
+<h2 id="3-3-TCP-实战抓包分析（小林p？）"><a href="#3-3-TCP-实战抓包分析（小林p？）" class="headerlink" title="3.3 TCP 实战抓包分析（小林p？）"></a>3.3 TCP 实战抓包分析（小林p？）</h2><p>- </p>
+<h2 id="3-4-TCP-半链接队列和全连接队列（小林p？）"><a href="#3-4-TCP-半链接队列和全连接队列（小林p？）" class="headerlink" title="3.4 TCP 半链接队列和全连接队列（小林p？）"></a>3.4 TCP 半链接队列和全连接队列（小林p？）</h2><p>- </p>
+<h2 id="3-5-TCP-内核参数（小林p？）"><a href="#3-5-TCP-内核参数（小林p？）" class="headerlink" title="3.5 TCP 内核参数（小林p？）"></a>3.5 TCP 内核参数（小林p？）</h2><p>- </p>
+<hr>
 
 
 <h1 id="四、IP"><a href="#四、IP" class="headerlink" title="四、IP"></a>四、IP</h1><h2 id="4-1-IP基础知识"><a href="#4-1-IP基础知识" class="headerlink" title="4.1 IP基础知识"></a>4.1 IP基础知识</h2><h3 id="4-1-1-IP-基本认识（p314"><a href="#4-1-1-IP-基本认识（p314" class="headerlink" title="4.1.1 IP 基本认识（p314"></a>4.1.1 IP 基本认识（p314</h3><ul>
 <li><p>⽹络层的主要作⽤是：实现主机与主机之间的通信，也叫点对点（end to end）通信。<br>IP 的作用是在复杂的网络环境中将数据包发送给最终目的主机。</p>
 </li>
-<li><p>⽹络层与数据链路层有什么关系呢？<br>IP 的作⽤是主机之间通信⽤的，⽽ MAC 的作⽤则是实现「直连」的两个设备之间通信，⽽ IP 则负责在「没有直连」的两个⽹络之间进⾏通信传输。<br>？？</p>
+<li><p>⽹络层与数据链路层有什么关系呢？<br>IP 的作⽤是主机之间通信⽤的，⽽ MAC 的作⽤则是实现「直连」的两个设备之间通信，⽽ IP 则负责在「没有直连」的两个⽹络之间进⾏通信传输。</p>
+<img src="https://leo710aka.github.io/bk/net/21.png" width="500" height="300" alt="">
+如果⼩林只有⾏程表⽽没有⻋票，就⽆法搭乘交通⼯具到达⽬的地。相反，如果除了⻋票⽽没有⾏程表，恐怕也很难到达⽬的地。因为⼩林不知道该坐什么⻋，也不知道该在哪⾥换乘。因此，只有两者兼备，既有某个区间的⻋票⼜有整个旅⾏的⾏程表，才能保证到达⽬的地。与此类似，计算机⽹络中也需要「数据链路层」和「⽹络层」这个分层才能实现向最终⽬标地址的通信。
+还有重要⼀点，旅⾏途中我们虽然不断变化了交通⼯具，但是旅⾏⾏程的起始地址和⽬的地址始终都没变。其实，在⽹络中数据包传输中也是如此，源IP地址和⽬标IP地址在传输过程中是不会变化的，只有源 MAC 地址和⽬标 MAC ⼀直在变化。</li>
+</ul>
+<h3 id="4-1-2-IP-地址的基础知识"><a href="#4-1-2-IP-地址的基础知识" class="headerlink" title="4.1.2 IP 地址的基础知识"></a>4.1.2 IP 地址的基础知识</h3><ul>
+<li><p>在 TCP&#x2F;IP ⽹络通信时，为了保证能正常通信，每个设备都需要配置正确的 IP 地址，否则⽆法实现正常的通信。<br>IP 地址（IPv4 地址）由 32 位正整数来表示，IP 地址在计算机是以⼆进制的⽅式处理的。⽽⼈类为了⽅便记忆采⽤了点分⼗进制的标记⽅式，也就是将 32 位 IP 地址以每 8 位为组，共分为 4 组，每组以「 . 」隔开，再将每组转换成⼗进制。</p>
+<img src="https://leo710aka.github.io/bk/net/22.png" width="300" height="300" alt="">
+那么，IP 地址最⼤值是 2^32，也即最⼤允许 43 亿台计算机连接到⽹络。
+实际上，IP 地址是以⽹卡数来配置的。像服务器、路由器等设备都是有 2 个以上的⽹卡，是会有 2 个以上的 IP 地址；更何况 IP 地址是由「⽹络标识」和「主机标识」这两个部分组成的，所以实际能够连接到⽹络的计算机个数更是少了很多。
+根据⼀种可以更换 IP 地址的技术 NAT ，使得可连接计算机数超过 43 亿台。 
+</li>
+<li><p>IP 地址的分类<br>互联⽹诞⽣之初，IP 地址显得很充裕，于是科学家们设计了 5 种分类地址，分别是 A 类、B 类、C 类、D 类、E 类。<br>下图中⻩⾊部分为分类号，⽤以区分 IP 地址类别</p>
+<img src="https://leo710aka.github.io/bk/net/23.png" width="500" height="300" alt="">
+</li>
+<li><p>什么是 A、B、C 类地址？<br>？？p318</p>
 </li>
 </ul>
-<h3 id="4-1-2-IP-地址的基础知识"><a href="#4-1-2-IP-地址的基础知识" class="headerlink" title="4.1.2 IP 地址的基础知识"></a>4.1.2 IP 地址的基础知识</h3><p>在 TCP&#x2F;IP ⽹络通信时，为了保证能正常通信，每个设备都需要配置正确的 IP 地址，否则⽆法实现正常的通信。<br>IP 地址（IPv4 地址）由 32 位正整数来表示，IP 地址在计算机是以⼆进制的⽅式处理的。⽽⼈类为了⽅便记忆采⽤了点分⼗进制的标记⽅式，也就是将 32 位 IP 地址以每 8 位为组，共分为 4 组，每组以「 . 」隔开，再将每组转换成⼗进制。<br>？？</p>
-<h3 id="4-1-3-IP-协议相关技术"><a href="#4-1-3-IP-协议相关技术" class="headerlink" title="4.1.3 IP 协议相关技术"></a>4.1.3 IP 协议相关技术</h3><h2 id="4-2-ping的工作原理"><a href="#4-2-ping的工作原理" class="headerlink" title="4.2 ping的工作原理"></a>4.2 ping的工作原理</h2><hr>
-
-
-<h1 id="五、网络综合篇"><a href="#五、网络综合篇" class="headerlink" title="五、网络综合篇"></a>五、网络综合篇</h1><h2 id="5-1-键入网址到网页显示，期间发生了什么？"><a href="#5-1-键入网址到网页显示，期间发生了什么？" class="headerlink" title="5.1 键入网址到网页显示，期间发生了什么？"></a>5.1 键入网址到网页显示，期间发生了什么？</h2><img src="https://leo710aka.github.io/bk/net11.png" width="600" height="300" alt=""> 
-
-<h3 id="5-1-1-浏览器做的第⼀步⼯作是解析-URL"><a href="#5-1-1-浏览器做的第⼀步⼯作是解析-URL" class="headerlink" title="5.1.1 浏览器做的第⼀步⼯作是解析 URL"></a>5.1.1 浏览器做的第⼀步⼯作是解析 URL</h3><ul>
-<li>⾸先浏览器做的第⼀步⼯作就是要对 URL 进⾏解析，从⽽⽣成发送给 Web 服务器的请求信息。<img src="https://leo710aka.github.io/bk/net12.png" width="500" height="300" alt=""> 
-所以图中的⻓⻓的 URL 实际上是请求服务器⾥的⽂件资源。当没有文件路径名时，就代表访问根⽬录下事先设置的默认⽂件，也就是 /index.html 或者 /default.html 这些⽂件。</li>
-<li>对 URL 进⾏解析之后，浏览器确定了 Web 服务器和⽂件名，接下来就是根据这些信息来⽣成 HTTP 请求消息了。</li>
-</ul>
-<h3 id="5-1-2-真实地址查询-——-DNS"><a href="#5-1-2-真实地址查询-——-DNS" class="headerlink" title="5.1.2 真实地址查询 —— DNS"></a>5.1.2 真实地址查询 —— DNS</h3><p>通过浏览器解析 URL 并⽣成 HTTP 消息后，需要委托操作系统将消息发送给 Web 服务器。<br>但在发送之前，还有⼀项⼯作需要完成，那就是查询服务器域名对应的 IP 地址，因为委托操作系统发送消息时，必须提供通信对象的 IP 地址。所以，有⼀种服务器就专⻔保存了 Web 服务器域名与 IP 的对应关系，它就是 DNS 服务器。</p>
+<h3 id="4-1-3-IP-协议相关技术（p340"><a href="#4-1-3-IP-协议相关技术（p340" class="headerlink" title="4.1.3 IP 协议相关技术（p340"></a>4.1.3 IP 协议相关技术（p340</h3><ul>
+<li><p>DNS 域名解析<br>  域名⽅便⼈类记忆，使用 DNS 域名解析将域名⽹址⾃动转换为具体的 IP 地址。</p>
 <ul>
-<li>域名的层级关系<br>DNS 中的域名都是⽤句点来分隔的，⽐如 <a target="_blank" rel="noopener" href="http://www.server.com/">www.server.com</a> ，这⾥的句点代表了不同层次之间的界限。<br>在域名中，越靠右的位置表示其层级越⾼，层级关系类似⼀个树状结构：根 DNS 服务器、顶级域 DNS 服务器（com）、权威 DNS 服务器（server.com）<img src="https://leo710aka.github.io/bk/net13.png" width="300" height="300" alt=""> 
-根域的 DNS 服务器信息保存在互联⽹中所有的 DNS 服务器中。这样⼀来，任何 DNS 服务器就都可以找到并访问根域DNS 服务器了。因此，客户端只要能够找到任意⼀台 DNS 服务器，就可以通过它找到根域 DNS 服务器，然后再⼀路顺藤摸⽠找到位于下层的某台⽬标 DNS 服务器</li>
+<li>域名的层级关系<br>  DNS 中的域名都是⽤句点来分隔的，⽐如 <a target="_blank" rel="noopener" href="http://www.server.com/">www.server.com</a> ，这⾥的句点代表了不同层次之间的界限。<br>  在域名中，越靠右的位置表示其层级越⾼，层级关系类似⼀个树状结构：根 DNS 服务器、顶级域 DNS 服务器（com）、权威 DNS 服务器（server.com）  <img src="https://leo710aka.github.io/bk/net13.png" width="300" height="300" alt=""> 
+  根域的 DNS 服务器信息保存在互联⽹中所有的 DNS 服务器中。这样⼀来，任何 DNS 服务器就都可以找到并访问根域 DNS 服务器了。因此，客户端只要能够找到任意⼀台 DNS 服务器，就可以通过它找到根域 DNS 服务器，然后再⼀路顺藤摸⽠找到位于下层的某台⽬标 DNS 服务器</li>
 <li>域名解析的⼯作流程<ol>
 <li>客户端⾸先会发出⼀个 DNS 请求，问 <a target="_blank" rel="noopener" href="http://www.server.com/">www.server.com</a> 的 IP 是啥，并发给本地 DNS 服务器（也就是客户端 的 TCP&#x2F;IP 设置中填写的 DNS 服务器地址）。</li>
 <li>本地域名服务器收到客户端的请求后，如果缓存⾥的表格能找到 <a target="_blank" rel="noopener" href="http://www.server.com,/">www.server.com，</a> 则它直接返回 IP 地址。如果没有，本地 DNS 会去问它的根域名服务器：“⽼⼤， 能告诉我 <a target="_blank" rel="noopener" href="http://www.server.com/">www.server.com</a> 的 IP 地址吗？” 根域名服务器是最⾼层次的，它不直接⽤于域名解析，但能指明⼀条道路。</li>
@@ -427,12 +436,45 @@
 </ol>
 </li>
 </ul>
+</li>
+<li><p>ARP 与 RARP 协议<br>？？p342</p>
+</li>
+<li><p>DHCP 动态获取 IP 地址</p>
+</li>
+</ul>
+<p>。。</p>
+<ul>
+<li>NAT ⽹络地址转换</li>
+</ul>
+<p>。。</p>
+<ul>
+<li>ICMP 互联⽹控制报⽂协议</li>
+</ul>
+<p>。。</p>
+<ul>
+<li>IGMP 因特⽹组管理协</li>
+</ul>
+<p>。。</p>
+<h2 id="4-2-ping-的工作原理"><a href="#4-2-ping-的工作原理" class="headerlink" title="4.2 ping 的工作原理"></a>4.2 ping 的工作原理</h2><p>- </p>
+<hr>
+
+
+<h1 id="五、网络综合篇"><a href="#五、网络综合篇" class="headerlink" title="五、网络综合篇"></a>五、网络综合篇</h1><h2 id="5-1-键入网址到网页显示，期间发生了什么？"><a href="#5-1-键入网址到网页显示，期间发生了什么？" class="headerlink" title="5.1 键入网址到网页显示，期间发生了什么？"></a>5.1 键入网址到网页显示，期间发生了什么？</h2><img src="https://leo710aka.github.io/bk/net11.png" width="600" height="300" alt=""> 
+
+<h3 id="5-1-1-浏览器做的第⼀步⼯作是解析-URL"><a href="#5-1-1-浏览器做的第⼀步⼯作是解析-URL" class="headerlink" title="5.1.1 浏览器做的第⼀步⼯作是解析 URL"></a>5.1.1 浏览器做的第⼀步⼯作是解析 URL</h3><ul>
+<li>⾸先浏览器做的第⼀步⼯作就是要对 URL 进⾏解析，从⽽⽣成发送给 Web 服务器的请求信息。<img src="https://leo710aka.github.io/bk/net12.png" width="500" height="300" alt=""> 
+所以图中的⻓⻓的 URL 实际上是请求服务器⾥的⽂件资源。当没有文件路径名时，就代表访问根⽬录下事先设置的默认⽂件，也就是 /index.html 或者 /default.html 这些⽂件。</li>
+<li>对 URL 进⾏解析之后，浏览器确定了 Web 服务器和⽂件名，接下来就是根据这些信息来⽣成 HTTP 请求消息了。</li>
+</ul>
+<h3 id="5-1-2-真实地址查询-——-DNS"><a href="#5-1-2-真实地址查询-——-DNS" class="headerlink" title="5.1.2 真实地址查询 —— DNS"></a>5.1.2 真实地址查询 —— DNS</h3><p>通过浏览器解析 URL 并⽣成 HTTP 消息后，需要委托操作系统将消息发送给 Web 服务器。<br>但在发送之前，还有⼀项⼯作需要完成，那就是查询服务器域名对应的 IP 地址，因为委托操作系统发送消息时，必须提供通信对象的 IP 地址。所以，有⼀种服务器就专⻔保存了 Web 服务器域名与 IP 的对应关系，它就是 DNS 服务器。<br>使用 DNS 域名解析将域名⽹址⾃动转换为具体的 IP 地址。</p>
 <h3 id="5-1-3-指南好帮⼿-——-协议栈（p379"><a href="#5-1-3-指南好帮⼿-——-协议栈（p379" class="headerlink" title="5.1.3 指南好帮⼿ —— 协议栈（p379"></a>5.1.3 指南好帮⼿ —— 协议栈（p379</h3><p>???</p>
-<h3 id="5-1-4-可靠传输-——-TCP"><a href="#5-1-4-可靠传输-——-TCP" class="headerlink" title="5.1.4 可靠传输 —— TCP"></a>5.1.4 可靠传输 —— TCP</h3><h3 id="5-1-5-远程定位-——-IP"><a href="#5-1-5-远程定位-——-IP" class="headerlink" title="5.1.5 远程定位 —— IP"></a>5.1.5 远程定位 —— IP</h3><p>TCP 模块在执⾏连接、收发、断开等各阶段操作时，都需要委托 IP 模块将数据封装成⽹络包发送给通信对象</p>
+<h3 id="5-1-4-可靠传输-——-TCP"><a href="#5-1-4-可靠传输-——-TCP" class="headerlink" title="5.1.4 可靠传输 —— TCP"></a>5.1.4 可靠传输 —— TCP</h3><p>- </p>
+<h3 id="5-1-5-远程定位-——-IP"><a href="#5-1-5-远程定位-——-IP" class="headerlink" title="5.1.5 远程定位 —— IP"></a>5.1.5 远程定位 —— IP</h3><p>TCP 模块在执⾏连接、收发、断开等各阶段操作时，都需要委托 IP 模块将数据封装成⽹络包发送给通信对象</p>
 <h3 id="5-1-6-两点传输-——-MAC"><a href="#5-1-6-两点传输-——-MAC" class="headerlink" title="5.1.6 两点传输 —— MAC"></a>5.1.6 两点传输 —— MAC</h3><p>⽣成了 IP 头部之后，接下来⽹络包还需要在 IP 头部的前⾯加上 MAC 头部</p>
 <h3 id="5-1-7-出⼝-——-⽹卡"><a href="#5-1-7-出⼝-——-⽹卡" class="headerlink" title="5.1.7. 出⼝ —— ⽹卡"></a>5.1.7. 出⼝ —— ⽹卡</h3><p>⽹络包只是存放在内存中的⼀串⼆进制数字信息，没有办法直接发送给对⽅。因此，我们需要将数字信息转换为电<br>信号，才能在⽹线上传输，也就是说，这才是真正的数据发送过程</p>
 <h3 id="5-1-8-送别者-——-交换机"><a href="#5-1-8-送别者-——-交换机" class="headerlink" title="5.1.8 送别者 —— 交换机"></a>5.1.8 送别者 —— 交换机</h3><p>下⾯来看⼀下包是如何通过交换机的。交换机的设计是将⽹络包原样转发到⽬的地。交换机⼯作在 MAC 层，也称<br>为⼆层⽹络设备</p>
-<h3 id="5-1-9-出境⼤⻔-——-路由器"><a href="#5-1-9-出境⼤⻔-——-路由器" class="headerlink" title="5.1.9 出境⼤⻔ —— 路由器"></a>5.1.9 出境⼤⻔ —— 路由器</h3><h3 id="5-1-10-互相扒⽪-——-服务器-与-客户端"><a href="#5-1-10-互相扒⽪-——-服务器-与-客户端" class="headerlink" title="5.1.10 互相扒⽪ —— 服务器 与 客户端"></a>5.1.10 互相扒⽪ —— 服务器 与 客户端</h3><img src="https://leo710aka.github.io/bk/net15.png" width="450" height="300" alt=""> 
+<h3 id="5-1-9-出境⼤⻔-——-路由器"><a href="#5-1-9-出境⼤⻔-——-路由器" class="headerlink" title="5.1.9 出境⼤⻔ —— 路由器"></a>5.1.9 出境⼤⻔ —— 路由器</h3><p>。。</p>
+<h3 id="5-1-10-互相扒⽪-——-服务器-与-客户端"><a href="#5-1-10-互相扒⽪-——-服务器-与-客户端" class="headerlink" title="5.1.10 互相扒⽪ —— 服务器 与 客户端"></a>5.1.10 互相扒⽪ —— 服务器 与 客户端</h3><img src="https://leo710aka.github.io/bk/net15.png" width="450" height="300" alt=""> 
 
 
 <h2 id="5-2-Linux如何收发网络包？"><a href="#5-2-Linux如何收发网络包？" class="headerlink" title="5.2 Linux如何收发网络包？"></a>5.2 Linux如何收发网络包？</h2><p>电脑与电脑之间通常都是通话⽹卡、交换机、路由器等⽹络设备连接到⼀起，那由于⽹络设备的异构性，国际标准化组织定义了⼀个七层的 OSI ⽹络模型，但是这个模型由于⽐较复杂，实际应⽤中并没有采⽤，⽽是采⽤了更为简化的 TCP&#x2F;IP 模型，Linux ⽹络协议栈就是按照了该模型来实现的。<br>TCP&#x2F;IP 模型主要分为应⽤层、传输层、⽹络层、⽹络接⼝层四层，每⼀层负责的职责都不同，这也是 Linux ⽹络协议栈主要构成部分。<br>当应⽤程序通过 Socket 接⼝发送数据包，数据包会被⽹络协议栈从上到下进⾏逐层处理后，才会被送到⽹卡队列中，随后由⽹卡将⽹络包发送出去。⽽在接收⽹络包时，同样也要先经过⽹络协议栈从下到上的逐层处理，最后才会被送到应⽤程序。</p>
@@ -447,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="clr4yc4d4000y90v58id58ag6" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="clr6ex160000vlkv5cxeaaaou" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -506,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clr4yc4d2000p90v509fdhpra" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clr6ex15x000qlkv5gpim11zn" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -662,7 +704,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/11/Spring/" data-id="clr4yc4d2000o90v56od8bdx2" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/11/Spring/" data-id="clr6ex15x000nlkv5bywtbfpl" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -853,7 +895,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="clr4yc4cs000b90v59k5gbldk" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="clr6ex15u000elkv51ltebz4a" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1299,7 +1341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/04/JVM/" data-id="clr4yc4cs000990v50pwx5s4j" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/04/JVM/" data-id="clr6ex15t000blkv5hsx298p4" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1379,7 +1421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clr4yc4ct000d90v524613biu" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clr6ex15v000flkv50jq90z3z" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1596,7 +1638,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clr4yc4cz000l90v567hobpc3" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clr6ex15u000clkv5bpqh4f2e" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1826,7 +1868,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clr4yc4ct000e90v5amcr6lyy" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clr6ex15v000glkv5fwfsaoi1" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1838,9 +1880,9 @@
 
 
   
-    <article id="post-Java后端" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Java后端开发" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/08/31/Java%E5%90%8E%E7%AB%AF/" class="article-date">
+    <a href="/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="article-date">
   <time class="dt-published" datetime="2021-08-31T03:49:42.000Z" itemprop="datePublished">2021-08-31</time>
 </a>
     
@@ -1852,7 +1894,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/08/31/Java%E5%90%8E%E7%AB%AF/">java 后端开发 工程师</a>
+      <a class="p-name article-title" href="/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">java 后端开发 工程师</a>
     </h1>
   
 
@@ -1875,15 +1917,23 @@
 </ul>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>常用 Java8 即 jdk1.8，安装jdk-8u202-windows-x64，配环境：把主目录配到 JAVA_HOME，bin 目录配到 PATH</p>
 <h2 id="Apache-Maven"><a href="#Apache-Maven" class="headerlink" title="Apache Maven"></a>Apache Maven</h2><ul>
-<li>可以帮助我们构建项目、管理项目中的jar包，把 Maven 的 bin 目录配到环境 PATH</li>
-<li><strong>本地仓库 默认位置 ~&#x2F;.m2&#x2F;repository</strong>，存放从远程仓库获取的 jar 包<br><strong>本机上的Maven主路径 D:&#x2F;apache-maven-3.6.1</strong>，对应的<strong>用户配置文件为 D:\apache-maven-3.6.1\conf\settings.xml</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 不适用Apache中央仓库，配置阿里云镜像仓库 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="tag">&lt;/<span class="name">url</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>可以帮助我们构建项目、管理项目中的jar包</li>
+<li>系统环境：安装路径配到 MAVEN_HOME，bin 目录配到 PATH</li>
+<li><strong>本地仓库 默认位置 ~&#x2F;.m2&#x2F;repository</strong>，存放从远程仓库获取的 jar 包；<strong>本机上的Maven主路径 D:&#x2F;apache-maven-3.6.1</strong>，对应的<strong>用户配置文件为 D:\apache-maven-3.6.1\conf\settings.xml</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 不适用Apache中央仓库，配置阿里云镜像仓库 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="tag">&lt;/<span class="name">url</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li>中央仓库：是 Maven 的默认仓库，包含了大量的开源 Java 类库、框架和插件，许多常用的第三方库，供开发者使用。<br>镜像仓库：中央仓库的镜像，如阿里云、华为云，从中央仓库同步数据，用来加速依赖的下载速度，减轻中央仓库的负担。<br>私服仓库：在本地或者组织内部搭建的仓库，用于存储内部开发所需的依赖和构建产物。</li>
-<li>在 IntelliJ IDEA 中配置maven仓库：”File” &gt; “Settings” &gt; “Build, Execution, Deployment” &gt; “Build Tools” &gt; “Maven”，配置maven主路径、用户设置文件和本地仓库。</li>
+<li>在 IntelliJ IDEA 中配置 maven仓库：”File” &gt; “Settings” &gt; “Build, Execution, Deployment” &gt; “Build Tools” &gt; “Maven”，配置maven主路径、用户设置文件和本地仓库。</li>
 <li>在 https:\mavenrepository.com 查找需要的jar包。</li>
 <li>Maven 是一个强大的构建工具，它可以执行各种命令来管理项目的构建、依赖、测试等方面的任务。<br>以下是一些常用的Maven指令，进入项目根目录命令行终端执行：(当然也可以直接在idea点击按钮执行)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mvn clean            <span class="comment"># 清除项目的目标目录，删除编译生成的文件。</span></span><br><span class="line">mvn compile          <span class="comment"># 编译项目中的Java源代码文件，并将编译结果放置在项目的目标目录(通常是target目录)中</span></span><br><span class="line">mvn <span class="built_in">test</span>             <span class="comment"># 运行项目的单元测试。</span></span><br><span class="line">mvn package          <span class="comment"># 将项目打包为可执行的JAR或WAR文件，通常用于构建最终的可部署应用程序。</span></span><br><span class="line">mvn install          <span class="comment"># 将项目构建输出的JAR或WAR文件安装到本地Maven仓库，以便其他项目可以引用它作为依赖。</span></span><br><span class="line">mvn deploy           <span class="comment"># 将项目构建输出的JAR或WAR文件部署到远程仓库，通常用于共享依赖。</span></span><br><span class="line">mvn clean install    <span class="comment"># 用于先清除项目目录，然后执行安装操作。（引入pom中新加的dependence）</span></span><br><span class="line">mvn clean package    <span class="comment"># 用于先清除项目目录，然后执行打包操作。</span></span><br></pre></td></tr></table></figure></li>
 <li><strong>JAR</strong>（Java Archive）是Java平台中用于打包和分发Java类和相关资源的文件格式。它是一种压缩格式，通常包含Java类文件（.class文件），资源文件，清单文件（Manifest），以及其他可以用于Java应用程序的元数据。<br><strong>WAR</strong>（Web Application Archive）文件是一种Java Web应用程序的打包格式，通常用于部署Web应用程序到Java EE应用服务器，如Tomcat、WebSphere、或JBoss等。是一种压缩文件，通常以.war扩展名结尾，它包含了用于部署和运行Web应用程序的各种资源。</li>
 </ul>
-<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>Java作为一门世界级主流编程语言，有一款高效易用的项目管理工具是java开发者共同追求的心原和目标。<br>2012年基于Ant和Maven产生的Gradle，弥补了不足，带来了一些更高效的特点。它使用种基于Groovy的特定领域语言(DSL)来声明项目设置，抛弃了基于XML的各种繁琐配置。面向Java应用为主。</p>
+<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><ul>
+<li>Java作为一门世界级主流编程语言，有一款高效易用的项目管理工具是java开发者共同追求的心原和目标。<br>2012年基于 Ant 和Maven产生的Gradle，弥补了不足，带来了一些更高效的特点。它使用种基于Groovy的特定领域语言(DSL)来声明项目设置，抛弃了基于XML的各种繁琐配置。面向Java应用为主。</li>
+<li>系统环境：安装路径配到 GRADLE_HOME，bin 目录配到 PATH<br>集成 IDEA：创建项目时，”Build System” 直接使用 Gradle 插件即可，选择本地安装的 Gradle 目录。</li>
+<li>Gradle 目录结构与 Maven 完全一样：src&#x2F;main&#x2F;java 放置正式代码目录，src&#x2F;main&#x2F;resources 放置正式配置文件，src&#x2F;test&#x2F;java 放置单元测试代码，src&#x2F;test&#x2F;resources 放置测试配置文件，src&#x2F;main&#x2F;webapp 放置页面元素。</li>
+<li>借助 spring 脚手架创建 Gradle 项目：<a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a></li>
+<li>Gradle 配置文件 build.gradle，使用 Groovy 编写（脚本语言，拿闭包（一段代码）当成参数）<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 项目将仅从 Maven Central 仓库中获取依赖项，存放在本地缓存中</span></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// gradle工程所有的jar包在 dependencies 属性中，每一个jar包坐标有三个元素组成：group、name、version</span></span><br><span class="line"><span class="comment">// testCompile 表示该 jar包在测试的时候起作用，该属性为包的作用域</span></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    testImplementation <span class="string">&#x27;org.junit.jupiter:junit-jupiter-api:5.8.1&#x27;</span></span><br><span class="line">    testRuntimeOnly <span class="string">&#x27;org.junit.jupiter:junit-jupiter-engine:5.8.1&#x27;</span></span><br><span class="line">    <span class="comment">// 到 https://mvnrepository.com/ 查到 Spring Context 的 Gradle 依赖</span></span><br><span class="line">    implementation <span class="keyword">group</span>: <span class="string">&#x27;org.springframework&#x27;</span>, name: <span class="string">&#x27;spring-context&#x27;</span>, version: <span class="string">&#x27;5.0.2.RELEASE&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>也可以直接把 Gradle 本地仓库 配置成 Mavne本地仓库，合二为一。具体做法是新建环境变量 GRADLE_USER_HOME 为 Mavne本地仓库目录，这样 Gradle工程会从 Mavne本地仓库目录寻找 jar包。<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Gradle会首先搜索本地仓库（默认C:\Users\admin\.gradle）以查找依赖项。如果未在本地仓库找到，Gradle将会去 mavenCentral() 仓库中查找</span></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><ul>
 <li>核心作用：起步依赖、自动配置、端点监控</li>
 <li>在 <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io</a> 创建一个springboot项目</li>
@@ -2043,7 +2093,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF/" data-id="clr4yc4ct000c90v5cfa3a03k" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="clr6ex15t0009lkv533m353gs" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2099,7 +2149,7 @@
           </li>
         
           <li>
-            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏伯</a>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏 伯</a>
           </li>
         
           <li>
