@@ -6,15 +6,15 @@
   
   <title>Redis | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：6379 启动 Redis由于已经在环境变量中配好reids的安装目录，直接打开cmd，启动 Redis 客户端启动客户端后, 在客户端cmd窗口中测试Redis 是否正常工作，设置密码（命令行设置">
+  <meta name="description" content="Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：6379 启动 Redis下载 Windows版 msi文件：https:&#x2F;&#x2F;github.com&#x2F;microsoftarchive&#x2F;redis&#x2F;releases在环境变量中配好 Redis 的安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis">
 <meta property="og:url" content="http://example.com/2022/03/15/Redis/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：6379 启动 Redis由于已经在环境变量中配好reids的安装目录，直接打开cmd，启动 Redis 客户端启动客户端后, 在客户端cmd窗口中测试Redis 是否正常工作，设置密码（命令行设置">
+<meta property="og:description" content="Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：6379 启动 Redis下载 Windows版 msi文件：https:&#x2F;&#x2F;github.com&#x2F;microsoftarchive&#x2F;redis&#x2F;releases在环境变量中配好 Redis 的安装">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-15T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-01-07T14:52:21.127Z">
+<meta property="article:modified_time" content="2024-01-10T15:32:25.516Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -94,7 +94,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：<strong>6379</strong></p>
-<h2 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h2><p>由于已经在环境变量中配好reids的安装目录，直接打开cmd，启动 Redis 客户端<br>启动客户端后, 在客户端cmd窗口中测试Redis 是否正常工作，设置密码（<strong>命令行设置的密码在服务重启后失效</strong>）<br>注意：<strong>在 Windows 环境下，Redis 不支持后台运行模式，因此在启动 Redis 服务器时必须保持 cmd 窗口一直打开</strong>。（如果想要在后台运行 Redis，可以考虑使用虚拟机或者 Linux 环境下的 Redis）</p>
+<h2 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h2><p>下载 Windows版 msi文件：<a target="_blank" rel="noopener" href="https://github.com/microsoftarchive/redis/releases">https://github.com/microsoftarchive/redis/releases</a><br>在环境变量中配好 Redis 的安装目录后，直接打开 cmd，启动 Redis 客户端<br>启动客户端后, 在客户端cmd窗口中测试 Redis 是否正常工作，设置密码（<strong>命令行设置的密码在服务重启后失效</strong>）<br>注意：<strong>在 Windows 环境下，Redis 不支持后台运行模式，因此在启动 Redis 服务器时必须保持 cmd 窗口一直打开</strong>。（如果想要在后台运行 Redis，可以考虑使用虚拟机或者 Linux 环境下的 Redis）</p>
 <ul>
 <li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\蔡枫&gt;redis-cli   <span class="comment"># 启动 Redis 客户端（默认Redis服务端未关闭）</span></span><br><span class="line">127.0.0.1:6379&gt; ping                                <span class="comment"># 在 Redis 客户端中输入 ping 命令</span></span><br><span class="line">PONG                                                <span class="comment"># 返回 PONG 表示 正常工作</span></span><br><span class="line">127.0.0.1:6379&gt; config <span class="built_in">set</span> requirepass chskj.2020   <span class="comment"># 修改密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; auth chskj.2020                     <span class="comment"># 验证密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass              <span class="comment"># 查看密码</span></span><br><span class="line">1)<span class="string">&quot;requirepass&quot;</span></span><br><span class="line">2)<span class="string">&quot;chskj.2020&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
