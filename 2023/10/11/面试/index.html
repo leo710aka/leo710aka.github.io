@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-09T13:50:46.393Z">
+<meta property="article:modified_time" content="2024-01-10T13:04:05.361Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job1.png">
@@ -285,10 +285,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &quot;字面量创建字符串&quot;：yesA 是一个引用指向了堆里面的字符串常量池里的对象 a。如果字符串常量池已经有了 a，那么直接返回其引用，如果没有 a，则会创建 a 对象，然后返回其引用。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;a&quot;</span>; <span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="string">&quot;a&quot;</span>;                </span><br><span class="line">System.out.printIn(yesA == yesB);  <span class="comment">// true</span></span><br><span class="line"><span class="comment">// &quot;new String创建字符串&quot;：先判断字符串常量池里面是否有 a，如果没有 a 则创建一个 a。然后会在堆内存里面创建一个对象 a，返回堆内存对象 a 的引用，也就是说返回的不是字符串常量池里面的 a</span></span><br><span class="line">yesA = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;a&quot;</span>); yesB = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;a&quot;</span>);           </span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;            <span class="comment">// 通过字面量定义了 yesA，在字符串常量池里创建 aaabbb 对象，返回其引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>); <span class="comment">// 返回堆内的引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       <span class="comment">// intern()：判断下 yesB 引用指向的值在字符串常量里面是否有，如果没有就在字符串常量池里面新建一个 aaabbb 对象，返回其引用，如果有则直接返回引用。</span></span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// false</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>JDK 1.6 时，字符串常量池是放置在永久代的; JDK 1.7 之后字符串常量池是放在堆内的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>);  <span class="comment">// 此时，堆内会新建一个 aaabbb 对象，字符串常量池里不会创建，因为并没有出现 aaabbb 这个字面量。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       <span class="comment">// 1.7 之后，如果堆内已经存在某个字符串对象的话，再调用 intern 此时不会在字符串常量池内新建对象，而是直接保存这个引用然后返回。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;            <span class="comment">// yesA 得到的引用与 yesC 和 yesB 一致，都指向堆内的 aaabbb 对象。</span></span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// true</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>string连接？</p>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>);  <span class="comment">// 此时，堆内会新建一个 aaabbb 对象，字符串常量池里不会创建，因为并没有出现 aaabbb 这个字面量。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       <span class="comment">// 1.7 之后，如果堆内已经存在某个字符串对象的话，再调用 intern 此时不会在字符串常量池内新建对象，而是直接保存这个引用然后返回。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;            <span class="comment">// yesA 得到的引用与 yesC 和 yesB 一致，都指向堆内的 aaabbb 对象。</span></span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// true</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>String 连接？</li>
 </ul>
 <ol>
 <li><strong>使用 <code>+</code> 运算符</strong>：字符串连接最简单的方法，但在大量连接操作时可能效率较低，因为它会生成多个临时的字符串对象。</li>
@@ -338,6 +338,8 @@
 <li>在设计框架或库时，接口是一个有用的工具，因为它可以定义规范和标准，并允许用户通过实现接口来提供自定义行为。</li>
 <li>抽象类用于将一些通用方法和字段提取到一个父类中，以便子类可以继承和共享这些功能。</li>
 </ul>
+</li>
+<li><p>？？设计模式：<a target="_blank" rel="noopener" href="https://fengxiuyang.cn/articles/67">https://fengxiuyang.cn/articles/67</a></p>
 </li>
 <li><p>java集合：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2021/09/03/Java%E9%9B%86%E5%90%88/">https://leo710aka.github.io/2021/09/03/Java集合/</a></p>
 </li>
@@ -539,24 +541,63 @@
 <li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类</p>
 </li>
 </ul>
-<h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
+<h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/11/Mysql/">https://leo710aka.github.io/2022/03/11/Mysql/</a></p>
+<ul>
 <li><p>MyBatis。有没有完整地学习过一个框架？以及其他框架？<br>MyBatis（以前称为iBatis）是一个开源的<strong>Java持久层框架</strong>，用于将对象与关系数据库的表之间进行映射。MyBatis 通过 XML 或注解配置文件描述 Java 对象与数据库之间的映射关系，并提供了一些方便的查询语言（类似于SQL）来进行数据库操作。<br>JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。</p>
 </li>
-<li><p>存储引擎。<br>？？</p>
+<li><p>SQL 注入的原理和类型<br>1、恶意拼接查询 2、利用注释执行非法命令 3、传入非法参数 4、添加额外条件<br>如何避免 SQL 注入 ？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
+</li>
+<li><p>存储引擎。</p>
+<ul>
+<li>？？</li>
+<li>MyISAM 和 InnoDB 有什么区别？<br>  （1）InnoDB 支持行级别的锁粒度，MyISAM 不支持，只支持表级别的锁粒度。<br>  （2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>  （3）MyISAM 不支持外键，而 InnoDB 支持。<br>  （4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>  （5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>  （6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>  （7）InnoDB 的性能比 MyISAM 更强大。</li>
+</ul>
 </li>
 <li><p>索引。</p>
 <ul>
-<li>B+ Tree(InnoDB)<ul>
-<li>数据分块存储，每一块称为一页</li>
-<li>所有的值都是按顺序存储的，并且每一个叶子到根的距离相同</li>
-<li>非叶节点存储数据的边界，叶子节点存储指向数据行的指针</li>
-<li>通过边界缩小数据的范围，从而避免全表扫描，加快了查找的速度  <img src="https://leo710aka.github.io/bk/job5.png" width="550" height="300" alt=""></li>
+<li>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。</li>
+<li>聚集索引，非聚集索引，主键？<ul>
+<li>聚集索引：在MySQL中，聚集索引决定了数据在磁盘上的物理存储顺序，即数据的存储顺序与索引顺序一致。在InnoDB存储引擎中，主键索引就是一个聚集索引。如果表没有显式定义主键，则InnoDB会选择一个唯一非空的索引来充当聚集索引。</li>
+<li>非聚集索引：非聚集索引在磁盘上维护索引键和对应数据行的引用，索引键的顺序与实际数据行的物理存储顺序无关。在MySQL中，除了InnoDB存储引擎的聚集索引（主键索引），其他索引都是非聚集索引，例如普通索引或唯一索引。</li>
+<li>主键：主键是一种用于唯一标识表中每一行数据的列或列组合。主键列的值必须唯一且不为空（NULL）。在InnoDB中，主键索引是表的物理排序顺序，它是表的聚集索引。如果表没有显式定义主键，InnoDB会选择一个合适的唯一非空索引来充当主键索引。</li>
 </ul>
 </li>
-<li>什么是聚集索引，非聚集索引，主键？</li>
+<li>B+ Tree(InnoDB)索引<ul>
+<li>数据分块存储，每一块称为一页。所有的值都是按顺序存储的，并且每一个叶子到根的距离相同。</li>
+<li>非叶节点存储数据的边界，叶子节点存储指向数据行的指针。通过边界缩小数据的范围，从而避免全表扫描，加快了查找的速度。</li>
+<li>B+ 树索引是一种索引结构，通常用于数据库管理系统中作为数据的索引方式。它可以用作聚集索引或非聚集索引，并不是严格意义上的主键索引。在数据库中，B+树索引在不同存储引擎下，例如在InnoDB中作为主键索引（聚集索引）使用，或作为其他索引（非聚集索引）的实现。  <img src="https://leo710aka.github.io/bk/job5.png" width="550" height="300" alt=""></li>
 </ul>
 </li>
-<li><p>事务。<br>事务的特性：原子性、一致性、隔离性、持久性<br>事务的隔离性<br>1、并发异常:第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读<br>2、隔离级别: Read Uncommitted、Read Conmitted、Repeatable Read、Serializable<br>Spring事务管理：声明式事务、编程式事务</p>
+<li>为什么 MySQL 的索引要使用 B+ 树而不是其它树形结构？<br>  1、B+树能显著减少IO次数，提高效率。因为 B 树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致 IO 操作变多，查询性能变低。<br>  2、B+树的查询效率更加稳定。因为数据放在叶子节点。<br>  3、B+树能提高范围查询的效率。因为叶子节点指向下一个叶子节点。</li>
+<li>MySQL 索引失效的几种情况<br>  1、有 or 必全有索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。 2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。 3、like以%开头;  4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。 5、where中索引列有数学运算。 6、where中索引列使用了函数。 7、如果mysql觉得全表扫描更快时（数据少）。</li>
+</ul>
+</li>
+<li><p>联合索引（Composite Index）<br>  也称为复合索引，是指同时包含多个列的索引，它可以更加精确地定位数据，提高查询的效率。<br>  通常情况下，一个表中可能存在多个需要经常用于查询的列，使用联合索引可以将这些列组合起来，建立一个复合索引。在查询时，如果查询条件同时包含联合索引中的多个列，数据库可以直接使用索引定位到符合条件的行，避免了全表扫描，提高了查询效率。<br>  需要注意的是，在使用联合索引时，需要考虑索引的顺序。通常情况下，应该将最常用于查询的字段放在索引的前面，这样可以更加有效地利用索引。另外，联合索引也存在一些限制。由于索引是按照索引列的顺序建立的，因此只有在查询条件中包含索引的最左侧的列时，MySQL 才能利用这个索引。如果查询条件中包含的列不是索引的最左侧列，那么 MySQL 就无法使用这个索引。<br>  此外，由于联合索引包含多个列，因此其维护成本也相对较高。如果经常更新其中一个列的值，可能会导致索引的重建，影响数据库的性能。因此，在建立联合索引时，应该根据具体的应用场景，权衡利弊，避免滥用。</p>
+<ul>
+<li>如何使用联合索引？<br>  1、联合索引的最左前缀匹配指的是where条件一定要有联合索引的第一个字段<br>  2、是否走联合索引与where条件的顺序无关，只与字段有关</li>
+<li>联合索引的最左前缀匹配原则<br>  最左前缀匹配原则指的是，在使用联合索引时，MySQL 会根据联合索引中的字段顺序，从左到右依次到查询条件中去匹配，如果查询条件中存在与联合索引中最左侧字段相匹配的字段，则就会使用该字段过滤一批数据，直至联合索引中全部字段匹配完成，或者在执行过程中遇到范围查询（如 &gt;、&lt;）才会停止匹配。对于 &gt;&#x3D;、&lt;&#x3D;、BETWEEN、like 前缀匹配的范围查询，并不会停止匹配。所以，我们在使用联合索引时，可以将区分度高的字段放在最左边，这也可以过滤更多数据。</li>
+<li>联合索引的作用？<br>  1、减少io操作的开销和磁盘空间的开销；<br>  2、提升性能。索引列越多，通过索引筛选出的数据越少。<br>  3、覆盖索引。直接通过遍历索引取得数据，无需回表。<br>  提高查询效率：联合索引可以加速对多列数据的查询，对于联合索引中包含的列，可以同时使用它们进行筛选，减少了查询的数据量，提高了查询效率。<br>  减少磁盘IO：联合索引可以将多个列的数据存储在一起，减少了需要读取的磁盘块数，从而降低了IO的开销。<br>  优化排序操作：如果查询需要按照联合索引中的多个列进行排序，联合索引可以避免对多个独立索引的排序操作，从而提高排序操作的效率</li>
+</ul>
+</li>
+<li><p>MySQL 单表为什么不要超过 2千万条 时最优？</p>
+<ul>
+<li>查询性能：随着数据量的增加，查询可能变得更慢，特别是在没有合适索引支持的情况下。大表需要更多的计算资源和时间来处理查询，可能导致性能下降。</li>
+<li>索引和缓存：维护大表的索引和缓存可能会变得更加困难。索引的大小随着数据量的增加而增加，这可能导致索引扫描变慢，同时也会增加对内存的需求。<br>  1、一个高度为 3 的 B+ 树可以存放： 1170X1170X16&#x3D;21902400 条这样的记录,即2千万多些，通过主键查询一条数据，只需要3次磁盘IO访问，当超出2千万条时，索引树高度为4。<br>  2、mysql都有缓存，树高度为3时，第一层和第二层的数据都在缓存，高度为3查询效率很快，但是超过高度4时，查询效率就急速下降了。</li>
+<li>锁和并发：在执行更新或删除操作时，数据库可能需要对表进行锁定，以确保数据的一致性。大表的锁定可能会阻塞其他操作，影响并发性能。</li>
+</ul>
+</li>
+<li><p>分表？</p>
+<ul>
+<li>分表是一种应对大表数据量的常见方法。通过将大表拆分为多个小表（分区），可以减轻数据库管理系统的负担，提高查询性能和管理效率。分表可以根据业务逻辑或特定的列值进行拆分，例如按时间范围、地理区域等方式进行分区。</li>
+<li>在考虑分表之前，建议进行以下操作：<br>  优化查询和索引：确保数据库表有适当的索引来支持常见的查询，并优化查询语句以提高性能。<br>  垂直和水平分割：考虑将大表进行垂直切分（按列拆分）或水平切分（按行拆分）以减少单个表的数据量。<br>  使用分区：针对数据库支持的分区功能，可以考虑根据特定的标准将表分成多个逻辑分区。<br>  数据库优化：定期清理无用数据、重新构建索引、优化数据库配置等，以提高数据库的整体性能。</li>
+</ul>
+</li>
+<li><p>事务。</p>
+<ul>
+<li>事务的特性：原子性、一致性、隔离性、持久性</li>
+<li>事务的隔离性<br>  1、并发异常:第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读<br>  2、隔离级别: Read Uncommitted、Read Conmitted、Repeatable Read、Serializable</li>
+<li>Spring事务管理：声明式事务、编程式事务</li>
+</ul>
 </li>
 <li><p>锁</p>
 <ul>
