@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T13:04:05.361Z">
+<meta property="article:modified_time" content="2024-01-11T13:18:46.068Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job1.png">
@@ -501,24 +501,23 @@
 <li><p>SpringMVC 流程<br>？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 <img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt="">
 </li>
-<li><p>SpringMvc的service层为什么用的是接口？为什么不直接使用实现类？？<br>Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：</p>
-</li>
-</ul>
+<li><p>SpringMvc的service层为什么用的是接口？为什么不直接使用实现类？？<br>  Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：</p>
 <ol>
 <li>解耦和可扩展性：使用接口将 Service 层与其实现类解耦。通过面向接口编程，控制器（或其他类）可以只依赖于接口而不是具体的实现类。这样使得代码更加灵活，能够轻松切换不同的实现类或者模拟测试用的虚拟实现。</li>
 <li>单一职责原则：接口定义了 Service 层的契约和行为，实现类负责具体的逻辑实现。这符合单一职责原则，即一个类应该只负责一项职责。</li>
 <li>测试和模拟：？？接口的使用使得单元测试更加容易。在测试时，可以使用模拟实现来替代真正的实现类，从而更好地进行单元测试。通过模拟，可以控制和验证不同的行为，而无需依赖于底层实现细节。</li>
 <li>依赖注入：？？Spring 容器能够通过依赖注入将接口的实现类注入到需要的地方，而不需要直接关注具体的实现细节。</li>
 </ol>
-<ul>
-<li>切换一个接口下的不同的实现类有什么意义？为什么不直接使用不同的实现类？</li>
-</ul>
+</li>
+<li><p>切换一个接口下的不同的实现类有什么意义？为什么不直接使用不同的实现类？</p>
 <ol>
 <li>灵活性和可维护性：使用接口定义规范可以提高代码的灵活性。通过面向接口编程，可以将调用方与具体实现类解耦，使得代码更易于维护和修改。如果后续需要替换实现类或引入新的实现，只需要修改实现类的绑定，而不需要修改调用方的代码。</li>
 <li>解耦和依赖注入：接口的使用支持依赖注入，使得系统更易于管理和测试。依赖注入能够减少类之间的耦合度，提高了代码的可测试性，有利于单元测试和模拟测试。</li>
 <li>扩展性和适应性：使用接口和不同的实现类使得系统更具扩展性。根据不同的需求和场景，可以轻松地切换实现类，使得系统更具适应性和灵活性。</li>
 <li>遵循设计原则：使用接口遵循了面向对象编程的设计原则，如开闭原则（对扩展开放，对修改关闭）、单一职责原则等。这种设计模式使得代码更清晰、更易于理解和维护。</li>
 </ol>
+</li>
+</ul>
 <ul>
 <li>Spring IOC<br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
 <li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了</li>
@@ -705,7 +704,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95/" data-id="clr6ex161000zlkv57i8ghodi" data-title="面 逝" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95/" data-id="clr98lbcm000yjgv56muq0aw2" data-title="面 逝" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -769,6 +768,14 @@
           </li>
         
           <li>
+            <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/10/Redis/">Redis</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/07/SpringCloud/">SpringCloud</a>
           </li>
         
@@ -786,14 +793,6 @@
         
           <li>
             <a href="/2023/07/31/Colab/">Colab</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/Pytorch/">Pytorch</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/10/Anaconda/">Anaconda</a>
           </li>
         
       </ul>

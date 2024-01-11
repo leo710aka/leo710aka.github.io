@@ -19,8 +19,10 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/4.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/5.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true">
+<meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/7.png?raw=true">
+<meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/8.png?raw=true">
 <meta property="article:published_time" content="2024-01-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2024-01-07T10:24:29.865Z">
+<meta property="article:modified_time" content="2024-01-11T12:54:17.440Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true">
@@ -101,7 +103,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true" width="500" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
-<p><strong>微服务</strong>：一种良好的分布式架构方案。<br>优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高<br>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。<br>面向服务：微服务对外暴露业务接口<br>自治：团队独立、技术独立、数据独立、部署独立<br>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题</p>
+<p><strong>微服务</strong>：一种良好的分布式架构方案。优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高<br>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。<br>面向服务：微服务对外暴露业务接口，供其他微服务使用。<br>自治：团队独立、技术独立、数据独立、部署独立，不同微服务都应该有自己的数据库。<br>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题。</p>
 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/1.png?raw=true" width="700" height="200"> 
 再加上服务异常定位、节点状态监控、自动化部署
 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/2.png?raw=true" width="700" height="200"> 
@@ -109,12 +111,69 @@
 <p>微服务这种方案需要技术框架来落地，全球的互联网公司都在积极尝试自己的微服务落地技术。在国内最知名的就是SpringCloud和阿里巴巴的Dubbo（升级SpringCloudAlibaba（实现了SpringCloud接口，是SpringCloud的一部分））微服务技术对比：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/4.png?raw=true" width="700" height="200"><br>企业中常见的四种需求：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/5.png?raw=true" width="700" height="200"> </p>
 <hr>
 
-<h1 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h1><p>Spring Cloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true" width="600" height="200"> </p>
+<h1 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h1><p>Spring Cloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true" width="600" height="200">  </p>
+<ul>
+<li>服务拆分<ul>
+<li>微服务需要根据业务模块拆分，做到单一职责，避免重复业务开发；</li>
+<li>微服务可以将业务暴露为接口，供其他微服务使用。</li>
+<li>不同微服务都应该有自己的数据库。</li>
+</ul>
+</li>
+<li>远程调用<ul>
+<li>在一个微服务中，在java代码中发送 http 请求，使用另一个微服务的接口，获取另一个微服务数据库的数据</li>
+<li>在一个微服务的启动类（本身也是配置类）中注册 RestTemplate，配置成 Bean；</li>
+<li>在 service 中注入 restTemplate，getForObject(“url”) 发送http请求，将返回的 json 数据转换为制定对象类型</li>
+</ul>
+</li>
+</ul>
+<h3 id="Eureka-服务注册中心"><a href="#Eureka-服务注册中心" class="headerlink" title="Eureka 服务注册中心"></a>Eureka 服务注册中心</h3><ul>
+<li>在 Eureka 架构中，微服务角色有两类:<ul>
+<li>EurekaServer:服务端，注册中心。记录服务信息、心跳监控</li>
+<li>EurekaClient:客户端<ul>
+<li>Provider:服务提供者，例如案例中的 user-service<br>  注册自己的信息到 EurekaServer<br>  每隔30秒向EurekaServer发送心跳</li>
+<li>consumer:服务消费者，例如案例中的 order-service<br>  根据服务名称从 EurekaServer 拉取服务列表<br>  基于服务列表做负载均衡，选中一个微服务后发起远程调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://github.com/leo710aka/bk/blob/main/springcloud/7.png?raw=true" width="600" height="200">  
+
+<ul>
+<li>eureka的作用<ul>
+<li>消费者该如何获取服务提供者具体信息?<br>  服务提供者启动时向 eureka 注册自己的信息，eureka 保存这些信息，消费者根据服务名称向 eureka 拉取提供者信息</li>
+<li>如果有多个服务提供者，消费者该如何选择?<br>  服务消费者利用负载均衡算法，从服务列表中挑选一个</li>
+<li>消费者如何感知服务提供者健康状态?<br>  服务提供者会每隔30秒向 EurekaServer 发送心跳请求，报告健康状态 eureka 会更新记录服务列表信息，心跳不正常会被剔除，消费者就可以拉取到最新的信息</li>
+</ul>
+</li>
+<li>eureka 服务搭建：eruka自己就是一个微服务。新建项目，引入 eureka-server 依赖；编写启动类，添加 @EnableEurekaServer 注解；添加application.yml，添加配置</li>
+<li>eureka 服务注册：把一个微服务注册到 EurekaServer。<ol>
+<li>微服务项目引入 eureka-client 依赖，</li>
+<li>在 application.yml 编写依赖：name、url…</li>
+</ol>
+</li>
+<li>eureka服务发现：<br>服务拉取是（服务A）基于（服务B）服务名称获取（服务B多个实例）服务列表，然后在对服务列表做负载均衡</li>
+</ul>
+<ol>
+<li>修改 orderService（服务B）的代码，修改访问的 userService 的url路径，用服务名代替ip、端口，消除硬编码:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span><span class="string">&quot;http://userservice/user/&quot;</span> + order.getUserId();</span><br></pre></td></tr></table></figure></li>
+<li>在 order-service 项目（服务B）的启动类 OrderApplication中 的 RestTemplate 添加负载均衡注解<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Ribbon-负载均衡"><a href="#Ribbon-负载均衡" class="headerlink" title="Ribbon 负载均衡"></a>Ribbon 负载均衡</h3><ul>
+<li>Ribbon：加了 @LoadBalanced 注解的RestTemplate，发送的请求将会被 Ribbon 拦截，处理后发送 HTTP 请求<img src="https://github.com/leo710aka/bk/blob/main/springcloud/8.png?raw=true" width="600" height="200">  </li>
+<li>IRule 接口：决定了负载均衡的策略，每一个子接口都是一种规则，轮询、随机、、、 通过定义 IRule 实现可以修改负载均衡策略</li>
+<li>Ribbon 饥饿加载：Ribbon 默认是采用懒加载，即第一次访问时才会去创建 LoadBalanceClient，请求时间会很长。而饥饿加载则会在项目启动时创建，降低第一次访问的耗时，配置开启饥饿加载，指定饥饿加载的微服务名称。</li>
+</ul>
+<h3 id="Nacos-注册中心"><a href="#Nacos-注册中心" class="headerlink" title="Nacos 注册中心"></a>Nacos 注册中心</h3><ul>
+<li>Nacos 是阿里巴巴的产品，现在是 SpringCloud 中的一个组件。相比 Eureka 功能更加丰富，在国内受欢迎程度较高。</li>
+<li>Nacos服务搭建：下载安装包，解压，在bin目录下运行指令: startup.cmd -mstandalone</li>
+<li>Nacos服务注册或发现：父工程添加 spring-cloud-alibaba 依赖；微服务项目引入 nacos.discovery 依赖，yml 配置 nacos 地址 spring.cloudnacos.server-addr</li>
+<li>Nacos服务分级存储</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clr6ex15y000rlkv5eonabmwm" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clr98lbcl000tjgv5c41xh5uc" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -124,11 +183,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2046/12/30/nice-photo/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/01/10/Redis/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Nice Photo
+          Redis
         
       </div>
     </a>
@@ -178,6 +237,14 @@
           </li>
         
           <li>
+            <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/10/Redis/">Redis</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/07/SpringCloud/">SpringCloud</a>
           </li>
         
@@ -195,14 +262,6 @@
         
           <li>
             <a href="/2023/07/31/Colab/">Colab</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/Pytorch/">Pytorch</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/10/Anaconda/">Anaconda</a>
           </li>
         
       </ul>

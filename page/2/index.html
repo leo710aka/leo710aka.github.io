@@ -69,6 +69,160 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Docker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/14/Docker/" class="article-date">
+  <time class="dt-published" datetime="2023-04-14T03:49:42.000Z" itemprop="datePublished">2023-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/04/14/Docker/">Docker</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Docker 是一种开源平台，一种快速构建、运行和管理应用的工具。它使用容器化技术，使得应用程序及其依赖性可以打包到一个容器中，并在任何支持 Docker 的环境中运行。<br><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/06/SSH/"><strong>MobarXterm 通过 SSH 连接 linux虚拟机，操作虚拟机上的 Docker。</strong></a><br><img src="https://github.com/leo710aka/bk/blob/main/docker.png?raw=true"></p>
+<h3 id="容器（Container）"><a href="#容器（Container）" class="headerlink" title="容器（Container）"></a><strong>容器（Container）</strong></h3><ul>
+<li>容器是一个轻量级的、可移植的、自包含的单元，包括应用程序和其所有依赖项。</li>
+<li>Docker 利用容器技术，将应用程序及其依赖项打包成一个容器，确保在不同环境中的一致性运行。</li>
+<li><strong>Docker 位于容器 和 服务器-操作系统&#x2F;硬件 之间，是运行容器的引擎。</strong></li>
+<li>隔离网络、文件、进程等环境。一个容器是一个沙盒隔离环境。</li>
+<li>相对于虚拟机技术，docker 启动更快、更清量。但容器共用宿主机的内存、CPU物理资源，多容器可能存在互相抢占资源的情况。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \                  <span class="comment"># 创建并运行一个容器，-d 是让容器在后台运行；同一个镜像可创建多个容器</span></span><br><span class="line">   --name mysgl \                <span class="comment"># 给容器起名字，必须唯一</span></span><br><span class="line">   -p 3306:3306 \                <span class="comment"># 设置 宿主机端口：容器端口 映射</span></span><br><span class="line">   -e TZ=Asia/Shanghai \         <span class="comment"># 设置环境变量</span></span><br><span class="line">   -e MYSQL_ROOT_PASSWORD=123 \  <span class="comment"># 指定运行的镜像名，一般为 [镜像名]:[镜像版本]</span></span><br><span class="line">   mysql</span><br><span class="line">docker ps                        <span class="comment"># 查看本地容器（运行中的）</span></span><br><span class="line">docker ps a                      <span class="comment"># 查看所有容器 (包括未运行)</span></span><br><span class="line">docker start &lt;容器ID&gt;          <span class="comment"># 启动容器</span></span><br><span class="line">docker stop  &lt;容器ID&gt;          <span class="comment"># 停止容器中的进程，容器未删除</span></span><br><span class="line">docker <span class="built_in">rm</span> &lt;容器ID&gt;             <span class="comment"># 删除容器</span></span><br><span class="line">docker inspect &lt;容器ID&gt;        <span class="comment"># 查看容器配置信息 </span></span><br><span class="line">docker <span class="built_in">log</span> &lt;容器ID&gt;            <span class="comment"># 查看容器日志 </span></span><br><span class="line">docker <span class="built_in">exec</span> -it &lt;容器ID&gt; bash  <span class="comment"># 进入容器内部，命令行模式（容器内部模拟出一个操作系统）</span></span><br><span class="line">容器打包成镜像: docker commit -a <span class="string">&quot;作者信息&quot;</span> -m <span class="string">&quot;log信息&quot;</span> &lt;容器ID&gt;&lt;目标镜像名称:tag版本&gt; </span><br><span class="line">拷贝文件到容器: docker <span class="built_in">cp</span> &lt;文件目录&gt; &lt;容器ID&gt;:&lt;目标目录&gt;</span><br><span class="line">拷贝容器文件到宿主机:docker <span class="built_in">cp</span> &lt;容器ID&gt;:&lt;文件目录&gt;&lt;宿主机目标目录&gt;</span><br><span class="line">更新容器设置:docker update &lt;容器ID&gt;&lt;相关设置&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="镜像（Image）"><a href="#镜像（Image）" class="headerlink" title="镜像（Image）"></a><strong>镜像（Image）</strong></h3><ul>
+<li>镜像是一个只读的模板，包含运行应用程序所需的所有信息，包括代码、运行时、库、环境变量和配置文件。</li>
+<li><strong>容器是通过运行镜像创建的（像光盘），本地容器是真正运行的实例。镜像是容器的模板，是从容器打包来的，可以在不同操作系统，不同服务器之间传播。</strong></li>
+<li>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker images                                <span class="comment"># 查看本地镜像</span></span><br><span class="line">docker search &lt;名称关键字&gt;                     <span class="comment"># 搜索镜像仓库</span></span><br><span class="line">docker pull &lt;镜像名:tag版本&gt;                   <span class="comment"># 下载镜像</span></span><br><span class="line">docker push &lt;镜像名:tag版本&gt;                   <span class="comment"># 上传镜像</span></span><br><span class="line">docker rmi &lt;镜像名:tag版本&gt;                    <span class="comment"># 删除镜像</span></span><br><span class="line">docker save -o &lt;输出文件路径&gt;&lt;镜像名:tag版本&gt;    <span class="comment"># 打包本地镜像文件</span></span><br><span class="line">docker load -i &lt;加载文件路径                   <span class="comment"># 导入本地镜像文件</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="仓库（Registry）"><a href="#仓库（Registry）" class="headerlink" title="仓库（Registry）"></a><strong>仓库（Registry）</strong></h3><ul>
+<li>仓库是存储和组织 Docker 镜像的地方。Docker Hub 是一个常见的公共仓库，你也可以搭建私有仓库。</li>
+<li>Docker 镜像可以从仓库中拉取，也可以推送到仓库。</li>
+</ul>
+<h3 id="沙箱"><a href="#沙箱" class="headerlink" title="沙箱"></a><strong>沙箱</strong></h3><ul>
+<li>沙箱是一种安全机制，用于隔离和限制程序或应用程序的运行环境，以防止其对系统或其他程序产生潜在的危害。沙箱技术旨在创建一个受控制的环境，使得运行在其中的代码无法直接影响到系统的其他部分。这种隔离有助于确保安全性、防止恶意软件传播，同时提供一定程度的控制和监控。</li>
+<li>容器化平台（如 Docker）使用沙箱技术来隔离容器中的应用程序，确保它们互相独立运行。</li>
+</ul>
+<h2 id="容器创建"><a href="#容器创建" class="headerlink" title="容器创建"></a><strong>容器创建</strong></h2><p>镜像结构：入口，层，基础镜像。分层的好处是可复用，，</p>
+<ul>
+<li>通过命令直接创建，需要完整镜像，几个G常有，稳定。</li>
+<li>通过<strong>dockerfile</strong>创建，不需要完整镜像，更灵活。<br>Dockerfile 是一个包含构建镜像步骤的文本文件，包含一个个的指令。通过编写 Dockerfile，你可以定义如何构建镜像，包括基础镜像、安装依赖、复制文件等步骤。</li>
+<li>使用 Docker 的基本步骤<ol>
+<li><strong>安装 Docker：</strong> 根据操作系统的不同，安装适合的 Docker 版本。</li>
+<li><strong>创建 Dockerfile：</strong> 编写包含应用程序构建步骤的 Dockerfile。</li>
+<li><strong>构建镜像：</strong> 在包含 Dockerfile 的目录中运行 <code>docker build</code> 命令构建镜像。（如java项目还需要jar包）</li>
+<li><strong>运行容器：</strong> 使用 <code>docker run</code> 命令基于构建的镜像创建和运行容器。</li>
+<li><strong>发布镜像：</strong> 将构建的镜像推送到 Docker 仓库，以便其他人可以拉取使用。</li>
+</ol>
+</li>
+</ul>
+<h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><ul>
+<li>数据卷(volume)是一个虚拟目录，是容器内目录与宿主机目录之间映射的桥梁（两边文件同时修改）。<br>（容器一般只包括支持运行的最少文件，一般无vi或其他编辑器，所以无法进入容器直接对容器中的文件进行修改）</li>
+<li>如何挂载数据卷？在创建容器时，利用-v 数据卷名:容器内目录完成挂载。创建时如果发现挂载的数据卷不存在，会自动创建。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker volumels        <span class="comment"># 查看数据卷</span></span><br><span class="line">docker volume <span class="built_in">rm</span>       <span class="comment"># 删除数据卷</span></span><br><span class="line">docker volume inspect  <span class="comment"># 查看数据卷详情</span></span><br><span class="line">docker volume prune    <span class="comment"># 删除未使用的数据卷</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="容器编排-Orchestration-：运维人员"><a href="#容器编排-Orchestration-：运维人员" class="headerlink" title="容器编排(Orchestration)：运维人员"></a>容器编排(Orchestration)：运维人员</h3><p>容器编排是指在生产环境中管理和协调多个容器的过程。Docker 提供了 Docker Compose 工具，用于定义和运行多容器的应用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/14/Docker/" data-id="clr98lbca0007jgv5gcjrez7x" data-title="Docker" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/12/Git/" class="article-date">
+  <time class="dt-published" datetime="2023-04-12T09:02:15.000Z" itemprop="datePublished">2023-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/04/12/Git/">Git</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>First Project：）being confused and embrassed… luckily no one is staring at you but willing to help，as long as you try to find and explain a bug，try debugging、、<br><img src="https://github.com/leo710aka/bk/blob/main/git.png?raw=true" width="700" height="300" alt=""></p>
+<p><strong>分布式版本控制工具 git</strong>：没有“中央服务器”，每个人的电脑上都是一个完整的版本库，这样工作的时候，无需要联网了因为版本库就在你自己的电脑上，多人协作只需要各自的修改推送给对方，就能互相看到对方的修改了（实际上一般还是用共享版本库控制）。</p>
+<ol>
+<li>clone (克隆):从远程仓库中克隆代码到本地仓库</li>
+<li>checkout (检出) :从本地仓库中检出一个仓库分支然后进行修订</li>
+<li>add (添加):在提交前先将代码提交到暂存区</li>
+<li>commit (提交): 提交到本地仓库。本地仓库中保存修改的各个历史版本</li>
+<li>fetch (抓取): 从远程库，抓取到本地仓库，不进行任何的合并动作，一般操作比较少。</li>
+<li>pull(拉取) : 从远程库拉到本地库，自动进行合并(merge)，然后放到到工作区，相当于fetch+merge</li>
+<li>push (推送) :修改完成后，需要和团队成员共享代码时，将代码推送到远程仓库</li>
+</ol>
+<h3 id="Git-Bash"><a href="#Git-Bash" class="headerlink" title="Git Bash"></a>Git Bash</h3><p>Git提供的命令行工具，(内置小Linux)可运行linux命令 cd、ls、touch…</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --list                         <span class="comment"># 查看配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;xx&quot;</span>        <span class="comment"># 配置 user.name_caifeng</span></span><br><span class="line">git config --global user.email <span class="string">&quot;xx&quot;</span>       <span class="comment"># user.email_1908454905@qq.com</span></span><br></pre></td></tr></table></figure>
+<p>配置 Git 的全局用户信息，这些信息在你提交代码到 Git 仓库时会被记录下来，用于标识提交代码的作者信息。</p>
+<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><ul>
+<li>leo710aka <a href="mailto:&#x31;&#x39;&#x30;&#x38;&#120;&#x78;&#x78;&#x78;&#x78;&#120;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#x31;&#x39;&#x30;&#x38;&#120;&#x78;&#x78;&#x78;&#x78;&#120;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;</a> cxxxxxx</li>
+<li>使用 SSH 密钥连接 GitHub：如果没有的话，使用？？？以下命令在本地<strong>生成 SSH 密钥</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+生成 SSH 密钥后，将 <code>~/.ssh/id_rsa.pub</code>（公钥）的内容添加到 GitHub 账号的 SSH 密钥设置中。</li>
+<li>使用 HTTPS 认证连接 GitHub：<br>在 GitHub 上克隆仓库时，使用 HTTPS 链接，然后在推送更改时，会提示输入 GitHub 账号的用户名和密码，或者使用个人访问令牌（Personal Access Token）代替账号密码。</li>
+</ul>
+<h3 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h3><p>要使用Git对我们的代码进行版本控制，首先需要获得本地仓库<br>(1)在电脑的任意位置创建一个空目录(文件夹) 作为我们的本地Git仓库<br>(2)进入这个目录中，右键打开Git bash<br>(3)执行命令<code>git init</code><br>(4)如果创建成功后可在文件夹下看到隐藏的.git目录。</p>
+<h3 id="添加-提交-推送"><a href="#添加-提交-推送" class="headerlink" title="添加 提交 推送"></a>添加 提交 推送</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status                                      <span class="comment"># 查看当前状态（红色的字体显示的是修改的文件</span></span><br><span class="line">$ git add 单个文件名|通配符(. 添加所有修改)            <span class="comment"># 添加工作区代码到本地git暂存区</span></span><br><span class="line">$ git commit -m <span class="string">&quot;提交的信息&quot;</span>                        <span class="comment"># 提交暂存区代码到本地git仓库（生成一个版本）</span></span><br><span class="line">$ git <span class="built_in">log</span>                                         <span class="comment"># 查看提交日志信息（head指向当前操作的分支）</span></span><br><span class="line">$ git push &lt;远程仓库名&gt; &lt;本地分支名&gt;                  <span class="comment"># 推送本地代码到远程仓库</span></span><br><span class="line">$ git push &lt;远程仓库名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;      <span class="comment"># 将指定的本地分支推送到远程仓库的指定分支</span></span><br></pre></td></tr></table></figure>
+<p>或者在IDEA中：点击Git提交并推送，选择提交、添加信息、修改远程仓库的分支(默认<code>origin:main</code>)，推送。</p>
+<h3 id="克隆远程项目"><a href="#克隆远程项目" class="headerlink" title="克隆远程项目"></a>克隆远程项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> &lt;远程仓库地址&gt;                 <span class="comment"># 克隆远程仓库到本地（默认分支master）</span></span><br><span class="line">$ git <span class="built_in">clone</span> -b &lt;分支名&gt; &lt;远程仓库地址&gt;      <span class="comment"># 克隆指定分支（如develop）</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="连接本地与远程仓库"><a href="#连接本地与远程仓库" class="headerlink" title="连接本地与远程仓库"></a>连接本地与远程仓库</h2><ol>
+<li>上传本地仓库项目到远程<br>本地git bash生成ssh公钥，添加到gitee中，本地验证，添加远程仓库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa                                       <span class="comment"># 生成ssh密钥</span></span><br><span class="line">$ <span class="built_in">cat</span> ~/.ssh/id_rsa.pub                                   <span class="comment"># 查看密钥</span></span><br><span class="line">$ ssh -T git@gitee.com                                    <span class="comment"># 验证</span></span><br><span class="line">$ git remote add origin git@gitee.com:leo710aka/test.git  <span class="comment"># 添加远程仓库名为origin(别名)，加ssh地址</span></span><br><span class="line">$ git remote -v                                           <span class="comment"># 检查远程仓库配置是否正确</span></span><br><span class="line">$ git push origin master  <span class="comment"># 完成添加、提交后，将本地master分支推送至远程origin仓库</span></span><br></pre></td></tr></table></figure>
+或者直接在idea中，对一个项目文件添加、提交后，直接在idea中<code>git remote</code>，使用github账号密码进行远程仓库的连接，然后推送。（连接远程仓库，要么使用ssh密钥，要么用github账号密码。）</li>
+<li>添加远程仓库项目到本地<br>也可以先从远程仓库<code>git clone</code>下来一个项目，完成修改后对项目文件添加、提交，在推送到远程仓库时，再进行 <code>ssh密钥/github账号密码</code> 的验证。</li>
+</ol>
+<h3 id="更新项目"><a href="#更新项目" class="headerlink" title="更新项目"></a>更新项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch [remote name] [branch name]   <span class="comment"># 抓取指令就是将仓库里的更新都抓取到本地，不会进行合并。如果不指定远端名称和分支名，则抓取所有分支</span></span><br><span class="line">$ git pull [remote name] [branch name]    <span class="comment"># 拉取指令就是将远端仓库的修改拉到本地并自动进行合并，等同于fetch+merge。如果不指定远端名称和分支名，则抓取所有并更新当前分支。</span></span><br></pre></td></tr></table></figure>
+<p>在一段时间，A、B用户修改了同一个文件，且修改了同一行位置的代码，此时会发生合并冲突A用户在本地修改代码后优先推送到远程仓库，此时B用户在本地修订代码，提交到本地仓库后，也需要推送到玩程仓库，此时B用户晚于A用户，故需要<strong>先拉取远程仓库的提交，经过合并后才能推送到远端分支</strong>。<br>或直接在IDEA里面选择分支pull（Git拉取），克隆&#x2F;更新后记得修改配置文件为测试&#x2F;本地（如果有）。</p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><ul>
+<li><strong><code>master分支</code>：</strong>线上分支，主分支，项目正在上线的分支</li>
+<li><strong><code>develop分支</code>：</strong>部门开发分支，完成后合并到master</li>
+<li>实际开发新功能，是在develop分支上创建feature分支，完成后合并到develop上（合并后就没用了，删掉）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git branch                  <span class="comment"># 查看本地所有的分支，当前激活的分支会在列表中以星号（*）标识。（一个不同的分支就是一个不同的本地仓库）</span></span><br><span class="line">$ git branch -r               <span class="comment"># 查看远程仓库的分支</span></span><br><span class="line">$ git branch -a               <span class="comment"># 查看所有分支，包括本地分支和远程分支。</span></span><br><span class="line">$ git branch caifeng          <span class="comment"># 从当前分支上新建分支</span></span><br><span class="line">$ git checkout caifeng        <span class="comment"># 切换分支</span></span><br><span class="line">$ git checkout -b caifeng     <span class="comment"># 创建（若不存在）并切换分支</span></span><br><span class="line">$ git checkout -d caifeng     <span class="comment"># 删除分支（-D 强制删除）</span></span><br><span class="line">$ git merge &lt;分支名&gt;           <span class="comment"># 先切换回如master分支上，将其他分支上的提交合并到master上</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h3><p>当两个分支上对文件的修改可能会存在冲突，例如同时修改了同一个文件的同一行，这时就需要手动解决冲突，解决冲突步骤:<br>1.处理文件中冲突的地方<br>2.将解决完冲突的文件加入暂存区(add)<br>3,提交到仓库(commit)<br><img src="https://github.com/leo710aka/bk/blob/main/git1.png?raw=true"></p>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;提交<span class="built_in">id</span>&gt;    <span class="comment"># 通过提交id切换版本</span></span><br><span class="line">$ git reflog                  <span class="comment"># 查看历史操作（已清除提交日志、版本切换日志。。。</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/12/Git/" data-id="clr98lbcb0009jgv54ccq9ei3" data-title="Git" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hexo-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/04/01/hexo-world/" class="article-date">
@@ -110,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="clr6ex161000xlkv5cjyh3oa0" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="clr98lbcl000sjgv5gdfb0wg5" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -175,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/02/Python%E7%88%AC%E8%99%AB/" data-id="clr6ex15w000llkv5gwcic3sh" data-title="Python spider" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/09/02/Python%E7%88%AC%E8%99%AB/" data-id="clr98lbcf000ljgv57h002fgq" data-title="Python spider" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -249,194 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/01/Python%E5%9F%BA%E7%A1%80/" data-id="clr6ex15v000hlkv5eltt6vm2" data-title="Python 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Redis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/15/Redis/" class="article-date">
-  <time class="dt-published" datetime="2022-03-15T03:49:42.000Z" itemprop="datePublished">2022-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/15/Redis/">Redis</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：<strong>6379</strong></p>
-<h2 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h2><p>下载 Windows版 msi文件：<a target="_blank" rel="noopener" href="https://github.com/microsoftarchive/redis/releases">https://github.com/microsoftarchive/redis/releases</a><br>在环境变量中配好 Redis 的安装目录后，直接打开 cmd，启动 Redis 客户端<br>启动客户端后, 在客户端cmd窗口中测试 Redis 是否正常工作，设置密码（<strong>命令行设置的密码在服务重启后失效</strong>）<br>注意：<strong>在 Windows 环境下，Redis 不支持后台运行模式，因此在启动 Redis 服务器时必须保持 cmd 窗口一直打开</strong>。（如果想要在后台运行 Redis，可以考虑使用虚拟机或者 Linux 环境下的 Redis）</p>
-<ul>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\蔡枫&gt;redis-cli   <span class="comment"># 启动 Redis 客户端（默认Redis服务端未关闭）</span></span><br><span class="line">127.0.0.1:6379&gt; ping                                <span class="comment"># 在 Redis 客户端中输入 ping 命令</span></span><br><span class="line">PONG                                                <span class="comment"># 返回 PONG 表示 正常工作</span></span><br><span class="line">127.0.0.1:6379&gt; config <span class="built_in">set</span> requirepass chskj.2020   <span class="comment"># 修改密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; auth chskj.2020                     <span class="comment"># 验证密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass              <span class="comment"># 查看密码</span></span><br><span class="line">1)<span class="string">&quot;requirepass&quot;</span></span><br><span class="line">2)<span class="string">&quot;chskj.2020&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="启动-重启-Redis-服务器，客户端"><a href="#启动-重启-Redis-服务器，客户端" class="headerlink" title="启动(重启) Redis 服务器，客户端"></a>启动(重启) Redis 服务器，客户端</h3><p>进入 Redis 的安装目录(D:\Redis)，打开 cmd 窗口(地址栏cmd回车)，执行 redis-server.exe redis.windows.conf，即可<strong>启动 Redis 服务器</strong>。<br>启动Redis服务器后，在 Redis 安装目录打开另一个 cmd 窗口，执行 redis-cli.exe，(或直接双击文件夹中的redis-cli.exe)即可<strong>启动（重启）Redis 客户端</strong>。</p>
-<h3 id="库"><a href="#库" class="headerlink" title="库"></a>库</h3><p>Redis中有16个数据库（Database），每个数据库都是一个独立的命名空间，用于存储键值对数据。这些数据库被编号为0到15，默认情况下客户端连接到数据库0。可以通过<code>SELECT</code>命令选择数据库来切换不同的数据库空间，每个数据库都是相互隔离的，数据不会互相干扰。<br>每个数据库都可以包含键值对数据，命令和配置，但请注意，Redis的每个数据库是相对较小的，因此可以将不同类型的数据存储在不同的数据库中，以便更好地组织和管理数据。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 1   <span class="comment"># 切换到数据库1</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>Redis所有的key（键）都是字符串。我们在<strong>谈基础数据结构时，讨论的是存储值的数据类型</strong>，主要包括常见的5种数据类型，分别是：String、List、Set、Zset、Hash。 三种特殊的数据类型，分别是 HyperLogLogs（基数统计），Bitmaps (位图) 和 geospatial（地理位置）。 Redis5.0 中还增加了一个数据结构Stream，它借鉴了Kafka的设计，是一个新的强大的支持多播的可持久化的消息队列。</p>
-<!-- ![](https://pdai.tech/images/db/redis/db-redis-object-2-2.png) -->
-<table>
-<thead>
-<tr>
-<th>结构类型</th>
-<th>结构存储的值</th>
-<th>结构的读写能力</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>String字符串</strong></td>
-<td>可以是字符串、整数或浮点数</td>
-<td>对整个字符串或字符串的一部分进行操作；对整数或浮点数进行自增或自减操作；</td>
-</tr>
-<tr>
-<td><strong>List列表</strong></td>
-<td>一个链表，链表上的每个节点都包含一个字符串</td>
-<td>对链表的两端进行push和pop操作，读取单个或多个元素；根据值查找或删除元素；</td>
-</tr>
-<tr>
-<td><strong>Set集合包</strong></td>
-<td>含字符串的无序集合</td>
-<td>字符串的集合，包含基础的方法有看是否存在添加、获取、删除；还包含计算交集、并集、差集等</td>
-</tr>
-<tr>
-<td><strong>Hash散列</strong></td>
-<td>包含键值对的无序散列表</td>
-<td>包含方法有添加、获取、删除单个元素</td>
-</tr>
-<tr>
-<td><strong>Zset有序集合</strong></td>
-<td>和散列一样，用于存储键值对字符串成员与浮点数分数之间的有序映射；元素的排列顺序由分数的大小决定；</td>
-<td>包含方法有添加、获取、删除单个元素以及根据分值范围或成员来获取元素</td>
-</tr>
-</tbody></table>
-<h3 id="String字符串"><a href="#String字符串" class="headerlink" title="String字符串"></a>String字符串</h3><ul>
-<li>String是redis中最基本的数据类型，一个key对应一个value。</li>
-<li>String类型是二进制安全的，意思是 redis 的 string 可以包含任何数据。如数字，字符串，jpg图片或者序列化的对象。</li>
-<li>实战场景<ul>
-<li>缓存： 经典使用场景，把常用信息，字符串，图片或者视频等信息放到redis中，redis作为缓存层，mysql做持久化层，降低mysql的读写压力。</li>
-<li>计数器：redis是单线程模型，一个命令执行完才会执行下一个，同时数据可以一步落地到其他的数据源。session：常见方案spring session + redis实现session共享，</li>
-</ul>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> hello world    <span class="comment"># 设置存储在给定键中的值</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get hello          <span class="comment"># 获取存储在给定键中的值</span></span><br><span class="line"><span class="string">&quot;world&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; del hello          <span class="comment"># 删除存储在给定键中的值</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> counter 2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get counter       </span><br><span class="line"><span class="string">&quot;2&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incr counter       <span class="comment"># 将键存储的值加1</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;3&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incrby counter 100 <span class="comment"># 将键存储的值加上整数</span></span><br><span class="line">(<span class="built_in">integer</span>) 103</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;103&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; decr counter       <span class="comment"># 将键存储的值减1</span></span><br><span class="line">(<span class="built_in">integer</span>) 102</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;102&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="List列表"><a href="#List列表" class="headerlink" title="List列表"></a>List列表</h3><ul>
-<li>Redis中的List其实就是链表（Redis用双端链表实现List）。</li>
-<li>使用List结构，我们可以轻松地实现最新消息排队功能（比如新浪微博的TimeLine）。List的另一个应用就是消息队列，可以利用List的 PUSH 操作，将任务存放在List中，然后工作线程再用 POP 操作将任务取出进行执行。</li>
-<li>使用列表的技巧：lpush+lpop&#x3D;Stack(栈)，lpush+rpop&#x3D;Queue（队列），lpush+ltrim&#x3D;Capped Collection（有限集合），lpush+brpop&#x3D;Message Queue（消息队列）</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush mylist 1 2 ll <span class="built_in">ls</span> mem   <span class="comment"># 将给定值推入到列表左端，RPUSH 将给定值推入到列表右端</span></span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; lrange mylist 0 -1           <span class="comment"># 获取列表在给定范围上的所有值</span></span><br><span class="line">1) <span class="string">&quot;mem&quot;</span></span><br><span class="line">2) <span class="string">&quot;ls&quot;</span></span><br><span class="line">3) <span class="string">&quot;ll&quot;</span></span><br><span class="line">4) <span class="string">&quot;2&quot;</span></span><br><span class="line">5) <span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; lindex mylist -1             <span class="comment"># 可以使用负数下标，以 -n 表示列表的倒数第n个元素</span></span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; rpop mylist                  <span class="comment"># 从列表的右端弹出一个值，并返回被弹出的值；lpop 从左弹</span></span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; lindex mylist 10             <span class="comment"># index不在 mylist 的区间范围内</span></span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><ul>
-<li>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。</li>
-<li>Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。</li>
-<li>实战场景<ul>
-<li>标签（tag）,给用户添加标签，或用户给消息添加标签，这样有同一标签或者类似标签的可以给推荐关注的事或者关注的人。</li>
-<li>点赞，或点踩，收藏等，可以放到set中实现</li>
-</ul>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd myset hao hao1 xiaohao hao  <span class="comment"># 向集合添加一个或多个成员	</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; scard myset                      <span class="comment"># 获取集合的成员数	</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; smembers myset                   <span class="comment"># 返回集合中的所有成员	</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao1&quot;</span></span><br><span class="line">3) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; sismember myset hao              <span class="comment"># 判断 member 元素是否是集合 key 的成员</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Hash散列"><a href="#Hash散列" class="headerlink" title="Hash散列"></a>Hash散列</h3><ul>
-<li>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</li>
-<li>实战场景 - 缓存： 能直观，相比string更节省空间，的维护缓存信息，如用户信息，视频信息等。</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset user name1 hao               <span class="comment"># 添加键值对	</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hset user email1 hao@163.com</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hgetall user                      <span class="comment"># 获取散列中包含的所有键值对	</span></span><br><span class="line">1) <span class="string">&quot;name1&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">3) <span class="string">&quot;email1&quot;</span></span><br><span class="line">4) <span class="string">&quot;hao@163.com&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; hget user user                    <span class="comment"># 获取指定散列键的值</span></span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; hget user name1</span><br><span class="line"><span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; hset user name2 xiaohao</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hdel user name1                   <span class="comment"># 如果给定键存在于散列中，那么就移除这个键</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hgetall user</span><br><span class="line">1) <span class="string">&quot;email1&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao@163.com&quot;</span></span><br><span class="line">3) <span class="string">&quot;name2&quot;</span></span><br><span class="line">4) <span class="string">&quot;xiaohao&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Zset有序集合"><a href="#Zset有序集合" class="headerlink" title="Zset有序集合"></a>Zset有序集合</h3><ul>
-<li>Redis 有序集合和集合一样也是 string 类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序。</li>
-<li>有序集合的成员是唯一的, 但分数(score)却可以重复。有序集合是通过两种数据结构实现：<ol>
-<li>压缩列表(ziplist): ziplist是为了提高存储效率而设计的一种特殊编码的双向链表。它可以存储字符串或者整数，存储整数时是采用整数的二进制而不是字符串形式存储。它能在O(1)的时间复杂度下完成list两端的push和pop操作。但是因为每次操作都需要重新分配ziplist的内存，所以实际复杂度和ziplist的内存使用量相关</li>
-<li>跳跃表(zSkiplist): 跳跃表的性能可以保证在查找，删除，添加等操作的时候在对数期望时间内完成，这个性能是可以和平衡树来相比较的，而且在实现方面比平衡树要优雅，这是采用跳跃表的主要原因。跳跃表的复杂度是O(log(n))。</li>
-</ol>
-</li>
-<li>实战场景 - 排行榜：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户关注数，更新时间，字数等打分，做排行。</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd myscoreset 100 hao 90 xiaohao  <span class="comment"># 将一个带有给定分值的成员添加到有序集合里面</span></span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE myscoreset 0 -1            <span class="comment"># 根据元素在有序集合中所处位置，从有序集合中获取多个元素</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE myscoreset hao</span><br><span class="line"><span class="string">&quot;100&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; zrem myscoreset hao               <span class="comment"># 如果给定元素成员存在于有序集合中，那么就移除这个元素</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><p>采用一种基数算法，用于完成独立总数的统计。（同一个人多次访问，只记一访问量）（独立访客）<br>占据空间小，无论统计多少个数据，只占12K的内存空间<br>不精确的统计算法，标准误差为 0.81%。</p>
-<h3 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h3><p>不是一种独立的数据结构，实际上就是字符串<br>支持按位存取数据，可以将其看成是byte数组<br>适合存储索大量的连续的数据的布尔值。（记录一个人连续一年每天的签到情况 0&#x2F;1）（日活跃用户）</p>
-<hr>
-
-
-<h2 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h2><ul>
-<li>Spring Boot提供了<code>RedisTemplate</code>作为与Redis交互的强大工具。通过<code>RedisTemplate</code>，您可以在java项目中执行各种Redis命令来操作数据，包括字符串、列表、集合、散列、有序集合等。以下是一些常见的Redis操作示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储数据：</span></span><br><span class="line">redisTemplate.opsForValue().set(<span class="string">&quot;myKey&quot;</span>, <span class="string">&quot;myValue&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> (String) redisTemplate.opsForValue().get(<span class="string">&quot;myKey&quot;</span>);</span><br><span class="line"><span class="comment">// 列表操作：</span></span><br><span class="line">redisTemplate.opsForList().leftPush(<span class="string">&quot;myList&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">List&lt;String&gt; myList = redisTemplate.opsForList().range(<span class="string">&quot;myList&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 集合操作：</span></span><br><span class="line">redisTemplate.opsForSet().add(<span class="string">&quot;mySet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="string">&quot;member2&quot;</span>);</span><br><span class="line">Set&lt;String&gt; mySet = redisTemplate.opsForSet().members(<span class="string">&quot;mySet&quot;</span>);</span><br><span class="line"><span class="comment">// 散列操作：</span></span><br><span class="line">Map&lt;String, String&gt; myHash = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">myHash.put(<span class="string">&quot;field1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">myHash.put(<span class="string">&quot;field2&quot;</span>, <span class="string">&quot;value2&quot;</span>);</span><br><span class="line">redisTemplate.opsForHash().putAll(<span class="string">&quot;myHash&quot;</span>, myHash);</span><br><span class="line"><span class="type">String</span> <span class="variable">fieldValue</span> <span class="operator">=</span> (String) redisTemplate.opsForHash().get(<span class="string">&quot;myHash&quot;</span>, <span class="string">&quot;field1&quot;</span>);</span><br><span class="line"><span class="comment">// 有序集合操作：</span></span><br><span class="line">redisTemplate.opsForZSet().add(<span class="string">&quot;myZSet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="number">1.0</span>);</span><br><span class="line">Set&lt;String&gt; myZSet = redisTemplate.opsForZSet().range(<span class="string">&quot;myZSet&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
-<li>公共命令<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redisTemplate.delete(key);  <span class="comment">// 删除一个数据结构</span></span><br><span class="line">redisTemplate.hasKey(key);  <span class="comment">// 是否存在一个数据结构</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Redis-事务管理"><a href="#Redis-事务管理" class="headerlink" title="Redis 事务管理"></a>Redis 事务管理</h3><ul>
-<li>要使用编程式事务<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testTransaction</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> redisTemplate.execute(<span class="keyword">new</span> <span class="title class_">SessionCallback</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Object <span class="title function_">execute</span><span class="params">(RedisOperations redisOperations)</span> <span class="keyword">throws</span> DataAccessException &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">redisKey</span> <span class="operator">=</span> <span class="string">&quot;text:tx&quot;</span>;           </span><br><span class="line">            redisOperations.multi();         <span class="comment">// 启用事务</span></span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;wangwu&quot;</span>);</span><br><span class="line">            <span class="comment">// redis事务内做查询，无效</span></span><br><span class="line">            <span class="comment">// redis事务中的所有代码在事务提交后一起执行</span></span><br><span class="line">            System.out.println(redisOperations.opsForSet().members(redisKey));            </span><br><span class="line">            <span class="keyword">return</span> redisOperations.exec();   <span class="comment">// 提交事务</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-
-
-<h2 id="Redis缓存问题"><a href="#Redis缓存问题" class="headerlink" title="Redis缓存问题"></a>Redis缓存问题</h2><p>在高并发的业务场景下，数据库大多数情况都是用户并发访问最薄弱的环节。所以，就需要使用redis做一个缓冲操作，让请求先访问到redis，而不是直接访问Mysql等数据库。这样可以大大缓解数据库的压力。<strong>当缓存库出现时，必须要考虑如下问题：</strong></p>
-<ol>
-<li><strong>缓存穿透</strong><ul>
-<li>问题来源<br> 缓存穿透是指缓存和数据库中都没有的数据，而用户不断发起请求。由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义，<br> 在流量大时，可能DB就挂掉了，要是有人利用不存在的kev频繁攻击我们的应用，这就是漏洞.<br> 如发起为id为”-1”的数据或id为特别大不存在的数据。这时的用户很可能是攻击者，攻击会导致数据库压力过大。</li>
-<li>1、接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;&#x3D;0的直接拦截<br> 2、从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有效时间可以设置短点，如30秒 (设置太长会导致正常情况也没法使用)。这样可以防止攻击用户反复用同一个id暴力攻击<br> 3、布隆过滤器。bloomfilter就类似于一个hash set，用于快速判某个元素是否存在于集合中，其典型的应用场景就是快速判断个key是否存在于某容器，不存在就直接返回。布隆过滤器的关键就在于hash算法和容器大小，</li>
-</ul>
-</li>
-<li><strong>缓存击穿</strong><ul>
-<li>问题来源：    缓存击穿是指缓存中没有但数据库中有的数据(一般是缓存时间到期)，这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力.</li>
-<li>1、设置热点数据永远不过期<br> 2、接口限流与熔断，降级。重要的接口一定要做好限流策略，防止用户恶意刷接口，同时要降级准备，当接口中的某些 &#x2F;3务不可用时候，进行熔断，失败快速返回机制。<br> 3、加互斥锁</li>
-</ul>
-</li>
-<li><strong>缓存雪崩</strong><ul>
-<li>问题来源： 缓存雪崩是指缓存中数据大批量到过期时间，而查询数据量巨大，引起数据库压力过大甚至down机。和缓存击穿不同的是缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查数据库。</li>
-<li>1、缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生<br> 2、如果缓存数据库是分布式部署，将热点数据均匀分布在不同的缓存数据库中<br> 3、设置热点数据永远不过期.</li>
-</ul>
-</li>
-<li><strong>缓存污染(或满了)</strong><ul>
-<li>缓存污染问题说的是缓存中一些只会被访问一次或者几次的的数据，被访问完后，再也不会被访问到，但这部分数据依然留存在缓存中，消耗缓存空间.</li>
-<li>缓存污染会随着数据的持续增加而逐渐显露，随着服务的不新运行，缓存中会存在大量的永远不会再次被访问的数据。缓存空间是有限的，如果缓存空间满了，再往缓存里写数据时就会有额外开销，影响Redis性能。这部分额外开销主要是指写的时候判断淘汰策略，根据淘汰策略去选择要淘汰的数据，然后进行删除操作。</li>
-</ul>
-</li>
-</ol>
-<h3 id="缓存淘汰策略"><a href="#缓存淘汰策略" class="headerlink" title="缓存淘汰策略"></a>缓存淘汰策略</h3><p>Redis共支持八种淘汰策略，分别是noeviction, volatile-random、 volatile-ttl， volatile-ru、 volatile-lfuallkeys-lru、allkeys-Iandom 和 allkevs-lfu 策略。主要看分三类看:</p>
-<ul>
-<li>不淘汰<br>noeviction (v4.0后默认的)：一旦缓存被写满了，再有写请求来时，Redis 不再提供服务，而是直接返回错误。这种策略不会淘汰数据，所以无法解决缓存污染问题。一般生产环境不建议使用。</li>
-<li>对设置了过期时间的数据中进行淘汰<br>随机 volatile-random：在设置了过期时间的键值对中，进行随机删除。因为是随机删除，无法把不再访问的数据筛选出来，所以可能依然会存在缓存污染现象，无法解决<strong>缓存污染</strong>问题。<br>tvolatile-ttl：Redis在筛选需删除的数据时，越早过期的数据越优先被选择。随机删除就无法解决缓存污染问题。<br>volatile-lru：LRU 算法的全称是 Least Recently Used，按照最近最少使用的原则来筛选数据<br>volatile-lfu：LFU 缓存策略是在 LRU 策略基础上，为每个数据增加了一个计数器，来统计这个数据的访问次数。当使用 LFU 策略筛选淘汰数据时，首先会根据数据的访问次数进行筛选，把访问次数最低的数据淘汰出缓存。如果两个数据的访问次数相同，LFU 策略再比较这两个数据的访问时效性，把距离上一次访问时间更久的数据淘汰出缓存。</li>
-<li>全部数据进行淘汰<br>随机 allkeys-random：从所有键值对中随机选择并删除数据。<br>allkeys-lru：使用 LRU 算法在所有数据中进行筛选。<br>allkeys-lfu：使用 LFU 算法在所有数据中进行筛选。</li>
-</ul>
-<h2 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h2><p>Redis 提供了两种主要的持久化方式，用于在系统重启时保持数据的持久性：RDB 持久化和 AOF 持久化。<br>用户可以根据实际需求选择 RDB 持久化、AOF 持久化或两者结合使用。通常情况下，AOF 持久化是更安全的选择，因为它可以提供更好的持久性保障，但也需要更多的磁盘空间。</p>
-<ol>
-<li><strong>RDB 持久化：</strong><ul>
-<li>RDB 持久化是通过在指定的时间间隔内将内存中的数据集快照写入磁盘的方式来实现的。</li>
-<li>快照是一个二进制文件，它记录了某个时间点上 Redis 数据集的所有键值对。</li>
-<li>RDB 持久化是一个“点对点”操作，它在指定的时间点创建了一个数据快照。</li>
-<li>RDB 持久化适用于备份、灾难恢复等场景。<br>RDB 持久化的配置选项可以在 Redis 配置文件中进行设置，例如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1      # 表示在 900 秒（15分钟）内，如果至少有 1 个 key 发生了变化，则执行快照操作</span><br><span class="line">save 300 10     # 表示在 300 秒（5分钟）内，如果至少有 10 个 key 发生了变化，则执行快照操作</span><br><span class="line">save 60 10000   # 表示在 60 秒内，如果至少有 10000 个 key 发生了变化，则执行快照操作</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><strong>AOF 持久化：</strong><ul>
-<li>AOF（Append Only File）持久化记录了服务器执行的所有写操作指令，以追加的方式将这些指令记录到一个文件中。</li>
-<li>AOF 持久化是一个“追加”操作，每个写操作都被追加到文件末尾。</li>
-<li>AOF 持久化适用于对数据的实时持久化需求。<br>AOF 持久化的配置选项可以在 Redis 配置文件中进行设置，例如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes            # 启用 AOF 持久化</span><br><span class="line">appendfsync everysec      # 每秒钟执行一次 fsync 操作</span><br></pre></td></tr></table></figure></li>
-<li><code>appendfsync</code> 选项可以设置 <code>always</code>、<code>everysec</code> 或 <code>no</code>。<code>always</code> 表示每个写命令都会立即被写入磁盘，<code>everysec</code> 表示每秒执行一次 fsync 操作，<code>no</code> 表示由操作系统自行决定何时进行写入磁盘操作。</li>
-<li>Redis 还提供了 AOF 重写机制，可以通过 <code>auto-aof-rewrite-percentage</code> 和 <code>auto-aof-rewrite-min-size</code> 选项配置。这允许 Redis 在不停机的情况下优化 AOF 文件的大小。</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/15/Redis/" data-id="clr6ex15v000ilkv52gw50kfu" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/09/01/Python%E5%9F%BA%E7%A1%80/" data-id="clr98lbce000jjgv5bwgu9csh" data-title="Python 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -545,7 +512,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clr6ex15x000olkv5eobtd1yu" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clr98lbce000hjgv5a59j31y4" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -756,7 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clr6ex15w000klkv5727ce7va" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clr98lbce000ijgv5ftp9b5zi" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -809,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/06/SSH/" data-id="clr6ex15w000mlkv5hiuycjhn" data-title="SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/06/SSH/" data-id="clr98lbcm000vjgv55y6cg93b" data-title="SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -870,77 +837,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/05/VMware/" data-id="clr6ex15z000slkv5bsfiefvw" data-title="VMware" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Vim" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/03/Vim/" class="article-date">
-  <time class="dt-published" datetime="2022-03-03T09:02:15.000Z" itemprop="datePublished">2022-03-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/03/Vim/">Vim</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Vim（Vi Improved）是一款强大的文本编辑器，广泛用于Linux和Unix系统。它是Vi编辑器的改进版本，提供了许多额外的功能和改进。</p>
-<h2 id="启动和退出"><a href="#启动和退出" class="headerlink" title="启动和退出"></a>启动和退出</h2><p><strong>启动Vim：</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim</span><br></pre></td></tr></table></figure>
-<p><strong>打开文件：</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim filename</span><br></pre></td></tr></table></figure>
-<p><strong>退出Vim：</strong></p>
-<ul>
-<li>进入命令模式（按 <code>Esc</code> 键），然后输入 <code>:q</code>，按 <code>Enter</code>。</li>
-<li>如果有未保存的更改，使用 <code>:q!</code> 来强制退出，或者 <code>:wq</code> 保存并退出。</li>
-</ul>
-<h2 id="模式驱动"><a href="#模式驱动" class="headerlink" title="模式驱动"></a>模式驱动</h2><ol>
-<li><strong>普通模式：</strong>在这个模式下，键盘输入被解释为命令。你可以使用这些命令来移动光标、删除文本、复制粘贴等。</li>
-<li><strong>插入模式：</strong>在这个模式下，你可以输入文本。按下 “i” 进入插入模式，按 “Esc” 退出插入模式并返回到普通模式。</li>
-<li><strong>可视模式：</strong>这模式下，你可以选择文本块以进行复制、剪切或其他操作。按下 “v” 进入可视模式，然后使用移动命令来选择文本。</li>
-<li><strong>命令行模式：</strong>在这个模式下，你可以输入各种命令，例如保存文件、退出 Vim、搜索等。按下 “:” 进入命令行模式。</li>
-<li><strong>选择模式：</strong>与可视模式有些类似，但是在选择后直接进入插入模式。按下 “v” 进入可视模式，然后按 “Shift” 和 “v” 进入选择模式。</li>
-</ol>
-<h2 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h2><ul>
-<li><p><strong>移动光标：</strong>   <code>h</code>：左移   - <code>j</code>：下移   - <code>k</code>：上移   - <code>l</code>：右移</p>
-</li>
-<li><p><strong>移动到行首或行尾：</strong>   <code>0</code>：移动到行首   - <code>$</code>：移动到行尾</p>
-</li>
-</ul>
-<h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><ul>
-<li><p><strong>搜索：</strong> 在命令模式下，按 <code>/</code>，然后输入要搜索的文本，按 <code>Enter</code>。</p>
-</li>
-<li><p><strong>替换：</strong> 在命令模式下，输入 <code>:%s/old/new/g</code> 来将所有匹配的 <code>old</code> 替换为 <code>new</code>。</p>
-</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p><strong>保存：</strong><br>    - 在命令模式下，输入 <code>:w</code> 保存更改。</p>
-<p><strong>撤销：</strong><br>    - 在命令模式下，按 <code>u</code> 来撤销上一步操作。</p>
-<p><strong>重做：</strong><br>    - 在命令模式下，按 <code>Ctrl + r</code> 来重做。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/03/Vim/" data-id="clr6ex160000ulkv5295o1y0k" data-title="Vim" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/05/VMware/" data-id="clr98lbck000rjgv591r82dvd" data-title="VMware" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1030,11 +927,45 @@
 </ol>
 <hr>
 
-<h1 id="十、进程管理"><a href="#十、进程管理" class="headerlink" title="十、进程管理"></a>十、进程管理</h1>
+<h1 id="十、进程管理"><a href="#十、进程管理" class="headerlink" title="十、进程管理"></a>十、进程管理</h1><hr>
+
+<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p>Vim（Vi Improved）是一款强大的文本编辑器，广泛用于Linux和Unix系统。它是Vi编辑器的改进版本，提供了许多额外的功能和改进。</p>
+<h2 id="启动和退出"><a href="#启动和退出" class="headerlink" title="启动和退出"></a>启动和退出</h2><p><strong>启动Vim：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim</span><br></pre></td></tr></table></figure>
+<p><strong>打开文件：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim filename</span><br></pre></td></tr></table></figure>
+<p><strong>退出Vim：</strong></p>
+<ul>
+<li>进入命令模式（按 <code>Esc</code> 键），然后输入 <code>:q</code>，按 <code>Enter</code>。</li>
+<li>如果有未保存的更改，使用 <code>:q!</code> 来强制退出，或者 <code>:wq</code> 保存并退出。</li>
+</ul>
+<h2 id="模式驱动"><a href="#模式驱动" class="headerlink" title="模式驱动"></a>模式驱动</h2><ol>
+<li><strong>普通模式：</strong>在这个模式下，键盘输入被解释为命令。你可以使用这些命令来移动光标、删除文本、复制粘贴等。</li>
+<li><strong>插入模式：</strong>在这个模式下，你可以输入文本。按下 “i” 进入插入模式，按 “Esc” 退出插入模式并返回到普通模式。</li>
+<li><strong>可视模式：</strong>这模式下，你可以选择文本块以进行复制、剪切或其他操作。按下 “v” 进入可视模式，然后使用移动命令来选择文本。</li>
+<li><strong>命令行模式：</strong>在这个模式下，你可以输入各种命令，例如保存文件、退出 Vim、搜索等。按下 “:” 进入命令行模式。</li>
+<li><strong>选择模式：</strong>与可视模式有些类似，但是在选择后直接进入插入模式。按下 “v” 进入可视模式，然后按 “Shift” 和 “v” 进入选择模式。</li>
+</ol>
+<h2 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h2><ul>
+<li><p><strong>移动光标：</strong>   <code>h</code>：左移   - <code>j</code>：下移   - <code>k</code>：上移   - <code>l</code>：右移</p>
+</li>
+<li><p><strong>移动到行首或行尾：</strong>   <code>0</code>：移动到行首   - <code>$</code>：移动到行尾</p>
+</li>
+</ul>
+<h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><ul>
+<li><p><strong>搜索：</strong> 在命令模式下，按 <code>/</code>，然后输入要搜索的文本，按 <code>Enter</code>。</p>
+</li>
+<li><p><strong>替换：</strong> 在命令模式下，输入 <code>:%s/old/new/g</code> 来将所有匹配的 <code>old</code> 替换为 <code>new</code>。</p>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p><strong>保存：</strong><br>    - 在命令模式下，输入 <code>:w</code> 保存更改。</p>
+<p><strong>撤销：</strong><br>    - 在命令模式下，按 <code>u</code> 来撤销上一步操作。</p>
+<p><strong>重做：</strong><br>    - 在命令模式下，按 <code>Ctrl + r</code> 来重做。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clr6ex15u000dlkv5a0w1bfhd" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clr98lbcd000fjgv5guyaaxli" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1086,6 +1017,14 @@
           </li>
         
           <li>
+            <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/10/Redis/">Redis</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/07/SpringCloud/">SpringCloud</a>
           </li>
         
@@ -1103,14 +1042,6 @@
         
           <li>
             <a href="/2023/07/31/Colab/">Colab</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/Pytorch/">Pytorch</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/10/Anaconda/">Anaconda</a>
           </li>
         
       </ul>
