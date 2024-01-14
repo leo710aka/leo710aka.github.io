@@ -376,18 +376,31 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true?raw=true" width="500" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
-<p><strong>微服务</strong>：一种良好的分布式架构方案。优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高<br>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。<br>面向服务：微服务对外暴露业务接口，供其他微服务使用。<br>自治：团队独立、技术独立、数据独立、部署独立，不同微服务都应该有自己的数据库。<br>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题。</p>
-<img src="https://github.com/leo710aka/bk/blob/main/springcloud/1.png?raw=true?raw=true" width="700" height="200"> 
+<p><strong>微服务</strong>：一种良好的分布式架构方案。</p>
+<ul>
+<li>优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高</li>
+<li>微服务特点：<ul>
+<li>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。</li>
+<li>面向服务：微服务对外暴露业务接口，供其他微服务使用。</li>
+<li>自治：团队独立、技术独立、数据独立、部署独立，不同微服务都应该有自己的数据库。</li>
+<li>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题。<img src="https://github.com/leo710aka/bk/blob/main/springcloud/1.png?raw=true?raw=true" width="700" height="200"> 
 再加上服务异常定位、节点状态监控、自动化部署
-<img src="https://github.com/leo710aka/bk/blob/main/springcloud/2.png?raw=true?raw=true" width="700" height="200"> 
-
+<img src="https://github.com/leo710aka/bk/blob/main/springcloud/2.png?raw=true?raw=true" width="700" height="200"></li>
+</ul>
+</li>
+</ul>
 <p>微服务这种方案需要技术框架来落地，全球的互联网公司都在积极尝试自己的微服务落地技术。在国内最知名的就是SpringCloud和阿里巴巴的Dubbo（升级SpringCloudAlibaba（实现了SpringCloud接口，是SpringCloud的一部分））微服务技术对比：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/4.png?raw=true?raw=true" width="700" height="200"><br>企业中常见的四种需求：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/5.png?raw=true?raw=true" width="700" height="200"> </p>
-<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>Spring Cloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true?raw=true" width="600" height="200">  </p>
+<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>SpringCloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud 集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true?raw=true" width="600" height="200">  </p>
 <ul>
 <li>服务拆分<ul>
 <li>微服务需要根据业务模块拆分，做到单一职责，避免重复业务开发；</li>
 <li>微服务可以将业务暴露为接口，供其他微服务使用。</li>
 <li>不同微服务都应该有自己的数据库。</li>
+<li>cloud-demo：父工程，管理依赖<ul>
+<li>order-service：订单微服务，负责订单相关业务</li>
+<li>user-service：用户微服务，负责用户相关业务<br>  要求：订单微服务和用户微服务都必须有各自的数据库，相互独立；订单服务和用户服务都对外暴露Restful的接口；订单服务如果需要查询用户信息，只能调用用户服务的Restful接口，不能查询用户数据库  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713211009593.png?raw=true" width="200" height="200"></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>远程调用<ul>
@@ -429,64 +442,22 @@
 </ol>
 </li>
 </ul>
-<hr>
-
-<h1 id="4-Ribbon负载均衡"><a href="#4-Ribbon负载均衡" class="headerlink" title="4. Ribbon负载均衡"></a>4. Ribbon负载均衡</h1><ul>
-<li>Ribbon：加了 @LoadBalanced 注解的RestTemplate，发送的请求将会被 Ribbon 拦截，处理后发送 HTTP 请求<img src="https://github.com/leo710aka/bk/blob/main/springcloud/8.png?raw=true?raw=true" width="600" height="200">  </li>
-<li>IRule 接口：决定了负载均衡的策略，每一个子接口都是一种规则，轮询、随机、、、 通过定义 IRule 实现可以修改负载均衡策略</li>
-<li>Ribbon 饥饿加载：Ribbon 默认是采用懒加载，即第一次访问时才会去创建 LoadBalanceClient，请求时间会很长。而饥饿加载则会在项目启动时创建，降低第一次访问的耗时，配置开启饥饿加载，指定饥饿加载的微服务名称。</li>
-</ul>
-<h2 id="4-1-负载均衡原理"><a href="#4-1-负载均衡原理" class="headerlink" title="4.1.负载均衡原理"></a>4.1.负载均衡原理</h2><p>SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载均衡功能的。</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713224517686.png?raw=true" alt="image-20210713224517686"></p>
-<p>那么我们发出的请求明明是<a target="_blank" rel="noopener" href="http://userservice/user/1%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8F%98%E6%88%90%E4%BA%86http://localhost:8081%E7%9A%84%E5%91%A2%EF%BC%9F">http://userservice/user/1，怎么变成了http://localhost:8081的呢？</a></p>
-<h2 id="4-2-源码跟踪"><a href="#4-2-源码跟踪" class="headerlink" title="4.2.源码跟踪"></a>4.2.源码跟踪</h2><p>为什么我们只输入了service名称就可以访问了呢？之前还要获取ip和端口。</p>
-<p>显然有人帮我们根据service名称，获取到了服务实例的ip和端口。它就是<code>LoadBalancerInterceptor</code>，这个类会在对RestTemplate的请求进行拦截，然后从Eureka根据服务id获取服务列表，随后利用负载均衡算法得到真实的服务地址信息，替换服务id。</p>
-<p>我们进行源码跟踪：</p>
-<h3 id="1）LoadBalancerIntercepor"><a href="#1）LoadBalancerIntercepor" class="headerlink" title="1）LoadBalancerIntercepor"></a>1）LoadBalancerIntercepor</h3><p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525620483637.png?raw=true" alt="1525620483637"></p>
-<p>可以看到这里的intercept方法，拦截了用户的HttpRequest请求，然后做了几件事：</p>
-<ul>
-<li><code>request.getURI()</code>：获取请求uri，本例中就是 <a target="_blank" rel="noopener" href="http://user-service/user/8">http://user-service/user/8</a></li>
-<li><code>originalUri.getHost()</code>：获取uri路径的主机名，其实就是服务id，<code>user-service</code></li>
-<li><code>this.loadBalancer.execute()</code>：处理服务id，和用户请求。</li>
-</ul>
-<p>这里的<code>this.loadBalancer</code>是<code>LoadBalancerClient</code>类型，我们继续跟入。</p>
-<h3 id="2）LoadBalancerClient"><a href="#2）LoadBalancerClient" class="headerlink" title="2）LoadBalancerClient"></a>2）LoadBalancerClient</h3><p>继续跟入execute方法：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525620787090.png?raw=true" alt="1525620787090"></p>
-<p>代码是这样的：</p>
-<ul>
-<li>getLoadBalancer(serviceId)：根据服务id获取ILoadBalancer，而ILoadBalancer会拿着服务id去eureka中获取服务列表并保存起来。</li>
-<li>getServer(loadBalancer)：利用内置的负载均衡算法，从服务列表中选择一个。本例中，可以看到获取了8082端口的服务</li>
-</ul>
-<p>放行后，再次访问并跟踪，发现获取的是8081：</p>
-<p> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525620835911.png?raw=true" alt="1525620835911"></p>
-<p>果然实现了负载均衡。</p>
-<h3 id="3）负载均衡策略IRule"><a href="#3）负载均衡策略IRule" class="headerlink" title="3）负载均衡策略IRule"></a>3）负载均衡策略IRule</h3><p>在刚才的代码中，可以看到获取服务使通过一个<code>getServer</code>方法来做负载均衡:</p>
-<p> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525620835911.png?raw=true" alt="1525620835911"></p>
-<p>我们继续跟入：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1544361421671.png?raw=true" alt="1544361421671"></p>
-<p>继续跟踪源码chooseServer方法，发现这么一段代码：</p>
-<p> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525622652849.png?raw=true" alt="1525622652849"></p>
-<p>我们看看这个rule是谁：</p>
-<p> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525622699666.png?raw=true" alt="1525622699666"></p>
-<p>这里的rule默认值是一个<code>RoundRobinRule</code>，看类的介绍：</p>
-<p> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/1525622754316.png?raw=true" alt="1525622754316"></p>
-<p>这不就是轮询的意思嘛。</p>
-<p>到这里，整个负载均衡的流程我们就清楚了。</p>
-<h3 id="4）总结"><a href="#4）总结" class="headerlink" title="4）总结"></a>4）总结</h3><p>SpringCloudRibbon的底层采用了一个拦截器，拦截了RestTemplate发出的请求，对地址做了修改。用一幅图来总结一下：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713224724673.png?raw=true" alt="image-20210713224724673"></p>
-<p>基本流程如下：</p>
-<ul>
+<h2 id="Ribbon-负载均衡"><a href="#Ribbon-负载均衡" class="headerlink" title="Ribbon 负载均衡"></a>Ribbon 负载均衡</h2><ul>
+<li>负载均衡原理<ul>
+<li>加了 @LoadBalanced 注解的RestTemplate，发送的请求将会被 Ribbon 拦截（SpringCloudRibbon的底层采用了一个拦截器），对地址做了修改，处理后发送 HTTP 请求<br>  基本流程如下：<ul>
 <li>拦截我们的RestTemplate请求<a target="_blank" rel="noopener" href="http://userservice/user/1">http://userservice/user/1</a></li>
 <li>RibbonLoadBalancerClient会从请求url中获取服务名称，也就是user-service</li>
 <li>DynamicServerListLoadBalancer根据user-service到eureka拉取服务列表</li>
 <li>eureka返回列表，localhost:8081、localhost:8082</li>
 <li>IRule利用内置负载均衡规则，从列表中选择一个，例如localhost:8081</li>
-<li>RibbonLoadBalancerClient修改请求地址，用localhost:8081替代userservice，得到<a target="_blank" rel="noopener" href="http://localhost:8081/user/1%EF%BC%8C%E5%8F%91%E8%B5%B7%E7%9C%9F%E5%AE%9E%E8%AF%B7%E6%B1%82">http://localhost:8081/user/1，发起真实请求</a></li>
+<li>RibbonLoadBalancerClient修改请求地址，用localhost:8081替代userservice，得到<a target="_blank" rel="noopener" href="http://localhost:8081/user/1%EF%BC%8C">http://localhost:8081/user/1，</a> 发起真实请求<br>  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713224724673.png?raw=true"></li>
 </ul>
-<h2 id="4-3-负载均衡策略"><a href="#4-3-负载均衡策略" class="headerlink" title="4.3.负载均衡策略"></a>4.3.负载均衡策略</h2><h3 id="4-3-1-负载均衡策略"><a href="#4-3-1-负载均衡策略" class="headerlink" title="4.3.1.负载均衡策略"></a>4.3.1.负载均衡策略</h3><p>负载均衡的规则都定义在IRule接口中，而IRule有很多不同的实现类：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713225653000.png?raw=true" alt="image-20210713225653000"></p>
-<p>不同规则的含义如下：</p>
-<table>
+</li>
+</ul>
+</li>
+<li>负载均衡策略IRule<ul>
+<li>IRule 接口：决定了负载均衡的策略，每一个子接口都是一种规则，轮询、随机、、、 通过定义 IRule 实现可以修改负载均衡策略</li>
+<li>负载均衡策略：负载均衡的规则都定义在IRule接口中，而IRule有很多不同的实现类：<br> <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713225653000.png?raw=true"><table>
 <thead>
 <tr>
 <th><strong>内置负载均衡规则类</strong></th>
@@ -506,8 +477,8 @@
 <td>为每一个服务器赋予一个权重值。服务器响应时间越长，这个服务器的权重就越小。这个规则会随机选择服务器，这个权重值会影响服务器的选择。</td>
 </tr>
 <tr>
-<td><strong>ZoneAvoidanceRule</strong></td>
-<td>以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做轮询。</td>
+<td><strong>ZoneAvoidanceRule</strong>【默认】</td>
+<td>以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做<strong>轮询</strong>。</td>
 </tr>
 <tr>
 <td>BestAvailableRule</td>
@@ -522,173 +493,75 @@
 <td>重试机制的选择逻辑</td>
 </tr>
 </tbody></table>
-<p>默认的实现就是ZoneAvoidanceRule，是一种轮询方案</p>
-<h3 id="4-3-2-自定义负载均衡策略"><a href="#4-3-2-自定义负载均衡策略" class="headerlink" title="4.3.2.自定义负载均衡策略"></a>4.3.2.自定义负载均衡策略</h3><p>通过定义IRule实现可以修改负载均衡规则，有两种方式：</p>
+</li>
+</ul>
+</li>
+<li>自定义负载均衡策略<ol>
+<li>代码方式：在order-service中的OrderApplication类中，定义一个新的IRule：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IRule <span class="title function_">randomRule</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RandomRule</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>配置文件方式：在order-service的application.yml文件中，添加新的配置也可以修改规则：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">userservice:</span> <span class="comment"># 给某个微服务配置负载均衡规则，这里是userservice服务</span></span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.RandomRule</span> <span class="comment"># 负载均衡规则 </span></span><br></pre></td></tr></table></figure></li>
+<li><strong>注意</strong>，一般用默认的负载均衡规则，不做修改。</li>
+</ol>
+</li>
+<li>饥饿加载<ul>
+<li>Ribbon默认是采用懒加载，即第一次访问时才会去创建LoadBalanceClient，请求时间会很长。而饥饿加载则会在项目启动时创建，降低第一次访问的耗时，通过下面配置开启饥饿加载：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ribbon:</span></span><br><span class="line"><span class="attr">eager-load:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">clients:</span> <span class="string">userservice</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h2 id="Nacos注册中心【8848】"><a href="#Nacos注册中心【8848】" class="headerlink" title="Nacos注册中心【8848】"></a>Nacos注册中心【8848】</h2><ul>
+<li><p><strong>Nacos</strong> 是阿里巴巴的产品，现在是 SpringCloud 中的一个组件。相比 Eureka 功能更加丰富，在国内受欢迎程度较高。</p>
+</li>
+<li><p><strong>Nacos服务搭建：</strong>下载安装包，解压，在 D:\nacos-server-1.4.1\bin 目录下cmd运行指令: </p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startup.<span class="built_in">cmd</span> -m standalone</span><br></pre></td></tr></table></figure>
+<p>浏览器打开 <a target="_blank" rel="noopener" href="http://10.195.138.48:8848/nacos/index.html#/login">http://10.195.138.48:8848/nacos/index.html#/login</a> ,输入账号&#x2F;密码：nacos </p>
+</li>
+<li><p><strong>Nacos服务注册或发现：</strong><br>  父工程添加 spring-cloud-alibaba 依赖；微服务项目引入 nacos.discovery 依赖，yml 配置 nacos 地址 spring.cloudnacos.server-addr<br>  Nacos 是 SpringCloudAlibaba 的组件，而 SpringCloudAlibaba 也遵循 SpringCloud 中定义的服务注册、服务发现规范。因此使用 Nacos 和使用 Eureka 对于微服务来说，并没有太大区别。</p>
 <ol>
-<li>代码方式：在order-service中的OrderApplication类中，定义一个新的IRule：</li>
+<li>引入依赖：<br>  在cloud-demo父工程的pom文件中的<code>&lt;dependencyManagement&gt;</code>中引入SpringCloudAlibaba的依赖；  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  然后在子微服务 user-service 和 order-service 中的pom文件中引入nacos-discovery依赖  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>配置nacos地址：在user-service和order-service的application.yml中添加nacos地址：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br></pre></td></tr></table></figure></li>
+<li>重启微服务后，登录nacos管理页面<a target="_blank" rel="noopener" href="http://10.195.138.48:8848/nacos/index.html#/">http://10.195.138.48:8848/nacos/index.html#/</a> ,可以看到微服务信息  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713231439607.png?raw=true" width="600" height="200"></li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IRule <span class="title function_">randomRule</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RandomRule</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="2">
-<li>配置文件方式：在order-service的application.yml文件中，添加新的配置也可以修改规则：</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">userservice:</span> <span class="comment"># 给某个微服务配置负载均衡规则，这里是userservice服务</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.RandomRule</span> <span class="comment"># 负载均衡规则 </span></span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>注意</strong>，一般用默认的负载均衡规则，不做修改。</p>
-</blockquote>
-<h2 id="4-4-饥饿加载"><a href="#4-4-饥饿加载" class="headerlink" title="4.4.饥饿加载"></a>4.4.饥饿加载</h2><p>Ribbon默认是采用懒加载，即第一次访问时才会去创建LoadBalanceClient，请求时间会很长。</p>
-<p>而饥饿加载则会在项目启动时创建，降低第一次访问的耗时，通过下面配置开启饥饿加载：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">  <span class="attr">eager-load:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">clients:</span> <span class="string">userservice</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="5-Nacos注册中心"><a href="#5-Nacos注册中心" class="headerlink" title="5.Nacos注册中心"></a>5.Nacos注册中心</h1><ul>
-<li>Nacos 是阿里巴巴的产品，现在是 SpringCloud 中的一个组件。相比 Eureka 功能更加丰富，在国内受欢迎程度较高。</li>
-<li>Nacos服务搭建：下载安装包，解压，在bin目录下运行指令: startup.cmd -mstandalone</li>
-<li>Nacos服务注册或发现：父工程添加 spring-cloud-alibaba 依赖；微服务项目引入 nacos.discovery 依赖，yml 配置 nacos 地址 spring.cloudnacos.server-addr</li>
-<li>Nacos服务分级存储</li>
-</ul>
-<h2 id="5-1-认识和安装Nacos"><a href="#5-1-认识和安装Nacos" class="headerlink" title="5.1.认识和安装Nacos"></a>5.1.认识和安装Nacos</h2><p><a target="_blank" rel="noopener" href="https://nacos.io/">Nacos</a>是阿里巴巴的产品，现在是<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-cloud">SpringCloud</a>中的一个组件。相比<a target="_blank" rel="noopener" href="https://github.com/Netflix/eureka">Eureka</a>功能更加丰富，在国内受欢迎程度较高。</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713230444308.png?raw=true" alt="image-20210713230444308"></p>
-<p>安装方式可以参考课前资料《Nacos安装指南.md》</p>
-<h2 id="5-2-服务注册到nacos"><a href="#5-2-服务注册到nacos" class="headerlink" title="5.2.服务注册到nacos"></a>5.2.服务注册到nacos</h2><p>Nacos是SpringCloudAlibaba的组件，而SpringCloudAlibaba也遵循SpringCloud中定义的服务注册、服务发现规范。因此使用Nacos和使用Eureka对于微服务来说，并没有太大区别。</p>
-<p>主要差异在于：</p>
+</li>
+<li><p><strong>Nacos服务分级存储</strong></p>
 <ul>
-<li>依赖不同</li>
-<li>服务地址不同</li>
+<li>一个<strong>服务</strong>可以有多个<strong>实例</strong>，例如我们的user-service，可以有：127.0.0.1:8081，127.0.0.1:8082，127.0.0.1:8083<br>  假如这些实例分布于全国各地的不同机房，例如：127.0.0.1:8081在上海机房，127.0.0.1:8082在上海机房，127.0.0.1:8083在杭州机房。    Nacos就将同一机房内的实例 划分为一个<strong>集群</strong>。<br>  也就是说，user-service是服务，一个服务可以包含多个集群，如杭州、上海，每个集群下可以有多个实例，形成分级模型：  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713232522531.png?raw=true" width="600" height="200">  
+  微服务互相访问时，应该尽可能访问同集群实例，因为本地访问速度更快。当本集群内不可用时，才访问其它集群：
+  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713232658928.png?raw=true" width="600" height="200">  </li>
+<li>配置集群：修改user-service的application.yml文件，添加集群配置：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">    <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span> <span class="comment"># 集群名称</span></span><br></pre></td></tr></table></figure></li>
+<li>同集群优先的负载均衡：默认的<code>ZoneAvoidanceRule</code>并不能实现根据同集群优先来实现负载均衡。因此Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例。<br>  修改order-service的application.yml文件，修改负载均衡规则：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">userservice:</span></span><br><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="comment"># 负载均衡规则 </span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="1）引入依赖"><a href="#1）引入依赖" class="headerlink" title="1）引入依赖"></a>1）引入依赖</h3><p>在cloud-demo父工程的pom文件中的<code>&lt;dependencyManagement&gt;</code>中引入SpringCloudAlibaba的依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在user-service和order-service中的pom文件中引入nacos-discovery依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>注意</strong>：不要忘了注释掉eureka的依赖。</p>
-</blockquote>
-<h3 id="2）配置nacos地址"><a href="#2）配置nacos地址" class="headerlink" title="2）配置nacos地址"></a>2）配置nacos地址</h3><p>在user-service和order-service的application.yml中添加nacos地址：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>注意</strong>：不要忘了注释掉eureka的地址</p>
-</blockquote>
-<h3 id="3）重启"><a href="#3）重启" class="headerlink" title="3）重启"></a>3）重启</h3><p>重启微服务后，登录nacos管理页面，可以看到微服务信息：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713231439607.png?raw=true" alt="image-20210713231439607"></p>
-<h2 id="5-3-服务分级存储模型"><a href="#5-3-服务分级存储模型" class="headerlink" title="5.3.服务分级存储模型"></a>5.3.服务分级存储模型</h2><p>一个<strong>服务</strong>可以有多个<strong>实例</strong>，例如我们的user-service，可以有:</p>
-<ul>
-<li>127.0.0.1:8081</li>
-<li>127.0.0.1:8082</li>
-<li>127.0.0.1:8083</li>
-</ul>
-<p>假如这些实例分布于全国各地的不同机房，例如：</p>
-<ul>
-<li>127.0.0.1:8081，在上海机房</li>
-<li>127.0.0.1:8082，在上海机房</li>
-<li>127.0.0.1:8083，在杭州机房</li>
-</ul>
-<p>Nacos就将同一机房内的实例 划分为一个<strong>集群</strong>。</p>
-<p>也就是说，user-service是服务，一个服务可以包含多个集群，如杭州、上海，每个集群下可以有多个实例，形成分级模型，如图：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713232522531.png?raw=true" alt="image-20210713232522531"></p>
-<p>微服务互相访问时，应该尽可能访问同集群实例，因为本地访问速度更快。当本集群内不可用时，才访问其它集群。例如：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713232658928.png?raw=true" alt="image-20210713232658928"></p>
-<p>杭州机房内的order-service应该优先访问同机房的user-service。</p>
-<h3 id="5-3-1-给user-service配置集群"><a href="#5-3-1-给user-service配置集群" class="headerlink" title="5.3.1.给user-service配置集群"></a>5.3.1.给user-service配置集群</h3><p>修改user-service的application.yml文件，添加集群配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span> <span class="comment"># 集群名称</span></span><br></pre></td></tr></table></figure>
-
-<p>重启两个user-service实例后，我们可以在nacos控制台看到下面结果：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713232916215.png?raw=true" alt="image-20210713232916215"></p>
-<p>我们再次复制一个user-service启动配置，添加属性：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dserver.port=8083 -Dspring.cloud.nacos.discovery.cluster-name=SH</span><br></pre></td></tr></table></figure>
-
-<p>配置如图所示：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713233528982.png?raw=true" alt="image-20210713233528982"></p>
-<p>启动UserApplication3后再次查看nacos控制台：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713233727923.png?raw=true" alt="image-20210713233727923"></p>
-<h3 id="5-3-2-同集群优先的负载均衡"><a href="#5-3-2-同集群优先的负载均衡" class="headerlink" title="5.3.2.同集群优先的负载均衡"></a>5.3.2.同集群优先的负载均衡</h3><p>默认的<code>ZoneAvoidanceRule</code>并不能实现根据同集群优先来实现负载均衡。</p>
-<p>因此Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例。</p>
-<p>1）给order-service配置集群信息</p>
-<p>修改order-service的application.yml文件，添加集群配置：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      server-addr: localhost:8848</span><br><span class="line">      discovery:</span><br><span class="line">        cluster-name: HZ <span class="comment"># 集群名称</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>2）修改负载均衡规则</p>
-<p>修改order-service的application.yml文件，修改负载均衡规则：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">userservice:</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="comment"># 负载均衡规则 </span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="5-4-权重配置"><a href="#5-4-权重配置" class="headerlink" title="5.4.权重配置"></a>5.4.权重配置</h2><p>实际部署中会出现这样的场景：</p>
-<p>服务器设备性能有差异，部分实例所在机器性能较好，另一些较差，我们希望性能好的机器承担更多的用户请求。</p>
-<p>但默认情况下NacosRule是同集群内随机挑选，不会考虑机器的性能问题。</p>
-<p>因此，Nacos提供了权重配置来控制访问频率，权重越大则访问频率越高。</p>
-<p>在nacos控制台，找到user-service的实例列表，点击编辑，即可修改权重：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713235133225.png?raw=true" alt="image-20210713235133225"></p>
-<p>在弹出的编辑窗口，修改权重：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713235235219.png?raw=true" alt="image-20210713235235219"></p>
-<blockquote>
-<p><strong>注意</strong>：如果权重修改为0，则该实例永远不会被访问</p>
-</blockquote>
-<h2 id="5-5-环境隔离"><a href="#5-5-环境隔离" class="headerlink" title="5.5.环境隔离"></a>5.5.环境隔离</h2><p>Nacos提供了namespace来实现环境隔离功能。</p>
+</li>
+<li><p><strong>权重配置：</strong>默认情况下NacosRule是同集群内随机挑选，不会考虑机器的性能问题。因此，Nacos提供了权重配置来控制访问频率，权重越大则访问频率越高。<br>在nacos控制台，找到user-service的实例列表，点击编辑，在弹出的窗口修改权重：（<strong>注意</strong>：权重为0，则该实例永远不会被访问）<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713235133225.png?raw=true"></p>
+<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713235235219.png?raw=true" width="300" height="200"> </li>
+<li><p><strong>环境隔离</strong>：Nacos提供了namespace来实现环境隔离功能（比如把一些功能紧密的服务隔离在一起，不能被另一些服务访问）</p>
 <ul>
 <li>nacos中可以有多个namespace</li>
 <li>namespace下可以有group、service等</li>
-<li>不同namespace之间相互隔离，例如不同namespace的服务互相不可见</li>
+<li>不同namespace之间相互隔离，例如不同namespace的服务互相不可见  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000101516.png?raw=true" width="500" height="200"></li>
 </ul>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000101516.png?raw=true" alt="image-20210714000101516"></p>
-<h3 id="5-5-1-创建namespace"><a href="#5-5-1-创建namespace" class="headerlink" title="5.5.1.创建namespace"></a>5.5.1.创建namespace</h3><p>默认情况下，所有service、data、group都在同一个namespace，名为public：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000414781.png?raw=true" alt="image-20210714000414781"></p>
-<p>我们可以点击页面新增按钮，添加一个namespace：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000440143.png?raw=true" alt="image-20210714000440143"></p>
-<p>然后，填写表单：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000505928.png?raw=true" alt="image-20210714000505928"></p>
-<p>就能在页面看到一个新的namespace：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000522913.png?raw=true" alt="image-20210714000522913"></p>
-<h3 id="5-5-2-给微服务配置namespace"><a href="#5-5-2-给微服务配置namespace" class="headerlink" title="5.5.2.给微服务配置namespace"></a>5.5.2.给微服务配置namespace</h3><p>给微服务配置namespace只能通过修改配置来实现。</p>
-<p>例如，修改order-service的application.yml文件：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">492a7d5d-237b-46a1-a99a-fa8e98e4b0f9</span> <span class="comment"># 命名空间，填ID</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>重启order-service后，访问控制台，可以看到下面的结果：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true" alt="image-20210714000830703"></p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000837140.png?raw=true" alt="image-20210714000837140"></p>
-<p>此时访问order-service，因为namespace不同，会导致找不到userservice，控制台会报错：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true" alt="image-20210714000941256"></p>
-<h2 id="5-6-Nacos与Eureka的区别"><a href="#5-6-Nacos与Eureka的区别" class="headerlink" title="5.6.Nacos与Eureka的区别"></a>5.6.Nacos与Eureka的区别</h2><p>Nacos的服务实例分为两种l类型：</p>
-<ul>
-<li><p>临时实例：如果实例宕机超过一定时间，会从服务列表剔除，默认的类型。</p>
+<ol>
+<li>创建namespace：默认情况下，所有service、data、group都在同一个namespace，名为public：  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000414781.png?raw=true" width="300" height="200"> 
+  我们可以点击页面新增按钮，添加一个namespace；然后，填写表单，创建一个新的namespace：
+  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000505928.png?raw=true" width="300" height="200"> </li>
+<li>给微服务配置namespace：只能通过修改配置来实现。例如，修改order-service的application.yml文件：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">    <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">492a7d5d-237b-46a1-a99a-fa8e98e4b0f9</span> <span class="comment"># 命名空间，填ID</span></span><br></pre></td></tr></table></figure>
+  重启order-service后，访问控制台，可以看到下面的结果：<br>  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true"><br>  此时访问order-service，因为namespace不同，会导致找不到userservice，控制台会报错：<br>  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true"></li>
+</ol>
 </li>
-<li><p>非临时实例：如果实例宕机，不会从服务列表剔除，也可以叫永久实例。</p>
-</li>
-</ul>
-<p>配置一个服务实例为永久实例：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">ephemeral:</span> <span class="literal">false</span> <span class="comment"># 设置为非临时实例</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>Nacos和Eureka整体结构类似，服务注册、服务拉取、心跳等待，但是也存在一些差异：</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714001728017.png?raw=true" alt="image-20210714001728017"></p>
+<li><p>Nacos与Eureka的区别<br>  Nacos和Eureka整体结构类似，服务注册、服务拉取、心跳等待，但是也存在一些差异：<br>  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714001728017.png?raw=true"></p>
 <ul>
-<li><p>Nacos与eureka的共同点</p>
-<ul>
+<li>Nacos与eureka的共同点<ul>
 <li>都支持服务注册和服务拉取</li>
 <li>都支持服务提供者心跳方式做健康检测</li>
 </ul>
 </li>
-<li><p>Nacos与Eureka的区别</p>
-<ul>
+<li>Nacos与Eureka的区别<ul>
+<li>Nacos的服务实例分为两种类型：<ul>
+<li>临时实例：如果实例宕机超过一定时间，会从服务列表剔除，默认的类型。</li>
+<li>非临时实例：如果实例宕机，不会从服务列表剔除，也可以叫永久实例。<br>  配置一个服务实例为永久实例：  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">ephemeral:</span> <span class="literal">false</span> <span class="comment"># 设置为非临时实例</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li>Nacos支持服务端主动检测提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式</li>
 <li>临时实例心跳不正常会被剔除，非临时实例则不会被剔除</li>
 <li>Nacos支持服务列表变更的消息推送模式，服务列表更新更及时</li>
@@ -696,7 +569,12 @@
 </ul>
 </li>
 </ul>
-<h1 id="SpringCloud实用篇02"><a href="#SpringCloud实用篇02" class="headerlink" title="SpringCloud实用篇02"></a>SpringCloud实用篇02</h1><h1 id="0-学习目标"><a href="#0-学习目标" class="headerlink" title="0.学习目标"></a>0.学习目标</h1><h1 id="1-Nacos配置管理"><a href="#1-Nacos配置管理" class="headerlink" title="1.Nacos配置管理"></a>1.Nacos配置管理</h1><p>Nacos除了可以做注册中心，同样可以做配置管理来使用。</p>
+</li>
+</ul>
+<p>？？？？？？？？？？？？？？？？</p>
+<p>、、、、、、、</p>
+<p>。。。</p>
+<h1 id="1-Nacos配置管理"><a href="#1-Nacos配置管理" class="headerlink" title="1.Nacos配置管理"></a>1.Nacos配置管理</h1><p>Nacos除了可以做注册中心，同样可以做配置管理来使用。</p>
 <h2 id="1-1-统一配置管理"><a href="#1-1-统一配置管理" class="headerlink" title="1.1.统一配置管理"></a>1.1.统一配置管理</h2><p>当微服务部署的实例越来越多，达到数十、数百时，逐个修改微服务配置就会让人抓狂，而且很容易出错。我们需要一种统一配置管理方案，可以集中管理所有实例的配置。</p>
 <p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714164426792.png?raw=true" alt="image-20210714164426792"></p>
 <p>Nacos一方面可以将配置集中管理，另一方可以在配置变更时，及时通知微服务，实现配置的热更新。</p>
@@ -790,7 +668,7 @@
 <p>其作用就是帮助我们优雅的实现http请求的发送，解决上面提到的问题。</p>
 <p><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174918088.png?raw=true" alt="image-20210714174918088"></p>
 <h2 id="2-1-Feign替代RestTemplate"><a href="#2-1-Feign替代RestTemplate" class="headerlink" title="2.1.Feign替代RestTemplate"></a>2.1.Feign替代RestTemplate</h2><p>Fegin的使用步骤如下：</p>
-<h3 id="1）引入依赖-1"><a href="#1）引入依赖-1" class="headerlink" title="1）引入依赖"></a>1）引入依赖</h3><p>我们在order-service服务的pom文件中引入feign的依赖：</p>
+<h3 id="1）引入依赖"><a href="#1）引入依赖" class="headerlink" title="1）引入依赖"></a>1）引入依赖</h3><p>我们在order-service服务的pom文件中引入feign的依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
