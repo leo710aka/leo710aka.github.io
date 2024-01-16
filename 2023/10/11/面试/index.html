@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-16T12:09:30.536Z">
+<meta property="article:modified_time" content="2024-01-16T14:53:59.716Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job1.png">
@@ -547,23 +547,21 @@
 <ul>
 <li><p>MyBatis。有没有完整地学习过一个框架？以及其他框架？<br>MyBatis（以前称为iBatis）是一个开源的<strong>Java持久层框架</strong>，用于将对象与关系数据库的表之间进行映射。MyBatis 通过 XML 或注解配置文件描述 Java 对象与数据库之间的映射关系，并提供了一些方便的查询语言（类似于SQL）来进行数据库操作。<br>JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。</p>
 </li>
-<li><p>Mybatis是怎么分页的？<br>逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>Mybatis提供了四种分页方式：</p>
-</li>
-</ul>
+<li><p>Mybatis是怎么分页的？<br>  逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>  Mybatis提供了 3 种分页方式：</p>
 <ol>
 <li>mybatis mapper配置文件写分页sql，直接在select语句里面加limit</li>
 <li>？？使用mybatis提供的RowBounds对象，实现内存级的分页</li>
 <li>？？基于mybatis中的Interceptor拦截器，在select语句执行之前动态拼接分页关键字</li>
 </ol>
-<ul>
-<li>#{} 与 ${} 的区别？</li>
-</ul>
-<p>两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
+</li>
+<li><p>#{} 与 ${} 的区别？<br>  两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
 <ol>
 <li><strong><code>#&#123;&#125;</code>（预编译）</strong>：<code>#&#123;&#125;</code> 是 MyBatis 的预处理语法，会在 SQL 中使用占位符 <code>?</code> 的形式，通过预编译的方式来处理参数，可以有效防止 SQL 注入攻击。使用 <code>#&#123;&#125;</code> 时，MyBatis 会将传入的参数值转义并进行预编译，同时会根据参数的类型决定使用不同的 JDBC 类型。这种方式可以确保 SQL 的安全性。</li>
 <li><strong><code>$&#123;&#125;</code>（拼接字符串）</strong>：<code>$&#123;&#125;</code> 是 MyBatis 的字符串替换语法，会直接将传入的参数值以字符串的形式拼接到 SQL 语句中。使用 <code>$&#123;&#125;</code> 时，需要注意潜在的 SQL 注入风险，因为参数值会直接替换到 SQL 语句中，不会进行预编译。</li>
 <li><code>#&#123;&#125;</code> 适用于参数值，防止 SQL 注入，用于预编译。<code>$&#123;&#125;</code> 适用于非参数值，直接将参数值拼接到 SQL 语句中。在开发中，推荐使用 <code>#&#123;&#125;</code> 来处理参数，以保障 SQL 的安全性。<code>$&#123;&#125;</code> 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</li>
 </ol>
+</li>
+</ul>
 <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/11/Mysql/">https://leo710aka.github.io/2022/03/11/Mysql/</a></p>
 <ul>
 <li><p>SQL 注入的原理和类型<br>1、恶意拼接查询 2、利用注释执行非法命令 3、传入非法参数 4、添加额外条件<br>如何避免 SQL 注入 ？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
