@@ -1600,53 +1600,50 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>);  <span class="comment">// 此时，堆内会新建一个 aaabbb 对象，字符串常量池里不会创建，因为并没有出现 aaabbb 这个字面量。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       <span class="comment">// 1.7 之后，如果堆内已经存在某个字符串对象的话，再调用 intern 此时不会在字符串常量池内新建对象，而是直接保存这个引用然后返回。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;            <span class="comment">// yesA 得到的引用与 yesC 和 yesB 一致，都指向堆内的 aaabbb 对象。</span></span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// true</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <ul>
-<li>String 连接？</li>
-</ul>
-<ol>
+<li>String 连接？<ol>
 <li><strong>使用 <code>+</code> 运算符</strong>：字符串连接最简单的方法，但在大量连接操作时可能效率较低，因为它会生成多个临时的字符串对象。</li>
 <li>**使用 <code>StringBuilder</code>**：可变的字符序列，适用于需要频繁进行字符串连接的场景。<code>append</code> 方法用于添加字符串内容，最后使用 <code>toString</code> 方法获取最终的字符串。适合单线程环境下使用。</li>
 <li>**使用 <code>StringBuffer</code>**：与 <code>StringBuilder</code> 类似，也是可变的字符序列，但不同之处在于 <code>StringBuffer</code> 是线程安全的，适用于多线程环境。</li>
 </ol>
+</li>
+</ul>
 <ul>
 <li>JDK9为什么要将 String 的底层实现由 char[] 改为 byte[]？<br>jdk中字符用utf-16编码，一个字符char要占用2个字节；但是对于由纯英文字符和ascii字符组成的字符串，只需要一个字节就可以表示所有ascii字符，使用 byte[] 可以节省一半空间。<br>只有在需要存储非ascii字符时，才会使用char[]</li>
 </ul>
 <ul>
-<li>静态 static</li>
-</ul>
+<li><p>静态 static</p>
 <ol>
 <li>静态变量（Static Variables）：被声明为 <code>static</code> 的成员变量，属于类而不是类的实例。它被所有类的实例共享，只有一个副本存在于内存中。</li>
-<li>静态方法（Static Methods）：被声明为 <code>static</code> 的方法，它不需要实例化类就可以直接通过类名调用。静态方法不能访问非静态成员，也无法使用 <code>this</code> 关键字。<br>静态方法凭什么不能访问成员方法：因为成员方法属于对象实例，静态方法属于类本身，静态方法第一次加载(方法区)的时候还没有对象(堆)，也就无法调用成员方法</li>
-<li>静态代码块（Static Blocks）：是包含在类中的静态块，它在类加载时执行，并且只执行一次。通常用于初始化静态变量或执行一些静态的初始化操作。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 静态代码块</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>静态内部类（Static Inner Classes）：在类中使用 <code>static</code> 关键字修饰的内部类。静态内部类与外部类实例无关，可以直接通过外部类名访问。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OuterClass</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">StaticInnerClass</span> &#123;</span><br><span class="line">        <span class="comment">// 静态内部类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-在使用静态成员时需要注意，它们的生命周期与类的生命周期相同，当类加载时会被初始化。静态成员属于类而不是对象，在合适的场景下能提供便利和效率。然而，过度使用静态成员可能会导致耦合度高和难以测试等问题，因此需要根据实际情况慎重使用。</li>
+<li>静态方法（Static Methods）：被声明为 <code>static</code> 的方法，它不需要实例化类就可以直接通过类名调用。静态方法不能访问非静态成员，也无法使用 <code>this</code> 关键字。<br>  静态方法凭什么不能访问成员方法：因为成员方法属于对象实例，静态方法属于类本身，静态方法第一次加载(方法区)的时候还没有对象(堆)，也就无法调用成员方法</li>
+<li>静态代码块（Static Blocks）：是包含在类中的静态块，它在类加载时执行，并且只执行一次。通常用于初始化静态变量或执行一些静态的初始化操作。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 静态代码块</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>静态内部类（Static Inner Classes）：在类中使用 <code>static</code> 关键字修饰的内部类。静态内部类与外部类实例无关，可以直接通过外部类名访问。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OuterClass</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">StaticInnerClass</span> &#123;</span><br><span class="line">        <span class="comment">// 静态内部类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  在使用静态成员时需要注意，它们的生命周期与类的生命周期相同，当类加载时会被初始化。静态成员属于类而不是对象，在合适的场景下能提供便利和效率。然而，过度使用静态成员可能会导致耦合度高和难以测试等问题，因此需要根据实际情况慎重使用。</li>
 </ol>
-<ul>
-<li>静态变量、静态代码块、普通代码块和构造方法的执行顺序？<br>执行顺序可以总结为：静态变量（按定义顺序初始化） -&gt; 静态代码块（按定义顺序执行） -&gt; 普通代码块（对象实例化时按照定义顺序执行） -&gt; 构造方法。</li>
-</ul>
+</li>
+<li><p>静态变量、静态代码块、普通代码块和构造方法的执行顺序？<br>  执行顺序可以总结为：静态变量（按定义顺序初始化） -&gt; 静态代码块（按定义顺序执行） -&gt; 普通代码块（对象实例化时按照定义顺序执行） -&gt; 构造方法。</p>
 <ol>
 <li>静态变量（静态成员变量）：在类加载时按照定义的顺序依次执行初始化，不论该变量在类中定义的位置如何，只会初始化一次。</li>
 <li>静态代码块（Static Blocks）：静态代码块在类加载时执行，优先于普通代码块和构造方法。静态代码块只会执行一次。</li>
 <li>普通代码块（普通初始化块）：普通代码块在对象实例化时执行，在构造方法之前执行。每次创建对象都会执行一次。</li>
 <li>构造方法（Constructor）：构造方法在对象创建时执行，用于初始化对象。在普通代码块执行完毕后执行。</li>
 </ol>
+</li>
+</ul>
 <ul>
 <li><p>子类继承父类，且都包含静态方法、构造方法。。<br>顺序：父类静态方法 -&gt; 父类静态代码块 -&gt; 子类静态方法 -&gt; 子类静态代码块 -&gt; 父类普通代码块 -&gt; 父类构造方法 -&gt; 子类普通代码块 -&gt; 子类构造方法</p>
 </li>
 <li><p>抽象类（Abstract Class）：</p>
-</li>
-</ul>
 <ol>
 <li><strong>特点</strong>：抽象类是一种不能被实例化的类，通常用于定义其他类的结构和行为。它可以包含抽象方法（只有方法签名，没有具体实现），以及普通的方法和字段。一个类只能继承一个抽象类。可以包含构造函数，可以有访问修饰符（public、private、protected）的方法。子类必须实现抽象类中的所有抽象方法，除非子类也是抽象类。</li>
 <li><strong>使用场景</strong>：当需要创建一个类，并在其中定义一些方法的行为，但不希望该类被实例化时，可以使用抽象类。抽象类也适合用于在类层次结构中作为其他类的基类，提供通用方法和字段，而具体实现交给其子类。</li>
 </ol>
-<ul>
-<li>接口（Interface）：</li>
-</ul>
+</li>
+<li><p>接口（Interface）：</p>
 <ol>
 <li><strong>特点</strong>：接口是一种完全抽象的类别，其中只包含方法的签名，但没有方法的实际实现。类可以实现多个接口，但接口不能包含字段或非抽象方法（在Java 8之后，引入了默认方法和静态方法）。</li>
 <li><strong>使用场景</strong>：当不同类需要共享某些行为，但它们属于不同的类层次结构时，接口是一个很好的选择。接口允许类定义一组规范，以确保实现类必须提供接口中定义的所有方法。可以使用接口来实现多态性，允许不同的类实现相同的接口并具有不同的行为。</li>
 </ol>
-<ul>
+</li>
 <li><p>接口与抽象类：<br>  接口和抽象类都是为了实现代码的重用和提供一致的编程接口而设计的。然而，接口更多地用于定义规范和合同，以确保实现类提供特定的行为，而抽象类更多地用于提供一些通用的方法和行为实现。</p>
 <ul>
 <li>抽象类和接口都用于实现多态性和提供一致的编程接口。它们通常用于大型项目中的类层次结构设计和代码组织。</li>
