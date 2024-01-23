@@ -95,11 +95,13 @@
 <br>
 <img src="https://leo710aka.github.io/bk/bk.jpg" width="550" height="300" alt="Old Master">
 <br>
-<img src="https://leo710aka.github.io/bk/zq.jpg" width="550" height="300" alt="">
-<br>
+<div style="display: flex; justify-content: center;">
+    <img src="https://leo710aka.github.io/bk/zq2.jpg" style="width: 100%; margin-right: 5px;">
+    <img src="https://leo710aka.github.io/bk/zq3.jpg" style="width: 100%; margin-left: 5px;">
+</div>
+<div style="text-align:center;text-shadow: 2px 2px 2px #888888;">Self-improvement</div>
 <br>
 <img src="https://leo710aka.github.io/bk/3.jpg" width="550" height="300" alt="">
-<br>
 <br>
 <!-- <img src="https://leo710aka.github.io/bk/4.jpg" width="750" height="300" alt=""> -->
 <!-- <img src="https://leo710aka.github.io/bk/zq2.jpg" width="550" height="200" alt="">
@@ -107,16 +109,13 @@
 <br>
 <img src="https://leo710aka.github.io/bk/zq3.jpg" width="550" height="200" alt="">
 <br> -->
-<div style="display: flex; justify-content: center;">
-    <img src="https://leo710aka.github.io/bk/zq2.jpg" style="width: 100%; margin-right: 5px;">
-    <img src="https://leo710aka.github.io/bk/zq3.jpg" style="width: 100%; margin-left: 5px;">
-</div>
+<img src="https://leo710aka.github.io/bk/zq.jpg" width="550" height="300" alt="">
 <br>
 <br>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clrj7mz6w000uqsv52gfb31r6" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clrqeykhw000s9sv5av2x88wr" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -165,7 +164,8 @@
 <li>有级联失败问题</li>
 </ul>
 </li>
-<li><p><strong>异步通讯</strong>：常见实现是事件驱动模式<br> 异步调用则可以避免上述问题：我们以购买商品为例，用户支付后需要调用订单服务完成订单状态修改，调用物流服务，从仓库分配响应的库存并准备发货。<br> 在事件模式中，支付服务是事件发布者（publisher），在支付完成后只需要发布一个支付成功的事件（event），事件中带上订单id。订单服务和物流服务是事件订阅者（Consumer），订阅支付成功的事件，监听到事件后完成自己业务即可。为了解除事件发布者与订阅者之间的耦合，两者并不是直接通信，而是有一个中间人（Broker）。发布者发布事件到Broker，不关心谁来订阅事件。订阅者从Broker订阅事件，不关心谁发来的消息。<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210422095356088.png?raw=true"><br> Broker 是一个像数据总线一样的东西，所有的服务要接收数据和发送数据都发到这个总线上，这个总线就像协议一样，让服务间的通讯变得标准和可控。<br> 好处：</p>
+<li><p><strong>异步通讯</strong>：常见实现是事件驱动模式<br> 异步调用则可以避免上述问题：我们以购买商品为例，用户支付后需要调用订单服务完成订单状态修改，调用物流服务，从仓库分配响应的库存并准备发货。<br> 在事件模式中，支付服务是事件发布者（publisher），在支付完成后只需要发布一个支付成功的事件（event），事件中带上订单id。订单服务和物流服务是事件订阅者（Consumer），订阅支付成功的事件，监听到事件后完成自己业务即可。为了解除事件发布者与订阅者之间的耦合，两者并不是直接通信，而是有一个中间人（Broker）。发布者发布事件到Broker，不关心谁来订阅事件。订阅者从Broker订阅事件，不关心谁发来的消息。<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210422095356088.png?raw=true"><br> Broker 是一个像数据总线一样的东西，所有的服务要接收数据和发送数据都发到这个总线上，这个总线就像协议一样，让服务间的通讯变得标准和可控。</p>
+<p> <strong>好处：</strong></p>
 <ul>
 <li>吞吐量提升：无需等待订阅者处理完成，响应更快速</li>
 <li>故障隔离：服务没有直接调用，不存在级联失败问题</li>
@@ -173,7 +173,7 @@
 <li>耦合度极低，每个服务都可以灵活插拔，可替换</li>
 <li>流量削峰：不管发布事件的流量波动多大，都由Broker接收，订阅者可以按照自己的速度去处理事件</li>
 </ul>
-<p> 缺点：</p>
+<p> <strong>缺点：</strong></p>
 <ul>
 <li>架构复杂了，业务没有明显的流程线，不好管理；</li>
 <li>需要依赖于Broker的可靠、安全、性能<br> 好在现在开源软件或云平台上 Broker 的软件是非常成熟的，比较常见的一种就是我们今天要学习的MQ技术。</li>
@@ -245,7 +245,8 @@
 <p>追求可靠性：RabbitMQ、RocketMQ</p>
 <p>追求吞吐能力：RocketMQ、Kafka</p>
 <p>追求消息低延迟：RabbitMQ、Kafka</p>
-<h1 id="二、快速入门"><a href="#二、快速入门" class="headerlink" title="二、快速入门"></a>二、快速入门</h1><h4 id="1-安装RabbitMQ"><a href="#1-安装RabbitMQ" class="headerlink" title="1. 安装RabbitMQ"></a>1. 安装RabbitMQ</h4><p>安装RabbitMQ，参考课前资料：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162628635.png?raw=true"><br>MQ的基本结构：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162752376.png?raw=true"><br>RabbitMQ中的一些角色：</p>
+<h1 id="二、快速入门"><a href="#二、快速入门" class="headerlink" title="二、快速入门"></a>二、快速入门</h1><h4 id="1-安装RabbitMQ"><a href="#1-安装RabbitMQ" class="headerlink" title="1. 安装RabbitMQ"></a>1. 安装RabbitMQ</h4><!-- 安装RabbitMQ，参考课前资料：![](https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162628635.png?raw=true) -->
+<p>MQ的基本结构：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162752376.png?raw=true"><br>RabbitMQ中的一些角色：</p>
 <ul>
 <li>publisher：生产者</li>
 <li>consumer：消费者</li>
@@ -253,8 +254,11 @@
 <li>queue：队列，存储消息</li>
 <li>virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离</li>
 </ul>
-<h4 id="2-RabbitMQ消息模型"><a href="#2-RabbitMQ消息模型" class="headerlink" title="2. RabbitMQ消息模型"></a>2. RabbitMQ消息模型</h4><p>RabbitMQ官方提供了5个不同的Demo示例，对应了不同的消息模型：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163332646.png?raw=true"></p>
-<h4 id="3-导入Demo工程"><a href="#3-导入Demo工程" class="headerlink" title="3. 导入Demo工程"></a>3. 导入Demo工程</h4><p>课前资料提供了一个Demo工程，mq-demo:<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163253264.png?raw=true"><br>导入后可以看到结构如下：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163604330.png?raw=true"><br>包括三部分：</p>
+<h4 id="2-RabbitMQ消息模型"><a href="#2-RabbitMQ消息模型" class="headerlink" title="2. RabbitMQ消息模型"></a>2. RabbitMQ消息模型</h4><!-- RabbitMQ官方提供了5个不同的Demo示例，对应了不同的消息模型： -->
+<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163332646.png?raw=true"></p>
+<h4 id="3-导入Demo工程"><a href="#3-导入Demo工程" class="headerlink" title="3. 导入Demo工程"></a>3. 导入Demo工程</h4><!-- 课前资料提供了一个Demo工程，mq-demo:![](https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163253264.png?raw=true)
+导入后可以看到结构如下： -->
+<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163604330.png?raw=true"><br>包括三部分：</p>
 <ul>
 <li>mq-demo：父工程，管理项目依赖</li>
 <li>publisher：消息的发送者</li>
@@ -345,7 +349,7 @@
 <li>消息发送<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitTemplate.convertAndSend(exchangeName, <span class="string">&quot;china.news&quot;</span>, message);</span><br></pre></td></tr></table></figure></li>
 <li>消息接收<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">    value = @Queue(name = &quot;topic.queue1&quot;),</span></span><br><span class="line"><span class="meta">    exchange = @Exchange(name = &quot;itcast.topic&quot;, type = ExchangeTypes.TOPIC),</span></span><br><span class="line"><span class="meta">    key = &quot;china.#&quot;</span></span><br><span class="line"><span class="meta">))</span></span><br></pre></td></tr></table></figure></li>
 <li>总结<br> 描述下Direct交换机与Topic交换机的差异？<ul>
-<li>Topic交换机接收的消息RoutingKey必须是多个单词，以 <code>**.**</code> 分割</li>
+<li>Topic交换机接收的消息RoutingKey必须是多个单词，以 <code>.</code> 分割</li>
 <li>Topic交换机与队列绑定时的bindingKey可以指定通配符</li>
 <li><code>#</code>：代表0个或多个词</li>
 <li><code>*</code>：代表1个词</li>
@@ -353,7 +357,7 @@
 </li>
 </ol>
 <h4 id="7-消息转换器"><a href="#7-消息转换器" class="headerlink" title="7.消息转换器"></a>7.消息转换器</h4><p>之前说过，Spring会把你发送的消息序列化为字节发送给MQ，接收消息的时候，还会把字节反序列化为Java对象。</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20200525170410401.png?raw=true"></p>
+<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20200525170410401.png?raw=true" alt="image-20200525170410401"></p>
 <p>只不过，默认情况下Spring采用的序列化方式是JDK序列化。众所周知，JDK序列化存在下列问题：</p>
 <ul>
 <li>数据体积过大</li>
@@ -370,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clrj7mz6v000pqsv55aha2u7w" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clrqeykhv000o9sv56fn57sr1" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -557,7 +561,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/10/Redis/" data-id="clrj7mz6v000nqsv56jhd87fn" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/10/Redis/" data-id="clrqeykhv000n9sv5ge7b9m7h" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1044,7 +1048,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clrj7mz6w000sqsv5eod0h84h" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clrqeykhw000v9sv59zdrcpnx" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1081,10 +1085,10 @@
         <p><strong>使命</strong>：让移动互联网营销简单高效</p>
 <p><strong>价值观</strong>：创造价值，分享价值</p>
 <p><strong>愿景</strong>：做最受信赖的移动互联网营销服务商</p>
+<p>WiFi：gzjunbo01888</p>
 <hr>
 
-<p>WiFi：gzjunbo01888</p>
-<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#x63;&#x61;&#x69;&#102;&#x40;&#103;&#122;&#x6a;&#x75;&#x6e;&#98;&#x6f;&#x2e;&#110;&#x65;&#116;">&#x63;&#x61;&#x69;&#102;&#x40;&#103;&#122;&#x6a;&#x75;&#x6e;&#98;&#x6f;&#x2e;&#110;&#x65;&#116;</a> 密码 cxxxxxxx</p>
+<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#x63;&#97;&#x69;&#102;&#64;&#x67;&#122;&#106;&#117;&#x6e;&#x62;&#111;&#x2e;&#x6e;&#x65;&#116;">&#x63;&#97;&#x69;&#102;&#64;&#x67;&#122;&#106;&#117;&#x6e;&#x62;&#111;&#x2e;&#x6e;&#x65;&#116;</a> 密码 cxxxxxxx</p>
 <p>OA系统网址 <a target="_blank" rel="noopener" href="http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&menuPathIds=1,12&_key=t0lres">http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&amp;menuPathIds=1,12&amp;_key=t0lres</a> 账号：caif 密码：cxxxxxxx</p>
 <p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a></p>
 <p>Confluence（文档管理）产研在线：<a target="_blank" rel="noopener" href="http://doc.junbo.top/#all-updates">http://doc.junbo.top/#all-updates</a> 账户：caif 密码 139xxxxxxxx</p>
@@ -1249,7 +1253,8 @@
 </li>
 <li>测试环境域名须加上“test-”前缀。规范持续集成方案,采用Jenkins。</li>
 <li>发布时严格实施多机部署。给出Tomcat、JVM等部署参数的建议配置。</li>
-<li>要求提供Dockerfile以实现容器化。包括配置监控端点、应用端口、服务注册、部署脚本等内容。<br>通过junbo-demo可以学习到<br>1、springboot微服务架构<br>2、熟悉api、model、service、dao、mapper层的调用关系<br>3、掌握junboGenerator的生成代码步骤，mybatis的增删改查的实现<br>4、掌握springboot中mysql、redis、MQ的操作方法<br>5、掌握单元测试的编写</li>
+<li>要求提供Dockerfile以实现容器化。包括配置监控端点、应用端口、服务注册、部署脚本等内容。</li>
+<li>通过junbo-demo可以学习到<br>1、springboot微服务架构<br>2、熟悉api、model、service、dao、mapper层的调用关系<br>3、掌握junboGenerator的生成代码步骤，mybatis的增删改查的实现<br>4、掌握springboot中mysql、redis、MQ的操作方法<br>5、掌握单元测试的编写</li>
 </ul>
 <hr>
 
@@ -1279,14 +1284,27 @@
 </ol>
 </li>
 <li><p>目标A：准备就业</p>
-<p>  大概是八月份，打消了考研以及留学的念头后，由于有Java开发的经验，自然往这个方向准备就业。<br>  要学习的内容特别多，原以为有基础便能用三个月左右准备好，事实上即使每天都在尽力填充自己，如此半年后还剩下许多没准备好的，更别说要能够在面试时从容对答。但是并不焦虑，只要做好规划，继续学下去，有限的内容总是能够准备完成的，剩下就是准备和面对不喜欢的面试环节。<br>  2024年1月4日，我通过了骏伯的面试，岗位是Java开发实习生。面试中，我提到希望接触一些高并发、分布式这样的复杂场景中的“高大上”的问题。进入公司两周，我了解到在实际工作中更多的是在不断地解决需求，跟团队成员协作对接，真正重要的是要有解决实际问题的能力。<br>  每次向导师提问的时候，他的分享毫无保留，各位同事都是我学习的对象。未来的日子，我将尽全力完成每个安排到的任务，提升编码能力，为公司创造价值。</p>
+</li>
+</ul>
+<p>大概是八月份，打消了考研以及留学的念头后，由于有Java开发的经验，自然往这个方向准备就业。<br>要学习的内容特别多，原以为有基础便能用三个月左右准备好，事实上即使每天都在尽力填充自己，如此半年后还剩下许多没准备好的，更别说要能够在面试时从容对答。但是并不焦虑，只要做好规划，继续学下去，有限的内容总是能够准备完成的，剩下就是准备和面对不喜欢的面试环节。<br>2024年1月4日，我通过了骏伯的面试，岗位是Java开发实习生。面试中，我提到希望接触一些高并发、分布式这样的复杂场景中的“高大上”的问题。进入公司两周，我了解到在实际工作中更多的是在不断地解决需求，跟团队成员协作对接，真正重要的是要有解决实际问题的能力。<br>每次向导师提问的时候，他的分享毫无保留，各位同事都是我学习的对象。未来的日子，我将尽全力完成每个安排到的任务，提升编码能力，为公司创造价值。</p>
+<h2 id="2024-01-23"><a href="#2024-01-23" class="headerlink" title="2024.01.23"></a>2024.01.23</h2><ul>
+<li><p>Jedis 和 RedisTemplate有什么区别？<br>Jedis 是 Redis 的官方 Java 客户端，直接使用 Redis 的命令进行操作。它提供了比较底层的 API，需要手动管理连接、序列化等。RedisTemplate 是 Spring Data Redis 提供的 Redis 客户端，它在 Jedis 的基础上进行了封装，提供了更高层次的抽象和更多的功能。<br>如果你在使用 Spring 项目，并且希望更方便地集成 Redis，并提供更高层次的抽象和功能，那么推荐使用 RedisTemplate。如果你对 Redis 的命令较为了解，或者需要更底层的操作，那么 Jedis 可能更适合你。</p>
+</li>
+<li><p>SpringBoot实体类 DO 和 BO</p>
+<ol>
+<li><strong>DO（Data Object）：</strong>通常表示数据库中的数据实体，对应数据库表的结构。它主要用于数据存储和数据库操作，包含与数据库表字段一一对应的属性。DO 类的命名一般以 “DO” 为后缀，例如 <code>UserDO</code>，<code>OrderDO</code>。类中通常包含与数据库表字段对应的成员变量、getter 和 setter 方法。它不应包含业务逻辑，主要负责数据的持久化和映射。</li>
+<li><strong>BO（Business Object）：</strong>通常表示业务层的业务实体，主要用于封装业务逻辑。BO 类一般包含与业务逻辑相关的属性和方法，与具体的数据存储形式无关。包含了一些业务逻辑的操作，比如计算、验证等。它不应直接与数据库进行交互，而是通过调用 Service 层或 DAO 层的方法实现数据的获取和存储。</li>
+<li>在 Spring Boot 中，DO和 BO是一些常见的命名规范，用于表示在不同层次中使用的实体类。这些命名规范有助于代码的清晰性和可维护性。在业务逻辑层中，可以通过转换工具或框架进行 DO 和 BO 之间的转换，以完成数据的传递和处理。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用实例BO对象生成DO对象</span></span><br><span class="line"><span class="type">OrderDO</span> <span class="variable">orderDO</span> <span class="operator">=</span> BeanMapperUtil.map(orderBO, OrderDO.class);</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">map</span><span class="params">(Object sourceObject, Class&lt;T&gt; destObjectclazz)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sourceObject == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">T</span> <span class="variable">destObject</span> <span class="operator">=</span> BeanUtils.instantiateClass(destObjectclazz);</span><br><span class="line">    <span class="comment">// 对象映射： 通过 copyProperties 方法，将源对象的属性值复制到目标对象中</span></span><br><span class="line">    copyProperties(sourceObject, destObject, <span class="literal">null</span>, (String[]) <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> destObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 通过 BeanUtils.instantiateClass() 动态实例化目标对象。有助于避免在代码中直接使用 new 操作符</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">instantiateClass</span><span class="params">(Class&lt;T&gt; clazz)</span> <span class="keyword">throws</span> BeanInstantiationException &#123;</span><br><span class="line">	Assert.notNull(clazz, <span class="string">&quot;Class must not be null&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (clazz.isInterface()) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;Specified class is an interface&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Constructor&lt;T&gt; ctor = (KotlinDetector.isKotlinType(clazz) ?</span><br><span class="line">				KotlinDelegate.getPrimaryConstructor(clazz) : clazz.getDeclaredConstructor());</span><br><span class="line">		<span class="keyword">return</span> instantiateClass(ctor);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (NoSuchMethodException ex) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;No default constructor found&quot;</span>, ex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (LinkageError err) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;Unresolvable class definition&quot;</span>, err);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clrj7mz6y0012qsv514rn6fxd" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clrqeyki100119sv51qvu0agr" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1509,7 +1527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clrj7mz6x000zqsv56550hqt1" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clrqeykhz000y9sv52nyb7ojc" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1545,6 +1563,14 @@
       
         <p>围绕简历准备：<a target="_blank" rel="noopener" href="https://www.wondercv.com/cvs/5hCOzINo/editor">https://www.wondercv.com/cvs/5hCOzINo/editor</a>,<br>个人技能：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/">https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/</a></p>
 <h2 id="八股（Java）"><a href="#八股（Java）" class="headerlink" title="八股（Java）"></a>八股（Java）</h2><ul>
+<li><p>JDK, JRE, JVM？<br><strong>JDK（Java Development Kit）：</strong>JDK是Java开发工具包，它是Java开发的完整工具集，包括了Java编译器（javac）、Java虚拟机（JVM）、Java类库等。主要用于Java应用程序的开发，提供了开发、编译、调试和运行Java程序所需的工具。<br><strong>JRE（Java Runtime Environment）：</strong>JRE是Java运行时环境，它是Java应用程序执行的环境，包含了Java虚拟机（JVM）和Java类库。用于在计算机上运行已经编译过的Java应用程序，但不包含用于Java开发的工具，如编译器。<br><strong>JVM（Java Virtual Machine）：</strong>JVM是Java虚拟机，是一个在物理计算机上模拟运行Java字节码（.class）的虚拟机。负责解释和执行Java字节码，通过不同操作系统上的 JVM 解释为该操作系统的机器指令，使得Java程序能够在不同的平台上实现一次编译，到处运行的跨平台特性。</p>
+</li>
+<li><p>hashCode() 与 equals()的关系？？<br>？？<br><strong>重写 equals() 就要重写 hashCode()：</strong></p>
+<ul>
+<li>如果一个类重写了 <code>equals()</code> 方法，那么它也应该重写 <code>hashCode()</code> 方法，以确保满足上述一致性的要求。</li>
+<li>如果一个类没有重写 <code>equals()</code> 方法，一般来说，不需要重写 <code>hashCode()</code>，因为默认的 <code>Object</code> 类中的 <code>hashCode()</code> 方法是基于对象的内存地址生成的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span> == obj) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="literal">null</span> || getClass() != obj.getClass()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="type">MyClass</span> <span class="variable">myClass</span> <span class="operator">=</span> (MyClass) obj;</span><br><span class="line">        <span class="keyword">return</span> id == myClass.id &amp;&amp; Objects.equals(name, myClass.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hash(id, name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li><p><strong>封装</strong>？int -&gt; Integer<br>Java面向对象语言，一切操作以对象为基础。对象中封装了属性和操作，使用灵活，数据不被外部修改。Integer初始值为null，存储在堆内存；int初始值0，存储在栈空间。封装类在处理集合、泛型、反射等场景中非常有用。</p>
 </li>
 <li><p>String<br>String 是不可变类。不可变类指的是无法修改对象的值，当你创建一个 String 对象之后，这个对象就无法被修改。像执行s +&#x3D; “a”; 返回的是一个新的 String 对象，老的 s 指向的对象不会发生变化，只是 s 的引用指向了新的对象而已。“不可变”最主要的好处就是安全，在多线程环境下也是线程安全的；然后，配合常量池可以节省内存空间，且获取效率也更高（如果常量池里面已经有这个字符串对象了，就不需要新建，直接返回即可）。</p>
@@ -1611,7 +1637,9 @@
 </li>
 <li><p>Java 的 List？<br>List在Java里边是一个接口，常见的实现类有ArrayList和LinkedList，ArrayList底层数据结构是数组，LinkedList链表。</p>
 </li>
-<li><p><strong>ArrayList</strong><br>实现了动态扩容。当new ArrayList()时，默认会有一个大小为0空的Object数组。第一次add添加数据的时候，会给数组初始化一个默认值<strong>10</strong>的大小。使用ArrayList在每一次add的时候，会先去计算数组空间；如果空间是够的，直接追加上去；如果不够，那就得扩容。在源码里边，有个grow方法，每一次扩容原来的<strong>1.5倍</strong>，之后会调用arraycopy来对数组进行拷贝。<br>日常开发中用得最多的是ArrayList呢：是由底层的数据结构来决定的，在日常开发中，遍历的需求比增删要多，即便是增删也是往往在List的尾部添加就OK了。像在尾部添加元素，ArrayList的时间复杂度也就O(1)另外的是，ArrayList的增删底层调用的copyOf()被优化过；现代CPU对内存可以块操作，ArrayList的增删一点儿也不会比LinkedList慢？？</p>
+<li><p><strong>ArrayList</strong><br>实现了动态扩容。当new ArrayList()时，默认会有一个大小为0空的Object数组。第一次add添加数据的时候，会给数组初始化一个默认值<strong>10</strong>的大小。使用ArrayList在每一次add的时候，会先去计算数组空间；如果空间是够的，直接追加上去；如果不够，那就得扩容。在源码里边，有个grow方法，每一次扩容原来的<strong>1.5倍</strong>，之后会调用arraycopy来对数组进行拷贝。<br>日常开发中用得最多的是ArrayList呢：是由底层的数据结构来决定的，在日常开发中，遍历的需求比增删要多，即便是增删也是往往在List的尾部添加就OK了。像在尾部添加元素，ArrayList的时间复杂度也就O(1)。<br>??另外的是，ArrayList的增删底层调用的copyOf()被优化过；现代CPU对内存可以块操作，ArrayList的增删一点儿也不会比LinkedList慢？？</p>
+</li>
+<li><p>LinkedList<br>是基于链表实现的，对于增删操作来说，由于链表节点的指针调整相对比较简单，删除或添加一个节点的开销是 O(1) 的。但在进行遍历和随机访问时，由于链表的非连续存储，性能相对较差。<br>因此，在实际场景中，ArrayList 在随机访问和遍历方面的性能通常比 LinkedList 更好，而在频繁的增删操作时，LinkedList 可能更具优势.<br>LinkedList 还实现了 DeQueue，可以对头尾元素操作，所以 LinkedList 也可以当作队列使用。</p>
 </li>
 <li><p>线程安全的List还有什么？<br>首先，我们也可以用Collections来将ArrayList来包装一下，变成线程安全。在java.util.concurrent包下还有一个类，叫做<strong>CopyOnWriteArrayList</strong>，是一个线程安全的List，底层是通过复制数组的方式来实现的。在add()方法会加lock锁，然后会复制出一个新的数组，往新的数组里边add真正的元素，最后把array的指向改变为新的数组，get()方法又或是size()方法只是获取array所指向的数组的元素或者大小。读不加锁，写加锁。CopyOnWriteArrayList跟文件系统的COW机制是很像的。缺点：很耗费内存，每次set()&#x2F;add()都会复制一个数组出来；另外只能保证数据的最终一致性，不能保证数据的实时一致性。</p>
 </li>
@@ -1647,7 +1675,7 @@
 </li>
 <li><p>ConcurrentHashMap？<br>ConcurrentHashMap是线程安全的Map实现类，它在juc包下的。线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。当然了，也可以使用Collections来包装出一个线程安全的Map。但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以一般都使用ConcurrentHashMap<br>HashMap不是线程安全的，多线程环境下有可能会有数据丢失和获取不了最新数据的问题<br>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，线程安全的。通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁。</p>
 </li>
-<li><p>注解？<br>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。<br>注解在开发中是非常常见的，比如Spring框架的 @Controller &#x2F; @Param &#x2F; @Select 等等。一些项目也用到lombok的注解，@Slf4j &#x2F; @Data 等等。Java原生也有@Overried、@Deprecated、@FunctionalInterface等基本注解。Java原生的基本注解大多数用于「标记」和「检查」还，此外有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的。<br>常用的元Annotation有@Retention 和@Target。@Retention注解可以简单理解为设置注解的生命周期，而@Target表示这个注解可以修饰哪些地方（比如方法、还是成员变量、还是包等等）<br>那你自己写过注解吗？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<li><p>注解？<br>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。<br>注解在开发中是非常常见的，比如Spring框架的 @Controller &#x2F; @Param &#x2F; @Select 等等。一些项目也用到lombok的注解，@Slf4j &#x2F; @Data 等等。Java原生也有@Overried、@Deprecated、@FunctionalInterface等基本注解。Java原生的基本注解大多数用于「标记」和「检查」还，此外有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的。<br>常用的元Annotation有@Retention 和@Target。@Retention注解可以简单理解为设置注解的生命周期，而@Target表示这个注解可以修饰哪些地方（比如方法、还是成员变量、还是包等等）<br>那你自己写过注解吗？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>@Passtoken？？</p>
 </li>
 <li><p>泛型？<br>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型<br>使用泛型的好处就是代码更加简洁（无需强制转换），程序更加健壮（编译期间没有警告，在运行期就无ClassCastException）<br>使用场景：操作集合的时候，List<String> lists &#x3D; new ArrayList&lt;&gt;();<br>如果是其他场景的话，那就是在写「基础组件」的时候了：再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」，而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的，所以在这种情况下用泛型就是很好的实践。 </p>
 </li>
@@ -1658,8 +1686,10 @@
 </li>
 <li><p>你了解动态代理吗？<br>动态代理其实就是代理模式的一种，代理模式是设计模式之一。代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理。<br>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。<br>动态代理这一技术在实际或者框架原理中是非常常见的。像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等等好用的技术，实际上用的就是动态代理。</p>
 </li>
-<li><p>Java 的NIO？<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>Java NIO 是JDK 1.4 开始有的，其目的是为了提高速度。传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。IO的实际场景是文件IO和网络IO，NIO在网络IO场景下提升就尤其明显了。 </p>
+<li><p>Java 的NIO？<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>Java NIO 是JDK 1.4 开始有的，其目的是为了提高速度。传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。IO的实际场景是文件IO和网络IO，NIO在网络IO场景下提升就尤其明显了。</p>
 </li>
+</ul>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
 <li><p>Java 编译到执行的过程？</p>
 <ul>
 <li>“Java 跨平台”：因为有 JVM 屏蔽了底层操作系统。Java源代码会被编译为class文件，class文件运行在JVM之上。JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。安装JDK的时可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</li>
@@ -1758,6 +1788,8 @@
 </li>
 </ul>
 </li>
+</ul>
+<h2 id="Java多线程"><a href="#Java多线程" class="headerlink" title="Java多线程"></a>Java多线程</h2><ul>
 <li><p>怎么理解Java多线程？  <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22973356/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22973356/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
 <li><p>Java内存模型？ Java3y <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
@@ -1829,7 +1861,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrj7mz6x000xqsv5bin20zdi" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrqeykhw000x9sv51kjx7zkn" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2016,7 +2048,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrj7mz6x0010qsv55vg04dae" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrqeyki200129sv5dt6r9roc" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2050,7 +2082,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#x32;&#x30;&#x32;&#48;&#x33;&#48;&#x34;&#52;&#x30;&#x30;&#49;&#48;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x73;&#99;&#x75;&#116;&#46;&#101;&#100;&#x75;&#46;&#99;&#110;">&#x32;&#x30;&#x32;&#48;&#x33;&#48;&#x34;&#52;&#x30;&#x30;&#49;&#48;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x73;&#99;&#x75;&#116;&#46;&#101;&#100;&#x75;&#46;&#99;&#110;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表国际会议论文一篇（已录用）。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
+        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#x32;&#48;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#49;&#48;&#64;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x73;&#x63;&#117;&#x74;&#x2e;&#x65;&#x64;&#x75;&#46;&#x63;&#x6e;">&#x32;&#48;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#49;&#48;&#64;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x73;&#x63;&#117;&#x74;&#x2e;&#x65;&#x64;&#x75;&#46;&#x63;&#x6e;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表国际会议论文一篇（已录用）。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -2107,7 +2139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="clrj7mz6x000vqsv58ztkfd8g" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="clrqeykhw000w9sv569qrfcvn" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2159,7 +2191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clrj7mz6p0005qsv5d7gpaqq0" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clrqeykhp00059sv52fg258p1" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

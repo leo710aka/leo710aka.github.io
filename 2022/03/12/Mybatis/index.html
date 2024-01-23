@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/mp2.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/mp3.png?raw=true">
 <meta property="article:published_time" content="2022-03-12T03:49:42.000Z">
-<meta property="article:modified_time" content="2023-12-27T07:29:48.696Z">
+<meta property="article:modified_time" content="2024-01-23T13:09:51.964Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/mp1.jpeg?raw=true">
@@ -114,11 +114,19 @@
 <li>MyBatis 可以很容易地与 Spring 框架集成，通过 Spring 的事务管理来控制数据库事务。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring 配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperLocations&quot;</span> <span class="attr">value</span>=<span class="string">&quot;classpath:mapper/*.xml&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sqlSessionTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.SqlSessionTemplate&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">&quot;0&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;sqlSessionFactory&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="SpringBoot实体类-——-VO-DTO-PO"><a href="#SpringBoot实体类-——-VO-DTO-PO" class="headerlink" title="SpringBoot实体类 —— VO&#x2F;DTO&#x2F;PO"></a>SpringBoot实体类 —— VO&#x2F;DTO&#x2F;PO</h3><ul>
-<li><strong>VO</strong>：View Object，主要用于展示层。它的作用是把某个指定前端页面的所有数据封装起来。他的作用主要是减少传输数据量大小和保护数据库隐私数据（如用户密码、用户邮箱等相关信息）不外泄，同时保护数据库的结构不外泄。</li>
-<li><strong>DTO</strong>：Data Transfer Object，数据传输对象，用于展示层与服务层之间的数据传输对象。（注：实际开发中还存在BO，其作用和DTO类似，当业务逻辑不复杂时一般会被合并。）</li>
-<li><strong>PO</strong>：Persistant Object，持久化对象，和数据库形成映射关系。简单说PO就是每一个数据库中的数据表，一个字段对应PO中的一个变量。（也就是我们常用的Entities）<img src="https://github.com/leo710aka/bk/blob/main/mp1.jpeg?raw=true" width="800" height="300" alt=""> 
+<li><p><strong>VO</strong>：View Object，主要用于展示层。它的作用是把某个指定前端页面的所有数据封装起来。他的作用主要是减少传输数据量大小和保护数据库隐私数据（如用户密码、用户邮箱等相关信息）不外泄，同时保护数据库的结构不外泄。</p>
+</li>
+<li><p><strong>DTO</strong>：Data Transfer Object，数据传输对象，用于展示层与服务层之间的数据传输对象。（注：实际开发中还存在BO，其作用和DTO类似，当业务逻辑不复杂时一般会被合并。）</p>
+</li>
+<li><p><strong>PO</strong>：Persistant Object，持久化对象，和数据库形成映射关系。简单说PO就是每一个数据库中的数据表，一个字段对应PO中的一个变量。（也就是我们常用的Entities）</p>
+<img src="https://github.com/leo710aka/bk/blob/main/mp1.jpeg?raw=true" width="800" height="300" alt=""> 
 1、从前端页面中收到JSON格式数据，后端接口中将其封装为一个VO对象；接口接收到VO对象后将其转换为DTO对象，并调用业务类方法对其进行处理；然后处理为PO对象，调用Dao接口连接数据库进行数据访问（查询、插入、更新等）2、后端从数据库得到结果后，根据Dao接口将结果映射为PO对象，然后调用业务类方法将其转换为需要的DTO对象，再根据前端页面实际需求，转换为VO对象进行返回。</li>
-<li><strong>类型转换</strong>：上述过程中，VO&#x2F;DTO&#x2F;PO等实体类中字段常常会存在多数相同，根据业务需求少数不同。为避免频繁的set和get操作对其进行转换，spring为我们提供了多种方法。（1）使用BeanUtils:（springframework包下）（2）使用BeanUtils:（Apache包下）（3）使用modelMapper？？</li>
+<li><p><strong>类型转换</strong>：上述过程中，VO&#x2F;DTO&#x2F;PO等实体类中字段常常会存在多数相同，根据业务需求少数不同。为避免频繁的set和get操作对其进行转换，spring为我们提供了多种方法。（1）使用BeanUtils:（springframework包下）（2）使用BeanUtils:（Apache包下）（3）使用modelMapper？？</p>
+</li>
+<li><p><strong>DO（Data Object）：</strong>通常表示数据库中的数据实体，对应数据库表的结构。它主要用于数据存储和数据库操作，包含与数据库表字段一一对应的属性。类中通常包含与数据库表字段对应的成员变量、getter 和 setter 方法。它不应包含业务逻辑，主要负责数据的持久化和映射。<br>尽管 PO 和 DO 在一些情况下用法相似，但它们的侧重点有所不同。PO 更侧重于与数据库的交互，强调持久化和数据表映射；而 DO 侧重于在不同层之间传递数据，强调业务逻辑层面的数据封装。</p>
+</li>
+<li><p><strong>BO（Business Object）：</strong>通常表示业务层的业务实体，主要用于封装业务逻辑。BO 类一般包含与业务逻辑相关的属性和方法，与具体的数据存储形式无关。包含了一些业务逻辑的操作，比如计算、验证等。它不应直接与数据库进行交互，而是通过调用 Service 层或 DAO 层的方法实现数据的获取和存储。</p>
+</li>
 </ul>
 <hr>
 
@@ -173,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clrj7mz6t000hqsv54mnefnnq" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clrqeykht000i9sv58cet233u" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
