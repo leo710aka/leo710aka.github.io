@@ -15,11 +15,11 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job6.png">
-<meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
+<meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-23T13:09:51.454Z">
+<meta property="article:modified_time" content="2024-01-24T12:59:14.627Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png">
@@ -179,7 +179,9 @@
 </li>
 <li><p>LinkedList<br>是基于链表实现的，对于增删操作来说，由于链表节点的指针调整相对比较简单，删除或添加一个节点的开销是 O(1) 的。但在进行遍历和随机访问时，由于链表的非连续存储，性能相对较差。<br>因此，在实际场景中，ArrayList 在随机访问和遍历方面的性能通常比 LinkedList 更好，而在频繁的增删操作时，LinkedList 可能更具优势.<br>LinkedList 还实现了 DeQueue，可以对头尾元素操作，所以 LinkedList 也可以当作队列使用。</p>
 </li>
-<li><p>线程安全的List还有什么？<br>首先，我们也可以用Collections来将ArrayList来包装一下，变成线程安全。在java.util.concurrent包下还有一个类，叫做<strong>CopyOnWriteArrayList</strong>，是一个线程安全的List，底层是通过复制数组的方式来实现的。在add()方法会加lock锁，然后会复制出一个新的数组，往新的数组里边add真正的元素，最后把array的指向改变为新的数组，get()方法又或是size()方法只是获取array所指向的数组的元素或者大小。读不加锁，写加锁。CopyOnWriteArrayList跟文件系统的COW机制是很像的。缺点：很耗费内存，每次set()&#x2F;add()都会复制一个数组出来；另外只能保证数据的最终一致性，不能保证数据的实时一致性。</p>
+<li><p>线程安全的List还有什么？<br>首先，我们也可以用Collections来将ArrayList来包装一下，变成线程安全。<br>在java.util.concurrent包下还有一个类，叫做<strong>CopyOnWriteArrayList</strong>，是一个线程安全的List，底层是通过复制数组的方式来实现的。在add()方法会加lock锁，然后会复制出一个新的数组，往新的数组里边add真正的元素，最后把array的指向改变为新的数组，get()方法又或是size()方法只是获取array所指向的数组的元素或者大小。读不加锁，写加锁。CopyOnWriteArrayList跟文件系统的COW机制是很像的。</p>
+</li>
+<li><p>CopyOnWriteArrayList的底层原理是怎样的<br>1，首先CopyOnWriteArraylst内部也是用过数组来实现的，在向CpyOnWriteAraist添加元素时，会复制一个新的数组，写操作在新数组上进行，读操作在原数组上行<br>2，并且，写操作会加锁，防止出现并发写入丢失数据的问题<br>3，写操作结束之后会把原数组指向新数组<br>4，CopyOnWriteArraylist允许在写操作时来读取数据，大大提高了读的性能，因此适合读多写少的应用场，但会占内存，同时可能读到的数据不是实时最新的教据（写线程操作结束后才能读到新数据），所以不适合实时性要求很高的场景</p>
 </li>
 <li><p>Vector 你了解吗？<br>Vector是底层结构是数组，一般现在已经很少用了。相对于ArrayList，它是线程安全的，在扩容的时候直接扩容两倍。</p>
 </li>
@@ -318,7 +320,7 @@
 <li>还有近期比较热门的Arthas（阿里开源的诊断工具），涵盖了上面很多命令的功能且自带图形化界面。</li>
 </ol>
 </li>
-<li>JVM的JIT优化技术：比较出名的有两种：方法内联和逃逸分析<br>  所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用<br>  因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来一定的性能损耗，所以「方法内联」的优化可以提高一定的性能。在JVM中也有相关的参数给予我们指定（-XX:MaxFreqInlineSize、-XX:MaxInlineSize）<br>  而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化，比如说：<ol>
+<li>JVM 的 JIT 优化技术：比较出名的有两种：方法内联和逃逸分析<br>  所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用<br>  因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来一定的性能损耗，所以「方法内联」的优化可以提高一定的性能。在JVM中也有相关的参数给予我们指定（-XX:MaxFreqInlineSize、-XX:MaxInlineSize）<br>  而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化，比如说：<ol>
 <li>锁消除（同步忽略）：该对象只在方法内部被访问，不会被别的地方引用，那么就一定是线程安全的，可以把锁相关的代码给忽略掉</li>
 <li>栈上分配：该对象只会在方法内部被访问，直接将对象分配在「栈」中（Java默认是将对象分配在「堆」中，是需要通过JVM垃圾回收期进行回收，需要损耗一定的性能，而栈内分配则快很多）</li>
 <li>标量替换&#x2F;分离对象：当程序真正执行的时候可以不创建这个对象，而直接创建它的成员变量来代替。将对象拆分后，可以分配对象的成员变量在栈或寄存器上，原本的对象就无需分配内存空间了</li>
@@ -332,8 +334,22 @@
 </li>
 <li><p>Java内存模型？ Java3y <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
+<li><p>Java死锁如何避免?<br>造成死锁的几个原因:<br>1。一个资源每次只能被一个线程使用<br>2。一个线程在阻塞等待某个资源时，不释放已占有资源<br>3。一个线程已经获得的资源，在未使用完之前，不能被强行剥夺<br>4。若干线程形成头尾相接的循环等待资源关系<br>这是造成死锁必须要达到的4个条件，如果要避免死锁，只需不满足其中某一个即可，而其中前3个是作为锁要符合的条件，所以要避免死锁就要打破第4个条件，不出现循环等待锁的关系。<br>？？在开发过程中:<br>1，要注意加锁顺序，保证每个线程按同样的顺序进行加锁<br>2，要注意加锁时限，可以针对所设置一个超时时间<br>3。要注意死铁检查，这是一种预防机制，确保在第一时间发现死锁并进行解决</p>
+</li>
 </ul>
 <h2 id="八股（Spring）"><a href="#八股（Spring）" class="headerlink" title="八股（Spring）"></a>八股（Spring）</h2><ul>
+<li>Spring IOC<br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
+<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方</li>
+<li>「注入依赖」：是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+<li>用Spring IOC有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>你们项目一般是怎么把对象交给IOC容器管理的？换个问法：一般是怎么定义Bean的？<br>  Spring提供了4种方式，分别是：1):注解 2):XML 3):JavaConfig 4):基于Groovy DSL配置<br>  日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML，「注解」解决不了的就用JavaConfig。反正就是定义元数据，能给到Spring解析就好了</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Spring AOP<br>Spring AOP 解决的是 非业务代码抽取的问题。<br>？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor<br>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
+<img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
+</li>
 <li><p>SpringMVC 流程<br>？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 <img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt="">
 </li>
@@ -353,45 +369,48 @@
 <li>遵循设计原则：使用接口遵循了面向对象编程的设计原则，如开闭原则（对扩展开放，对修改关闭）、单一职责原则等。这种设计模式使得代码更清晰、更易于理解和维护。</li>
 </ol>
 </li>
-</ul>
-<ul>
-<li>Spring IOC<br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
-<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了</li>
-<li>「注入依赖」：是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
-<li>用Spring IOC有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
-<li>你们项目一般是怎么把对象交给IOC容器管理的？换个问法：一般是怎么定义Bean的？<br>  Spring提供了4种方式，分别是：1):注解 2):XML 3):JavaConfig 4):基于Groovy DSL配置<br>  日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML，「注解」解决不了的就用JavaConfig。反正就是定义元数据，能给到Spring解析就好了</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>Spring AOP<br>Spring AOP 解决的是 非业务代码抽取的问题。<br>？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor<br>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
-<img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
-</li>
 <li><p>说说SpringBean生命周期原理？<br>？？</p>
 <img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
-
+</li>
+<li><p>Spring Boot中常用注解及其底层实现</p>
+<ol>
+<li>@SpringBootApplication注解: 这个注解标识了一个SpringBoot工程，它实际上是另外三个注解的组合，这三个注解是:<br>  a，@SpringBootConfiguration: 这个注解实际就是一个@Configuration，表示启动类也是一个配置类<br>  b，@EnableAutoConfiguration:向Spring容器中导入了一Seletor，用来加ClassPath下SpringFactoties中所定义的自动配置类，将这些自动为配置Bean<br>  c，@ComponentScan:标识扫描路径，因为赋认是没有配置实际扫描路径，所以SpringBoot扫描的路径是启动类所在的当前目录</li>
+<li>@Bean注解:用来定义Bean，类似于XML中的bean&gt;标签，Spring在启动时，会对加了@Bean注解的方法进行折，将方法的名字做为beanName，并通过执行方法得到bean对象</li>
+<li>@Controller、@Service、@ResponseBody、@Autowired都可以说</li>
+</ol>
 </li>
 <li><p>说说SpringBoot自动配置。<br>SpringBoot有着“约定大于配置”的理念，这一理念一定程度上可以用“SpringBoot自动配置”来解释。<br>在使用SpringBoot的时候，肯定会依赖于autoconfigure这么一个包？？<br>autoconfigure这个包里会有一个spring.factories文件，该文件定义了100+个入口的配置类。比如我们经常使用的redis、kafka等等这样常见的中间件都预置了配置类。当我们在启动SpringBoot项目的时候，内部就会加载这个spring.factories文件，进而去加载“有需要”的配置类。那我们在使用相关组件的时候，就会非常的方便（因为配置类已经初始化了一大部分配置信息）。一般我们只要在application配置文件写上对应的配置，就能通过各种template类直接操作对应的组件啦。<br>不是所有的配置类都会加载的，假设我们没有引入redis-starter的包，那Redis的配置类就不会被加载。具体Spring在实现的时候就是使用<code>@ConditionalXXX</code>进行判断的。比如Redis的配置类就会有@ConditionalOnClass({RedisOperations.class})的配置，说明当前环境下如果有RedisOperations.class这个字节码，才会去加载Redis的配置类。？？</p>
 </li>
-<li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类</p>
+<li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类 </p>
 </li>
+<li><p>Spring Boot是如何启动Tomcat的<br>1，首先，SpringBoot在启动时会先创建一个Spring容器<br>2，在创建 Spring容器过程中，会利用 @ConditionalOnClass 技术来判断当前 classpath中是否存在 Tomcat 依赖，如果存在则会生成一个启动 tomcat 的Bean<br>3，Spring 容器创建完之后，就会获取启动 Tomcat 的Bean，并创建 Tomcat 对象，并绑定端口等，然后启动 Tomcat<br>（ Spring Boot内嵌tomcat，与springmvc启动tomcat过程相反？？</p>
+</li>
+<li><p>Spring Cloud和 Dubbo有哪些区别?<br>Spring cloud是一个微服务框架，提供了微服务领域中的很多功能组件，Dubbo以开始是一个RPC调用框架，核心是解决服务调用间的问题，Springcloud是一个大而全框架，Dubbo则更侧重于服务调用，所以Dubbo所提供的功能没有Springcloud全面，但Dubbo的服务调用性能Springcloud高，不过并不对立的，是可以结合起来一起使用的。</p>
+</li>
+<li></li>
 </ul>
 <h2 id="八股（MyBatis）"><a href="#八股（MyBatis）" class="headerlink" title="八股（MyBatis）"></a>八股（MyBatis）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/11/Mysql/">https://leo710aka.github.io/2022/03/11/Mysql/</a></p>
 <ul>
 <li><p>MyBatis。有没有完整地学习过一个框架？以及其他框架？<br>MyBatis（以前称为iBatis）是一个开源的<strong>Java持久层框架</strong>，用于将对象与关系数据库的表之间进行映射。MyBatis 通过 XML 或注解配置文件描述 Java 对象与数据库之间的映射关系，并提供了一些方便的查询语言（类似于SQL）来进行数据库操作。<br>JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。</p>
 </li>
-<li><p>Mybatis是怎么分页的？<br>  逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>  Mybatis提供了 3 种分页方式：</p>
-<ol>
-<li>mybatis mapper配置文件写分页sql，直接在select语句里面加limit</li>
-<li>？？使用mybatis提供的RowBounds对象，实现内存级的分页</li>
-<li>？？基于mybatis中的Interceptor拦截器，在select语句执行之前动态拼接分页关键字</li>
-</ol>
+<li><p>Mybatis的优缺点</p>
+<ul>
+<li>优点:<br>  1.基于 SQL 编程，相当灵活，不会对应用程序或者数据库的现有设计成任何影响，SQL 写在 XML 里，解除 sql 与程序代码的耦合，便于统一管理；提供XML标签，支持编写动态 SQL 语句，并可重用。<br>  2.与 JDBC 相比，减少了 50%以上的代码量，消除了JDBC 大量几余的代码，不需要手动开关连接;<br>  3.很好的与各种数据库兼容(因为 Myatis 使用JDBC 来连接数据库，所以只要 JDBC 支持的数据库 MyBatis 都支持)。<br>  4.能够与Spring 很好的集成;<br>  5.提供映射标签，支持对象与数据库的 ORM 字段关系映射;提供对象关系映射标签，支持对象关系组件维护。</li>
+<li>缺点:<br>  1.SQL 语句的编写工作量较大，尤其当字段多、关联表多时，对开发人员编写SQL 语句的功底有一定要求.<br>  2.SQL 语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。</li>
+</ul>
 </li>
 <li><p>#{} 与 ${} 的区别？<br>  两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
 <ol>
 <li><strong><code>#&#123;&#125;</code>（预编译）</strong>：<code>#&#123;&#125;</code> 是 MyBatis 的预处理语法，会在 SQL 中使用占位符 <code>?</code> 的形式，通过预编译的方式来处理参数，可以有效防止 SQL 注入攻击。使用 <code>#&#123;&#125;</code> 时，MyBatis 会将传入的参数值转义并进行预编译，同时会根据参数的类型决定使用不同的 JDBC 类型。这种方式可以确保 SQL 的安全性。</li>
 <li><strong><code>$&#123;&#125;</code>（拼接字符串）</strong>：<code>$&#123;&#125;</code> 是 MyBatis 的字符串替换语法，会直接将传入的参数值以字符串的形式拼接到 SQL 语句中。使用 <code>$&#123;&#125;</code> 时，需要注意潜在的 SQL 注入风险，因为参数值会直接替换到 SQL 语句中，不会进行预编译。</li>
 <li><code>#&#123;&#125;</code> 适用于参数值，防止 SQL 注入，用于预编译。<code>$&#123;&#125;</code> 适用于非参数值，直接将参数值拼接到 SQL 语句中。在开发中，推荐使用 <code>#&#123;&#125;</code> 来处理参数，以保障 SQL 的安全性。<code>$&#123;&#125;</code> 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</li>
+</ol>
+</li>
+<li><p>Mybatis是怎么分页的？<br>  逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>  Mybatis提供了 3 种分页方式：</p>
+<ol>
+<li>mybatis mapper配置文件写分页sql，直接在select语句里面加limit</li>
+<li>？？使用mybatis提供的RowBounds对象，实现内存级的分页</li>
+<li>？？基于mybatis中的Interceptor拦截器，在select语句执行之前动态拼接分页关键字</li>
 </ol>
 </li>
 </ul>
