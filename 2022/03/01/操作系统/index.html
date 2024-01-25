@@ -6,15 +6,15 @@
   
   <title>操 作 系 统 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="硬件结构1.1 CPU是如何执行程序的（小林p），，    操作系统结构Linux内核 vs Windows内核，，   内存管理虚拟内存，，    进程与线程，，    调度算法，，    文件管理，，    设备管理，    网络系统，，    Linux指令，，">
+  <meta name="description" content="硬件结构1.1 CPU是如何执行程序的 图灵机：基本思想是用机器来模拟人们用纸笔进行数学运算的过程，而且还定义了计算机由哪些部分组成，程序又是如何执行的。  冯诺依曼模型  1945 年冯诺依曼和其他计算机科学家们提出了计算机具体实现的报告，其遵循了图灵机的设计，而且还提出用电子元件构造计算机，并约定了用二进制进行计算和存储，还定义计算机基本结构为  5 个部分，分别是中央处理器（CPU）、内存、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操 作 系 统">
 <meta property="og:url" content="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="硬件结构1.1 CPU是如何执行程序的（小林p），，    操作系统结构Linux内核 vs Windows内核，，   内存管理虚拟内存，，    进程与线程，，    调度算法，，    文件管理，，    设备管理，    网络系统，，    Linux指令，，">
+<meta property="og:description" content="硬件结构1.1 CPU是如何执行程序的 图灵机：基本思想是用机器来模拟人们用纸笔进行数学运算的过程，而且还定义了计算机由哪些部分组成，程序又是如何执行的。  冯诺依曼模型  1945 年冯诺依曼和其他计算机科学家们提出了计算机具体实现的报告，其遵循了图灵机的设计，而且还提出用电子元件构造计算机，并约定了用二进制进行计算和存储，还定义计算机基本结构为  5 个部分，分别是中央处理器（CPU）、内存、">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-01T09:02:15.000Z">
-<meta property="article:modified_time" content="2024-01-24T14:18:51.638Z">
+<meta property="article:modified_time" content="2024-01-25T13:00:23.107Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -93,7 +93,39 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="硬件结构"><a href="#硬件结构" class="headerlink" title="硬件结构"></a>硬件结构</h1><h2 id="1-1-CPU是如何执行程序的（小林p）"><a href="#1-1-CPU是如何执行程序的（小林p）" class="headerlink" title="1.1 CPU是如何执行程序的（小林p）"></a>1.1 CPU是如何执行程序的（小林p）</h2><p>，，</p>
+        <h1 id="硬件结构"><a href="#硬件结构" class="headerlink" title="硬件结构"></a>硬件结构</h1><h2 id="1-1-CPU是如何执行程序的"><a href="#1-1-CPU是如何执行程序的" class="headerlink" title="1.1 CPU是如何执行程序的"></a>1.1 CPU是如何执行程序的</h2><ul>
+<li><p>图灵机：基本思想是用机器来模拟人们用纸笔进行数学运算的过程，而且还定义了计算机由哪些部分组成，程序又是如何执行的。</p>
+</li>
+<li><p>冯诺依曼模型<br>  1945 年冯诺依曼和其他计算机科学家们提出了计算机具体实现的报告，其遵循了图灵机的设计，而且还提出用电子元件构造计算机，并约定了用二进制进行计算和存储，还定义计算机基本结构为  5 个部分，分别是中央处理器（CPU）、内存、输入设备、输出设备、总线。</p>
+<ul>
+<li>内存：我们的程序和数据都是存储在内存，存储的区域是线性的。数据存储的单位是一个二进制位（bit），即  0 或  1。最小的存储单位是字节（byte），1 字节等于 8 位。内存的地址是从 0 开始编号的，然后自增排列，最后一个地址为内存总字节数-1，这种结构好似我们程序里的数组，所以内存的读写任何一个数据的速度都是一样的。</li>
+<li>中央处理器：即 CPU，32 位和 64 位 CPU 最主要区别在于一次能计算多少字节数据：32 位  CPU 一次可以计算  4 个字节；64 位  CPU 一次可以计算  8 个字节；这里的  32 位和  64 位，通常称为 CPU 的位宽。这样设计，是为了能一次计算更大的数值， 8 位的  CPU一次只能计算  1 个字节0~255 范围内的数值，CPU 位宽越大，可以计算的数值就越大。<br>  CPU 内部还有一些组件，常见的有寄存器、控制单元和逻辑运算单元等。其中，控制单元负责控制  CPU工作，逻辑运算单元负责计算，而寄存器可以分为多种类，常见的寄存器种类：<ul>
+<li>通用寄存器，用来存放需要进行运算的数据，比如需要进行加和运算的两个数据。</li>
+<li>程序计数器，用来存储  CPU 要执行下一条指令「所在的内存地址」，注意不是存储了下一条要执行的指令，此时指令还在内存中，程序计数器只是存储了下一条指令的地址。</li>
+<li>指令寄存器，用来存放程序计数器指向的指令，也就是指令本身，指令被执行完成之前，指令都存储在这里。</li>
+</ul>
+</li>
+<li>总线：用于 CPU 和内存以及其他设备之间的通信，总线可分为 3 种：<ul>
+<li>地址总线，用于指定 CPU 将要操作的内存地址；</li>
+<li>数据总线，用于读写内存的数据；</li>
+<li>控制总线，用于发送和接收信号，比如中断、设备复位等信号，CPU 收到信号后自然进行响应，这时也需要控制总线；<br>  当 CPU 要读写内存数据的时候，一般需要通过两个总线：首先要通过「地址总线」来指定内存的地址；再通过「数据总线」来传输数据；</li>
+</ul>
+</li>
+<li>输入、输出设备：输入设备向计算机输入数据，计算机经过计算后，把数据输出给输出设备。期间，如果输入设备是键盘，按下按键时是需要和 CPU 进行交互的，这时就需要用到控制总线了。</li>
+</ul>
+</li>
+<li><p>线路位宽 与 CPU 位宽<br>为了避免低效率的串行传输的方式，线路的位宽最好一次就能访问到所有的内存地址。 CPU 要想操作的内存地址就需要地址总线，如果地址总线只有 1 条，那每次只能表示 「0 或 1」这两种情况，所以 CPU 一次只能操作 2 个内存地址，如果想要 CPU 操作 4G 的内存，那么就需要 32 条地址总线，因为 2 ^ 32 &#x3D;4G 。<br>CPU 的位宽最好不要小于线路位宽，比如  32 位  CPU 控制  40 位宽的地址总线和数据总线的话，工作起来就会非常复杂且麻烦，所以 32 位的  CPU 最好和  32 位宽的线路搭配，因为  32 位 CPU 一次最多只能操作32 位宽的地址总线和数据总线。</p>
+</li>
+<li><p>程序执行的基本过程<br>程序实际上是一条一条指令，所以程序的运行过程就是把每一条指令一步一步的执行起来，负责执行指令的就是  CPU 了。<br>第一步，CPU 读取「程序计数器」的值，这个值是指令的内存地址，然后  CPU 的「控制单元」操作「地址总线」指定需要访问的内存地址，接着通知内存设备准备数据，数据准备好后通过「数据总线」将指令数据传给  CPU，CPU 收到内存传来的数据后，将这个指令数据存入到「指令寄存器」。<br>第二步，CPU 分析「指令寄存器」中的指令，确定指令的类型和参数，如果是计算类型的指令，就把指令交给「逻辑运算单元」运算；如果是存储类型的指令，则交由「控制单元」执行；<br>第三步，CPU 执行完指令后，「程序计数器」的值自增，表示指向下一条指令。这个自增的大小，由CPU 的位宽决定，比如  32 位的  CPU，指令是  4 个字节，需要  4 个内存地址存放，因此「程序计数器」的值会自增  4；</p>
+</li>
+<li><p>a &#x3D; 1 + 2 执行具体过程（P13<br>、、</p>
+</li>
+</ul>
+<h2 id="1-2-存储器金字塔（小林p20）"><a href="#1-2-存储器金字塔（小林p20）" class="headerlink" title="1.2 存储器金字塔（小林p20）"></a>1.2 存储器金字塔（小林p20）</h2><p>、、</p>
+<h2 id="1-3-如何写出让-CPU-跑得更快的代码？（"><a href="#1-3-如何写出让-CPU-跑得更快的代码？（" class="headerlink" title="1.3 如何写出让 CPU 跑得更快的代码？（"></a>1.3 如何写出让 CPU 跑得更快的代码？（</h2><p>，，</p>
+<h2 id="1-4-CPU缓存一致性（"><a href="#1-4-CPU缓存一致性（" class="headerlink" title="1.4 CPU缓存一致性（"></a>1.4 CPU缓存一致性（</h2><p>、、</p>
+<h2 id="1-5-CPU-是如何执行任务的？（p65）"><a href="#1-5-CPU-是如何执行任务的？（p65）" class="headerlink" title="1.5 CPU 是如何执行任务的？（p65）"></a>1.5 CPU 是如何执行任务的？（p65）</h2><p>、、</p>
+<h2 id="1-6-软中断"><a href="#1-6-软中断" class="headerlink" title="1.6 软中断"></a>1.6 软中断</h2><p>。。</p>
 <hr>
 
 
@@ -129,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clrqeyki0000z9sv51smpgbu8" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clrt9n0mu000xzgv5hvwlfue8" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -193,6 +225,10 @@
           </li>
         
           <li>
+            <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
           </li>
         
@@ -214,10 +250,6 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
           </li>
         
       </ul>

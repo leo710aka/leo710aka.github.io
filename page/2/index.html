@@ -69,6 +69,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Colab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/31/Colab/" class="article-date">
+  <time class="dt-published" datetime="2023-07-31T02:25:07.000Z" itemprop="datePublished">2023-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/31/Colab/">Colab</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Google Colab</strong>是谷歌提供的免费<strong>Jupyter</strong>笔记本环境，不需要配置环境（本质是<strong>Linux虚拟机</strong>），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍。Colab Pro+ 订阅者还可获享更高的稳定性。</p>
+<p>使用Colab训练比较重要的是处理好路径的关系，找到哪个文件在哪里，文件夹的执行目录在哪里，就可以比较简单的运行起程序了，不过Colab确实存在断线问题，我们需要时刻保存好文件，因此我将权值直接保存在云盘上，这样也不会丢失。<br><strong>12h</strong>的限额比较难受，有时候没到时间就限额了。因此需要及时保存训练的模型，长时间不用gpu的情况下也会被限额（Pro版也一样），因此训练完建议及时改成gpu或停止。</p>
+<h3 id="Google-Drive"><a href="#Google-Drive" class="headerlink" title="Google Drive"></a>Google Drive</h3><p>谷歌云盘，谷歌云端硬盘。免费用户可以获取15G的空间，付费用户根据套餐可以选择最大20TB的储存空间。<br><strong>虚拟机根目录为 &#x2F;content，谷歌云盘地址为 &#x2F;content&#x2F;Drive&#x2F;MyDrive</strong></p>
+<h3 id="深度学习库的下载"><a href="#深度学习库的下载" class="headerlink" title="深度学习库的下载"></a>深度学习库的下载</h3><p>使用git clone指令进行下载，然后通过cd指令将根目录转移到了xx文件夹。<strong>此时根目录为 &#x2F;content&#x2F;xx</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!git <span class="built_in">clone</span> https://github.com/xx/xx.git</span><br><span class="line">%<span class="built_in">cd</span> xx/</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据集与预训练权重的上传"><a href="#数据集与预训练权重的上传" class="headerlink" title="数据集与预训练权重的上传"></a>数据集与预训练权重的上传</h3><p>数据集压缩，上传Google Drive，在colab中打开的jupyter文件（等于打开了一个Linux<strong>虚拟机本地</strong>）中挂载Google Drive；将数据集从Drive中复制到当前根目录，解压。<strong>直接将数据集布置在谷歌云盘会导致大量的云盘数据传输，且谷歌云盘和虚拟机之间存在通信带宽，速度远不及本地(虚拟机)文件，因此需要将数据集复制解压到本地(虚拟机)里进行处理。</strong> (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501</a>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">cp</span> /content/Drive/MyDrive/xx.zip ./</span><br><span class="line">!unzip ./xx.zip -d ./</span><br></pre></td></tr></table></figure>
+<p>预训练权重存放在 &#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx，然后创建logs和model_data。model_data放置的是预训练文件,logs放置的是网络训练过程中产生的权值。</p>
+<h3 id="保存路径设置"><a href="#保存路径设置" class="headerlink" title="保存路径设置"></a>保存路径设置</h3><p>如果将权值保存在当前根目录下的logs文件夹（&#x2F;content&#x2F;xx&#x2F;logs），发生断线网络就白训练了，浪费大量的时间。<br>可以将google云盘软连接到根目录下，那么即使断线，权值也保留在云盘中。<br>本文之前在云盘中创建了logs文件夹（&#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx&#x2F;logs），将该文件夹链接到当前根目录下的logs文件夹中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">ln</span> -s /content/Drive/MyDrive/Models/xx/logs logs   <span class="comment"># 即/content/xx/logs</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>1、标注文件的处理<br>2、训练文件的处理<br>1）预训练文件的使用。<br>2）保存周期的设置，这个设置是因为云盘的存储空间有限，每代都保存会导致存储空间满出。<br>3、开始训练：!python train.py</p>
+<h3 id="常用-colab-命令"><a href="#常用-colab-命令" class="headerlink" title="常用 colab 命令"></a>常用 colab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import shutil</span><br><span class="line">shutil.copytree(<span class="string">&quot;复制的文件夹&quot;</span>,<span class="string">&quot;目标路径+目标路径下的文件夹&quot;</span>)  <span class="comment"># 复制路径下的文件夹</span></span><br><span class="line">shutil.copytree(<span class="string">&quot;/content/drive/My Drive/channel&quot;</span>,<span class="string">&quot;/content/drive/My Drive/channel10&quot;</span>) <span class="comment"># ex</span></span><br><span class="line">shutil.rmtree(<span class="string">&quot;移除路径下的文件夹&quot;</span>) <span class="comment"># 移除路径下的文件夹</span></span><br><span class="line">shutil.copy(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>) <span class="comment"># 复制单个文件的命令  同上</span></span><br><span class="line"><span class="comment"># 删除单个文件可以右键删除</span></span><br><span class="line">!<span class="built_in">pwd</span> <span class="comment"># 显示当前目录, /content 为根目录</span></span><br><span class="line">import os </span><br><span class="line">os.chdir(<span class="string">&quot;/content/federated-learning&quot;</span>) <span class="comment"># 变更根目录操作</span></span><br><span class="line">!python <span class="string">&quot;/content/federated-learning/main_nn.py&quot;</span> <span class="comment"># 运行python 文件</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clrt9n0mf0006zgv5eu8qfhiw" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Pytorch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/07/14/Pytorch/" class="article-date">
@@ -108,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/14/Pytorch/" data-id="clrqeykhu000m9sv52nn21vvx" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/14/Pytorch/" data-id="clrt9n0mr000lzgv51f446s42" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -162,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/10/Anaconda/" data-id="clrqeykho00049sv56s8a5yfl" data-title="Anaconda" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/10/Anaconda/" data-id="clrt9n0me0005zgv5aaz674t7" data-title="Anaconda" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -239,7 +291,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/14/Docker/" data-id="clrqeykhq00089sv57bdidh1u" data-title="Docker" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/14/Docker/" data-id="clrt9n0mg0009zgv5byxy47bf" data-title="Docker" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -288,7 +340,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --list                         <span class="comment"># 查看配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;xx&quot;</span>        <span class="comment"># 配置 user.name_caifeng</span></span><br><span class="line">git config --global user.email <span class="string">&quot;xx&quot;</span>       <span class="comment"># user.email_1908454905@qq.com</span></span><br></pre></td></tr></table></figure>
 <p>配置 Git 的全局用户信息，这些信息在你提交代码到 Git 仓库时会被记录下来，用于标识提交代码的作者信息。</p>
 <h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><ul>
-<li>leo710aka <a href="mailto:&#49;&#x39;&#48;&#x38;&#x78;&#x78;&#x78;&#120;&#120;&#120;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;">&#49;&#x39;&#48;&#x38;&#x78;&#x78;&#x78;&#120;&#120;&#120;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;</a> cxxxxxx</li>
+<li>leo710aka <a href="mailto:&#49;&#x39;&#48;&#56;&#x78;&#x78;&#x78;&#120;&#x78;&#x78;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;">&#49;&#x39;&#48;&#56;&#x78;&#x78;&#x78;&#120;&#x78;&#x78;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;</a> cxxxxxx</li>
 <li>使用 SSH 密钥连接 GitHub：如果没有的话，使用？？？以下命令在本地<strong>生成 SSH 密钥</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
 生成 SSH 密钥后，将 <code>~/.ssh/id_rsa.pub</code>（公钥）的内容添加到 GitHub 账号的 SSH 密钥设置中。</li>
 <li>使用 HTTPS 认证连接 GitHub：<br>在 GitHub 上克隆仓库时，使用 HTTPS 链接，然后在推送更改时，会提示输入 GitHub 账号的用户名和密码，或者使用个人访问令牌（Personal Access Token）代替账号密码。</li>
@@ -316,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/12/Git/" data-id="clrqeykhp00079sv5g9bzbqi5" data-title="Git" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/12/Git/" data-id="clrt9n0mf0007zgv5hu6j8h9s" data-title="Git" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -369,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="clrqeykhw000t9sv5hxf4dahd" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="clrt9n0mt000uzgv5ckzs589o" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -434,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/02/Python%E7%88%AC%E8%99%AB/" data-id="clrqeykht000j9sv5ffi1azlq" data-title="Python spider" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/09/02/Python%E7%88%AC%E8%99%AB/" data-id="clrt9n0mq000kzgv514fhfpl2" data-title="Python spider" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -508,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/01/Python%E5%9F%BA%E7%A1%80/" data-id="clrqeykhu000k9sv55ifpcaks" data-title="Python 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/09/01/Python%E5%9F%BA%E7%A1%80/" data-id="clrt9n0mq000izgv52ywqaprb" data-title="Python 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -625,7 +677,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clrqeykht000i9sv58cet233u" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clrt9n0mp000hzgv5acz514g7" data-title="Mybatis | Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -836,60 +888,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clrqeykht000g9sv5c90y78ze" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SSH" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/06/SSH/" class="article-date">
-  <time class="dt-published" datetime="2022-03-06T09:02:15.000Z" itemprop="datePublished">2022-03-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/06/SSH/">SSH</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>SSH（Secure Shell）是一种用于在网络上进行加密通信的协议。它通常用于通过不安全的网络（例如互联网）安全地访问远程计算机上的终端。SSH 协议的主要目的是提供加密和身份验证，确保在客户端和服务器之间传输的数据是安全的。</li>
-<li>SSH 协议有两个主要组件：<strong>SSH客户端</strong>：用于发起远程连接的计算机上的程序。通过 SSH 客户端，用户可以连接到远程计算机并执行命令； <strong>SSH服务器</strong>：运行在远程计算机上的程序，接受来自客户端的连接并提供终端访问或执行其他操作。</li>
-<li>SSH 还可以用于文件传输和端口转发等用途，使其成为管理和维护远程服务器的强大工具。在日常工作中，开发人员、系统管理员和网络管理员经常使用 SSH 来远程管理和维护服务器。</li>
-</ol>
-<h3 id="SSH命令行工具"><a href="#SSH命令行工具" class="headerlink" title="SSH命令行工具"></a>SSH命令行工具</h3><p>Windows命令提示符和PowerShell都支持SSH命令。你可以使用ssh命令来连接到远程服务器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh username@hostname  <span class="comment"># 用户名 @ 公网IP</span></span><br><span class="line">ssh -i 密钥文件 username@hostname  <span class="comment"># 密钥登录</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="SSH客户端：MobarXterm"><a href="#SSH客户端：MobarXterm" class="headerlink" title="SSH客户端：MobarXterm"></a>SSH客户端：MobarXterm</h2><p>如果远程服务器上的操作系统的界面使用起来不方便，可以使用ssh客户端连接并操控远程服务器，<strong>包括本机上的虚拟机；</strong><br>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的SSH客户端，常见有 Xshell，Finshell，MobarXterm</p>
-<h3 id="连接虚拟机"><a href="#连接虚拟机" class="headerlink" title="连接虚拟机"></a><strong>连接虚拟机</strong></h3><p>1、打开MobarXterm，点击session按钮，进入会话管理：<br>2、在弹出的session管理页面中，填写信息：Remote Host(虚拟机的ipv4地址)，Specify name(root)<br>3、输入密码：(与虚拟机的一样？)cx0xx1xx，连接本机上 VMware中的 CentOS7系统的虚拟机<br>4、连接(虚拟机)成功后，进入操作界面了，通过 MobarXterm界面 对 VMware中的虚拟机 进行操作。</p>
-<h3 id="使用-MobarXterm-操作-Docker"><a href="#使用-MobarXterm-操作-Docker" class="headerlink" title="使用 MobarXterm 操作 Docker"></a>使用 MobarXterm 操作 Docker</h3><ol>
-<li><strong>启动虚拟机</strong>，使用 MobarXterm 连接虚拟机成功后，进入操作界面。<strong>在 MobarXterm界面上 对 VMware中的虚拟机 进行操作。</strong></li>
-<li>安装配置 Docker<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先要安装一个yum工具，并配置Docker的yum源</span></span><br><span class="line">yum install -y yum-utils</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 安装Docker</span></span><br><span class="line">yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line">systemctl start docker    <span class="comment"># 启动Docker</span></span><br><span class="line">systemctl stop docker     <span class="comment"># 停止Docker</span></span><br><span class="line">systemctl restart docker  <span class="comment"># 重启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> docker   <span class="comment"># 设置开机自启</span></span><br><span class="line">docker ps                 <span class="comment"># 执行docker ps命令，如果不报错，说明安装启动成功</span></span><br></pre></td></tr></table></figure></li>
-<li>配置阿里云镜像加速，重启docker</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/06/SSH/" data-id="clrqeykhv000p9sv5ch2hc1gs" data-title="SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clrt9n0mq000jzgv548xthi1f" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -941,6 +940,10 @@
           </li>
         
           <li>
+            <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
           </li>
         
@@ -962,10 +965,6 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
           </li>
         
       </ul>

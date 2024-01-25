@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-24T12:59:14.627Z">
+<meta property="article:modified_time" content="2024-01-25T13:00:23.162Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png">
@@ -369,8 +369,14 @@
 <li>遵循设计原则：使用接口遵循了面向对象编程的设计原则，如开闭原则（对扩展开放，对修改关闭）、单一职责原则等。这种设计模式使得代码更清晰、更易于理解和维护。</li>
 </ol>
 </li>
+<li><p>？？Spring容器启动流程是怎样的<br>1，在创建Spring容器，也就是启动Spring时:<br>2，首先会进行扫描，扫描得到所有的BeanDefinition对象，并存在一个Map中<br>3，然后筛选出非懒加弱的单例BeanDefinton进行创建Bean，对于多例Bean不需要在启动过程中去进行创建，对于多例Bean会在每次获取Bean时利用BeanDeinition去建<br>4，利用BeanDefinition创建Bean就是Bean的创建生命因期，这期间包括了合并BeanDefintion、推断构造法、实例化、属性填充、初始化前、初始化、初始化后等步骤其中AOP就是发生在初始化后这一步骤中<br>5，单例Bean创建完了之后，Spring会发布一个容器启动事件<br>6，Spring启动结束<br>7，在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanfatoyPostProcessor和BeanPostprocessor的注册，Spring的描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的8。在sprina启动过程中还会去处理@Import等注解</p>
+</li>
 <li><p>说说SpringBean生命周期原理？<br>？？</p>
 <img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
+</li>
+<li><p>Spring中Bean是线程安全的吗<br>Spring本身并没有针对Bean做线程安全的处理，所以:<br>1。如果Bean是无状志的，那么Bean则是线程安全的<br>2，如果Bean是有状态的，那么Bean则不是线程安全的<br>另外，Bean是不是线程安全，跟Bean的作用域没有关系，Bean的作用域只是表示Bean的生命周期范围，对于任何生命周期的Bean都是一个对象，这个对象是不是线挥安全的还得看这个Bean本身。</p>
+</li>
+<li><p>Spring中的Bean创建的生命周期有哪些步骤<br>大概分为以下几个步骤:<br>1，推断构造方法 ？？<br>2，实例化对象<br>3，填充属性，也就是依赖注入<br>4，处理Aware回调<br>5，初始化前，处理@PostConstruct注解<br>6，初始化，处理InitializingBean接口<br>7，初始化后，进行AOP<br>真正的步骤更加细致，，，，、、、、</p>
 </li>
 <li><p>Spring Boot中常用注解及其底层实现</p>
 <ol>
@@ -418,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrqeykhw000x9sv51kjx7zkn" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrt9n0mv0010zgv567vydcin" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -482,6 +488,10 @@
           </li>
         
           <li>
+            <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+          </li>
+        
+          <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
           </li>
         
@@ -503,10 +513,6 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
           </li>
         
       </ul>
