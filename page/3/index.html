@@ -110,7 +110,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/06/SSH/" data-id="clrt9n0ms000pzgv5ewk0h7un" data-title="SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/06/SSH/" data-id="clrw33u09000q64v502frdqwk" data-title="SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -171,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/05/VMware/" data-id="clrt9n0mt000tzgv59jjn6x30" data-title="VMware" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/05/VMware/" data-id="clrw33u09000s64v5aay0awzg" data-title="VMware" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -299,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clrt9n0mp000gzgv59bljcigt" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clrw33tzp000f64v51blv1c8s" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -401,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clrt9n0mu000xzgv5hvwlfue8" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clrw33u0b001064v54h762kz2" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -742,7 +742,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="clrt9n0mu000yzgv5932ual2s" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="clrw33u0a000w64v5gquxa0bk" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -776,32 +776,46 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>为什么有了SpringFramework还会诞生SpringBoot？简单而言，因为虽然Spring的组件代码是轻量级的，但它的配置却是重量级的；所以SpringBoot的设计策略是通过开箱即用和约定大于配置 来解决配置重的问题的。</p>
-<p>Spring Boot 是一个用于简化 Spring 应用程序开发的框架，它提供了大量的注解来简化配置和开发。</p>
-<h2 id="Spring-Boot-注解"><a href="#Spring-Boot-注解" class="headerlink" title="Spring Boot 注解"></a>Spring Boot 注解</h2><ol>
-<li><code>@SpringBootApplication</code>：该注解用于标记主应用程序类，通常位于项目的顶层包中。它包含了 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code> 注解，用于自动配置和组件扫描。</li>
-<li><code>@RestController</code>：用于标记一个类，表示它是一个控制器类，处理 HTTP 请求并返回 JSON 或 XML 等数据。</li>
-<li><code>@RequestMapping</code>：用于将 HTTP 请求映射到控制器方法上，指定请求的 URL 路径和请求方法（GET、POST、PUT、DELETE 等） <strong>@RequestMapping(path &#x3D; “&#x2F;user&#x2F;detail”, method &#x3D; RequestMethod.POST)</strong></li>
-<li><code>@GetMapping</code>、<code>@PostMapping</code>、<code>@PutMapping</code>、<code>@DeleteMapping</code>：这些注解分别用于将 HTTP GET、POST、PUT 和 DELETE 请求映射到相应的处理方法上。</li>
-<li><code>@RequestParam</code>：用于从请求参数中获取值，并将其传递给控制器方法的参数。</li>
+        <p>Spring Boot 是一个用于简化 Spring 应用程序开发的框架，它提供了大量的注解来简化配置和开发。</p>
+<h3 id="SpringFramework没有解决了什么问题？"><a href="#SpringFramework没有解决了什么问题？" class="headerlink" title="SpringFramework没有解决了什么问题？"></a>SpringFramework没有解决了什么问题？</h3><p>为什么有了SpringFramework还会诞生SpringBoot？简单而言，因为虽然Spring的组件代码是轻量级的，但它的配置却是重量级的。<br>一开始，Spring用XML配置，而且是很多XML配置。Spring 2.5引入了基于注解的组件扫描，这消除了大量针对应用程序自身组件的显式XML配置。Spring 3.0引入了基于Java的配置，这是一种类型安全的可重构配置方式，可以代替XML。<br>所有这些配置都代表了开发时的损耗。因为在思考Spring特性配置和解决业务问题之间需要进行思维切换，所以编写配置挤占了编写应用程序逻辑的时间。和所有框架一样，Spring实用，但与此同时它要求的回报也不少。<br>除此之外，项目的依赖管理也是一件耗时耗力的事情。在环境搭建时，需要分析要导入哪些库的坐标，而且还需要分析导入与之有依赖关系的其他库的坐标，一旦选错了依赖的版本，随之而来的不兼容问题就会严重阻碍项目的开发进度。<br>1.jsp中要写很多代码、控制器过于灵活,缺少一个公用控制器 2.Spring不支持分布式,这也是EJB仍然在用的原因之一。</p>
+<h3 id="SringBoot的概述"><a href="#SringBoot的概述" class="headerlink" title="SringBoot的概述"></a>SringBoot的概述</h3><ul>
+<li>SpringBoot解决上述Spring的缺点<br>SpringBoot对上述Spring的缺点进行的改善和优化，基于约定优于配置的思想，可以让开发人员不必在配置与逻辑业务之间进行思维的切换，全身心的投入到逻辑业务的代码编写中，从而大大提高了开发的效率，一定程度上缩短了项目周期。</li>
+<li>SpringBoot的特点<br>1、为基于Spring的开发提供更快的入门体验<br>2、开箱即用，没有代码生成，也无需XML配置。同时也可以修改默认值来满足特定的需求<br>3、提供了一些大型项目中常见的非功能性特性，如嵌入式服务器、安全、指标，健康检测、外部配置等<br>SpringBoot不是对Spring功能上的增强，而是提供了一种快速使用Spring的方式</li>
+<li>SpringBoot的核心功能<ul>
+<li>起步依赖：起步依赖本质上是一个Maven项目对象模型（Project Object Model，POM），定义了对其他库的传递依赖，这些东西加在一起即支持某项功能。简单的说，起步依赖就是将具备某种功能的坐标打包到一起，并提供一些默认的功能。</li>
+<li>自动配置：Spring Boot的自动配置是一个运行时（更准确地说，是应用程序启动时）的过程，考虑了众多因素，才决定Spring配置应该用哪个，不该用哪个。该过程是Spring自动完成的</li>
+</ul>
+</li>
+<li>为什么添加一个starter-web模块，一个简单的web程序便完成了呢？<br>SpringBoot最强大的地方在于约定大于配置，只要你引入某个模块的xx-start包，它将自动注入配置，提供了这个模块的功能；<br>比如这里我们在POM中添加了如下的包<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+它内嵌了Tomcat并且提供了默认的配置，比如默认端口是8080；可以在application.properties或者application.yml中修改配置。</li>
+</ul>
+<h2 id="SpringBoot-注解"><a href="#SpringBoot-注解" class="headerlink" title="SpringBoot 注解"></a>SpringBoot 注解</h2><ol>
+<li><code>@SpringBootApplication</code>：该注解用于标记主应用程序类，通常位于项目的顶层包中。定义在main方法入口类处，用于启动sping boot应用项目。<br>它包含了 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code> 注解，用于自动配置和组件扫描。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Exclude specific auto-configuration classes such that they will never be applied.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the classes to exclude</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<code>@EnableAutoConfiguration</code>：让spring boot根据类路径中的jar包依赖当前项目进行自动配置，在src&#x2F;main&#x2F;resources的META-INF&#x2F;spring.factories</li>
+<li><code>@ImportResource</code>：加载xml配置，一般是放在启动main类上</li>
+<li><code>@ConfigurationProperties(prefix=&quot;person&quot;)</code>：可以新建一个properties文件，ConfigurationProperties的属性prefix指定properties的配置的前缀，通过location指定properties文件的位置</li>
+<li><code>@PostConstruct</code>：spring容器初始化时，要执行该方法</li>
+<li><code>@ComponentScan</code>：注解会告知Spring扫描指定的包来初始化Spring</li>
+<li><code>@RestController</code>：用于标记一个类，表示它是一个控制器类，处理 HTTP 请求并返回 JSON 或 XML 等数据。<br><code>@GetMapping</code>、<code>@PostMapping</code>、<code>@PutMapping</code>、<code>@DeleteMapping</code>：这些注解分别用于将 HTTP GET、POST、PUT 和 DELETE 请求映射到相应的处理方法上。<br><code>@RequestMapping</code>：用于将 HTTP 请求映射到控制器方法上，指定请求的 URL 路径和请求方法（GET、POST、PUT、DELETE 等）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(path = &quot;/user/detail&quot;, method = RequestMethod.POST)</span></span><br></pre></td></tr></table></figure>
+<code>@RequestParam</code>：用于从请求参数中获取值，并将其传递给控制器方法的参数。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;CopperVO&gt; <span class="title function_">getOpList</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">                                <span class="meta">@RequestParam(value = &quot;pageIndex&quot;, required = false)</span> Integer pageIndex,</span></span><br><span class="line"><span class="params">                                <span class="meta">@RequestParam(value = &quot;pageSize&quot;, required = false)</span> Integer pageSize)</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><code>@PathVariable</code>：用于从 URL 路径中获取值，并将其传递给控制器方法的参数。</li>
 <li><code>@RequestBody</code>：用于将请求体中的数据绑定到控制器方法的参数上，通常用于接收 JSON 或 XML 数据。<br><code>@ResponseBody</code>： 表示方法返回的对象应该直接写入HTTP响应体，而不是通过视图解析器进行渲染。</li>
-<li><code>@Autowired</code> 是 Spring 框架自带的注解用于进行<strong>依赖注入</strong>，将 Spring 托管的 bean 注入到需要它们的类中。<br><code>@Resource</code>是 Java EE 提供的注解，用于实现<strong>依赖注入</strong>。它可以用于字段、setter 方法、构造函数等地方，用于告诉容器注入指定名称或类型的 bean。</li>
-<li><code>@Service</code>、<code>@Repository</code>、<code>@Controller</code>：这些注解分别用于标记服务类、仓库类和控制器类，以便 Spring Boot 可以自动扫描并创建这些组件。都属于 @Component 的衍生注解，用于更明确地表示类的职责。<br><code>@Component</code> 是 Spring 框架中用于<strong>声明一个类为 Spring 管理的组件（Bean）</strong>的注解。</li>
-<li><code>@Configuration</code>：用于定义配置类，通常与 @Bean 注解一起使用，用于配置第三方库或复杂的 bean。<br><code>@Bean</code>： 用于定义Spring Bean，通常在 @Configuration 类中使用。</li>
+<li><code>@Autowired</code> 是 Spring 框架自带的注解用于进行<strong>依赖注入</strong>，将 Spring 托管的 bean 注入到需要它们的类中。<br><code>@Resource</code>是 Java EE 提供的注解，用于实现<strong>依赖注入</strong>。它可以用于字段、setter 方法、构造函数等地方，用于告诉容器注入指定名称或类型的 bean。<br><code>@Bean</code>： 用于定义Spring Bean，通常在 @Configuration 类中使用。<br><code>@Component</code> 是 Spring 框架中用于<strong>声明一个类为 Spring 管理的组件（Bean）</strong>的注解。</li>
+<li><code>@Service</code>、<code>@Repository</code>、<code>@Controller</code>：这些注解分别用于标记服务类、仓库类和控制器类，以便 Spring Boot 可以自动扫描并创建这些组件。都属于 @Component 的衍生注解，用于更明确地表示类的职责。</li>
+<li><code>@Configuration</code>：用于定义配置类，通常与 @Bean 注解一起使用，用于配置第三方库或复杂的 bean。</li>
 <li><code>@Override</code> 是Java中的一个注解（Annotation），用于标识方法是否是一个覆盖（重写）了父类或接口中的方法。它提供了编译时的检查，确保您正确地重写了父类或接口中的方法，以防止由于拼写错误或方法签名不匹配而导致的错误。</li>
-<li><code>@Value</code>：用于注入属性值，从配置文件中获取属性值。</li>
+<li><code>@Value</code>：用于注入属性值，从配置文件中获取属性值。 </li>
 <li><code>@Profile</code>：用于定义不同环境下的配置文件，可以根据不同的配置文件加载不同的配置。</li>
 <li><code>@Conditional</code>：用于根据条件决定是否创建某个 bean。</li>
-<li><code>@EnableAutoConfiguration</code>：用于自动配置Spring Boot应用程序的组件，通常与 <code>@SpringBootApplication</code> 一起使用。</li>
 <li><code>@Param</code>：给参数变量起别名。如果只有一个参数，并且在mapper对应的xml文件中<if>里使用，则必须加别名。</li>
 <li><code>@Async</code> 是 Spring 框架中用于实现异步方法调用的注解。通过在方法上添加 @Async 注解，Spring Boot 就会在调用该方法时使用另一个线程来执行，而不是阻塞当前线程等待方法执行完成。</li>
+<li><code>@Order</code>：如 @Order(1)，值越小优先级超高，越先运行</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clrt9n0ms000qzgv50s680a7k" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clrw33u08000o64v5hd40du2q" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1016,7 +1030,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/11/Spring/" data-id="clrt9n0ms000rzgv52lbk75yf" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/11/Spring/" data-id="clrw33u09000r64v50vymfy0i" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1207,7 +1221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="clrt9n0mm000dzgv50t8nay60" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="clrw33tzo000e64v5cs9f8ie5" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1653,7 +1667,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/04/JVM/" data-id="clrt9n0ml000czgv5bicgelfy" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/04/JVM/" data-id="clrw33tzm000a64v5gubrhsj1" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1733,7 +1747,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clrt9n0mo000fzgv511tlf7tj" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clrw33tzn000c64v53d1ihk2p" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

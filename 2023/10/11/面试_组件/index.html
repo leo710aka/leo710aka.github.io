@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-24T14:12:49.353Z">
+<meta property="article:modified_time" content="2024-01-27T12:57:26.401Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -132,6 +132,7 @@
 <ul>
 <li>B树：节点从小到大排序，一个节点可存多个元素</li>
 <li>B+树：拥有B树的特点，叶子结点间有指针，叶子结点存储了所有的元素</li>
+<li>B树和B+树，一般都是应用在文件系统和数据库系统中，用来减少磁盘IO带来的性能损耗。<br>  以Mysql中的InnoDB为例，当我们通过select语句去查询一条数据时，InnoDB需要从磁盘上去读取数据，这个过程会涉及到磁盘IO以及磁盘的随机IO（如图所示）我们知道磁盘IO的性能是特别低的，特别是随机磁盘IO。因为，磁盘IO的工作原理是，首先系统会把数据逻辑地址传给磁盘，磁盘控制电路按照寻址逻辑把逻辑地址翻译成物理地址，也就是确定要读取的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要把磁头放在这个扇区的上面，为了实现这一个点，磁盘会不断旋转，把目标扇区旋转到磁头下面，使得磁头找到对应的磁道，这里涉及到寻道事件以及旋转时间<br>  很明显，磁盘IO这个过程的性能开销是非常大的，特别是查询的数据量比较多的情况下。所以在InnoDB中，干脆对存储在磁盘块上的数据建立一个索引，然后把索引数据以及索引列对应的磁盘地址，以B+树的方式来存储。如图所示，当我们需要查询目标数据的时候，根据索引从B+树中查找目标数据即可，由于B+树分路较多，所以只需要较少次数的磁盘IO就能查找到。</li>
 </ul>
 </li>
 <li><p>为什么 MySQL 的索引要使用 B+ 树而不是其它树形结构？<br>  1、B+树能显著减少IO次数，提高效率。因为 B 树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致 IO 操作变多，查询性能变低。<br>  2、B+树的查询效率更加稳定。因为数据放在叶子节点。<br>  3、B+树能提高范围查询的效率。因为叶子节点指向下一个叶子节点。</p>
@@ -190,6 +191,8 @@
 </li>
 <li><p>Redis 和 Mysql如何保证数据一致？<br>1.先更新 Mysql，再更新 Redis，如果更新 Redis失败，可能仍然不一致<br>2，先删除 Redis缓存数据，再更新 MySql，再次查询的时候在将数据添加到缓存中，这种方案能解决方案1的问题，但是在高并发下性能较低，而且仍然会出现数据不一致的问题：比如线程1删除了Redis缓存数据，正在更新 MySql，此时另外一个查询再查询，那么就会把 MySql中老数据又查到 Redis中<br>3，<strong>延时双删，</strong>步聚是：先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致</p>
 </li>
+<li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
+</li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
 <li><p>为什么要用Redis？<br>无论Redis、MySQL、HDFS、HBase都是存储数据的地方，因为设计理念的不同，我们会根据不同的应用场景使用不同的存储。<br>像Redis一般我们会把它用作于缓存（当然，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了<br>为什么Redis可以这么快？首先，它是纯内存操作，内存本身就很快。其次，它是单线程的，Redis服务器核心是基于非阻塞的IO多路复用机制，单线程避免了多线程的频繁上下文切换问题</p>
@@ -245,10 +248,14 @@
 <li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁</p>
 </li>
 </ul>
+<hr>
+
 <h2 id="八股（网-络）"><a href="#八股（网-络）" class="headerlink" title="八股（网 络）"></a>八股（网 络）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</a></p>
 <ul>
 <li>介绍 TCP&#x2F;IP 模型。</li>
 </ul>
+<hr>
+
 <h2 id="八股（操-作-系-统）"><a href="#八股（操-作-系-统）" class="headerlink" title="八股（操 作 系 统）"></a>八股（操 作 系 统）</h2><ul>
 <li><p>进程与线程？</p>
 <ul>
@@ -277,7 +284,12 @@
 </li>
 </ul>
 </li>
+<li><p>CPU 飙高系统反应慢怎么排查？<br>CPU 是整个电脑的核心计算资源，对于一个应用进程来说，CPU 的最小执行单元是线程。导致 CPU 飙高的原因有几个方面：<br>1、CPU 上下文切换过多，对于 CPU 来说，同一时刻下每个 CPU 核心只能运行一个线程，如果有多个线程要执行，CPU 只能通过上下文切换的方式来执行不同的线程。较多的上下文切换会占据大量 CPU 资源，从而使得 cpu 无法去执行用户进程中的指令，导致响应速度下降。在 Java 中，文件 IO、网络 IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换<br>2、CPU 资源过度消耗，也就是在程序中创建了大量的线程，或者有线程一直占用CPU 资源无法被释放，比如死循环！CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率<br>3、既然是这两个问题导致的 CPU 利用率较高，于是我们可以通过 top 命令，找到 CPU利用率较高的进程，在通过 Shift+H 找到进程中 CPU 消耗过高的线程，这里有两种情况。<br>CPU 利用率过高的线程一直是同一个，说明程序中存在线程长期占用 CPU 没有释放的情况，这种情况直接通过jstack 获得线程的 Dump 日志，定位到线程日志后就可以找到问题的代码。<br>CPU 利用率过高的线程 id 不断变化，说明线程创建过多，需要挑选几个线程id通过 jstack 去线程 dump 日志中排查。<br>4、最后有可能定位的结果是程序正常，只是在 CPU 飙高的那一刻，用户访问量较大，导致系统资源不够。</p>
+</li>
 </ul>
+<hr>
+
+
 <h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
 <li><p>SOA、分布式、微服务之间有什么关系和区别?<br>1，分布式架构是指将单体架构中的各个部分拆分，然后部署不同的机器或进程中去，SOA和微服务基本上都是分布式架构的<br>2，SOA 是一种面向服务的架构，系统的所有服务都注册在总线上，当调用服务时，从总线上查找服务信息，然后调用<br>3，微服务是一种更彻底的面向服务的架构，将系统中各个功能个体抽成一个个小的应用程序，基本保持一个应用对应的一个服务的架构</p>
 </li>
@@ -288,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrt9n0mv0012zgv527u99y3t" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrw33u0b000z64v5e3a6bk5i" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

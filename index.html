@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clrt9n0mt000vzgv516a4hap8" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clrw33u0a000x64v58eosb6s0" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -149,11 +149,100 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <ul>
+<li><p>设计模式是为了解决软件开发过程中常见的问题而提出的一种解决方案，它们是从实际应用中总结出来的一些经验和方法论。设计模式可以帮助开发人员更加容易地解决复杂问题，提高代码的可重用性、可扩展性、可维护性等，从而提高软件开发效率和代码质量。<br>具体来说，设计模式主要是为了解决以下几类问题：<br>（1）代码复杂度问题：在软件开发中，代码往往会变得越来越复杂，难以理解和维护。设计模式提供了一些组织代码的方式，让代码结构更加清晰，易于理解和维护。<br>（2）重用问题：在开发过程中，我们希望能够尽可能地复用代码，减少重复开发的工作量。设计模式提供了一些通用的解决方案，可以让我们更加容易地复用代码。<br>（3）扩展性问题：软件开发过程中，我们需要不断地对系统进行扩展和改进。设计模式提供了一些可扩展的解决方案，可以让系统更加容易地扩展和改进，同时保持代码的高可读性和可维护性。<br>（4）协作问题：在多人协作的开发过程中，代码的组织和沟通变得非常重要。设计模式提供了一些标准化的组织方式，可以让开发者更加容易地沟通和协作。</p>
+</li>
+<li><p>设计原则<br>软件设计原则是指在软件开发过程中遵循的一些通用的、经过验证的规则和指导原则。这些原则旨在提高软件的可维护性、可扩展性、可重用性和可靠性等方面的质量。<br>以下是一些常见的软件设计原则：<br>（1）单一职责原则（SRP）：一个类应该只有一个职责或只有一个引起变化的原因。<br>（2）开放-封闭原则（OCP）：软件实体（类、模块、函数等）应该是可扩展的，但是不可修改的。<br>（3）里氏替换原则（LSP）：任何基类可以出现的地方，子类一定可以出现，而且不会导致任何错误或异常。<br>（4）依赖倒置原则（DIP）：高层模块不应该依赖于底层模块，二者都应该依赖于抽象。抽象不应该依赖于具体实现，具体实现应该依赖于抽象。<br>（5）接口隔离原则（ISP）：客户端不应该依赖于它不需要的接口。一个类对另一个类的依赖应该建立在最小的接口上。<br>（6）迪米特法则（LoD）：一个对象应该对其他对象有最少的了解。通俗地讲，就是一个类对自己依赖的类知道得越少越好。<br>（7）合成复用原则（CRP）：尽量使用对象组合，而不是继承来达到复用的目的。</p>
+</li>
+<li><p>高内聚，低耦合<br>高内聚低耦合是软件设计中的一个原则，它强调模块内部的联系应该紧密而模块之间的联系应该尽量松散。具体来说，高内聚指的是一个模块内部的各个组成部分之间的联系应该紧密，组成部分之间的关系应该尽量简单。低耦合指的是一个模块与其他模块之间的依赖关系应该尽量松散，即模块之间的耦合度应该尽量低。<br>高内聚的好处在于，一个模块内部的联系紧密，表示这个模块是一个独立的整体，对外部的干扰最小。同时，当需要对一个模块进行修改时，只需要修改该模块内部的某些部分，不会对其他部分造成影响，从而提高了系统的可维护性和可扩展性。<br>低耦合的好处在于，模块之间的联系松散，意味着这些模块之间的依赖性较小，当一个模块需要进行修改时，不会对其他模块产生影响，从而提高了系统的可维护性和可扩展性。</p>
+</li>
+<li><p>23种设计模式<br>  <img src="https://pdai.tech/images/design-pattern.png"></p>
+<ul>
+<li>创造型模式<ul>
+<li>单例模式：确保一个类只有一个实例，并提供该实例的全局访问点</li>
+<li>工厂方法模式：它定义了一个创建对象的接口，但由子类决定要实例化哪个类。工厂方法把实例化操作推迟到子类</li>
+<li>抽象工厂模式：创建的是对象家族，也就是很多对象而不是一个对象，并且这些对象是相关的，也就是说必须一起创建出来。而工厂方法模式只是用于创建一个对象，这和抽象工厂模式有很大不同</li>
+<li>建造者模式：生成器(Builder)？模式，封装一个对象的构造过程，并允许按步骤构造</li>
+<li>原型模式：使用原型实例指定要创建对象的类型，通过复制这个原型来创建新对象</li>
+</ul>
+</li>
+<li>结构型模式<ul>
+<li>适配器模式：将一个类的接口, 转换成客户期望的另一个接口。 适配器让原本接口不兼容的类可以合作无间。 对象适配器使用组合, 类适配器使用多重继承</li>
+<li>代理模式：为另一个对象提供一个替身或占位符以控制对这个对象的访问</li>
+<li>桥接模式：使用桥接模式通过将实现和抽象放在两个不同的类层次中而使它们可以独立改变</li>
+<li>装饰器模式：动态地将责任附加到对象上, 若要扩展功能, 装饰者提供了比继承更有弹性的替代方案</li>
+<li>外观模式：它提供了一个统一的接口，用来访问子系统中的一群接口，从而让子系统更容易使用</li>
+<li>组合模式：允许你将对象组合成树形结构来表现”整体&#x2F;部分”层次结构. 组合能让客户以一致的方式处理个别对象以及对象组合</li>
+<li>享元模式：利用共享的方式来支持大量细粒度的对象，这些对象一部分内部状态是相同的。 它让某个类的一个实例能用来提供许多”虚拟实例”</li>
+</ul>
+</li>
+<li>行为型模式<ul>
+<li>观察者模式：在对象之间定义一对多的依赖, 这样一来, 当一个对象改变状态, 依赖它的对象都会收到通知, 并自动更新</li>
+<li>策略模式：定义了算法族, 分别封闭起来, 让它们之间可以互相替换, 此模式让算法的变化独立于使用算法的客户</li>
+<li>命令模式：将”请求”封闭成对象, 以便使用不同的请求,队列或者日志来参数化其他对象. 命令模式也支持可撤销的操作</li>
+<li>中介者模式：使用中介者模式来集中相关对象之间复杂的沟通和控制方式</li>
+<li>备忘录模式：当你需要让对象返回之前的状态时(例如, 你的用户请求”撤销”), 你使用备忘录模式</li>
+<li>模版方式模式：在一个方法中定义一个算法的骨架, 而将一些步骤延迟到子类中. 模板方法使得子类可以在不改变算法结构的情况下, 重新定义算法中的某些步骤</li>
+<li>迭代器模式：提供一种方法顺序访问一个聚合对象中的各个元素, 而又不暴露其内部的表示</li>
+<li>状态模式：允许对象在内部状态改变时改变它的行为, 对象看起来好象改了它的类</li>
+<li>责任链模式：通过责任链模式, 你可以为某个请求创建一个对象链. 每个对象依序检查此请求并对其进行处理或者将它传给链中的下一个对象</li>
+<li>解释器模式：使用解释器模式为语言创建解释器，通常由语言的语法和语法分析来定义</li>
+<li>访问者模式：当你想要为一个对象的组合增加新的能力, 且封装并不重要时, 就使用访问者模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><ul>
+<li><p>什么是单例设计模式？<br>单例模式是⼀种创建型设计模式， 它的核⼼思想是保证⼀个类只有⼀个实例，并提供⼀个全局访问点来访问这个实例。<br>只有⼀个实例的意思是，在整个应⽤程序中，只存在该类的⼀个实例对象，⽽不是创建多个相同类型的对象。<br>全局访问点的意思是，为了让其他类能够获取到这个唯⼀实例，该类提供了⼀个全局访问点（通常是⼀个静态⽅法），通过这个⽅法就能获得实例。</p>
+</li>
+<li><p>为什么要使⽤单例设计模式呢？</p>
+<ol>
+<li>全局控制：保证只有⼀个实例，这样就可以严格的控制客户怎样访问它以及何时访问它，简单的说就是对唯⼀实例的受控访问（引⽤⾃《⼤话设计模式》第21章）</li>
+<li>节省资源：也正是因为只有⼀个实例存在，就避免多次创建了相同的对象，从⽽节省了系统资源，⽽且多个模块还可以通过单例实例共享数据。</li>
+<li>懒加载：单例模式可以实现懒加载，只有在需要时才进⾏实例化，这⽆疑会提⾼程序的性能。</li>
+</ol>
+</li>
+<li><p>单例设计模式的基本要求</p>
+<ol>
+<li>私有的构造函数：防⽌外部代码直接创建类的实例</li>
+<li>私有的静态实例变量：保存该类的唯⼀实例</li>
+<li>公有的静态⽅法：通过公有的静态⽅法来获取类的实例</li>
+</ol>
+</li>
+<li><p>单例模式的实现⽅式有多种，包括懒汉式、饿汉式等。<br>饿汉式指的是在类加载时就已经完成了实例的创建，不管后⾯创建的实例有没有使⽤，先创建再说，所以叫做“饿汉”。<br>懒汉式指的是只有在请求实例时才会创建，如果在⾸次请求时还没有创建，就创建⼀个新的实例，如果已经创建，就返回已有的实例，意思就是需要使⽤了再创建，所以称为“懒汉”</p>
+</li>
+</ul>
+<h3 id="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"><a href="#饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。" class="headerlink" title="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"></a>饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。</h3><p>优点：线程安全，没有加锁，执⾏效率较⾼。<br>缺点：不是懒加载，类加载时就初始化，浪费内存空间。<br>如何保证线程安全：基于类加载机制避免了多线程的同步问题，但是如果类被不同的类加载器加载就会创建不同的实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法，防⽌外部实例化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="懒汉模式（线程安全）"><a href="#懒汉模式（线程安全）" class="headerlink" title="懒汉模式（线程安全）"></a>懒汉模式（线程安全）</h3><p>懒汉模式在单线程下使⽤没有问题，对于多线程是⽆法保证单例的。<br>通过 synchronized 关键字加锁保证线程安全，synchronized 可以添加在⽅法上⾯，也可以添加在代码块上⾯，这⾥演示添加在⽅法上⾯，存在的问题是 每⼀次调⽤ getInstance 获取实例时都需要加锁和释放锁，这样是⾮常影响性能的。<br>优点：懒加载，线程安全。<br>缺点：效率较低。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123; &#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="什么时候使⽤单例设计模式？"><a href="#什么时候使⽤单例设计模式？" class="headerlink" title="什么时候使⽤单例设计模式？"></a>什么时候使⽤单例设计模式？</h3><p>说了这么多，那在什么场景下应该考虑使⽤单例设计模式呢？可以结合单例设计模式的优点来看。</p>
+<ol>
+<li>资源共享<br>多个模块共享某个资源的时候，可以使⽤单例模式，⽐如说应⽤程序需要⼀个全局的配置管理器来存储和管理配置信息、亦或是使⽤单例模式管理数据库连接池。</li>
+<li>只有⼀个实例<br>当系统中某个类只需要⼀个实例来协调⾏为的时候，可以考虑使⽤单例模式， ⽐如说管理应⽤程序中的缓存，确保只有⼀个缓存实例，避免重复的缓存创建和管理，或者使⽤单例模式来创建和管理线程池。</li>
+<li>懒加载<br>如果对象创建本身就⽐较消耗资源，⽽且可能在整个程序中都不⼀定会使⽤，可以使⽤单例模式实现懒加载。<br>在许多流⾏的⼯具和库中，也都使⽤到了单例设计模式，⽐如Java中的 Runtime 类就是⼀个经典的单例，表示程序的运⾏时环境。此外 Spring 框架中的应⽤上下⽂ ( ApplicationContext ) 也被设计为单例，以提供对应⽤程序中所有 bean 的集中式访问点</li>
+</ol>
+<hr>
+
+
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><ul>
+<li><p>什么是⼯⼚⽅法模式？<br>⼯⼚⽅法模式也是⼀种创建型设计模式，简单⼯⼚模式只有⼀个⼯⼚类，负责创建所有产品，如果要添加新的产品，通常需要修改⼯⼚类的代码。<br>⽽⼯⼚⽅法模式引⼊了抽象⼯⼚和具体⼯⼚的概念，每个具体⼯⼚只负责创建⼀个具体产品，添加新的产品只需要添加新的⼯⼚类⽽⽆需修改原来的代码，这样就使得产品的⽣产更加灵活，⽀持扩展，符合开闭原则。</p>
+</li>
+<li><p>⼯⼚⽅法模式分为以下⼏个⻆⾊：<br>抽象⼯⼚：⼀个接⼝，包含⼀个抽象的⼯⼚⽅法（⽤于创建产品对象）。<br>具体⼯⼚：实现抽象⼯⼚接⼝，创建具体的产品。<br>抽象产品：定义产品的接⼝。<br>具体产品：实现抽象产品接⼝，是⼯⼚创建的对象。</p>
+</li>
+<li><p>应⽤场景<br>⼯⼚⽅法模式使得每个⼯⼚类的职责单⼀，每个⼯⼚只负责创建⼀种产品，当创建对象涉及⼀系列复杂的初始化逻辑，⽽这些逻辑在不同的⼦类中可能有所不同时，可以使⽤⼯⼚⽅法模式将这些初始化逻辑封装在⼦类的⼯⼚中。在现有的⼯具、库中，⼯⼚⽅法模式也有⼴泛的应⽤，⽐如：<br>Spring 框架中的 Bean ⼯⼚：通过配置⽂件或注解，Spring 可以根据配置信息动态地创建和管理对象。<br>JDBC 中的 Connection ⼯⼚：在 Java 数据库连接中， DriverManager 使⽤⼯⼚⽅法模式来创建数据库连接。不同的数据库驱动（如 MySQL、PostgreSQL 等）都有对应的⼯⼚来创建连接</p>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clrt9n0mu000zzgv5ayfd78je" data-title="设计模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clrw33u0a000y64v5blij68sz" data-title="设计模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -412,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clrt9n0mr000mzgv5882d0u1k" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clrw33u07000m64v5bqht1qd2" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -599,7 +688,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/10/Redis/" data-id="clrt9n0mr000nzgv5dn845fju" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/10/Redis/" data-id="clrw33u08000p64v5c26vflvk" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1086,7 +1175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clrt9n0mt000szgv5ac3ca31p" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clrw33u09000t64v53ui15k96" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1126,7 +1215,7 @@
 <p>WiFi：gzjunbo01888</p>
 <hr>
 
-<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#99;&#97;&#105;&#102;&#64;&#x67;&#122;&#x6a;&#x75;&#x6e;&#98;&#x6f;&#x2e;&#110;&#101;&#x74;">&#99;&#97;&#105;&#102;&#64;&#x67;&#122;&#x6a;&#x75;&#x6e;&#98;&#x6f;&#x2e;&#110;&#101;&#x74;</a> 密码 cxxxxxxx</p>
+<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#99;&#x61;&#x69;&#102;&#x40;&#x67;&#x7a;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#x65;&#x74;">&#99;&#x61;&#x69;&#102;&#x40;&#x67;&#x7a;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#x65;&#x74;</a> 密码 cxxxxxxx</p>
 <p>OA系统网址 <a target="_blank" rel="noopener" href="http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&menuPathIds=1,12&_key=t0lres">http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&amp;menuPathIds=1,12&amp;_key=t0lres</a> 账号：caif 密码：cxxxxxxx</p>
 <p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a></p>
 <p>Confluence（文档管理）产研在线：<a target="_blank" rel="noopener" href="http://doc.junbo.top/#all-updates">http://doc.junbo.top/#all-updates</a> 账户：caif 密码 139xxxxxxxx</p>
@@ -1296,15 +1385,10 @@
 </ul>
 <hr>
 
-<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><p><strong>模块 服务</strong>？一个服务占用一个端口， 在 .gradle 配置<br>{<br>    demo-api: 服务化接口定义项目<br>    demo-service: 服务化实现项目<br>}<br>api 接口与实现 分离，<br>UserApi接口上加 @FeignClient， 请求均分发送到多台服务器上<br>spring注入 与 单例模式。。</p>
-<h2 id="2024-01-18"><a href="#2024-01-18" class="headerlink" title="2024.01.18"></a>2024.01.18</h2><ul>
-<li><p>使用不同的窗口打开一个项目下的不同服务、、</p>
-</li>
-<li><p>使用 IDEA -&gt; Run&#x2F;Debug Configuration -&gt; Shorten command line 选项用于指定是否<strong>缩短命令行</strong>，以提高可读性或管理性，其中 None 表示不缩短，Classpath File 表示通过类路径文件缩短。<br>Java 源代码被编译成字节码文件（.class 文件）。字节码文件在 Java 虚拟机（JVM）上运行。运行时配置参数通过命令行或配置文件传递给 JVM 和应用程序。运行时参数包括类路径、系统属性、环境变量、应用程序参数等，用于影响应用程序在运行时的行为。</p>
-</li>
-<li><p>DevOps 懂技术的运维？ <a target="_blank" rel="noopener" href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md">https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md</a><br>DevOps 可以理解为一种开发和运维一起紧密协作的工作方式，从而可以更快更可靠地构建、测试和发布软件。DevOps 的主要原则就是自动化、信息透明可测量、构建协作文化。<br>DevOps 工程师，要做的事情就是帮助团队来实践 DevOps 的工作方式。具体可以帮助团队：建立基于持续集成和持续交付工作流程；建立基于日志的监控报警的系统，以及故障响应的流程；构建基于云计算和虚拟化技术的基础设施；形成 DevOps 的文化。DevOps 工程师做的事情，就是帮助团队基于 DevOps 原则来做事，让团队形成紧密协作的工作方式，更快更可靠的构建、测试和发布软件。</p>
-</li>
-</ul>
+<h2 id="业务逻辑模型考试"><a href="#业务逻辑模型考试" class="headerlink" title="业务逻辑模型考试"></a>业务逻辑模型考试</h2><p>考试顺序：敏捷实践一号卡一投放一保险一拉新一用户运营一通用结算</p>
+<h3 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h3><p>敏捷开发：一种应对快速变化需求的一种软件开发能力。相对于”非敏捷”，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通(认为比书面的文档更有效)、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法，也更注重做为软件开发中人的作用。</p>
+<h3 id="号卡"><a href="#号卡" class="headerlink" title="号卡"></a>号卡</h3><h3 id="拉新"><a href="#拉新" class="headerlink" title="拉新"></a>拉新</h3><hr>
+
 <h2 id="蔡枫-的2023年终总结"><a href="#蔡枫-的2023年终总结" class="headerlink" title="蔡枫 的2023年终总结"></a>蔡枫 的2023年终总结</h2><ul>
 <li><p>回顾2023，你印象最深刻的2-3个 高光时刻 是什么？</p>
 <ol>
@@ -1330,6 +1414,17 @@
 <p>  大概是八月份，打消了考研以及留学的念头后，由于有Java开发的经验，自然往这个方向准备就业。<br>  要学习的内容特别多，原以为有基础便能用三个月左右准备好，事实上即使每天都在尽力填充自己，如此半年后还剩下许多没准备好的，更别说要能够在面试时从容对答。但是并不焦虑，只要做好规划，继续学下去，有限的内容总是能够准备完成的，剩下就是准备和面对不喜欢的面试环节。<br>  2024年1月4日，我通过了骏伯的面试，岗位是Java开发实习生。面试中，我提到希望接触一些高并发、分布式这样的复杂场景中的“高大上”的问题。进入公司两周，我了解到在实际工作中更多的是在不断地解决需求，跟团队成员协作对接，真正重要的是要有解决实际问题的能力。<br>  每次向导师提问的时候，他的分享毫无保留，各位同事都是我学习的对象。未来的日子，我将尽全力完成每个安排到的任务，提升编码能力，为公司创造价值。</p>
 </li>
 </ul>
+<hr>
+
+<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><p><strong>模块 服务</strong>？一个服务占用一个端口， 在 .gradle 配置<br>{<br>    demo-api: 服务化接口定义项目<br>    demo-service: 服务化实现项目<br>}<br>api 接口与实现 分离，<br>UserApi接口上加 @FeignClient， 请求均分发送到多台服务器上<br>spring注入 与 单例模式。。</p>
+<h2 id="2024-01-18"><a href="#2024-01-18" class="headerlink" title="2024.01.18"></a>2024.01.18</h2><ul>
+<li><p>使用不同的窗口打开一个项目下的不同服务、、</p>
+</li>
+<li><p>使用 IDEA -&gt; Run&#x2F;Debug Configuration -&gt; Shorten command line 选项用于指定是否<strong>缩短命令行</strong>，以提高可读性或管理性，其中 None 表示不缩短，Classpath File 表示通过类路径文件缩短。<br>Java 源代码被编译成字节码文件（.class 文件）。字节码文件在 Java 虚拟机（JVM）上运行。运行时配置参数通过命令行或配置文件传递给 JVM 和应用程序。运行时参数包括类路径、系统属性、环境变量、应用程序参数等，用于影响应用程序在运行时的行为。</p>
+</li>
+<li><p>DevOps 懂技术的运维？ <a target="_blank" rel="noopener" href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md">https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md</a><br>DevOps 可以理解为一种开发和运维一起紧密协作的工作方式，从而可以更快更可靠地构建、测试和发布软件。DevOps 的主要原则就是自动化、信息透明可测量、构建协作文化。<br>DevOps 工程师，要做的事情就是帮助团队来实践 DevOps 的工作方式。具体可以帮助团队：建立基于持续集成和持续交付工作流程；建立基于日志的监控报警的系统，以及故障响应的流程；构建基于云计算和虚拟化技术的基础设施；形成 DevOps 的文化。DevOps 工程师做的事情，就是帮助团队基于 DevOps 原则来做事，让团队形成紧密协作的工作方式，更快更可靠的构建、测试和发布软件。</p>
+</li>
+</ul>
 <h2 id="2024-01-23"><a href="#2024-01-23" class="headerlink" title="2024.01.23"></a>2024.01.23</h2><ul>
 <li><p>Jedis 和 RedisTemplate有什么区别？<br>Jedis 是 Redis 的官方 Java 客户端，直接使用 Redis 的命令进行操作。它提供了比较底层的 API，需要手动管理连接、序列化等。RedisTemplate 是 Spring Data Redis 提供的 Redis 客户端，它在 Jedis 的基础上进行了封装，提供了更高层次的抽象和更多的功能。<br>如果你在使用 Spring 项目，并且希望更方便地集成 Redis，并提供更高层次的抽象和功能，那么推荐使用 RedisTemplate。如果你对 Redis 的命令较为了解，或者需要更底层的操作，那么 Jedis 可能更适合你。</p>
 </li>
@@ -1347,7 +1442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clrt9n0mw0013zgv5784n24li" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clrw33u0c001364v5cpjvfmuk" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1570,7 +1665,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clrt9n0mv0011zgv5b7de7u01" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clrw33u0b001264v5d4rvaa8e" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1718,7 +1813,12 @@
 </li>
 <li><p>TreeMap呢？<br>TreeMap的底层数据结构是红黑树，TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过实现 Comparable 接口或者自定义实现一个 comparator 传入构造函数，这样塞入的节点就会根据你定义的规则进行排序。如果comparator为null，那么就使用自然顺序 </p>
 </li>
-<li><p>ConcurrentHashMap？<br>ConcurrentHashMap是线程安全的Map实现类，它在juc包下的。线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。当然了，也可以使用Collections来包装出一个线程安全的Map。但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以一般都使用ConcurrentHashMap<br>HashMap不是线程安全的，多线程环境下有可能会有数据丢失和获取不了最新数据的问题<br>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，线程安全的。通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁。</p>
+<li><p>？？ConcurrentHashMap？</p>
+<ul>
+<li>ConcurrentHashMap是线程安全的Map实现类，它在juc包下的。线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。当然了，也可以使用Collections来包装出一个线程安全的Map。但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以一般都使用ConcurrentHashMap<br>  HashMap不是线程安全的，多线程环境下有可能会有数据丢失和获取不了最新数据的问题</li>
+<li>ConcurrentHashMap 本质上是一个 HashMap，因此功能和 HashMap 一样，但是ConcurrentHashMap 在 HashMap 的基础上，提供了并发安全的实现。并发安全的主要实现是通过对指定的 Node 节点加锁，来保证数据更新的安全性</li>
+<li>通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁。</li>
+</ul>
 </li>
 <li><p>注解？<br>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。<br>注解在开发中是非常常见的，比如Spring框架的 @Controller &#x2F; @Param &#x2F; @Select 等等。一些项目也用到lombok的注解，@Slf4j &#x2F; @Data 等等。Java原生也有@Overried、@Deprecated、@FunctionalInterface等基本注解。Java原生的基本注解大多数用于「标记」和「检查」还，此外有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的。<br>常用的元Annotation有@Retention 和@Target。@Retention注解可以简单理解为设置注解的生命周期，而@Target表示这个注解可以修饰哪些地方（比如方法、还是成员变量、还是包等等）<br>那你自己写过注解吗？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>@Passtoken？？</p>
 </li>
@@ -1734,6 +1834,8 @@
 <li><p>Java 的NIO？<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22750549/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>Java NIO 是JDK 1.4 开始有的，其目的是为了提高速度。传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。IO的实际场景是文件IO和网络IO，NIO在网络IO场景下提升就尤其明显了。</p>
 </li>
 </ul>
+<hr>
+
 <h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
 <li><p>Java 编译到执行的过程？</p>
 <ul>
@@ -1834,6 +1936,9 @@
 </ul>
 </li>
 </ul>
+<hr>
+
+
 <h2 id="Java多线程"><a href="#Java多线程" class="headerlink" title="Java多线程"></a>Java多线程</h2><ul>
 <li><p>怎么理解Java多线程？  <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22973356/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22973356/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
@@ -1890,7 +1995,7 @@
 <li>@Controller、@Service、@ResponseBody、@Autowired都可以说</li>
 </ol>
 </li>
-<li><p>说说SpringBoot自动配置。<br>SpringBoot有着“约定大于配置”的理念，这一理念一定程度上可以用“SpringBoot自动配置”来解释。<br>在使用SpringBoot的时候，肯定会依赖于autoconfigure这么一个包？？<br>autoconfigure这个包里会有一个spring.factories文件，该文件定义了100+个入口的配置类。比如我们经常使用的redis、kafka等等这样常见的中间件都预置了配置类。当我们在启动SpringBoot项目的时候，内部就会加载这个spring.factories文件，进而去加载“有需要”的配置类。那我们在使用相关组件的时候，就会非常的方便（因为配置类已经初始化了一大部分配置信息）。一般我们只要在application配置文件写上对应的配置，就能通过各种template类直接操作对应的组件啦。<br>不是所有的配置类都会加载的，假设我们没有引入redis-starter的包，那Redis的配置类就不会被加载。具体Spring在实现的时候就是使用<code>@ConditionalXXX</code>进行判断的。比如Redis的配置类就会有@ConditionalOnClass({RedisOperations.class})的配置，说明当前环境下如果有RedisOperations.class这个字节码，才会去加载Redis的配置类。？？</p>
+<li><p>？？说说<strong>SpringBoot自动配置</strong>。<br>1、SpringBoot有着“约定大于配置”的理念，这一理念一定程度上可以用“SpringBoot自动配置”来解释。<br>通过 Spring Boot，我们可以快速开发基于 Spring 生态下的应用程序。<br>2、Spring Boot 约定由于配置的体现有很多，比如：<br>Spring Boot Starter 启动依赖，它能帮我们管理所有 jar 包版本；<br>如果当前应用依赖了 spring mvc 相关的 jar，那么 Spring Boot 会自动内置Tomcat 容器来运行 web 应用，我们不需要再去单独做应用部署；<br>Spring Boot 的自动装配机制的实现中，通过扫描约定路径下的 spring.factories 文件来识别配置类，实现 Bean 的自动装配；<br>默认加载的配置文件 application.properties 等等<br>3、在使用SpringBoot的时候，肯定会依赖于autoconfigure这么一个包，autoconfigure这个包里会有一个spring.factories文件，该文件定义了100+个入口的配置类。比如我们经常使用的redis、kafka等等这样常见的中间件都预置了配置类。当我们在启动SpringBoot项目的时候，内部就会加载这个spring.factories文件，进而去加载“有需要”的配置类。那我们在使用相关组件的时候，就会非常的方便（因为配置类已经初始化了一大部分配置信息）。一般我们只要在application配置文件写上对应的配置，就能通过各种template类直接操作对应的组件啦。<br>4、不是所有的配置类都会加载的，假设我们没有引入redis-starter的包，那Redis的配置类就不会被加载。具体Spring在实现的时候就是使用<code>@ConditionalXXX</code>进行判断的。比如Redis的配置类就会有@ConditionalOnClass({RedisOperations.class})的配置，说明当前环境下如果有RedisOperations.class这个字节码，才会去加载Redis的配置类。</p>
 </li>
 <li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类 </p>
 </li>
@@ -1929,7 +2034,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrt9n0mv0010zgv567vydcin" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clrw33u0b001164v5ay9c54xi" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2000,6 +2105,7 @@
 <ul>
 <li>B树：节点从小到大排序，一个节点可存多个元素</li>
 <li>B+树：拥有B树的特点，叶子结点间有指针，叶子结点存储了所有的元素</li>
+<li>B树和B+树，一般都是应用在文件系统和数据库系统中，用来减少磁盘IO带来的性能损耗。<br>  以Mysql中的InnoDB为例，当我们通过select语句去查询一条数据时，InnoDB需要从磁盘上去读取数据，这个过程会涉及到磁盘IO以及磁盘的随机IO（如图所示）我们知道磁盘IO的性能是特别低的，特别是随机磁盘IO。因为，磁盘IO的工作原理是，首先系统会把数据逻辑地址传给磁盘，磁盘控制电路按照寻址逻辑把逻辑地址翻译成物理地址，也就是确定要读取的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要把磁头放在这个扇区的上面，为了实现这一个点，磁盘会不断旋转，把目标扇区旋转到磁头下面，使得磁头找到对应的磁道，这里涉及到寻道事件以及旋转时间<br>  很明显，磁盘IO这个过程的性能开销是非常大的，特别是查询的数据量比较多的情况下。所以在InnoDB中，干脆对存储在磁盘块上的数据建立一个索引，然后把索引数据以及索引列对应的磁盘地址，以B+树的方式来存储。如图所示，当我们需要查询目标数据的时候，根据索引从B+树中查找目标数据即可，由于B+树分路较多，所以只需要较少次数的磁盘IO就能查找到。</li>
 </ul>
 </li>
 <li><p>为什么 MySQL 的索引要使用 B+ 树而不是其它树形结构？<br>  1、B+树能显著减少IO次数，提高效率。因为 B 树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致 IO 操作变多，查询性能变低。<br>  2、B+树的查询效率更加稳定。因为数据放在叶子节点。<br>  3、B+树能提高范围查询的效率。因为叶子节点指向下一个叶子节点。</p>
@@ -2058,6 +2164,8 @@
 </li>
 <li><p>Redis 和 Mysql如何保证数据一致？<br>1.先更新 Mysql，再更新 Redis，如果更新 Redis失败，可能仍然不一致<br>2，先删除 Redis缓存数据，再更新 MySql，再次查询的时候在将数据添加到缓存中，这种方案能解决方案1的问题，但是在高并发下性能较低，而且仍然会出现数据不一致的问题：比如线程1删除了Redis缓存数据，正在更新 MySql，此时另外一个查询再查询，那么就会把 MySql中老数据又查到 Redis中<br>3，<strong>延时双删，</strong>步聚是：先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致</p>
 </li>
+<li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
+</li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
 <li><p>为什么要用Redis？<br>无论Redis、MySQL、HDFS、HBase都是存储数据的地方，因为设计理念的不同，我们会根据不同的应用场景使用不同的存储。<br>像Redis一般我们会把它用作于缓存（当然，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了<br>为什么Redis可以这么快？首先，它是纯内存操作，内存本身就很快。其次，它是单线程的，Redis服务器核心是基于非阻塞的IO多路复用机制，单线程避免了多线程的频繁上下文切换问题</p>
@@ -2113,10 +2221,14 @@
 <li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁</p>
 </li>
 </ul>
+<hr>
+
 <h2 id="八股（网-络）"><a href="#八股（网-络）" class="headerlink" title="八股（网 络）"></a>八股（网 络）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</a></p>
 <ul>
 <li>介绍 TCP&#x2F;IP 模型。</li>
 </ul>
+<hr>
+
 <h2 id="八股（操-作-系-统）"><a href="#八股（操-作-系-统）" class="headerlink" title="八股（操 作 系 统）"></a>八股（操 作 系 统）</h2><ul>
 <li><p>进程与线程？</p>
 <ul>
@@ -2145,7 +2257,12 @@
 </li>
 </ul>
 </li>
+<li><p>CPU 飙高系统反应慢怎么排查？<br>CPU 是整个电脑的核心计算资源，对于一个应用进程来说，CPU 的最小执行单元是线程。导致 CPU 飙高的原因有几个方面：<br>1、CPU 上下文切换过多，对于 CPU 来说，同一时刻下每个 CPU 核心只能运行一个线程，如果有多个线程要执行，CPU 只能通过上下文切换的方式来执行不同的线程。较多的上下文切换会占据大量 CPU 资源，从而使得 cpu 无法去执行用户进程中的指令，导致响应速度下降。在 Java 中，文件 IO、网络 IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换<br>2、CPU 资源过度消耗，也就是在程序中创建了大量的线程，或者有线程一直占用CPU 资源无法被释放，比如死循环！CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率<br>3、既然是这两个问题导致的 CPU 利用率较高，于是我们可以通过 top 命令，找到 CPU利用率较高的进程，在通过 Shift+H 找到进程中 CPU 消耗过高的线程，这里有两种情况。<br>CPU 利用率过高的线程一直是同一个，说明程序中存在线程长期占用 CPU 没有释放的情况，这种情况直接通过jstack 获得线程的 Dump 日志，定位到线程日志后就可以找到问题的代码。<br>CPU 利用率过高的线程 id 不断变化，说明线程创建过多，需要挑选几个线程id通过 jstack 去线程 dump 日志中排查。<br>4、最后有可能定位的结果是程序正常，只是在 CPU 飙高的那一刻，用户访问量较大，导致系统资源不够。</p>
+</li>
 </ul>
+<hr>
+
+
 <h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
 <li><p>SOA、分布式、微服务之间有什么关系和区别?<br>1，分布式架构是指将单体架构中的各个部分拆分，然后部署不同的机器或进程中去，SOA和微服务基本上都是分布式架构的<br>2，SOA 是一种面向服务的架构，系统的所有服务都注册在总线上，当调用服务时，从总线上查找服务信息，然后调用<br>3，微服务是一种更彻底的面向服务的架构，将系统中各个功能个体抽成一个个小的应用程序，基本保持一个应用对应的一个服务的架构</p>
 </li>
@@ -2156,7 +2273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrt9n0mv0012zgv527u99y3t" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrw33u0b000z64v5e3a6bk5i" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2190,7 +2307,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#x32;&#x30;&#50;&#48;&#51;&#x30;&#52;&#52;&#x30;&#48;&#49;&#48;&#64;&#x6d;&#x61;&#105;&#108;&#46;&#115;&#x63;&#117;&#x74;&#x2e;&#x65;&#100;&#x75;&#x2e;&#x63;&#x6e;">&#x32;&#x30;&#50;&#48;&#51;&#x30;&#52;&#52;&#x30;&#48;&#49;&#48;&#64;&#x6d;&#x61;&#105;&#108;&#46;&#115;&#x63;&#117;&#x74;&#x2e;&#x65;&#100;&#x75;&#x2e;&#x63;&#x6e;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表国际会议论文一篇（已录用）。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
+        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#50;&#48;&#x32;&#x30;&#x33;&#48;&#x34;&#52;&#x30;&#x30;&#x31;&#48;&#x40;&#109;&#x61;&#105;&#x6c;&#46;&#115;&#99;&#117;&#x74;&#46;&#101;&#x64;&#x75;&#x2e;&#x63;&#x6e;">&#50;&#48;&#x32;&#x30;&#x33;&#48;&#x34;&#52;&#x30;&#x30;&#x31;&#48;&#x40;&#109;&#x61;&#105;&#x6c;&#46;&#115;&#99;&#117;&#x74;&#46;&#101;&#x64;&#x75;&#x2e;&#x63;&#x6e;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表国际会议论文一篇（已录用）。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -2247,7 +2364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="clrt9n0mu000wzgv5filj0be8" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="clrw33u09000u64v5d5lahoo9" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

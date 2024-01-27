@@ -274,7 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clrt9n0mn000ezgv532q56c9k" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clrw33tzo000d64v566x354tv" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -503,6 +503,7 @@
 <li><p>高内聚，低耦合<br>高内聚低耦合是软件设计中的一个原则，它强调模块内部的联系应该紧密而模块之间的联系应该尽量松散。具体来说，高内聚指的是一个模块内部的各个组成部分之间的联系应该紧密，组成部分之间的关系应该尽量简单。低耦合指的是一个模块与其他模块之间的依赖关系应该尽量松散，即模块之间的耦合度应该尽量低。<br>高内聚的好处在于，一个模块内部的联系紧密，表示这个模块是一个独立的整体，对外部的干扰最小。同时，当需要对一个模块进行修改时，只需要修改该模块内部的某些部分，不会对其他部分造成影响，从而提高了系统的可维护性和可扩展性。<br>低耦合的好处在于，模块之间的联系松散，意味着这些模块之间的依赖性较小，当一个模块需要进行修改时，不会对其他模块产生影响，从而提高了系统的可维护性和可扩展性。</p>
 </li>
 </ul>
+<p>23种设计模式：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">https://leo710aka.github.io/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a></p>
 <h2 id="单例模式-？？"><a href="#单例模式-？？" class="headerlink" title="单例模式 ？？"></a>单例模式 ？？</h2><p>概念：单例模式属于创建型模式，⼀个单例类在任何情况下都只存在⼀个实例，构造⽅法必须是私有的、由⾃⼰创建⼀个静态变量存储实例，对外提供⼀个静态公有⽅法获取实例。<br>作用：优点是内存中只有⼀个实例，减少了开销，尤其是频繁创建和销毁实例的情况下并且可以避免对资源的多重占⽤。缺点是没有抽象层，难以扩展，与单⼀职责原则冲突。<br>应用：多线程的线程池的设计一般也是采用单例模式，这是由于线程池要方便对池中的线程进行控制。IoC容器。</p>
 <h3 id="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"><a href="#饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。" class="headerlink" title="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"></a>饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。</h3><p>优点：线程安全，没有加锁，执⾏效率较⾼。缺点：不是懒加载，类加载时就初始化，浪费内存空间。<br>如何保证线程安全：基于类加载机制避免了多线程的同步问题，但是如果类被不同的类加载器加载就会创建不同的实例。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -536,7 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clrt9n0ml000azgv5a6x7ctbv" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clrw33tzp000g64v554734h83" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -761,7 +762,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="clrt9n0ml000bzgv54mcw66oy" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="clrw33tzk000764v5gmk38231" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -910,7 +911,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" data-id="clrt9n0me0004zgv5ccr59i9c" data-title="索引 | 排序" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" data-id="clrw33tzj000564v57y3jetrw" data-title="索引 | 排序" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -991,7 +992,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="clrt9n0md0003zgv5g0d1a4cp" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="clrw33tzh000264v53d0t5gi0" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1056,7 +1057,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="clrt9n0md0002zgv52rwxb7c0" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="clrw33tzi000364v5b0ksgrxi" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1115,7 +1116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clrt9n0m90000zgv5elqj79jp" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clrw33tzf000164v5dd5ofuv1" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1187,7 +1188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="clrt9n0mc0001zgv54k5s5r0p" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="clrw33tza000064v580f0f4kw" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1429,7 +1430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clrt9n0mf0008zgv558mk4zcx" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clrw33tzl000864v52wmf6c8z" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1471,7 +1472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/01/SCUT/" data-id="clrt9n0mr000ozgv50zp55zmg" data-title="SCUT" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/01/SCUT/" data-id="clrw33u00000l64v503dmdt2p" data-title="SCUT" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
