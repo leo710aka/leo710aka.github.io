@@ -95,11 +95,7 @@
 <br>
 <img src="https://leo710aka.github.io/bk/bk.jpg" width="550" height="300" alt="Old Master">
 <br>
-<div style="display: flex; justify-content: center;">
-    <img src="https://leo710aka.github.io/bk/zq2.jpg" style="width: 100%; margin-right: 5px;">
-    <img src="https://leo710aka.github.io/bk/zq3.jpg" style="width: 100%; margin-left: 5px;">
-</div>
-<div style="text-align:center;text-shadow: 2px 2px 2px #888888;">Self-improvement</div>
+<img src="https://leo710aka.github.io/bk/zq.jpg" width="550" height="300" alt="">
 <br>
 <img src="https://leo710aka.github.io/bk/3.jpg" width="550" height="300" alt="">
 <br>
@@ -109,7 +105,11 @@
 <br>
 <img src="https://leo710aka.github.io/bk/zq3.jpg" width="550" height="200" alt="">
 <br> -->
-<img src="https://leo710aka.github.io/bk/zq.jpg" width="550" height="300" alt="">
+<div style="display: flex; justify-content: center;">
+    <img src="https://leo710aka.github.io/bk/zq2.jpg" style="width: 100%; margin-right: 5px;">
+    <img src="https://leo710aka.github.io/bk/zq3.jpg" style="width: 100%; margin-left: 5px;">
+</div>
+<div style="text-align:center;text-shadow: 2px 2px 2px #888888;">Self-improvement</div>
 <br>
 <br>
       
@@ -1561,7 +1561,7 @@
 </ul>
 <hr>
 
-<h2 id="项目（论坛）"><a href="#项目（论坛）" class="headerlink" title="项目（论坛）"></a>项目（论坛）</h2><ul>
+<h2 id="项目（跑个腿）"><a href="#项目（跑个腿）" class="headerlink" title="项目（跑个腿）"></a>项目（跑个腿）</h2><h2 id="项目（论坛）"><a href="#项目（论坛）" class="headerlink" title="项目（论坛）"></a>项目（论坛）</h2><ul>
 <li><p><strong>论坛系统项目</strong>（高校信息平台。。。）</p>
 <ul>
 <li>项目描述：一个基本功能完整的论坛项目。主要功能有：基于邮件激活的注册方式，区别登陆状态为游客或已登录用户展示不同界面与功能。支持用户上传头像，实现了发布帖子、评论帖子、发送私信等功能，以及点赞，关注与系统通知功能。<br>  项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理。</li>
@@ -1802,10 +1802,17 @@
 </ul>
 </li>
 <li>hash 函数的优化：1.8后，在put元素的时候传递的Key，先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>扩容</strong> rehash 的优化：默认是扩原来的2倍（因为HashMap的大小只能是2次幂）。</li>
+<li><strong>扩容</strong> rehash 的优化：默认是扩原来的2倍（因为HashMap的大小只能是2次幂），扩的是数组不是链表。<ul>
+<li>1.7版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表上的每个元素<br>  3.取每个元素的key，并基于新数组长度，计算出每个元素在新数组中的下标<br>  4.将元素添加到新数组中去<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
+<li>1.8版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表或红黑树<br>  3.如果是链表，则直接将链表中的每个元素里新计算下标，并添加到新数组中去<br>  ？？4.如果是红黑树，则先遍历红黑树，先计算出红黑树中每个元素对应在新数组中的下标位置：统计每个下标位置的元素个数，如果该位置下的元素个数超过了8，则生成一个新的红黑树，并将根节点的添加到新数组的对应位置；如果该位置下的元素个数没有超过8，那么则生成一个链表，并将链表的头节点添加到新数组的对应位置<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
+<li>1.8:：</li>
+</ul>
+</li>
 <li><strong>put</strong>：首先对key做hash运算，计算出该key所在的index。如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。假设key是相同的，则替换到原来的值。最后判断哈希表如果满了，扩容。</li>
 <li><strong>get</strong>：还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突。假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。<br>  在HashMap中怎么判断一个元素是否相同？首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals()来判断该元素是否相同。如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals() || &#x3D;&#x3D; 都相同，那说明该元素是同一个。</li>
 </ul>
+</li>
+<li><p>Jdk1.7 到 Jdk1.8 HashMap 发生了什么变化(底层)?<br>1、1.7中底层是数组+链表，1.8中底层是数组+链表+红黑树，加红黑树的目的是提高HashMap插入和查询整体效率<br>2、1.7中链表插入使用的是头插法，1.8中链表插入使用的是尾插法，因为1.8中插入key和value时需要判断链表元素个数，所以需要遍历链表统计链表元素个数，所以正好就直接使用尾插法<br>？？？3、1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源</p>
 </li>
 <li><p>LinkedHashMap？<br>LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表<br>LinkedHashMap 把 HashMap 的 Entry 加了两个指针：before 和 after。就是要把塞入的 Entry 之间进行关联，串成双向链表；有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序，而是插入有序。LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</p>
 <img src="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png" width="550" height="300" alt="">
@@ -1824,10 +1831,22 @@
 </li>
 <li><p>泛型？<br>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型<br>使用泛型的好处就是代码更加简洁（无需强制转换），程序更加健壮（编译期间没有警告，在运行期就无ClassCastException）<br>使用场景：操作集合的时候，List<String> lists &#x3D; new ArrayList&lt;&gt;();<br>如果是其他场景的话，那就是在写「基础组件」的时候了：再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」，而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的，所以在这种情况下用泛型就是很好的实践。 </p>
 </li>
+<li><p>Java中的异常体系是怎样的？<br>  Java中的所有异常都来自顶级父类Throwable。Throwable下有两个子类Exception和Error。</p>
+<ul>
+<li>Error表示非常严重的错误，比如java.lang.StackOverFlowError和Java.lang.OutofMemoryError，通常这些错误出现时，仅仅想靠程序自己是解决不了的，可能是虚拟机、磁盘、操作系统层面出现的问题了，所以通常也不建议在代码中去捕获这些Error，因为捕获的意义不大，因为程序可能已经根本运行不了了。</li>
+<li>Exception表示异常，表示程序出现Exception时，是可以靠程序自己来解决的比如NullPointerException、legalAccessException等，我们可以捕获这些异常来做特殊处理。<br>  Exception的子类通常又可以分为RuntimeException和非RuntimeException两类。<ul>
+<li>RunTimeException表示运行期异常，表示这个异常是在代码运行过程中抛出的这些异常是非检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生，比如NulIPointeException、IndexOutOfBoundsException等非RuntimeException表示</li>
+<li>非运行期异常，也就是我们常说的检查异常，是必须进行处理的异常，如果不处理，程序就不能检查异常通过。如I0Exception、SQLException等以及用户自定义的Exception异常。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p><strong>Java 反射</strong>？<br>简单来说，反射就是Java可以给我们在运行时获取类的信息<br>什么是「运行时」：在编译器写的代码是 .java 文件，经过javac 编译会变成 .class 文件，class 文件会被JVM装载运行（这里就是真正运行着我们所写的代码（虽然是被编译过的），也就所谓的运行时。<br>为什么要在「运行时」获取类的信息：其实就是为了让我们所写的代码更具有「通用性」和「灵活性」。一个好用的“工具”是需要兼容各种情况的，不知道用该“工具”的用户传入的是什么对象，但你需要帮他们得到需要的结果。例如 SpringMVC 你在方法上写上对象，传入的参数就会帮你封装到对象上；Mybatis可以让我们只写接口，不写实现类，就可以执行SQL；在类上加上@Component注解，Spring就帮你创建对象…<br>这些统统都有反射的身影：约定大于配置，配置大于硬编码。通过”约定”使用姿势，使用反射在运行时获取相应的信息（毕竟作为一个”工具“是真的不知道你是怎么用的），实现代码功能的「通用性」和「灵活性」 </p>
 </li>
-<li><p>泛型是会擦除的，那为什么反射能获取到泛型的信息呢？<br>泛型的信息只存在编译阶段，在class字节码就看不到泛型的信息了。那为什么下面这段代码能获取得到泛型的信息呢？<br>可以理解为泛型擦除是有范围的，定义在类上的泛型信息是不会被擦除的。？？？<br>Java 编译器仍在 class 文件以 Signature 属性的方式保留了泛型信息。Type作为顶级接口，Type下还有几种类型，比如TypeVariable、ParameterizedType、WildCardType、GenericArrayType、以及Class。通过这些接口我们就可以在运行时获取泛型相关的信息。</p>
+<li><p>泛型是会擦除的，那为什么反射能获取到泛型的信息呢？<br>泛型的信息只存在编译阶段，在class字节码就看不到泛型的信息了。那为什么下面这段代码能获取得到泛型的信息呢？<br>可以理解为泛型擦除是有范围的，定义在类上的泛型信息是不会被擦除的。<br>Java 编译器仍在 class 文件以 Signature 属性的方式保留了泛型信息。Type作为顶级接口，Type下还有几种类型，比如TypeVariable、ParameterizedType、WildCardType、GenericArrayType、以及Class。通过这些接口我们就可以在运行时获取泛型相关的信息。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类，定义泛型&lt;T&gt;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseDao</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BaseDao</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass();</span><br><span class="line">        <span class="type">ParameterizedType</span>  <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) clazz.getGenericSuperclass(); </span><br><span class="line">        clazz = (Class) pt.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        System.out.println(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        BaseDao&lt;User&gt; userDao = <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">com</span>.entity.User</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>泛型中extends和super的区别<br>1、&lt;?extends T&gt; 表示包括T在内的任何T的子类<br>2、&lt;?super T&gt; 表求包括T在内的任何T的父类</p>
 </li>
 <li><p>你了解动态代理吗？<br>动态代理其实就是代理模式的一种，代理模式是设计模式之一。代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理。<br>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。<br>动态代理这一技术在实际或者框架原理中是非常常见的。像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等等好用的技术，实际上用的就是动态代理。</p>
 </li>
@@ -1859,6 +1878,8 @@
 </ul>
 </li>
 </ul>
+</li>
+<li><p>类加载器。<br>JDK自带有三个类加载器:bootstrap ClassLoader、ExtClassLoader、AppClassLoader.<br>BootStrapClassLoader是ExtClassLoader的父类加载器，默认负责加载%JAVA HOME%lib下的jar包和class文件ExtClassLoader是AppClassLoader的父类加载器，负贵加载%JAVA HOME%&#x2F;lib&#x2F;ext文件夹下的jar包和class类。AppClassLoader是自定义类加载器的父类，负贵加载classpath下的类文件。</p>
 </li>
 <li><p><strong>双亲委派模型</strong></p>
 <ul>
@@ -1896,7 +1917,15 @@
 <li><strong>堆</strong>：堆是线程共享的区域，几乎类的实例和数组分配的内存都来自于它。「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为 Eden 和 Survivor 区，最后 Survivor 由 From Survivor 和 To Survivor 组成。将「堆内存」分开了几块区域，主要跟「内存回收」有关（垃圾回收机制）</li>
 </ul>
 </li>
+<li></li>
 <li><p>java的对象是怎么被回收的？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv25951929/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv25951929/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+</li>
+<li><p>JVM有哪些垃圾回收算法?</p>
+<ol>
+<li>标记清除算法:<br>  a.标记阶段:把垃圾内存标记出来<br>  b.清除阶段：直接将垃圾内存回收。<br>  c.这种算法是比较简单的，但是有个很严重的问题，就是会产生大量的内存碎片。</li>
+<li>复制算法：为了解决标记清除算法的内存碎片问题，就产生了复制算法。复制算法将内存分为大小相等的两半，每次只使用其中一半。垃圾回收时，将当前这一块的存活对象全部拷贝到另一半，然后当前这一半内存就可以直接清除。这种算法有内存碎片，但是他的问题就在于浪费空间。而且，他的效率跟存活对象的个数有关。</li>
+<li>标记压缩算法:为了解决复制算法的缺陷，就提出了标记压缩算法。这种算在标记阶段跟标记清除算法是一样的，但是在完成标记之后，不是直接清理垃圾内存，而是将存活对象往一端移动，然后将边界以外的所有内存直接清除。</li>
+</ol>
 </li>
 <li><p>CMS垃圾收集器 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
@@ -1987,6 +2016,8 @@
 <li><p>Spring中Bean是线程安全的吗<br>Spring本身并没有针对Bean做线程安全的处理，所以:<br>1。如果Bean是无状志的，那么Bean则是线程安全的<br>2，如果Bean是有状态的，那么Bean则不是线程安全的<br>另外，Bean是不是线程安全，跟Bean的作用域没有关系，Bean的作用域只是表示Bean的生命周期范围，对于任何生命周期的Bean都是一个对象，这个对象是不是线挥安全的还得看这个Bean本身。</p>
 </li>
 <li><p>Spring中的Bean创建的生命周期有哪些步骤<br>大概分为以下几个步骤:<br>1，推断构造方法 ？？<br>2，实例化对象<br>3，填充属性，也就是依赖注入<br>4，处理Aware回调<br>5，初始化前，处理@PostConstruct注解<br>6，初始化，处理InitializingBean接口<br>7，初始化后，进行AOP<br>真正的步骤更加细致，，，，、、、、</p>
+</li>
+<li><p>ApplicationContext和BeamFactory有什么区别？<br>Beanfactony是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而AppitcationContext继承了Beanfactony,所以ApplicationContext拥有Beanfacton所有的特点，也是一个Bean工厂，但是AppicationContext除开继承了Beanfacton之外，还继承了诸如EnvronmentCapable、Messaaesource、AppicationEventPubishe等接口，从而ApplicationCcontext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的</p>
 </li>
 <li><p>Spring Boot中常用注解及其底层实现</p>
 <ol>
@@ -2165,6 +2196,8 @@
 <li><p>Redis 和 Mysql如何保证数据一致？<br>1.先更新 Mysql，再更新 Redis，如果更新 Redis失败，可能仍然不一致<br>2，先删除 Redis缓存数据，再更新 MySql，再次查询的时候在将数据添加到缓存中，这种方案能解决方案1的问题，但是在高并发下性能较低，而且仍然会出现数据不一致的问题：比如线程1删除了Redis缓存数据，正在更新 MySql，此时另外一个查询再查询，那么就会把 MySql中老数据又查到 Redis中<br>3，<strong>延时双删，</strong>步聚是：先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致</p>
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
+</li>
+<li><p>？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
