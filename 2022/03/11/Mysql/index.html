@@ -14,8 +14,11 @@
 <meta property="og:description" content="MySQL是一个开源的关系型数据库管理系统（RDBMS），广泛用于Web应用程序和中小型企业数据库。默认端口是 3306。 启动并连接 MySQL 启动 MySQL 服务器（然后尝试连接到 MySQL 服务器；一般情况下 服务器不会自动关闭）12net start MySQL  # 打开命令提示符（以管理员身份运行），运行以下命令来启动 MySQL 服务net stop MySQL   # 停止">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pdai.tech/images/db/db-sql-x-1.png">
+<meta property="og:image" content="https://pdai.tech/images/db/mysql/db-mysql-sql-4.png">
+<meta property="og:image" content="https://pdai.tech/images/db/mysql/db-mysql-sql-5.png">
+<meta property="og:image" content="https://pdai.tech/images/db/mysql/db-mysql-sql-8.png">
 <meta property="article:published_time" content="2022-03-11T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-01-24T12:59:13.386Z">
+<meta property="article:modified_time" content="2024-01-29T12:34:00.263Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/db/db-sql-x-1.png">
@@ -216,7 +219,7 @@
 <h3 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump -u username -p mydatabase &gt; backup.sql</span><br><span class="line"><span class="comment"># 恢复数据库</span></span><br><span class="line">mysql -u username -p mydatabase &lt; backup.sql</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="MySQL-存储引擎-？？？"><a href="#MySQL-存储引擎-？？？" class="headerlink" title="MySQL 存储引擎 ？？？"></a>MySQL 存储引擎 ？？？</h3><ul>
+<h2 id="MySQL-存储引擎"><a href="#MySQL-存储引擎" class="headerlink" title="MySQL 存储引擎"></a>MySQL 存储引擎</h2><ul>
 <li>InnoDB<ul>
 <li>是 MySQL 默认的事务型存储引擎。  实现了四个标准的隔离级别，默认级别是可重复读。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读</li>
 <li>主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大的提升。 内部做了很多优化，包括从磁盘读取数据时采用的可预测性读、能够加快读操作并且自动创建的自适应哈希索引、能够加速插入操作的插入缓冲区等</li>
@@ -235,7 +238,7 @@
 </ul>
 <hr>
 
-<h1 id="MySQL-索引-？？？"><a href="#MySQL-索引-？？？" class="headerlink" title="MySQL 索引 ？？？"></a>MySQL 索引 ？？？</h1><p>在MySQL中，索引是一种用于提高数据库查询效率的数据结构。它类似于书的目录，通过在数据库表上创建索引，可以快速定位并访问表中的特定数据行，而无需全表扫描。索引在数据库的性能优化中扮演着关键的角色，特别是在大型数据集上。<br>索引是在<strong>存储引擎层</strong>实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现。</p>
+<h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><p>在MySQL中，索引是一种用于提高数据库查询效率的数据结构。它类似于书的目录，通过在数据库表上创建索引，可以快速定位并访问表中的特定数据行，而无需全表扫描。索引在数据库的性能优化中扮演着关键的角色，特别是在大型数据集上。<br>索引是在<strong>存储引擎层</strong>实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现。</p>
 <ul>
 <li>索引类型<ol>
 <li><strong>B+Tree 索引</strong>：是大多数 MySQL 存储引擎的默认索引类型。因为不再需要进行全表扫描，只需要对树进行搜索即可，因此查找速度快很多。除了用于查找，还可以用于排序和分组。<br>InnoDB 的 B+Tree 索引分为主索引和辅助索引。主索引的叶子节点 data 域记录着完整的数据记录，这种索引方式被称为聚簇索引。因为无法把数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。辅助索引的叶子节点的 data 域记录着主键的值，因此在使用辅助索引进行查找时，需要先查找到主键值，然后再到主索引中进行查找。</li>
@@ -268,11 +271,27 @@
 <li><strong>客户端管理器</strong></li>
 </ul>
 <h2 id="MySQL-一条-SQL-的执行过程详解"><a href="#MySQL-一条-SQL-的执行过程详解" class="headerlink" title="MySQL - 一条 SQL 的执行过程详解"></a>MySQL - 一条 SQL 的执行过程详解</h2><p><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/sql-mysql/sql-mysql-execute.html">https://pdai.tech/md/db/sql-mysql/sql-mysql-execute.html</a></p>
+<p>在系统和 MySQL 进行交互之前，MySQL 驱动会帮我们建立好连接，然后我们只需要发送 SQL 语句就可以执行 CRUD 了。<br>java 系统在通过 MySQL 驱动和 MySQL 数据库连接的时候是基于 TCP&#x2F;IP 协议的，多线程请求的时候频繁的创建和销毁连接显然是不合理的。在访问 MySQL 数据库的时候，建立的连接并不是每次请求都会去创建的，而是从数据库连接池中去获取，这样就解决了因为反复的创建和销毁连接而带来的性能损耗问题了。MySQL 的架构体系中也已经提供了这样的一个池子，也是数据库连池。双方都是通过数据库连接池来管理各个连接的，这样一方面线程之前不需要是争抢连接，更重要的是不需要反复的创建的销毁连接。<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-4.png"></p>
+<h4 id="网络连接必须由线程来处理"><a href="#网络连接必须由线程来处理" class="headerlink" title="网络连接必须由线程来处理"></a>网络连接必须由线程来处理</h4><p>网络中的连接都是由线程来处理的，所谓网络连接说白了就是一次请求，每次请求都会有相应的线程去处理的。也就是说对于 SQL 语句的请求在 MySQL 中是由一个个的线程去处理的。<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-5.png"><br>SQL 接口：MySQL 中处理请求的线程在获取到请求以后获取 SQL 语句去交给 SQL 接口去处理。<br>查询解析器：会将 SQL 接口传递过来的 SQL 语句进行解析，翻译成 MySQL 自己能认识的语言<br>MySQL 查询优化器：查询优化器内部具体怎么实现的我们不需要是关心，我需要知道的是 MySQL 会帮我去使用他自己认为的最好的方式去优化这条 SQL 语句，并生成一条条的执行计划，比如你创建了多个索引，MySQL 会依据成本最小原则来选择使用对应的索引，这里的成本主要包括两个方面, IO 成本和 CPU 成本。MySQL 优化器 会计算 「IO 成本 + CPU」 成本最小的那个索引来执行<br>存储引擎：查询优化器会调用存储引擎的接口，去执行 SQL，也就是说真正执行 SQL 的动作是在存储引擎中完成的。数据是被存放在内存或者是磁盘中的（存储引擎是一个非常重要的组件，后面会详细介绍）<br>执行器：执行器是一个非常重要的组件，因为前面那些组件的操作最终必须通过执行器去调用存储引擎接口才能被执行。执行器最终最根据一系列的执行计划去调用存储引擎的接口去完成 SQL 的执行<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-8.png"></p>
+<h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><p>当我们系统发出这样的查询去交给 MySQL 的时候，MySQL 会按照我们上面介绍的一系列的流程最终通过执行器调用存储引擎去执行，流程图就是上面那个。<br>在执行这个 SQL 的时候 SQL 语句对应的数据要么是在内存中，要么是在磁盘中，如果直接在磁盘中操作，那这样的随机IO读写的速度肯定让人无法接受的，所以每次在执行 SQL 的时候都会将其数据加载到内存中，这块内存就是 InnoDB 中一个非常重要的组件：缓冲池 Buffer Pool</p>
+<p>关于Buffer Pool、Redo Log Buffer 和undo log、redo log、bin log 概念以及关系：<br>Buffer Pool 是 MySQL 的一个非常重要的组件，因为针对数据库的增删改操作都是在 Buffer Pool 中完成的<br>Undo log 记录的是数据操作前的样子<br>redo log 记录的是数据被操作后的样子（redo log 是 Innodb 存储引擎特有）<br>bin log 记录的是整个操作记录（这个对于主从复制具有非常重要的意义）<br>、、，，<br>，。</p>
+<h4 id="从准备更新一条数据到事务的提交的流程描述"><a href="#从准备更新一条数据到事务的提交的流程描述" class="headerlink" title="从准备更新一条数据到事务的提交的流程描述"></a>从准备更新一条数据到事务的提交的流程描述</h4><ul>
+<li>首先执行器根据 MySQL 的执行计划来查询数据，先是从缓存池中查询数据，如果没有就会去数据库中查询，如果查询到了就将其放到缓存池中</li>
+<li>在数据被缓存到缓存池的同时，会写入 undo log 日志文件更</li>
+<li>新的动作是在 BufferPool 中完成的，同时会将更新后的数据添加到 redo log buffer 中</li>
+<li>完成以后就可以提交事务，在提交的同时会做以下三件事 <ul>
+<li>将redo log buffer中的数据刷入到 redo log 文件中</li>
+<li>将本次操作记录写入到 bin log文件中</li>
+<li>将 bin log 文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记</li>
+</ul>
+</li>
+<li>至此表示整个更新事务已经完成</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clrw33tzx000i64v5ciu29igo" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clrz0na2j000jpwv5g49c010i" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
