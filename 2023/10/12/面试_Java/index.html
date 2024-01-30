@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-29T14:18:21.349Z">
+<meta property="article:modified_time" content="2024-01-30T14:01:28.363Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png">
@@ -432,15 +432,90 @@
 <li><p>ApplicationContext和BeamFactory有什么区别？<br>Beanfactony是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而AppitcationContext继承了Beanfactony,所以ApplicationContext拥有Beanfacton所有的特点，也是一个Bean工厂，但是AppicationContext除开继承了Beanfacton之外，还继承了诸如EnvronmentCapable、Messaaesource、AppicationEventPubishe等接口，从而ApplicationCcontext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的</p>
 </li>
 <li><p>Spring Boot中常用注解及其底层实现</p>
-<ol>
-<li>@SpringBootApplication注解: 这个注解标识了一个SpringBoot工程，它实际上是另外三个注解的组合，这三个注解是:<br>  a，@SpringBootConfiguration: 这个注解实际就是一个@Configuration，表示启动类也是一个配置类<br>  b，@EnableAutoConfiguration:向Spring容器中导入了一Seletor，用来加ClassPath下SpringFactoties中所定义的自动配置类，将这些自动为配置Bean<br>  c，@ComponentScan:标识扫描路径，因为赋认是没有配置实际扫描路径，所以SpringBoot扫描的路径是启动类所在的当前目录</li>
+<ul>
 <li>@Bean注解:用来定义Bean，类似于XML中的bean&gt;标签，Spring在启动时，会对加了@Bean注解的方法进行折，将方法的名字做为beanName，并通过执行方法得到bean对象</li>
-<li>@Controller、@Service、@ResponseBody、@Autowired都可以说</li>
-</ol>
+<li>Bean处理<ul>
+<li>@Autowired：依赖注入</li>
+<li>@Component：泛指组件</li>
+<li>@Controller、@Service、@Repository</li>
+<li>@RestController</li>
+<li>@Configuration</li>
+</ul>
+</li>
+<li>Http请求：@GetMapping、@PostMapping、@PutMapping、@DeleteMapping</li>
+<li>前后端参数传递：<ul>
+<li>@RequestParam：用在方法的参数前面，获取请求中表单类型的key&#x3D;value格式的数据</li>
+<li>@PathVariable：路径变量，参数与大括号里的名字一样要相同</li>
+<li>@RequestBody：获取请求body中的数据，常用于搭配@PostMapping请求来提交对象数据</li>
+<li>@ResponseBody：表示该方法的返回结果直接写入HTTP response body中，格式为json</li>
+</ul>
+</li>
+<li>读取配置<ul>
+<li>@value：直接读取各种配置源的属性名</li>
+<li>@ConfigurationProperties：读取配置信息并与 bean 绑定</li>
+<li>@PropertySource：指定加载自定义的配置文件</li>
+</ul>
+</li>
+<li>参数校验<ul>
+<li>Bean字段验证注解：@Null、@Min()、，，？？</li>
+<li>？？@Valid：用于标注验证对象的级联属性</li>
+<li>？？@Validated：Spring提供的注解，于SpringMVC一起使用标注方法参数需要检查</li>
+</ul>
+</li>
+<li>统一异常处理<ul>
+<li>@ControllerAdvice：注解定义全局异常处理类，包含@Component所以可以被Spring扫描到</li>
+<li>@ExceptionHandler：注解声明异常处理方法，表示遇到这个异常，就执行标注的方法</li>
+</ul>
+</li>
+<li>JPA数据持久化<ul>
+<li>@Entity：声明数据库实体类</li>
+<li>@Table：设置表明</li>
+<li>@ld：声明一个字段为主键</li>
+<li>@GeneratedValue：声明主键的生成策略</li>
+<li>@Column：声明字段，经常用于属性名和表字段的映射</li>
+<li>@Transient：指定不需要持久化的字段</li>
+<li>@Lob：声明某个字段为大字段</li>
+<li>@Enumerated：声明枚举类型的字段</li>
+<li>@Modifying：加在DAO方法上，提示是修改操作</li>
+<li>@Transactional<ul>
+<li>作用于类上：表示所有该类的public 方法都配置相同的事务属性信息</li>
+<li>作用于方法上：当类配置了@Transactional，方法也配置了@Transactional，方法的事务会覆盖类的事务配置信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试处理<ul>
+<li>@ActiveProfiles：常作思于测试类上，用于声明生效的 Spring 配置文件</li>
+<li>@Test：声明一个方法为测试方法</li>
+<li>@Transactional：被声明的测试方法的数据会回滚，避免污染测试数据</li>
+<li>@WithMockUser：Spring Security 提供的，用来模拟一个真实用户，并且可以赋予权限</li>
+</ul>
+</li>
+<li>配置启动<ul>
+<li>@SpringBootApplication注解: 这个注解标识了一个SpringBoot工程，它实际上是另外三个注解的组合:<br>  a，@SpringBootConfiguration: 这个注解实际就是一个@Configuration，表示启动类也是一个配置类<br>  b，@EnableAutoConfiguration:向Spring容器中导入了一Seletor，用来加ClassPath下SpringFactoties中所定义的自动配置类，将这些自动为配置Bean<br>  c，@ComponentScan:标识扫描路径，因为赋认是没有配置实际扫描路径，所以SpringBoot扫描的路径是启动类所在的当前目录</li>
+<li>@Conditional<ul>
+<li>@ConditionalOnBean：配置了某个特定的Bean</li>
+<li>@ConditionalOnMissingBean：没有配置特定的Bean           </li>
+<li>@ConditionalOnClass：Classpath里有指定的类</li>
+<li>@ConditionalOnMissingClass：Classpath里没有指定的类          </li>
+<li>@ConditionalOnExpression：给定的SpEL表达式计算结果为true</li>
+<li>@ConditionalOnJava：Java的版本匹配特定值或者一个范围值                       </li>
+<li>@ConditionalonIndi：参数中给定的INDI位置必须存在一个，如果没有给参数，则要有JNDIInitialContext            </li>
+<li>@ConditionalOnProperty：指定的配置属性要有一个明确的值</li>
+<li>@ConditionalOnResource：Classpath里没有指定的资源            </li>
+<li>@ConditionalOnWebApplication：这是一个Web应用程序</li>
+<li>@ConditionalOnNotWebApplication：这不是一个Web应用程序</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>？？说说<strong>SpringBoot自动配置</strong>。<br>1、SpringBoot有着“约定大于配置”的理念，这一理念一定程度上可以用“SpringBoot自动配置”来解释。<br>通过 Spring Boot，我们可以快速开发基于 Spring 生态下的应用程序。<br>2、Spring Boot 约定由于配置的体现有很多，比如：<br>Spring Boot Starter 启动依赖，它能帮我们管理所有 jar 包版本；<br>如果当前应用依赖了 spring mvc 相关的 jar，那么 Spring Boot 会自动内置Tomcat 容器来运行 web 应用，我们不需要再去单独做应用部署；<br>Spring Boot 的自动装配机制的实现中，通过扫描约定路径下的 spring.factories 文件来识别配置类，实现 Bean 的自动装配；<br>默认加载的配置文件 application.properties 等等<br>3、在使用SpringBoot的时候，肯定会依赖于autoconfigure这么一个包，autoconfigure这个包里会有一个spring.factories文件，该文件定义了100+个入口的配置类。比如我们经常使用的redis、kafka等等这样常见的中间件都预置了配置类。当我们在启动SpringBoot项目的时候，内部就会加载这个spring.factories文件，进而去加载“有需要”的配置类。那我们在使用相关组件的时候，就会非常的方便（因为配置类已经初始化了一大部分配置信息）。一般我们只要在application配置文件写上对应的配置，就能通过各种template类直接操作对应的组件啦。<br>4、不是所有的配置类都会加载的，假设我们没有引入redis-starter的包，那Redis的配置类就不会被加载。具体Spring在实现的时候就是使用<code>@ConditionalXXX</code>进行判断的。比如Redis的配置类就会有@ConditionalOnClass({RedisOperations.class})的配置，说明当前环境下如果有RedisOperations.class这个字节码，才会去加载Redis的配置类。</p>
 </li>
 <li><p>？？Spring Boot 中自动装配机制的原理。<br>自动装配，简单来说就是自动把第三方组件的 Bean 装载到 Spring IOC 器里面，不需要开发人员再去写 Bean 的装配配置。在 Spring Boot 应用里面，只需要在启动类加上 <strong>@SpringBootApplication</strong> 注解就可以实现自动装配。<br>@SpringBootApplication 是一个复合注解，真正实现自动装配的注解是 <strong>@EnableAutoConfiguration</strong>。自动装配的实现主要依靠三个核心关键技术。<br>1、引入 Starter 启动依赖组件的时候，这个组件里面必须要包含@Configuration 配置类，在这个配置类里面通过@Bean 注解声明需要装配到 IOC 容器的 Bean 对象。<br>2、这个配置类是放在第三方的 jar 包里面，然后通过 SpringBoot 中的约定优于配置思想，把这个配置类的全路径放在 classpath:&#x2F;META-INF&#x2F;spring.factories 文件中。这样 SpringBoot 就可以知道第三方 jar 包里面的配置类的位置，这个步骤主要是用到了 Spring 里面的 SpringFactoriesLoader 来完成的。<br>3、SpringBoot 拿到所第三方 jar 包里面声明的配置类以后，再通过 Spring 提供的ImportSelector 接口，实现对这些配置类的动态加载。<br>在我看来，SpringBoot 是约定优于配置这一理念下的产物，所以在很多的地方，都会看到这类的思想。它的出现，让开发人员更加聚焦在了业务代码的编写上，而不需要去关心和业务无关的配置。其实，自动装配的思想，在 SpringFramework3.x 版本里面的@Enable 注解，就有了实现的雏形。@Enable 注解是模块驱动的意思，我们只需要增加某个@Enable 注解，就自动打开某个功能，而不需要针对这个功能去做 Bean 的配置，@Enable 底层也是帮我们去自动完成这个模块相关 Bean 的注入。以上，就是我对 Spring Boot 自动装配机制的理解。</p>
+</li>
+<li><p>Spring Boot 属性源<br>1.命令行参数<br>2.JVM系统属性<br>3.操作系统环境变量<br>4.打包在应用程序内的 application.properties 或者 application.yml 文件<br>5.通过 @PropertySource 标注的属性源<br>6.默认属性</p>
 </li>
 <li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类 </p>
 </li>
