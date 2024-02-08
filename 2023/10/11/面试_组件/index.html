@@ -6,16 +6,18 @@
   
   <title>面 逝 | 组件 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="围绕简历准备：https:&#x2F;&#x2F;www.wondercv.com&#x2F;cvs&#x2F;5hCOzINo&#x2F;editor,个人技能：https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2023&#x2F;10&#x2F;10&#x2F;%E6%8A%80%E8%83%BD&#x2F; 八股（MySQL）https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2022&#x2F;03&#x2F;11&#x2F;Mysql&#x2F;  事务。  事务（Transaction）是一组数据库操作">
+  <meta name="description" content="围绕简历准备：https:&#x2F;&#x2F;www.wondercv.com&#x2F;cvs&#x2F;5hCOzINo&#x2F;editor,个人技能：https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2023&#x2F;10&#x2F;10&#x2F;%E6%8A%80%E8%83%BD&#x2F; 八股（MySQL） ⼀条SQL查询语句是如何执⾏的？  连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。 查询缓存:MySQL拿到⼀个查询请求后，会先到查">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面 逝 | 组件">
 <meta property="og:url" content="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="围绕简历准备：https:&#x2F;&#x2F;www.wondercv.com&#x2F;cvs&#x2F;5hCOzINo&#x2F;editor,个人技能：https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2023&#x2F;10&#x2F;10&#x2F;%E6%8A%80%E8%83%BD&#x2F; 八股（MySQL）https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2022&#x2F;03&#x2F;11&#x2F;Mysql&#x2F;  事务。  事务（Transaction）是一组数据库操作">
+<meta property="og:description" content="围绕简历准备：https:&#x2F;&#x2F;www.wondercv.com&#x2F;cvs&#x2F;5hCOzINo&#x2F;editor,个人技能：https:&#x2F;&#x2F;leo710aka.github.io&#x2F;2023&#x2F;10&#x2F;10&#x2F;%E6%8A%80%E8%83%BD&#x2F; 八股（MySQL） ⼀条SQL查询语句是如何执⾏的？  连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。 查询缓存:MySQL拿到⼀个查询请求后，会先到查">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
+<meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
+<meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-01-29T14:13:52.009Z">
+<meta property="article:modified_time" content="2024-02-08T12:45:14.533Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -96,48 +98,77 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>围绕简历准备：<a target="_blank" rel="noopener" href="https://www.wondercv.com/cvs/5hCOzINo/editor">https://www.wondercv.com/cvs/5hCOzINo/editor</a>,<br>个人技能：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/">https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/</a></p>
-<h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/11/Mysql/">https://leo710aka.github.io/2022/03/11/Mysql/</a></p>
+<h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
+<li><p>⼀条SQL查询语句是如何执⾏的？</p>
+<ol>
+<li>连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。</li>
+<li>查询缓存:MySQL拿到⼀个查询请求后，会先到查询缓存看看，之前是不是执⾏过这条语句。之前执⾏过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中。</li>
+<li>分析器:你输⼊的是由多个字符串和空格组成的⼀条SQL语句，MySQL需要识别出⾥⾯的字符串分别是什么，代表什么。</li>
+<li>优化器:优化器是在表⾥⾯有多个索引的时候，决定使⽤哪个索引;或者在⼀个语句有多表关联 (join)的时候，决定各个表的连接顺序。</li>
+<li>执⾏器:MySQL通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进⼊了执⾏器阶段，开始执⾏语句。</li>
+</ol>
+</li>
+<li><p>数据库存储引擎<br>数据库存储引擎是数据库底层软件组织，数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。不同的存储引擎提供不同的存储机制、索引技巧、锁定水平等功能，使用不同的存储引擎，还可以 获得特定的功能。现在许多不同的数据库管理系统都支持多种不同的数据引擎。存储引擎主要有： 1. MyIsam, 2. InnoDB, 3. Memory, 4. Archive, 5. Federated 。</p>
+</li>
+<li><p>InnoDB（B+树）<br>InnoDB 底层存储结构为B+树， B树的每个节点对应innodb的一个page， page大小是固定的，一般设为 16k。其中非叶子节点只有键值，叶子节点包含完成数据<br>适用场景：<br>1）经常更新的表，适合处理多重并发的更新请求。<br>2）支持事务。<br>3）可以从灾难中恢复（通过 bin-log 日志等）。<br>4）外键约束。只有他支持外键。<br>5）支持自动增加列属性 auto_increment。</p>
+</li>
+<li><p>MyIASM，Memory<br>MyIASM是 MySQL默认的引擎，但是它没有提供对数据库事务的支持，也不支持行级锁和外键，因此当 NSERT(插入)或 UPDATATE(更新)数据时即写操作需要锁定整个表，效率便会低一些。<br>ISAM 执行读取操作的速度很快，而且不占用大量的内存和存储资源。在设计之初就预想数据组织成有固定长度的记录，按顺序存储的。 —ISAM 是一种静态索引结构。缺点是它不 支持事务处理。<br>Memery 就是将数据放在内存中，数据处理速度很快，但是安全性不⾼。</p>
+</li>
+<li><p>MyISAM 和 InnoDB 有什么区别？<br>（1）InnoDB 支持行级别的锁粒度，MyISAM 不支持，只支持表级别的锁粒度。<br>（2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>（3）MyISAM 不支持外键，而 InnoDB 支持。<br>（4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>（5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>（6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>（7）InnoDB 的性能比 MyISAM 更强大。</p>
+</li>
+<li><p>索引。<br>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。<br>索引（Index）是帮助 MySQL 高效获取数据的数据结构。 常见的查询算法,顺序查找,二分查找,二叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树（B-tree） ，索引是对数据库表中一个或多个列的值进行排序的结构，建立索引有助于快速获取信息。<br>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库 mysql。<br>索引并非是越多越好，创建索引也需要耗费资源，一是增加了数据库的存储空间，二是在插入和删除时要花费较多的时间维护索引<br>索引加快数据库的检索速度<br>索引降低了插入、删除、修改等维护任务的速度<br>唯一索引可以确保每一行数据的唯一性<br>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能<br>索引需要占物理和数据空间</p>
+</li>
+<li><p>索引有哪些种类。</p>
 <ul>
-<li><p>事务。</p>
-<ul>
-<li>事务（Transaction）是一组数据库操作，它们形成一个逻辑工作单元，要么全部成功执行，要么全部失败回滚。事务的目的是保证数据库的一致性和完整性，确保在多个操作中要么全部成功，要么全部失败，不会留下中间状态。</li>
-<li>事务的特性：通常被称为 ACID 特性 原子性、一致性、隔离性、持久性</li>
-<li>事务的隔离性<br>  1、并发异常:第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读<br>  2、隔离级别: Read Uncommitted、Read Conmitted、Repeatable Read、Serializable</li>
-<li>Spring事务管理：Spring事务是Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：<ul>
-<li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        myRepository.saveEntity1();</span><br><span class="line">        myRepository.saveEntity2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>编程式事务：通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">        <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 业务逻辑</span></span><br><span class="line">            myRepository.saveEntity1();</span><br><span class="line">            myRepository.saveEntity2();</span><br><span class="line">            transactionManager.commit(status);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            transactionManager.rollback(status);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>从数据结构维度进⾏分类:<br>  B+树索引:所有数据存储在叶⼦节点，复杂度为O(logn)，适合范围查询。<br>  哈希索引:适合等值查询，检索效率⾼，⼀次到位<br>  全⽂索引: MyISAM 和 InnoDB 中都⽀持使⽤全⽂索引，⼀般在⽂本类型char，text，varchar 类型上创建<br>  R-Tree 索引:⽤来对 GIS 数据类型创建 SPATIAL 索引</li>
+<li>从物理存储维度进⾏分类:<br>  聚集索引:数据存储与索引⼀起存放，叶⼦节点会存储⼀整⾏记录，找到索引也就找到了数据。<br>  ⾮聚集索引:数据存储与索引分开存放，叶⼦节点不存储数据，存储的是数据⾏地址。</li>
+<li>从逻辑维度进⾏分类:<br>  主键索引:⼀种特殊的唯⼀索引，不允许有空值。<br>  普通索引:MySQL中基本索引类型，允许空值和重复值<br>  联合索引:多个字段创建的索引，使⽤时遵循最左前缀原则<br>  唯⼀索引:索引列中的值必须是唯⼀的，但是允许为空值<br>  空间索引:MySQL5.7之后⽀持空间索引，在空间索引这⽅⾯遵循OpenGIS⼏何数据模</li>
 </ul>
 </li>
-</ul>
+<li><p>什么时候需要创建索引？<br>表的主关键字：⾃动建⽴唯⼀索引<br>直接条件查询的字段：经常⽤于WHERE查询条件的字段，这样能够提⾼整个表的查询速度<br>查询中与其它表关联的字段：例如字段建⽴了外键关系<br>查询中排序的字段：排序的字段如果通过索引去访问将⼤⼤提⾼排序速度<br>唯⼀性约束列： 如果某列具有唯⼀性约束，那么为了确保数据的唯⼀性，可以在这些列上创建唯⼀索引。<br>⼤表中的关键列： 在⼤表中，如果查询的效率变得很低，可以考虑在关键列上创建索引。</p>
 </li>
-<li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
+<li><p>什么时候不需要创建索引？<br>⼩表： 对⼩表创建索引可能会带来额外的开销，因为在⼩数据集中扫描整个表可能⽐使⽤索引更快。<br>频繁的插⼊、更新和删除操作： 索引的维护成本会随着数据的插⼊、更新和删除操作⽽增加。如果表经常被修改，过多的索引可能会影响性能。<br>数据重复且分布平均的表字段：假如⼀个表有10万⾏记录，性别只有男和⼥两种值，且每个值的分布概率⼤约为50%，那么对这种字段建索引⼀般不会提⾼数据库的查询速度。<br>很少被查询的列： 如果某列很少被⽤于查询条件，那么为它创建索引可能没有明显的性能提升。<br>查询结果总⾏数较少的表： 如果查询的结果集总⾏数很少，使⽤索引可能不会有太⼤的性能提升。</p>
 </li>
-<li><p>Spring事务传播机制<br>多个事务方法相互调用时，事务如何在这些法间传摇，方法A是一个事务的方法，方法A执行过程中调用了方法B，那么方法B有无事务以及方法B对事务的要求不同都会对方法A的事务具体执行造成影响，同时方法A的事务对方法B的事务执行也有影响，这种影响具体是什么就由两个方法所定义的事务传播类型所决定。<br>1，REQUIRED(Spring默认的事务传播类型): 如果当前没有事务，则自己新建一个事务，如果当前存在事务，则加入这个事务<br>2，SUPPORTS:当前存在事务，则加加入当前事务，如果当前没有事务，就以非事务方法执行<br>3。MANDATORY:当前存在事务，则加入当前事务，如果当前事务不存在，则抛出异常。<br>4，REQUIRES_NEW: 创建一个新事务，如果存在当前事务，则挂起该事务。<br>5，NOT_SUPPORTED: 以非事务方式执行如里当前存在事务，则持起当前事务<br>6，NEVER:不使用事务，如果当前事务存在，则抛出异常<br>7，NESTED: 如果当前事存在，则在嵌套事务中执行，否则REQUIRED的操作一样 (开启一个事务)</p>
+<li><p>？？？常见索引原则</p>
+<ol>
+<li>选择唯一性索引，唯一性索引的值是唯一的，可以更快速的通过该索引来确定某条记录。</li>
+<li>为经常需要排序、分组和联合操作的字段建立索引。</li>
+<li>为常用作为查询条件的字段建立索引。</li>
+<li>限制索引的数目：越多的索引，会使更新表变得很浪费时间。尽量使用数据量少的索引</li>
+<li>如果索引的值很长，那么查询的速度会受到影响。尽量使用前缀来索引</li>
+<li>如果索引字段的值很长，最好使用值的前缀来索引。</li>
+<li>删除不再使用或者很少使用的索引</li>
+<li>最左前缀匹配原则，非常重要的原则。</li>
+<li>尽量选择区分度高的列作为索引区分度的公式是表示字段不重复的比例</li>
+<li>索引列不能参与计算，保持列“干净”：带函数的查询不参与索引。</li>
+<li>尽量的扩展索引，不要新建索引</li>
+</ol>
 </li>
-<li><p>Spring事务什么时候会失效?<br>spring事务的原理是AOP，进行了切面增强，那么失效的根本原因是这个AOP不起作用了! 常见情况有如下几种<br>？？1、发生自调用，类里面使用this调用本类的方法(this通常省略)，此时这个this对象不是代理类，而是UserService对象本身!解决方法很简单，让那个this变成UserService的代理类即可!<br>2、方法不是public的:@Transactional 只能用于 public 的方法上，否则事务不会失效，如果要用在非 public 方法上，可以开启 Aspectj 代理楼式<br>3、数据库不支持事务<br>4、没有被spring管理<br>5、异常被吃掉，事务不会回滚(或者抛出的异常没有被定义，默认为RuntimeException)</p>
-</li>
-<li><p>存储引擎。</p>
+<li><p>主键？？？？聚集索引，非聚集索引？</p>
 <ul>
-<li>？？</li>
-<li>MyISAM 和 InnoDB 有什么区别？<br>  （1）InnoDB 支持行级别的锁粒度，MyISAM 不支持，只支持表级别的锁粒度。<br>  （2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>  （3）MyISAM 不支持外键，而 InnoDB 支持。<br>  （4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>  （5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>  （6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>  （7）InnoDB 的性能比 MyISAM 更强大。</li>
-</ul>
-</li>
-<li><p>索引。</p>
-<ul>
-<li>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。</li>
-<li>聚集索引，非聚集索引，主键？<ul>
+<li>主键：主键是一种用于唯一标识表中每一行数据的列或列组合。主键列的值必须唯一且不为空（NULL）。在InnoDB中，主键索引是表的物理排序顺序，它是表的聚集索引。如果表没有显式定义主键，InnoDB会选择一个合适的唯一非空索引来充当主键索引。</li>
 <li>聚集索引：在MySQL中，聚集索引决定了数据在磁盘上的物理存储顺序，即数据的存储顺序与索引顺序一致。在InnoDB存储引擎中，主键索引就是一个聚集索引。如果表没有显式定义主键，则InnoDB会选择一个唯一非空的索引来充当聚集索引。</li>
 <li>非聚集索引：非聚集索引在磁盘上维护索引键和对应数据行的引用，索引键的顺序与实际数据行的物理存储顺序无关。在MySQL中，除了InnoDB存储引擎的聚集索引（主键索引），其他索引都是非聚集索引，例如普通索引或唯一索引。</li>
-<li>主键：主键是一种用于唯一标识表中每一行数据的列或列组合。主键列的值必须唯一且不为空（NULL）。在InnoDB中，主键索引是表的物理排序顺序，它是表的聚集索引。如果表没有显式定义主键，InnoDB会选择一个合适的唯一非空索引来充当主键索引。</li>
 </ul>
 </li>
-<li>B+ Tree(InnoDB)索引<ul>
+<li><p>覆盖索引？回表查询？<br>覆盖索引是指一个查询语句所需的数据可以从索引中直接获取，而无需访问表格中的实际数据行。这种情况下，索引“覆盖”了查询的所有需要的列。覆盖索引的优势在于可以减少磁盘 I&#x2F;O 和内存的消耗，因为不需要额外的表格访问。<br>回表查询指的是在使用索引的情况下，通过索引定位到主键，然后再根据主键的值去表中检索数据的过程。这通常发生在覆盖索引（Covering Index）无法满足查询需求时。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 考虑以下表 products</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> products (</span><br><span class="line">    product_id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    product_name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    price <span class="type">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>),</span><br><span class="line">    quantity <span class="type">INT</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 为 product_name 列创建索引 idx_product_name</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name <span class="keyword">ON</span> products (product_name);</span><br><span class="line"><span class="comment">-- 假设我们有一条数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> products (product_id, product_name, price, quantity) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;Laptop&#x27;</span>, <span class="number">999.99</span>, <span class="number">50</span>);</span><br><span class="line"><span class="comment">-- 现在，如果我们执行以下查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> product_name, price <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> product_name <span class="operator">=</span> <span class="string">&#x27;Laptop&#x27;</span>;</span><br><span class="line"><span class="comment">-- 从索引中获取的列 `product_name`，但 `price` 列不在查询的列中，MySQL 将执行回表查询</span></span><br><span class="line"><span class="comment">-- MySQL 首先使用索引 `idx_product_name` 找到匹配 `&#x27;Laptop&#x27;` 的行，获取到对应的 `product_id`（主键），然后根据 `product_id` 到表格中检索完整的行数据以获取 `price` 值</span></span><br><span class="line"><span class="comment">-- 这种情况下，如果我们希望避免回表查询，可以考虑创建一个覆盖索引，将查询语句中需要的所有列都包含在索引中，便无需执行额外的回表查询</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name_covering <span class="keyword">ON</span> products (product_name, price);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>B+ Tree(InnoDB)索引</strong></p>
+<ul>
 <li>数据分块存储，每一块称为一页。所有的值都是按顺序存储的，并且每一个叶子到根的距离相同。</li>
 <li>非叶节点存储数据的边界，叶子节点存储指向数据行的指针。通过边界缩小数据的范围，从而避免全表扫描，加快了查找的速度。</li>
 <li>B+ 树索引是一种索引结构，通常用于数据库管理系统中作为数据的索引方式。它可以用作聚集索引或非聚集索引，并不是严格意义上的主键索引。在数据库中，B+树索引在不同存储引擎下，例如在InnoDB中作为主键索引（聚集索引）使用，或作为其他索引（非聚集索引）的实现。  <img src="https://leo710aka.github.io/bk/job5.png" width="550" height="300" alt=""></li>
 </ul>
 </li>
-</ul>
+<li><p>？？？InnoDB 建议为大部分表使用默认的自增主键的主要原因</p>
+<ol>
+<li><strong>聚簇索引：</strong> InnoDB 表的主键是聚簇索引（Clustered Index），这意味着数据行的物理顺序与聚簇索引的顺序一致。使用自增主键作为聚簇索引可以确保新插入的数据按顺序添加到表的末尾，减少数据页的分裂和碎片，提高数据的顺序性。</li>
+<li><strong>插入性能：</strong> 自增主键的顺序性有助于提高插入性能。因为数据行按照主键的顺序插入，新的数据行往往直接添加到表的末尾，而不会导致页面的分裂和数据的重新排序。</li>
+<li><strong>查询性能：</strong> 使用自增主键作为聚簇索引可以提高范围查询和排序查询的性能，因为相关数据在物理上是相邻存储的。</li>
+<li><strong>减少索引大小：</strong> 自增主键通常是整数，占用的空间相对较小。相比于使用其他类型的主键，这可以减少非聚簇索引的大小，提高缓存的效率，减少磁盘 I&#x2F;O。</li>
+<li><strong>减少碎片：</strong> 自增主键的插入顺序有助于减少数据页的分裂和碎片，减小了表的维护成本。</li>
+</ol>
 </li>
 <li><p>B树 与 B+树 的区别</p>
 <ul>
@@ -146,9 +177,20 @@
 <li>B树和B+树，一般都是应用在文件系统和数据库系统中，用来减少磁盘IO带来的性能损耗。<br>  以Mysql中的InnoDB为例，当我们通过select语句去查询一条数据时，InnoDB需要从磁盘上去读取数据，这个过程会涉及到磁盘IO以及磁盘的随机IO（如图所示）我们知道磁盘IO的性能是特别低的，特别是随机磁盘IO。因为，磁盘IO的工作原理是，首先系统会把数据逻辑地址传给磁盘，磁盘控制电路按照寻址逻辑把逻辑地址翻译成物理地址，也就是确定要读取的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要把磁头放在这个扇区的上面，为了实现这一个点，磁盘会不断旋转，把目标扇区旋转到磁头下面，使得磁头找到对应的磁道，这里涉及到寻道事件以及旋转时间<br>  很明显，磁盘IO这个过程的性能开销是非常大的，特别是查询的数据量比较多的情况下。所以在InnoDB中，干脆对存储在磁盘块上的数据建立一个索引，然后把索引数据以及索引列对应的磁盘地址，以B+树的方式来存储。如图所示，当我们需要查询目标数据的时候，根据索引从B+树中查找目标数据即可，由于B+树分路较多，所以只需要较少次数的磁盘IO就能查找到。</li>
 </ul>
 </li>
-<li><p>为什么 MySQL 的索引要使用 B+ 树而不是其它树形结构？<br>  1、B+树能显著减少IO次数，提高效率。因为 B 树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致 IO 操作变多，查询性能变低。<br>  2、B+树的查询效率更加稳定。因为数据放在叶子节点。<br>  3、B+树能提高范围查询的效率。因为叶子节点指向下一个叶子节点。</p>
+<li><p>为什么 MySQL 的索引要使用 B+ 树而不是其它树形结构？<br>  B 树是一种多路平衡树，用这种存储结构来存储大量数据，它的整个高度会相比二叉树来说，会矮很多。而对于数据库来说，所有的数据必然都是存储在磁盘上的，而磁盘 IO 的效率实际上是很低的，特别是在随机磁盘 IO 的情况下效率更低。所以树的高度能够决定磁盘 IO 的次数，磁盘 IO 次数越少，对于性能的提升就越大，这也是为什么采用 B 树作为索引存储结构的原因。</p>
+  <img src="https://leo710aka.github.io/bk/job7.png" width="550" height="300" alt="">
+  对于 B 树，不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致 IO 操作变多，查询性能变低。在 Mysql 的 InnoDB 存储引擎里面用了一种增强的 B 树结构，也就是 B+树来作为索引和数据的存储结构。
+  <img src="https://leo710aka.github.io/bk/job8.png" width="550" height="300" alt="">
+  使用 B+树来实现索引的原因，我认为有几个方面。
+  1. B+树非叶子节点不存储数据，所以每一层能够存储的索引数量会增加，意味着 B+树在层高相同的情况下存储的数据量要比 B 树要多，使得磁盘 IO 次数更少。
+  2. 在 Mysql 里面，范围查询是一个比较常用的操作，而 B+树的所有存储在叶子节点的数据使用了双向链表来关联，所以在查询的时候只需查两个节点进行遍历就行，而 B 树需要获取所有节点，所以 B+树在范围查询上效率更高。
+  3. 在数据检索方面，由于所有的数据都存储在叶子节点，所以 B+树的 IO 次数会更加稳定一些。
+  4. 因为叶子节点存储所有数据，所以 B+树的全局扫描能力更强一些，因为它只需要扫描叶子节点。但是 B 树需要遍历整个树。
+  另外，基于 B+树这样一种结构，如果采用自增的整型数据作为主键，还能更好的避免增加数据的时候，带来叶子节点分裂导致的大量运算的问题。
 </li>
-<li><p>MySQL 索引失效的几种情况<br>  1、有 or 必全有索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。<br>  2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。<br>  3、like以%开头;<br>  4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。<br>  5、where中索引列有数学运算。 6、where中索引列使用了函数。 7、如果mysql觉得全表扫描更快时（数据少）。</p>
+<li><p>为什么选择 B+Tree 而不是红黑树？<br>红黑树等平衡树也可以用来实现索引,但是文件系统及数据库系统,普遍采用 B+ Tree作为索引结构这是因为使用 B+ tree 访问磁盘数据有更高的性能。我主要从两个点来回答<br>第一点：对于一个数据库来说 存储的数据量会比较多，导致索引也很大 因此需要将索引存储在磁盘，但是磁盘的 IO 操作又非常耗，所以提高索引效率的关键在于减少磁盘 IO 的次数。相同节点个数 的 B+Tree 的高度更小，树的高度基本决定了磁盘的 IO 次数 ，所以使用 B+Tree 性能要高很多<br>第二点：B+Tree 有个特点是相邻的数据在物理上也是相邻的，因为 B+Tree 的 node 的大小设为一个页，而一个节点上存有多个相邻的关键字和分支信息，每个节点只需要一次 IO就能完全载入，相当于一次 IO 载入了多个相邻的关键字和分支，而红黑树不具有这个特性，红黑树中大小相邻的数据，在物理结构上可能距离相差很大。由于程序的局部性原理，如果我们在索引中采用了预加载的技术，每次磁盘访问的时候除了将访问到的页加载到磁盘，我们还可以基于局部性原理加载，几页相邻的数据到内存中，而这个加载是不需要消耗多余磁盘 IO 时间的。<br>因此 基于局部性原理，以及 B+Tree 存储结构物理上的特性，所以 B+Tree 的索引性能比红黑树要好很多。</p>
+</li>
+<li><p>??? MySQL 索引失效的几种情况<br>  1、OR 语句前后没有同时使用索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。<br>  2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。<br>  3、like以%开头；模糊匹配<br>  4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。<br>  5、where中索引列有数学运算。<br>  6、where中索引列使用了函数。<br>  7、如果mysql觉得全表扫描更快时（数据少）。</p>
 </li>
 <li><p>联合索引（Composite Index）</p>
 <ul>
@@ -158,6 +200,92 @@
 <li>联合索引的作用？<br>  1、减少io操作的开销和磁盘空间的开销；<br>  2、提升性能。索引列越多，通过索引筛选出的数据越少。<br>  3、覆盖索引。直接通过遍历索引取得数据，无需回表。<br>  提高查询效率：联合索引可以加速对多列数据的查询，对于联合索引中包含的列，可以同时使用它们进行筛选，减少了查询的数据量，提高了查询效率。<br>  减少磁盘IO：联合索引可以将多个列的数据存储在一起，减少了需要读取的磁盘块数，从而降低了IO的开销。<br>  优化排序操作：如果查询需要按照联合索引中的多个列进行排序，联合索引可以避免对多个独立索引的排序操作，从而提高排序操作的效率</li>
 </ul>
 </li>
+<li><p>？？简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。<br>普通索引允许被索引的数据列包含重复的值。如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。也就是说，唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，主键用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。<br>索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件</p>
+</li>
+<li><p>？？？SQL优化<br>1、查询语句中不要使用select *<br>2、尽量减少子查询，使用关联查询（left join,right join,inner join）替代<br>3、减少使用IN或者NOT IN ,使用exists，not exists或者关联查询语句替代<br>4、or 的查询尽量用 union或者union all 代替(在确认没有重复数据或者不用剔除重复数据时，union all会更好)<br>5、应尽量避免在 where 子句中使用!&#x3D;或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。<br>6、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询： select id from t where num&#x3D;0</p>
+</li>
+<li><p>MySQL慢查询如何优化？<br>1，检查是否走了索引，如果没有则优化SQL利用索引<br>2、检查所利用的索引，是否是最优索引<br>3。检查所查字段是否都是必须的，是否查询了过多字段，查出了多余数据<br>4，检查表中数据是否过多，是否应该进行分库分表了<br>5。检查数据库实例所在机器的性能配置，是否太低，是否可以适当增加资源</p>
+</li>
+<li><p>优化数据库的方法<br>1、选取最适用的字段属性，尽可能减少定义字段宽度，尽量把字段设置 NOTNULL，例如’省份’、’性别’最好适用 ENUM<br>2、使用连接(JOIN)来代替子查询<br>3、适用联合(UNION)来代替手动创建的临时表<br>4、事务处理<br>5、锁定表、优化事务处理<br>6、适用外键，优化锁定表<br>7、建立索引<br>8、优化查询语句</p>
+</li>
+<li><p>MySQL 优化？</p>
+<ul>
+<li>硬件和操作系统层面的优化<br>  硬件层面来说，影响 Mysql 性能的因素有，CPU、可用内存大小、磁盘读写速度、网络带宽从操作系层面来说，应用文件句柄数、操作系统网络的配置都会影响到 Mysql 性能。这部分的优化一般由 DBA 或者运维工程师去完成。在硬件基础资源的优化中，我们重点应该关注服务本身承载的体量，然后提出合理的指标要求，避免出现资源浪费！</li>
+<li>架构设计层面的优化<br>  MySQL 是一个磁盘 IO 访问量非常频繁的关系型数据库，在高并发和高性能的场景中承受巨大的并发压力，<br>  1、搭建 Mysql 主从集群，单个 Mysql 服务容易单点故障，一旦服务器宕机，将会导致依赖 Mysql 数据库的应用全部无法响应。 主从集群或者主主集群可以保证服务的高可用性。<br>  2、读写分离设计，在读多写少的场景中，通过读写分离的方案，可以避免读写冲突导致的性能影响？？<br>  3、引入分库分表机制，通过分库可以降低单个服务器节点的 IO 压力，通过分表的方式可以降低单表数据量，从而提升 sql 查询的效率。<br>  4、针对热点数据，可以引入更为高效的分布式数据库，比如 Redis、MongoDB 等，他们可以很好的缓解 Mysql 的访问压力，同时还能提升数据检索性能。</li>
+<li>MySQL 程序配置优化<br>  对于 Mysql 数据库本身的优化，一般是通过 Mysql 中的配置文件 my.cnf 来完成的，比如。<br>  Mysql5.7 版本默认的最大连接数是 151 个，这个值可以在 my.cnf 中修改。binlog 日志，默认是不开启。缓存池 bufferpoll 的默认大小配置等。<br>  由于这些配置一般都和用户安装的硬件环境以及使用场景有关系，因此这些配置官方只会提供一个默认值，具体情况还得由使用者来修改。<br>  关于配置项的修改，需要关注两个方面。1. 配置的作用域，分为会话级别和全局；2. 是否支持 热加载<br>  因此，针对这两个点，我们需要注意的是：1. 全局参数的设定对于已经存在的会话无法生效; 2. 会话参数的设定随着会话的销毁而失效; 3. 全局类的统一配置建议配置在默认配置文件中，否则重启服务会导致配置失效</li>
+<li>表结构和索引的优化<br>  主要可以下面这些方面去优化分库分表、读写分离、为字段选择合适的数据类型、适当的反范式设计，适当冗余设计、为查询操作创建必要的索引但是要避免索引滥用、尽可能使用 Not Null。</li>
+<li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.<br>  避免使用 SELECT *查询。尽可能使用索引扫描来排序。</li>
+</ul>
+</li>
+<li><p>常见的 SQL 优化规则<br>SQL 的查询一定要基于索引来进行数据扫描<br>避免索引列上使用函数或者运算,这样会导致索引失效<br>？？where 字句中 like %号,尽量放置在右边<br>使用索引扫描,联合索引中的列从左往右,命中越多越好.<br>？？尽可能使用 SQL 语句用到的索引完成排序,避免使用文件排序的方式<br>查询有效的列信息即可.少用 * 代替列信息<br>？？永远用小结果集驱动大结果集。</p>
+</li>
+<li><p>？？？什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录外，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录外，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
+</li>
+<li><p>？？？ 简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete和truncate只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;deletedelete语句是dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发. truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
+</li>
+<li><p>？？？范式。</p>
+<ul>
+<li>范式理论是为了解决四种异常。不符合范式的关系（表的属性的组合），会产生很多异常：1、冗余数据。2、修改异常: 修改了一个记录中的信息，但是另一个记录中相同的信息却没有被修改。3、删除异常: 删除一个信息，那么也会丢失其它信息。4、插入异常: 例如想要插入一个学生的信息，如果这个学生还没选课，那么就无法插入。</li>
+<li>高级别范式的依赖于低级别的范式，1NF 是最低级别的范式。<ol>
+<li>第一范式 (1NF)：属性不可分。</li>
+<li>第二范式 (2NF)：每个非主属性完全函数依赖于键码。可以通过分解来满足。（一张表分解成多张表）</li>
+<li>第三范式 (3NF)：非主属性不传递函数依赖于键码。可以进行分解。</li>
+</ol>
+</li>
+<li>如何通俗地理解三个范式？<br>  第一范式：1NF 是对属性的原子性约束，要求属性具有原子性，不可再分解；<br>  第二范式：2NF 是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；<br>  第三范式：3NF 是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。<br>  ？？？</li>
+</ul>
+</li>
+<li><p>什么是基本表？什么是视图？游标是什么？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。<br>视图本身不独立存储在数据库中，是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图是从一个或几个基本表导出的表，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。<br>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+</li>
+<li><p>事务。</p>
+<ul>
+<li>事务（Transaction）是一组数据库操作，它们形成一个逻辑工作单元，要么全部成功执行，要么全部失败回滚。事务的目的是保证数据库的一致性和完整性，确保在多个操作中要么全部成功，要么全部失败，不会留下中间状态。</li>
+<li>事务的特性：通常被称为 ACID 特性<ul>
+<li>原子性（Atomicity） 事务是一个完整的操作。事务的各步操作是不可分的（原子的）；要么都执行，要么都不执行。</li>
+<li>一致性（Consistency）当事务完成时，数据必须处于一致状态。</li>
+<li>隔离性（Isolation） 对数据进行修改的所有并发事务是彼此隔离的， 这表明事务必须是独立的，它不应以任何方式依赖于或影响其他事务。</li>
+<li>永久性（Durability） 事务完成后，它对数据库的修改被永久保持，事务日志能够保持事务的永久性</li>
+</ul>
+</li>
+<li>事务的隔离性<br>  并发异常：第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读<br>  隔离级别：Read Uncommitted、Read Conmitted、Repeatable Read、Serializable</li>
+</ul>
+</li>
+<li><p><strong>并发事务带来哪些问题?</strong><br>  在典型的应用程序中，多个事务并发运行，经常会操作相同的数据来完成各自的任务（多个用户对同一数据进行操作）。并发虽然是必须的，但可能会导致以下的问题。</p>
+<ul>
+<li>脏读（Dirty read）: 当一个事务正在访问数据并且对数据进行了修改，而这种修改还没有提交到数据库中，这时另外一个事务也访问了这个数据，然后使用了这个数据。因为这个数据是还没有提交的数据，那么另外一个事务读到的这个数据是“脏数据”，依据“脏数据”所做的操作可能是不正确的。</li>
+<li>丢失修改（Lost to modify）: 指在一个事务读取一个数据时，另外一个事务也访问了该数据，那么在第一个事务中修改了这个数据后，第二个事务也修改了这个数据。这样第一个事务内的修改结果就被丢失，因此称为丢失修。 例如：事务1读取某表中的数据A&#x3D;20，事务2也读取A&#x3D;20，事务1修改A&#x3D;A-1，事务2也修改A&#x3D;A-1，最终结果A&#x3D;19，事务1的修改被丢失。</li>
+<li>不可重复读（Unrepeatableread）: 指在一个事务内多次读同一数据。在这个事务还没有结束时，另一个事务也访问该数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改导致第一个事务两次读取的数据可能不太一样。这就发生了在一个事务内两次读到的数据是不一样的情况，因此称为不可重复读。</li>
+<li>幻读（Phantom read）: 幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）插入了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。不可重复读和幻读区别：不可重复读的重点是修改比如多次读取一条记录发现其中某些列的值被修改，幻读的重点在于新增或者删除比如多次读取一条记录发现记录增多或减少了</li>
+</ul>
+</li>
+<li><p><strong>事务隔离级别有哪些?</strong><br>  SQL 标准定义了四个隔离级别： </p>
+<ul>
+<li>READ-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
+<li>READ-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。 </li>
+<li>REPEATATATABLE-READ(可重复读)： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生 </li>
+<li>SERIALIZABLE(可串行化)： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
+</ul>
+</li>
+<li><p>MySQL的默认隔离级别是?<br>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATATATABLE-READ（可重读）。<br>这里需要注意的是：与 SQL 标准不同的地方在于 InnoDB 存储引擎在 REPEATATATABLE-READ（可重读）事务隔离级别下使用的是Next-KeyLock 锁算法，因此可以避免幻读的产生，这与其他数据库系统(如SQL Server) 是不同的。所以说InnoDB 存储引擎的默认支持的隔离级别是REPEATATATABLE-READ（可重读） 已经可以完全保证事务的隔离性要求，即达到了 SQL标准的 SERIALIZABLE(可串行化) 隔离级别。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是 READCOMMITTED(读取提交内容) ，但是你要知道的是InnoDB 存储引擎默认使用 REPEAaTATABLEREAD（可重读） 并不会有任何性能损失<br>InnoDB 存储引擎在 分布式事务 的情况下一般会用到 SERIALIZABLE(可串行化) 隔离级别。</p>
+</li>
+<li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以在缺省情况下，MySQL 是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
+</li>
+<li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+</li>
+<li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
+</li>
+<li><p>Spring事务管理：Spring事务是Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</p>
+<ul>
+<li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        myRepository.saveEntity1();</span><br><span class="line">        myRepository.saveEntity2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编程式事务：通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">        <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 业务逻辑</span></span><br><span class="line">            myRepository.saveEntity1();</span><br><span class="line">            myRepository.saveEntity2();</span><br><span class="line">            transactionManager.commit(status);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            transactionManager.rollback(status);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
+</li>
+<li><p>Spring事务传播机制<br>多个事务方法相互调用时，事务如何在这些法间传摇，方法A是一个事务的方法，方法A执行过程中调用了方法B，那么方法B有无事务以及方法B对事务的要求不同都会对方法A的事务具体执行造成影响，同时方法A的事务对方法B的事务执行也有影响，这种影响具体是什么就由两个方法所定义的事务传播类型所决定。<br>1，REQUIRED(Spring默认的事务传播类型): 如果当前没有事务，则自己新建一个事务，如果当前存在事务，则加入这个事务<br>2，SUPPORTS:当前存在事务，则加加入当前事务，如果当前没有事务，就以非事务方法执行<br>3。MANDATORY:当前存在事务，则加入当前事务，如果当前事务不存在，则抛出异常。<br>4，REQUIRES_NEW: 创建一个新事务，如果存在当前事务，则挂起该事务。<br>5，NOT_SUPPORTED: 以非事务方式执行如里当前存在事务，则持起当前事务<br>6，NEVER:不使用事务，如果当前事务存在，则抛出异常<br>7，NESTED: 如果当前事存在，则在嵌套事务中执行，否则REQUIRED的操作一样 (开启一个事务)</p>
+</li>
+<li><p>Spring事务什么时候会失效?<br>spring事务的原理是AOP，进行了切面增强，那么失效的根本原因是这个AOP不起作用了! 常见情况有如下几种<br>？？1、发生自调用，类里面使用this调用本类的方法(this通常省略)，此时这个this对象不是代理类，而是UserService对象本身!解决方法很简单，让那个this变成UserService的代理类即可!<br>2、方法不是public的:@Transactional 只能用于 public 的方法上，否则事务不会失效，如果要用在非 public 方法上，可以开启 Aspectj 代理楼式<br>3、数据库不支持事务<br>4、没有被spring管理<br>5、异常被吃掉，事务不会回滚(或者抛出的异常没有被定义，默认为RuntimeException)</p>
+</li>
 <li><p>MySQL 单表为什么不要超过 2千万条 时最优？</p>
 <ul>
 <li>查询性能：随着数据量的增加，查询可能变得更慢，特别是在没有合适索引支持的情况下。大表需要更多的计算资源和时间来处理查询，可能导致性能下降。</li>
@@ -165,58 +293,135 @@
 <li>锁和并发：在执行更新或删除操作时，数据库可能需要对表进行锁定，以确保数据的一致性。大表的锁定可能会阻塞其他操作，影响并发性能。</li>
 </ul>
 </li>
-<li><p>分表？</p>
+<li><p>分表。</p>
 <ul>
 <li>分表是一种应对大表数据量的常见方法。通过将大表拆分为多个小表（分区），可以减轻数据库管理系统的负担，提高查询性能和管理效率。分表可以根据业务逻辑或特定的列值进行拆分，例如按时间范围、地理区域等方式进行分区。</li>
-<li>在考虑分表之前，建议进行以下操作：<br>  优化查询和索引：确保数据库表有适当的索引来支持常见的查询，并优化查询语句以提高性能。<br>  垂直和水平分割：考虑将大表进行垂直切分（按列拆分）或水平切分（按行拆分）以减少单个表的数据量。<br>  使用分区：针对数据库支持的分区功能，可以考虑根据特定的标准将表分成多个逻辑分区。<br>  数据库优化：定期清理无用数据、重新构建索引、优化数据库配置等，以提高数据库的整体性能。</li>
+<li>在考虑分表之前，建议进行以下操作：<br>  优化查询和索引：确保数据库表有适当的索引来支持常见的查询，并优化查询语句以提高性能。<br>  限定数据的范围：务必禁止不带任何限制数据范围条件的查询语句。比如：我们当用户在查询订单历史的时候，我们可以控制在一个月的范围内；<br>  ？？？读&#x2F;写分离：经典的数据库拆分方案，主库负责写，从库负责读；<br>  垂直和水平分割：考虑将大表进行垂直切分（按列拆分）或水平切分（按行拆分）以减少单个表的数据量。<br>  使用分区：针对数据库支持的分区功能，可以考虑根据特定的标准将表分成多个逻辑分区。<br>  数据库优化：定期清理无用数据、重新构建索引、优化数据库配置等，以提高数据库的整体性能。</li>
 </ul>
 </li>
-<li><p>锁 ？？</p>
+<li><p>分库分表之后,id 主键如何处理？？？<br>因为要是分成多个表之后，每个表都是从 1 开始累加，这样是不对的，我们需要一个全局唯一的 id 来支持。生成全局 id 有下面这几种方式：<br>UUID：不适合作为主键，因为太长了并且无序不可读，查询效率低。比较适合用于生成唯一的名字的标示比如文件的名字。<br>数据库自增 id : 两台数据库分别设置不同步长，生成不重复ID的策略来实现高可用。这种方式生成的 id 有序，但是需要独立部署数据库实例，成本高，还会有性能瓶颈。<br>利用 redis 生成 id : 性能比较好，灵活方便，不依赖于数据库。但是，引入了新的组件造成系统更加复杂，可用性降低，编码更加复杂，增加了系统成本。</p>
+</li>
+<li><p>锁 </p>
 <ul>
-<li>范围<br>  表级锁：开销小、加锁快，，发生锁冲突的概率高、并发度低，不会出现死锁<br>  行级锁：开销大、加锁慢，发生锁冲突的概率低、并发度高，会出现死锁</li>
+<li>什么是锁？<br>  答：数据库是一个多用户使用的共享资源。当多个用户并发地存取数据时，在数据库中就会产生多个事务同时存取同一数据的情况。若对并发操作不加控制就可能会读取和存储不正确的数据，破坏数据库的一致性。加锁是实现数据库并发控制的一个非常重要的技术。当事务在对某个数据对象进行操作前，先向系统发出请求，对其加锁。加锁后事务就对该数据对象有了一定的控制，在该事务释放锁之前，其他的事务不能对此数据对象进行更新操作。</li>
+<li>范围<ol>
+<li>表级锁：开销小、加锁快，发生锁冲突的概率高、并发度低，不会出现死锁<br> 表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被大部分 MySQL 引擎支持。最常使用的 MYISAM 与 INNODB 都支持表级锁定。表级锁定分为表共享读锁（共享锁）与表独占写锁（排他锁）。        </li>
+<li>行级锁：开销大、加锁慢，发生锁冲突的概率低、并发度高，会出现死锁<br> 行级锁是一种排他锁，防止其他事务修改此行；在使用以下语句时， Oracle 会自动应用行级锁：<ol>
+<li>INSERT、 UPDATATE、 DELETE、 SELECT … FOR UPDATATE [OF columns] [WAWAIT n | NOWAWAIT];</li>
+<li>SELECT … FOR UPDATATE 语句允许用户一次锁定多条记录进行更新</li>
+<li>使用 COMMIT 或 ROLLBACK 语句释放锁。</li>
+</ol>
+</li>
+<li>（页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般）<br>  页级锁是 MySQL 中锁定粒度介于行级锁和表级锁中间的一种锁。表级锁速度快，但冲突多，行级冲突少，但速度慢。所以取了折衷的页级，一次锁定相邻的一组记录。 BDB 支持页级锁</li>
+</ol>
+</li>
 <li>类型 (InnoDB)<br>  共享锁 (s) : 行级，读取一行<br>  排他锁 (x) : 行级，更新一行<br>  意向共享锁 (IS): 表级，准备加共享锁<br>  意向排他锁 (Ix) : 表级，准备加排他锁<br>  间隙锁 (NK) : 行级，使用范围条件时</li>
-<li>对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要</li>
-<li>加锁<br>  增加行级锁之前，InnoDB会自动给表加意向锁<br>  执行DML语句时，InnoDB会自动给数据加排他锁<br>  执行DQL语句时<ul>
+<li>加锁<br>  对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要<br>  增加行级锁之前，InnoDB会自动给表加意向锁<br>  执行DML语句时，InnoDB会自动给数据加排他锁<br>  ？？？执行DQL语句时：<ul>
 <li>共享锁 (s) :SELECT … FROM … WHERE … LOCK IN SHARE MODE</li>
 <li>排他锁 (x) :SELECT … FROM … WHERE … FOR UPDATE;</li>
 <li>间隙锁 (NK) : 上述sQ采用范围条件时，InnoDB对不存在的记录自动增加间隙锁</li>
 </ul>
 </li>
-<li>死锁</li>
-<li>悲观锁</li>
-<li>乐观锁</li>
+<li>悲观锁：悲观锁就是在读取数据的时候，为了不让别人修改自己读取的数据，就会先对自己读取的数据加锁，只有自己把数据读完了，才允许别人修改那部分数据，或者反过来说，就是自己修改某条数据的时候，不允许别人读取该数据，只有等自己的整个事务提交了，才释放自己加上的锁，才允许其他用户访问那部分数据。<ul>
+<li>悲观锁所说的加“锁”，其实分为几种锁，分别是： 排它锁（写锁）和共享锁（读锁） 。</li>
 </ul>
 </li>
-<li><p>范式。<br>  范式理论是为了解决四种异常。不符合范式的关系（表的属性的组合），会产生很多异常：1、冗余数据。2、修改异常: 修改了一个记录中的信息，但是另一个记录中相同的信息却没有被修改。3、删除异常: 删除一个信息，那么也会丢失其它信息。4、插入异常: 例如想要插入一个学生的信息，如果这个学生还没选课，那么就无法插入。<br>  高级别范式的依赖于低级别的范式，1NF 是最低级别的范式。</p>
+<li>乐观锁：乐观锁认为一个用户读数据的时候，别人不会去写自己所读的数据；悲观锁就刚好相反，觉得自己读数据库的时候，别人可能刚好在写自己刚读的数据，其实就是持一种比较保守的态度；时间戳就是不加锁，通过时间戳来控制并发出现的问题。<ul>
+<li>时间戳：就是在数据库表中单独加一列时间戳，比如“TimeStamp”， 每次读出来的时候，把该字段也读出来，当写回去的时候，把该字段加1，提交之前 ，跟数据库的该字段比较一次，如果比数据库的值大的话，就允许保存，否则不允许保存，这种处理方法虽然不使用数据库系统提供的锁机制，但是这种方法可以大大提高数据库处理的并发量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据库并发策略<br>并发控制一般采用三种方法，分别是乐观锁和悲观锁以及时间戳。</p>
+</li>
+<li><p>???锁的优化策略<br>1、读写分离<br>2、分段加锁<br>3、减少锁持有的时间<br>4.多个线程尽量以相同的顺序去获取资源不能将锁的粒度过于细化，不然可能会出现线程的加锁和释放次数过多，反而效率不如一次加一把大锁。</p>
+</li>
+<li><p>存储过程。什么是存储过程？用什么来调用？<br>一组为了完成特定功能的 SQL 语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。如果某次操作需要执行多次 SQL，使用存储过程比单纯 SQL 语句执行要快。存储过程是数据库中的一个重要对象。<br>？？？存储过程优化思路</p>
+</li>
+</ul>
 <ol>
-<li>第一范式 (1NF)：属性不可分。</li>
-<li>第二范式 (2NF)：每个非主属性完全函数依赖于键码。可以通过分解来满足。（一张表分解成多张表）</li>
-<li>第三范式 (3NF)：非主属性不传递函数依赖于键码。可以进行分解。</li>
+<li>尽量利用一些 sql 语句来替代一些小循环，例如聚合函数，求平均函数等。</li>
+<li>中间结果存放于临时表，加索引。</li>
+<li>少用游标。sql 是个集合语言，对于集合运算具有较高性能。而 cursors 是过程运算。比如对一个 100 万行的数据进行查询。游标需要读表 100 万次，而不使用游标则只需要少量几次读取。</li>
+<li>事务越短越好。 sqlserver 支持并发操作。如果事务过多过长，或者隔离级别过高，都会造成并发操作的阻塞，死锁。导致查询极慢，cpu 占用率极地。</li>
+<li>使用 try-catch 处理错误异常。6. 查找语句尽量不要放在循环内</li>
+</ol>
+<ul>
+<li><p>SQL 注入的原理和类型<br>SQL 注入产生的原因：程序开发过程中不注意规范书写 sql 语句和对特殊字符进行过滤，导致客户端可以通过全局变量 POST 和 GET 提交一些 sql 语句正常执行。<br>1、恶意拼接查询 2、利用注释执行非法命令 3、传入非法参数 4、添加额外条件</p>
+</li>
+<li><p>如何避免 SQL 注入？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
+</li>
+<li><p>？？？mvcc机制。<br>MVCC（Multi-Version Concurrency Control）多版本并发控制，⽤于管理多个事务同时访问和修改数据库的数据，⽽不会导致数据不⼀致或冲突。MVCC的核⼼思想是每个事务在数据库中看到的数据版本是事务开始时的⼀个快照，⽽不是实际的最新版本。这使得多个事务可以并发执⾏，⽽不会互相⼲扰。<br>MySQL的事务有ACID四⼤特性，其中的隔离性可以通过锁和MVCC来实现，MVCC适合在⼀些锁性能较为差的情况下使⽤，提⾼效率。<br>如何实现：每⼀个 UndoLog ⽇志中都有⼀个 roll_pointer （回滚指针）⽤于指向上⼀个版本的 Undo Log 。这样对于每⼀条记录就会构成⼀个版本链，⽤于记录所有的修改，每⼀次进⾏新的修改后，新的 Undo Log 会放在版本链的头部。<br>在我们进⾏查询的时候应该查询哪个版本呢？这时候就可以通过 ReadView 来实现。在事务SELECT查询数据时，就会构造⼀个 ReadView ，它包含了版本链的统计信息：<br>m_ids 当前活跃的所有事务id（所有未提交的事务）<br>min_trx_id 版本链尾的id<br>max_trx_id 下⼀个将要分配的事务id（版本链头事务id+1）<br>creator_trx_id 创建这个ReadView的事务的id 查询规则：<br>该版本是否为当前事务创建（读取⾃⼰修改的数据），如果是就返回，否则进⼊下⼀个判断<br>该版本的事务id是否⼩于min_trx_id（在ReadView创建之前，数据已经提交），可以直接访问<br>该版本的事务id是否⼤于max_trx_id（在ReadView创建后，该版本才开启），不能被访问<br>该版本事务id在[min_trx_id, max_trx_id]之间，则判断当前版本事务id是否在m_ids中，如果不在，说明事务已经提交可以访问，否则不能访问。</p>
+</li>
+<li><p>？？对 MVCC 的理解。<br>对于 MVCC 的理解，我觉得可以先从数据库的三种并发场景说起：<br>第一种：读读就是线程 A 与线程 B 同时在进行读操作，这种情况下不会出现任何并发问题。<br>第二种：读写就是线程 A 与线程 B 在同一时刻分别进行读和写操作。这种情况下，可能会对数据库中的数据造成以下问题：事物隔离性问题，出现脏读，幻读，不可重复读的问题<br>第三种：写写就是线程 A 与线程 B 同时进行写操作。这种情况下可能会存在数据更新丢失的问题。而 MVCC 就是为了解决事务操作中并发安全性问题的无锁并发控制技术全称为Multi-Version Concurrency Control ，也就是多版本并发控制。它是通过数据库记录中的隐式字段，undo 日志 ，Read View 来实现的。<br>MVCC 主要解决了三个问题<br>第一个是：通过 MVCC 可以解决读写并发阻塞问题从而提升数据并发处理能力<br>第二个是：MVCC 采用了乐观锁的方式实现，降低了死锁的概率<br>第三个是：解决了一致性读的问题。也就是事务启动时根据某个条件读取到的数据，直到事务结束时，再次执行相同条件，还是读到同一份数据，不会发生变化。而我们在使用 MVCC 时一般会根据业务场景来选择组合搭配乐观锁或悲观锁。这两个组合中，MVCC 用来解决读写冲突，乐观锁或者悲观锁解决写写冲突从而最大程度的提高数据库并发性能。以上就是我的对 MVCC 的理解。</p>
+</li>
+<li><p>？？？mysql日志。<br>binlog (归档⽇志) 是Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog。。<br>redo log 是 Innodb 存储引擎层 ？？物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。<br>undo log 是 Innodb 存储引擎层⽣成的⽇志，实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。<br>relay log 中继⽇志，⽤于主从复制场景下， slave 通过io线程拷⻉master的 binlog 后本地⽣成的⽇志</p>
+</li>
+<li><p>MySQL 数据类型</p>
+<ol>
+<li>数值类型：<ul>
+<li><strong>整数类型：</strong>   <code>INT</code>（整数，4字节）  <code>TINYINT</code>（小整数，1字节） <code>SMALLINT</code>（小整数，2字节）  <code>MEDIUMINT</code>（中等整数，3字节）    <code>BIGINT</code>（大整数，8字节）</li>
+<li><strong>浮点数类型：</strong>   <code>FLOAT</code>（单精度浮点数）  <code>DOUBLE</code>（双精度浮点数）</li>
+<li><strong>定点数类型：</strong>   <code>DECIMAL</code>（定点数）</li>
+</ul>
+</li>
+<li>日期和时间类型：<ul>
+<li><strong>日期类型：</strong>   <code>DATE</code>（日期）</li>
+<li><strong>时间类型：</strong>   <code>TIME</code>（时间）  <code>DATETIME</code>（日期和时间，包括秒） <code>TIMESTAMP</code>（日期和时间，包括秒，通常用于记录数据的修改时间）</li>
+</ul>
+</li>
+<li>字符串类型：<ul>
+<li><strong>定长字符串：</strong>  <code>CHAR</code>（定长字符串）</li>
+<li><strong>变长字符串：</strong>  <code>VARCHAR</code>（变长字符串）</li>
+<li><strong>文本类型：</strong>    <code>TEXT</code>（较小的文本）    - <code>MEDIUMTEXT</code>（中等大小的文本）    - <code>LONGTEXT</code>（较大的文本）</li>
+</ul>
+</li>
+<li>二进制类型：<br>  <code>BINARY</code>（定长二进制字符串）   <code>VARBINARY</code>（变长二进制字符串）   <code>BLOB</code>（较小的二进制数据）  <code>MEDIUMBLOB</code>（中等大小的二进制数据） <code>LONGBLOB</code>（较大的二进制数据）</li>
+<li>其他类型：<br>  <code>ENUM</code>（枚举类型） <code>SET</code>（集合类型）</li>
 </ol>
 </li>
-<li><p>存储过程。<br>？？</p>
+<li><p>CHAR 和 VAVARCHAR 的区别？<br>1、CHAR 和 VAVARCHAR 类型在存储和检索方面有所不同<br>2、CHAR 列长度固定为创建表时声明的长度，长度值范围是 1 到 255 当 CHAR值被存储时，它们被用空格填充到特定长度，检索 CHAR 值时需删除尾随空格。 </p>
 </li>
-<li><p>MySQL慢查询如何优化？<br>1，检查是否走了索引，如果没有则优化SQL利用索引<br>2、检查所利用的索引，是否是最优索引<br>3。检查所查字段是否都是必须的，是否查询了过多字段，查出了多余数据<br>4，检查表中数据是否过多，是否应该进行分库分表了<br>5。检查数据库实例所在机器的性能配置，是否太低，是否可以适当增加资源</p>
+<li><p>MySQL 里记录货币用什么字段类型好？<br>在 MySQL 中，记录货币金额时，一般建议使用 DECIMAL 类型。DECIMAL 类型是一种精确的定点数类型，提供了更可靠的精确度，确保不会发生舍入误差,适合用于存储货币等需要精确计算的数值。???NUMERIC 和 DECIMAL 类型被 MySQL 实现为同样的类型，这在 SQL92 标准允许。避免使用浮点数类型（如 FLOAT 或 DOUBLE）来表示货币金额，因为浮点数在计算中可能存在精度问题。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salary <span class="type">DECIMAL</span>(<span class="number">9</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，9(precision)代表将被用于存储值的总的小数位数，而 2(scale)代表将被用于存储小数点后的位数。因此，在这种情况下，能被存储在 salary 列中的值的范围是从-9999999.99 到9999999.99。</p>
 </li>
-<li><p>SQL 注入的原理和类型<br>1、恶意拼接查询 2、利用注释执行非法命令 3、传入非法参数 4、添加额外条件<br>如何避免 SQL 注入 ？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
+<li><p>BLOB 和 TEXT 的区别。</p>
+<ol>
+<li><strong>存储内容：</strong>   <code>BLOB</code> 存储二进制数据，不进行字符集的转换。  <code>TEXT</code> 存储字符数据，会根据字符集进行相应的转换。</li>
+<li><strong>大小限制：</strong>   <code>BLOB</code> 可以存储更大的二进制数据。  <code>TEXT</code> 可以存储更大的字符数据。</li>
+<li><strong>排序和比较：</strong>   <code>BLOB</code> 进行二进制排序和比较。  <code>TEXT</code> 进行字符集排序和比较。</li>
+<li><strong>用途：</strong>  <code>BLOB</code> 适用于存储图像、音频、视频等二进制文件。<code>TEXT</code> 适用于存储文本文档、HTML、XML 等字符数据。</li>
+</ol>
 </li>
-<li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
+<li><p>为表中得字段选择合适得数据类型<br>字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别得数据类型，应该优先选择占用空间小的数据类型</p>
 </li>
-<li><p>？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+<li><p>LIKE 声明中的％和_是什么意思？<br>％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符<br>？？？</p>
 </li>
-<li><p>MySQL 优化？</p>
-<ul>
-<li>硬件和操作系统层面的优化<br>  硬件层面来说，影响 Mysql 性能的因素有，CPU、可用内存大小、磁盘读写速度、网络带宽从操作系层面来说，应用文件句柄数、操作系统网络的配置都会影响到 Mysql 性能。这部分的优化一般由 DBA 或者运维工程师去完成。在硬件基础资源的优化中，我们重点应该关注服务本身承载的体量，然后提出合理的指标要求，避免出现资源浪费！</li>
-<li>架构设计层面的优化<br>  MySQL 是一个磁盘 IO 访问量非常频繁的关系型数据库，在高并发和高性能的场景中承受巨大的并发压力，<br>  1、搭建 Mysql 主从集群，单个 Mysql 服务容易单点故障，一旦服务器宕机，将会导致依赖 Mysql 数据库的应用全部无法响应。 主从集群或者主主集群可以保证服务的高可用性。<br>  ？？2、读写分离设计，在读多写少的场景中，通过读写分离的方案，可以避免读写冲突导致的性能影响<br>  3、引入分库分表机制，通过分库可以降低单个服务器节点的 IO 压力，通过分表的方式可以降低单表数据量，从而提升 sql 查询的效率。<br>  4.、针对热点数据，可以引入更为高效的分布式数据库，比如 Redis、MongoDB 等，他们可以很好的缓解 Mysql 的访问压力，同时还能提升数据检索性能。</li>
-<li>MySQL 程序配置优化<br>  对于 Mysql 数据库本身的优化，一般是通过 Mysql 中的配置文件 my.cnf 来完成的，比如。<br>  Mysql5.7 版本默认的最大连接数是 151 个，这个值可以在 my.cnf 中修改。binlog 日志，默认是不开启。缓存池 bufferpoll 的默认大小配置等。<br>  由于这些配置一般都和用户安装的硬件环境以及使用场景有关系，因此这些配置官方只会提供一个默认值，具体情况还得由使用者来修改。<br>  关于配置项的修改，需要关注两个方面。1. 配置的作用域，分为会话级别和全局；2. 是否支持 热加载<br>  因此，针对这两个点，我们需要注意的是：1. 全局参数的设定对于已经存在的会话无法生效; 2. 会话参数的设定随着会话的销毁而失效; 3. 全局类的统一配置建议配置在默认配置文件中，否则重启服务会导致配置失效</li>
-<li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
-</ul>
+<li><p>MySQL 如何优化 DISTINCT？<br>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>常见的 SQL 优化规则<br>SQL 的查询一定要基于索引来进行数据扫描<br>避免索引列上使用函数或者运算,这样会导致索引失效<br>？？where 字句中 like %号,尽量放置在右边<br>使用索引扫描,联合索引中的列从左往右,命中越多越好.<br>？？尽可能使用 SQL 语句用到的索引完成排序,避免使用文件排序的方式<br>查询有效的列信息即可.少用 * 代替列信息<br>？？永远用小结果集驱动大结果集。</p>
+<li><p>什么是通用 SQL 函数？<br>1、CONCATAT(A, B) – 连接两个字符串值以创建单个字符串输出。通常用于将两个或多个字段合并为一个字段。<br>2、FORMATAT(X, D)- 格式化数字 X 到 D 有效数字。<br>3、CURRDATATE(), CURRTIME()- 返回当前日期或时间。<br>4、NOW（） – 将当前日期和时间作为一个值返回。<br>5、MONTH（），DAYAY（），YEAR（），WEEK（），WEEKDAYAY（） – 从日期值中提取给定数据。<br>6、HOUR（），MINUTE（），SECOND（） – 从时间值中提取给定数据。<br>7、DATATEDIFF（A，B） – 确定两个日期之间的差异，通常用于计算年龄<br>8、SUBTIMES（A，B） – 确定两次之间的差异。<br>9、FROMDAYAYS（INT） – 将整数天数转换为日期值</p>
+</li>
+<li><p>MySQL 数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？<br>1、设计良好的数据库结构，允许部分数据冗余，尽量避免 join 查询，提高效率。<br>2、选择合适的表字段数据类型和存储引擎，适当的添加索引。<br>3、MySQL 库主从读写分离。<br>4、找规律分表，减少单表中的数据量提高查询速度。<br>5、添加缓存机制，比如 memcached，apc 等。<br>6、不经常改动的页面，生成静态页面。<br>7、书写高效率的 SQL。比如 SELECT * FROM TATABEL 改为 SELECT field_1,field_2, field_3 FROM TATABLE.</p>
+</li>
+<li><p>不建议使用 JOIN，那么如何优化多表查询？</p>
+<ol>
+<li><strong>使用索引：</strong> 确保关联字段上有适当的索引。索引可以大大提高 JOIN 操作的性能。在关联字段上创建索引可以减少查找匹配行的时间。</li>
+<li><strong>使用合适的 JOIN 类型：</strong> 根据查询的需求选择合适的 JOIN 类型，如 INNER JOIN、LEFT JOIN、RIGHT JOIN 等。不同的 JOIN 类型会影响结果集的形成和查询性能。</li>
+<li><strong>LIMIT 结果集大小：</strong> 如果可能的话，尽量使用 LIMIT 限制结果集的大小。可以减少检索和传输的数据量。</li>
+<li><strong>尽量避免使用多个子查询：</strong>多个嵌套的子查询可能会导致性能问题。尝试将复杂的查询拆分成多个简单的查询，并使用 JOIN 连接它们。</li>
+<li><strong>考虑缓存：</strong> 对于频繁查询的数据，考虑使用缓存机制，如缓存查询结果或使用缓存系统（例如 Redis）。</li>
+<li><strong>分析查询计划：</strong> 使用 <code>EXPLAIN</code> 关键字来分析查询计划，了解 MySQL 如何执行查询。这有助于确定是否使用了适当的索引，以及是否有潜在的性能问题。</li>
+<li><strong>使用索引视图或汇总表：</strong> 对于复杂查询，可以考虑使用索引视图或汇总表，以提前计算并存储查询结果，从而减轻实时查询的负担。</li>
+<li><strong>考虑使用 NoSQL 数据库：</strong> 对于某些类型的查询，可能会考虑使用 NoSQL 数据库，特别是需要处理大量非结构化或半结构化数据的情况。</li>
+</ol>
 </li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
 <li><p>为什么要用Redis？<br>无论Redis、MySQL、HDFS、HBase都是存储数据的地方，因为设计理念的不同，我们会根据不同的应用场景使用不同的存储。像Redis一般我们会把它用作于缓存（当然，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了<br>1、高性能：首先，它是纯内存操作，内存本身就很快。其次，它是单线程的，Redis服务器核心是基于非阻塞的IO多路复用机制，单线程避免了多线程的频繁上下文切换问题<br>2、高可靠：主从复制，哨兵机制<br>3、高拓展：数据发片，负载均衡</p>
+</li>
+<li><p>Redis 为什么这么快？<br>决定 Redis 请求效率的因素主要是三个方面，分别是网络、cpu、内存。<br>在网络层面，Redis 采用多路复用的设计，提升了并发处理的连接数，不过这个阶段，Server 端的所有 IO 操作，都是由同一个主线程处理的。这个时候 IO 的瓶颈就会影响到 Redis 端的整体处理性能。所以从 Redis6.0 开始，在多路复用及层面增加了多线程的处理，来优化 IO 处理的能力。不过，具体的数据操作仍然是由主线程来处理的，所以我们可以认为 Redis 对于数据 IO的处理依然是单线程。？？<br>从内存层面来说，Redis 本身就是一个内存数据库，内存的 IO 速度本身就很快，所以内存的瓶颈只是受限于内存大小。<br>最后，Redis 本身的数据结构也做了很多的优化，比如压缩表、跳跃表等方式降低了时间复杂读，同时还提供了不同时间复杂度的数据类型。</p>
 </li>
 <li><p>Redis有哪些数据结构?分别有哪些典型的应用场景?Redis的教据结构有:</p>
 <table>
@@ -328,13 +533,173 @@
 </ul>
 <hr>
 
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><ul>
+<li><p>什么是消息队列？<br>  消息队列 Message Queue，简称 MQ。是一种应用间的通信方式，主要由三个部分组成。</p>
+<ul>
+<li>生产者：Producer，消息的产生者与调用端，主要负责消息所承载的业务信息的实例化，是一个队列的发起方</li>
+<li>代理：Broker，主要的处理单元，负责消息的存储、投递、及各种队列附加功能的实现，是消息队列最核心的组成部分</li>
+<li>消费者：Consumer，一个消息队列的终端，也是消息的调用端，具体是根据消息承载的信息，处理各种业务逻辑。</li>
+</ul>
+</li>
+<li><p>消息队列的应用场景较多，常用的可以分为三种：</p>
+<ul>
+<li>异步处理：主要应用于对实时性要求不严格的场景，比如：用户注册发送验证码、下单通知、发送优惠券等等。服务方只需要把协商好的消息发送到消息队列，剩下的由消费消息的服务去处理，不用等待消费服务返回结果。</li>
+<li>应用解耦：可以看作是把相关但耦合度不高的系统联系起来。比如订单系统与 WMS、EHR 系统，有关联但不哪么紧密，每个系统之间只需要把约定的消息发送到 MQ，另外的系统去消费即可。解决了各个系统可以采用不同的架构、语言来实现，从而大大增加了系统的灵活性。</li>
+<li>流量削峰：一般应用在大流量入口且短时间内业务需求处理不完的服务中心，为了权衡高可用，把大量的并行任务发送到 MQ 中，依据 MQ 的存储及分发功能，平稳的处理后续的业务，起到一个大流量缓冲的作用。</li>
+</ul>
+</li>
+<li><p>如何进行消息队列选型?</p>
+<ul>
+<li>Kafka:<br>  优点: 各吐量非常大，性能非常好，集群高可用。<br>  缺点:会丢数据，功能比较单一<br>  使用场景:日志分析、大数据采集</li>
+<li>RabbitMQ:<br>  优点: 消息可靠性高，功能全面。<br>  缺点:吞吐量比较低，消息积累会严重影响性能。erlang语言不好定制.<br>  使用场景:小规模场景。</li>
+<li>RocketMQ:<br>  优点:高吞吐、高性能、高可用，功能非常全面。<br>  缺点:开源版功能不如云上商业版。官方文档和周边生态还不够成熟。客户端只支持java。<br>  使用场景:几乎是全场景。</li>
+</ul>
+</li>
+<li><p>什么是 rabbitmq<br>采用 AMQP 高级消息队列协议的一种消息队列技术,最大的特点就是消费并不需要确保提供方存在,实现了服务之间的高度解耦</p>
+</li>
+<li><p>为什么要使用 rabbitmq<br>1、在分布式系统下具备异步,削峰,负载均衡等一系列高级功能;<br>2、拥有持久化的机制，进程消息，队列中的信息也可以保存下来。<br>3、实现消费者和生产者之间的解耦。<br>4、对于高并发场景下，利用消息队列可以使得同步访问变为串行访问达到一定量的限流，利于数据库的操作。<br>5、可以使用消息队列达到异步下单的效果，排队中，后台进行逻辑下单。</p>
+</li>
+<li><p>使用 rabbitmq 的场景<br>1、服务间异步通信 2、顺序消费 3、定时任务 4、请求削峰</p>
+</li>
+<li><p>如何确保消息正确地发送至 RabbitMQ？ 如何确保消息接收方消费了消息？发送方确认模式<br>，，、<br>、</p>
+</li>
+</ul>
+<hr>
+
 <h2 id="八股（网-络）"><a href="#八股（网-络）" class="headerlink" title="八股（网 络）"></a>八股（网 络）</h2><p><a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">https://leo710aka.github.io/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</a></p>
 <ul>
-<li><p>介绍 TCP&#x2F;IP 模型。</p>
+<li><p>浏览器发出一个请求到收到响应经历了哪些步骤?<br>1，浏览器解析用户输入的URL，生成一个HTTP格式的请求<br>2，先根据URL域名从本地hosts文件查找是否有映射IP，如果没有就将域名发送给电脑所配置的DNS进行域名解析，得到IP地址<br>3，浏览器通过操作系统将请求通过四层网络协议发送出去<br>4，途中可能会经过各种路由器、交换机，最终到达服务器<br>5，服务器收到请求后，根据请求所指定的端口，将请求传递给绑定了该端口的应用程序，比如8080被tomcat占用了<br>6，tomcat接收到请求数据后，按照http协议的格式进行解析，解析得到所要访问的servlet<br>7，然后servlet来处理这个请求，如果是pringMVC中的DispatcherServet，那么则会找到对应的Controler中的方法，并执行该方法得到结果<br>8，Tomcat得到响应结果后封装成HTTP响应的格式，并再次通过网络发送给浏览器所在的服务器<br>9，浏览器所在的服务器拿到结果后再传递给浏览器，浏览器则负责解析并洁染</p>
+</li>
+<li><p>介绍 TCP&#x2F;IP 模型。<br>，，、、<br>，，</p>
+</li>
+<li><p>HTTP请求常⻅的状态码和字段<br>，，、</p>
+</li>
+<li><p>HTTP1.0和HTTP1.1的区别？</p>
+<ol>
+<li>⻓连接<br>  HTTP1.1 ⽀持⻓连接，每⼀个TCP连接上可以传送多个HTTP请求和响应，默认开启 Connection:Keep-Alive<br>  HTTP1.0 默认为短连接，每次请求都需要建⽴⼀个TCP连接。</li>
+<li>缓存<br>  HTTP1.0 主要使⽤ If-Modified-Since&#x2F;Expires 来做为缓存判断的标准<br>  HTTP1.1 则引⼊了更多的缓存控制策略例如 Entity tag &#x2F; If-None-Match 等更多可供<br>  选择的缓存头来控制缓存策略。</li>
+<li>管道化<br>  基于 HTTP1.1 的⻓连接，使得请求管线化成为可能。管线化使得请求能够“并⾏”传输，但是响应必须按照请求发出的顺序依次返回，性能在⼀定程度上得到了改善。</li>
+<li>增加Host字段<br>  使得⼀个服务器能够⽤来创建多个 Web 站点。</li>
+<li>状态码<br>  新增了24个错误状态响应码</li>
+<li>带宽优化<br>  HTTP1.0 中，存在⼀些浪费带宽的现象，例如客户端只是需要某个对象的⼀部分，⽽服务器却将整个对象送过来了，并且不⽀持断点续传功能<br>  HTTP1.1 则在请求头引⼊了 range 头域，它允许只请求资源的某个部分，即返回码是 206（Partial Content）</li>
+</ol>
+</li>
+<li><p>HTTP2.0与HTTP1.1的区别？</p>
+<ol>
+<li>⼆进制分帧<br>  在应⽤层 （HTTP&#x2F;2.0） 和传输层 （TCP or UDP） 之间增加⼀个⼆进制分帧层，从⽽突破 HTTP1.1 的性能限制，改进传输性能，实现低延迟和⾼吞吐量。</li>
+<li>多路复⽤（MultiPlexing）<br>  允许同时通过单⼀的 HTTP&#x2F;2 连接发起多重的请求-响应消息，这个强⼤的功能则是基于“⼆进制分帧”的特性。</li>
+<li>⾸部压缩<br>  HTTP1.1 不⽀持 header 数据的压缩， HTTP&#x2F;2.0 使⽤ HPACK 算法对 header  的数据进⾏压缩，这样数据体积⼩了，在⽹络上传输就会更快。⾼效的压缩算法可以很⼤的压缩 he    eader ，减少发送包的数量从⽽降低延迟。</li>
+<li>服务端推送 （server push）<br>  在 HTTP&#x2F;2 中，服务器可以对客户端的⼀个请求发送多个响应，即服务器可以额外的向客户端    推送资源，⽽⽆需客户端明确的请求。</li>
+</ol>
+</li>
+<li><p><strong>HTTPS的⼯作原理？(https是怎么建⽴连接的)</strong></p>
+</li>
+</ul>
+<ol>
+<li>⾸先，客户端向服务器端发送请求报⽂，请求与服务端建⽴连接。</li>
+<li>服务端产⽣⼀对公私钥，然后将⾃⼰的公钥发送给CA机构，CA机构也有⼀对公私钥，然后CA机构使⽤⾃⼰的私钥将服务端发送过来的公钥进⾏加密，产⽣⼀个CA数字证书。</li>
+<li>服务端响应客户端的请求，将CA机构⽣成的数字证书发送给客户端。</li>
+<li>客户端将服务端发送过来的数字证书进⾏解析(因为浏览器产商跟CA机构有合作，所以浏览器中已经保存了⼤部分CA机构的密钥，⽤于对服务端发送过来的数字证书进⾏解密)，验证这个数字<br>证书是否合法，如果不合法，会发送⼀个警告。如果合法，取出服务端⽣成的公钥。</li>
+<li>客户端取出公钥并⽣成⼀个随机码key（其实就是对称加密中的密钥）</li>
+<li>客户端将加密后的随机码key发送给服务端，作为接下来的对称加密的密钥</li>
+<li>服务端接收到随机码key后，使⽤⾃⼰的私钥对它进⾏解密，然后获得到随机码key。</li>
+<li>服务端使⽤随机码key对传输的数据进⾏加密，在传输加密后的内容给客户端</li>
+<li>客户端使⽤⾃⼰⽣成的随机码key解密服务端发送过来的数据，之后，客户端和服务端通过对称加密传输数据，随机码Key作为传输的密钥。</li>
+</ol>
+<ul>
+<li><p><strong>HTTPS与HTTP的区别</strong><br>HTTP 是明⽂传输，⽽HTTPS 通过 SSL\TLS 进⾏了加密<br>HTTP 的端⼝号是 80，HTTPS 是 443<br>HTTPS 需要到 CA 申请证书<br>HTTP 的连接简单，是⽆状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进⾏加密传输、身份认证的⽹络协议，⽐ HTTP 协议安全。</p>
+</li>
+<li><p>常⻅的请求⽅式？GET和POST请求的区别？</p>
+<ol>
+<li>作⽤不同： GET⽤于从服务端获取资源，POST⼀般⽤来向服务器端提交数据</li>
+<li>参数传递⽅式不同： GET请求的参数⼀般写在URL中，且只接受ASCII字符；POST请求参数⼀般放在请求体中，对于数据类型也没有限制</li>
+<li>安全性不同： 因为参数传递⽅式的不同，所以两者安全性不同，GET请求的参数直接暴露在URL中，所以更不安全，不能⽤来传递敏感信息。</li>
+<li>参数⻓度限制不同<br>  GET传送的数据量较⼩，不能⼤于2KB。POST传送的数据量较⼤，⼀般被默认为不受限制。<br>  HTTP 协议没有 Body 和 URL 的⻓度限制，对 URL 限制的⼤多是浏览器和服务器的原因。</li>
+<li>编码⽅式不同<br>  GET 请求只能进⾏ URL 编码（application&#x2F;x-www-form-urlencoded）<br>  POST ⽀持多种编码⽅式（application&#x2F;x-www-form-urlencoded 或 multipart&#x2F;form-data。为⼆进制数据使⽤多种编码。）</li>
+<li>缓存机制不同<br>  GET 请求会被浏览器主动cache，⽽ POST 不会，除⾮⼿动设置。<br>  GET 请求参数会被完整保留在浏览器历史记录⾥，⽽ POST 中的参数不会被保留。<br>  GET 产⽣的 URL 地址可以被 保存为书签，⽽ POST 不可以。<br>  GET 在浏览器回退时是⽆害的，⽽ POST 会再次提交请求。</li>
+<li>时间消耗不同<br>  GET 产⽣⼀个 TCP 数据包；POST 产⽣两个 TCP 数据包。<br>  对于 GET ⽅式的请求，浏览器会把 header 和 data ⼀并发送出去，服务器响应 200（返回数据）；⽽对于 POST，浏览器先发送 Header，服务器响应 100 continue，浏览器再发送 data，服务器响应 200 ok（返回数据）</li>
+<li>幂等：意思是多次执⾏相同的操作，结果都是「相同」的。<br>  GET ⽅法就是安全且幂等的，因为它是「只读」操作，⽆论操作多少次，服务器上的数据都是安全的，且每次的结果都是相同的。<br>  POST 因为是「新增或提交数据」的操作，会修改服务器上的资源，所以是不安全的，且多次提交数据就会创建多个资源，所以不是幂等的。</li>
+</ol>
+</li>
+<li><p>？？？什么是强缓存和协商缓存</p>
+<ul>
+<li>缓存可以解决什么问题：<br>  减少不必要的⽹络传输，节约带宽<br>  更快的加载⻚⾯<br>  减少服务器负载，避免服务过载的情况出现</li>
+<li>强缓存：浏览器判断请求的⽬标资源是否有效命中强缓存，如果命中，则可以直接从内存中读取⽬标资源，⽆需与服务器做任何通讯。<ul>
+<li>Expires强缓存 ：设置⼀个强缓存时间，此时间范围内，从内存中读取缓存并返回，因为 Expires 判断强缓存过期的机制是获取本地时间戳，与之前拿到的资源⽂件中的Expires字段的时间做⽐较。来判断是否需要对服务器发起请求。这⾥有⼀个巨⼤的漏洞：“如果我本地时间不准咋办？”所以⽬前已经被废弃了。</li>
+<li>Cache-Control强缓存 ： http1.1 中增加该字段，只要在资源的响应头上写上需要缓 存多久就好了，单位是秒。 Cache-Control:max-age&#x3D;N , 有max-age、s-maxage、<br>  no-cache、no-store、private、public这六个属性。<br>  max-age决定客户端资源被缓存多久。    s-maxage决定代理服务器缓存的时⻓。    no-cache表示是强制进⾏协商缓存。    no-store是表示禁⽌任何缓存策略。    public表示资源既可以被浏览器缓存也可以被代理服务器缓存。    private表示资源只能被浏览器缓存，默认为private</li>
+</ul>
+</li>
+<li>基于 last-modified 的协商缓存<br>  ⾸先需要在服务器端读出⽂件修改时间，将读出来的修改时间赋给响应头的last-modified字段。最后设置Cache-control:no-cache，当客户端读取到last-modified的时候，会在下次的请求标头中携带⼀个字段:If-ModifiedSince，⽽这个请求头中的If-Modified-Since就是服务器第⼀次修改时候给他的时间。之后每次对该资源的请求，都会带上If-Modified-Since这个字段，⽽服务端就需要拿到这个时间并再次读取该资源的修改时间，让他们两个做⼀个⽐对来决定是读取缓存还是返回新的资源。<br>  缺点：<br>  因为是更具⽂件修改时间来判断的，所以，在⽂件内容本身不修改的情况下，依然有可能更新⽂件修改时间（⽐如修改⽂件名再改回来），这样，就有可能⽂件内容明明没有修改，但是缓存依然失效了。当⽂件在极短时间内完成修改的时候（⽐如⼏百毫秒）。因为⽂件修改时间记录的最⼩单位是秒，所以，如果⽂件在⼏百毫秒内完成修改的话，⽂件修改时间不会改变，这样，即使⽂件内容修改了，依然不会返回新的⽂件。</li>
+<li>基于 ETag 的协商缓存：<br>  将原先协商缓存的⽐较时间戳的形式修改成了⽐较⽂件指纹（根    据⽂件内容计算出的唯⼀哈希值）。第⼀次请求某资源的时候，服务端读取⽂件并计算出⽂件指纹，将⽂件指纹放在响应头的 Etag字段中跟资源⼀起返回给客户端。第⼆次请求某资源的时候，客户端⾃动从缓存中读取出上⼀次服务端返回的ETag也就是⽂件指纹。并赋给请求头的if-None-Match字段，让上⼀次的⽂件指纹跟随请求⼀起回到服务端。<br>  服务端拿到请求头中的if-None-Match字段值（也就是上⼀次的⽂件指纹），并再次读取⽬标资源并⽣成⽂件指纹，两个指纹做对⽐。如果两个⽂件指纹完全吻合，说明⽂件没有被改变，则直接返回304状态码和⼀个空的响应体并return。如果两个⽂件指纹不吻合，则说明⽂件被更改，那么将新的⽂件指纹重新存储到响应头的ETag中并返回给客户端。<br>  缺点：<br>  ETag需要计算⽂件指纹这样意味着，服务端需要更多的计算开销。。如果⽂件尺⼨⼤，数量多，并且计算频繁，那么ETag的计算就会影响服务器的性能。显然，ETag在这样的场景下就不是很适合。ETag有强验证和弱验证，所谓将强验证，ETag⽣成的哈希码深⼊到每个字节。哪怕⽂件中只有⼀个字节改变了，也会⽣成不同的哈希值，它可以保证⽂件内容绝对的不变。但是，强验证⾮常消耗计算量。ETag还有⼀个弱验证，弱验证是提取⽂件的部分属性来⽣成哈希值。因为不必精确到每个字节，所以他的整体速度会⽐强验证快，但是准确率不⾼。会降低协商缓存的有效性。</li>
+<li>有哈希值的⽂件设置强缓存即可。没有哈希值的⽂件（⽐如index.html）设置协商缓存。</li>
+</ul>
+</li>
+<li><p>DNS是什么，及其查询过程<br>DNS（Domain Name System）域名管理系统，是当⽤户使⽤浏览器访问⽹址之后，使⽤的第⼀个重要协议。DNS 要解决的是域名和 IP 地址的映射问题。</p>
+</li>
+</ul>
+<ol>
+<li>⾸先⽤户在浏览器输⼊URL地址后，会先查询浏览器缓存是否有该域名对应的IP地址。</li>
+<li>如果浏览器缓存中没有，会去计算机本地的Host⽂件中查询是否有对应的缓存。</li>
+<li>如果Host⽂件中也没有则会向本地的DNS解析器（通常由你的互联⽹服务提供商（ISP）提供）发送⼀个DNS查询请求。</li>
+<li>如果本地DNS解析器没有缓存该域名的解析记录，它会向根DNS服务器发出查询请求。根DNS服务器并不负责解析域名，但它能告诉本地DNS解析器应该向哪个顶级域（.com&#x2F;.net&#x2F;.org）的<br>DNS服务器继续查询。</li>
+<li>本地DNS解析器接着向指定的顶级域DNS服务器发出查询请求。顶级域DNS服务器也不负责具体的域名解析，但它能告诉本地DNS解析器应该前往哪个权威DNS服务器查询下⼀步的信息。</li>
+<li>本地DNS解析器最后向权威DNS服务器发送查询请求。 权威DNS服务器是负责存储特定域名和IP地址映射的服务器。当权威DNS服务器收到查询请求时，它会查找”example.com”域名对应的IP<br>地址，并将结果返回给本地DNS解析器。</li>
+<li>本地DNS解析器将收到的IP地址返回给浏览器，并且还会将域名解析结果缓存在本地，以便下次访问时更快地响应</li>
+</ol>
+<ul>
+<li><p>HTTP多个TCP连接怎么实现？？？<br>多个tcp连接是靠某些服务器对 Connection: keep-alive 的 Header 进⾏了⽀持。简⽽⾔<br>之，完成这个 HTTP 请求之后，不要断开 HTTP 请求使⽤的 TCP 连接。这样的好处是连接可以被重<br>新使⽤，之后发送 HTTP 请求的时候不需要重新建⽴ TCP 连接，以及如果维持连接，那么 SSL 的<br>开销也可以避免</p>
 </li>
 <li><p>TCP的三次握手和四次挥手<br>TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输.在建立TCP连接时，需要通过三次握手来建立，过程是:<br>1，客户端向服务端发送一个SYN<br>2，服务端接收到SYN后，给客户端发送一个SYN_ACK<br>3，客户端接收到SYN_ACK后，再给服务端发送一个ACK<br>在断开TCP连接时，需要通过四次挥手来断开，过程是<br>1，客户端向服务端发送FIN<br>2，服务端接收FN后，向客户燃发送AK，表示我接收到了断开连接的请求，客户端你可以不发数据了，不过服务端这边可能还有数据正在处理<br>3，服务端处理完所有数据后，向客户端发送FIN，表示服务端现在可以断开连接<br>4，客户端收到服务端的FIN，向服务端发送ACK，表示客户端也会断开连接了</p>
 </li>
-<li><p>浏览器发出一个请求到收到响应经历了哪些步骤?<br>1，浏览器解析用户输入的URL，生成一个HTTP格式的请求<br>2，先根据URL域名从本地hosts文件查找是否有映射IP，如果没有就将域名发送给电脑所配置的DNS进行域名解析，得到IP地址<br>3，浏览器通过操作系统将请求通过四层网络协议发送出去<br>4，途中可能会经过各种路由器、交换机，最终到达服务器<br>5，服务器收到请求后，根据请求所指定的端口，将请求传递给绑定了该端口的应用程序，比如8080被tomcat占用了<br>6，tomcat接收到请求数据后，按照http协议的格式进行解析，解析得到所要访问的servlet<br>7，然后servlet来处理这个请求，如果是pringMVC中的DispatcherServet，那么则会找到对应的Controler中的方法，并执行该方法得到结果<br>8，Tomcat得到响应结果后封装成HTTP响应的格式，并再次通过网络发送给浏览器所在的服务器<br>9，浏览器所在的服务器拿到结果后再传递给浏览器，浏览器则负责解析并洁染</p>
+<li><p><strong>三次握⼿的过程，以及为什么是三次，⽽不是四次，两次？</strong></p>
+<ul>
+<li>三次握⼿的过程如下：<br>  1、客户端向服务器发送 SYN 报⽂、初始化序列号 ISN（seq&#x3D;x） ，然后客户端进⼊ SYN_SEND 状态，等待服务器确认。<br>  2、服务端发送 ACK 确认服务端的 SYN 报⽂ (ack&#x3D;x+1) ，同时发出⼀个 SYN 报⽂，带上⾃⼰的初始化序列号 （seq&#x3D;y ），然后服务端进⼊ SYN_RECV 状态。<br>  3、客户端接收到服务端的 SYN、ACK 报⽂，ACK确认服务端的 SYNC 报⽂ （ACK&#x3D;y+1） ，然后客户端和服务器端都进⼊ ESTABLISHED 状态，完成 TCP 三次握⼿</li>
+<li>为什么不是四次握⼿？ 为什么不能两次握⼿？<br>  因为三次握⼿才能保证双⽅具有接收和发送的能⼒。 两次握⼿可能导致资源的浪费，由于没有第三次握⼿，服务端就⽆法确认客户端是否收到了⾃⼰的回复，所以每收到⼀个 SYN ，服务器都会主动去建⽴⼀个连接, ⽽四次握⼿可以优化为三次。</li>
+</ul>
+</li>
+<li><p><strong>四次挥⼿的过程，以及为什么是四次？</strong></p>
+<ul>
+<li>四次挥⼿的过程：<br>  1、客户端发送⼀个 FIN 报⽂给服务端，表示⾃⼰要断开数据传送，报⽂中会指定⼀个序列号 (seq&#x3D;x) 。然后,客户端进⼊ FIN-WAIT-1 状态。<br>  2、服务端收到 FIN 报⽂后，回复 ACK 报⽂给客户端，且把客户端的序列号值 +1 ，作为ACK + 1 报⽂的序列号 (seq&#x3D;x+1) 。然后，服务端进⼊ CLOSE-WAIT (seq&#x3D;x+1) 状态，客户端<br>  进⼊ FIN-WAIT-2 状态。<br>  3、服务端也要断开连接时，发送 FIN 报⽂给客户端，且指定⼀个序列号 (seq&#x3D;y+1) ，随后服务端进⼊ LAST-ACK 状态。<br>  4、客户端收到 FIN 报⽂后，发出 ACK 报⽂进⾏应答，并把服务端的序列号值 +1 作为 ACK 报⽂序列号 (seq&#x3D;y+2) 。此时客户端进⼊ TIME-WAIT 状态。服务端在收到客户端的 ACK<br>  报⽂后进⼊ CLOSE 状态。如果客户端等待 2MSL 没有收到回复，才关闭连接</li>
+<li>为什么是四次挥⼿？<br>  TCP 是全双⼯通信，可以双向传输数据。任何⼀⽅都可以在数据传送结束后发出连接释放的通知，待对⽅确认后进⼊半关闭状态。 当另⼀⽅也没有数据再发送的时候，则发出连接释放通知，对⽅确认后才会完全关闭了 TCP 连接。 总结：两次握⼿可以释放⼀端到另⼀端的 TCP 连接，完全释放连接⼀共需要四次握⼿</li>
+</ul>
+</li>
+<li><p>TCP与UDP的概念，特点，区别和对应的使⽤场景？</p>
+<ol>
+<li>TCP与UDP的概念<br>  TCP （传输控制协议）是⼀种⾯向连接的、可靠的、基于字节流的传输层通信协议。<br>  UDP （⽤户数据报协议）为应⽤程序提供了⼀种⽆需建⽴连接就可以发送封装的IP数据包的⽅    法。</li>
+<li>特点<br>  TCP ：⾯向连接，传输可靠，传输形式为字节流，传输效率慢，所需资源多。<br>  UDP ：⽆连接、传输不可靠、传输形式为数据报⽂段，传输效率快，所需资源少。</li>
+<li>区别<br>  是否⾯向连接: TCP 是⾯向连接的传输，UDP 是⽆连接的传输。<br>  是否是可靠传输：TCP是可靠的传输服务，在传递数据之前，会有三次握⼿来建⽴连接；在数据传递时，有确认、窗⼝、重传、拥塞控制机制。 UDP是不可靠传输，数据传递不需要给出任何确<br>  认，且不保证数据不丢失及到达顺序。<br>  是否有状态：TCP 传输是有状态的，它会去记录⾃⼰发送消息的状态⽐如消息是否发送了、是否被接收了等等，⽽ UDP 是⽆状态的。<br>  传输形式: TCP 是⾯向字节流的，UDP 是⾯向报⽂的。<br>  传输效率:由于TCP 传输的时候多了连接、确认重传等机制，所以TCP 的传输效率要⽐UDP 低。<br>  ⾸部开销 :TCP ⾸部开销 (20 ~ 60字节)⽐UDP ⾸部开销 (8字节)要⼤。<br>  是否提供⼴播或多播服务: TCP 只⽀持点对点通信UDP ⽀持⼀对⼀、⼀对多、多对⼀、多对多。</li>
+<li>对应的使⽤场景<br>  TCP常⽤于要求通信数据可靠场景（如⽹⻚浏览、⽂件传输、邮件传输、远程登录、数据库操作等）。<br>  UDP常⽤于要求通信速度⾼场景（如域名转换、视频直播、实时游戏等）。</li>
+</ol>
+</li>
+<li><p>TCP 的 Keepalive 和 HTTP 的 Keep-Alive 是⼀个东⻄吗？<br>HTTP 的 Keep-Alive，是由应⽤层（⽤户态） 实现的，称为 HTTP ⻓连接；每次请求都要经历这样的过程：建⽴ TCP -&gt; 请求资源 -&gt; 响应资源 -&gt; 释放连接，这就是HTTP短连接，但是这样每次建⽴连接都只能请求⼀次资源，所以HTTP 的 Keep-Alive实现了使⽤同⼀个 TCP 连接来发送和接收多个 HTTP 请求&#x2F;应答，避免了连接建⽴和释放的开销，就就是 HTTP ⻓连接。<br>TCP 的 Keepalive，是由 TCP 层（内核态） 实现的，称为 TCP 保活机制；通俗地说，就是TCP有⼀个定时任务做倒计时，超时后会触发任务，内容是发送⼀个探测报⽂给对端，⽤来判断对端是否存活。</p>
+</li>
+<li><p>TCP连接如何确保可靠性</p>
+</li>
+</ul>
+<ol>
+<li>数据块⼤⼩控制： 应⽤数据被分割成TCP认为最合适发送的数据块，再传输给⽹络层，数据块被称为报⽂段或段。</li>
+<li>序列号： TCP给每个数据包指定序列号，接收⽅根据序列号对数据包进⾏排序，并根据序列号对数据包去重。</li>
+<li>校验和： TCP将保持它⾸部和数据的校验和。这是⼀个端到端的检验和，⽬的是检测数据在传输过程中的任何变化。如果收到报⽂的检验和有差错，TCP将丢弃这个报⽂段和不确认收到此报⽂段。</li>
+<li>流量控制： TCP连接的每⼀⽅都有固定⼤⼩的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收⽅来不及处理发送⽅的数据，能提示发送⽅降低发送的速率，防⽌<br>包丢失。TCP利⽤滑动窗⼝实现流量控制。</li>
+<li>拥塞控制： 当⽹络拥塞时，减少数据的发送。</li>
+<li>确认应答： 通过 ARQ 协议实现。基本原理是每发完⼀个分组就停⽌发送，等待对⽅确认。如果没收到确认，会重发数据包，直到确认后再发下⼀个分组。</li>
+<li>超时重传： 当TCP发出⼀个数据段后，它启动⼀个定时器，等待⽬的端确认收到这个报⽂段。如果不能及时收到⼀个确认，将重发这个报⽂段。</li>
+</ol>
+<ul>
+<li><p>既然提到了拥塞控制，那你能说说说拥塞控制是怎么实现的嘛<br>  拥塞控制算法主要有以下⼏种：</p>
+<ol>
+<li>慢启动：  在连接刚开始时，发送⽅会逐渐增加发送窗⼝⼤⼩，从⽽以指数增⻓的速度增加发送的数据量。</li>
+<li>拥塞避免： ⼀旦慢启动阶段过去，发送⽅进⼊拥塞避免阶段。在这个阶段，发送⽅逐渐增加发送窗⼝的⼤⼩，但增加速率较慢，避免过快增加导致⽹络拥塞。</li>
+<li>超时重传： 如果发送⽅在超时时间内未收到确认，它会认为数据包丢失，并重传这些数据包。这是拥塞控制的最后⼿段，⽤于检测和处理⽹络中的丢包或拥塞情况。当⽹络出现拥塞，也就是会发⽣数据包重传</li>
+<li>快速重传（Fast Retransmit）和快速恢复（Fast Recovery）： 当发送⽅发送的数据包丢失或⽹络出现拥塞时，接收⽅会发送重复确认（duplicate ACK）通知 发送⽅有数据包丢失。当发送⽅收到⼀定数量的重复确认时，它会⽴即重传丢失的数据包，⽽不是等待超时。这样可以减少⽹络的拥塞程度。</li>
+<li>拥塞窗⼝调整：   发送⽅根据⽹络的拥塞程度动态调整发送窗⼝的⼤⼩，通过监测⽹络延迟和丢包情况来确定合适的发送速率，以避免⽹络拥塞。</li>
+</ol>
+</li>
+<li><p>Cookie和Session是什么？有什么区别？<br>  Cookie 和 Session 都⽤于管理⽤户的状态和身份, Cookie 通过在客户端记录信息确定⽤户身份， Session 通过在服务器端记录信息确定⽤户身份。</p>
+<ul>
+<li>Cookie：是存储在⽤户浏览器中的⼩型⽂本⽂件，⽤于在⽤户和服务器之间传递数据。通常，服务器会将⼀个或多个 Cookie 发送到⽤户浏览器，然后浏览器将这些 Cookie 存储在本地。<br>  服务器在接收到来⾃客户端浏览器的请求之后，就能够通过分析存放于请求头的Cookie得到客户端特有的信息，从⽽动态⽣成与该客户端相对应的内容。</li>
+<li>Session：客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是 Session，主要⽤于维护⽤户登录状态、存储⽤户的临时数据和上下⽂信息等。<br>  存储位置：Cookie 数据存储在⽤户的浏览器中，⽽ Session 数据存储在服务器上。<br>  数据容量：Cookie 存储容量较⼩，⼀般为⼏ KB。Session 存储容量较⼤，通常没有固定    限制，取决于服务器的配置和资源。<br>  安全性：由于 Cookie 存储在⽤户浏览器中，因此可以被⽤户读取和篡改。相⽐之下，    Session 数据存储在服务器上，更难被⽤户访问和修改。<br>  传输⽅式：Cookie 在每次 HTTP 请求中都会被⾃动发送到服务器，⽽ Session ID 通常通过 Cookie 或 URL 参数传递。</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -342,11 +707,37 @@
 <h2 id="八股（操-作-系-统）"><a href="#八股（操-作-系-统）" class="headerlink" title="八股（操 作 系 统）"></a>八股（操 作 系 统）</h2><ul>
 <li><p>进程与线程？</p>
 <ul>
-<li>进程是程序的执行实例，拥有独立的内存空间和系统资源，是操作系统进行资源分配和调度的基本单位。</li>
-<li>线程是进程内的独立执行单元，共享相同的内存空间和资源，是进程的子执行单元。</li>
+<li>进程是程序的执行实例，拥有独立的内存空间和系统资源，是操作系统进行资源分配和调度的基本单位。是系统进⾏资源分配和调度的基本单位。</li>
+<li>线程 Thread 是进程内的独立执行单元，共享相同的内存空间和资源，是进程的子执行单元。是操作系统能够进⾏运算调度的最⼩单位。<br>  线程⼀个进程⾄少有⼀个线程，⼀个进程可以运⾏多个线程，这些线程共享同⼀块内存。</li>
+<li>资源开销：<br>  进程：由于每个进程都有独⽴的内存空间，创建和销毁进程的开销较⼤。进程间切换需要保存和恢复整个进程的状态，因此上下⽂切换的开销较⾼。<br>  线程：线程共享相同的内存空间，创建和销毁线程的开销较⼩。线程间切换只需要保存和恢复少量的线程上下⽂，因此上下⽂切换的开销较⼩。</li>
+<li>通信与同步：<br>  进程：由于进程间相互隔离，进程之间的通信需要使⽤⼀些特殊机制，如管道、消息队列、共享    内存等。<br>  线程：由于线程共享相同的内存空间，它们之间可以直接访问共享数据，线程间通信更加⽅便。</li>
+<li>安全性：<br>  进程：由于进程间相互隔离，⼀个进程的崩溃不会直接影响其他进程的稳定性。<br>  线程：由于线程共享相同的内存空间，⼀个线程的错误可能会影响整个进程的稳定性。</li>
 </ul>
 </li>
-<li><p>进程间通信<br>进程间通信（IPC）可以通过多种方式实现，包括管道、消息队列、信号量、共享内存等。这些机制允许不同进程之间交换数据和同步操作。</p>
+<li><p>进程调度算法你了解多少？<br>  进程调度算法是操作系统中⽤来管理和调度进程（也称为任务或作业）执⾏的⽅法。这些算法决定了在多任务环境下，如何为各个进程分配 CPU 时间，以实现公平性、⾼吞吐量、低延迟等不同的调度⽬标。</p>
+<ol>
+<li>先来先服务调度算法： 按照进程到达的先后顺序进⾏调度，即最早到达的进程先执⾏，直到完成或阻塞。</li>
+<li>最短作业优先调度算法：    优先选择运⾏时间最短的进程来运⾏</li>
+<li>⾼响应⽐优先调度算法：    综合考虑等待时间和服务时间的⽐率，选择具有最⾼响应⽐的进程来执⾏</li>
+<li>时间⽚轮转调度算法：    将 CPU 时间划分为时间⽚（时间量），每个进程在⼀个时间⽚内运⾏，然后切换到下⼀个进程。</li>
+<li>最⾼优先级调度算法：    为每个进程分配⼀个优先级，优先级较⾼的进程先执⾏。这可能导致低优先级进程⻓时间等待，    可能引发饥饿问题。</li>
+<li>多级反馈队列调度算法：    将进程划分为多个队列，每个队列具有不同的优先级，进程在队列之间移动。具有更⾼优先级的 队列的进程会更早执⾏，⽽⻓时间等待的进程会被提升到更⾼优先级队列。</li>
+<li>最短剩余时间优先：    每次选择剩余执⾏时间最短的进程来执⾏。</li>
+<li>最⼤吞吐量调度：    旨在最⼤化单位时间内完成的进程数量</li>
+</ol>
+</li>
+<li><p>进程间通信<br>  进程间通信（IPC）可以通过多种方式实现，包括管道、消息队列、信号量、共享内存等。这些机制允许不同进程之间交换数据和同步操作。</p>
+<ol>
+<li>管道：是⼀种半双⼯的通信⽅式，数据只能单向流动⽽且只能在具有⽗⼦进程关系的进程间使    ⽤。</li>
+<li>命名管道： 也是半双⼯的通信⽅式，但是它允许⽆亲缘关系进程间的通信。</li>
+<li>信号量：是⼀个计数器，可以⽤来控制多个进程对共享资源的访问，常作为⼀种锁机制，防⽌某进程正在访问共享资源时，其他进程也访问该资源。因此主要作为进程间以及同⼀进程内不同线程之间的同步⼿段。</li>
+<li>消息队列：消息队列是消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载⽆格式字节流以及缓冲区⼤⼩受限等缺点。</li>
+<li>信号：⽤于通知接收进程某个事件已经发⽣，从⽽迫使进程执⾏信号处理程序。</li>
+<li>共享内存：就是映射⼀段能被其他进程所访问的内存，这段共享内存由⼀个进程创建，但多个进程都可以访问。共享内存是最快的进程通信⽅式，它是针对其他进程间通信⽅式运⾏效率低⽽专⻔设计的。它往往与其他通信机制，⽐如信号量配合使⽤，来实现进程间的同步和通信。</li>
+<li>Socket 套接字：是⽀持TCP&#x2F;IP 的⽹络通信的基本操作单元，主要⽤于在客户端和服务器之间通过⽹络进⾏通信</li>
+</ol>
+</li>
+<li><p>什么是死锁？如何避免死锁？<br>死锁是指两个或多个进程在争夺系统资源时，由于互相等待对⽅释放资源⽽⽆法继续执⾏的状态。死锁只有同时满⾜以下四个条件才会发⽣：<br>1、互斥条件：⼀个进程占⽤了某个资源时，其他进程⽆法同时占⽤该资源。<br>2、请求保持条件：⼀个线程因为请求资源⽽阻塞的时候，不会释放⾃⼰的资源。<br>3、不可剥夺条件：资源不能被强制性地从⼀个进程中剥夺，只能由持有者⾃愿释放。<br>4、环路等待条件：多个进程之间形成⼀个循环等待资源的链，每个进程都在等待下⼀个进程所占有的资源。<br>只需要破坏上⾯⼀个条件就可以破坏死锁。<br>破坏请求与保持条件：⼀次性申请所有的资源。<br>破坏不可剥夺条件：占⽤部分资源的线程进⼀步申请其他资源时，如果申请不到，可以主动释放它占有的资源。<br>破坏循环等待条件：靠按序申请资源来预防。让所有进程按照相同的顺序请求资源，释放资源则反序释放。</p>
 </li>
 <li><p>多线程编程：<br>？？多线程编程是指在一个进程内创建多个线程，这些线程共享进程的资源，但拥有独立的执行流。多线程可以提高程序的并发性和响应性。</p>
 </li>
@@ -354,6 +745,65 @@
 <ul>
 <li>多进程是在不同的地址空间中执行，相互独立，通信相对复杂，但更稳定。</li>
 <li>多线程共享相同的地址空间，通信更方便，但需要考虑同步和竞态条件，可能导致不稳定性。</li>
+</ul>
+</li>
+<li><p>解释⼀下⽤户态和核⼼态<br>⽤户态 User Mode 和核⼼态 Kernel Mode ，是操作系统中两种不同的执⾏模式，⽤于控制进程或程序对计算机硬件资源的访问权限和操作范围。<br>⽤户态：在⽤户态下，进程或程序只能访问受限的资源和执⾏受限的指令集，不能直接访问操作系统的核⼼部分，也不能直接访问硬件资源，⽤户态下的 CPU 不允许独占，也就是说 CPU 能<br>够被其他程序获取。<br>核⼼态：核⼼态是操作系统的特权级别，允许进程或程序执⾏特权指令和访问操作系统的核⼼部分。在核⼼态下，进程可以直接访问硬件资源，执⾏系统调⽤，管理内存、⽂件系统等操作。处<br>于内核态的 CPU 可以从⼀个程序切换到另外⼀个程序，并且占⽤ CPU 不会发⽣抢占情况，⼀般处于特权级 0 的状态我们称之为内核态</p>
+</li>
+<li><p>解释⼀下进程同步和互斥，以及解决方法</p>
+<ul>
+<li>进程同步是指多个并发执⾏的进程之间协调和管理它们的执⾏顺序，以确保它们按照⼀定的顺序或时间间隔执⾏。⽐如说，你想要和你的队友⼀起完成⼀个副本，你们需要相互配合，有时候等待对⽅的信号或者消息，有时候按照对⽅的要求执⾏某些动作，这就是进程同步。</li>
+<li>互斥指的是在某⼀时刻只允许⼀个进程访问某个共享资源。当⼀个进程正在使⽤共享资源时，其他进程不能同时访问该资源。⽐如说，你想要使⽤⼀个祭坛来祈愿，但是这个祭坛⼀次只能被⼀个⼈使⽤，如果有其他⼈也想要使⽤，他们就必须等待你使⽤完毕后再去使⽤，这就是进程互斥。</li>
+<li>解决进程同步和互斥的问题有很多种⽅法，其中⼀种常⻅的⽅法是使⽤信号量和 PV 操作。信号量是⼀种特殊的变量，它表示系统中某种资源的数量或者状态。PV 操作是⼀种对信号量进⾏增加或者减少的操作，它们可以⽤来控制进程之间的同步或者互斥。</li>
+<li>举个例⼦，假设有⼀个信号量 s 表示⼀个祭坛是否可⽤，初始值为 1。如果 s 的值为 1，表示祭坛空闲；如果 s 的值为 0，表示祭坛被占⽤；如果 s 的值为 -1，表示有⼀个⼈在等待使⽤祭坛。那么我们可以⽤ PV 操作来实现对祭坛的互斥访问：<br>  如果你想要使⽤祭坛，你就执⾏ P(s) 操作，将 s 的值减 1。如果结果为 0 或者正数，表示你可以使⽤祭坛；如果结果为负数，表示有⼈在使⽤祭坛，你就必须等待。<br>  如果你使⽤完了祭坛，你就执⾏ V(s) 操作，将 s 的值加 1。如果结果为正数或者 0 ，表示没有⼈在等待使⽤祭坛；结果为负数，表示有⼈在等待使⽤祭坛，你就需要唤醒他们中的⼀个。<br>  这样就可以保证每次只有⼀个⼈能够使⽤祭坛，实现了进程互斥。</li>
+<li>除此之外，下⾯的⽅法也可以解决进程同步和互斥问题：<br>  临界区（Critical Section）： 将可能引发互斥问题的代码段称为临界区。为了实现互斥，每个进程在进⼊临界区前必须获取⼀个锁，退出临界区后释放该锁。这确保同⼀时间只有⼀个进程可以进⼊临界区。<br>  互斥锁（Mutex）： 互斥锁是⼀种同步机制，⽤于实现互斥。每个共享资源都关联⼀个互斥锁，进程在访问该资源前需要先获取互斥锁，使⽤完后释放锁。只有获得锁的进程才能访问共享资源。<br>  条件变量（Condition Variable）： 条件变量⽤于在进程之间传递信息，以便它们在特定条件下等待或唤醒。通常与互斥锁⼀起使⽤，以确保等待和唤醒的操作在正确的时机执⾏</li>
+</ul>
+</li>
+<li><p>什么是中段和异常？它们有什么区别？</p>
+<ul>
+<li>中断和异常是两种不同的事件，它们都会导致CPU暂停当前的程序执⾏，转⽽去执⾏⼀个特定的处理程序。</li>
+<li>中断和异常的区别主要有以下⼏点：<br>  中断是由外部设备或其他处理器产⽣的，它们通常是异步的，也就是说，它们可以在任何时候发⽣，与当前执⾏的指令⽆关。例如，键盘输⼊、⿏标移动、⽹络数据到达等都会产⽣中断信号，通知CPU去处理这些事件。<br>  异常是由CPU内部产⽣的，它们通常是同步的，也就是说，它们只会在执⾏某些指令时发⽣，与 当前执⾏的指令有关。例如，除法运算时除数为零、访问⾮法内存地址、执⾏⾮法指令等都会产⽣异常信号，通知CPU去处理这些错误或故障。<br>  中断可以被屏蔽或禁⽌，这意味着CPU可以通过设置某些标志位或寄存器来忽略或延迟响应某些中断信号。这样可以避免中断过于频繁或⼲扰重要的任务。<br>  异常不能被屏蔽或禁⽌，这意味着CPU必须⽴即响应异常信号，并进⾏相应的处理。这样可以保证程序的正确性和系统的稳定性。</li>
+</ul>
+</li>
+<li><p>介绍⼀下⼏种典型的锁</p>
+<ul>
+<li>两个基础的锁：<br>  互斥锁：互斥锁是⼀种最常⻅的锁类型，⽤于实现互斥访问共享资源。在任何时刻，只有⼀个线程可以持有互斥锁，其他线程必须等待直到锁被释放。这确保了同⼀时间只有⼀个线程能够访问<br>  被保护的资源。<br>  ⾃旋锁：⾃旋锁是⼀种基于忙等待的锁，即线程在尝试获取锁时会不断轮询，直到锁被释放。</li>
+<li>其他的锁都是基于这两个锁的<br>  读写锁：允许多个线程同时读共享资源，只允许⼀个线程进⾏写操作。分为读（共享）和写（排他）两种状态。<br>  悲观锁：认为多线程同时修改共享资源的概率⽐较⾼，所以访问共享资源时候要上锁<br>  乐观锁：先不管，修改了共享资源再说，如果出现同时修改的情况，再放弃本次操作。</li>
+</ul>
+</li>
+<li><p>你知道的线程同步的⽅式有哪些？<br>  线程同步机制是指在多线程编程中，为了保证线程之间的互不⼲扰，⽽采⽤的⼀种机制。常⻅的线程同步机制有以下⼏种：</p>
+<ol>
+<li>互斥锁：互斥锁是最常⻅的线程同步机制。它允许只有⼀个线程同时访问被保护的临界区（共享资源）</li>
+<li>条件变量：条件变量⽤于线程间通信，允许⼀个线程等待某个条件满⾜，⽽其他线程可以发出信号通知等待线程。通常与互斥锁⼀起使⽤。</li>
+<li>读写锁： 读写锁允许多个线程同时读取共享资源，但只允许⼀个线程写⼊资源。</li>
+<li>信号量：⽤于控制多个线程对共享资源进⾏访问的⼯具</li>
+</ol>
+</li>
+<li><p>什么是内存分段和分⻚？作⽤是什么？</p>
+<ul>
+<li>内存分段是将⼀个程序的内存空间分为不同的逻辑段 segments ，每个段代表程序的⼀个功能模块或数据类型，如代码段、数据段、堆栈段等。每个段都有其⾃⼰的⼤⼩和权限。</li>
+<li>内存分⻚是把整个虚拟和物理内存空间分成固定⼤⼩的⻚(如4KB)。这样⼀个连续并且尺⼨固定的内存空间，我们叫⻚ Page</li>
+<li>作⽤：<ol>
+<li>逻辑隔离： 内存分段和分⻚都实现了程序的逻辑隔离，使不同的功能模块或数据类型能够被单独管理和保护，提⾼了程序的可靠性和安全性。</li>
+<li>内存保护： 通过将不同的段或⻚⾯设置为只读、可读写、不可执⾏等权限，操作系统可以确保程序不会越界访问或修改其他段的内容，从⽽提⾼了系统的稳定性。</li>
+<li>虚拟内存： 分段和分⻚都有助于实现虚拟内存的概念，允许应⽤程序认为它们在使⽤的是⼀个⽐实际物理内存更⼤的内存空间。</li>
+<li>内存共享： 通过分⻚，操作系统可以实现内存⻚⾯的共享，从⽽节省内存空间，多个进程可以共享相同的代码或数据⻚⾯。</li>
+<li>内存管理： 分⻚更加灵活，允许操作系统将不同进程的⻚⾯分散存放在物理内存中，从⽽提⾼内存利⽤率。分段则更适⽤于管理不同的逻辑模块。</li>
+</ol>
+</li>
+<li>分段与分⻚的区别<br>  分⻚对⽤户不可⻅，分段对⽤户可⻅<br>  分⻚的地址空间是⼀维的，分段的地址空间是⼆维的<br>  分⻚（单级⻚表）、分段访问⼀个逻辑地址都需要两次访存，分段存储中可以引⼊快表机制<br>  分段更容易实现信息的共享和保护（纯代码或可重⼊代码可以共享）</li>
+<li>分段与分⻚优缺点：<br>  分⻚管理： 内存空间利⽤率⾼，不会产⽣外部碎⽚，只会有少量的⻚内碎⽚。但是不⽅便按照逻辑模块实现信息的共享和保护 。<br>  分段管理： 很⽅便按照逻辑模块实现信息的共享和保护。但是如果段⻓过⼤，为其分配很⼤的连续空间会很不⽅便，段式管理会产⽣外部碎⽚</li>
+</ul>
+</li>
+<li><p>解释⼀下⻚⾯置换算法，例如LRU（最近最少使⽤）、FIFO（先进先出）等</p>
+<ul>
+<li>假设你的⼿机内存有限，只能同时运⾏四个原神的⻆⾊。当你想切换到⼀个新的⻆⾊时，你需要从内存中换出⼀个旧的⻆⾊，以便为新的⻆⾊腾出空间。不同的⻚⾯置换算法就相当于不同的切换策略，例如：<br>  LRU（最近最少使⽤）算法：每次选择最⻓时间没有被使⽤的⻆⾊进⾏切换。这种策略基于你对⻆⾊的喜好，认为最近被使⽤过的⻆⾊很可能还会被使⽤，⽽最久未被使⽤的⻆⾊很可能不会再<br>  被使⽤。LRU算法可以有效地减少切换次数，但是实现起来⽐较复杂，需要记录每个⻆⾊的使⽤时间或者维护⼀个使⽤顺序的列表。<br>  FIFO（先进先出）算法：每次选择最早进⼊内存的⻆⾊进⾏切换。这种策略很简单，只需要维护⼀个⻆⾊队列，每次淘汰队⾸的⻆⾊，然后把新的⻆⾊加⼊队尾。但是FIFO算法可能会淘汰⼀些<br>  经常被使⽤的⻆⾊，导致切换次数增加。⽽且FIFO算法有可能出现⻉拉迪异常（Belady anomaly），即当分配给内存的空间增加时，切换次数反⽽增加</li>
+<li>常⻅⻚⾯置换算法有最佳置换算法（OPT）、先进先出（FIFO）、最近最久未使⽤算法（LRU）、时钟算法（Clock）<ol>
+<li>最佳置换算法: 该算法根据未来的⻚⾯访问情况，选择最⻓时间内不会被访问到的⻚⾯进⾏置        换。那么就有⼀个问题了，未来要访问什么⻚⾯，操作系统怎么知道的呢?操作系统当然不会知        道，所以这种算法只是⼀种理想情况下的置换算法，通常是⽆法实现的。</li>
+<li>先进先出算法：也就是最先进⼊内存的⻚⾯最先被置换出去。这个算法⽐较简单明了，就不过多<br>  解释了。但是先进先出算法会存在⼀个问题，就是Belady问题，即随着分配给进程的空闲⻚⾯数<br>  增加，缺⻚的情次反⽽也会增加。 这和我们常识是相悖的，因为我们通常认为如果⼀个进程经常<br>  发⽣缺⻚，那么就应该应该为他多分配⼀点内存。然⽽使⽤FIFO算法时，反⽽可能导致更多缺⻚<br>  情况出现。这就是Belady问题，Belady问题只会在使⽤FIFO算法时出现。</li>
+<li>最近最久未使⽤算法：LRU算法基于⻚⾯的使⽤历史，通过选择最⻓时间未被使⽤的⻚⾯进⾏置<br>  换。LRU算法的核⼼思想是，最近被访问的⻚⾯可能在未来被再次访问，⽽最⻓时间未被访问的<br>  ⻚⾯可能是最不常⽤的，因此将其置换出去可以腾出空间给新的⻚⾯。LRU算法通常是使⽤⼀个<br>  数据结构去维护⻚⾯的使⽤历史，维护使⽤历史就是通过访问字段实现的。访问字段的位数和操<br>  作系统分配给该进程的⻚⾯数有关，⽐如分配4个⻚⾯，访问字段就是2位，16个⻚⾯，访问字段<br>  就是4位，依次类推。如此，每⼀个⻚⾯的访问字段都可以不同，通过访问字段的不同，我们就<br>  可以判断⻚⾯的使⽤历史。</li>
+<li>时钟算法：Clock算法基于⼀个环形链表或者循环队列数据结构来管理⻚⾯的访问情况，⽤于选<br>  择被置换的⻚⾯。Clock算法的核⼼思想是通过使⽤⼀个指针(称为时钟指针)在环形链表上遍历，<br>  检查⻚⾯是否被访问过。这个访问过同样需要我们上⾯说到的访问字段来表示，此时访问字段只<br>  有⼀位。每个⻚⾯都与⼀个访问位相关联，标记该⻚⾯是否被访问过。<br>  当需要进⾏⻚⾯置换时，Clock算法从时钟指针的位置开始遍历环形链表。 如果当前⻚⾯的访问<br>  位为0，表示该⻚⾯最久未被访问，可以选择进⾏置换。将访问位设置为1，继续遍历下⼀个⻚<br>  ⾯。 如果当前⻚⾯的访问位为1，表示该⻚⾯最近被访问过，它仍然处于活跃状态。将访问位设<br>  置为0，并继续遍历下⼀个⻚⾯如果遍历过程中找到⼀个访问位为0的⻚⾯，那么选择该⻚⾯进⾏<br>  置换。</li>
+</ol>
+</li>
 </ul>
 </li>
 <li><p>垃圾回收：</p>
@@ -373,26 +823,78 @@
 <hr>
 
 
+
 <h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
 <li><p>SOA、分布式、微服务之间有什么关系和区别?<br>1，分布式架构是指将单体架构中的各个部分拆分，然后部署不同的机器或进程中去，SOA和微服务基本上都是分布式架构的<br>2，SOA 是一种面向服务的架构，系统的所有服务都注册在总线上，当调用服务时，从总线上查找服务信息，然后调用<br>3，微服务是一种更彻底的面向服务的架构，将系统中各个功能个体抽成一个个小的应用程序，基本保持一个应用对应的一个服务的架构</p>
-</li>
-<li><p>如何进行消息队列选型?</p>
-<ul>
-<li>Kafka:<br>  。优点: 各吐量非常大，性能非常好，集群高可用。<br>  。缺点:会丢数据，功能比较单一<br>  。使用场景:日志分析、大数据采集</li>
-<li>RabbitMQ:<br>  。优点: 消息可靠性高，功能全面。<br>  。缺点:吞吐量比较低，消息积累会严重影响性能。erlang语言不好定制.<br>  。使用场景:小规模场景。</li>
-<li>RocketMQ:<br>  。优点:高吞吐、高性能、高可用，功能非常全面。<br>  。缺点:开源版功能不如云上商业版。官方文档和周边生态还不够成熟。客户端只支持java。<br>  。使用场景:几乎是全场景。</li>
-</ul>
 </li>
 <li><p>Dubbo的架构设计是怎样的?<br>Dubbo 中的架构设计是非常优秀的，分为了很多层次，并且每层都是可以扩展的，比如:<br>1.Proxy服务代理层，支持JDK动态代理、javassist等代理机制<br>2.Registry注册中心层，支持Zookeeper、Redis等作为注册中心<br>3.Protocol远程调用层，支持Dubbo、Http等调用协议<br>4.Transport网络传输层，支持netty、mina等网络传输框架<br>5，Serialize数据序列化层，支持JSON、Hessian等序列化机制</p>
 </li>
 <li><p>最后在说说 Dubbo 与 Spring Cloud 的区别吧！<br>Dubbo 是 SOA 时代的产物，它的关注点主要在于服务的调用，流量分发、流量监控和熔断。而 Spring Cloud 诞生于微服务架构时代，考虑的是微服务治理的方方面面，另外由于依托了 Spirng、Spirng Boot 的优势之上，两个框架在开始目标就不一致，Dubbo 定位服务治理、Spirng Cloud 是一个生态。<br>两者最大的区别是 Dubbo 底层是使用 Netty 这样的 NIO 框架，是基于 TCP 协议传输的，配合以 Hession 序列化完成 RPC 通信。而 SpringCloud 是基于 Http 协议+Rest 接口调用远程过程的通信，相对来说，Http 请求会有更大的报文，占的带宽也会更多。但是 REST 相比 RPC 更为灵活，服务提供方和调用方的依赖只依靠一纸契约，不存在代码级别的强依赖。</p>
+</li>
+<li><p>关于“你对 Spring Cloud 的理解”<br>Spring Cloud 是一套分布式微服务的技术解决方案，它提供了快速构建分布式系统的常用的一些组件比如说配置管理、服务的注册与发现、服务调用的负载均衡、资源隔离、熔断降级等等<br>不过 Spring Cloud 只是 Spring 官方提供的一套微服务标准定义，而真正的实现目前有两套体系用的比较多。<br>Spring Cloud Alibaba 是基于阿里巴巴开源组件集成的一套微服务解决方案，包括：1. Dubbo————消息通讯 2. Nacos————服务注册与发现 3.Seata————事务隔离 4. Sentinel————熔断降级<br>有了 Spring Cloud 这样的技术生态，使得我们在落地微服务架构时。不用去考虑第三方技术集成带来额外成本，只要通过配置组件来完成架构下的技术问题，从而可以让我们更加侧重性能方面</p>
+</li>
+<li><p>弄懂 RPC。<br>  常见的远程通信方式，有基于 REST 架构的 HTTP 协议、以及 RPC 框架。</p>
+<ol>
+<li>什么是远程调用<br>  远程调用是指跨进程的功能调用，跨进程可以理解成一个计算机节点的多个进程，或者多个计算机节点的多个进程</li>
+<li>什么是 RPC<br>  全称为 Remote Procedure Call，翻译过来就是远程过程调用，它是一种通过网络从远程计算机程机程序上请求服务，而不需要了解底层网络技术的协议，凡是符合该协议的框架，我们都可以称它为 RPC 框架。关于 RPC 协议，通俗来讲就是，A 计算机提供一个服务，B 计算机可以像调用本地服务那样调用 A 计算机的服务。要实现 RPC，需要通过网络传输数据，并对调用的过程进行封装。现在比较流行的 RPC 框架，都会采用 TCP 作为底层传输协议。RPC 强调的是过程调用，调用的过程对用户而言是是透明的，用户不需要关心调用的细节，可以像调用本地服务一样调用远程服务。</li>
+<li>RPC 的运用场景和优势<br>  分布式架构的核心，就是利用多个普通计算机节点，组成一个庞大而复杂的计算网络，提供高性能以及高并发的能力支撑。在分布式架构中，原本的单体应用被拆分成多个独立部署的服务分部在计算机网络上，这些服务必然需要通过网络进行数据交互。而 RPC 框架就是解决在分布式架构中的各个业务服务彼此的网络通信问题。<br>  一般来说，RPC 服务主要是针对大型的企业，也就说当我们业务复杂度以及用户量都比较高时，需要解耦服务，扩展性强、部署灵活一般市面上开源的 PRC 框架，除了提供基础的远程通信功能以外，还会在性能消耗、传输效率、服务治理等方面做很多的设计，比如阿里开源的 RPC 框架 Dubbo。</li>
+</ol>
+</li>
+<li><p>分布式事务的原理<br>分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于分布式系统的不同节点之上。比如大型的电商系统中的下单场景，会涉及到扣库存、优惠促销计算、订单 ID 生成。通常情况下，库存、促销、主键生成策略都位于不同的服务器和数据库表中。下单接口的成功与否，不仅取决于本地节点的数据库操作，而且还依赖第三方系统的结果，这时候分候分布式事务就保证这些操作要么全部成功，要么全部失败。<br>因此，本质上来说，分布式事务就是为了保证不同数据库的数据一致性。基于 CAP 定理可以知道，对于上述情况产生的分布式事务问题，我们要么采用强一致性方案、要么采用弱一致性方案。<br>？？</p>
+</li>
+<li><p>实现分布式锁的解决方案中，你认为 Zookeeper和 Redis 哪种更好？<br>两种方案都有各自的优缺点：<br>对于 redis 的分布式锁而言，它有以下缺点： 它获取锁的方式简单粗暴，如果获取不到锁，会不断尝试获取锁，比较消耗性能。 Redis 是 AP 模型，在集群模式中由于数据的一致性会导致锁出现问题，即便使用Redlock 算法来实现，在某些复杂场景下，也无法保证其实现 100%的可靠性。不过在实际开发中使用 Redis 实现分布式锁还是比较常见，而且大部分场情况下不会遇到”极端复杂的场景“，更重要的是 Redis 性能很高，在高并发场景中比较合适。<br>对于 zk 分布式锁而言:  zookeeper 天生设计定位就是分布式协调，强一致性。锁的模型健壮、简单易用、适合做分布式锁。 如果获取不到锁，只需要添加一个监听器就可以了，不用一直轮询，性能消耗较小。如果要在两者之间做选择，就我个人而言的话，比较推崇 ZK 实现的锁，因为对于分布式锁而言，它应该符合 CP 模型，但是 Redis 是 AP 模型，所以在这个点上，Zookeeper会更加合适。</p>
+</li>
+<li><p>什么是Docker？有什么优势？<br>？</p>
+</li>
+<li><p>Docker 核心组件。</p>
+</li>
+<li><p>什么是 Kubernetes？<br>近些年，随着 Docker 与微服务的普及，K8s 也乘着这两股东风，迅速蹿红起来。作为最火的容器编排工具之一，它的很多思想设计都契合了微服务和云原生应用的设计法则。也正因如此，越来越多的公司开始使用起 k8s。K8s 全称 Kubernetes，8 是中间 8 个字母的简称。作为一种容器自动部署、扩容以及管理的技术，我们可以简单理解其是一种容器编排技术。前身是 Borg 系统，在谷歌内部已经有了十多年的使用经验。<br>，、、</p>
+</li>
+<li><p>负载均衡的诞生背景<br>在互联网发展早期，由于用户量较少、业务需求也比较简单。对于软件应用，我们只需要一台高配的服务器即可完成业务的支撑，这样的软件架构称为单体架构<br>随着用户量的增加，服务器的请流量也随之增加，在这个过程中单体架构会产生两个问题。<br>1.软件的性能逐步下降，访问延迟越来越高<br>2.容易出现单点故障<br>为了解决这个问题，我们引入了集群化部署的架构，也就是把一个软件应用同时部署在多个服务器上。引入了负载均衡的设计，简单来说，负载均衡机制的核心目的是让客户端的请求合理均匀的分发到多台目标服务器，由于请求被多个节点分发，使得服务端的性能得到有效的提升。</p>
+</li>
+<li><p>如何实现负载均衡呢？<br>1、基于 DNS 实现负载均衡：实现方式比较简单，只需要在 DNS服务器上针对某个域名做多个 IP 映射即可。<br>2、基于硬件实现负载均衡<br>3、基于软件实现负载均衡</p>
+</li>
+<li><p>就是负载均衡的常用算法<br>所谓负载均衡算法，就是决定当前客户端请求匹配到目标服务器集群中的具体哪个节点。常见的负载均衡算法有：<br>1、轮训，也就是多个服务器按照顺序轮训返回，这样每个服务器都能获得相同的请求次数<br>2、随机，根据随机算法获得一个目标服务地址，由于该算法具备随机性，因此每个服务器获得的请求数量不一定均等。<br>3、一致性 hash，也就是对于具有相同 hash 码的请求，永远发送到同一个节点上。<br>4、最小连接数，根据目标服务器的请求数量来决定请求分发的权重，也就是目标服务集群中，请求更少的节点将会获得更多的请求。这是负载均衡中比较好的策略，真正能够实现目标服务器的请求均衡。</p>
+</li>
+</ul>
+<hr>
+
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><ul>
+<li><p>绝对路径用什么符号表示？当前目录、上层目录用什么表示？主目录用什么表示? 切换目录用什么命令？<br>绝对路径： 如&#x2F;etc&#x2F;init.d<br>当前目录和上层目录： .&#x2F; ..&#x2F;<br>主目录： ~&#x2F;<br>切换目录： cd</p>
+</li>
+<li><p>怎么查看当前进程？怎么执行退出？怎么查看当前路径？<br>查看当前进程： ps<br>执行退出： exit<br>查看当前路径： pwd</p>
+</li>
+<li><p>几个常用linux命令。<br>列出文件列表：ls【参数 -a -l】 a 所有文件 l 详细信息，包括大小字节数，可读可写可执行的权限等<br>创建目录和移除目录：mkdir rmdir<br>用于显示文件后几行内容：tail，例如： tail -n 1000：显示最后1000行<br>打包：tar -xvf<br>打包并压缩：tar -zcvf<br>查找字符串：grep<br>显示当前所在目录：pwd<br>创建空文件：touch<br>编辑器：vim vi </p>
+</li>
+<li><p>使用什么命令查看用过的命令列表?<br>history</p>
+</li>
+<li><p>查看文件的命令。</p>
+<ul>
+<li>vi 文件名 #编辑方式查看，可修改</li>
+<li>cat 文件名 #显示全部文件内容</li>
+<li>more 文件名 #分页显示文件内容</li>
+<li>less 文件名 #与 more 相似，更好的是可以往前翻页  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">less log2013.log <span class="comment"># 查看文件</span></span><br><span class="line">ps -ef | less <span class="comment"># ps查看进程信息并通过less分页显示</span></span><br><span class="line"><span class="built_in">history</span> | less <span class="comment"># 查看命令历史使用记录并通过less分页显示</span></span><br><span class="line">less log2013.log log2014.log <span class="comment"># 浏览多个文件</span></span><br></pre></td></tr></table></figure></li>
+<li>tail 文件名 #仅查看尾部，还可以指定行数  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -n 10 test.log <span class="comment"># 查询日志尾部最后10行的日志;</span></span><br><span class="line"><span class="built_in">tail</span> -n +10 test.log <span class="comment"># 查询10行之后的所有日志;</span></span><br><span class="line"><span class="built_in">tail</span> -fn 10 test.log <span class="comment"># 循环实时查看最后1000行记录(最常用的)</span></span><br><span class="line"><span class="comment"># 一般还会配合着grep搜索用，例如 : </span></span><br><span class="line"><span class="built_in">tail</span> -fn 1000 test.log | grep <span class="string">&#x27;关键字&#x27;</span></span><br><span class="line"><span class="comment"># 如果一次性查询的数据量太大,可以进行翻页查看，例如 ：</span></span><br><span class="line"><span class="built_in">tail</span> -n 4700 aa.log |more -1000 可以进行多屏显示 (ctrl + f 或者 空格键可以快捷键）</span><br></pre></td></tr></table></figure></li>
+<li>head 文件名 #仅查看头部,还可以指定行数  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">head</span> -n 10 test.log 查询日志文件中的头10行日志;</span><br><span class="line"><span class="built_in">head</span> -n -10 test.log 查询日志文件除了最后10行的其他所有日志;</span><br></pre></td></tr></table></figure></li>
+<li>sed 这个命令可以查找日志文件特定的一段 , 根据时间的一个范围查询，可以按照行号和时间范围查询按照行号  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;5,10p&#x27;</span> filename <span class="comment"># 这样你就可以只查看文件的第5行到第10行。</span></span><br><span class="line">sed -n <span class="string">&#x27;/2014-12-17 16:17:20/,/2014-12-17 16:17:36/p&#x27;</span> test.log <span class="comment"># 按照时间段</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>目录创建用什么命令？创建文件用什么命令？复制文件用什么命令？移动文件，改名用哪个命令？删除文件？删除空文件夹用什么命令？<br>创建目录： mkdir<br>创建文件：典型的如 touch，vi 也可以创建文件，其实只要向一个不存在的文件输出，都会创建文件<br>复制文件： cp<br>移动文件，改名：mv<br>删除文件，空文件夹：rm rmdir</p>
+</li>
+<li><p>Linux 下命令有哪几种可使用的通配符？分别代表什么含义?<br>“?” 可替 代单个字符。<br>“*” 可替 代任意多个字符。<br>方括号 “[charset]” 可替代 charset 集中 的任何单个字符， 如 [a-z]， [abABC]</p>
+</li>
+<li><p>Linux 中进程有哪几种状态？在 ps 显示出来的信息中分别用什么符号表示的？<br>1、不可中断状态：进程处于睡眠状态，但是此刻进程是不可中断的。不可中断，指进程不响应异步信号。<br>2、暂停状态&#x2F;跟踪状态：向进程发送一个 SIGSTOP 信号，它就会因响应该信号 而进入 TATASK_STOPPED 状态;当进程正在被跟踪时，它处于 TATASK_TRACED 这个特殊的状态。正被跟踪”指的是进程暂停下来，等待跟踪它的进程对它进行操作。<br>3、就绪状态：在 run_queue 队列里的状态<br>4、运行状态：在 run_queue 队列里的状态<br>5、可中断睡眠状态：处于这个状态的进程因为等待某某事件的发生（比如等待socket 连接、等待信号量），而被挂起<br>6、zombie 状态（僵尸）：父亲没有通过 wait 系列的系统调用会顺便将子进程的尸体（task_struct）也释放掉<br>7、退出状态<br>D 不可中断 Uninterruptible（usually IO）<br>R 正在运行，或在队列中的进程<br>S 处于休眠状态<br>T 停止或被追踪<br>Z 僵尸进程<br>W 进入内存交换（从内核 2.6 开始无效）<br>X 死掉的进程</p>
+</li>
+<li><p>搜索文件用什么命令? 格式是怎么样的?<br>find &lt;指定目录&gt; &lt;指定条件&gt; &lt;指定动作&gt;<br>whereis 加参数与文件名<br>locate 只加文件名<br>find 直接搜索磁盘，较慢。<br>find &#x2F; -name “string*”</p>
+</li>
+<li><p>使用什么命令查看网络是否连通?使用什么命令查看 ip 地址及接口信息？<br>natstat，ifconfig</p>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clrz0na2o0012pwv5bq02489p" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="cls3bhyy10012sgv578c20w5j" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

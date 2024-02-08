@@ -148,6 +148,17 @@
 <p>JDK中实现：源码解析<a target="_blank" rel="noopener" href="https://pdai.tech/md/java/collection/java-collection-Queue&Stack.html">https://pdai.tech/md/java/collection/java-collection-Queue&amp;Stack.html</a></p>
 <hr>
 
+<h2 id="散列表（Hash-TaTable）"><a href="#散列表（Hash-TaTable）" class="headerlink" title="散列表（Hash TaTable）"></a>散列表（Hash TaTable）</h2><p>散列表（Hash table，也叫哈希表）是一种查找算法.散列表算法希望能尽量做到不经过任何比较，通过一次存取就能得到所查找的数据元素，因而必须要在数据元素的存储位置和它的关键字（可用 key 表示）之间建立一个确定的对应关系，使每个关键字和散列表中一个唯一的存储位置相对应。因此在查找时，只要根据这个对应关系找到给定关键字在散列表中的位置即可。这种对应关系被称为散列函数(可用 h(key)表示)。<br>用的构造散列函数的方法有：</p>
+<ol>
+<li>直接定址法： 取关键字或关键字的某个线性函数值为散列地址。即： h(key) &#x3D; key 或 h(key) &#x3D; a * key + b， 其中 a 和 b 为常数。</li>
+<li>数字分析法</li>
+<li>平方取值法： 取关键字平方后的中间几位为散列地址。</li>
+<li>折叠法： 将关键字分割成位数相同的几部分，然后取这几部分的叠加和作为散列地址。</li>
+<li>除留余数法： 取关键字被某个不大于散列表表长 m 的数 p 除后所得的余数为散列地址，即： h(key) &#x3D; key MOD p p ≤ m</li>
+<li>随机数法： 选择一个随机函数，取关键字的随机函数值为它的散列地址，即： h(key) &#x3D; random(key)</li>
+</ol>
+<hr>
+
 <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><p>树：它是n(n&gt;&#x3D;0)个节点的有限集。n&#x3D;0时为空树。n&gt;0时，有限集的元素构成一个具有层次感的数据结构。<br>区别于线性表一对一的元素关系，树中的节点是一对多的关系。树具有以下特点:<br>1、n&gt;0时，根节点是唯一的，不可能存在多个根节点。<br>2、每个节点有零个至多个子节点；除了根节点外，每个节点有且仅有一个父节点。根节点没有父节点。</p>
 <ul>
 <li>基本概念：<ul>
@@ -216,11 +227,37 @@
 </ul>
 </li>
 </ul>
-<p><code>数组</code>的下标寻址十分迅速，但计算机的内存是有限的，故数组的长度也是有限的；而且无序数组的查找最坏情况需要遍历整个数组；后来人们提出了<code>二分查找</code>，要求数组的构造一定有序，二分法查找解决了普通数组查找复杂度过高的问题。任何一种数组无法解决的问题就是插入、删除操作比较复杂，因此，在一个增删查改比较频繁的数据结构中，数组不会被优先考虑<br><code>普通链表</code>由于它的结构特点被证明根本不适合进行查找<br><code>哈希表</code>是数组和链表的折中，同时它的设计依赖散列函数的设计，数组不能无限长、链表也不适合查找，所以也不适合大规模的查找 ??? ???<br><code>二叉查找树</code>因为可能退化成链表，同样不适合进行查找<br><code>AVL树</code>是为了解决可能退化成链表问题，但是AVL树的旋转过程非常麻烦，因此插入和删除很慢，也就是构建AVL树比较麻烦<br><code>红黑树</code>是平衡二叉树和AVL树的折中，是比较合适的。集合类中的Map、关联数组具有较高的查询效率，它们的底层实现就是红黑树。<br><code>多路查找树</code> 是大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的(如果元素数量非常多的话，查找就退化成节点内部的线性查找了)，这样导致二叉查找树结构由于树的深度过大而造成磁盘I&#x2F;O读写过于频繁，进而导致查询效率低下。<br><code>B树</code>与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。它的应用是文件系统及部分非关系型数据库索引。<br><code>B+树</code>在B树基础上，为叶子结点增加链表指针(B树+叶子有序链表)，所有关键字都在叶子结点 中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中。通常用于关系型数据库(如Mysql)和操作系统的文件系统中。<br><code>B* 树</code>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针, 在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1&#x2F;2提高到2&#x2F;3。<br><code>R树</code>是用来做空间数据存储的树状数据结构。例如给地理位置，矩形和多边形这类多维数据建立索引。Trie树是自然语言处理中最常用的数据结构，很多字符串处理任务都会用到。<br><code>Trie树</code>本身是一种有限状态自动机，还有很多变体。什么模式匹配、正则表达式，都与这有关。<br><strong>针对大量数据，如果在内存中作业优先考虑红黑树(map,set之类多为RB-tree实现)，如果在硬盘中作业优先考虑B系列树</strong></p>
+<h3 id="避免孤立的学习知识点，要关联学习。"><a href="#避免孤立的学习知识点，要关联学习。" class="headerlink" title="避免孤立的学习知识点，要关联学习。"></a>避免孤立的学习知识点，要关联学习。</h3><p>比如实际应用当中，我们经常使用的是查找和排序操作，这在我们的各种管理系统、数据库系统、操作系统等当中，十分常用，我们通过这个线索将知识点串联起来：<br><code>数组</code>的下标寻址十分迅速，但计算机的内存是有限的，故数组的长度也是有限的；而且无序数组的查找最坏情况需要遍历整个数组；后来人们提出了<code>二分查找</code>，要求数组的构造一定有序，二分法查找解决了普通数组查找复杂度过高的问题。任何一种数组无法解决的问题就是插入、删除操作比较复杂，因此，在一个增删查改比较频繁的数据结构中，数组不会被优先考虑<br><code>普通链表</code>由于它的结构特点被证明根本不适合进行查找<br><code>哈希表</code>是数组和链表的折中，同时它的设计依赖散列函数的设计，数组不能无限长、链表也不适合查找，所以也不适合大规模的查找 ??? ???<br><code>二叉查找树</code>因为可能退化成链表，同样不适合进行查找<br><code>AVL树</code>是为了解决可能退化成链表问题，但是AVL树的旋转过程非常麻烦，因此插入和删除很慢，也就是构建AVL树比较麻烦<br><code>红黑树</code>是平衡二叉树和AVL树的折中，是比较合适的。集合类中的Map、关联数组具有较高的查询效率，它们的底层实现就是红黑树。<br><code>多路查找树</code> 是大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的(如果元素数量非常多的话，查找就退化成节点内部的线性查找了)，这样导致二叉查找树结构由于树的深度过大而造成磁盘I&#x2F;O读写过于频繁，进而导致查询效率低下。<br><code>B树</code>与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。它的应用是文件系统及部分非关系型数据库索引。<br><code>B+树</code>在B树基础上，为叶子结点增加链表指针(B树+叶子有序链表)，所有关键字都在叶子结点 中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中。通常用于关系型数据库(如Mysql)和操作系统的文件系统中。<br><code>B* 树</code>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针, 在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1&#x2F;2提高到2&#x2F;3。<br><code>R树</code>是用来做空间数据存储的树状数据结构。例如给地理位置，矩形和多边形这类多维数据建立索引。Trie树是自然语言处理中最常用的数据结构，很多字符串处理任务都会用到。<br><code>Trie树</code>本身是一种有限状态自动机，还有很多变体。什么模式匹配、正则表达式，都与这有关。与树类似，用于处理字符串相关的问题时非常高效,它可以实现快速检索，常用于字典中的单词查询，搜索引擎的自动补全甚至 IP 路由。下图展示了“top”, “thus”和“their”三个单词在前缀树中如何存储的：<br><strong>针对大量数据，如果在内存中作业优先考虑红黑树(map,set之类多为RB-tree实现)，如果在硬盘中作业优先考虑B系列树</strong></p>
+<p>各树详解：<a target="_blank" rel="noopener" href="https://pdai.tech/md/algorithm/alg-basic-tree-search.html">https://pdai.tech/md/algorithm/alg-basic-tree-search.html</a></p>
 <h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>在Java中，二叉树是一种常见的树形数据结构，每个节点最多有两个子节点，分别为左子节点和右子节点。二叉树的节点类似于一个结构体，包含了数据、左子节点和右子节点的引用。以下是一个简单的二叉树的实现示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode(<span class="type">int</span> val) &#123;   <span class="built_in">this</span>.val = val;    <span class="built_in">this</span>.left = <span class="literal">null</span>;    <span class="built_in">this</span>.right = <span class="literal">null</span>;   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinaryTree</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> TreeNode root;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinaryTree</span><span class="params">()</span> &#123;    root = <span class="literal">null</span>;   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        root = insertRec(root, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> TreeNode <span class="title function_">insertRec</span><span class="params">(TreeNode root, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">            root = <span class="keyword">new</span> <span class="title class_">TreeNode</span>(val);</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; root.val) &#123;</span><br><span class="line">            root.left = insertRec(root.left, val);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &gt; root.val) &#123;</span><br><span class="line">            root.right = insertRec(root.right, val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他操作（搜索节点、删除节点等）可以根据需要实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>各树详解：<a target="_blank" rel="noopener" href="https://pdai.tech/md/algorithm/alg-basic-tree-search.html">https://pdai.tech/md/algorithm/alg-basic-tree-search.html</a></p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><ul>
+<li>红黑树的特性<br>（1）每个节点或者是黑色，或者是红色。<br>（2）根节点是黑色。<br>（3）每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL 或NULL)的叶子节点！ ]<br>（4）如果一个节点是红色的，则它的子节点必须是黑色的。<br>（5）从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。</li>
+<li>左旋<br>对 x 进行左旋，意味着，将“x</li>
+</ul>
+<p>？？？p183</p>
+<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><p>？？？p186</p>
+<p>B-tree 又叫平衡多路查找树。一棵 m 阶的 B-tree (m 叉树)的特性如下（其中 ceil(x)是一个取上限的函数） ：</p>
+<ol>
+<li>树中每个结点至多有 m 个孩子；</li>
+<li>除根结点和叶子结点外，其它每个结点至少有有 ceil(m &#x2F; 2)个孩子；</li>
+<li>若根结点不是叶子结点，则至少有 2 个孩子（特殊情况：没有孩子的根结点，即根结点为叶子结点，整棵树只有一个根节点）；</li>
+<li>所有叶子结点都出现在同一层，叶子结点不包含任何关键字信息(可以看做是外部结点或查询失败的结点，实际上这些结点不存在，指向这些结点的指针都为 null)；</li>
+<li>每个非终端结点中包含有 n 个关键字信息： (n， P0， K1， P1， K2， P2， ……， Kn， Pn)。其中：<ul>
+<li>Ki (i&#x3D;1…n)为关键字，且关键字按顺序排序 K(i-1)&lt; Ki。</li>
+<li>Pi 为指向子树根的接点，且指针 P(i-1)指向子树种所有结点的关键字均小于 Ki，但都大于 K(i-1)。</li>
+<li>关键字的个数 n 必须满足： ceil(m &#x2F; 2)-1 &lt;&#x3D; n &lt;&#x3D; m-1。</li>
+</ul>
+</li>
+</ol>
+<p>一棵 m 阶的 B+tree 和 m 阶的 B-tree 的差异在于：</p>
+<ol>
+<li>有 n 棵子树的结点中含有 n 个关键字； (B-tree 是 n 棵子树有 n-1 个关键字)</li>
+<li>所有的叶子结点中包含了全部关键字的信息，及指向含有这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大的顺序链接。 (B-tree 的叶子节点并没有包括全部需要查找的信息)</li>
+<li>所有的非终端结点可以看成是索引部分，结点中仅含有其子树根结点中最大（或最小）关键字。(B-tree 的非终节点也包含需要查找的有效信息)</li>
+</ol>
+<h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><p>位图的原理就是用一个 bit 来标识一个数字是否存在，采用一个 bit 来存储一个数据，所以这样可以大大的节省空间。 bitmap 是很常用的数据结构， 比如用于 Bloom Filter 中；用于无重复整数的排序等等。 bitmap 通常基于数组来实现，数组中每个元素可以看成是一系列二进制数，所有元素组成更大的二进制集合。</p>
 <hr>
 
 <h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>图(Graph)是由顶点和连接顶点的边构成的离散结构。图是最灵活的数据结构之一，很多问题都可以使用图模型进行建模求解。<br>理解：图基础，图的遍历，最小生成树(Prim &amp; Kruskal)，最短路径(Dijkstra &amp; Frolyd)，拓扑排序(Topological sort)，AOE &amp; 关键路径等。</p>
@@ -274,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clrz0na2h000bpwv54v5y7gv0" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="cls3bhyxu000esgv52iyzbtqh" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -537,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clrz0na2h000dpwv5039c0aso" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="cls3bhyxu000dsgv54uhdbxry" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -762,7 +799,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="clrz0na2h000apwv5h5hgafdf" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="cls3bhyxt000bsgv5hnr6gi6d" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -911,7 +948,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" data-id="clrz0na2f0005pwv57m3n5oyw" data-title="索引 | 排序" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/09/5%20%E7%B4%A2%E5%BC%95_%E6%8E%92%E5%BA%8F_/" data-id="cls3bhyxk0004sgv594m42qvr" data-title="索引 | 排序" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -992,7 +1029,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="clrz0na2e0003pwv54g6q402v" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/4%20%E5%9B%9E%E6%BA%AF_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E8%B4%AA%E5%BF%83_/" data-id="cls3bhyxi0003sgv541vc399o" data-title="回溯 | 动态规划 | 贪心" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1057,7 +1094,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="clrz0na2c0001pwv5c6cv1q5l" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/3%20%E4%BA%8C%E5%8F%89%E6%A0%91_%E5%9B%BE%E8%AE%BA_/" data-id="cls3bhyxc0001sgv50m5x9e0u" data-title="二叉树 | 图论" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1116,7 +1153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="clrz0na2d0002pwv5ebz9aiie" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/2%20%E5%AD%97%E7%AC%A6%E4%B8%B2_%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97_%E5%A0%86/" data-id="cls3bhyxd0002sgv5h0sc6300" data-title="字符串 | 栈与队列 | 堆" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1188,7 +1225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="clrz0na290000pwv546ffftdl" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/1%20%E6%95%B0%E7%BB%84_%E9%93%BE%E8%A1%A8_%E5%93%88%E5%B8%8C%E8%A1%A8_/" data-id="cls3bhyx90000sgv57s79a1hg" data-title="数组 | 链表 | 哈希表" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1430,7 +1467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clrz0na2f0006pwv59n1b98k5" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="cls3bhyxm0007sgv5d0ly5utw" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1442,9 +1479,9 @@
 
 
   
-    <article id="post-SCUT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-SHOT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2020/09/01/SCUT/" class="article-date">
+    <a href="/2020/09/01/SHOT/" class="article-date">
   <time class="dt-published" datetime="2020-08-31T16:04:42.000Z" itemprop="datePublished">2020-09-01</time>
 </a>
     
@@ -1456,7 +1493,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/09/01/SCUT/">SCUT</a>
+      <a class="p-name article-title" href="/2020/09/01/SHOT/">SHOT</a>
     </h1>
   
 
@@ -1464,7 +1501,32 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF2479.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3089.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3299.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3309.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3834.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3942.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF4034.JPG?raw=true"></p>
+        <h2 id="照相"><a href="#照相" class="headerlink" title="照相"></a>照相</h2><ol>
+<li>构图，色彩，内容，，摄影艺术</li>
+<li>审美，美是理念（客观真实）的感性显现<br>生命力（动物拟人</li>
+<li>拍照要有情感<br>不要刻意捕捉和渲染苦难<br>没有价值 没有温度 没有同理心</li>
+<li>构图是为了故事呈现&#x2F;画面表达服务的</li>
+<li>技术是基础 接下来 对自己生命情感的一个探索 把自己的理性和感性相交融 成为摄影的灵性</li>
+<li>看一张照片（don’t think，feel。快速四五条分析，用摄影师的眼光来解读，审美</li>
+<li>摄影-习惯 快门-快感 积累-质变</li>
+<li>用时间拍照 用时间沉淀<br>纪实摄影（对人的训练 记录时间 记录那一刻对世界的真实表达 摄影的冲动<br>艺术性不是生活的复制品 艺术的摄影点-生活化 趣味性 情绪化 幽默化 -耐人寻味</li>
+<li>距离感 （全身和特写 表达不同的情感<br>手是人的第二张脸（外在美，情感，信息</li>
+</ol>
+<h2 id="器材"><a href="#器材" class="headerlink" title="器材"></a>器材</h2><ol>
+<li>焦段越大 拍得远 画面窄（人靠近背景<br>焦段越小越广角人越胖。 85mm-人像焦段<br>c画幅的35mm等效全画幅50mm</li>
+<li>光圈是焦距&#x2F;通光直径（通过镜头的前面看得到光圈大小） 光圈越大数值越小 进光量越大 背景虚化越强 1.4-2-2.8-…表示光圈半径差根号2倍光圈面积差2倍进光量差一倍曝光差一档<br>iso相当内置光源 数值越大噪点越大。</li>
+<li>相机白平衡等于光源色温时展现为白光，越低越黄（暖色，越高越蓝（冷光</li>
+<li>景深-画面中清晰的一段（否则就被虚化<br>光源与镜头（光圈）形成的角度越大，景深越小，所以，景深与被摄物体距离平方成正比，<br>与光圈数值成正比，与镜头焦距平方成反比</li>
+<li>最起码的是亮度正常 直方图 或测光功能（点测光 评价测光。。</li>
+</ol>
+<h2 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h2><ol>
+<li>物体的数量、大小、色彩、位置、方向、质感、吸引力会影响其视觉重力，画面中多个物体的视觉重力构成了平衡与张力。<br>平衡来源：静态，对称，稳定，横平竖直，客观<br>张力来源：动态，不对称，边角，斜线，情感<br>大多数照片较为平稳，同时有一些张力</li>
+<li>平面秩序: 事物变图形 抽象<br>照相不是出于构思作画，而是出于选择构图。三维世界在二维照片中有了原来不存在的关系（远近透视。。</li>
+<li>决定性瞬间:照片只叙述当下，恰好一个瞬间所有事情(人,地,物,所有细微之处)均各得其所，并同时展现出特定内涵和意义。<br>布列松:“如果照片是为了最大程度上让人理解其被摄对象 那么形式关系必须被严格地建立起来 摄影的目的是在真实事物所构成的世界中甄别出韵律 在一张照片中 构图是同时发生的综合结果 是对于眼之所见的各元素的有机协作。”<br>形式即内容 但形式也离不开内容（不要只会拍老头环卫外卖小哥</li>
+</ol>
+<hr>
+
+<h2 id="SCUT"><a href="#SCUT" class="headerlink" title="SCUT"></a>SCUT</h2><p><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF2479.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3089.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3299.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3309.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3834.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF3942.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF4034.JPG?raw=true"></p>
 <!-- ![](https://github.com/leo710aka/bk/blob/main/scut/DSCF6000.jpg?raw=true) -->
 <!-- ![](https://github.com/leo710aka/bk/blob/main/scut/DSCF6392.JPG?raw=true) -->
 <p><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF6415.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF6416.JPG?raw=true"><br><img src="https://github.com/leo710aka/bk/blob/main/scut/DSCF6529.JPG?raw=true"></p>
@@ -1472,7 +1534,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/01/SCUT/" data-id="clrz0na2l000mpwv5bz9y0nw6" data-title="SCUT" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/01/SHOT/" data-id="cls3bhyxx000nsgv5bcy7d7k9" data-title="SHOT" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
