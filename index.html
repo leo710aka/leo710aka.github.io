@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cls3bhyxy000usgv50udu4p09" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clsq8bkon000td4v5gd6zcs6k" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -242,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cls3bhyy0000ysgv56e8o5t94" data-title="设计模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clsq8bkoo000xd4v57zpx44ga" data-title="设计模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -501,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cls3bhyxw000lsgv57j851t92" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clsq8bkol000md4v5cabhgzce" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -688,7 +688,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/10/Redis/" data-id="cls3bhyxx000msgv5ahlf5v9g" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/10/Redis/" data-id="clsq8bkom000nd4v52teb2maj" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -722,9 +722,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true?raw=true" width="700" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
-<p><strong>微服务</strong>：一种良好的分布式架构方案。</p>
-<ul>
+        <p>单体架构：将业务的所有功能集中在一个项目中开发，打成一个包部署。优点：架构简单、部署成本低。缺点：耦合度高，扩展性差，适合小型项目。例如:学生管理系统<br><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。松耦合，扩展性好，但架构复杂，难度大。适合大型互联网项目，例如:京东、淘宝<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true?raw=true" width="700" height="200"><br>分布式架构的要考虑的问题有：服务拆分粒度如何？服务集群地址如何维护？服务之间如何实现远程调用？服务健康状态如何感知？</p>
+<h2 id="微服务：一种良好的分布式架构方案。"><a href="#微服务：一种良好的分布式架构方案。" class="headerlink" title="微服务：一种良好的分布式架构方案。"></a>微服务：一种良好的分布式架构方案。</h2><ul>
 <li>优点：拆分粒度更小、服务更独立、耦合度更低。缺点：架构非常复杂，运维、监控、部署难度提高</li>
 <li>微服务特点：<ul>
 <li>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发；每个服务单元都可以独立开发、部署、扩展和管理。这些服务单元相互协作，通过网络进行通信，通常使用轻量级的通信机制（如HTTP或消息队列）进行交互。使得应用程序更具弹性、可扩展性和灵活性，同时也有利于团队之间的独立开发和部署。</li>
@@ -737,23 +736,36 @@
 </li>
 </ul>
 <p>微服务这种方案需要技术框架来落地，全球的互联网公司都在积极尝试自己的微服务落地技术。在国内最知名的就是SpringCloud和阿里巴巴的Dubbo（升级SpringCloudAlibaba（实现了SpringCloud接口，是SpringCloud的一部分））微服务技术对比：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/4.png?raw=true?raw=true" width="700" height="200"><br>企业中常见的四种需求：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/5.png?raw=true?raw=true" width="700" height="200"> </p>
-<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>SpringCloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud 集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true?raw=true" width="600" height="200">  </p>
+<hr>
+
+<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>SpringCloud 是一个基于 Spring Boot 的开源框架，旨在简化构建分布式系统中的微服务架构。它提供了一系列工具和库，用于实现微服务架构中常见的模式和功能，如服务发现、负载均衡、配置管理、断路器模式、消息总线等。<br>SpringCloud 集成了各种微服务功能组件，并基于SpringBoot实现了这些组件的自动装配，从而提供了良好的开箱即用体验:<img src="https://github.com/leo710aka/bk/blob/main/springcloud/6.png?raw=true?raw=true" width="600" height="200"><br>对于 SpringBoot 的版本要求 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/9.png?raw=true?raw=true" width="600" height="200">  </p>
 <ul>
 <li>服务拆分<ul>
 <li>微服务需要根据业务模块拆分，做到单一职责，避免重复业务开发；</li>
 <li>微服务可以将业务暴露为接口，供其他微服务使用。</li>
 <li>不同微服务都应该有自己的数据库。</li>
+</ul>
+</li>
+<li>项目结构<ul>
+<li>两种工程结构<ul>
+<li>独立 Project：？？</li>
+<li>Maven 聚合：每个微服务，作为 主Project 中的一个模块 Module，分别独立打包部署运行，只不过代码放在一个 Project</li>
+</ul>
+</li>
 <li>cloud-demo：父工程，管理依赖<ul>
 <li>order-service：订单微服务，负责订单相关业务</li>
-<li>user-service：用户微服务，负责用户相关业务<br>  要求：订单微服务和用户微服务都必须有各自的数据库，相互独立；订单服务和用户服务都对外暴露Restful的接口；订单服务如果需要查询用户信息，只能调用用户服务的Restful接口，不能查询用户数据库  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713211009593.png?raw=true" width="200" height="200"></li>
+<li>user-service：用户微服务，负责用户相关业务</li>
+<li>在每个模块的 application.yaml 配置该微服务名字、端口号、数据库、日志位置、、</li>
+<li>要求：订单微服务和用户微服务都必须有各自的数据库，相互独立；订单服务和用户服务都对外暴露Restful的接口；订单服务如果需要查询用户信息，只能调用用户服务的Restful接口，不能查询用户数据库  <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210713211009593.png?raw=true" width="200" height="200"></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>远程调用<ul>
-<li>在一个微服务中，在java代码中发送 http 请求，使用另一个微服务的接口，获取另一个微服务数据库的数据</li>
+<li>物理上两个微服务隔离，无法查询各自数据库，但网络上微服务相通</li>
+<li>在一个微服务中，通过java代码发送 http 请求，使用另一个微服务的接口以获取其数据库中的数据</li>
 <li>在一个微服务的启动类（本身也是配置类）中注册 RestTemplate，配置成 Bean；</li>
-<li>在 service 中注入 restTemplate，getForObject(“url”) 发送http请求，将返回的 json 数据转换为制定对象类型</li>
+<li>在 service 中注入 restTemplate（建议使用构造函数），通过 getForObject(“url”) 发送http请求，将返回的 json 数据转换为制定对象类型</li>
 </ul>
 </li>
 </ul>
@@ -761,8 +773,8 @@
 <li>在 Eureka 架构中，微服务角色有两类:<ul>
 <li>EurekaServer:服务端，注册中心。记录服务信息、心跳监控</li>
 <li>EurekaClient:客户端<ul>
-<li>Provider:服务提供者，例如案例中的 user-service<br>  注册自己的信息到 EurekaServer<br>  每隔30秒向EurekaServer发送心跳</li>
-<li>consumer:服务消费者，例如案例中的 order-service<br>  根据服务名称从 EurekaServer 拉取服务列表<br>  基于服务列表做负载均衡，选中一个微服务后发起远程调用</li>
+<li>Provider:服务提供者，例如案例中的 user-service，注册自己的信息到 EurekaServer，每隔30秒向EurekaServer发送心跳</li>
+<li>consumer:服务消费者，例如案例中的 order-service，根据服务名称从 EurekaServer 拉取服务列表，基于服务列表做负载均衡，选中一个微服务后发起远程调用</li>
 </ul>
 </li>
 </ul>
@@ -772,18 +784,18 @@
 
 <ul>
 <li>Eureka的作用<ul>
-<li>消费者该如何获取服务提供者具体信息?<br>  服务提供者启动时向 eureka 注册自己的信息，eureka 保存这些信息，消费者根据服务名称向 eureka 拉取提供者信息</li>
-<li>如果有多个服务提供者，消费者该如何选择?<br>  服务消费者利用负载均衡算法，从服务列表中挑选一个</li>
-<li>消费者如何感知服务提供者健康状态?<br>  服务提供者会每隔30秒向 EurekaServer 发送心跳请求，报告健康状态 eureka 会更新记录服务列表信息，心跳不正常会被剔除，消费者就可以拉取到最新的信息</li>
+<li>消费者该如何获取服务提供者具体信息? 服务提供者启动时向 eureka 注册自己的信息，eureka 保存这些信息，消费者根据服务名称向 eureka 拉取提供者信息</li>
+<li>如果有多个服务提供者，消费者该如何选择? 服务消费者利用负载均衡算法，从服务列表中挑选一个</li>
+<li>消费者如何感知服务提供者健康状态? 服务提供者会每隔30秒向 EurekaServer 发送心跳请求，报告健康状态 eureka 会更新记录服务列表信息，心跳不正常会被剔除，消费者就可以拉取到最新的信息</li>
 </ul>
 </li>
-<li>eureka 服务搭建：eruka自己就是一个微服务。新建项目，引入 eureka-server 依赖；编写启动类，添加 @EnableEurekaServer 注解；添加application.yml，添加配置</li>
-<li>eureka 服务注册：把一个微服务注册到 EurekaServer。<ol>
+<li>Eureka 服务搭建：Eruka 自己就是一个微服务。新建项目，引入 eureka-server 依赖；编写启动类，添加 @EnableEurekaServer 注解；添加 application.yml，添加配置</li>
+<li>Eureka 服务注册：把一个微服务注册到 EurekaServer。<ol>
 <li>微服务项目引入 eureka-client 依赖，</li>
 <li>在 application.yml 编写依赖：name、url…</li>
 </ol>
 </li>
-<li>eureka服务发现：<br>  服务拉取是（服务A）基于（服务B）服务名称获取（服务B多个实例）服务列表，然后在对服务列表做负载均衡<ol>
+<li>Eureka 服务发现：<br>  服务拉取是（服务A）基于（服务B）服务名称获取（服务B多个实例）服务列表，然后在对服务列表做负载均衡<ol>
 <li>修改 orderService（服务B）的代码，修改访问的 userService 的url路径，用服务名代替ip、端口，消除硬编码:  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span><span class="string">&quot;http://userservice/user/&quot;</span> + order.getUserId();</span><br></pre></td></tr></table></figure></li>
 <li>在 order-service 项目（服务B）的启动类 OrderApplication中 的 RestTemplate 添加负载均衡注解  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -1175,7 +1187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cls3bhyxy000ssgv5fk2l1t1v" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clsq8bkon000sd4v53pf45dxn" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1215,12 +1227,12 @@
 <p>WiFi：gzjunbo01888</p>
 <hr>
 
-<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#x63;&#x61;&#x69;&#102;&#x40;&#x67;&#122;&#106;&#x75;&#x6e;&#x62;&#111;&#x2e;&#x6e;&#101;&#116;">&#x63;&#x61;&#x69;&#102;&#x40;&#x67;&#122;&#106;&#x75;&#x6e;&#x62;&#111;&#x2e;&#x6e;&#101;&#116;</a> 密码 cxxxxxxx</p>
-<p>OA系统网址 <a target="_blank" rel="noopener" href="http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&menuPathIds=1,12&_key=t0lres">http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&amp;menuPathIds=1,12&amp;_key=t0lres</a> 账号：caif 密码：cxxxxxxx</p>
-<p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a></p>
-<p>Confluence（文档管理）产研在线：<a target="_blank" rel="noopener" href="http://doc.junbo.top/#all-updates">http://doc.junbo.top/#all-updates</a> 账户：caif 密码 139xxxxxxxx</p>
-<p>Git 仓库：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/">http://git.gzjunbo.net/</a> 账户：caif 密码 cxxxxxxx</p>
-<p>jenkins（开发线，用于系统构建发布）：<a target="_blank" rel="noopener" href="http://test-jenkins.gzjunbo.net/jenkins/">http://test-jenkins.gzjunbo.net/jenkins/</a> 账号：caif 密码 YLIYrOh1cfgu2kB</p>
+<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#x63;&#97;&#105;&#x66;&#64;&#103;&#x7a;&#x6a;&#x75;&#x6e;&#x62;&#x6f;&#x2e;&#110;&#101;&#x74;">&#x63;&#97;&#105;&#x66;&#64;&#103;&#x7a;&#x6a;&#x75;&#x6e;&#x62;&#x6f;&#x2e;&#110;&#101;&#x74;</a></p>
+<p>OA系统网址 <a target="_blank" rel="noopener" href="http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&menuPathIds=1,12&_key=t0lres">http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&amp;menuPathIds=1,12&amp;_key=t0lres</a> 账号：caif</p>
+<p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a> mailto：<a href="mailto:&#99;&#x61;&#105;&#102;&#x40;&#103;&#x7a;&#106;&#x75;&#110;&#x62;&#x6f;&#46;&#110;&#101;&#x74;">&#99;&#x61;&#105;&#102;&#x40;&#103;&#x7a;&#106;&#x75;&#110;&#x62;&#x6f;&#46;&#110;&#101;&#x74;</a> &#x2F; Cf123456</p>
+<p>Confluence（文档管理）产研在线：<a target="_blank" rel="noopener" href="http://doc.junbo.top/#all-updates">http://doc.junbo.top/#all-updates</a> 账户：caif </p>
+<p>Git 仓库：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/">http://git.gzjunbo.net/</a> 账户：caif 邮箱：<a href="mailto:&#x63;&#x61;&#105;&#102;&#x40;&#103;&#122;&#x6a;&#117;&#x6e;&#98;&#111;&#x2e;&#x6e;&#101;&#116;">&#x63;&#x61;&#105;&#102;&#x40;&#103;&#122;&#x6a;&#117;&#x6e;&#98;&#111;&#x2e;&#x6e;&#101;&#116;</a></p>
+<p>jenkins（开发线，用于系统构建发布）：<a target="_blank" rel="noopener" href="http://test-jenkins.gzjunbo.net/jenkins/">http://test-jenkins.gzjunbo.net/jenkins/</a> 账号：caif &#x2F; YLIYrOh1cfgu2kB</p>
 <hr>
 
 <ul>
@@ -1397,7 +1409,7 @@
 </li>
 <li><p>准备一年拿到奖学金，重修两门课程高分通过</p>
 </li>
-<li><p>通过面试，进入骏博，一定多向同事们学习</p>
+<li><p>通过面试，进入骏伯，一定多向同事们学习</p>
 </li>
 </ol>
 </li>
@@ -1418,7 +1430,7 @@
 <hr>
 
 <h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><p><strong>模块 服务</strong>？一个服务占用一个端口， 在 .gradle 配置<br>{<br>    demo-api: 服务化接口定义项目<br>    demo-service: 服务化实现项目<br>}<br>api 接口与实现 分离，<br>UserApi接口上加 @FeignClient， 请求均分发送到多台服务器上<br>spring注入 与 单例模式。。</p>
-<h2 id="2024-01-18"><a href="#2024-01-18" class="headerlink" title="2024.01.18"></a>2024.01.18</h2><ul>
+<h2 id="01-18"><a href="#01-18" class="headerlink" title="01.18"></a>01.18</h2><ul>
 <li><p>使用不同的窗口打开一个项目下的不同服务、、</p>
 </li>
 <li><p>使用 IDEA -&gt; Run&#x2F;Debug Configuration -&gt; Shorten command line 选项用于指定是否<strong>缩短命令行</strong>，以提高可读性或管理性，其中 None 表示不缩短，Classpath File 表示通过类路径文件缩短。<br>Java 源代码被编译成字节码文件（.class 文件）。字节码文件在 Java 虚拟机（JVM）上运行。运行时配置参数通过命令行或配置文件传递给 JVM 和应用程序。运行时参数包括类路径、系统属性、环境变量、应用程序参数等，用于影响应用程序在运行时的行为。</p>
@@ -1426,7 +1438,7 @@
 <li><p>DevOps 懂技术的运维？ <a target="_blank" rel="noopener" href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md">https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B9%8B%E7%BE%8E/36%20DevOps%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85%EF%BC%9F.md</a><br>DevOps 可以理解为一种开发和运维一起紧密协作的工作方式，从而可以更快更可靠地构建、测试和发布软件。DevOps 的主要原则就是自动化、信息透明可测量、构建协作文化。<br>DevOps 工程师，要做的事情就是帮助团队来实践 DevOps 的工作方式。具体可以帮助团队：建立基于持续集成和持续交付工作流程；建立基于日志的监控报警的系统，以及故障响应的流程；构建基于云计算和虚拟化技术的基础设施；形成 DevOps 的文化。DevOps 工程师做的事情，就是帮助团队基于 DevOps 原则来做事，让团队形成紧密协作的工作方式，更快更可靠的构建、测试和发布软件。</p>
 </li>
 </ul>
-<h2 id="2024-01-23"><a href="#2024-01-23" class="headerlink" title="2024.01.23"></a>2024.01.23</h2><ul>
+<h2 id="01-23"><a href="#01-23" class="headerlink" title="01.23"></a>01.23</h2><ul>
 <li><p>Jedis 和 RedisTemplate有什么区别？<br>Jedis 是 Redis 的官方 Java 客户端，直接使用 Redis 的命令进行操作。它提供了比较底层的 API，需要手动管理连接、序列化等。RedisTemplate 是 Spring Data Redis 提供的 Redis 客户端，它在 Jedis 的基础上进行了封装，提供了更高层次的抽象和更多的功能。<br>如果你在使用 Spring 项目，并且希望更方便地集成 Redis，并提供更高层次的抽象和功能，那么推荐使用 RedisTemplate。如果你对 Redis 的命令较为了解，或者需要更底层的操作，那么 Jedis 可能更适合你。</p>
 </li>
 <li><p>SpringBoot实体类 DO 和 BO</p>
@@ -1434,18 +1446,58 @@
 <li><strong>DO（Data Object）：</strong>通常表示数据库中的数据实体，对应数据库表的结构。它主要用于数据存储和数据库操作，包含与数据库表字段一一对应的属性。DO 类的命名一般以 “DO” 为后缀，例如 <code>UserDO</code>，<code>OrderDO</code>。类中通常包含与数据库表字段对应的成员变量、getter 和 setter 方法。它不应包含业务逻辑，主要负责数据的持久化和映射。</li>
 <li><strong>BO（Business Object）：</strong>通常表示业务层的业务实体，主要用于封装业务逻辑。BO 类一般包含与业务逻辑相关的属性和方法，与具体的数据存储形式无关。包含了一些业务逻辑的操作，比如计算、验证等。它不应直接与数据库进行交互，而是通过调用 Service 层或 DAO 层的方法实现数据的获取和存储。</li>
 <li>在 Spring Boot 中，DO和 BO是一些常见的命名规范，用于表示在不同层次中使用的实体类。这些命名规范有助于代码的清晰性和可维护性。在业务逻辑层中，可以通过转换工具或框架进行 DO 和 BO 之间的转换，以完成数据的传递和处理。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用实例BO对象生成DO对象</span></span><br><span class="line"><span class="type">OrderDO</span> <span class="variable">orderDO</span> <span class="operator">=</span> BeanMapperUtil.map(orderBO, OrderDO.class);</span><br></pre></td></tr></table></figure>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">map</span><span class="params">(Object sourceObject, Class&lt;T&gt; destObjectclazz)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sourceObject == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">T</span> <span class="variable">destObject</span> <span class="operator">=</span> BeanUtils.instantiateClass(destObjectclazz);</span><br><span class="line">    <span class="comment">// 对象映射： 通过 copyProperties 方法，将源对象的属性值复制到目标对象中</span></span><br><span class="line">    copyProperties(sourceObject, destObject, <span class="literal">null</span>, (String[]) <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> destObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 通过 BeanUtils.instantiateClass() 动态实例化目标对象。有助于避免在代码中直接使用 new 操作符</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">instantiateClass</span><span class="params">(Class&lt;T&gt; clazz)</span> <span class="keyword">throws</span> BeanInstantiationException &#123;</span><br><span class="line">	Assert.notNull(clazz, <span class="string">&quot;Class must not be null&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (clazz.isInterface()) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;Specified class is an interface&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Constructor&lt;T&gt; ctor = (KotlinDetector.isKotlinType(clazz) ?</span><br><span class="line">				KotlinDelegate.getPrimaryConstructor(clazz) : clazz.getDeclaredConstructor());</span><br><span class="line">		<span class="keyword">return</span> instantiateClass(ctor);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (NoSuchMethodException ex) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;No default constructor found&quot;</span>, ex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (LinkageError err) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BeanInstantiationException</span>(clazz, <span class="string">&quot;Unresolvable class definition&quot;</span>, err);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">map</span><span class="params">(Object sourceObject, Class&lt;T&gt; destObjectclazz)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (sourceObject == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">T</span> <span class="variable">destObject</span> <span class="operator">=</span> BeanUtils.instantiateClass(destObjectclazz);</span><br><span class="line">    <span class="comment">// 对象映射： 通过 copyProperties 方法，将源对象的属性值复制到目标对象中</span></span><br><span class="line">    copyProperties(sourceObject, destObject, <span class="literal">null</span>, (String[]) <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> destObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
 </ul>
-<h2 id="2024-01-30"><a href="#2024-01-30" class="headerlink" title="2024.01.30"></a>2024.01.30</h2><p>App拉新业务，增加白名单功能</p>
-<p>handle 拦截，其实就是修改某些字段的状态，以在之后判定为某种情况而进行某种行为</p>
+<h2 id="01-30"><a href="#01-30" class="headerlink" title="01.30"></a>01.30</h2><ol>
+<li>App拉新业务，增加白名单功能<ul>
+<li>业务：当新接入一个客户或者媒体时，需要对整条链路进行验证，确保数据是能够正常传递的。媒体广告投放后台有一个联调功能，通过联调功能，能够指定媒体给特定一台手机发送测试广告，用户再点击广告可以触发一条广告点击数据，并发送到我方拉新业务系统，我方可以通过页面功能查到该广告点击数据的状态。如果该点击数据成功发给客户，说明链路一（媒体到客户）是通的，则可以使用我方业务系统页面功能手动触发一条转化数据，发给媒体，如果能发送成功，则说明整条链路是通的，则验证通过。</li>
+<li>问题：使用联调功能，媒体给我方发送的广告点击数据，我们会做一些拦截处理，有时候不会将它们发给客户，这就使得没法进行下一步转化回传的动作，从而无法完成媒体的联调。一个典型的拦截处理的案例是，对于某些客户，我方在发送点击数据给对方时，需要调用客户的接口进行确认，判断当前用户是否是客户的目标用户，如果不是，则不发送点击数据给客户，这样的拦截称之为RTA拦截。拦截率由客户决定的，并且可能会很高，业务方用来联调的手机基本都被拦截了，从而无法完成联调。<br> handle 拦截，其实就是修改某些字段的状态，以在之后判定为某种情况而进行某种行为</li>
+<li>解决：添加白名单，如果业务方用来测试的手机设备号在白名单内，则不进行拦截。</li>
+<li>代码介绍<br> 仓库地址：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/junbo/junbo-newenergy.git%EF%BC%8C%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E5%90%8E%EF%BC%8C%E5%9F%BA%E4%BA%8Emaster%E5%88%86%E6%94%AF%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BC%80%E5%8F%91%E5%88%86%E6%94%AFdevelop-caif%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E8%BF%99%E4%B8%AA%E5%88%86%E6%94%AF%E4%B8%8A%E6%94%B9%E4%BB%A3%E7%A0%81">http://git.gzjunbo.net/junbo/junbo-newenergy.git，拉取代码后，基于master分支创建一个自己的开发分支develop-caif，然后在这个分支上改代码</a><br> 两个服务：newenergy-web-admin、newenergybg-service，前者提供了一个接收点击数据的接口，在收到点击数据以后，会将其通过feign转发给newenergybg-service服务进行处理（注册中心为eureka）。<br> 接口对应的方法是：ConvTraceWebApi.send（newenergy-web-admin），它会调用newenergybg-service服务的ConvTraceApiImpl.upload方法，再通过MediaDataForwardProducer.produce方法，将其发送到Kafka消息队列，再由MediaDataForwardServiceImpl.consumeKafka方法进行消费，最终进入核心的业务处理逻辑方法，即MediaDataForwardServiceImpl.upload方法，我们需要修改的RTA拦截部分的代码就在这里面。</li>
+<li>upload方法的内部处理逻辑如下：<br> 参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。<br> 参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。<br> 参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。<br> 将校验通过的点击数据发给客户（transferToCustomer）。<br> 保存数据到数据库&#x2F;缓存（save）。<br> 我们需要修改的RTA拦截部分的代码在参数后置处理部分，具体方法是YoudaoMediaActionDataHandler.handle。</li>
+<li>YoudaoMediaActionDataHandler.handle类内部处理逻辑<br> 媒体发给我方的数据可能不止用户点击数据，还包括了广告曝光数据（即用户只要看了广告，媒体就会通知我们），这类数据我们是不需要发给客户的，因此需要设置状态为NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。<br> 走RTA拦截，有一些前置条件，包括①业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）②如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）<br> 对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用<br> 如果客户不接受当前用户，则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。（添加白名单后，如果客户不接受当前用户，不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户）</li>
+</ul>
+</li>
+<li>更多了解业务（年后我跟你再将一些代码，然后在上面做一些修改）<br>监测系统，，单元测试，，<br>，，</li>
+</ol>
+<h2 id="02-20"><a href="#02-20" class="headerlink" title="02.20"></a>02.20</h2><ul>
+<li>需求：开发媒体上报规则报表的分页查询接口<ul>
+<li>需求原型：<a target="_blank" rel="noopener" href="https://axhub.im/pro/62d03dd7790d2dd4/#g=1&p=%E5%AA%92%E4%BD%93%E4%B8%8A%E6%8A%A5%E8%A7%84%E5%88%99%E6%8A%A5%E8%A1%A8">https://axhub.im/pro/62d03dd7790d2dd4/#g=1&amp;p=%E5%AA%92%E4%BD%93%E4%B8%8A%E6%8A%A5%E8%A7%84%E5%88%99%E6%8A%A5%E8%A1%A8</a></li>
+<li>拉一个develop-caif分支，后续代码开发在此分支上进行，分支对应整个项目，其中包括了后面涉及到的所有微服务</li>
+<li>数据库建表</li>
+<li>使用junboGenerator插件生成表结构对应的MyBatis代码（DO, BO, Mapper文件），用于操作数据库。修改 &#x2F;resources&#x2F;generator&#x2F;generatorConfig.xml 文件，运行插件： Gradle -&gt; newenerge-soa -&gt; Tasks -&gt; junbo -&gt; junboGenerater，配置新表（注意，此时需要将其他表的配置项注释掉），后续插件执行时会根据数据库表结构生成相应的Java代码（DO、Mapper等等），将代码文件放到特定的文件目录下。<br>  config.xml 中有两类列属性需要特殊标记，一类是id，一类是枚举字段（在数据库里可能是int，而在java中是enum，此时插件默认无法将这两个类型对应，需要覆盖掉插件的默认行为，手动进行转换）</li>
+<li>实现分页功能，大致步骤包括：<br>  ①【newenergy-api】定义XXXApi接口及page方法<br>  ②【newenergybg-service】定义XXXService接口及page方法<br>  ③【newenergybg-service】定义XXXApiImpl类（Controller），实现XXXApi接口及page方法，通过调用XXXService完成分页查询数据的操作<br>  ④【newenergybg-service】定义XXXServiceImpl类，实现XXXService接口及page方法，通过MyBatis分页插件及XXXMapper的查询方法，完成数据的分页查询。<br>  ⑤【newenergy-api】发布XXXApi：修改版本号（xx.snapshot），发布新的jar包（包含新的XXXApi接口）到 Maven 仓库；Gradle -&gt; newenergy-api -&gt; Tasks -&gt; publishing -&gt; publish<br>  ⑥【newenergy-web-admin】引入最新的XXXApi：更新maven，依赖新版本jar包，以使用新的XXXApi接口<br>  ⑦【newenergy-web-admin】定义XXXWebApi类及page方法（Controller），通过XXXApi的page方法，完成数据的分页查询。</li>
+<li>服务关系：<br>  【newenergy-api】：定义接口信息，同时被【newenergybg-service】和【newenergy-web-admin】依赖<br>  【newenergybg-service】是【newenergy-api】的实现，实际的服务端；<br>  【newenergy-web-admin】接收前端请求（防止暴露实际服务端），从 maven 获取 jar 包反射获取接口和实体类信息。</li>
+<li>参数信息：<br>  Api方法中：XXXRequest、XXXResponse<br>  业务层：XXXBO<br>  持久层：直接与数据库交互 XXXDO<br>  实际上，由于需要返回的数据是由多表查询而来，任一 BO 或 DO 都没法涵盖所有属性字段。所以新增一个 分页查询entity类 ConvCallbackRuleDailyReportPageItem，要在 mapper.xml 里修改 resultMap 中查询数据与返回值的对应关系，在后续数据转换的过程中主要前后类的字段的对应。</li>
+<li>【集成测试】本地启动newenergybg-service服务和newenergy-web-admin服务，通过postman调用接口进行测试，期望结果是，查出来的结果与数据库中的数据一致。<br>  实际请求发送流程为：前端客户端程序发起请求 -&gt;【newenergy-web-admin】XXXWebApi.page -&gt; 【newenergybg-service】XXXApiImpl.page -&gt; 【newenergybg-service】XXXServiceImpl.page -&gt; 【newenergybg-service】 XXXMapper.selectByExample<br>  测试方法：打断点，观察获取和处理的数据从 mapper-&gt;serviceImpl-&gt;apiImpl 中的变化，注意数据转换过程<br>  使用 postman 给本地服务发送请求，如 localhost:1087&#x2F;service&#x2F;conv-callback-rule-daily-report&#x2F;page，在 Body 携带 raw 的 json 数据  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;beginDate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2024-02-11&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;productCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;pageIndex&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;pageSize&quot;</span><span class="punctuation">:</span> <span class="number">10</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>提交代码到远程仓库develop-caif分支</li>
+<li>在 Yapi 编写接口文档</li>
+</ul>
+</li>
+</ul>
+<h2 id="02-22"><a href="#02-22" class="headerlink" title="02.22"></a>02.22</h2><ul>
+<li>YY yy &#x3D; BeanMapperUtil.map(xx, YY.class); 从xx复制属性值而来生成YY类型的实例yy</li>
+<li>List<ConvCallbackRuleDailyReportResponse> list &#x3D; page.getList().stream().map(this::toResponse).collect(Collectors.toList());<br>  Java中的Stream API 是一种用于处理集合数据的强大工具，在 Java 8 中引入，它允许我们以声明性方式处理数据集合（即你可以描述你想要做什么，而不是描述如何去做）,它使得集合操作更加简洁、易读和高效。<ul>
+<li>创建 Stream：你可以从集合（如 List、Set 等）创建 Stream，或者从数组创建。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line">Stream&lt;String&gt; stream = list.stream();  </span><br><span class="line"><span class="comment">// 或者直接从数组创建  </span></span><br><span class="line">Stream&lt;String&gt; arrayStream = Arrays.stream(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>中间操作：中间操作是返回新 Stream 的操作，它们可以链接起来形成一个处理链。常见的中间操作有 filter、map、sorted 等。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line">    List&lt;String&gt; result = list.stream()  </span><br><span class="line">                        .filter(s -&gt; s.matches(<span class="string">&quot;[a-c]+&quot;</span>))  <span class="comment">// 过滤出以 a-c 开头的字符串  </span></span><br><span class="line">                        .map(String::toUpperCase)         <span class="comment">// 将字符串转换为大写  </span></span><br><span class="line">                        .sorted()                          <span class="comment">// 对字符串进行排序  </span></span><br><span class="line">                        .collect(Collectors.toList());     <span class="comment">// 收集到新的 List 中  </span></span><br></pre></td></tr></table></figure></li>
+<li>终端操作：结束 Stream 处理并返回结果。常见的终端操作有 forEach、reduce、collect 等。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line"><span class="comment">// 使用 forEach 遍历 Stream  </span></span><br><span class="line">list.stream().forEach(System.out::println);  </span><br><span class="line"><span class="comment">// 使用 reduce 对 Stream 中的元素进行归约操作，例如求和  </span></span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> list.stream().mapToInt(Integer::parseInt).sum();  </span><br><span class="line">System.out.println(sum);  <span class="comment">// 输出：6（&#x27;a&#x27;、&#x27;b&#x27;、&#x27;c&#x27;、&#x27;d&#x27; 的 ASCII 码之和）  </span></span><br><span class="line"><span class="comment">// 使用 collect 将 Stream 中的元素收集到新的集合中  </span></span><br><span class="line">List&lt;String&gt; collectedList = list.stream().collect(Collectors.toList());  </span><br><span class="line">System.out.println(collectedList);  <span class="comment">// 输出：[a, b, c, d]</span></span><br></pre></td></tr></table></figure></li>
+<li>并行 Stream：Java Stream API 还支持并行处理，这可以充分利用多核处理器的优势，提高处理速度。要创建一个并行 Stream，你可以使用 parallelStream() 方法。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line"><span class="comment">// 使用 parallelStream 创建并行 Stream  </span></span><br><span class="line">List&lt;String&gt; collectedList = list.parallelStream().collect(Collectors.toList());  </span><br><span class="line">System.out.println(collectedList);  <span class="comment">// 输出：[a, b, c, d]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>在Java中，Stream流和序列化是两个不同的概念，但它们在某些场景下可以相互关联。<ul>
+<li>Stream流是Java 8引入的一个新特性，它允许我们以声明性方式处理数据集合。Stream API提供了一种高效且简洁的方式来处理数据，例如过滤、映射、排序和聚合等操作。Stream流主要关注的是数据的处理和转换，而不是数据的存储或传输。</li>
+<li>序列化（Serialization）则是将对象的状态转换为字节流的过程，以便可以将这些字节流持久化保存或通过网络传输到其他位置。序列化允许我们将对象的状态保存起来，然后在需要时恢复对象的状态。Java提供了ObjectOutputStream和ObjectInputStream类来进行对象的序列化和反序列化。</li>
+<li>虽然Stream流和序列化是两个不同的概念，但它们在某些情况下可以相互结合使用。例如，当我们需要将一个对象的状态通过网络传输到另一个位置时，我们可以先将对象序列化为字节流，然后使用Stream流来处理和转换这些字节流。在接收端，我们可以使用Stream流来读取字节流，并使用反序列化来恢复对象的状态。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="cls3bhyy10013sgv556cy76bh" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clsq8bkop0010d4v5hp32487n" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1489,15 +1541,15 @@
 </li>
 <li><p>请用三个词描述您的性格特点<br><strong>诚实，勤奋，谦虚。</strong>在学习知识和与人交往的过程中，我始终保持坦诚和真实，对自己和他人负责。面对生活中的挑战，我积极看待并勤奋努力，相信努力终会有所回报。谦虚让我保持谦逊和虚心，愿意倾听他人意见并不断学习成长。</p>
 </li>
-<li><p><strong>你的优点和缺点。</strong><br>我觉得我是一个诚实，比较勤奋和乐观的人。适应能力比较强和有幽默感，愿意帮助他人。我在经过一段时间的培训及项目实战，加上实习工作，使我适合这份工作。我相信我能成功。<br>我可能有时候比较内向×，，我缺乏工作经验，但我正在学习。慢热，很多时候不会主动聊天发言，可能错过一些交朋友和展示自己的机会，但我在积极改变。，，但会用勤奋？？来弥补，，缺点就是有点强迫症，不喜欢别人乱动我的东西。<br>（企业喜欢求职者从自己的优点说起，中间加一些小缺点，最后再把问题转回到优点上，突出优点的部分。企业喜欢聪明的求职者。）</p>
+<li><p><strong>你的优点和缺点。</strong><br>我觉得我是一个诚实，比较勤奋和乐观的人。适应能力比较强和有幽默感，愿意帮助他人。我在经过一段时间的培训及项目实战，加上实习工作，使我适合这份工作。我相信我能成功。<br>（企业喜欢求职者从自己的优点说起，中间加一些小缺点，最后再把问题转回到优点上，突出优点的部分。企业喜欢聪明的求职者。）<br>我可能有时候比较内向×<br>我缺乏工作经验，但我正在学习。，，但会用勤奋？？来弥补，，</p>
 </li>
-<li><p>你身边的人如何评价你？<br>他们说我是一个诚实、工作努力、负责任的人，因为，我一旦答应别人的事情，就一定会做到。如果我做不到，我就不会轻易许诺。如何，是一个比较随和的人，与不同的人都可以友好相处，在与人相处时，我总是能站在别人的角度考虑问题。</p>
+<li><p>你身边的人如何评价你？<br>他们说我是一个诚实、学习和工作努力、负责任的人。因为我一旦答应别人的事情，就一定会负责到底，否则我不会轻易许诺。<br>以及我是一个比较随和的人，与不同的人都可以友好相处，在与人相处时，我总是能站在别人的角度考虑问题。</p>
 </li>
 <li><p>说一下你的社团活动？你的论文？<br>我在华工青年志愿者指导中心担任宣传部的部长，这将我的摄影能力和对志愿服务的热情结合起来。我多次承担志愿活动现场的拍摄任务，用相机展现志愿者们的奉献精神，通过青志公众号推文等形式在校园中传播志愿精神。<br>我参加了一个“深度学习-图像处理”项目。五周的时间里，通过导师的授课讲解与指导，我拓展了该领域的专业知识，接着着手阅读文献和动手做实验。之后，我便与小组成员紧密合作，从主题确定，到文献的深入研读，完成论文写作，最终发表。</p>
 </li>
-<li><p>参加了什么比赛，实验室项目？<br>没有。。。但是，有实习。。。</p>
+<li><p>参加了什么比赛，实验室项目？<br>没有。。。但是，我参与过一些科研学习的项目，发布过一篇论文。<br>我积极参与课外实践，有三段实习经历。。。</p>
 </li>
-<li><p>校园经历？？？<br>大学里最大的收获（在母校的关怀中茁壮成长，敢于尝试（因为学校鼓励我们敢于尝试，又会包容我们犯错，让我们很好的成长），积极鼓励与支持我们奋斗）<br>上大学为什么选软件工程（排除法，计算机靠边的有些许热爱）<br>大学重来一次，哪方面可以做的更好（在校园襁褓的太久，应该多融入社会，多尝试新东西）<br>挂科？？？</p>
+<li><p>校园经历？<br>大学里最大的收获（在母校的关怀中茁壮成长，敢于尝试（因为学校鼓励我们敢于尝试，又会包容我们犯错，让我们很好的成长），积极鼓励与支持我们奋斗）<br>上大学为什么选软件工程（排除法，计算机靠边的有些许热爱）<br>大学重来一次，哪方面可以做的更好（在校园襁褓的太久，应该多融入社会，多尝试新东西）<br>挂科？？？</p>
 </li>
 </ul>
 <hr>
@@ -1518,14 +1570,15 @@
 </li>
 <li><p>实习期间接触了什么？</p>
 <ul>
-<li>业务背景：互联网营销行业，主要接触了App拉新业务，我们公司给外部公司（例如番茄免费小说）进行App推广，我们会在媒体后台（比如百度）投放广告，以帮助客户App获取新用户。</li>
+<li>业务背景：互联网营销行业，主要接触了App拉新业务，我们公司给外部公司（例如番茄免费小说）进行App推广，我们会在媒体后台（比如百度）投放广告，用户点击媒体上的广告跳转客户App，以帮助客户App获取新用户。</li>
 <li>功能介绍：我们需要与客户和媒体进行对接，利用拉新系统，将媒体的数据转发给客户，再将客户的数据转发给媒体。媒体的数据是用户的广告点击数据，当用户点击广告后，媒体App会将用户设备信息及时间发给我方，（经过拉新系统处理后）我方再发给客户。用户在客户App内发生转化动作时（例如付费），客户监听到用户发生转化，会匹配对应的广告点击数据，再通知我方某条广告点击数据发生了转化，（我发获得收益并且）我方要再传给媒体。整个过程被称为转化跟踪（Conversion Trace）</li>
 <li>技术方向：拉新系统（B端公司内部业务）构建在 SpringCloud 上面，然后用到了一些消息队列 kafka，mysql 数据库和 redis 作为缓存。<br>  ？？？然后我对 RabbitMQ 有了一定的学习。考虑到可能用户数据。特别多的情况。选择用消息队列进行一个阻断，不要让他一下子全部发到客户那边。然后对于点击数据的保存。为了防止一下子太多数据到达数据库，可以考虑用redis做缓存。，，同时，有一个检测系统 Prometheus + Grafana。。通过将拉新系统的一些业务数据暴露给监测系统，，点击数，转换数，计算转换率，报警，，，</li>
 <li>还要学习：高版本Java的特性（虚拟线程、模式匹配、lambda、ZGC、GraalVM-aot），高并发-&gt;NIO、协程、虚拟线程，单元测试</li>
 </ul>
 </li>
-<li><p>实习期间的具体工作，接触的业务。</p>
-<ol>
+</ul>
+<ul>
+<li>实习期间的具体工作，接触的业务。<ol>
 <li>白名单<ul>
 <li>业务：当新接入一个客户或者媒体时，需要对整条链路进行验证，确保数据是能够正常传递的。媒体广告投放后台有一个联调功能，通过联调功能，能够指定媒体给特定一台手机发送测试广告，用户再点击广告可以触发一条广告点击数据，并发送到我方拉新业务系统，我方可以通过页面功能查到该广告点击数据的状态。如果该点击数据成功发给客户，说明链路一（媒体到客户）是通的，则可以使用我方业务系统页面功能手动触发一条转化数据，发给媒体，如果能发送成功，则说明整条链路是通的，则验证通过。</li>
 <li>问题：使用联调功能，媒体给我方发送的广告点击数据，我们会做一些拦截处理，有时候不会将它们发给客户，这就使得没法进行下一步转化回传的动作，从而无法完成媒体的联调。一个典型的拦截处理的案例是，对于某些客户，我方在发送点击数据给对方时，需要调用客户的接口进行确认，判断当前用户是否是客户的目标用户，如果不是，则不发送点击数据给客户，这样的拦截称之为RTA拦截。拦截率由客户决定的，并且可能会很高，业务方用来联调的手机基本都被拦截了，从而无法完成联调。</li>
@@ -1533,11 +1586,22 @@
 </ul>
 </li>
 <li>更多了解业务（年后我跟你再将一些代码，然后在上面做一些修改）<br>  监测系统，，单元测试，，<br>  ，，</li>
+<li>开发媒体上报规则报表的分页查询接口<ul>
+<li>数据库建表</li>
+<li>使用 junboGenerator 插件，根据数据库表结构生成对应的 MyBatis代码（DO、BO、Mapper文件），用于操作数据库。</li>
+<li>实现分页功能，XXXApi接口及page方法、XXXService接口及page方法，XXXApiImpl类、XXXServiceImpl类</li>
+<li>在 Yapi 编写接口文档</li>
+</ul>
+</li>
 </ol>
 </li>
+</ul>
+<ul>
 <li><p>具体那里用到了 MQ ？<br>主要起了削峰的作用。拉新系统需要接收媒体数据，进行拦截处理后才转发给客户。当媒体数据达到 2000kbs，系统就挂掉，，主要原因是对数据的拦截处理涉及到io、阻断、调用客户接口、数据库，，，使用 kafka存放数据，再以 200kbs消费。。。</p>
 </li>
 <li><p>对 rabbitmq 有什么了解？<br>，，</p>
+</li>
+<li><p>遇到了什么困难？学到了什么<br>环境架构都已经配好并且部署在在线环境中，对组件的使用也封装好了，难的难在对实际业务的理解<br>我个人开发中遇到的crud不难。比较麻烦的是理解公司的开发模式？？使用插件生成BO, DO, Mapper,,<br>学到了一些：枚举类型直接对应数据库的INTEGER??配置，，</p>
 </li>
 <li><p>工作中学习到了些什么？和同事沟通了什么？<br>、、、高版本Java的特性（虚拟线程、模式匹配、lambda、ZGC、GraalVM-aot），高并发-&gt;NIO、协程、虚拟线程，单元测试<br>，，</p>
 </li>
@@ -1582,16 +1646,66 @@
 </ul>
 <hr>
 
-<h2 id="项目（mini-spring）"><a href="#项目（mini-spring）" class="headerlink" title="项目（mini spring）"></a>项目（mini spring）</h2><p>、、</p>
-<h2 id="项目（跑个腿）"><a href="#项目（跑个腿）" class="headerlink" title="项目（跑个腿）"></a>项目（跑个腿）</h2><p>、、</p>
-<h2 id="项目（论坛）"><a href="#项目（论坛）" class="headerlink" title="项目（论坛）"></a>项目（论坛）</h2><ul>
-<li><p><strong>论坛系统项目</strong>（高校信息平台。。。）</p>
 <ul>
-<li>项目描述：一个基本功能完整的论坛项目。主要功能有：基于邮件激活的注册方式，区别登陆状态为游客或已登录用户展示不同界面与功能。支持用户上传头像，实现了发布帖子、评论帖子、发送私信等功能，以及点赞，关注与系统通知功能。<br>  项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理。</li>
-<li>核心功能:<br>  1、用户模块：使用 Spring Email 辅助发送注册激活邮件，并且使用 Interceptor 拦截器赋予不同类型的用户权限，解决 http 无状态带来的缺陷问题，保护需登录才能查看的资源。<br>  2、内容模块：使用 Spring AOP 面向切面编程思想统一记录日志；数据库连接使用 Mybatis 框架来完成，实现SQL语句和代码的分离，解除了SQL语句与代码的耦合。<br>  3、通知模块：使用 Kafka 消息队列构建异步消息系统，实现点赞关注与通知间削峰。</li>
-<li>项目优化：<br>  1、引入 Redis 数据库，优化项目中 Session 的使用并利用 Redis 实现点赞和关注功能。<br>  2、使用 Caffeine + Redis 实现两级缓存，优化了热门帖子的访问。<img src="https://leo710aka.github.io/bk/job1.png" width="750" height="300" alt=""></li>
+<li>你做过最有挑战的项目？<ul>
+<li>S：背景</li>
+<li>T：任务</li>
+<li>A：举措</li>
+<li>R：结果</li>
 </ul>
 </li>
+</ul>
+<h2 id="高校兼职外卖代拿平台（跑个腿）"><a href="#高校兼职外卖代拿平台（跑个腿）" class="headerlink" title="高校兼职外卖代拿平台（跑个腿）"></a>高校兼职外卖代拿平台（跑个腿）</h2><ul>
+<li>“跑个腿”校园外卖代拿<ul>
+<li>项目描述：大学生越来越懒的动弹，校内代拿业务，比如外卖、快递等，需求逐渐变强。但是高校陌生人代拿付费服务，物品和信息安全是第一位。</li>
+<li>主要工作：<ul>
+<li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
+<li>因为学生代拿集中在午饭等时间，会出现多人同时抢一个任务，采用了数据库层乐观锁的实现惟一。</li>
+<li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
+<li>为代拿双方的陌生人服务安全性，对每个状态进行流水记录。流程状态切换中实现了照片上传的可靠性，为了节省服务器带宽，使用腾讯云COS直传方案，提供预签名给前端，保障了COS的安全性。</li>
+<li>在接单前，需要接单人支付押金，实现跑腿人押金的支付、押金退还的事务处理。</li>
+<li>？使用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="在线商城系统（黑马商城）"><a href="#在线商城系统（黑马商城）" class="headerlink" title="在线商城系统（黑马商城）"></a>在线商城系统（黑马商城）</h2><ul>
+<li><strong>高校闲置资源交易系统</strong><ul>
+<li>项目简介：本系统采用微服务架构设计，在分布式环境下利用Springcloud框架，通过业务划分，设计独立模块的微服务。<br>  拆分为用户模块、商品模块、购物车模块、订单模块、支付模块，结合了当前比较流行的互联网电商模式，为消费者提供商品贸易平台。</li>
+<li>系统架构：该系用采用SoringCoud架构，利用SpringBoot构建应用，Nacos作为服务的注册、配置中心，0penFeign实现与其他模块进行交互，Sentinel实现熔断降级和错误处理，Seata分布式事务解决方案，Gateway作为服务网关，Sleuth链路追踪，RabbitMQ实现延迟队列，Redis作为缓存解决读多写少的场景，MySQL进行持久化，MyBatisPlus作为持久化框架。</li>
+<li>我的职责:<br>  完成平台商品、购物车、订单、库存、优惠券、支付、文件上传等服务模块的接口开发;<br>  使用RabbitMQ延时队列实现未付款订单，超过一定时间后，系统自动取消订单并解锁库存;<br>  使用redis+lua脚本防止重复提交攻击，解决了用户利用浏览器刷新和回退重复提交订单的问题。<br>  ，，，<br>  会员注册：客户端（移动端、PC端）调用会员服务注册接口进行会员注册，使用NatApp进行内网穿透，利用开源框架WxJava框架进行二次开发，会员先关注公众号，在公众号号接收验证码，并把验证码缓存Redis中，有效期3分钟，会员注册校验验证码是否一致，同时会员注册密码加盐加密MD5和BASE64散列存储。<br>  会员认证：使用XXL-SSO框架实现微服务平台单点登陆开发，搭建并二次开发XXL-SSO的中央认证服务器，改造认证服务器的认证界面，同时植入认证验证码功能，整合各个门户例如首页频道、搜索频道等SSO客户端。基于cookies实现，虽然 cookies本身不跨域，利用XXL-SSO框架实现跨域的进行SSO认证。<br>  广告管理：运营商广告类别管理、广告管理，使用七牛云进行广告图片分布式存储。首页频道服务广告的数据使用Redis进行缓存预热，开发并设计广告缓存系统设计，使用延迟双删、以及RabbitMQ缓存清除重试保证Redis缓存一致性。<br>  订单管理：开发并设计下单流程，使用Redission实现分布式锁防止库存超卖，使用开源框LCN进行事务的一致性操作，保证商品服务减库存，订单服务新增订单。使用雪花算法进行在高并发分布式全局订单ID的生成.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>单体架构改为微服务架构（分布式架构的一种实现）<br>微服务架构，是服务化思想指导下的一套最佳实践架构方案。服务化，就是把单体架构中的功能模块拆分为多个独立项目。<br>优点：粒度低、团队自治、服务自治</p>
+</li>
+<li><p>登录的流程，登录状态的检验？<br>提交登录表单，登录请求 controller —&gt; sevice —&gt; Dao，查询、校验用户信息，生成jwt（用jwtTool生成token），返回登录信息和jwt（或登录失败信息），提示登录成功（失败）。<br>登录成功后，用户在发送请求时（如购物车），在请求头中携带 Authorization（即jwt），服务端使用拦截器 Interceptor 获取Authorization并解析校验jwt拿到用户信息。</p>
+</li>
+<li><p>拦截器（Interceptor）<br>目的：？？让未登录用户不能访问某些页面<br>原理：在方法前标注自定义注解，拦截所有的请求，只处理带有该注解的方法。<br>自定义拦截器：需要实现HandlerInterceptor，然后重写preHandle（controller前执行）,postHandle（controller后执行）,以及afterCompletion（模板解析后执行）；<br>拦截器流程：preHandle中获取请求头信息，校验token，存入 UserContext 上下文。UserContext 内部对一个 ThreadLocal 操作，此后的业务过程中随时可以从 UserContext 取出该 ThreadLocal使用。在 afterCompletion 清楚用户 UserContext.removeUser() ？？？那后面怎么用？？？<br>配置拦截器：需要实现WebMvcConfigurer接口，然后重写addInterceptors方法，排除拦截静态页面。</p>
+</li>
+</ul>
+<ul>
+<li>？？ThreadLocal（线程安全）<br>从上面的代码可以看出，ThreadLocal  set赋值的时候首先会获取当前线程thread,并获取thread线程中的ThreadLocalMap属性。如果map属性不为空，则直接更新value值，如果map为空，则实例化threadLocalMap,并将value值初始化<br>ThreadLocalMap是ThreadLocal的内部静态类，而它的构成主要是用Entry来保存数据 ，而且还是继承的弱引用。在Entry内部使用ThreadLocal作为key，使用我们设置的value作为value。<br>通过当前线程对象的getMap()方法获取ThreadMap对象 然后将当前ThreadLocal对象作为key值存入map 这能保证线程内的资源共享而不同线程之间独立</li>
+</ul>
+<h2 id="项目系统（牛客论坛）"><a href="#项目系统（牛客论坛）" class="headerlink" title="项目系统（牛客论坛）"></a>项目系统（牛客论坛）</h2><ul>
+<li><strong>论坛系统项目</strong>（高校信息平台。。。）<ul>
+<li>项目描述：一个基本功能完整的论坛项目。主要功能有：基于邮件激活的注册方式，区别登陆状态为游客或已登录用户展示不同界面与功能。支持用户上传头像，实现了发布、评论帖子，发送私信等功能，以及点赞，关注与系统通知功能。<br>  项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理。</li>
+<li>核心功能与项目优化：<ul>
+<li>使用 Spring Email 辅助发送注册激活邮件，并且使用 Interceptor 拦截器赋予不同类型的用户权限，解决 http 无状态带来的缺陷问题，保护需登录才能查看的资源。</li>
+<li>使用 Spring AOP 面向切面编程思想统一记录日志；</li>
+<li>引入 Redis 数据库，优化项目中 Session 的使用并利用 Redis 实现点赞和关注功能。</li>
+<li>使用 Kafka 消息队列构建异步消息系统，实现点赞关注与通知间削峰。</li>
+<li>使用 Caffeine + Redis 实现两级缓存，优化了热门帖子的访问。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://leo710aka.github.io/bk/job1.png" width="750" height="300" alt="">
+
+<ul>
 <li><p>介绍项目</p>
 <ol>
 <li>梳理系统的项目背景以及整个系统架构设计与运转流程</li>
@@ -1685,6 +1799,9 @@
 <li><p>一面最后的时候，面试官一般会问：你有什么要问我的吗？这个时候不要乱问，你可以问以下几个问题：<br>1、你们部门在做些什么？主要业务是什么？如果自己很荣幸的能够进入贵部门会负责些什么？因为面试者就是这个部门的，通过他的回答，你也能够了解到这个部门正在做的产品和使用的技术。<br>2、您认为我在哪些方面还存在着不足？这是一个很巧妙的问题，因为它可以从侧面反映出你这次面试的结果。如果面试官带有指导性的回答出了你的不足，你需要补充的知识点，这样就代表你这次面试差不多了，应该是能好好准备二面了；如果面试官直言不讳的说你很差或者基础太弱这样的话，你也就知道凉凉了。<br>3、请问面试官对自己职业规划的建议？面试官大概率是技术大佬或者工作过几年的前辈了，在社会上摸爬滚打了几年，知道的肯定比在校生多。这个问题既表达了对面试官身份的认可，也表现出求职者对当前这份工作得在意程度，并且还能得到技术大佬的分享，怎么看都不是亏本的买卖。<br>4、还有一些比较好的反问问题分享给大家，大家可以在反问环节问面试官：<br>如果我有幸应聘成功，公司对我会有哪些期望呢，<br>这个岗位所在的的团队是什么氛围？我这个比较外向（千万要说自己外向，不要说自己内向，原因不必多说了吧）</p>
 </li>
 </ul>
+<hr>
+
+
 <h2 id="HR-面"><a href="#HR-面" class="headerlink" title="HR 面"></a>HR 面</h2><ul>
 <li><p><strong>对公司文化的理解和价值观的认同</strong><br>先去了解一下公司的文化和公司的优势之处，这样在被问到为什么选择本公司的时候能够把自己对公司的了解和优势说出来，体现自己的诚意<br>？？？</p>
 </li>
@@ -1698,14 +1815,14 @@
 </li>
 <li><p>对工作的期望与目标何在？<br>？？？<br>回答提示：这是面试者用来评断求职者是否对自己有一定程度的期望、对这份工作是否了解的问题。对于工作有确实学习目标的人通常学习较快，对于新工作自然较容易进入状况，这时建议你，最好针对工作的性质找出一个确实的答案，如业务员的工作可以这样回答：“我的目标是能成为一个超级业务员，将公司的产品广泛的推销出去，达到最好的业绩成效；为了达到这个目标，我一定会努力学习，而我相信以我认真负责的态度，一定可以达到这个目标。”其他类的工作也可以比照这个方式来回答，只要在目标方面稍微修改一下就可以了。</p>
 </li>
-<li><p>最近看了什么书？<br>？？？</p>
+<li><p>最近看了什么书？<br>？？？<br>没看。</p>
 </li>
 <li><p>表现<strong>抗压能力以及处理意外情况的能力</strong>。</p>
 <ol>
 <li>分享一件你觉得压力比较大的事？你的压力从何来？你是如何克服他的？<br>  ？？1.适应压力，有压力动力更足。2.会合理安排时间，取得工作效率很好的平衡</li>
 <li>你长这么大以来遭受过的最大挫折是什么？你是如何克服它的？<br>  ？？</li>
 <li>二十多年来，你取得的最大成就是什么？<br>  ？？</li>
-<li>你通过多年努力获得的一项技能是什么？你是如何学习从而获得这项技能的，做了哪些工作去改善、精进这项技能？<br>  ？？</li>
+<li>你通过多年努力获得的一项技能是什么？你是如何学习从而获得这项技能的，做了哪些工作去改善、精进这项技能？<br>  ？？<br>  学会面对任何困难保持冷静。从上学时突然被点名发言、突然被委任参加一个比赛，到现在做项目时面对需求从头开始学习新的技术，我发现在面对困难时，有效的方法就是冷静分析局势，以及最重要的是尽早的着手做。这样即使最后无法完成，也有所收获。</li>
 </ol>
 </li>
 <li><p>你能使组里气氛活跃，并且易于<strong>沟通</strong>吗？<br>我会尽力，和团队中的成员沟通，向他们发问、学习。因为在团队里工作最重要的一件事就是集思广益，而不要只是一个人闷头单干。沟通是很重要的，不仅可以提高工作质量和效率，也可以产生活力。</p>
@@ -1759,7 +1876,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="cls3bhyy00010sgv5h56kge31" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clsq8bkoo000zd4v5grjn2iq2" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1883,7 +2000,9 @@
 </li>
 <li><p>JDK9为什么要将 String 的底层实现由 char[] 改为 byte[]？<br>jdk中字符用utf-16编码（UTF-16是Unicode的一种实现方式，它使用16位的编码单元来表示一个字符），一个字符char要占用2个字节；但是对于由纯英文字符和ascii字符组成的字符串，只需要一个字节就可以表示所有ascii字符，使用 byte[] 可以节省一半空间。<br>只有在需要存储非ascii字符时，才会使用char[]</p>
 </li>
-<li><p>++i与i++的区别<br>i++：先赋值，后计算；++i：先计算，后赋值<br>？？？在JVM层面，这两个操作的实现是通过指令集中的不同指令来完成的。Java虚拟机中的字节码指令包含 iinc 指令用于递增局部变量的值。这两种递增操作在底层都是通过 iinc 指令实现的，但在具体的使用上有一些差异。</p>
+<li><p>++i与i++的区别<br>i++：先赋值，后计算；++i：先计算，后赋值<br>在JVM层面，这两个操作的实现是通过指令集中的不同指令来完成的。Java虚拟机中的字节码指令包含 iinc 指令用于递增局部变量的值。这两种递增操作在底层都是通过 iinc 指令实现的，但在具体的使用上有一些差异。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getstatic i <span class="comment">// 获取静态变量i的值</span></span><br><span class="line">iconst_1 <span class="comment">// 准备常量1</span></span><br><span class="line">iadd <span class="comment">// 自增</span></span><br><span class="line">putstatic i <span class="comment">// 将修改后的值存入静态变量i</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getstatic i <span class="comment">// 获取静态变量i的值</span></span><br><span class="line">iconst_1 <span class="comment">// 准备常量1</span></span><br><span class="line">isub <span class="comment">// 自减</span></span><br><span class="line">putstatic i <span class="comment">// 将修改后的值存入静态变量i</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>a&#x3D;a+b 与 a+&#x3D;b 有什么区别吗?<br>+&#x3D; 操作符会进行隐式自动类型转换,此处a+&#x3D;b隐式的将加操作的结果类型强制转换为持有结果的类型, 而a&#x3D;a+b则不会自动进行类型转换.如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">127</span>, b = <span class="number">127</span>;</span><br><span class="line">b = a + b; <span class="comment">// 报编译错误:cannot convert from int to byte</span></span><br><span class="line">b += a;</span><br><span class="line"><span class="type">short</span> s1= <span class="number">1</span>;</span><br><span class="line">s1 = s1 + <span class="number">1</span>; <span class="comment">// 编译器会报错.short类型在进行运算时会自动提升为int类型,也就是说 s1+1 的运算结果是int类型,而s1是short类型,.</span></span><br><span class="line">s1 += <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
@@ -2237,26 +2356,26 @@
 <li><p><strong>HashMap</strong></p>
 <ul>
 <li>实现原理：其实就是有个 Entry 数组，Entry 保存了 key 和 value。当你要塞入一个键值对的时候，会根据一个 hash 算法计算 key 的 hash 值，然后通过数组大小 <code>n-1 &amp; hash</code> 值之后，得到一个数组的下标，然后往那个位置塞入这个 Entry。为了解决 hash 冲突的问题，采用了链表法<ul>
-<li>在 JDK1.7 及之前链表的插入采用的是头插法，即在链表的头部插入新的 Entry。在 JDK1.8 的时候，改成了尾插法，并且引入了红黑树。当链表的长度大于 8 且数组大小大于等于 64 的时候，就把链表转化成红黑树，当红黑树节点小于 6 的时候，又会退化成链表。</li>
+<li>在 JDK 1.7 及之前链表的插入采用的是头插法，即在链表的头部插入新的 Entry。在 JDK 1.8 的时候，改成了尾插法，并且引入了红黑树。当链表的长度大于 8 且数组大小大于等于 64 的时候，就把链表转化成红黑树，当红黑树节点小于 6 的时候，又会退化成链表。</li>
 <li>为什么 JDK 1.8 要对 HashMap 做红黑树这个改动？主要是避免 hash 冲突导致链表的长度过长，这样 get 的时候时间复杂度严格来说就不是 O(1) 了，因为可能需要遍历链表来查找命中的 Entry。</li>
 <li>为什么定义链表长度为 8 且数组大小大于等于 64 才转红黑树？不要链表直接用红黑树不就得了吗？因为红黑树节点的大小是普通节点大小的两倍，所以为了节省内存空间不会直接只用红黑树，只有当节点到达一定数量才会转成红黑树，这里定义的是 8（泊松分布）</li>
 <li>为什么节点少于 6 要从红黑树转成链表？也是为了平衡时间和空间，节点太少链表遍历也很快，节约内存。</li>
 </ul>
 </li>
-<li>HashMap <strong>默认大小为16，负载因子的大小为0.75。</strong><ul>
+<li>HashMap <strong>默认大小为16，负载因子的大小为 0.75。</strong><ul>
 <li>HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16（具体的实现在tableSizeFor可以看到）把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）。在HashMap里用的是位运算来代替取模，更加高效。HashMap的大小只能是2次幂时，才能合理用位运算替代取模。 </li>
-<li>负载因子的大小决定着哈希表的扩容和哈希冲突。比如默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放16*0.75&#x3D;12个元素，每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，一旦超过12，则哈希表需要扩容。如果把负载因子调高了，哈希冲突的概率会增高，同样会耗时（因为查找的速度变慢了）</li>
+<li>负载因子的大小决定着哈希表的扩容和哈希冲突。比如默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放16*0.75&#x3D;12个元素，每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，一旦超过12，则哈希表需要扩容。如果把负载因子调高了，哈希冲突的概率会增高，同样会耗时（查找速度变慢了）</li>
 </ul>
 </li>
-<li>hash 函数的优化：1.8后，在put元素的时候传递的Key，先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>扩容</strong> rehash 的优化：默认是扩原来的2倍（因为HashMap的大小只能是2次幂），扩的是数组不是链表。<ul>
-<li>1.7版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表上的每个元素<br>  3.取每个元素的key，并基于新数组长度，计算出每个元素在新数组中的下标<br>  4.将元素添加到新数组中去<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
-<li>1.8版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表或红黑树<br>  3.如果是链表，则直接将链表中的每个元素里新计算下标，并添加到新数组中去<br>  ？？4.如果是红黑树，则先遍历红黑树，先计算出红黑树中每个元素对应在新数组中的下标位置：统计每个下标位置的元素个数，如果该位置下的元素个数超过了8，则生成一个新的红黑树，并将根节点的添加到新数组的对应位置；如果该位置下的元素个数没有超过8，那么则生成一个链表，并将链表的头节点添加到新数组的对应位置<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
-<li>1.8:：</li>
-</ul>
-</li>
+<li>hash 函数的优化：1.8后，在put元素的时候传递的Key，先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。相当于把高位和低位的特征进行组合，结果得到的数组位置的散列度一定会更高，可以增加了随机性，减少了碰撞冲突的可能性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><strong>put</strong>：首先对key做hash运算，计算出该key所在的index。如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。假设key是相同的，则替换到原来的值。最后判断哈希表如果满了，扩容。</li>
 <li><strong>get</strong>：还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突。假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。<br>  在HashMap中怎么判断一个元素是否相同？首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals()来判断该元素是否相同。如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals() || &#x3D;&#x3D; 都相同，那说明该元素是同一个。</li>
+</ul>
+</li>
+<li><p>HashMap <strong>扩容</strong> rehash 的优化：默认是扩原来的2倍（因为HashMap的大小只能是2次幂），扩的是数组不是链表。</p>
+<ul>
+<li>1.7版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表上的每个元素<br>  3.取每个元素的key，并基于新数组长度，计算出每个元素在新数组中的下标<br>  4.将元素添加到新数组中去<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
+<li>1.8版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表或红黑树<br>  3.如果是链表，则直接将链表中的每个元素里新计算下标，并添加到新数组中去<br>  ？？4.如果是红黑树，则先遍历红黑树，先计算出红黑树中每个元素对应在新数组中的下标位置：统计每个下标位置的元素个数，如果该位置下的元素个数超过了8，则生成一个新的红黑树，并将根节点的添加到新数组的对应位置；如果该位置下的元素个数没有超过8，那么则生成一个链表，并将链表的头节点添加到新数组的对应位置<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
 </ul>
 </li>
 <li><p>Jdk1.7 到 Jdk1.8 HashMap 发生了什么变化(底层)?</p>
@@ -2335,6 +2454,8 @@
 <li>线程上下文加载器：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。 ？？？</li>
 </ul>
 </li>
+<li><p>JVM 组成。<br>java虚拟机是jdk的一个部分，有四大组成部分。<br>1、类加载器：将class字节码文件中的内容加载到内存中。<br>2、运行时数据区域：负责管理JVM 使用到的内存，比如创建对象和销毁对象。<br>3、执行引擎：将字节码文件中的指令解释成机器码，同时使用即时编译器优化性能，用gc回收内存。<br>4、本地接口：调用本地已经编译好的方法（不在字节码文件中）比如虚拟机中提供的cpp方法。<br>而 JVM 的内存结构，往往指的就是JVM定义的「运行时数据区域」。简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈。<br>其中线程共享：堆、方法区，私有：虚拟机栈、程序计数器、本地方法栈。</p>
+</li>
 <li><p>JVM的内存结构？ <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv25819369/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv25819369/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 <ul>
 <li>前面提到了：class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」。而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」。简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
@@ -2342,8 +2463,8 @@
 <li><strong>程序计数器</strong>：线程切换意味着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」。所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环、跳转、异常、线程恢复等都依赖于计数器）</li>
 <li><strong>虚拟机栈</strong>：每个线程在创建的时候都会创建一个「虚拟机栈」，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址。它的作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
 <li><strong>本地方法栈</strong>：本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理 Java 函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
-<li><strong>方法区</strong>：在HotSpot虚拟机，就会常常提到「永久代」这个词，「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商虚拟机其实是没有「永久代」的概念的。JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了<ul>
-<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<br>  类信息又包括了类的版本、字段、方法、接口和父类等信息。<br>  常量池又可以分「静态常量池」和「运行时常量池」<ul>
+<li><strong>方法区</strong>：在HotSpot虚拟机，就会常常提到「永久代」这个词，JDK8前用「永久代」实现了「方法区」，而很多其他厂商虚拟机其实是没有「永久代」的概念的。JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了。<ul>
+<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池。类信息又包括了类的版本、字段、方法、接口和父类等信息。常量池又可以分「静态常量池」和「运行时常量池」<ul>
 <li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，也包括了我们说的「字符串常量池」。</li>
 <li>运行时常量池存储的是「类加载」时生成的「直接引用」等信息。</li>
 </ul>
@@ -2423,6 +2544,10 @@
 </li>
 <li><p>Java内存模型？ Java3y <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv24200309/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
+<li><p>java有什么锁？</p>
+</li>
+<li><p>锁的选型？</p>
+</li>
 <li><p>ThreadLocal的底层原理<br>1，Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据<br>2，Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（注意不是Threadloca对象）中都存在ThreadlocalMap，Map的key为Thredloca对象，Map的value为需要授存的值<br>？？3，如果在线程池中使用Threadloal会造成内存泄漏，因为当Threadloca对象使用完之后，应该要把设置的key,value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线理对象是通过观引用指向ThreadlocaMap，ThreadlocaMap也是通过用强引用指向entry对象，线理不被回收，entry对象也就不会被回收，从而出现内存泄露，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象<br>4，Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</p>
 </li>
 <li><p>Java死锁如何避免?<br>造成死锁的几个原因:<br>1。一个资源每次只能被一个线程使用<br>2。一个线程在阻塞等待某个资源时，不释放已占有资源<br>3。一个线程已经获得的资源，在未使用完之前，不能被强行剥夺<br>4，若干线程形成头尾相接的循环等待资源关系<br>这是造成死锁必须要达到的4个条件，如果要避免死锁，只需不满足其中某一个即可，而其中前3个是作为锁要符合的条件，所以要避免死锁就要打破第4个条件，不出现循环等待锁的关系。<br>？？在开发过程中:<br>1，要注意加锁顺序，保证每个线程按同样的顺序进行加锁<br>2，要注意加锁时限，可以针对所设置一个超时时间<br>3，要注意死铁检查，这是一种预防机制，确保在第一时间发现死锁并进行解决</p>
@@ -2498,44 +2623,50 @@
 
 
 <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><ul>
-<li><p>Spring 是什么？<br>Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些<strong>扩展是针对构建J2EE？，</strong>平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO为基础的编程模型促进良好的编程习惯。<br>框架—–》容器——》生态、、</p>
+<li><p>Spring (Spring Framework) 是什么？<br>Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些<strong>扩展是针对构建J2EE？，</strong>平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO为基础的编程模型促进良好的编程习惯。<br>,,<br>Spring 是一个开源应用框架，旨在降低应用程序开发的复杂度。它是轻量级、松散耦合的。它具有分层体系结构，允许用户选择组件，同时还为 J2EE 应用程序开发提供了一个有凝聚力的框架。它可以集成其他框架，如 Structs、Hibernate、EJB 等，所以又称为框架的框架。<br>框架—–》容器——》生态、、</p>
 </li>
-<li><p>你们项目中为什么使用Spring框架？Spring框架的好处，特点。<br>轻量: Spring 是轻量的，基本的版本大约2MB。<br>控制反转: Spring通过控制反转实现了松散稠合，对象们给出它们的依赖，而不是创建或查找依赖的对象们。<br>面向切面的编程(AOP): Spring支持面向切面的编程，并且把应用业务逻辑和系统服务分开。<br>容器: Spring 包含并管理应用中对象的生命周期和配置。<br>MVC框架: Spring的WEB框架是个精心设计的框架，是Web框架的一个很好的替代品。<br>事务管理: Spring 提供一个持续的事务管理接口，可以扩展到上至本地事务下至全局事务(JTA)。（编程式事务对新手难度、、<br>异常处理: Spring 提供方便的API把具体技术相关的异常(比如由JDBC，Hibernate orJDO抛出的) 转化为致的unchecked 异常。</p>
+<li><p>你们项目中为什么使用Spring框架？Spring框架的好处，特点。<br>轻量: Spring 是轻量的，基本的版本大约2MB。<br>控制反转: Spring通过控制反转实现了松散稠合，对象们给出它们的依赖，而不是创建或查找依赖的对象们。<br>面向切面的编程(AOP): Spring支持面向切面的编程，并且把应用业务逻辑和系统服务分开。<br>容器: Spring 包含并管理应用中对象的生命周期和配置。<br>MVC框架: Spring的WEB框架是个精心设计的框架，是Web框架的一个很好的替代品。<br>事务管理: Spring 提供一个持续的事务管理接口，可以扩展到上至本地事务下至全局事务(JTA)。（编程式事务难）<br>异常处理: Spring 提供方便的API把具体技术相关的异常(比如由JDBC，Hibernate orJDO抛出的) 转化为致的unchecked 异常。</p>
 </li>
-<li><p>spring核心模块。<br>Spring是一个轻量级的IoC和AOP容器框架。是为Java应用程序提供基础性服务的一套框架，目的是用于简化企业应用程序的开发，它使得开发者只需要关心业务需求。常见的配置方式有三种: 基于XML的配置、基于注解的配置、基于Java的配置。<br>主要由以下几个模块组成:<br>Spring Core: 核心类库，提供IOC服务;<br>Spring Context: 提供框架式的Bean访问方式，以及企业级功能 (JNDI、定时任务等);<br>Spring AOP: AOP服务;<br>Spring DAO: 对JDBC的抽象，简化了数据访问异常的处理:<br>Spring ORM: 对现有的ORM框架的支持;<br>Spring Web: 提供了基本的面向Web的综合特性，例如多方文件上传<br>Spring MVC：提供面向Web应用的Model-View-Controller实现。</p>
-</li>
-</ul>
-<ul>
-<li>Spring IOC<br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
-<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方</li>
-<li>「注入依赖」：是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
-<li>用Spring IOC有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
-<li>你们项目一般是怎么把对象交给IOC容器管理的？换个问法：一般是怎么定义Bean的？<br>  Spring提供了4种方式，分别是：1、注解 2、XML 3、JavaConfig 4、基于Groovy DSL配置<br>  日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML，「注解」解决不了的就用JavaConfig。反正就是定义元数据，能给到Spring解析就好了</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>依赖注入的方法有几种？</li>
-</ul>
+<li><p>???使用 Spring 有哪些方式？</p>
 <ol>
-<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>优点:对象初始化完成后便可获得可使用的对象。<br>缺点: 当需要注入的对象很多时，构造器参数列表将会很长， 不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。</li>
-<li>！？？setter方法注入：lOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类<br>优点: 灵活，可以选择性地注入需要的对象。用的最多。<br>缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</li>
-<li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>缺点：侵入性太强，不建议使用。PS:什么是侵入行?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。</li>
+<li><strong>作为一个成熟的 Spring Web 应用程序：</strong>Spring 提供了 Spring MVC 框架，用于构建 Web 层，同时支持通过 Spring Boot 等工具轻松配置和启动整个应用。这种方式下，Spring 负责管理应用程序的各个层次，包括表现层、业务逻辑层和数据访问层。</li>
+<li><strong>作为第三方 Web 框架，使用 Spring Frameworks 中间层：</strong>可以将 Spring 作为第三方框架集成到现有的 Web 应用程序中，而不必完全采用 Spring Web 应用程序的方式。在这种情况下，可能只使用 Spring 的某些模块，例如 Spring IOC 容器、AOP、事务管理等，以提升现有 Web 应用程序的功能和效率。</li>
+<li><strong>用于远程使用：</strong>这可能指的是将 Spring 作为远程服务的一部分，例如通过 Spring 的远程调用支持（如 Spring Remoting 或 Spring Cloud）在分布式系统中进行远程通信。在这种场景下，Spring 的特性可以用于实现远程服务的注册、调用和管理。</li>
+<li><strong>作为企业级 Java Bean，它可以包装现有的 POJO（Plain Old Java Objects）：</strong>通过 Spring 的依赖注入和其他特性，可以更方便地管理和组装这些对象，使得它们更易于测试、扩展和维护。这种方式下，Spring 赋予了这些普通对象更多的企业级特性。</li>
 </ol>
+</li>
+<li><p>??? 什么是 Spring 配置文件？<br>通常，当说 “Spring 配置文件” 时，是指包含了整个 Spring 应用程序配置信息的 XML 文件。Spring 配置文件通常是一个 XML 文件，用于配置 Spring 容器的行为，包括定义和配置 Spring 中的各种组件（Bean）。这个文件包含了 Spring Bean 的定义、依赖关系、AOP 配置、事务管理等信息。<br>在 Spring 的 XML 配置文件中，可以使用 <code>&lt;bean&gt;</code> 元素来定义和配置 Spring Bean 类信息，这些类可以是普通的 Java 类、业务逻辑类、数据访问类等。每个 <code>&lt;bean&gt;</code> 元素包含了对应类的一些信息，例如类名、ID、作用域、属性值等。这样，Spring 容器在启动时会根据配置文件中的信息来实例化和管理这些类，使得它们成为 Spring 管理的 Bean。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义一个名为 &quot;myBean&quot; 的 Bean，它是 com.example.MyBean 类的实例 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置属性值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;propertyName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;propertyValue&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他 Bean 的定义 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>&lt;bean&gt;</code> 元素定义了一个名为 “myBean” 的 Bean，它是 <code>com.example.MyBean</code> 类的实例。通过配置属性值，Spring 容器会在启动时实例化 <code>MyBean</code> 对象，并设置属性值。这样，”myBean” 成为了 Spring 容器中的一个受管理的 Bean。</p>
+</li>
+<li><p>Spring 程序启动步骤。</p>
 <ul>
-<li><p>@Autowired与@Resource的区别。<br>、、</p>
+<li>运行一个 Spring 程序通常需要进行以下几步配置：<ol>
+<li><strong>添加 Spring 相关的依赖：</strong><br>  在项目的构建工具（如 Maven、Gradle）中，添加 Spring 相关的依赖，包括核心容器、AOP 模块、数据访问模块、Web 模块等，具体依赖根据项目需求而定。</li>
+<li><strong>创建 Spring 配置文件：</strong><br>  创建一个 XML 文件用于配置 Spring 容器。这个配置文件通常包含了应用程序的配置信息，包括定义和配置 Spring Bean，设置数据库连接，配置事务管理等。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 示例：Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置 Spring Bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>初始化 Spring 容器：</strong>在应用程序的启动阶段，通过加载 Spring 配置文件，初始化 Spring 容器。可以使用 <code>ClassPathXmlApplicationContext</code> 或 <code>FileSystemXmlApplicationContext</code> 等容器实现类。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：初始化 Spring 容器</span></span><br><span class="line"><span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><strong>获取 Spring Bean：</strong>在应用程序中通过 Spring 容器获取已配置的 Bean。通过容器的 <code>getBean()</code> 方法获取 Bean 的实例。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：获取 Spring Bean</span></span><br><span class="line"><span class="type">MyBean</span> <span class="variable">myBean</span> <span class="operator">=</span> (MyBean) context.getBean(<span class="string">&quot;myBean&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li>？？？<strong>运行应用程序：</strong>也可以通过注解、AOP 等方式利用 Spring 提供的功能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行应用程序</span></span><br><span class="line">myBean.doSomething();</span><br></pre></td></tr></table></figure></li>
+</ol>
 </li>
-<li><p>Spring AOP<br>Spring AOP 解决的是 非业务代码抽取的问题。<br>？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor<br>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
-<img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
+<li>使用 Spring Boot 启动类来运行程序的一般步骤：<ol>
+<li><strong>添加 Spring Boot 依赖：</strong>在项目的构建工具中（如 Maven、Gradle），添加 Spring Boot 相关的依赖，包括 <code>spring-boot-starter</code> 或其他特定模块，根据项目需求选择。</li>
+<li><strong>创建 Spring Boot 启动类：</strong>创建一个 Java 类，通常命名为 <code>Application</code> 或其他类似的名字，作为 Spring Boot 应用程序的启动类。<br>  <code>@SpringBootApplication</code> 是一个组合注解，包含了 <code>@SpringBootConfiguration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code>。这个注解表明这是一个 Spring Boot 应用程序的入口类。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：Spring Boot 启动类</span></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>编写业务逻辑：</strong> 在应用程序中编写业务逻辑代码，可以创建其他的 Spring Bean，通过依赖注入的方式使用这些 Bean。</li>
+<li><strong>运行应用程序：</strong> 通过运行 Spring Boot 启动类的 <code>main</code> 方法启动应用程序。这个方法会启动 Spring Boot 内嵌的 Tomcat 服务器，并自动扫描和配置 Spring Bean。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行 Spring Boot 应用程序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SpringApplication.run(Application.class, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  通过 Spring Boot 启动类运行程序的好处是，Spring Boot 提供了许多默认的配置，能够使开发者更轻松地构建和运行 Spring 应用程序，无需手动配置大量的 XML 文件。这样的方式使得应用程序的开发和部署变得更加简便。</li>
+</ol>
 </li>
-<li><p>SpringMVC 流程<br>？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
-<img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt="">
+</ul>
 </li>
-<li><p>请简述你对 Spring MVC 的理解。<br>SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。采用了 MVC 架构模式的思想，通过把 Model，View，Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件：<br>9 大重要的组件：p151<br>在 Spring MVC 的九大组件中，涉及到请求处理响应的核心组件分别是：HandlerMapping、HandlerAdapter、ViewResolver<br>具体调用分为以下几个步骤：1、HandlerMapping 回到调用 HandlerAdapter 2、HandlerAdapter 会返回 ModelAndView 3、ModelAndView 根据用户传入参数得到 ViewResolvers 4、ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染。注意：有大家最熟悉的两个类：ModelAndView 和 View 类并不属于 Spring MVC 九大组件之列。，？</p>
+<li><p>三层架构：表现层 + 业务层 + 数据访问层<br>  三层架构（Presentation Layer、Business Logic Layer、Data Access Layer）是一种常见的软件架构模式，用于将一个软件系统划分为三个主要的逻辑层，以提高系统的可维护性、可扩展性和可重用性。Spring 框架提供了广泛的支持，使得开发者能够更轻松地实现和管理三层架构。</p>
+<ol>
+<li>表现层（Presentation Layer）：<br>  定义： 主要负责用户界面和用户交互，通常包括 Web 页面、UI 组件等。<br>  Spring 支持： Spring 提供了 Spring MVC 模块，用于实现 Web 应用的表现层。Spring MVC 提供了强大的控制器（Controller）机制，支持基于注解的映射、视图解析、数据绑定等功能，使得开发者能够轻松地构建和管理 Web 层。</li>
+<li>业务层（Business Logic Layer）：<br>  定义： 包含了应用程序的业务逻辑，处理用户请求、调用数据访问层进行数据操作，并进行业务规则的处理。<br>  Spring 支持： Spring 提供了 IoC（Inversion of Control）容器和 AOP（Aspect-Oriented Programming）功能，这两者共同构成了 Spring 的核心。开发者可以使用 Spring IoC 容器来管理业务层的对象，而 Spring AOP 可以用于处理横切关注点，如事务管理、日志记录等。</li>
+<li>数据访问层（Data Access Layer）：<br>  定义： 主要用于与数据存储交互，进行数据库访问、数据持久化等操作。<br>  Spring 支持： Spring 提供了对数据访问的支持，其中最重要的是 Spring 的 JDBC 模块和 Spring 的 ORM 模块。Spring JDBC 简化了 JDBC 操作，而 Spring ORM 支持集成多种 ORM 框架，如 Hibernate、MyBatis 等，使得数据访问层的开发更加便捷。</li>
+</ol>
 </li>
-<li><p>三层架构：表现层、业务层、数据访问层<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）</p>
-</li>
-<li><p>service 层为什么用的是接口？为什么不直接使用实现类？？<br>  Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：</p>
+<li><p>Service层 为什么用的是接口？为什么不直接使用实现类？？<br>  Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：</p>
 <ol>
 <li>解耦和可扩展性：使用接口将 Service 层与其实现类解耦。通过面向接口编程，控制器（或其他类）可以只依赖于接口而不是具体的实现类。这样使得代码更加灵活，能够轻松切换不同的实现类或者模拟测试用的虚拟实现。</li>
 <li>单一职责原则：接口定义了 Service 层的契约和行为，实现类负责具体的逻辑实现。这符合单一职责原则，即一个类应该只负责一项职责。</li>
@@ -2551,10 +2682,67 @@
 <li>遵循设计原则：使用接口遵循了面向对象编程的设计原则，如开闭原则（对扩展开放，对修改关闭）、单一职责原则等。这种设计模式使得代码更清晰、更易于理解和维护。</li>
 </ol>
 </li>
+<li><p><strong>Spring 核心模块</strong>。<br>  Spring是一个轻量级的IoC和AOP容器框架。是为Java应用程序提供基础性服务的一套框架，目的是用于简化企业应用程序的开发，使开发者只需要关心业务需求。常见的配置方式有三种: 基于XML的配置、基于注解的配置、基于Java的配置。<br>  主要由以下几个模块组成:</p>
+<ul>
+<li>Core Container<br>  Spring Core: 核心类库，提供IOC服务;<br>  Spring Bean：构成用户应用程序主干的对象。Bean 由 Spring IoC 容器管理，由 IoC 容器实例化，配置，装配和管理。Bean 是基于用户提供给容器的配置元数据创建。<br>  Spring Context: 提供框架式的Bean访问方式，以及企业级功能 (JNDI、定时任务等);</li>
+<li>Spring AOP: AOP服务，面向切面编程;</li>
+<li>Data Access<br>  Spring DAO: 对JDBC的抽象，简化了数据访问异常的处理:<br>  Spring ORM: 对现有的ORM框架的支持;</li>
+<li>Web<br>  Spring Web: 提供了基本的面向Web的综合特性，例如多方文件上传<br>  Spring MVC：提供面向Web应用的Model-View-Controller实现。<br>  Servlet<br>  Socket</li>
+<li>Test：该层为使用 JUnit 和 TestNG 进行测试提供支持。</li>
+<li>几个杂项模块: Messaging – 该模块为 STOMP 提供支持。它还支持注解编程模型，该模型用于从 WebSocket 客户端路由和处理 STOMP 消息。Aspects –该模块为与 AspectJ 的集成提供支持。</li>
+</ul>
+</li>
+<li><p>Spring Bean。一个 Spring Bean 定义 包含什么？<br>Spring beans 是那些形成 Spring 应用的主干的 java 对象。它们被 Spring IOC容器初始化，装配和管理。这些 beans 通过容器中配置的元数据创建，比如以 XML 文件中 的形式定义。Spring 框架定义的 beans 都是单件beans。在 bean tag 中有个属性”singleton”，如果它被赋为 TRUE，bean 就是单件，否则就是一个prototype bean。默认是 TRUE，所以所有在 Spring 框架中的 beans 缺省都是单件。<br>一个 Spring Bean 的定义包含容器必知的所有配置元数据，包括如何创建一个bean，它的生命周期详情及它的依赖。</p>
+</li>
+<li><p>Spring 提供了哪些配置方式？一般是怎么定义Bean的？</p>
+<ul>
+<li>???基于 xml 配置<br>  bean 所需的依赖项和服务在 XML 格式的配置文件中指定。这些配置文件通常包含许多 bean 定义和特定于应用程序的配置选项。它们通常以 bean 标签开头。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;studentbean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.edureka.firstSpring.StudentBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Edureka&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>？？？基于注解配置<br>  通过在相关的类、方法或字段声明上使用注解，将 bean 配置为组件类本身，而不是使用 XML 来描述 bean 装配。默认情况下，Spring 容器中未打开注解装配。因此，您需要在使用它之前在 Spring 配置文件中启用它。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- bean definitions go here --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  相对于 XML 文件，注解型的配置依赖于通过？？？字节码元数据装配组件，而非尖括号的声明。开发者通过在相应的类，方法或属性上使用注解的方式，直接组件类中进行配置，而不是使用 xml 表述 bean 的装配关系。</li>
+<li>基于 Java API 配置<br>  Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。<br>  1、 @Bean 注解扮演与 元素相同的角色。<br>  2、 @Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。 例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> StudentBean <span class="title function_">myStudent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">StudentBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Spring IOC</strong><br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
+<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方</li>
+<li>「注入依赖」是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+<li>用 Spring IOC 有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>spring 中有多少种 IOC 容器？<br>  BeanFactory - BeanFactory 就像一个包含 bean 集合的工厂类。它会在客户端要求时实例化 bean。ApplicationContext - ApplicationContext 接口扩展了 BeanFactory 接口。它在 BeanFactory 基础上提供了一些额外的功能。</li>
+<li>Spring IoC 的实现机制？<br>  IoC 的实现原理就是工厂模式加反射机制。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Apple&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Orange</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Orange&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title function_">getInstance</span><span class="params">(String ClassName)</span> &#123;</span><br><span class="line">        Fruit f=<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f=(Fruit)Class.forName(ClassName).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] a)</span> &#123;</span><br><span class="line">        Fruit f=Factory.getInstance(<span class="string">&quot;io.github.dunwu.spring.Apple&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(f!=<span class="literal">null</span>)&#123;f.eat();&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>？？？ApplicationContext 通常的实现是什么? </p>
+<ul>
+<li>FileSystemXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，XML Bean 配置文件的全路径名必须提供给它的构造函数。  </li>
+<li>ClassPathXmlApplicationContext：此容器也从一个 XML 文件中加载 beans 的定义，这里，你需要正确设置 classpath 因为这个容器将在 classpath里找 bean 配置。 </li>
+<li>WebXmlApplicationContext：此容器加载一个 XML 文件，此文件定义了一个 WEB 应用的所有 bean。</li>
+</ul>
+</li>
+<li><p>？？？Bean 工厂和 Application contexts 有什么区别？<br>Application contexts 提供一种方法处理文本消息，一个通常的做法是加载文件资源（比如镜像），它们可以向注册为监听器的 bean 发布事件。另外，在容器或容器内的对象上执行的那些不得不由 bean 工厂以程序化方式处理的操作，可以在Application contexts 中以声明的方式处理。Application contexts 实现了MessageSource 接口，该接口的实现以可插拔的方式提供获取本地化消息的方法。</p>
+</li>
+<li><p>列举 IoC 的一些好处。<br>它将最小化应用程序中的代码量。<br>???它将使您的应用程序易于测试，因为它不需要单元测试用例中的任何单例或  JNDI 查找机制。<br>它以最小的影响和最少的侵入机制促进松耦合。<br>支持即时的实例化和延迟加载服务。</p>
+</li>
 <li><p>？？Spring容器启动流程是怎样的<br>1，在创建Spring容器，也就是启动Spring时:<br>2，首先会进行扫描，扫描得到所有的BeanDefinition对象，并存在一个Map中<br>3，然后筛选出非懒加弱的单例BeanDefinton进行创建Bean，对于多例Bean不需要在启动过程中去进行创建，对于多例Bean会在每次获取Bean时利用BeanDeinition去建<br>4，利用BeanDefinition创建Bean就是Bean的创建生命因期，这期间包括了合并BeanDefintion、推断构造法、实例化、属性填充、初始化前、初始化、初始化后等步骤其中AOP就是发生在初始化后这一步骤中<br>5，单例Bean创建完了之后，Spring会发布一个容器启动事件<br>6，Spring启动结束<br>7，在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanfatoyPostProcessor和BeanPostprocessor的注册，Spring的描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的8。在sprina启动过程中还会去处理@Import等注解</p>
+</li>
+<li><p>依赖注入的方法有几种？</p>
+<ol>
+<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长， 不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。</li>
+<li>？？setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类<br>  优点: 灵活，可以选择性地注入需要的对象。用的最多。<br>  缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</li>
+<li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>  优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>  缺点：侵入性太强，不建议使用。PS:什么是侵入?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。</li>
+<li>使用建议：用构造器参数实现强制依赖，setter 方法实现可选依赖</li>
+</ol>
+</li>
+<li><p>？？？Spring 支持集中 bean scope（范围）？<br>Spring bean 支持 5 种 scope：<br>Singleton - 每个 Spring IoC 容器仅有一个单实例。<br>Prototype - 每次请求都会产生一个新的实例。<br>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。<br>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</p>
+</li>
+<li><p>？？？Spring bean 容器的生命周期是什么样的？<br>1、Spring 容器根据配置中的 bean 定义中实例化 bean。<br>2、Spring 使用依赖注入填充所有属性，如 bean 中所定义的配置。<br>3、如果 bean 实现BeanNameAware 接口，则工厂通过传递 bean 的 ID 来调用setBeanName()。<br>4、如果 bean 实现 BeanFactoryAware 接口，工厂通过传递自身的实例来调用 setBeanFactory()。<br>5、如果存在与 bean 关联的任何BeanPostProcessors，则调用 preProcessBeforeInitialization() 方法。<br>6、如果为 bean 指定了 init 方法（ 的 init-method 属性），那么将调用它。<br>7、最后，若存在与 bean 关联的任何 BeanPostProcessors，则将调用 postProcessAfterInitialization()方法。<br>8、如果 bean 实现DisposableBean 接口，当 spring 容器关闭时，会调用 destory()。<br>9、如果为bean 指定了 destroy 方法（ 的 destroy-method 属性），那么将调用它。</p>
 </li>
 <li><p>说说SpringBean生命周期原理？<br>？？</p>
 <img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
+</li>
+<li><p>解释一下spring bean的生命周期<br>首先说一下Servlet的生命周期：实例化，初始init，接收请求service，销毁destroy；Spring上下文中的Bean生命周期也类似，如下：<br>（1）实例化Bean：对于BeanFactory容器，当客户向容器请求一个尚未初始化的bean时，或初始化bean的时候需要注入另一个尚未初始化的依赖时，容器就会调用createBean进行实例化。对于ApplicationContext容器，当容器启动结束后，通过获取BeanDefinition对象中的信息，实例化所有的bean。<br>（2）设置对象属性（依赖注入）：实例化后的对象被封装在BeanWrapper对象中，紧接着，Spring根据BeanDefinition中的信息 以及 通过BeanWrapper提供的设置属性的接口完成依赖注入。<br>（3）处理Aware接口：接着，Spring会检测该对象是否实现了xxxAware接口，并将相关的xxxAware实例注入给Bean：<br>①如果这个Bean已经实现了BeanNameAware接口，会调用它实现的setBeanName(String beanId)方法，此处传递的就是Spring配置文件中Bean的id值；<br>②如果这个Bean已经实现了BeanFactoryAware接口，会调用它实现的setBeanFactory()方法，传递的是Spring工厂自身。<br>③如果这个Bean已经实现了ApplicationContextAware接口，会调用setApplicationContext(ApplicationContext)方法，传入Spring上下文；<br>（4）BeanPostProcessor：如果想对Bean进行一些自定义的处理，那么可以让Bean实现了BeanPostProcessor接口，那将会调用postProcessBeforeInitialization(Object obj, String s)方法。<br>（5）InitializingBean 与 init-method：如果Bean在Spring配置文件中配置了 init-method 属性，则会自动调用其配置的初始化方法。<br>（6）如果这个Bean实现了BeanPostProcessor接口，将会调用postProcessAfterInitialization(Objectobj, String s)方法；由于这个方法是在Bean初始化结束时调用的，所以可以被应用于内存或缓存技术以上几个步骤完成后，Bean就已经被正确创建了，之后就可以使用这个Bean了<br>（7）DisposableBean：当Bean不再需要时，会经过清理阶段，如果Bean实现了DisposableBean这个接口，会调用其实现的destroy()方法；<br>（8）destroy-method：最后，如果这个Bean的Spring配置中配置了destroy-method属性，会自动调用其配置的销毁方法</p>
 </li>
 <li><p>？？能回答一下 Spring Bean 生命周期的执行流程吗？<br>  Spring 生命周期全过程大致分为五个阶段：创建前准备阶段、创建实例阶段、依赖注入阶段、容器缓存阶段和销毁实例阶段。</p>
 <ul>
@@ -2574,6 +2762,117 @@
 <li><p>Spring中的Bean创建的生命周期有哪些步骤<br>大概分为以下几个步骤:<br>1，推断构造方法 ？？<br>2，实例化对象<br>3，填充属性，也就是依赖注入<br>4，处理Aware回调<br>5，初始化前，处理@PostConstruct注解<br>6，初始化，处理InitializingBean接口<br>7，初始化后，进行AOP<br>真正的步骤更加细致，，，，、、、、</p>
 </li>
 <li><p>ApplicationContext和BeamFactory有什么区别？<br>Beanfactony是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而AppitcationContext继承了Beanfactony,所以ApplicationContext拥有Beanfacton所有的特点，也是一个Bean工厂，但是AppicationContext除开继承了Beanfacton之外，还继承了诸如EnvronmentCapable、Messaaesource、AppicationEventPubishe等接口，从而ApplicationCcontext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的</p>
+</li>
+<li><p>什么是 spring 的内部 bean？<br>只有将 bean 用作另一个 bean 的属性时，才能将 bean 声明为内部 bean。为了定义 bean，Spring 的基于 XML 的配置元数据在 或 中提供了 元素的使用。内部 bean 总是匿名的，它们总是作为原型。</p>
+</li>
+<li><p>？？？什么是 spring 装配？自动装配有哪些方式，有什么局限？什么是基于注解的容器配置？</p>
+<ul>
+<li>当 bean 在 Spring 容器中组合在一起时，它被称为装配或 bean 装配。Spring 容器需要知道需要什么 bean 以及容器应该如何使用依赖注入来将 bean 绑定在一起，同时装配 bean。<br>  ？？？依赖注入是一种思想或设计模式，而 Spring Bean 装配是在 Spring 框架中具体实现了依赖注入思想的一种机制。在使用 Spring 时，开发者往往会同时使用依赖注入和 Spring Bean 装配，以构建一个灵活、可维护的应用。</li>
+<li>Spring 容器能够自动装配 bean。即可以通过检查 BeanFactory 的内容让 Spring 自动解析 bean 的协作者。<br>  自动装配的不同模式：<br>  no：这是默认设置，表示没有自动装配。应使用显式 bean 引用进行装配。<br>  byName：它根据 bean 的名称注入对象依赖项。它匹配并装配其属性与 XML文件中由相同名称定义的 bean。<br>  byTyType：根据类型注入对象依赖项。如果属性的类型与 XML 文件中的一个 bean 名称匹配，则匹配并装配属性。<br>  构造函数- 它通过调用类的构造函数来注入依赖项。它有大量的参数。<br>  autodetect - 首先容器尝试通过构造函数使用 autowire 装配，如果不能，则尝试通过 byTyType 自动装配 </li>
+<li>自动装配的局限：覆盖的可能性 - 您始终可以使用 和 设置指定依赖项，这将覆盖自动装配。基本元数据类型 - 简单属性（如原数据类型，字符串和类）无法自动装配。令人困惑的性质 - 总是喜欢使用明确的装配，因为自动装配不太精确。</li>
+<li>基于注解的容器配置：不使用 XML 来描述 bean 装配，开发人员通过在相关的类，方法或字段声明上使用注解将配置移动到组件类本身。它可以作为 XML 设置的替代方案。<br>  例如：Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。 @Bean 注解扮演与 元素相同的角色。@Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。<br>  默认情况下，Spring 容器中未打开注解装配。因此，要使用基于注解装配，我们必须通过配置 &lt;context：annotation-config&#x2F;&gt; 元素在Spring 配置文件中启用它。</li>
+</ul>
+</li>
+<li><p>@Component, @Controller, @Repository，@Service 有何区别？<br>@Component ：这将  java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。<br>@Controller ：这将一个类标记为 Spring Web MVC 控制器。标有它的Bean 会自动导入到 IoC 容器中。<br>@Service ：此注解是组件注解的特化。它不会对 @Component 注解提供任何其他行为。您可以在服务层类中使用@Service 而不是@Component，因为它以更好的方式指定了意图。<br>@Repository ：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。</p>
+</li>
+<li><p>@Required 注解有什么用？<br>@Required 应用于 bean 属性 setter 方法。此注解仅指示必须在配置时使用bean 定义中的显式属性值或使用自动装配填充受影响的 bean属性。如果尚未填充受影响的 bean 属性，则容器将抛出 eanInitializationException。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Requiredpublic</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> string <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@Autowired 注解有什么用？<br>@Autowired 可以更准确地控制应该在何处以及如何进行自动装配。此注解用于在 setter 方法，构造函数，具有任意名称或多个参数的属性或方法上自动装配bean。默认情况下，它是类型驱动的注入。</p>
+</li>
+<li><p>@Autowired 与 @Resource的区别。</p>
+<ol>
+<li>源头不同：**<code>@Autowired</code>** 是 Spring 框架自带的注解，属于 Spring 核心。**<code>@Resource</code>** 是 Java EE提供的注解，不仅被 Spring 支持，也可以在其他 Java EE 容器中使用。</li>
+<li>注入类型不同：<ul>
+<li><strong><code>@Autowired</code>：</strong> 主要通过 byType 的方式进行注入，即按照属性的数据类型从 Spring 容器中匹配并注入。如果存在多个匹配的 Bean，则可以通过 <code>@Qualifier</code> 进行进一步指定。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
+<li><strong><code>@Resource</code>：</strong> 主要通过 byName 的方式进行注入，即按照属性的名称从 Spring 容器中匹配并注入。也可以通过 <code>name</code> 属性指定要注入的 Bean 名称。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource(name = &quot;myService&quot;)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>可选性：<br>  <strong><code>@Autowired</code>：</strong> <code>@Autowired</code> 是默认必须注入的，如果找不到匹配的 Bean，会抛出异常。但可以通过设置 <code>required = false</code> 来允许 null 值。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired(required = false)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure>
+  <strong><code>@Resource</code>：</strong> <code>@Resource</code> 默认是必须注入的，不支持设置类似 <code>required</code> 的属性。但可以通过 <code>@Resource(lookup = &quot;someName&quot;)</code> 指定 <code>lookup</code> 属性，如果找不到匹配的 Bean，则不会抛出异常。</li>
+</ol>
+</li>
+<li><p>@RequestMapping 注解有什么用？<br>@RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类&#x2F;方法。此注释可应用于两个级别：类级别：映射请求的 URL 方法级别：映射 URL 以及 HTTP 请求方法</p>
+</li>
+<li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
+</li>
+<li><p>Spring 支持的事务管理类型.<br>Spring 支持两种类型的事务管理：<br>1、 程序化事务管理：在此过程中，在编程的帮助下管理事务。它为您提供极大的灵活性，但维护起来非常困难。<br>2、 声明式事务管理：在此，事务管理与业务代码分离。仅使用注解或基于 XML的配置来管理事务。</p>
+</li>
+<li><p><strong>Spring AOP</strong><br>AOP(Aspect-Oriented Programming), 即 面向切面编程, 它与OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与OOP 不同的抽象软件结构的视角. 在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)<br>Spring AOP 解决的是 非业务代码抽取的问题。？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor。比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
+<img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
+</li>
+<li><p>？？？什么是 Aspect？<br>aspect 由 pointcount 和 advice 组成, 它既包含了横切逻辑的定义, 也包括了连接点的定义. Spring AOP 就是负责实施切面的框架, 它将切面所定义的横切逻辑编织到切面所指定的连接点中.<br>AOP 的工作重心在于如何将增强编织目标对象的连接点上, 这里包含两个工作:<br>1、如何通过 pointcut 和 advice 定位到特定的  joinpoint 上<br>2、如何在advice 中编写切面代码.<br>简单地认为, 使用 @Aspect 注解的类就是切面.</p>
+</li>
+<li><p>什么是切点（JoinPoint），什么是通知（Advice）？<br>程序运行中的一些时间点, 例如一个方法的执行, 或者是一个异常的处理.在 Spring AOP 中, join point 总是方法的执行点。<br>特定 JoinPoint 处的 Aspect 所采取的动作称为 Advice。Spring AOP 使用一个 Advice 作为拦截器，在JoinPoint “周围”维护一系列的拦截器。</p>
+</li>
+<li><p>有哪些类型的通知（Advice）？<br>Before：这类 Advice 在  joinpoint 方法之前执行，并使用@Before 注解标记进行配置。<br>After Returning：这类型 Advice 在连接点方法正常执行后执行，并使用@AfterReturning 注解标记进行配置。<br>After Throwing：这些类型的 Advice 仅在 joinpoint 方法通过抛出异常退出并使用 @AfterThrowing 注解标记配置时执行。<br>After (finally)： 在连接点方法之后执行，无论方法退出是正常还是异常返回，并使用 @After 注解标记进行配置。<br>Around：在连接点之前和之后执行，并使用@Around 注解标记进行配置。</p>
+</li>
+<li><p>AOP 有哪些实现方式？ </p>
+<ul>
+<li>静态代理：使用 AOP 框架提供的命令进行编译，在编译阶段就可生成 AOP 代理类，因此也称编译时增强； <ul>
+<li>编译时编织（特殊编译器实现） </li>
+<li>类加载时编织（特殊的类加载器实现）。</li>
+</ul>
+</li>
+<li>动态代理：在运行时在内存中“临时”生成 AOP 动态代理类，因此也被称为运行时增强。  <ul>
+<li>JDK 动态代理 </li>
+<li>CGLIB</li>
+</ul>
+</li>
+<li>Spring AOP and AspectJ AOP 有什么区别？<br>  Spring AOP 基于动态代理方式实现；AspectJ 基于静态代理方式实现。<br>  ？？？SpringAOP 仅支持方法级别的 PointCut；提供了完全的 AOP 支持，它还支持属性级别的 PointCut。</li>
+<li>什么是编织（Weaving）？<br>  为了创建一个 advice 对象而链接一个 aspect 和其它应用类型或对象，称为编织（Weaving）。在 Spring AOP 中，编织在运行时执行。</li>
+<li>如何理解 Spring 中的代理？<br>  ???将 Advice 应用于目标对象后创建的对象称为代理。在客户端对象的情况下，目标对象和代理对象是相同的。</li>
+</ul>
+</li>
+<li><p><strong>Spring MVC</strong> 框架。<br>Spring Web MVC 框架提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）<br>MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。</p>
+</li>
+<li><p>Spring MVC 流程<br>？？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt="">
+？？？
+1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。
+2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。
+3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(...)方法）。
+4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。 
+5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；
+6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。
+7、 ViewResolver 结合 Model 和 View，来渲染视图。
+8、视图负责将渲染结果返回给客户端。
+</li>
+<li><p>请简述你对 Spring MVC 的理解。<br>SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。采用了 MVC 架构模式的思想，通过把 Model，View，Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件：<br>9 大重要的组件：p151<br>在 Spring MVC 的九大组件中，涉及到请求处理响应的核心组件分别是：HandlerMapping、HandlerAdapter、ViewResolver<br>具体调用分为以下几个步骤：1、HandlerMapping 回到调用 HandlerAdapter 2、HandlerAdapter 会返回 ModelAndView 3、ModelAndView 根据用户传入参数得到 ViewResolvers 4、ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染。注意：有大家最熟悉的两个类：ModelAndView 和 View 类并不属于 Spring MVC 九大组件之列。，？</p>
+</li>
+<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。这有助于提高性能和减少资源消耗。<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族，分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
+</li>
+<li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
+</li>
+</ul>
+<hr>
+
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><ul>
+<li><p>什么是 Spring Boot？<br>随着新功能的增加，spring 变得越来越复杂。如果必须启动一个新的 Spring 项目，我们必须添加构建路径或添加Maven 依赖关系，配置应用程序服务器，添加 spring 配置，即开始一个新的 spring 项目需要很多努力，因为我们现在必须从头开始做所有事情。<br>Spring Boot 建立在现有 spring 框架之上。使用 spring 启动，我们避免了之前我们必须做的所有样板代码和配置。因此，Spring Boot 可以帮助我们以最少的工作量，更加健壮地使用现有的 Spring功能。</p>
+</li>
+<li><p>为什么要用SpringBoot？</p>
+<ol>
+<li>独立运行：Spring Boot而且内嵌了各种servlet容器，ToTomcat、Jetty等，现在不再需要打成war包部署到容器中，Spring Boot只要打成一个可执行的jar包就能独立运行，所有的依赖包都在一个jar包内。</li>
+<li>简化配置：spring-boot-starter启动器自动依赖其他组件，简少了maven的配置。避免大量的 Maven 导入和各种版本冲突。</li>
+<li>自动配置：Spring Boot能根据当前类路径下的类、jar包来自动配置bean，如添加一个spring-boot-starter-web启动器就能拥有web的功能，无需其他配置。</li>
+<li>无代码生成和XML配置：Spring Boot配置过程中无代码生成，也无需XML配置文件就能完成所有配置工作，这一切都是借助于条件注解完成的，这也是Spring4.x的核心功能之一。</li>
+<li>应用监控：Spring Boot提供一系列端点可以监控服务及应用，做健康检测</li>
+<li>？？？以及 Spring Boot 的优点还有：<br>  1、减少开发，测试时间和努力。<br>  2、使用 JavaConfig 有助于避免使用 XML。<br>  4、提供意见发展方法。<br>  5、通过提供默认值快速开始开发。<br>  7、需要更少的配置 因为没有 web.xml 文件。只需添加用@ Configuration 注释的类，然后添加用@Bean 注释的方法，Spring 将自动加载对象并像以前一样对其进行管理。您甚至可以将@Autowired 添加到 bean 方法中，以使 Spring 自动装入需要的依赖关系中。<br>  8、基于环境的配置 使用这些属性，您可以将您正在使用的环境传递到应用程序：-Dspring.profiles.active &#x3D; {enviornment}。在加载主应用程序属性文件后，Spring 将在（application{environment} .properties）中加载后续的应用程序属性文件。</li>
+</ol>
+</li>
+<li><p>如何创建 Spring Boot Projects ？</p>
+<ul>
+<li>Spring Initiatlizr 让创建 Spring Boot 项目变的很容易，通过 start.spring.io 创建。</li>
+<li>手动设置一个 Maven 项目为 Spring Boot 项目：</li>
+</ul>
+<ol>
+<li><strong>添加 Spring Boot 依赖：</strong> 在 Maven 项目的 <code>pom.xml</code> 文件中，添加 Spring Boot 的依赖。通常，你可以添加 <code>spring-boot-starter</code> 或其他特定的 Starter 依赖，具体依赖根据项目需求而定。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Spring Boot Starter 依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>添加 Spring Boot 插件：</strong>在 <code>pom.xml</code> 中，添加 Spring Boot Maven 插件。这个插件用于打包和运行 Spring Boot 应用程序。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>创建 Spring Boot 主类：</strong> 在项目中创建一个包含 <code>main</code> 方法的主类，该类用于启动 Spring Boot 应用程序。这个类通常被注解为 <code>@SpringBootApplication</code>。</li>
+<li><strong>添加其他 Spring Boot 配置：</strong> 根据项目需求，配置其他 Spring Boot 特性，如数据源、JPA、Web 支持等。可以通过配置文件（<code>application.properties</code> 或 <code>application.yml</code>）或 Java 配置类进行配置。</li>
+</ol>
+</li>
+<li><p>Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？<br>启动类上面的注解是 @SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下3个注解：<br>@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。<br>@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能：@SpringBootApplication(exclude &#x3D; { DataSourceAutoConfiguration.class })。<br>@ComponentScan：Spring组件扫描</p>
 </li>
 <li><p>Spring Boot中常用注解及其底层实现</p>
 <ul>
@@ -2661,17 +2960,93 @@
 </li>
 <li><p>Spring Boot 属性源<br>1.命令行参数<br>2.JVM系统属性<br>3.操作系统环境变量<br>4.打包在应用程序内的 application.properties 或者 application.yml 文件<br>5.通过 @PropertySource 标注的属性源<br>6.默认属性</p>
 </li>
-<li><p>你对SpringBoot starter的理解？<br>starter这东西就是为了方便调用方去使用相关的组件的嘛，Spring框架也给我们实现了很多好用的starter。<br>比如以前我们要用Mybatis框架，可能会引入各种的包才能使用。而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>最后聊下你是怎么看这块源码的？？思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类 </p>
+<li><p>你对SpringBoot starter的理解？<br>Starters是什么：Starters可以理解为启动器，它包含了一系列可以集成到应用里面的依赖包，你可以一站式集成Spring及其他技术，而不需要到处找示例代码和依赖包。<br>比如 Mybatis 框架会需要引入各种的包才能使用，而starter就是做了一层封装，把相关要用到的jar都给包起来了，并且也写好了对应的版本。这我们使用的时候就不需要引入一堆jar包且管理版本类似的问题了。<br>Starters包含了许多项目中需要用到的依赖，它们能快速持续的运行，都是一系列得到支持的管理传递性依赖。</p>
+</li>
+<li><p>常用的starter。<br>spring-boot-starter-web 嵌入tomcat和web开发需要servlet与jsp支持<br>spring-boot-starter-data-jpa 数据库支持<br>spring-boot-starter-data-redis redis数据库支持<br>spring-boot-starter-data-solr solr支持<br>mybatis-spring-boot-starter 第三方的mybatis集成starter</p>
 </li>
 <li><p>Spring Boot是如何启动Tomcat的<br>1，首先，SpringBoot在启动时会先创建一个Spring容器<br>2，在创建 Spring容器过程中，会利用 @ConditionalOnClass 技术来判断当前 classpath中是否存在 Tomcat 依赖，如果存在则会生成一个启动 tomcat 的Bean<br>3，Spring 容器创建完之后，就会获取启动 Tomcat 的Bean，并创建 Tomcat 对象，并绑定端口等，然后启动 Tomcat<br>（ Spring Boot内嵌tomcat，与springmvc启动tomcat过程相反？？</p>
 </li>
-<li><p>Spring Cloud和 Dubbo有哪些区别?<br>Spring cloud是一个微服务框架，提供了微服务领域中的很多功能组件，Dubbo以开始是一个RPC调用框架，核心是解决服务调用间的问题，Springcloud是一个大而全框架，Dubbo则更侧重于服务调用，所以Dubbo所提供的功能没有Springcloud全面，但Dubbo的服务调用性能Springcloud高，不过并不对立的，是可以结合起来一起使用的。</p>
+<li><p>？？？Spring Boot中的监视器是什么？如何在 Spring Boot 中禁用 Actuator 端点安全性？<br>Spring boot actuator是spring启动框架中的重要功能之一。Spring boot监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。有几个指标必须在生产环境中进行检查和监控。即使一些外部应用程序可能正在使用这些服务来向相关人员触发警报消息。监视器模块公开了一组可直接作为HTTP URL访问的REST端点来检查状态<br>默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATATOR 角色的用户才能访问它们。安全性是使用标准的HttpServletRequest.isUserInRole 方法实施的。 我们可以使用来禁用安全性。只有在执行机构端点在防火墙后访问时，才建议禁用安全性。</p>
 </li>
-<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。这有助于提高性能和减少资源消耗。<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族，分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
+<li><p>如何使用Spring Boot实现异常处理？<br>Spring提供了一种使用ControllerAdvice处理异常的非常有用的方法。 我们通过实现一个ControlerAdvice类，来处理控制器类抛出的所有异常</p>
 </li>
-<li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
+<li><p>SpringBoot 实现热部署有哪几种方式？<br>主要有两种方式：Spring Loaded，Spring-boot-devtools</p>
+</li>
+<li><p>如何实现 Spring Boot 应用程序的安全性？<br>为了实现 Spring Boot 的安全性，我们使用 spring-boot-starter-security 依赖项，并且必须添加安全配置。它只需要很少的代码。配置类将必须扩展WebSecurityConfigurerAdapter 并覆盖其方法。</p>
+</li>
+<li><p>Spring Boot 支持哪些日志框架？推荐和默认的日志框架是哪个？<br>Spring Boot 支持  Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架</p>
+</li>
+<li><p>Spring Boot 2.X 有什么新特性？与 1.X 有什么区别？<br>配置变更<br>JDK 版本升级<br>第三方类库升级<br>响应式 Spring 编程<br>支持HTTP&#x2F;2<br>支持配置属性绑定<br>更多改进与加强…</p>
+</li>
+<li><p>SpringBoot 集成 Mybatis 的过程<br>添加mybatis的starter maven依赖 org.mybatis.spring.boot mybatis-spring-boot-starter 1.2.0<br>在mybatis的接口中 添加@Mapper注解<br>在application.yml配置数据源信息</p>
+</li>
+<li><p>如何对Spring Boot应用进行测试？<br>在为Spring应用程序运行集成测试时，我们必须有一个 ApplicationContext。<br>为了简化测试，Spring Boot为测试提供了一个特殊的注释 @SpringBootTest。此批注从其 classes 属性指示的配置类创建 ApplicationContext。 如果未设置classes属性，Spring Boot将搜索主配置类。搜索从包含测试的包开始，直到找到使用@SpringBootApplication或@SpringBootConfiguration注释的类。<br>？？？请注意，如果我们使用 JUnit 4 ，我们必须用 @RunWith（SpringRunner.class） 装饰测试类。</p>
+</li>
+<li><p>Spring Boot 项目结构</p>
+<ul>
+<li>Spring Boot 项目通常遵循一种约定大于配置的原则，并提供了一种建议的项目结构，使得开发者可以更轻松地组织和管理项目。以下是一个常见的 Spring Boot 项目结构示例：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">my-spring-boot-project</span><br><span class="line">|-- src</span><br><span class="line">|   |-- main</span><br><span class="line">|       |-- java</span><br><span class="line">|       |   |-- com</span><br><span class="line">|       |       |-- example</span><br><span class="line">|       |           |-- MySpringBootApplication.java</span><br><span class="line">|       |           |-- controller</span><br><span class="line">|       |               |-- HomeController.java</span><br><span class="line">|       |           |-- service</span><br><span class="line">|       |               |-- MyService.java</span><br><span class="line">|       |-- resources</span><br><span class="line">|           |-- application.properties</span><br><span class="line">|       |   |-- static</span><br><span class="line">|       |   |-- templates</span><br><span class="line">|-- target</span><br><span class="line">|-- pom.xml</span><br></pre></td></tr></table></figure></li>
+<li><code>src/main/java</code>: 存放 Java 源代码。</li>
+<li><code>com.example.MySpringBootApplication</code>: Spring Boot 应用程序的主类，包含 <code>main</code> 方法，用于启动应用程序。</li>
+<li><code>com.example.controller</code>: 存放控制器类，处理 HTTP 请求。</li>
+<li><code>com.example.service</code>: 存放服务类，处理业务逻辑。</li>
+<li><code>src/main/resources</code>: 存放资源文件。</li>
+<li><code>application.properties</code>: Spring Boot 应用程序的配置文件，用于配置各种属性。</li>
+<li><code>static</code>: 存放静态资源文件，如 CSS、JavaScript 等。</li>
+<li><code>templates</code>: 存放模板文件，如 Thymeleaf 模板。</li>
+<li><code>target</code>: Maven 构建目录，包含编译后的类文件和构建产物。</li>
+<li><code>pom.xml</code>: Maven 项目的配置文件，定义项目的依赖和构建配置。</li>
+</ul>
+</li>
+<li><p>最后聊下你是怎么看这块源码的？？？<br>思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类</p>
 </li>
 </ul>
+<h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><ul>
+<li><p>什么是 Spring Cloud？<br>Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。 </p>
+</li>
+<li><p>使用 Spring Cloud 有什么优势？<br>使用 Spring Boot 开发分布式微服务时，我们面临以下问题<br>1、与分布式系统相关的复杂性-这种开销包括网络问题，延迟开销，带宽问题，安全问题。<br>2、服务发现-服务发现工具管理群集中的流程和服务如何查找和互相交谈。它涉及一个服务目录，在该目录中注册服务，然后能够查找并连接到该目录中的服务。<br>3、冗余-分布式系统中的冗余问题。<br>4、负载平衡 –负载平衡改善跨多个计算资源的工作负荷，诸如计算机，计算机集群，网络链路，中央处理单元，或磁盘驱动器的分布。<br>5、性能-问题 由于各种运营开销导致的性能问题。<br>6、部署复杂性-Devops 技能的要求。</p>
+</li>
+<li><p>服务注册和发现是什么意思？Spring Cloud 如何实现？<br>当我们开始一个项目时，我们通常在属性文件中进行所有的配置。随着越来越多的服务开发和部署，添加和修改这些属性变得更加复杂。有些服务可能会下降，而某些位置可能会发生变化。手动更改属性可能会产生问题。 Eureka 服务注册和发现可以在这种情况下提供帮助。由于所有服务都在 Eureka 服务器上注册并通过调用 Eureka 服务器完成查找，因此无需处理服务地点的任何更改和处理。 </p>
+</li>
+<li><p>负载平衡的意义什么？<br>在计算中，负载平衡可以改善跨计算机，计算机集群，网络链接，中央处理单元或磁盘驱动器等多种计算资源的工作负载分布。负载平衡旨在优化资源使用，最大化吞吐量，最小化响应时间并避免任何单一资源的过载。使用多个组件进行负载平衡而不是单个组件可能会通过冗余来提高可靠性和可用性。负载平衡通常涉及专用软件或硬件，例如多层交换机或域名系统服务器进程。</p>
+</li>
+<li><p>什么是 Hystrix？？？<br>它如何实现容错？Hystrix 是一个延迟和容错库，旨在隔离远程系统，服务和第三方库的访问点，当出现故障是不可避免的故障时，停止级联故障并在复杂的分布式系统中实现弹性。通常对于使用微服务架构开发的系统，涉及到许多微服务。这些微服务彼此协作</p>
+</li>
+<li><p>什么是微服务<br>微服务架构是一种架构模式或者说是一种架构风格，它提倡将单一应用程序划分为一组小的服务，每个服务运行在其独立的自己的进程中，服务之间相互协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于HTTP的RESTful API）,每个服务都围绕着具体的业务进行构建，并且能够被独立的构建在生产环境、类生产环境等。<br>另外，应避免统一的、集中式的服务管理机制，对具体的一个服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建，可以有一个非常轻量级的集中式管理来协调这些服务，可以使用不同的语言来编写服务，也可以使用不同的数据存储。 </p>
+</li>
+<li><p>什么是服务熔断？服务降级？<br>服务降级熔断机制是应对雪崩效应的一种微服务链路保护机制。当某个微服务不可用或者响应时间太长时，会进行服务降级，进而熔断该节点微服务的调用，快速返回“错误”的响应信息。当检测到该节点微服务调用响应正常后恢复调用链路。在SpringCloud框架里熔断机制通过Hystrix实现，Hystrix会监控微服务间调用的状况，当失败的调用到一定阈值，缺省是5秒内调用20次，如果失败，就会启动熔断机制。<br>服务降级，一般是从整体负荷考虑。就是当某个服务熔断之后，服务器将不再被调用，此时客户端可以自己准备一个本地的fallback回调，返回一个缺省值。这样做，虽然水平下降，但好歹可用，比直接挂掉强。</p>
+</li>
+<li><p>说说 RPC 的实现原理<br>首先需要有处理网络连接通讯的模块，负责连接建立、管理和消息的传输。其次需要有编解码的模块，因为网络通讯都是传输的字节码，需要将我们使用的对象序列化和反序列化。剩下的就是客户端和服务器端的部分，服务器端暴露要开放的服务接口，客户调用服务接口的一个代理实现，这个代理实现负责收集数据、编码并传输给服务器然后等待结果返回。</p>
+</li>
+<li><p>REST 和RPC对比<br>1.RPC主要的缺陷是服务提供方和调用方式之间的依赖太强，需要对每一个微服务进行接口的定义，并通过持续继承发布，严格版本控制才不会出现冲突。<br>2.REST是轻量级的接口，服务的提供和调用不存在代码之间的耦合，只需要一个约定进行规范。</p>
+</li>
+<li><p>微服务的优点缺点?说下开发项目中遇到的坑?<br>优点:1.每个服务直接足够内聚，代码容易理解2.开发效率高，一个服务只做一件事，适合小团队开发3.松耦合，有功能意义的服务。4.可以用不同语言开发，面向接口编程。5.易于第三方集成6.微服务只是业务逻辑的代码，不会和HTML,CSS或其他界面结合.7.可以灵活搭配，连接公共库&#x2F;连接独立库<br>缺点:1.分布式系统的责任性2.多服务运维难度加大。3.系统部署依赖，服务间通信成本，数据一致性，系统集成测试，性能监控。</p>
+</li>
+<li><p>Spring Cloud 和 Dubbo 有哪些区别?<br>Spring cloud是一个微服务框架，提供了微服务领域中的很多功能组件，Dubbo以开始是一个RPC调用框架，核心是解决服务调用间的问题，Springcloud是一个大而全框架，Dubbo则更侧重于服务调用，所以Dubbo所提供的功能没有Springcloud全面，但Dubbo的服务调用性能Springcloud高，不过并不对立的，是可以结合起来一起使用的。</p>
+</li>
+<li><p>Eureka和zookeeper都可以提供服务注册与发现的功能，请说说两个的区别？<br>Zookeeper保证了CP（C：一致性，P：分区容错性），Eureka保证了AP（A：高可用）<br>1.当向注册中心查询服务列表时，我们可以容忍注册中心返回的是几分钟以前的信息，但不能容忍直接down掉不可用。也就是说，服务注册功能对高可用性要求比较高，但zk会出现这样一种情况，当master节点因为网络故障与其他节点失去联系时，剩余节点会重新选leader。问题在于，选取leader时间过长，30 ~ 120s，且选取期间zk集群都不可用，这样就会导致选取期间注册服务瘫痪。在云部署的环境下，因网络问题使得zk集群失去master节点是较大概率会发生的事，虽然服务能够恢复，但是漫长的选取时间导致的注册长期不可用是不能容忍的。<br>2.Eureka保证了可用性，Eureka各个节点是平等的，几个节点挂掉不会影响正常节点的工作，剩余的节点仍然可以提供注册和查询服务。而Eureka的客户端向某个Eureka注册或发现时发生连接失败，则会自动切换到其他节点，只要有一台Eureka还在，就能保证注册服务可用，只是查到的信息可能不是最新的。除此之外，Eureka还有自我保护机制，如果在15分钟内超过85%的节点没有正常的心跳，那么Eureka就认为客户端与注册中心发生了网络故障，此时会出现以下几种情况：<br>①、Eureka不在从注册列表中移除因为长时间没有收到心跳而应该过期的服务。<br>②、Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其他节点上（即保证当前节点仍然可用）<br>③、当网络稳定时，当前实例新的注册信息会被同步到其他节点。因此，Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像Zookeeper那样使整个微服务瘫痪</p>
+</li>
+<li><p>Ribbon和Feign的区别？<br>1.都是调用其他服务的，但方式不同。<br>2.启动类注解不同，Ribbon是@RibbonClient，feign的是@EnableFeignClients<br>3.服务指定的位置不同，Ribbon是在@RibbonClient注解上声明，Feign则是在定义抽象方法的接口中使用@FeignClient声明。<br>4.调用方式不同，Ribbon需要自己构建http请求，模拟http请求然后使用RestTeTemplate发送给其他服务，步骤相当繁琐。Feign需要将调用的方法定义成抽象方法即可。</p>
+</li>
+<li><p>Spring Cloud Gateway?<br>Spring Cloud Gateway是Spring Cloud官方推出的第二代网关框架，取代Zuul网关。网关作为流量的，在微服务系统中有着非常作用，网关常见的功能有路由转发、权限校验、限流控制等作用。<br>使用了一个RouteLocatorBuilder的bean去创建路由，除了创建路由RouteLocatorBuilder可以让你添加各种predicates和filters，predicates断言的意思，顾名思义就是根据具体的请求的规则，由具体的route去处理，filters是各种过滤器，用来对请求做各种判断和修改。</p>
+</li>
+<li><p>什么是 Ribbon负载均衡？<br>1.Spring Cloud Ribbon是基于Netflix Ribbon实现的一套客户端 负载均衡的工具。<br>2.Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器。我们也很容易使用Ribbon实现自定义的负载均衡算法。</p>
+</li>
+<li><p>，，</p>
+</li>
+</ul>
+<h2 id="（项目（mini-spring））"><a href="#（项目（mini-spring））" class="headerlink" title="（项目（mini spring））"></a>（项目（mini spring））</h2><ul>
+<li><p>Spring框架所要实现的核心功能<br>IoC（Inversion of Control）：控制反转，控制是对创建对象的行为的控制，反转是指不由程序里来进行创建，而是反过来交给框架来进行创建。在Spring中大部分情况下你不需要用new来创建对象，而是定义Bean、Component，由框架进行创建和依赖的注入(DI, Dependency Injection)。<br>AOP（Aspect Oriented Programming）：面向切面编程，这个也是在Spring应用开发中高频使用的功能。AOP是针对Bean运行时的一个功能，核心是拦截目标Bean的方法调用，从而达成在方法调用前后运行指定的逻辑。<br>Web MVC：作为Spring应用，最基本的功能便是可以对外提供Rest服务。没有这个功能，SpringBoot也无法做到现在这样的开箱即用。<br>SpringBoot：既然我们在上面提到了“开箱即用”这个词，那必然不得不提到SpringBoot。单单仅实现Spring框架确实已经可以开发Web应用了，但没有Boot的话，另外要做的事情不免也有点繁杂，包括要另外安装Tomcat，打下来的war包也需要移到指定的文件夹里。所以Boot不可否认也是现在很重要的Spring的核心功能之一了。</p>
+</li>
+<li><p>IoC概述&amp;骨架搭建 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661167670">https://zhuanlan.zhihu.com/p/661167670</a></p>
+<ul>
+<li>首先我们知道，IoC模块核心就是要创建和管理对象（在Spring里我们把这里的对象称为Bean）。在创建对象的过程中，我们又需要把对象的依赖（依赖往往也是Bean，或者是配置的Property）自动注入到当前Bean上。在这里我们就可以把要做的事情分为两个部分：<br>  <strong>1、对我们指定包下（通常由@ComponentScan来确定）做一个扫描，获取其中所有被指定为Bean的类型或方法（通常由@Bean、@Component等注解来指定）</strong><br>  <strong>2、将上一步中所有扫描出来的类型或方法进行实例化，同时自动完成依赖的注入</strong><br>  参考Spring的做法，我们将IoC用于管理Bean的核心类命名为ApplicationContext。ApplicationContext需要做的就是以上的两件事情。那要实现上面的两件事情，我们需要一个可以扫描指定包下所有类文件的组件ResourceResolver，和一个可以获取所有配置的组件PropertyResolver，来更优雅地对我们包内的资源进行扫描和获取。<br>  于是，我们要实现的整体内容框架就有了，如下图所示：<img src="https://pic1.zhimg.com/80/v2-67f3fa1a4ce861c87799a846cd661ef4_1440w.webp"></li>
+<li>IoC骨架实现<br>  我们不妨从一个更宏观的层面开始实现我们的功能。现在想象你就是Spring的架构师，要实现这样一个IoC的功能，你会怎么设计ApplicationContext这个核心类？首先，不能忘记我们第一件要做的大事是什么：扫描所需的类和配置。我们需要有一个类来作为我们扫描的一个锚点，即我们清楚地知道这个类必然含有@ComponentScan注解，并可以根据这个注解去做扫描。于是我们先如此这般开始：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AnnotationConfigApplicationContext</span> &#123;</span><br><span class="line">    <span class="comment">// 实现构造函数，入参即为锚点类</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AnnotationConfigApplicationContext</span><span class="params">(Class&lt;?&gt; configClass)</span> &#123;</span><br><span class="line">        <span class="comment">// 扫描获取所有类型名</span></span><br><span class="line">        Set&lt;String&gt; beanClassNames = scanForClassNames(configClass);</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 后续操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Set&lt;String&gt; <span class="title function_">scanForClassNames</span><span class="params">(Class&lt;?&gt; configClass)</span> &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 获取类上的ComponentScan注解</span></span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 使用ComponentScan注解中的信息，对对应包下内容进行扫描，并得到符合条件的类名</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+，，，</li>
+</ul>
+</li>
+</ul>
+<hr>
+
 <h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><ul>
 <li><p>什么是 Mybatis？<br>1、Mybatis 是一个开源的<strong>Java持久层框架</strong>，半 ORM（对象关系映射）框架，它内部封装了  JDBC，开发时只需要关注 SQL 语句本身，不需要花费精力去处理加载驱动、创建连接、创建statement 等繁杂的过程。程序员直接编写原生态 sql，可以严格控制 sql 执行性能，灵活度高。（JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。）<br>2、MyBatis 可以使用 XML 或注解来配置和映射原生信息，将 POJO 映射成数据库中的记录，避免了几乎所有的  JDBC 代码和手动设置参数以及获取结果集。<br>3、通过 xml 文件或注解的方式将要执行的各种 statement 配置起来，并通过 java 对象和 statement 中 sql 的动态参数进行映射生成最终执行的 sql 语句，最后由 mybatis 框架执行 sql 并将结果映射为  java 对象并返回。（从执行 sql 到返回 result 的过程）。</p>
 </li>
@@ -2725,7 +3100,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="cls3bhyy00011sgv5ayvhb4w7" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clsq8bkop0012d4v58i5183ye" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2998,9 +3373,9 @@
 </li>
 <li><p>???锁的优化策略<br>1、读写分离<br>2、分段加锁<br>3、减少锁持有的时间<br>4.多个线程尽量以相同的顺序去获取资源不能将锁的粒度过于细化，不然可能会出现线程的加锁和释放次数过多，反而效率不如一次加一把大锁。</p>
 </li>
-<li><p>存储过程。什么是存储过程？用什么来调用？<br>一组为了完成特定功能的 SQL 语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。如果某次操作需要执行多次 SQL，使用存储过程比单纯 SQL 语句执行要快。存储过程是数据库中的一个重要对象。<br>？？？存储过程优化思路</p>
+<li><p>存储过程。什么是存储过程？用什么来调用？<br>一组为了完成特定功能的 SQL 语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。如果某次操作需要执行多次 SQL，使用存储过程比单纯 SQL 语句执行要快。存储过程是数据库中的一个重要对象。</p>
 </li>
-</ul>
+<li><p>存储过程优化思路</p>
 <ol>
 <li>尽量利用一些 sql 语句来替代一些小循环，例如聚合函数，求平均函数等。</li>
 <li>中间结果存放于临时表，加索引。</li>
@@ -3008,7 +3383,7 @@
 <li>事务越短越好。 sqlserver 支持并发操作。如果事务过多过长，或者隔离级别过高，都会造成并发操作的阻塞，死锁。导致查询极慢，cpu 占用率极地。</li>
 <li>使用 try-catch 处理错误异常。6. 查找语句尽量不要放在循环内</li>
 </ol>
-<ul>
+</li>
 <li><p>SQL 注入的原理和类型<br>SQL 注入产生的原因：程序开发过程中不注意规范书写 sql 语句和对特殊字符进行过滤，导致客户端可以通过全局变量 POST 和 GET 提交一些 sql 语句正常执行。<br>1、恶意拼接查询 2、利用注释执行非法命令 3、传入非法参数 4、添加额外条件</p>
 </li>
 <li><p>如何避免 SQL 注入？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
@@ -3065,7 +3440,14 @@
 </li>
 <li><p>什么是通用 SQL 函数？<br>1、CONCATAT(A, B) – 连接两个字符串值以创建单个字符串输出。通常用于将两个或多个字段合并为一个字段。<br>2、FORMATAT(X, D)- 格式化数字 X 到 D 有效数字。<br>3、CURRDATATE(), CURRTIME()- 返回当前日期或时间。<br>4、NOW（） – 将当前日期和时间作为一个值返回。<br>5、MONTH（），DAYAY（），YEAR（），WEEK（），WEEKDAYAY（） – 从日期值中提取给定数据。<br>6、HOUR（），MINUTE（），SECOND（） – 从时间值中提取给定数据。<br>7、DATATEDIFF（A，B） – 确定两个日期之间的差异，通常用于计算年龄<br>8、SUBTIMES（A，B） – 确定两次之间的差异。<br>9、FROMDAYAYS（INT） – 将整数天数转换为日期值</p>
 </li>
-<li><p>MySQL 数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？<br>1、设计良好的数据库结构，允许部分数据冗余，尽量避免 join 查询，提高效率。<br>2、选择合适的表字段数据类型和存储引擎，适当的添加索引。<br>3、MySQL 库主从读写分离。<br>4、找规律分表，减少单表中的数据量提高查询速度。<br>5、添加缓存机制，比如 memcached，apc 等。<br>6、不经常改动的页面，生成静态页面。<br>7、书写高效率的 SQL。比如 SELECT * FROM TATABEL 改为 SELECT field_1,field_2, field_3 FROM TATABLE.</p>
+<li><p>MySQL 数据库作发布系统的存储，一天五万条以上的增量，预计运维三年，怎么优化？<br>1、设计良好的数据库结构，允许部分数据冗余，尽量避免 join 查询，提高效率。<br>2、选择合适的表字段数据类型和存储引擎，适当的添加索引。<br>3、MySQL 库主从读写分离。<br>4、找规律分表，减少单表中的数据量提高查询速度。<br>5、添加缓存机制，比如 memcached，apc 等。<br>6、不经常改动的页面，生成静态页面。<br>7、书写高效率的 SQL。比如 SELECT * FROM TATABEL 改为 SELECT field_1,field_2, field_3 FROM TATABLE.</p>
+</li>
+<li><p>数据库如何处理大数据量？</p>
+<ul>
+<li>分区：一份数据文件拆分多个磁盘文件存储，隔离数据访问。相当于做了负载均衡。</li>
+<li>水平分库&#x2F;表，各个库和表的结构一模一样。<br>  垂直分库&#x2F;表，各个库和表的结构不一样。</li>
+<li>读写分离：主机负责写，从机负责读。</li>
+</ul>
 </li>
 <li><p>不建议使用 JOIN，那么如何优化多表查询？</p>
 <ol>
@@ -3079,13 +3461,47 @@
 <li><strong>考虑使用 NoSQL 数据库：</strong> 对于某些类型的查询，可能会考虑使用 NoSQL 数据库，特别是需要处理大量非结构化或半结构化数据的情况。</li>
 </ol>
 </li>
+<li><p>Mysql引擎 如何把硬盘上的数据查到？</p>
+<ol>
+<li><strong>解析 SQL 语句：</strong> MySQL 首先解析查询语句，检查语法和语义，确保查询是合法的。</li>
+<li><strong>查询优化：</strong> MySQL 会对查询进行优化，生成一个查询执行计划。</li>
+<li><strong>执行查询计划：</strong> MySQL 数据库引擎按照优化后的执行计划执行查询。这涉及从硬盘读取数据。</li>
+<li><strong>使用索引：</strong> 如果查询中使用了索引，并且优化器认为使用索引更有效，MySQL 将使用索引来快速定位和检索数据。索引通常存储在磁盘上，但在需要时会被加载到内存中，以提高查询速度。<br>  <strong>索引的使用发生在磁盘 I&#x2F;O 操作之前。</strong></li>
+<li><strong>读取数据块：</strong> 如果数据没有在内存中，MySQL 数据库引擎将从磁盘读取数据块（通常是页）到内存中。<br>  MySQL将数据以页(Page)为单位组织在磁盘上。一页通常包含多条记录，每页的大小是固定的。MySQL从磁盘上读取整个页，而不仅仅是所需的单个记录。读磁盘是一次 I&#x2F;0 操作，MySQL 使用一种称为预读的技术，一次性读取多个相邻的数据块，以提高性能。<br>  首先，MySQL 发送读取请求到存储设备（硬盘），包括要读取的数据块的位置信息（例如磁盘上的扇区或页）以及读取的数量。磁盘根据请求移动磁头到指定的位置。这个过程称为磁盘寻道，寻道时间是磁盘 I&#x2F;O 中的主要时间消耗部分。一旦磁头到达目标轨道，磁盘开始旋转，以便将所需的数据块转到磁头下方，磁盘开始传输数据到内存中。 </li>
+<li><strong>缓存：</strong> MySQL 使用缓存来存储经常访问的数据块，这样在后续查询中可以更快地访问这些数据。这包括查询结果的缓存、索引缓存和数据缓存等。使用一个称为InnoDB Buffer Pool的缓存池来存储数据页。</li>
+<li><strong>返回结果：</strong> 当查询完成时，MySQL 将结果返回给用户。</li>
+</ol>
+</li>
+<li><p>一条 sql 的执行过程。</p>
+<ol>
+<li>连接层：客户端是否与mysql连接。</li>
+<li>server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。</li>
+<li>语法解析器：对接收到的 SQL 语句进行解析，以检查其语法和语义是否正确。如果 SQL 语句有语法错误或违反数据库模式的约束，系统会返回相应的错误信息。</li>
+<li>编译、优化SQL 语句：解析后，DBMS 将 SQL 语句编译成一个可执行的查询计划 explain。这个计划是一个数据结构，描述了如何从数据库中获取或操作数据。在编译阶段，DBMS 可能会对查询计划进行优化，以提高执行效率。优化过程包括选择合适的索引、调整连接顺序等。</li>
+<li>执行器：DBMS 根据优化后的查询计划执行 SQL 语句，去存储引擎层读取数据库中的数据。这包括从磁盘读取数据，使用索引加速查询，应用过滤条件等。<br>  执行器执行前，会检查mysql的innodb的buffer pool的缓存，，未命中要先查db。select直接查询buffer pool，dml（增删改）还要设计日志，，，</li>
+<li>存储引擎：如 innodb、myisam、memory都会向上层提供查询接口。</li>
+<li><strong>返回结果：</strong> 执行完成后，DBMS 将结果返回给用户。结果可能是查询的结果集、执行成功的消息，或者在出现错误时的错误信息。</li>
+</ol>
+<p>  在执行过程中，数据库引擎可能会使用缓存来存储查询计划、中间结果以及常用的数据块，以提高性能。此外，如果查询中包含聚合函数、排序、分组等操作，DBMS 还会在执行过程中进行相应的计算和整理。</p>
+<p>  需要注意的是，不同的数据库管理系统（如 MySQL、PostgreSQL、Oracle 等）可能有不同的执行引擎和优化策略，但整体的执行过程大致相似。</p>
+</li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
+<li><p>什么是 Redis?<br>  Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key-value 数据库。 </p>
+<ul>
+<li>Redis 与其他 key-value 缓存产品有以下三个特点：<br>  Redis 支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。<br>  Redis 不仅仅支持简单的 key-value 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储。<br>  Redis 支持数据的备份，即 master-slave 模式的数据备份。</li>
+<li>Redis 优势<br>  性能极高；Redis 能读的速度是 110000 次&#x2F;s,写的速度是 81000 次&#x2F;s 。<br>  丰富的数据类型,Redis 支持二进制案例的 Strings, Lists, Hashes,Sets 及Ordered Sets 数据类型操作。<br>  原子:Redis 的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过 MULTI 和 EXEC指令包起来。<br>  丰富的特性 – Redis 还支持 publish&#x2F;subscribe, 通知, key 过期等等特性。</li>
+</ul>
+</li>
 <li><p>为什么要用Redis？<br>无论Redis、MySQL、HDFS、HBase都是存储数据的地方，因为设计理念的不同，我们会根据不同的应用场景使用不同的存储。像Redis一般我们会把它用作于缓存（当然，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了<br>1、高性能：首先，它是纯内存操作，内存本身就很快。其次，它是单线程的，Redis服务器核心是基于非阻塞的IO多路复用机制，单线程避免了多线程的频繁上下文切换问题<br>2、高可靠：主从复制，哨兵机制<br>3、高拓展：数据发片，负载均衡</p>
 </li>
 <li><p>Redis 为什么这么快？<br>决定 Redis 请求效率的因素主要是三个方面，分别是网络、cpu、内存。<br>在网络层面，Redis 采用多路复用的设计，提升了并发处理的连接数，不过这个阶段，Server 端的所有 IO 操作，都是由同一个主线程处理的。这个时候 IO 的瓶颈就会影响到 Redis 端的整体处理性能。所以从 Redis6.0 开始，在多路复用及层面增加了多线程的处理，来优化 IO 处理的能力。不过，具体的数据操作仍然是由主线程来处理的，所以我们可以认为 Redis 对于数据 IO的处理依然是单线程。？？<br>从内存层面来说，Redis 本身就是一个内存数据库，内存的 IO 速度本身就很快，所以内存的瓶颈只是受限于内存大小。<br>最后，Redis 本身的数据结构也做了很多的优化，比如压缩表、跳跃表等方式降低了时间复杂读，同时还提供了不同时间复杂度的数据类型。</p>
 </li>
-<li><p>Redis有哪些数据结构?分别有哪些典型的应用场景?Redis的教据结构有:</p>
+<li><p>Redis 是单进程单线程的？<br>Redis 是单进程单线程的，redis 利用队列技术将并发访问变为串行访问，消除了传统数据库串行控制的开销。 </p>
+</li>
+<li><p>一个字符串类型的值能存储最大容量是多少？<br>512M</p>
+</li>
+<li><p>Redis有哪些数据结构?分别有哪些典型的应用场景？Redis的教据结构有？</p>
 <table>
 <thead>
 <tr>
@@ -3168,11 +3584,31 @@
 </tr>
 </tbody></table>
 </li>
-<li><p>Redis持久化。<br>Redis是基于内存的，假设不做任何操作，只要Redis服务器重启（或者中途故障挂掉了）那内存的数据就会没掉<br>所以Redis提供了持久化机制给我们用，分别是RDB和AOF<br>RDB指的就是：根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redis就会去生成RDB文件。这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据<br>AOF则是：把Redis服务器接收到的所有写命令都记录到日志中。Redis重跑一遍这个记录下的日志文件，就相当于还原了数据<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<li><p>Redis 应用场景。</p>
+<ol>
+<li>缓存层。防止所有的请求打到DB，做过多的IO</li>
+<li>分布式锁。正常的threadlocal？？是单进程JVM内的一个锁，不能对所有的服务起到同步的效果，所有用redis抽象出来做一个集群，这种分布式锁是全局可见的</li>
+<li>作消息队列。redis发布&#x2F;订阅模式，类似与消息队列。</li>
+</ol>
 </li>
-<li><p>过期策略。<br>Redis会把设置了过期时间的key放入一个独立的字典里，在key过期时并不会立刻删除它<br>Redis会通过如下两种策略，来删除过期的key:<br>1、惰性删除：客户端访问某个key时，Redis会检查该key是否过期，若过期则删除。(问题: 有些键值对,可能已经过期了,但是由于没有再被访问,导致未被删除,因而占用内存)。<br>2、定期扫描：Redis默认每秒执行10次过期扫描 (配置hz选项) ，扫描策略如下 (1). 从过期字典中随机选择20个key; (2)删除这20个key中已过期的key; (3)如果过期的key的比例超过25%，则重复步骤1</p>
+<li><p>如何通过key 查到 value？<br>？？</p>
 </li>
-<li><p>淘汰策略<br>当Redis占用内存超出最大限制(maxmemory)时，可采用如下策略(maxmemory-policy)淘汰一些数据以腾出空间继续提供读写服务:<br>noeviction：对可能导致增大内存的命令返回错误 (大多数写命令，DEL除外)<br>volatile-ttl：在设置了过期时间的key中，选择剩余寿命(TTI) 最短的key，将其淘汰<br>volatile-lru：在设置了过期时间的kev中，选择最少使用的kev (LRu) ，将其淘汰:<br>volatile-random：在设置了过期时间的key中，随机选择一些key，将其淘汰;<br>allkeys-lru：在所有的ke中，选择最少使用的key (LRu) ，将其淘汰<br>allkeys-random：在所有的key中，随机选择一些key，将其淘汰<br>(这里其实还有volatile-lfu、allkeys-lfu，所谓&#x3D;&#x3D;LFU算法&#x3D;&#x3D;，就是先考虑键值对访问的次数，优先淘汰访问次数少的键值对，对于访问次数相同的键值对，再选择最近久未被访问的键值对进行淘汰(也就是LRU算法))<br>LRU算法：维护一个链表，用于顺序存储被访问过的key。在访问数据时，最新访问过的kev将被移动到表头, 即最近访问的key在表头，最少访问的key在表尾。</p>
+<li><p>Redis持久化。<br>Redis是基于内存的，假设不做任何操作，只要Redis服务器重启（或者中途故障挂掉了）那内存的数据就会没掉<br>所以Redis提供了持久化机制给我们用，分别是RDB和AOF。通过持久化机制把内存中的数据同步到硬盘文件来保证数据持久化。当Redis重启后通过把硬盘文件重新加载到内存，就能达到恢复数据的目的。<br>RDB：Redis默认的持久化方式。根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redis就会去生成RDB文件。这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据。<br>(RDB是按照一定的时间周期策略把内存的数据以快照的形式保存到硬盘的二进制文件。即Snapshot快照存储，对应产生的数据文件为dump.rdb，通过配置文件中的save参数来定义快照的周期。（ 快照可以是其所表示的数据的一个副本，也可以是数据的一个复制品。）)<br>AOF：Redis会将每一个收到的写命令都通过Write函数追加到文件最后，类似于MySQL的binlog。当Redis重启是会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当两种方式同时开启时，数据恢复Redis会优先选择AOF恢复。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+</li>
+<li><p>缓存雪崩、缓存穿透、缓存预热、缓存更新、缓存降级等问题</p>
+<ol>
+<li>缓存雪崩<br>  我们可以简单的理解为：由于原有缓存失效，新缓存未到期间(例如：我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积的缓存过期)，所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重的会造成数据库宕机。从而形成一系列连锁反应，造成整个系统崩溃。<br>  解决办法：大多数系统设计者考虑用加锁（最多的）或者队列的方式保证来保证不会有大量的线程对数据库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。还有一个简单方案，就是将缓存失效时间分散开。</li>
+<li>缓存穿透<br>  缓存穿透是指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库再查询一遍，然后返回空（相当于进行了两次无用的查询）。这样请求就绕过缓存直接查数据库，这也是经常提的缓存命中率问题。<br>  解决办法：最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。另外也有一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库。<br>  <strong>5TB的硬盘上放满了数据，请写一个算法将这些数据进行排重。如果这些数据是一些32bit大小的数据该如何解决？如果是64bit的呢？</strong><br>  对于空间的利用到达了一种极致，那就是Bitmap和布隆过滤器(Bloom Filter)。<br>  <strong>Bitmap：典型的就是哈希表</strong>；缺点是，Bitmap对于每个元素只能记录1bit信息，如果还想完成额外的功能，恐怕只能靠牺牲更多的空间、时间来完成了<br>  ？？？<strong>布隆过滤器（推荐）</strong><br>  就是引入了 k(k&gt;1) 个相互独立的哈希函数，保证在给定的空间、误判率下，完成元素判重的过程。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。Bloom-Filter算法的核心思想就是利用多个不同的Hash函数来解决“冲突”。Hash存在一个冲突（碰撞）的问题，用同一个Hash得到的两个URL的值有可能相同。为了减少冲突，我们可以多引入几个Hash，如果通过其中的一个Hash值我们得出某元素不在集合中，那么该元素肯定不在集合中。只有在所有的Hash函数告诉我们该元素在集合中时，才能确定该元素存在于集合中。这便是Bloom-Filter的基本思想。Bloom-Filter一般用于在大数据量的集合中判定某元素是否存在。</li>
+<li>缓存预热<br>  系统上线后，将相关的缓存数据直接加载到缓存系统。这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题！用户直接查询事先被预热的缓存数据！<br>  解决思路：1、直接写个缓存刷新页面，上线时手工操作下；2、数据量不大，可以在项目启动的时候自动进行加载；3、定时刷新缓存</li>
+<li>缓存更新<br>  除了缓存服务器自带的缓存失效策略之外（Redis默认的有6中策略可供选择），我们还可以根据具体的业务需求进行自定义的缓存淘汰，常见的策略有两种：<br>  （1）定时去清理过期的缓存；<br>  （2）当有用户请求过来时，再判断这个请求所用到的缓存是否过期，过期的话就去底层系统得到新数据并更新缓存。<br>  两者各有优劣，第一种的缺点是维护大量缓存的key是比较麻烦的，第二种的缺点就是每次用户请求过来都要判断缓存失效，逻辑相对比较复杂！具体用哪种方案，大家可以根据自己的应用场景来权衡</li>
+<li>？？？缓存降级<br>  当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。<br>  降级的最终目的是保证核心服务可用，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。以参考日志级别设置预案：<br>  （1）一般：比如有些服务偶尔因为网络抖动或者服务正在上线而超时，可以自动降级；<br>  （2）警告：有些服务在一段时间内成功率有波动（如在95~100%之间），可以自动降级或人工降级，并发送告警；<br>  （3）错误：比如可用率低于90%，或者数据库连接池被打爆了，或者访问量突然猛增到系统能承受的最大阀值，此时可以根据情况自动降级或者人工降级；<br>  （4）严重错误：比如因为特殊原因数据错误了，此时需要紧急人工降级。服务降级的目的，是为了防止Redis服务故障，导致数据库跟着一起发生雪崩问题。因此，对于不重要的缓存数据，可以采取服务降级策略，例如一个比较常见的做法就是，Redis出现问题，不去数据库查询，而是直接返回默认值给用户</li>
+</ol>
+</li>
+<li><p>热点数据和冷数据？<br><strong>数据更新前至少读取两次</strong>，缓存才有意义。对于热点数据，比如生日祝福模块中当天的寿星列表，缓存以后可能读取数十万次，同时信息修改频率不高。这个是最基本的策略，若缓存还没有起作用就失效就没有太大价值了。<br>那存不存在，修改频率很高，但是又不得不考虑缓存的场景呢？有！比如，这个读取接口对数据库的压力很大，但是又是热点数据，这个时候就需要考虑通过缓存手段，减少数据库的压力，比如我们的某助手产品的，点赞数，收藏数，分享数等是非常典型的热点数据，但是又不断变化，此时就需要将数据同步保存到Redis缓存，减少数据库压力</p>
+</li>
+<li><p>过期策略。<br>Redis会把设置了过期时间的key放入一个独立的字典里，在key过期时并不会立刻删除它<br>Redis会通过如下两种策略，来删除过期的key:<br>1、惰性删除：客户端访问某个key时，Redis会检查该key是否过期，若过期则删除。(问题: 有些键值对,可能已经过期了,但是由于没有再被访问,导致未被删除,因而占用内存)。<br>2、定期扫描：Redis默认每秒执行10次过期扫描 (配置hz选项) ，扫描策略如下 (1). 从过期字典中随机选择20个key; (2)删除这20个key中已过期的key; (3)如果过期的key的比例超过25%，则重复步骤1<br><strong>为什么不用定时删除策略?</strong><br>定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略.<br><strong>定期删除+惰性删除是如何工作的呢?</strong><br>定期删除，redis默认每个100ms检查，是否有过期的key,有过期key则删除。需要说明的是，redis不是每个100ms将所有的key检查一次，而是随机抽取进行检查(如果每隔100ms,全部key进行检查，redis岂不是卡死)。因此，如果只采用定期删除策略，会导致很多key到时间没有删除。于是，惰性删除派上用场。也就是说在你获取某个key的时候，redis会检查一下，这个key如果设置了过期时间那么是否过期了？如果过期了此时就会删除。<br><strong>采用定期删除+惰性删除就没其他问题了么?</strong><br>不是的，如果定期删除没删除key。然后你也没即时去请求key，也就是说惰性删除也没生效。这样，redis的内存会越来越高。那么就应该采用内存淘汰机制。在redis.conf中有一行配置</p>
+</li>
+<li><p>淘汰策略。<br>当Redis占用内存超出最大限制(maxmemory)时，可采用如下策略(maxmemory-policy)淘汰一些数据以腾出空间继续提供读写服务:<br>noeviction：对可能导致增大内存的命令返回错误 (大多数写命令，DEL除外)<br>volatile-ttl：在设置了过期时间的key中，选择剩余寿命(TTI) 最短的key，将其淘汰<br>volatile-lru：在设置了过期时间的kev中，选择最少使用的kev (LRu) ，将其淘汰:<br>volatile-random：在设置了过期时间的key中，随机选择一些key，将其淘汰;<br>allkeys-lru：在所有的ke中，选择最少使用的key (LRu) ，将其淘汰<br>allkeys-random：在所有的key中，随机选择一些key，将其淘汰<br>(这里其实还有volatile-lfu、allkeys-lfu，所谓&#x3D;&#x3D;LFU算法&#x3D;&#x3D;，就是先考虑键值对访问的次数，优先淘汰访问次数少的键值对，对于访问次数相同的键值对，再选择最近久未被访问的键值对进行淘汰(也就是LRU算法))<br>LRU算法：维护一个链表，用于顺序存储被访问过的key。在访问数据时，最新访问过的kev将被移动到表头, 即最近访问的key在表头，最少访问的key在表尾。</p>
 </li>
 <li><p>缓存穿透<br>场景：查询根本不存在的数据，使得请求直达存储层导致其负载过大，甚至宕机。<br>解决方案：<br>1、缓存空对象：存储层未命中后，仍然将空值存入缓存层。再次访问该数据时，缓存层会直接返回空值<br>2、布隆过滤器：将所有存在的key提前存入布隆过滤器，在访问缓存层之前，先通过过滤器拦截，若请求的是不存在的key，则直接返回空值.</p>
 </li>
@@ -3180,7 +3616,19 @@
 </li>
 <li><p>缓存雪崩<br>场景：由于某些原因，缓存层不能提供服务，大批热点数据失效，导致所有的请求直达存储层，造成存储层宕机。<br>解决方案：<br>1、避免同时过期：设置过期时间时，附加一个随机数，避免大量的key同时过期.<br>2、构建高可用的Redis缓存：部署多个Redis实例，个别节点宕机，依然可以保持服务的整体可用。<br>3、构建多级缓存：增加本地缓存，在存储层前面多加一级屏障，降低请求直达存储层的几率<br>4、启用限流和降级措施：对存储层增加限流措施，当请求超出限制时，对其提供降级服务。</p>
 </li>
-<li><p>？？Redis 多节点部署主要有以下几种方式：</p>
+<li><p>Redis 常见性能问题和解决方案？<br>(1) Master 最好不要做任何持久化工作，如 RDB 内存快照和 AOF 日志文件<br>(2) 如果数据比较重要，某个 Slave 开启 AOF 备份数据，策略设置为每秒同步一次<br>(3) 为了主从复制的速度和连接的稳定性， Master 和 Slave 最好在同一个局域网内<br>(4) 尽量避免在压力很大的主库上增加从库(5) 主从复制不要用图状结构，用单向链表结构更为稳定，即： Master &lt;- Slave1 &lt;- Slave2 &lt;-Slave3…</p>
+</li>
+<li><p>为什么Redis的操作是原子性的，怎么保证原子性的？<br>对于Redis而言，命令的原子性指的是：一个操作的不可以再分，操作要么执行，要么不执行。<br>Redis的操作之所以是原子性的，是因为Redis是单线程的。Redis本身提供的所有API都是原子操作，Redis中的事务其实是要保证批量操作的原子性。<br>多个命令在并发中也是原子性的吗？不一定，将get和set改成单命令操作，？？？incr 。使用Redis的事务，或者使用Redis+Lua&#x3D;&#x3D;的方式实现。</p>
+</li>
+<li><p>？？？Redis事务。<br>Redis事务功能是通过 MULTI、EXEC、DISCARD 和 WAWATATCH 四个原语实现的<br>Redis会将一个事务中的所有命令序列化，然后按顺序执行。<br>1.redis 不支持回滚。在事务失败时不进行回滚，而是继续执行余下的命令，所以 Redis 的内部可以保持简单且快速。<br>2.如果在一个事务中的命令出现错误，那么所有的命令都不会执行；<br>3.如果在一个事务中出现运行错误，那么正确的命令会被执行。<br>1）MULTI命令用于开启一个事务，它总是返回OK。 MULTI执行之后，客户端可以继续向服务器发送任意多条命令，这些命令不会立即被执行，而是被放到一个队列中，当EXEC命令被调用时，所有队列中的命令才会被执行。<br>2）EXEC：执行所有事务块内的命令。返回事务块内所有命令的返回值，按命令执行的先后顺序排列。当操作被打断时，返回空值 nil 。<br>3）通过调用DISCARD，客户端可以清空事务队列，并放弃执行事务， 并且客户端会从事务状态中退出。<br>4）WAWATATCH 命令可以为 Redis 事务提供 check-and-set （CAS）行为。 可以监控一个或多个键，一旦其中有一个键被修改（或删除），之后的事务就不会执行，监控一直持续到EXEC命令</p>
+</li>
+<li><p>Redis 的同步机制了解么？<br>Redis 可以使用主从同步，从从同步。第一次同步时，主节点做一次 bgsave，并同时将后续修改操作记录到内存 buffer，待完成后将 rdb文件全量同步到复制节点，复制节点接受完成后将 rdb 镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。 </p>
+</li>
+<li><p>是否使用过 Redis 集群，集群的原理是什么？<br>1、Redis Sentinal 着眼于高可用，在 master 宕机时会自动将 slave 提升为master，继续提供服务。<br>2、Redis Cluster 着眼于扩展性，在单个 redis 内存不足时，使用 Cluster 进行分片存储。</p>
+</li>
+<li><p>Redis 集群的主从复制模型是怎样的？Redis 集群会有写操作丢失吗？集群之间是如何复制的？集群最大节点个数是多少？集群如何选择数据库？<br>为了使在部分节点失败或者大部分节点无法通信的情况下集群仍然可用，所以集群使用了主从复制模型,每个节点都会有 N-1 个复制品.<br>Redis 并不能保证数据的强一致性，这意味这在实际中集群在特定的条件下可能会丢失写操作。<br>异步复制<br>16384 个<br>Redis 集群目前无法做数据库选择，默认在 0 数据库。</p>
+</li>
+<li><p>？？Redis 多节点部署主要有以下几种方式。</p>
 <ol>
 <li>主从复制（Master-Slave Replication）：主从复制是 Redis 的基本高可用性架构。一个 Redis 主节点可以拥有多个从节点，主节点负责写操作和同步数据到从节点，从节点负责复制主节点的数据。当主节点不可用时，可以选择一个从节点提升为主节点，实现故障切换。</li>
 <li>哨兵模式（Redis Sentinel）：Redis Sentinel 是用于监控 Redis 实例并支持自动故障转移的组件。它可以监控多个 Redis 主从复制集群，当主节点不可用时，自动将一个从节点晋升为新的主节点，保证服务的可用性。哨兵模式提供了更强大的故障检测和自动切换功能。</li>
@@ -3188,9 +3636,13 @@
 <li>第三方解决方案：除了 Redis 官方提供的方案外，还有一些第三方解决方案可以用于构建 Redis 的多节点部署，比如一些代理软件或者中间件，它们提供了更多高级功能，比如自动负载均衡、故障转移等。</li>
 </ol>
 </li>
-<li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁</p>
+<li><p>Redis 和 Mysql 如何保证数据一致？<br>1.先更新 Mysql，再更新 Redis，如果更新 Redis失败，可能仍然不一致<br>2，先删除 Redis缓存数据，再更新 MySql，再次查询的时候在将数据添加到缓存中，这种方案能解决方案1的问题，但是在高并发下性能较低，而且仍然会出现数据不一致的问题：比如线程1删除了Redis缓存数据，正在更新 MySql，此时另外一个查询再查询，那么就会把 MySql中老数据又查到 Redis中<br>3，<strong>延时双删，</strong>步聚是：先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致<br>？？如果需要在极端情况下仍然保证 Redis 和 Mysql 的数据一致性，就只能采用最<strong>终一致性方案</strong>。比如基于 RocketMQ 的可靠性消息通信，来实现最终一致性：把（更新redis）失败的请求写入MQ事务消息，然后异步重试，确保成功。还可以直接通过 Canal 组件，监控 Mysql 中 binlog 的日志，把更新后的数据同步到 Redis 里面。？？</p>
 </li>
-<li><p>Redis 和 Mysql如何保证数据一致？<br>1.先更新 Mysql，再更新 Redis，如果更新 Redis失败，可能仍然不一致<br>2，先删除 Redis缓存数据，再更新 MySql，再次查询的时候在将数据添加到缓存中，这种方案能解决方案1的问题，但是在高并发下性能较低，而且仍然会出现数据不一致的问题：比如线程1删除了Redis缓存数据，正在更新 MySql，此时另外一个查询再查询，那么就会把 MySql中老数据又查到 Redis中<br>3，<strong>延时双删，</strong>步聚是：先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致<br>？？如果需要在极端情况下仍然保证 Redis 和 Mysql 的数据一致性，就只能采用最<strong>终一致性方案</strong>。比如基于 RocketMQ 的可靠性消息通信，来实现最终一致性：把（更新redis）失败的请求写入MQ事务消息，然后异步重试，确保成功。还可以直接通过 Canal 组件，监控 Mysql 中 binlog 的日志，把更新后的数据同步到 Redis 里面。？？</p>
+<li><p>？？假如 Redis 里面有 1亿个 key，其中有 10w 个 key以某个固定的已知的前缀开头，如果将它们全部找出来？<br>使用 keys 指令可以扫出指定模式的 key 列表。<br>对方接着追问：如果这个 redis 正在给线上的业务提供服务，那使用 keys 指令会有什么问题？<br>这个时候你要回答 redis 关键的一个特性：redis 的单线程的。keys 指令会导致线程阻塞一段时间，线上服务会停顿，直到指令执行完毕，服务才能恢复。这个时候可以使用 scan 指令，scan 指令可以无阻塞的提取出指定模式的 key 列表，但是会有一定的重复概率，在客户端做一次去重就可以了，但是整体所花费的时间会比直接用 keys 指令长。</p>
+</li>
+<li><p>？？使用过 Redis 做异步队列么，你是怎么用的？<br>一般使用 list 结构作为队列，rpush生产消息，lpop消费消息。当 lpop没有消息的时候，要适当 sleep一会再重试。<br>可不可以不用 sleep 呢？ list 还有个指令叫 blpop，在没有消息的时候，它会阻塞住直到消息到来。<br>能不能生产一次消费多次呢？使用 pub&#x2F;sub 主题订阅者模式，可以实现 1:N 的消息队列。<br>pub&#x2F;sub 有什么缺点？在消费者下线的情况下，生产的消息会丢失，得使用专业的消息队列如 RabbitMQ等。<br>redis 如何实现延时队列？使用sortedset，拿时间戳作为score，消息内容作为 key 调用 zadd 来生产消息，消费者用 zrangebyscore 指令获取 N 秒之前的数据轮询进行处理。</p>
+</li>
+<li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>具体做法：？？？<br>先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</p>
 </li>
 </ul>
 <hr>
@@ -3524,9 +3976,16 @@
 <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><ul>
 <li><p>绝对路径用什么符号表示？当前目录、上层目录用什么表示？主目录用什么表示? 切换目录用什么命令？<br>绝对路径： 如&#x2F;etc&#x2F;init.d<br>当前目录和上层目录： .&#x2F; ..&#x2F;<br>主目录： ~&#x2F;<br>切换目录： cd</p>
 </li>
-<li><p>怎么查看当前进程？怎么执行退出？怎么查看当前路径？<br>查看当前进程： ps<br>执行退出： exit<br>查看当前路径： pwd</p>
+<li><p>怎么执行退出？怎么查看当前路径？<br>执行退出： exit<br>查看当前路径： pwd</p>
 </li>
 <li><p>几个常用linux命令。<br>列出文件列表：ls【参数 -a -l】 a 所有文件 l 详细信息，包括大小字节数，可读可写可执行的权限等<br>创建目录和移除目录：mkdir rmdir<br>用于显示文件后几行内容：tail，例如： tail -n 1000：显示最后1000行<br>打包：tar -xvf<br>打包并压缩：tar -zcvf<br>查找字符串：grep<br>显示当前所在目录：pwd<br>创建空文件：touch<br>编辑器：vim vi </p>
+</li>
+<li><p>查看进程线程的方法</p>
+<ul>
+<li>windows<br>  任务管理器可以查看进程和线程数，也可以用来杀死进程<br>  tasklist 查看进程<br>  taskkill 杀死进程</li>
+<li>linux<br>  ps -fe 查看所有进程<br>  ps -fT -p &lt; PID&gt; 查看某个进程（PID）的所有线程<br>  kill 杀死进程<br>  top 按大写 H 切换是否显示线程<br>  top -H -p &lt; PID&gt; 查看某个进程（PID）的所有线程</li>
+<li>Java<br>  jps 命令查看所有  Java 进程<br>  jstack &lt; PID&gt; 查看某个  Java 进程（PID）的所有线程状态<br>  jconsole 来查看某个  Java 进程中线程的运行情况（图形界面）</li>
+</ul>
 </li>
 <li><p>使用什么命令查看用过的命令列表?<br>history</p>
 </li>
@@ -3556,7 +4015,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="cls3bhyy10012sgv578c20w5j" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clsq8bkop0011d4v50t06b3jv" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -3591,7 +4050,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h4 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h4><p>算法题：代码随想录 + leetcode top100两次<br>项目：跑个腿<br>项目：手写spring<br>面试：每天一个面试视频<br>mysql复习<br>java并发，结合跑腿项目<br>jvm进阶<br>redis面试题，rabbitmq面试题<br>springcloud面试题</p>
-<h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#50;&#x30;&#50;&#x30;&#51;&#x30;&#52;&#x34;&#x30;&#48;&#49;&#x30;&#64;&#x6d;&#97;&#105;&#108;&#46;&#115;&#99;&#x75;&#x74;&#46;&#101;&#100;&#x75;&#x2e;&#x63;&#110;">&#50;&#x30;&#50;&#x30;&#51;&#x30;&#52;&#x34;&#x30;&#48;&#49;&#x30;&#64;&#x6d;&#97;&#105;&#108;&#46;&#115;&#99;&#x75;&#x74;&#46;&#101;&#100;&#x75;&#x2e;&#x63;&#110;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表国际会议论文一篇（已录用）。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
+<h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><a href="mailto:&#50;&#48;&#50;&#x30;&#x33;&#48;&#x34;&#52;&#48;&#x30;&#x31;&#x30;&#x40;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x73;&#99;&#x75;&#116;&#x2e;&#101;&#100;&#117;&#46;&#x63;&#x6e;">&#50;&#48;&#50;&#x30;&#x33;&#48;&#x34;&#52;&#48;&#x30;&#x31;&#x30;&#x40;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x73;&#99;&#x75;&#116;&#x2e;&#101;&#100;&#117;&#46;&#x63;&#x6e;</a>    <em>2020.09 - 2024.08</em>  <strong>GPA: 3.31</strong><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金，三好学生，校级”优秀公益组织骨干”等荣誉，以共同第一作者发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)，”青马工程”班”优秀学员”<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>语言技能：</strong>英语CET-6 <em><strong>486</strong></em> (2022.06)<br><strong><em>Publications</em>：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023) (Accepted)【<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>】</p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -3599,17 +4058,27 @@
 <li>熟悉 OSI 七层模型和 TCP&#x2F; IP 四层体系分层结构，掌握常见网络协议，如 HTTP&#x2F; HTTPS、TCP、UDP、DNS等。</li>
 <li>熟练使用 MySQL 数据库，熟悉 MySQL 索引、事务、存储引擎、锁机制。</li>
 <li>熟悉操作系统的进程通信、死锁、内存管理等知识。了解Linux 常用命令。</li>
-<li>熟悉 Redis 数据类型使用场景和内部实现，熟悉持久化和过期淘汰策略，熟悉缓存高并发场景，<br>比如缓存穿透、缓存击穿、缓存雪崩。</li>
+<li>熟悉 Redis 数据类型使用场景和内部实现，熟悉持久化和过期淘汰策略，熟悉缓存高并发场景，比如缓存穿透、缓存击穿、缓存雪崩。</li>
 <li>熟练使用 Spring Boot、Spring、MybatisPlus 等常用框架，熟悉 Spring IOC 、AOP 原理，了解 Nacos 、Zookeeper 等常见组件。</li>
 <li>数据结构：了解常见数据结构如数组、链表、栈、队列、二叉树等;熟悉常用算法如双指针、递归、排序算法等</li>
-<li>？？消息队列：熟悉 RabbitMg 的使用，了解消息可靠性的保证、死信队列、延时队列等，了解 Kafka 的基本使用</li>
+<li>？？消息队列：熟悉 RabbitMq 的使用，了解消息可靠性的保证、死信队列、延时队列等，了解 Kafka 的基本使用</li>
 <li>？？微服务：了解 SpringCloud 常用的微服务组件及其使用;如NacosRibbonFeign、HystrixGateway等</li>
 </ul>
 <h2 id="实习经历"><a href="#实习经历" class="headerlink" title="实习经历"></a>实习经历</h2><ul>
 <li><p><strong>广州骏伯网络科技有限公司</strong>_Java开发实习生_2024年01月~</p>
 <ul>
-<li>主要工作：<br>  完成对接一车一档功能模块的开发工作，当一车一档数据发生变更时，将消息通过mq推送到我们中台的服务，我们作为消愈的消费者监听到数据发生交更后，首先完成入库操作，作为消息的生产者根据各个业务方需求字段，并完成数据分发的动作。。<br>  对下游不同的业务方提供接口来查询教据。数织交更部分主要采取RocketMQ实时推送，但是对于一些不怎么发生变更的教据据供接口的方式供下游来调。例如:车辆、车型类型的教家查询，<br>  数掘入库时的数据库表设计。对于上游一东一指数据需要我们中台服务自己存猪一份，需要设计合适的表来存储，根据一对一或一对多等关系建立合语的表，并对一些场最采用软制的方式来存储记录。</li>
-<li>个人收获:<br>  熟悉了在一个项日组中多人协作开发的工作流程，熟练掌握git的日常开发使用:。<br>  熟练基于Java8新特性编写代码，如lambda表达式、方法引用，stream近的核使用:</li>
+<li>主要工作：<ul>
+<li>参与拉新系统的开发。我方根据客户需求在媒体平台投放广告，当用户点击广告或在客户App内发生转化动作时，通过拉新系统向客户或媒体转发相关信息。数据转发过程中使用 Kafka 进行异步处理，避免 QPS 过高导致的系统负担。</li>
+<li>开发白名单功能。拉新系统数据转发过程中，会调用用户提供的接口进行 RTA 拦截非目标用户，此时不拦截白名单中的公司业务方的测试手机设备号。同时，使用 redis 处理 ？？的问题</li>
+<li>参与公司内部报表平台的开发。根据产品原型图设计数据库表，开发报表数据的分页查询接口。</li>
+<li>（通过 Prometheus + Grafana。将拉新系统的一些业务数据暴露给监测系统，，点击数，转换数，计算转换率，报警，，，）</li>
+</ul>
+</li>
+<li>个人收获:<ul>
+<li>熟悉了在一个团队中多人协作开发的工作流程，熟练掌握 git 的日常开发使用。</li>
+<li>熟练基于 Java8 新特性编写代码，如 lambda 表达式、stream 流的使用。？？？熟悉单元测试的写法。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><strong>广东创世科技有限公司</strong>__Java开发工程师助理__2023.03-2023.05__广州<br><code>牙医星球小程序</code>：负责“个人中心”部分接口以及相关数据库字段的设计，实现了在线视频的弹幕功能。<br><code>广东省青少年科技创客大赛系统</code>：参与了该在线编程竞赛平台的学生端功能开发。在已有项目的基础上，编写完善了学生登录、编程题判题等方面的代码。与产品经理和前端进行了高效积极的沟通合作，能够使用 Git, Docker 协同开发。</p>
@@ -3617,7 +4086,35 @@
 <li><p><strong>中国电信股份有限公司东莞分公司</strong>__IT开发工程师__2023.07-2023.08__东莞<br>参与电信AI知识库的建设，打造电信业务专家水平的对话机器人。负责测试本地知识库，完善知识云文档，以及收集资料供大语言模型进行训练。此外，接触了开源项目，学习了深度学习框架。</p>
 </li>
 </ul>
-<h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><h4 id="“跑个腿”校园外卖代拿"><a href="#“跑个腿”校园外卖代拿" class="headerlink" title="“跑个腿”校园外卖代拿"></a>“跑个腿”校园外卖代拿</h4><p>，，</p>
+<h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><h4 id="“跑个腿”校园外卖代拿"><a href="#“跑个腿”校园外卖代拿" class="headerlink" title="“跑个腿”校园外卖代拿"></a>“跑个腿”校园外卖代拿</h4><ul>
+<li>项目描述：大学生越来越懒的动弹，校内代拿业务，比如外卖、快递等，需求逐渐变强。但是高校陌生人代拿付费服务，物品和信息安全是第一位。</li>
+<li>主要工作：<ul>
+<li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
+<li>因为学生代拿集中在午饭等时间，会出现多人同时抢一个任务，采用了数据库层乐观锁的实现惟一。</li>
+<li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
+<li>为代拿双方的陌生人服务安全性，对每个状态进行流水记录。流程状态切换中实现了照片上传的可靠性，为了节省服务器带宽，使用腾讯云COS直传方案，提供预签名给前端，保障了COS的安全性。</li>
+<li>在接单前，需要接单人支付押金，实现跑腿人押金的支付、押金退还的事务处理。</li>
+</ul>
+</li>
+</ul>
+<h4 id="高校闲置资源交易系统"><a href="#高校闲置资源交易系统" class="headerlink" title="高校闲置资源交易系统"></a>高校闲置资源交易系统</h4><ul>
+<li>系统架构：SpringCloud + SpringBoot + Redis + Nacos + RabbitMQ + MySQL<br>该系用采用SpringCloud架构，利用构建SpringBoot应用，Nacos作为服务的注册、配置中心，OpenFeign实现与其他模块进行交互，Sentinel实现熔断降级和错误处理，Seata分布式事务解决方案，Gateway作为服务网关，Sleuth链路追踪，RabbitMQ实现延迟队列，Redis作为缓存解决读多写少的场景，Mysql进行持久化，MyBatis-Plus作为持久化框架。</li>
+<li>项目简介：本系统采用微服务架构设计,在分布式环境下利用Springcloud框架,通过业务划分,设计独立模块的微服务，拆分为订单服务、购物车服务、支付服务、用户管理服务、商品管理服务、文件上传服务等模块，结合了当前比较流行的互联网电商模式,为消费者提供商品贸易平台。</li>
+<li>我的职责:<br>完成平台商品、购物车、订单、库存、优惠券、支付、文件上传等服务模块的接口开发;<br>会员注册：客户端（移动端、PC端）调用会员服务注册接口进行会员注册，使用NatApp进行内网穿透，利用开源框架WxJava框架进行二次开发，会员先关注公众号，在公众号号接收验证码，并把验证码缓存Redis中，有效期3分钟，会员注册校验验证码是否一致，同时会员注册密码加盐加密MD5和BASE64散列存储。<br>会员认证：使用XXL-SSO框架实现微服务平台单点登陆开发，搭建并二次开发XXL-SSO的中央认证服务器，改造认证服务器的认证界面，同时植入认证验证码功能，整合各个门户例如首页频道、搜索频道等SSO客户端。基于cookies实现，虽然 cookies本身不跨域，利用XXL-SSO框架实现跨域的进行SSO认证。<br>广告管理：运营商广告类别管理、广告管理，使用七牛云进行广告图片分布式存储。首页频道服务广告的数据使用Redis进行缓存预热，开发并设计广告缓存系统设计，使用延迟双删、以及RabbitMQ缓存清除重试保证Redis缓存一致性。<br>订单管理：开发并设计下单流程，使用Redission实现分布式锁防止库存超卖，使用开源框LCN进行事务的一致性操作，保证商品服务减库存，订单服务新增订单。使用雪花算法进行在高并发分布式全局订单ID的生成.<br>，，，<br>使用RabbitMQ延时队列实现未付款订单，超过一定时间后，系统自动取消订单并解锁库存;<br>使用redis+lua脚本防止重复提交攻击，解决了用户利用浏览器刷新和回退重复提交订单的问题。<br>，，，<br>通过 Sentinel 完成系统限流熔断功能，防止对接的三方系统故障后影响消息系统运行。<br>拆分多个 RocketMQ 客户端消费者组，保障用户短信验证码等时效性较高的消息发送性能。<br>通过自定义注解和 Redis 埂存解决 RocketMQ 可能存在的重复消费问题，保障客户端消费正确执行。</li>
+</ul>
+<h4 id="尚医疗"><a href="#尚医疗" class="headerlink" title="尚医疗"></a>尚医疗</h4><ul>
+<li>开发环境：IntellijIDEA2019、JDK1.8、MySQL、Git、Maven</li>
+<li>项目架构：SpringBoot、SpringCloud、Nacos、Gateway、Feign、MyBatis-Plus、Redis、RabbitMQ、Nginx、微信三方登录、EasyExcel、阿里云SMS</li>
+<li>项目简介：尚医疗平台是一款互联网在线预约挂号平台，以互联网手段连接医院、医生和患者,为用户实现网上就能轻松的预约挂号，缓解看病难、挂号难的就医难题。<ul>
+<li>项目主要由后台管理系统和前台用户系统2大部分组成。<br>  1.后台管理部分核心模块: 医院设置管理、数据字典、用户管理、订单管理、统计管理以及权限控制等功能。<br>  2.用户前台使用部分的核心模块： 医院列表展示、医院科室详情展示、用户手机号或微信登录、用户实名认证、就诊人管理、预约挂号以及就医提醒等功能。</li>
+<li>模板一<br>  项目职责：<br>  1、负责用户登录模块的代码开发,使用Aliyun短信服务进行验证码发送。<br>  2、负责医院科室详情显示模块的代码开发。<br>  3、负责就医提醒模块的代码开发,使用RabbitMQ和定时任务。<br>  技术描述：<br>  1、此项目使用SpringBoot+SpringCloud+Mybatis -Plus架构完成功能开发。<br>  2、数据字典使用EasyExcel,通过读取Excel进行数据的批量导入。<br>  3、使用Redis缓存，存储数据字典部分的数据，避免频繁的查询数据库。<br>  4、使用定时任务+RabbitMQ实现就医提醒功能。</li>
+<li>模板二<br>  项目职责：<br>  1、完成后台管理系统中的医院设置管理和数据管理模块，使用EasyExcel进行医院数据的导入、导出；<br>  2、完成前台系统中，医院列表和医院详情及科室的显示；<br>  3、完成前台用户手机或微信登录，实名认证功能及用户就诊人管理；<br>  4、使用定时任务及RabbitMQ实现对用户就诊信息的短信提醒；<br>  技术描述：<br>  1、使用SpringBoot 整合SpringCloud进行微服务框架搭建；<br>  2、使用Spring Cache + Redis进行数据缓存，使用Redis实现验证码以及支付时间控制；<br>  3、使用EasyExcel进行Excel操作，实现数据的批量导入；<br>  4、使用山东鼎信短信服务实现用户手机号登录和验证码的发送；<br>  5、使用OAuth2的token实现微信登录；<br>  6、使用定时任务+RabbitMQ实现短信就医提醒；</li>
+<li>模板三<br>  项目职责：<br>  1、参与用户管理模块的开发。<br>  2、参与用户手机号登录模块的开发，使用阿里云SMS是实现手机验证登录。<br>  3、参与就医提醒模块开发。<br>  技术描述：<br>  1、使用Redis实现验证码以及支付二维码有效时间控制。<br>  2、使用EasyExcel进行Excel操作，实现数据的批量导入。<br>  3、使用阿里云SMS实现用户手机号登录短信验证码的发送。<br>  4、使用RabbitMQ消息通知，实现预约数更新和短信提醒功能的异步处理。</li>
+<li>模板四<br>  目职责：<br>  1、 医院设置管理模块的编写。<br>  2、 数据管理模块的编写。<br>  3、 用户管理模块的编写。<br>  技术描述：<br>  1、 使用SpringBoot整合SpringCloud进行微服务架构搭建<br>  2、 使用Spring Cache + Redis进行数据缓存，使用Redis实现验证码以及支付二维码有效时间控制<br>  3、 使用EasyExcel进行Excel操作，实现数据的批量导入<br>  4、 使用阿里云SMS实现用户手机号登录短信验证码的发送<br>  5、 使用OAuth2的token结合微信实现社交登录功能<br>  6、 使用RabbitMQ消息通知，实现预约数更新和短信提醒功能的异步处理<br>  7、 使用定时任务+RabbitMQ实现就医提醒功能</li>
+<li>模板五<br>  项目职责：<br>  1、参与整体业务分析，功能需求分析。<br>  2、负责用户管理模块的开发， 实现查询用户数据。<br>  3、参与用户登录模块的开发，运用阿里云实现短信发送。<br>  技术描述：<br>  1、项目采用SpringBoot整合SpringCloud进行微服务构建。<br>  2、使用EasyExcel进行Excel操作，实现数据的批量导入。<br>  3、采用Redis缓存实现数据的存储，提高查询效率。<br>  4、使用RabbitMQ消息通知，实现预约数更新和短信提醒功能的异步处理。</li>
+</ul>
+</li>
+</ul>
 <h4 id="3-2-手写Spring"><a href="#3-2-手写Spring" class="headerlink" title="3.2 手写Spring"></a>3.2 手写Spring</h4><p>项目名称：手写 Spring<br>项目架构：Spring Framework<br>项目描述：Spring 是 Java 应用编程开发中，非常常用的技术框架。在 Spring 框架下，其他的组件都需要进行扩展依赖注入到 Spring 容器进行统一管理。同时日常的开发中，80%的问题场景，都需要调试到 Spring 的源码才能更好的解决，为此深度学习 Spring 源码非常有必要。<br>个人收获：<br>首先对 Spring 源码的学习，是 Spring 对整个 Bean 对象声明周期所需节点的拆解，把一个对象细化到这样的一个程度，才能让我们在使用 Spring 的时候，基于对外暴露的接口和类，更好的扩展各个功能节点。<br>掌握了最重要的模板模式，Spring Bean 周期容器的使用，就是流程复杂的大模板，通过模板定义了全系的调用结构。这样的设计也为我以后在开发业务代码时候提供了参考建议，为我们自身复杂的业务定义出模板结构。<br>分治、抽象、知识，Spring 源码中，有非常多的接口的实现、抽象类的定义、功能类的继承，这是非常重要的设计手段，因为它可以让我们的代码具有立体化，分层化，把各个职责放到不同的类维护可以让以后的迭代成本更低。<br>细节的学习，Spring 源码中有非常多的技术细节，尤其是像Event事件设计、Aware依赖倒置、AOP切面实现、Bean循环依赖等，都是在特定复杂场景中优秀的设计方案。这些设计模式、设计原则，都可以指导业务代码开发。</p>
 <h4 id="论坛系统项目"><a href="#论坛系统项目" class="headerlink" title="论坛系统项目"></a><strong>论坛系统项目</strong></h4><p>一个基本功能完整的论坛项目。项目主要功能有: 基于邮件激活的注册方式，基于 MD5 加密与加盐的密码存储方式登录功能加<br>入了随机验证码的验证。实现登陆状态检查为游客与已登录用户展示不同界面与功能。支持用户上传头像，实现发布帖子、评<br>论帖子、发送私信与过滤敏感词等功能。实现了点赞，关注与系统通知功能。</p>
 <ul>
@@ -3658,7 +4155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="cls3bhyxz000vsgv5cr1o6ogh" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/10/%E6%8A%80%E8%83%BD/" data-id="clsq8bkon000ud4v5egac3lw9" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -3735,6 +4232,14 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
           </li>
         
       </ul>

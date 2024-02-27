@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://pdai.tech/images/db/mysql/db-mysql-sql-5.png">
 <meta property="og:image" content="https://pdai.tech/images/db/mysql/db-mysql-sql-8.png">
 <meta property="article:published_time" content="2022-03-11T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-01-29T12:34:00.263Z">
+<meta property="article:modified_time" content="2024-02-14T13:11:26.545Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/db/db-sql-x-1.png">
@@ -141,8 +141,6 @@
 <li><strong>集合类型：</strong> 用于存储一个或多个预定义的集合值，如 <code>SET(&#39;value1&#39;, &#39;value2&#39;, ...)</code></li>
 <li><strong>自动增长类型：</strong> 用于自动生成唯一标识符，如 <code>AUTO_INCREMENT</code>。</li>
 </ol>
-<hr>
-
 <h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>记 A-&gt;B 表示 A 函数决定 B，也可以说 B 函数依赖于 A。<br>如果 {A1，A2，… ，An} 是关系的一个或多个属性的集合，该集合函数决定了关系的其它所有属性并且是最小的，那么该集合就称为键码。<br>对于 A-&gt;B，如果能找到 A 的真子集 A’，使得 A’-&gt; B，那么 A-&gt;B 就是部分函数依赖，否则就是完全函数依赖。<br>对于 A-&gt;B，B-&gt;C，则 A-&gt;C 是一个传递函数依赖。<br>有依赖：学号 -&gt; 姓名、学院，  学院 -&gt; 院长，  学号、课程-&gt; 成绩<br>则 成绩Grade 完全函数依赖于键码（学号，课程），它没有任何冗余数据，每个学生的每门课都有特定的成绩。姓名, 学院 和 院长 都部分依赖于键码，当一个学生选修了多门课时，这些数据就会出现多次，造成大量冗余数据。</p>
 <h3 id="MySQL-范式"><a href="#MySQL-范式" class="headerlink" title="MySQL 范式"></a>MySQL 范式</h3><p>范式理论是为了解决四种异常。不符合范式的关系，会产生很多异常：1、冗余数据。2、修改异常: 修改了一个记录中的信息，但是另一个记录中相同的信息却没有被修改。3、删除异常: 删除一个信息，那么也会丢失其它信息。4、插入异常: 例如想要插入一个学生的信息，如果这个学生还没选课，那么就无法插入。<br>高级别范式的依赖于低级别的范式，1NF 是最低级别的范式。</p>
 <ol>
@@ -150,7 +148,10 @@
 <li>第二范式 (2NF)：每个非主属性完全函数依赖于键码。可以通过分解来满足。（一张表分解成多张表）</li>
 <li>第三范式 (3NF)：非主属性不传递函数依赖于键码。可以进行分解。<br>for more：<a target="_blank" rel="noopener" href="https://blog.csdn.net/calcular/article/details/79332453">https://blog.csdn.net/calcular/article/details/79332453</a></li>
 </ol>
-<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><ul>
+<hr>
+
+
+<h1 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h1><ul>
 <li><strong>事务</strong>：指的是满足 <strong>ACID</strong> 特性的一组操作，可以通过 Commit 提交一个事务，也可以使用 Rollback 进行回滚。<ul>
 <li>原子性(Atomicity)事务被视为不可分割的最小单元，事务的所有操作要么全部提交成功，要么全部失败回滚。回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。</li>
 <li>一致性(Consistency)数据库在事务执行前后都保持一致性状态。一致性状态下，所有事务对一个数据的读取结果都是相同的。</li>
@@ -214,12 +215,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="管理用户权限"><a href="#管理用户权限" class="headerlink" title="管理用户权限"></a>管理用户权限</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建用户</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;newuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line"><span class="comment">-- 授予用户权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> mydatabase.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;newuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-
-<h3 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump -u username -p mydatabase &gt; backup.sql</span><br><span class="line"><span class="comment"># 恢复数据库</span></span><br><span class="line">mysql -u username -p mydatabase &lt; backup.sql</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="MySQL-存储引擎"><a href="#MySQL-存储引擎" class="headerlink" title="MySQL 存储引擎"></a>MySQL 存储引擎</h2><ul>
+<h1 id="MySQL-存储引擎"><a href="#MySQL-存储引擎" class="headerlink" title="MySQL 存储引擎"></a>MySQL 存储引擎</h1><ul>
 <li>InnoDB<ul>
 <li>是 MySQL 默认的事务型存储引擎。  实现了四个标准的隔离级别，默认级别是可重复读。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读</li>
 <li>主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大的提升。 内部做了很多优化，包括从磁盘读取数据时采用的可预测性读、能够加快读操作并且自动创建的自适应哈希索引、能够加速插入操作的插入缓冲区等</li>
@@ -236,8 +232,6 @@
 </ul>
 </li>
 </ul>
-<hr>
-
 <h1 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h1><p>在MySQL中，索引是一种用于提高数据库查询效率的数据结构。它类似于书的目录，通过在数据库表上创建索引，可以快速定位并访问表中的特定数据行，而无需全表扫描。索引在数据库的性能优化中扮演着关键的角色，特别是在大型数据集上。<br>索引是在<strong>存储引擎层</strong>实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现。</p>
 <ul>
 <li>索引类型<ol>
@@ -260,16 +254,6 @@
 <hr>
 
 
-<h1 id="SQL-DB-组成"><a href="#SQL-DB-组成" class="headerlink" title="SQL DB 组成"></a>SQL DB 组成</h1><h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><p>进程管理器(process manager): 很多数据库具备一个需要妥善管理的进程&#x2F;线程池。再者，为了实现纳秒级操作，一些现代数据库使用自己的线程而不是操作系统线程<br>网络管理器(network manager): 网路 I&#x2F;O 是个大问题，尤其是对于分布式数据库。所以一些数据库具备自己的网络管理器<br>文件系统管理器(File system manager): 磁盘 I&#x2F;O 是数据库的首要瓶颈。具备一个文件系统管理器来完美地处理OS文件系统甚至取代OS文件系统，是非常重要的。<br>内存管理器(memory manager): 为了避免磁盘 I&#x2F;O 带来的性能损失，需要大量的内存。但是如果你要处理大容量内存你需要高效的内存管理器，尤其是你有很多查询同时使用内存的时候。<br>安全管理器 (Security Manager) : 用于对用户的验证和授权<br>客户端管理器 (Client manager) : 用于管理客户端连接。</p>
-<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>备份管理器 (Backup manager) : 用于保存和恢复数据<br>恢复管理器 (Recovery manager) : 用于崩溃后重启数据库到一个一致状态。<br>监控管理器 (Monitor manager) : 用于记录数据库活动信息和提供监控数据库的工具。<br>管理员管理器(Administration manager) : 用于保存元数据(比如表的名称和结构)，提供管理数据库、模式、表空的工具</p>
-<h3 id="查询管理器"><a href="#查询管理器" class="headerlink" title="查询管理器"></a>查询管理器</h3><p>查询解析器 (Query parser) : 用于检查查询是否合法<br>查询重写器 (Query rewriter) : 用于预优化查询<br>查询优化器 (Query optimizer) : 用于优化查询<br>查询执行器 (Query executor) : 用于编译和执行查询</p>
-<h3 id="数据管理器"><a href="#数据管理器" class="headerlink" title="数据管理器"></a>数据管理器</h3><p>事务管理器 (Transaction manager) : 用于处理事务<br>缓存管理器 (Cache manager): 数据被使用之前置于内存，或者数据写入磁盘之前置于内存<br>数据访问管理器 (Data access manager) : 访问磁盘中的数据</p>
-<h2 id="数据查询的流程"><a href="#数据查询的流程" class="headerlink" title="数据查询的流程"></a>数据查询的流程</h2><ul>
-<li><strong>客户端管理器</strong>： 客户端管理器是处理客户端通信的。客户端可以是一个（网站）服务器或者一个最终用户或最终应用。客户端管理器通过一系列知名的API（JDBC, ODBC, OLE-DB …）提供不同的方式来访问数据库。客户端管理器也提供专有的数据库访问API。<br>（<code>JDBC</code> 是 Java 编程语言中用于连接和操作数据库的标准<strong>API</strong>。可以理解为 JDBC 是 Java 与数据库之间的桥梁，允许 Java 应用程序与 MySQL 数据库进行通信和交互。<code>MyBatis</code> 是一个开源的<strong>Java持久层框架</strong>，用于将对象与关系数据库的表之间进行映射,使用 MyBatis 来操作 MySQL 数据库。）</li>
-<li><strong>查询管理器</strong>：查询首先被解析并判断是否合法、然后被重写，去除了无用的操作并且加入预优化部分、接着被优化以便提升性能，并被转换为可执行代码和数据访问计划、然后计划被编译、最后，被执行</li>
-<li><strong>数据管理器</strong>：在这一步，查询管理器执行了查询，需要从表和索引获取数据，于是向数据管理器提出请求。</li>
-<li><strong>客户端管理器</strong></li>
-</ul>
 <h2 id="MySQL-一条-SQL-的执行过程详解"><a href="#MySQL-一条-SQL-的执行过程详解" class="headerlink" title="MySQL - 一条 SQL 的执行过程详解"></a>MySQL - 一条 SQL 的执行过程详解</h2><p><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/sql-mysql/sql-mysql-execute.html">https://pdai.tech/md/db/sql-mysql/sql-mysql-execute.html</a></p>
 <p>在系统和 MySQL 进行交互之前，MySQL 驱动会帮我们建立好连接，然后我们只需要发送 SQL 语句就可以执行 CRUD 了。<br>java 系统在通过 MySQL 驱动和 MySQL 数据库连接的时候是基于 TCP&#x2F;IP 协议的，多线程请求的时候频繁的创建和销毁连接显然是不合理的。在访问 MySQL 数据库的时候，建立的连接并不是每次请求都会去创建的，而是从数据库连接池中去获取，这样就解决了因为反复的创建和销毁连接而带来的性能损耗问题了。MySQL 的架构体系中也已经提供了这样的一个池子，也是数据库连池。双方都是通过数据库连接池来管理各个连接的，这样一方面线程之前不需要是争抢连接，更重要的是不需要反复的创建的销毁连接。<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-4.png"></p>
 <h4 id="网络连接必须由线程来处理"><a href="#网络连接必须由线程来处理" class="headerlink" title="网络连接必须由线程来处理"></a>网络连接必须由线程来处理</h4><p>网络中的连接都是由线程来处理的，所谓网络连接说白了就是一次请求，每次请求都会有相应的线程去处理的。也就是说对于 SQL 语句的请求在 MySQL 中是由一个个的线程去处理的。<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-5.png"><br>SQL 接口：MySQL 中处理请求的线程在获取到请求以后获取 SQL 语句去交给 SQL 接口去处理。<br>查询解析器：会将 SQL 接口传递过来的 SQL 语句进行解析，翻译成 MySQL 自己能认识的语言<br>MySQL 查询优化器：查询优化器内部具体怎么实现的我们不需要是关心，我需要知道的是 MySQL 会帮我去使用他自己认为的最好的方式去优化这条 SQL 语句，并生成一条条的执行计划，比如你创建了多个索引，MySQL 会依据成本最小原则来选择使用对应的索引，这里的成本主要包括两个方面, IO 成本和 CPU 成本。MySQL 优化器 会计算 「IO 成本 + CPU」 成本最小的那个索引来执行<br>存储引擎：查询优化器会调用存储引擎的接口，去执行 SQL，也就是说真正执行 SQL 的动作是在存储引擎中完成的。数据是被存放在内存或者是磁盘中的（存储引擎是一个非常重要的组件，后面会详细介绍）<br>执行器：执行器是一个非常重要的组件，因为前面那些组件的操作最终必须通过执行器去调用存储引擎接口才能被执行。执行器最终最根据一系列的执行计划去调用存储引擎的接口去完成 SQL 的执行<br><img src="https://pdai.tech/images/db/mysql/db-mysql-sql-8.png"></p>
@@ -287,11 +271,27 @@
 </li>
 <li>至此表示整个更新事务已经完成</li>
 </ul>
+<hr>
+
+<h1 id="关系型数据库是如何工作的"><a href="#关系型数据库是如何工作的" class="headerlink" title="关系型数据库是如何工作的"></a>关系型数据库是如何工作的</h1><h1 id="SQL-DB-组成"><a href="#SQL-DB-组成" class="headerlink" title="SQL DB 组成"></a>SQL DB 组成</h1><h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><p>进程管理器(process manager): 很多数据库具备一个需要妥善管理的进程&#x2F;线程池。再者，为了实现纳秒级操作，一些现代数据库使用自己的线程而不是操作系统线程<br>网络管理器(network manager): 网路 I&#x2F;O 是个大问题，尤其是对于分布式数据库。所以一些数据库具备自己的网络管理器<br>文件系统管理器(File system manager): 磁盘 I&#x2F;O 是数据库的首要瓶颈。具备一个文件系统管理器来完美地处理OS文件系统甚至取代OS文件系统，是非常重要的。<br>内存管理器(memory manager): 为了避免磁盘 I&#x2F;O 带来的性能损失，需要大量的内存。但是如果你要处理大容量内存你需要高效的内存管理器，尤其是你有很多查询同时使用内存的时候。<br>安全管理器 (Security Manager) : 用于对用户的验证和授权<br>客户端管理器 (Client manager) : 用于管理客户端连接。</p>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>备份管理器 (Backup manager) : 用于保存和恢复数据<br>恢复管理器 (Recovery manager) : 用于崩溃后重启数据库到一个一致状态。<br>监控管理器 (Monitor manager) : 用于记录数据库活动信息和提供监控数据库的工具。<br>管理员管理器(Administration manager) : 用于保存元数据(比如表的名称和结构)，提供管理数据库、模式、表空的工具</p>
+<h3 id="查询管理器"><a href="#查询管理器" class="headerlink" title="查询管理器"></a>查询管理器</h3><p>查询解析器 (Query parser) : 用于检查查询是否合法<br>查询重写器 (Query rewriter) : 用于预优化查询<br>查询优化器 (Query optimizer) : 用于优化查询<br>查询执行器 (Query executor) : 用于编译和执行查询</p>
+<h3 id="数据管理器"><a href="#数据管理器" class="headerlink" title="数据管理器"></a>数据管理器</h3><p>事务管理器 (Transaction manager) : 用于处理事务<br>缓存管理器 (Cache manager): 数据被使用之前置于内存，或者数据写入磁盘之前置于内存<br>数据访问管理器 (Data access manager) : 访问磁盘中的数据</p>
+<h2 id="数据查询的流程"><a href="#数据查询的流程" class="headerlink" title="数据查询的流程"></a>数据查询的流程</h2><ul>
+<li><strong>客户端管理器</strong>： 客户端管理器是处理客户端通信的。客户端可以是一个（网站）服务器或者一个最终用户或最终应用。客户端管理器通过一系列知名的API（JDBC, ODBC, OLE-DB …）提供不同的方式来访问数据库。客户端管理器也提供专有的数据库访问API。<br>（<code>JDBC</code> 是 Java 编程语言中用于连接和操作数据库的标准<strong>API</strong>。可以理解为 JDBC 是 Java 与数据库之间的桥梁，允许 Java 应用程序与 MySQL 数据库进行通信和交互。<code>MyBatis</code> 是一个开源的<strong>Java持久层框架</strong>，用于将对象与关系数据库的表之间进行映射,使用 MyBatis 来操作 MySQL 数据库。）</li>
+<li><strong>查询管理器</strong>：查询首先被解析并判断是否合法、然后被重写，去除了无用的操作并且加入预优化部分、接着被优化以便提升性能，并被转换为可执行代码和数据访问计划、然后计划被编译、最后，被执行</li>
+<li><strong>数据管理器</strong>：在这一步，查询管理器执行了查询，需要从表和索引获取数据，于是向数据管理器提出请求。</li>
+<li><strong>客户端管理器</strong></li>
+</ul>
+<h3 id="管理用户权限"><a href="#管理用户权限" class="headerlink" title="管理用户权限"></a>管理用户权限</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建用户</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;newuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line"><span class="comment">-- 授予用户权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> mydatabase.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;newuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+<h3 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份数据库</span></span><br><span class="line">mysqldump -u username -p mydatabase &gt; backup.sql</span><br><span class="line"><span class="comment"># 恢复数据库</span></span><br><span class="line">mysql -u username -p mydatabase &lt; backup.sql</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="cls3bhyxv000hsgv5gz9ya627" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clsq8bkol000jd4v5fx6xaxj9" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -380,6 +380,14 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
           </li>
         
       </ul>

@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pdai.tech/images/java_collections_overview.png">
 <meta property="article:published_time" content="2021-09-03T03:49:42.000Z">
-<meta property="article:modified_time" content="2023-12-05T12:38:29.467Z">
+<meta property="article:modified_time" content="2024-02-22T13:52:32.483Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -131,17 +131,26 @@
 </ul>
 <hr>
 
-<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><p>add(E e): 向列表末尾添加元素<br>get(int index): 获取指定索引位置的元素<br>size(): 获取列表的大小<br>remove(int index): 移除指定索引位置的元素<br>contains(Object o): 判断是否包含指定元素</p>
-<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p>add(E e): 在列表末尾添加元素<br>addFirst(E e), addLast(E e): 在列表开头或末尾添加元素<br>get(int index): 获取指定索引位置的元素<br>remove(int index): 移除指定索引位置的元素<br>size(): 获取列表的大小</p>
-<h2 id="Stack-Queue"><a href="#Stack-Queue" class="headerlink" title="Stack &amp; Queue"></a>Stack &amp; Queue</h2><p>Stack:<br>push(E e): 将元素压入栈顶，pop(): 移除栈顶元素<br>Queue:<br>offer(E e): 将元素添加到队列尾部，poll(): 获取并移除队列头部元素</p>
-<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><p>add(E e): 向队列中添加元素<br>remove(): 移除队列头部的元素<br>peek(): 获取但不移除队列头部的元素</p>
-<h2 id="HashSet-HashMap"><a href="#HashSet-HashMap" class="headerlink" title="HashSet &amp; HashMap"></a>HashSet &amp; HashMap</h2><p>HashSet<br>add(E e): 向集合中添加元素<br>contains(Object o): 判断集合是否包含指定元素<br>remove(Object o): 移除集合中指定的元素<br>HashMap<br>put(K key, V value): 将键值对存入 Map<br>get(Object key): 获取指定键的值<br>containsKey(Object key): 判断 Map 是否包含指定键<br>remove(Object key): 移除 Map 中指定键的键值对</p>
+<h1 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add(E e)     <span class="comment">// 向列表末尾添加元素</span></span><br><span class="line">get(<span class="type">int</span> index)     <span class="comment">// 获取指定索引位置的元素</span></span><br><span class="line">size()     <span class="comment">// 获取列表的大小</span></span><br><span class="line">remove(<span class="type">int</span> index)     <span class="comment">// 移除指定索引位置的元素</span></span><br><span class="line">contains(Object o)     <span class="comment">// 判断是否包含指定元素</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add(E e)     <span class="comment">// 在列表末尾添加元素</span></span><br><span class="line">addFirst(E e)   </span><br><span class="line">addLast(E e)     <span class="comment">// 在列表开头或末尾添加元素</span></span><br><span class="line">get(<span class="type">int</span> index)     <span class="comment">// 获取指定索引位置的元素</span></span><br><span class="line">remove(<span class="type">int</span> index)    <span class="comment">// 移除指定索引位置的元素</span></span><br><span class="line">size()     <span class="comment">// 获取列表的大小</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Stack-Queue"><a href="#Stack-Queue" class="headerlink" title="Stack &amp; Queue"></a>Stack &amp; Queue</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push(E e)     <span class="comment">// 将元素压入栈顶</span></span><br><span class="line">pop()     <span class="comment">// 移除栈顶元素</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">offer(E e)     <span class="comment">// 将元素添加到队列尾部</span></span><br><span class="line">poll()     <span class="comment">// 获取并移除队列头部元素</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add(E e)     <span class="comment">//  向队列中添加元素</span></span><br><span class="line">remove()     <span class="comment">// 移除队列头部的元素</span></span><br><span class="line">peek()     <span class="comment">// 获取但不移除队列头部的元素</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="HashSet-HashMap"><a href="#HashSet-HashMap" class="headerlink" title="HashSet &amp; HashMap"></a>HashSet &amp; HashMap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add(E e)     <span class="comment">// 向集合中添加元素</span></span><br><span class="line">contains(Object o)     <span class="comment">// 判断集合是否包含指定元素</span></span><br><span class="line">remove(Object o)     <span class="comment">// 移除集合中指定的元素</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">put(K key, V value)     <span class="comment">// 将键值对存入 Map</span></span><br><span class="line">get(Object key)     <span class="comment">// 获取指定键的值</span></span><br><span class="line">containsKey(Object key)     <span class="comment">// 判断 Map 是否包含指定键</span></span><br><span class="line">remove(Object key)     <span class="comment">// 移除 Map 中指定键的键值对</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="LinkedHashSet-Map"><a href="#LinkedHashSet-Map" class="headerlink" title="LinkedHashSet&amp;Map"></a>LinkedHashSet&amp;Map</h2><h2 id="TreeSet-TreeMap"><a href="#TreeSet-TreeMap" class="headerlink" title="TreeSet &amp; TreeMap"></a>TreeSet &amp; TreeMap</h2><p>TreeSet<br>add(E e): 向集合中添加元素<br>contains(Object o): 判断集合是否包含指定元素<br>remove(Object o): 移除集合中指定的元素<br>TreeMap<br>put(K key, V value): 将键值对存入 Map<br>get(Object key): 获取指定键的值<br>containsKey(Object key): 判断 Map 是否包含指定键<br>remove(Object key): 移除 Map 中指定键的键值对</p>
 <h2 id="WeakHashMap"><a href="#WeakHashMap" class="headerlink" title="WeakHashMap"></a>WeakHashMap</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="cls3bhyxu000csgv5bf1u0vvh" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clsq8bkoj000ed4v55xvi9shu" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -230,6 +239,14 @@
         
           <li>
             <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/10/%E6%8A%80%E8%83%BD/">寄 能</a>
           </li>
         
       </ul>
