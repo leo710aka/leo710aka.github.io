@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-67f3fa1a4ce861c87799a846cd661ef4_1440w.webp">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-02-29T12:24:17.848Z">
+<meta property="article:modified_time" content="2024-03-01T14:51:55.991Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -257,7 +257,7 @@
 <li>再哈希:又叫双哈希法,有多个不同的Hash函数.当发生冲突时,使用第二个,第三个….等哈希函数计算地址,直到无冲突.</li>
 </ol>
 </li>
-<li><p>java中有没有指针？java中是值传递引用传递？<br>有指针，但是隐藏了，开发人员无法直接操作指针，由jvm来操作指针<br>java都是引用传递，对于基本数据类型，传递是值的副本，而不是值本身。对于对象类型，传递是对象的引用，当在一个方法操作操作参数的时候，其实操作的是引用所指向的对象。</p>
+<li><p>java中有没有指针？java中是值传递引用传递？<br>有指针，但是隐藏了，开发人员无法直接操作指针，由jvm来操作指针<br><strong>java都是值传递</strong>，对于基本数据类型，传递是值的副本，而不是值本身。对于对象类型，传递是对象的引用，当在一个方法操作操作参数的时候，其实操作的是引用所指向的对象。</p>
 </li>
 <li><p>构造方法。<br>  构造方法是Java类中的一种特殊方法，用于在创建对象时进行初始化操作。构造方法的名称必须与类名相同，并且没有返回类型，包括 void。构造方法通常用于设置对象的初始状态，为对象的属性赋初值或执行其他初始化任务。</p>
 <ul>
@@ -352,30 +352,28 @@
 </li>
 <li><p>内部类可以引用它的包含类（外部类）的成员吗？有没有什么限制？<br>一个内部类对象可以访问创建它的外部类对象的成员，包括私有成员。</p>
 </li>
-<li><p>？？？匿名类，匿名内部类。<br>  Java中的两个相关但不同的概念，它们通常用于创建临时的、一次性的类实例。</p>
+<li><p>匿名类，匿名内部类。<br>  Java中的两个相关但不同的概念，它们通常用于创建临时的、一次性的类实例。</p>
 <ul>
-<li>匿名类：</li>
-</ul>
-<ol>
+<li>匿名类：<ol>
 <li><strong>概念：</strong> 匿名类是指没有明确命名的类，通常用于创建一个实现某个接口或继承某个类的对象。</li>
-<li><strong>语法：</strong> 匿名类的语法形式是通过 <code>new</code> 关键字创建一个对象的同时实现接口或继承类，并在花括号内定义类的实现。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SomeInterface</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeInterface</span>() &#123;</span><br><span class="line">    <span class="comment">// 匿名类的实现</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><strong>语法：</strong> 匿名类的语法形式是通过 <code>new</code> 关键字创建一个对象的同时实现接口或继承类，并在花括号内定义类的实现。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SomeInterface</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeInterface</span>() &#123;</span><br><span class="line">    <span class="comment">// 匿名类的实现</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 <li><strong>使用场景：</strong> 匿名类通常用于创建简单的、一次性的类实例，不需要为其定义专门的类名。</li>
 </ol>
-<ul>
-<li>匿名内部类：</li>
-</ul>
-<ol>
+</li>
+<li>匿名内部类：<ol>
 <li><strong>概念：</strong> 匿名内部类是指定义在其他类内部、没有类名的类。通常使用它来实现接口或继承类，并在类的内部进行实现。</li>
-<li><strong>语法：</strong> 匿名内部类的语法形式与匿名类相似，但它通常在其他类的方法内部定义，而不是在类的成员变量或其他地方。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SomeClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SomeInterface</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeInterface</span>() &#123;</span><br><span class="line">            <span class="comment">// 匿名内部类的实现</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>使用场景：</strong> 匿名内部类通常用于在方法内部创建一个实现某个接口或继承某个类的临时对象，它有助于简化代码结构，避免为一次性的需求专门定义一个新的类。<br>  总体而言，匿名类和匿名内部类都是用于创建临时的、一次性的类实例，通常在需要实现某个接口或继承某个类的情况下使用。在Java中，Lambda 表达式的引入也提供了一种更简洁的方式来实现函数接口的匿名类。</li>
+<li><strong>语法：</strong> 匿名内部类的语法形式与匿名类相似，但它通常在其他类的方法内部定义，而不是在类的成员变量或其他地方。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SomeClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SomeInterface</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeInterface</span>() &#123;</span><br><span class="line">            <span class="comment">// 匿名内部类的实现</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>使用场景：</strong> 匿名内部类通常用于在方法内部创建一个实现某个接口或继承某个类的临时对象，它有助于简化代码结构，避免为一次性的需求专门定义一个新的类。<br> 总体而言，匿名类和匿名内部类都是用于创建临时的、一次性的类实例，通常在需要实现某个接口或继承某个类的情况下使用。在Java中，Lambda 表达式的引入也提供了一种更简洁的方式来实现函数接口的匿名类。</li>
 </ol>
+</li>
+</ul>
 </li>
 <li><p>Java的四种引用，强弱软虚</p>
 <ul>
 <li>强引用：是平常中使用最多的引用，强引用在程序内存不足（OOM）的时候也不会被回收  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;str&quot;</span>);</span><br></pre></td></tr></table></figure></li>
 <li>软引用：在程序内存不足时，会被回收，使用方式：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：wrf这个引用也是强引用，它是指向SoftReference这个对象的，</span></span><br><span class="line"><span class="comment">// 这里的软引用指的是指向new String(&quot;str&quot;)的引用，也就是SoftReference类中T</span></span><br><span class="line">SoftReference&lt;String&gt; wrf = <span class="keyword">new</span> <span class="title class_">SoftReference</span>&lt;String&gt;(<span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;str&quot;</span>));</span><br></pre></td></tr></table></figure>
   可用场景： 创建缓存的时候，创建的对象放进缓存中，当内存不足时，JVM就会回收早先创建的对象。</li>
-<li>弱引用：只要JVM垃圾回收器发现了它，就会将之回收，使用方式：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;String&gt;wrf=newWeakReference&lt;String&gt;(str);</span><br></pre></td></tr></table></figure>
+<li>弱引用：只要JVM垃圾回收器发现了它，就会将之回收，使用方式：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;String&gt; wrf= newWeakReference&lt;String&gt; (str);</span><br></pre></td></tr></table></figure>
   可用场景：Java源码中的j的java.util.WeakHashMap中的key就是使用弱引用，我的理解就是，一旦我不需要某个引用，JVM会自动帮我处理它，这样我就不需要做其它操作。</li>
 <li>虚引用：虚引用的回收机制跟弱引用差不多，但是它被回收之前，会被放入ReferenceQueue中。注意哦，其它引用是被JVM回收后才被传入ReferenceQueue中的。由于这个机制，所以虚引用大多被用于引用销毁前的处理工作。还有就是，虚引用创建的时候，必须带有ReferenceQueue，使用例子：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PhantomReference&lt;String&gt; prf = newPhantomReference&lt;String&gt;(newString(<span class="string">&quot;str&quot;</span>),newReferenceQueue&lt;&gt;());</span><br></pre></td></tr></table></figure>
   可用场景：对象销毁前的一些操作，比如说资源释放等。Object.finalize() 虽然也可以做这类动作，但是这个方式即不安全又低效</li>
@@ -390,7 +388,7 @@
 <li>通过序列化机制</li>
 </ol>
 </li>
-<li><p>注解 Annotation<br>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。<br>注解在开发中是非常常见的，比如Spring框架的 @Controller &#x2F; @Param &#x2F; @Select 等等。一些项目也用到lombok的注解，@Slf4j &#x2F; @Data 等等。Java原生也有@Overried、@Deprecated、@FunctionalInterface等基本注解。Java原生的基本注解大多数用于「标记」和「检查」还，此外有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的。<br>那你自己写过注解吗？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv22578322/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><br>@Passtoken？？<br>，，、、<br>，、</p>
+<li><p>注解 Annotation<br>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。注解本身只是元数据，它本身不执行任何功能。具体的实现通常是在某个拦截器、切面（Aspect）或其他处理机制中完成的。<br>注解在开发中是非常常见的，比如Spring框架的 @Controller &#x2F; @Param &#x2F; @Select 等等。一些项目也用到lombok的注解，@Slf4j &#x2F; @Data 等等。Java原生也有@Overried、@Deprecated、@FunctionalInterface等基本注解。<br>Java原生的基本注解大多数用于「标记」和「检查」还，此外有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的。<br>那你自己写过注解吗？<br>@Passtoken，，测试时加上此注解，发送请求时不用验证登录信息，，<br>JunboRestResponse：使用该注解，确保被注解的方法或类返回一个特定的“骏伯响应”格式。？？？如何实现？？</p>
 </li>
 <li><p>4种标准元注解是哪四种？<br>  元注解的作用是负责注解其他注解。Java5.0 定义了 4 个标准的 meta-annotation 类型，被用来提供对其它 annotation 类型作说明。</p>
 <ul>
@@ -434,7 +432,7 @@
 </li>
 <li><p>try catch finally，try里有return，finally还执行么？<br>执行，并且finally的执行早于try里面的return。结论：<br>1、不管有木有出现异常，finally块中代码都会执行；<br>2、当try和catch中有return时，finally仍然会执行；<br>3、finally是在return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，任然是之前保存的值），所以函数返回值是在finally执行前确定的；<br>4、finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。</p>
 </li>
-<li><p>？？？Thow与thorws区别</p>
+<li><p>？？throw与thorws区别</p>
 <ul>
 <li>位置不同 <ol>
 <li>throws 用在函数上，后面跟的是异常类，可以跟多个；而 throw 用在函数内，后面跟的是异常对象。</li>
