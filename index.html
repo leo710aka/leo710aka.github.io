@@ -898,9 +898,9 @@
 我们可以点击页面新增按钮，添加一个namespace；然后，填写表单，创建一个新的namespace：
 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000505928.png?raw=true" width="300" height="200"> </li>
 <li>给微服务配置namespace：只能通过修改配置来实现。例如，修改order-service的application.yml文件：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">    <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">492a7d5d-237b-46a1-a99a-fa8e98e4b0f9</span> <span class="comment"># 命名空间，填ID</span></span><br></pre></td></tr></table></figure>
-重启order-service后，访问控制台，可以看到下面的结果：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true" width="400" height="200"> 
+重启order-service后，访问控制台，可以看到下面的结果：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true" width="600" height="200"> 
 此时访问order-service，因为namespace不同，会导致找不到userservice，控制台会报错：
-<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true" width="400" height="200"></li>
+<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true" width="600" height="200"></li>
 </ol>
 <h4 id="5-Nacos与Eureka的区别"><a href="#5-Nacos与Eureka的区别" class="headerlink" title="5. Nacos与Eureka的区别"></a>5. Nacos与Eureka的区别</h4><p>Nacos和Eureka整体结构类似，服务注册、服务拉取、心跳等待，但是也存在一些差异：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714001728017.png?raw=true" width="500" height="200"> </p>
 <ul>
@@ -945,7 +945,7 @@
 <li><code>[spring.application.name].yaml</code>，例如：userservice.yaml<br>而<code>[spring.application.name].yaml</code>不包含环境，因此可以被多个环境共享。下面我们通过案例来测试配置共享：</li>
 </ul>
 <ol>
-<li>添加一个环境共享配置：我们在nacos中添加一个userservice.yaml文件：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173233650.png?raw=true" width="500" height="200"> </li>
+<li>添加一个环境共享配置：我们在nacos中添加一个userservice.yaml文件：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173233650.png?raw=true" width="400" height="200"> </li>
 <li>在user-service中读取共享配置<!-- 
 在user-service服务中，修改PatternProperties类，读取新添加的属性：
 ![image-20210714173324231](https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173324231.png?raw=true)
@@ -963,7 +963,7 @@
 访问http://localhost:8082/user/prop，结果：
 ![image-20210714174424818](https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174424818.png?raw=true)
 可以看出来，不管是dev，还是test环境，都读取到了envSharedValue这个属性的值。 --></li>
-<li>配置共享的优先级<br>当nacos、服务本地同时出现相同属性时，优先级有高低之分：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174623557.png?raw=true"></li>
+<li>配置共享的优先级<br>当nacos、服务本地同时出现相同属性时，优先级有高低之分：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174623557.png?raw=true" width="500" height="200"></li>
 </ol>
 </li>
 <li><strong>搭建Nacos集群</strong><br>企业生产中强调“高可用”，Nacos 生产环境下一定要部署为集群状态，部署方式参考课前资料中的文档：nacos集群搭建.md</li>
@@ -1544,8 +1544,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>围绕简历准备：<a target="_blank" rel="noopener" href="https://www.wondercv.com/cvs/5hCOzINo/editor">https://www.wondercv.com/cvs/5hCOzINo/editor</a><br>个人技能：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/">https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/</a></p>
-<h2 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h2><ul>
+        <h2 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h2><ul>
 <li><p><strong>自我介绍</strong><br>1、面试官您好，我是蔡枫，广东东莞人，本科就读于华南理工大学计算机学院。我在大三的时候参加了一个在线编程网站开发的项目，之后开始学习 Java 开发技术与相关框架。我有两段实习经历，分别是广州创世科技和东莞电信，我不仅参与到了实际业务代码的编写中，还对团队中的开发流程有了一定的了解。我也希望能够加入到您公司团队，参与到实际的项目开发中。<br>2、结合 优势、亮点、基本情况：（言简意赅、语言精炼，控制时间）<br>和应聘岗位相关的经历：。。<br>为什么能够胜任：。。<br>为什么要应聘该岗位~求职动机：。。<br>注意：重点介绍满足岗位要求的三个优势和亮点，表现出对岗位的理解和自己清晰的职业规划，表示愿意长期从事这个岗位</p>
 </li>
 <li><p>自我推荐。<br>我觉得我对所从事的每一个项目都很努力、负责、勤勉。我在努力成为一个能够不惧解决困难和能够持续学习的人。</p>
@@ -1933,8 +1932,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>围绕简历准备：<a target="_blank" rel="noopener" href="https://www.wondercv.com/cvs/5hCOzINo/editor">https://www.wondercv.com/cvs/5hCOzINo/editor</a>,<br>个人技能：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/">https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/</a></p>
-<h2 id="八股（Java）"><a href="#八股（Java）" class="headerlink" title="八股（Java）"></a>八股（Java）</h2><ul>
+        <h2 id="八股（Java）"><a href="#八股（Java）" class="headerlink" title="八股（Java）"></a>八股（Java）</h2><ul>
 <li><p>什么是B&#x2F;S架构，C&#x2F;S架构？Java都有那些开发平台？</p>
 <ol>
 <li>B&#x2F;S(Browser&#x2F;Server)，浏览器&#x2F;服务器程序</li>
@@ -2211,7 +2209,7 @@
 <li>？？？上诉所说的几类引用，都是指对象本身的引用，而不是指 Reference 的四个子类的引用</li>
 </ul>
 </li>
-<li><p>Java创建对象有几种方式？<br>  java中提供了以下四种创建对象的方式:</p>
+<li><p>Java创建对象有几种方式？</p>
 <ol>
 <li>new创建新对象</li>
 <li>通过反射机制</li>
@@ -2290,62 +2288,51 @@
 </li>
 <li><p>哪里会用到反射机制？</p>
 <ul>
-<li>jdbc就是典型的反射，hibernate，struts等框架使用反射实现的。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&#x27;com.mysql.jdbc.Driver.class&#x27;</span>);<span class="comment">//加载MySQL的驱动类</span></span><br></pre></td></tr></table></figure></li>
-<li>在 Spring 中使用反射机制，<br>  目的是为了实现框架的灵活性和可扩展性，使得开发人员能够通过配置和注解等方式，实现各种功能而无需修改源代码：</li>
-</ul>
-<ol>
+<li>jdbc就是典型的反射，hibernate，struts等框架使用反射实现的。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&#x27;com.mysql.jdbc.Driver.class&#x27;</span>);  <span class="comment">// 加载MySQL的驱动类</span></span><br></pre></td></tr></table></figure></li>
+<li>在 Spring 中使用反射机制，<br>  目的是为了实现框架的灵活性和可扩展性，使得开发人员能够通过配置和注解等方式，实现各种功能而无需修改源代码：<ol>
 <li>依赖注入：Spring 使用反射来实现依赖注入，即通过在配置文件或注解中声明依赖关系，Spring 在运行时动态地注入对象之间的依赖关系。通过反射，Spring 能够实例化和初始化对象，以及在运行时处理依赖注入。</li>
 <li>Bean 的自动装配： Spring 的自动装配机制依赖于反射，它能够根据一定的规则自动将 Bean 与其他 Bean 进行关联。通过反射，Spring 可以动态地识别和连接相应的 Bean。</li>
 <li>AOP（面向切面编程）： 在 Spring 中，AOP 是通过动态代理和反射来实现的。通过反射，Spring 能够在运行时动态地创建代理对象，并在方法执行前后执行额外的逻辑。</li>
-<li>Bean 的生命周期管理： Spring 容器可以通过反射来实现对 Bean 的生命周期的管理，包括实例化、初始化、销毁等过程。</li>
+<li>Bean 的生命周期管理： Spring 容器可以通过反射来实现对 Bean 的生命周期的管理，包括实例化、初始化、销毁等。</li>
 <li>动态代理：Spring 使用动态代理和反射来实现一些特定的功能，比如事务管理。通过动态代理，Spring 能够在运行时创建代理对象，将横切逻辑织入到目标对象中。</li>
 <li>处理注解：Spring 使用反射来处理注解，包括扫描类路径上的注解、解析注解的属性值等。通过反射，Spring 能够在运行时获取和处理注解信息。</li>
 </ol>
 </li>
+</ul>
+</li>
 <li><p>反射机制的优缺点</p>
 <ul>
-<li>优点：</li>
-</ul>
-<ol>
-<li>能够运行时动态获取类的实例，提高灵活性；</li>
-<li>与动态编译结合</li>
-</ol>
-<ul>
-<li>缺点：</li>
-</ul>
-<ol>
+<li>优点： 1. 能够运行时动态获取类的实例，提高灵活性；  2. 与动态编译结合</li>
+<li>缺点：<ol>
 <li>使用反射性能较低，需要解析字节码，将内存中的对象进行解析。解决方案：1、通过setAccessible(true)关闭JDK的安全检查来提升反射速度；2、多次创建一个类的实例时，有缓存会快很多; 3、ReflflectASM工具类，通过字节码生成的方式加快反射速度</li>
 <li>相对不安全，破坏了封装性（因为通过反射可以获得私有方法和属性）</li>
 </ol>
 </li>
-<li><p>反射的实现方式：</p>
-</li>
 </ul>
-<ol>
-<li>获取想要操作的类的 Class 对象，他是反射的核心，通过 Class 对象我们可以任意调用类的方法。<br>有4种方法：1）Class.forName(“类的路径”)；2）类名.class3）对象名.getClass()4）基本类型的包装类，可以调用包装类的TyType属性来获得该包装类的Class对象</li>
-<li>调用 Class 类中的方法，既就是反射的使用阶段。</li>
-<li>使用反射 API 来操作这些信息。</li>
-</ol>
-<ul>
-<li><p>获取 Class 对象有几种方法</p>
-<ol>
-<li>调用某个对象的 getClass()方法  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person p=<span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">Class clazz=p.getClass();</span><br></pre></td></tr></table></figure></li>
-<li>调用某个类的 class 属性来获取该类对应的 Class 对象  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz=Person.class;</span><br></pre></td></tr></table></figure></li>
-<li>使用 Class 类中的 forName()静态方法(最安全&#x2F;性能最好)  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz=Class.forName(<span class="string">&quot;类的全路径&quot;</span>); </span><br></pre></td></tr></table></figure></li>
-</ol>
 </li>
-<li><p>Java 反射 API<br>  反射 API 用来生成 JVM 中的类、接口或则对象的信息。</p>
+<li><p>反射的实现方式：</p>
 <ol>
+<li>获取想要操作的类的 Class 对象，他是反射的核心，通过 Class 对象我们可以任意调用类的方法。以下是常用的方法：<ul>
+<li><strong>使用 <code>Class.forName</code> 静态方法(最安全&#x2F;性能最好)</strong>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class&lt;?&gt; myClass = Class.forName(<span class="string">&quot;com.example.MyClass&quot;</span>);  <span class="comment">// 类的全限定名作为参数</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>使用 <code>ClassLoader</code> 的 <code>loadClass</code> 方法：</strong>也可以加载类并返回 <code>Class</code> 对象。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> getClass().getClassLoader();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class&lt;?&gt; myClass = classLoader.loadClass(<span class="string">&quot;com.example.MyClass&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>使用 <code>.class</code> 语法：</strong> 在已知类的情况下，可以直接获取该类的 <code>Class</code> 对象。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; myClass = MyClass.class;</span><br></pre></td></tr></table></figure></li>
+<li><strong>使用对象的 <code>getClass</code> 方法：</strong> 可以返回该对象的 <code>Class</code> 对象。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyClass</span> <span class="variable">myObject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br><span class="line">Class&lt;?&gt; myClass = myObject.getClass();</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>调用 Class 类中的方法，获取类的结构信息。<br> Java 反射 API：用来生成 ??? JVM 中的类、接口或则对象的信息。<ul>
 <li>Class 类：反射的核心类，可以获取类的属性，方法等信息。</li>
 <li>Field 类：Java.lang.reflec 包中的类，表示类的成员变量，可以用来获取和设置类之中的属性值。</li>
 <li>Method 类：  Java.lang.reflec 包中的类，表示类的方法，它可以用来获取类中的方法信息或者执行方法。</li>
-<li>Constructor 类：  Java.lang.reflec 包中的类，表示类的构造方法。<br>  当我们获得了想要操作的类的 Class 对象后，可以通过 Class 类中的方法获取并查看该类中的方法和属性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取 Person 类的 Class 对象</span></span><br><span class="line">Class clazz=Class.forName(<span class="string">&quot;reflection.Person&quot;</span>);</span><br><span class="line"><span class="comment">//获取 Person 类的所有方法信息</span></span><br><span class="line">Method[] method=clazz.getDeclaredMethods();</span><br><span class="line"><span class="keyword">for</span>(Method m:method)&#123;  System.out.println(m.toString());  &#125;</span><br><span class="line"><span class="comment">//获取 Person 类的所有成员属性信息</span></span><br><span class="line">Field[] field=clazz.getDeclaredFields();</span><br><span class="line"><span class="keyword">for</span>(Field f:field)&#123;    System.out.println(f.toString());  &#125;</span><br><span class="line"><span class="comment">//获取 Person 类的所有构造方法信息</span></span><br><span class="line">Constructor[] constructor=clazz.getDeclaredConstructors();</span><br><span class="line"><span class="keyword">for</span>(Constructor c:constructor)&#123;   System.out.println(c.toString()); &#125;</span><br></pre></td></tr></table></figure></li>
+<li>Constructor 类：  Java.lang.reflec 包中的类，表示类的构造方法。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取 Person 类的 Class 对象</span></span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;reflection.Person&quot;</span>);</span><br><span class="line"><span class="comment">//获取 Person 类的所有方法信息</span></span><br><span class="line">Method[] method = clazz.getDeclaredMethods();</span><br><span class="line"><span class="comment">//获取 Person 类的所有成员属性信息</span></span><br><span class="line">Field[] field = clazz.getDeclaredFields();</span><br><span class="line"><span class="comment">//获取 Person 类的所有构造方法信息</span></span><br><span class="line">Constructor[] constructor = clazz.getDeclaredConstructors();</span><br><span class="line"><span class="keyword">for</span>(Constructor c : constructor) System.out.println(c.toString()); </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>将获取到的类信息用于实际的操作，例如创建对象、调用方法、获取和设置字段的值等。<br>  通过反射 API 来实现动态操作。</li>
 </ol>
 </li>
 <li><p>利用反射动态创建对象实例.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 使用 Class 对象的 newInstance()方法来创建该 Class 对象对应类的实例，但是这种方法要求该 Class 对象对应的类有默认的空构造器。</span></span><br><span class="line"><span class="comment">// 获取 Person 类的 Class 对象</span></span><br><span class="line">Class clazz=Class.forName(<span class="string">&quot;reflection.Person&quot;</span>);</span><br><span class="line"><span class="comment">// 使用.newInstane 方法创建对象</span></span><br><span class="line">Person p=(Person) clazz.newInstance();</span><br><span class="line"><span class="comment">// 2. 先使用 Class 对象获取指定的 Constructor 对象，再调用 Constructor 对象的 newInstance()方法来创建 Class 对象对应类的实例,通过这种方法可以选定构造方法创建实例。</span></span><br><span class="line"><span class="comment">// 获取构造方法并创建对象</span></span><br><span class="line">Constructor c=clazz.getDeclaredConstructor(String.class,String.class,<span class="type">int</span>.class);</span><br><span class="line"><span class="comment">// 创建对象并设置属性</span></span><br><span class="line">Person p1=(Person) c.newInstance(<span class="string">&quot;李四&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0. 获取 Person 类的 Class 对象</span></span><br><span class="line">Class clazz=Class.forName(<span class="string">&quot;reflection.Person&quot;</span>);</span><br><span class="line"><span class="comment">// 1. 使用 newInstane 方法创建实例对象(但是这种方法要求该 Class 对象对应的类有默认的空构造器)</span></span><br><span class="line">Person p=(Person) clazz.newInstance();</span><br><span class="line"><span class="comment">// 2. 先获取指定的 Constructor 对象,再调用 Constructor 对象的 newInstance()方法来创建 Class 对象实例</span></span><br><span class="line"><span class="comment">// (通过这种方法可以选定构造方法创建实例)</span></span><br><span class="line"><span class="type">Constructor</span> <span class="variable">c</span> <span class="operator">=</span> clazz.getDeclaredConstructor(String.class,String.class,<span class="type">int</span>.class);  <span class="comment">// 获取构造方法</span></span><br><span class="line">Person p1=(Person) c.newInstance(<span class="string">&quot;李四&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="number">20</span>);  <span class="comment">// 创建对象并设置属性</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>你了解动态代理吗？<br>动态代理其实就是代理模式的一种，代理模式是设计模式之一。代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理。<br>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。<br>动态代理这一技术在实际或者框架原理中是非常常见的。像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等等好用的技术，实际上用的就是动态代理。</p>
+<li><p><strong>你了解动态代理吗？??</strong><br>动态代理其实就是代理模式的一种，代理模式是设计模式之一。代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理。<br>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。<br>动态代理这一技术在实际或者框架原理中是非常常见的。像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等等好用的技术，实际上用的就是动态代理。</p>
 </li>
 <li><p>设计模式：<a target="_blank" rel="noopener" href="https://fengxiuyang.cn/articles/67">https://fengxiuyang.cn/articles/67</a></p>
 </li>
@@ -3187,8 +3174,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>围绕简历准备：<a target="_blank" rel="noopener" href="https://www.wondercv.com/cvs/5hCOzINo/editor">https://www.wondercv.com/cvs/5hCOzINo/editor</a>,<br>个人技能：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/">https://leo710aka.github.io/2023/10/10/%E6%8A%80%E8%83%BD/</a></p>
-<h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
+        <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
 <li><p>⼀条SQL查询语句是如何执⾏的？</p>
 <ol>
 <li>连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。</li>

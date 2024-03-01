@@ -57,7 +57,7 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714215713563.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714215832675.png?raw=true">
 <meta property="article:published_time" content="2024-01-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2024-03-01T14:51:56.082Z">
+<meta property="article:modified_time" content="2024-03-01T15:42:34.346Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/springcloud/3.png?raw=true?raw=true">
@@ -313,9 +313,9 @@
 我们可以点击页面新增按钮，添加一个namespace；然后，填写表单，创建一个新的namespace：
 <img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000505928.png?raw=true" width="300" height="200"> </li>
 <li>给微服务配置namespace：只能通过修改配置来实现。例如，修改order-service的application.yml文件：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span></span><br><span class="line">    <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">HZ</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">492a7d5d-237b-46a1-a99a-fa8e98e4b0f9</span> <span class="comment"># 命名空间，填ID</span></span><br></pre></td></tr></table></figure>
-重启order-service后，访问控制台，可以看到下面的结果：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true" width="400" height="200"> 
+重启order-service后，访问控制台，可以看到下面的结果：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000830703.png?raw=true" width="600" height="200"> 
 此时访问order-service，因为namespace不同，会导致找不到userservice，控制台会报错：
-<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true" width="400" height="200"></li>
+<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714000941256.png?raw=true" width="600" height="200"></li>
 </ol>
 <h4 id="5-Nacos与Eureka的区别"><a href="#5-Nacos与Eureka的区别" class="headerlink" title="5. Nacos与Eureka的区别"></a>5. Nacos与Eureka的区别</h4><p>Nacos和Eureka整体结构类似，服务注册、服务拉取、心跳等待，但是也存在一些差异：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets/image-20210714001728017.png?raw=true" width="500" height="200"> </p>
 <ul>
@@ -360,7 +360,7 @@
 <li><code>[spring.application.name].yaml</code>，例如：userservice.yaml<br>而<code>[spring.application.name].yaml</code>不包含环境，因此可以被多个环境共享。下面我们通过案例来测试配置共享：</li>
 </ul>
 <ol>
-<li>添加一个环境共享配置：我们在nacos中添加一个userservice.yaml文件：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173233650.png?raw=true" width="500" height="200"> </li>
+<li>添加一个环境共享配置：我们在nacos中添加一个userservice.yaml文件：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173233650.png?raw=true" width="400" height="200"> </li>
 <li>在user-service中读取共享配置<!-- 
 在user-service服务中，修改PatternProperties类，读取新添加的属性：
 ![image-20210714173324231](https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714173324231.png?raw=true)
@@ -378,7 +378,7 @@
 访问http://localhost:8082/user/prop，结果：
 ![image-20210714174424818](https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174424818.png?raw=true)
 可以看出来，不管是dev，还是test环境，都读取到了envSharedValue这个属性的值。 --></li>
-<li>配置共享的优先级<br>当nacos、服务本地同时出现相同属性时，优先级有高低之分：<br><img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174623557.png?raw=true"></li>
+<li>配置共享的优先级<br>当nacos、服务本地同时出现相同属性时，优先级有高低之分：<img src="https://github.com/leo710aka/bk/blob/main/springcloud/assets2/image-20210714174623557.png?raw=true" width="500" height="200"></li>
 </ol>
 </li>
 <li><strong>搭建Nacos集群</strong><br>企业生产中强调“高可用”，Nacos 生产环境下一定要部署为集群状态，部署方式参考课前资料中的文档：nacos集群搭建.md</li>
