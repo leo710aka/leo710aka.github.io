@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/572d2e33e1b44d998ab28d103f895ea9.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-02T10:35:24.695Z">
+<meta property="article:modified_time" content="2024-03-03T15:12:12.346Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job10.png">
@@ -158,7 +158,7 @@
 </li>
 </ul>
 <ul>
-<li><p>具体那里用到了 MQ ？<br>主要起了削峰的作用。拉新系统需要接收媒体数据，进行拦截处理后才转发给客户。当媒体数据达到 2000kbs，系统就挂掉，，主要原因是对数据的拦截处理涉及到io、阻断、调用客户接口、数据库，，，使用 kafka存放数据，再以 200kbs消费。。。</p>
+<li><p>你们项目中为什么要用消息队列？ MQ 的作用是什么？<br>主要起了削峰的作用，解决系统前后处理能力不一致的问题。。<br>拉新系统需要接收媒体数据，进行拦截处理后才转发给客户。当媒体数据达到 2000kbs，系统就挂掉，主要原因是对数据的拦截处理涉及到io、阻断、调用客户接口、数据库，，<br>使用 kafka存放数据，再以 200kbs消费。。。</p>
 </li>
 <li><p>对 rabbitmq 有什么了解？<br>，，</p>
 </li>
@@ -234,7 +234,7 @@
 <li><strong>高校闲置资源交易系统</strong><ul>
 <li>项目简介：本系统采用微服务架构设计，在分布式环境下利用Springcloud框架，通过业务划分，设计独立模块的微服务。<br>  拆分为用户模块、商品模块、购物车模块、订单模块、支付模块，结合了当前比较流行的互联网电商模式，为消费者提供商品贸易平台。</li>
 <li>系统架构：该系用采用SoringCoud架构，利用SpringBoot构建应用，Nacos作为服务的注册、配置中心，0penFeign实现与其他模块进行交互，Sentinel实现熔断降级和错误处理，Seata分布式事务解决方案，Gateway作为服务网关，Sleuth链路追踪，RabbitMQ实现延迟队列，Redis作为缓存解决读多写少的场景，MySQL进行持久化，MyBatisPlus作为持久化框架。</li>
-<li>我的职责:<br>  完成平台商品、购物车、订单、库存、优惠券、支付、文件上传等服务模块的接口开发;<br>  使用RabbitMQ延时队列实现未付款订单，超过一定时间后，系统自动取消订单并解锁库存;<br>  使用redis+lua脚本防止重复提交攻击，解决了用户利用浏览器刷新和回退重复提交订单的问题。<br>  ，，，<br>  会员注册：客户端（移动端、PC端）调用会员服务注册接口进行会员注册，使用NatApp进行内网穿透，利用开源框架WxJava框架进行二次开发，会员先关注公众号，在公众号号接收验证码，并把验证码缓存Redis中，有效期3分钟，会员注册校验验证码是否一致，同时会员注册密码加盐加密MD5和BASE64散列存储。<br>  会员认证：使用XXL-SSO框架实现微服务平台单点登陆开发，搭建并二次开发XXL-SSO的中央认证服务器，改造认证服务器的认证界面，同时植入认证验证码功能，整合各个门户例如首页频道、搜索频道等SSO客户端。基于cookies实现，虽然 cookies本身不跨域，利用XXL-SSO框架实现跨域的进行SSO认证。<br>  广告管理：运营商广告类别管理、广告管理，使用七牛云进行广告图片分布式存储。首页频道服务广告的数据使用Redis进行缓存预热，开发并设计广告缓存系统设计，使用延迟双删、以及RabbitMQ缓存清除重试保证Redis缓存一致性。<br>  订单管理：开发并设计下单流程，使用Redission实现分布式锁防止库存超卖，使用开源框LCN进行事务的一致性操作，保证商品服务减库存，订单服务新增订单。使用雪花算法进行在高并发分布式全局订单ID的生成.</li>
+<li>我的职责:<br>  完成平台商品、购物车、订单、库存、优惠券、支付、文件上传等服务模块的接口开发;<br>  使用RabbitMQ延时队列实现未付款订单，超过一定时间后，系统自动取消订单并解锁库存;<br>  使用redis+lua脚本防止重复提交攻击，解决了用户利用浏览器刷新和回退重复提交订单的问题。<br>  通过 sentinel 完成系统限流熔断功能，防止对接的三方系统故障后影响消息系统运行<br>  通过线程池。。分布式事务，，，<br>  ，，，<br>  会员注册：客户端（移动端、PC端）调用会员服务注册接口进行会员注册，使用NatApp进行内网穿透，利用开源框架WxJava框架进行二次开发，会员先关注公众号，在公众号号接收验证码，并把验证码缓存Redis中，有效期3分钟，会员注册校验验证码是否一致，同时会员注册密码加盐加密MD5和BASE64散列存储。<br>  会员认证：使用XXL-SSO框架实现微服务平台单点登陆开发，搭建并二次开发XXL-SSO的中央认证服务器，改造认证服务器的认证界面，同时植入认证验证码功能，整合各个门户例如首页频道、搜索频道等SSO客户端。基于cookies实现，虽然 cookies本身不跨域，利用XXL-SSO框架实现跨域的进行SSO认证。<br>  广告管理：运营商广告类别管理、广告管理，使用七牛云进行广告图片分布式存储。首页频道服务广告的数据使用Redis进行缓存预热，开发并设计广告缓存系统设计，使用延迟双删、以及RabbitMQ缓存清除重试保证Redis缓存一致性。<br>  订单管理：开发并设计下单流程，使用Redission实现分布式锁防止库存超卖，使用开源框LCN进行事务的一致性操作，保证商品服务减库存，订单服务新增订单。使用雪花算法进行在高并发分布式全局订单ID的生成.</li>
 </ul>
 </li>
 </ul>
@@ -257,7 +257,7 @@
 </li>
 <li><p>，，</p>
 </li>
-<li><p>配置管理。<br>当微服务部署的实例越来越多，业务配置如 JDBC、日志、openfeign 时常变动，逐个修改微服务配置就会让人抓狂。<br>Nacos实现配置共享，配置热更新，动态路由？？</p>
+<li><p>配置管理。<br>当微服务部署的实例越来越多，业务配置如 JDBC、日志、openfeign 时常变动，逐个修改微服务配置就会让人抓狂。<br>Nacos实现配置共享，配置热更新，动态路由<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/list/watchlater?oid=961238101&bvid=BV1kH4y1S7wz&spm_id_from=333.1007.top_right_bar_window_view_later.content.click&p=34">https://www.bilibili.com/list/watchlater?oid=961238101&amp;bvid=BV1kH4y1S7wz&amp;spm_id_from=333.1007.top_right_bar_window_view_later.content.click&amp;p=34</a></p>
 </li>
 </ul>
 <h2 id="项目系统（牛客论坛）"><a href="#项目系统（牛客论坛）" class="headerlink" title="项目系统（牛客论坛）"></a>项目系统（牛客论坛）</h2><ul>
