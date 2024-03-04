@@ -6,18 +6,18 @@
   
   <title>面 逝 | 组件 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="八股（MySQL） ⼀条SQL查询语句是如何执⾏的？  连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。 查询缓存:MySQL拿到⼀个查询请求后，会先到查询缓存看看，之前是不是执⾏过这条语句。之前执⾏过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中。 分析器:你输⼊的是由多个字符串和空格组成的⼀条SQL语句，MySQL需要识别出⾥⾯的字符串分别是什么，代表什么。">
+  <meta name="description" content="八股（MySQL） 一条 sql 的执行过程。  连接层：客户端是否与mysql连接。 server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。 语法解析器：对接收到的 SQL 语句进行解析，以检查其语法和语义是否正确。如果 SQL 语句有语法错误或违反数据库模式的约束，系统会返回相应的错误信息。 编译、优化SQL 语句：解析后，DBMS 将 S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面 逝 | 组件">
 <meta property="og:url" content="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="八股（MySQL） ⼀条SQL查询语句是如何执⾏的？  连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。 查询缓存:MySQL拿到⼀个查询请求后，会先到查询缓存看看，之前是不是执⾏过这条语句。之前执⾏过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中。 分析器:你输⼊的是由多个字符串和空格组成的⼀条SQL语句，MySQL需要识别出⾥⾯的字符串分别是什么，代表什么。">
+<meta property="og:description" content="八股（MySQL） 一条 sql 的执行过程。  连接层：客户端是否与mysql连接。 server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。 语法解析器：对接收到的 SQL 语句进行解析，以检查其语法和语义是否正确。如果 SQL 语句有语法错误或违反数据库模式的约束，系统会返回相应的错误信息。 编译、优化SQL 语句：解析后，DBMS 将 S">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-01T15:43:39.631Z">
+<meta property="article:modified_time" content="2024-03-04T14:08:35.231Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -98,13 +98,26 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
-<li><p>⼀条SQL查询语句是如何执⾏的？</p>
+<li><p>一条 sql 的执行过程。</p>
 <ol>
-<li>连接器:连接器负责跟客户端建⽴连接、获取权限、维持和管理连接。</li>
-<li>查询缓存:MySQL拿到⼀个查询请求后，会先到查询缓存看看，之前是不是执⾏过这条语句。之前执⾏过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中。</li>
-<li>分析器:你输⼊的是由多个字符串和空格组成的⼀条SQL语句，MySQL需要识别出⾥⾯的字符串分别是什么，代表什么。</li>
-<li>优化器:优化器是在表⾥⾯有多个索引的时候，决定使⽤哪个索引;或者在⼀个语句有多表关联 (join)的时候，决定各个表的连接顺序。</li>
-<li>执⾏器:MySQL通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进⼊了执⾏器阶段，开始执⾏语句。</li>
+<li>连接层：客户端是否与mysql连接。</li>
+<li>server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。</li>
+<li>语法解析器：对接收到的 SQL 语句进行解析，以检查其语法和语义是否正确。如果 SQL 语句有语法错误或违反数据库模式的约束，系统会返回相应的错误信息。</li>
+<li>编译、优化SQL 语句：解析后，DBMS 将 SQL 语句编译成一个可执行的查询计划 explain。这个计划是一个数据结构，描述了如何从数据库中获取或操作数据。在编译阶段，DBMS 可能会对查询计划进行优化，以提高执行效率。优化过程包括选择合适的索引、调整连接顺序等。</li>
+<li>执行器：DBMS 根据优化后的查询计划执行 SQL 语句，去存储引擎层读取数据库中的数据。这包括从磁盘读取数据，使用索引加速查询，应用过滤条件等。<br>  执行器执行前，会检查mysql的innodb的buffer pool的缓存，，未命中要先查db。select直接查询buffer pool，dml（增删改）还要设计日志，，，</li>
+<li>存储引擎：如 innodb、myisam、memory都会向上层提供查询接口。</li>
+<li><strong>返回结果：</strong> 执行完成后，DBMS 将结果返回给用户。结果可能是查询的结果集、执行成功的消息，或者在出现错误时的错误信息。</li>
+</ol>
+</li>
+<li><p>Mysql引擎 如何把硬盘上的数据查到？</p>
+<ol>
+<li><strong>解析 SQL 语句：</strong> MySQL 首先解析查询语句，检查语法和语义，确保查询是合法的。</li>
+<li><strong>查询优化：</strong> MySQL 会对查询进行优化，生成一个查询执行计划。</li>
+<li><strong>执行查询计划：</strong> MySQL 数据库引擎按照优化后的执行计划执行查询。这涉及从硬盘读取数据。</li>
+<li><strong>使用索引：</strong> 如果查询中使用了索引，并且优化器认为使用索引更有效，MySQL 将使用索引来快速定位和检索数据。索引通常存储在磁盘上，但在需要时会被加载到内存中，以提高查询速度。<br>  <strong>索引的使用发生在磁盘 I&#x2F;O 操作之前。</strong></li>
+<li><strong>读取数据块：</strong> 如果数据没有在内存中，MySQL 数据库引擎将从磁盘读取数据块（通常是页）到内存中。<br>  MySQL将数据以页(Page)为单位组织在磁盘上。一页通常包含多条记录，每页的大小是固定的。MySQL从磁盘上读取整个页，而不仅仅是所需的单个记录。读磁盘是一次 I&#x2F;0 操作，MySQL 使用一种称为预读的技术，一次性读取多个相邻的数据块，以提高性能。<br>  首先，MySQL 发送读取请求到存储设备（硬盘），包括要读取的数据块的位置信息（例如磁盘上的扇区或页）以及读取的数量。磁盘根据请求移动磁头到指定的位置。这个过程称为磁盘寻道，寻道时间是磁盘 I&#x2F;O 中的主要时间消耗部分。一旦磁头到达目标轨道，磁盘开始旋转，以便将所需的数据块转到磁头下方，磁盘开始传输数据到内存中。 </li>
+<li><strong>缓存：</strong> MySQL 使用缓存来存储经常访问的数据块，这样在后续查询中可以更快地访问这些数据。这包括查询结果的缓存、索引缓存和数据缓存等。使用一个称为InnoDB Buffer Pool的缓存池来存储数据页。</li>
+<li><strong>返回结果：</strong> 当查询完成时，MySQL 将结果返回给用户。</li>
 </ol>
 </li>
 <li><p>数据库存储引擎<br>数据库存储引擎是数据库底层软件组织，数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。不同的存储引擎提供不同的存储机制、索引技巧、锁定水平等功能，使用不同的存储引擎，还可以 获得特定的功能。现在许多不同的数据库管理系统都支持多种不同的数据引擎。存储引擎主要有： 1. MyIsam, 2. InnoDB, 3. Memory, 4. Archive, 5. Federated 。</p>
@@ -124,11 +137,27 @@
 <li>从逻辑维度进⾏分类:<br>  主键索引:⼀种特殊的唯⼀索引，不允许有空值。<br>  普通索引:MySQL中基本索引类型，允许空值和重复值<br>  联合索引:多个字段创建的索引，使⽤时遵循最左前缀原则<br>  唯⼀索引:索引列中的值必须是唯⼀的，但是允许为空值<br>  空间索引:MySQL5.7之后⽀持空间索引，在空间索引这⽅⾯遵循OpenGIS⼏何数据模</li>
 </ul>
 </li>
+<li><p>主键？聚集索引，非聚集索引？</p>
+<ul>
+<li>主键：主键是一种用于唯一标识表中每一行数据的列或列组合。主键列的值必须唯一且不为空（NULL）。在InnoDB中，主键索引是表的物理排序顺序，它是表的聚集索引。如果表没有显式定义主键，InnoDB会选择一个合适的唯一非空索引来充当主键索引。</li>
+<li>聚集索引：在MySQL中，聚集索引决定了数据在磁盘上的物理存储顺序，即数据的存储顺序与索引顺序一致。在InnoDB存储引擎中，主键索引就是一个聚集索引。如果表没有显式定义主键，则InnoDB会选择一个唯一非空的索引来充当聚集索引。</li>
+<li>非聚集索引：非聚集索引在磁盘上维护索引键和对应数据行的引用，索引键的顺序与实际数据行的物理存储顺序无关。在MySQL中，除了InnoDB存储引擎的聚集索引（主键索引），其他索引都是非聚集索引，例如普通索引或唯一索引。</li>
+</ul>
+</li>
+<li><p>InnoDB 建议为大部分表使用默认的自增主键的主要原因</p>
+<ol>
+<li><strong>聚簇索引：</strong> InnoDB 表的主键是聚簇索引（Clustered Index），这意味着数据行的物理顺序与聚簇索引的顺序一致。使用自增主键作为聚簇索引可以确保新插入的数据按顺序添加到表的末尾，减少数据页的分裂和碎片，提高数据的顺序性。</li>
+<li><strong>插入性能：</strong> 自增主键的顺序性有助于提高插入性能。因为数据行按照主键的顺序插入，新的数据行往往直接添加到表的末尾，而不会导致页面的分裂和数据的重新排序。</li>
+<li><strong>查询性能：</strong> 使用自增主键作为聚簇索引可以提高范围查询和排序查询的性能，因为相关数据在物理上是相邻存储的。</li>
+<li><strong>减少索引大小：</strong> 自增主键通常是整数，占用的空间相对较小。相比于使用其他类型的主键，这可以减少非聚簇索引的大小，提高缓存的效率，减少磁盘 I&#x2F;O。</li>
+<li><strong>减少碎片：</strong> 自增主键的插入顺序有助于减少数据页的分裂和碎片，减小了表的维护成本。</li>
+</ol>
+</li>
 <li><p>什么时候需要创建索引？<br>表的主关键字：⾃动建⽴唯⼀索引<br>直接条件查询的字段：经常⽤于WHERE查询条件的字段，这样能够提⾼整个表的查询速度<br>查询中与其它表关联的字段：例如字段建⽴了外键关系<br>查询中排序的字段：排序的字段如果通过索引去访问将⼤⼤提⾼排序速度<br>唯⼀性约束列： 如果某列具有唯⼀性约束，那么为了确保数据的唯⼀性，可以在这些列上创建唯⼀索引。<br>⼤表中的关键列： 在⼤表中，如果查询的效率变得很低，可以考虑在关键列上创建索引。</p>
 </li>
 <li><p>什么时候不需要创建索引？<br>⼩表： 对⼩表创建索引可能会带来额外的开销，因为在⼩数据集中扫描整个表可能⽐使⽤索引更快。<br>频繁的插⼊、更新和删除操作： 索引的维护成本会随着数据的插⼊、更新和删除操作⽽增加。如果表经常被修改，过多的索引可能会影响性能。<br>数据重复且分布平均的表字段：假如⼀个表有10万⾏记录，性别只有男和⼥两种值，且每个值的分布概率⼤约为50%，那么对这种字段建索引⼀般不会提⾼数据库的查询速度。<br>很少被查询的列： 如果某列很少被⽤于查询条件，那么为它创建索引可能没有明显的性能提升。<br>查询结果总⾏数较少的表： 如果查询的结果集总⾏数很少，使⽤索引可能不会有太⼤的性能提升。</p>
 </li>
-<li><p>？？？常见索引原则</p>
+<li><p>常见索引原则</p>
 <ol>
 <li>选择唯一性索引，唯一性索引的值是唯一的，可以更快速的通过该索引来确定某条记录。</li>
 <li>为经常需要排序、分组和联合操作的字段建立索引。</li>
@@ -143,15 +172,11 @@
 <li>尽量的扩展索引，不要新建索引</li>
 </ol>
 </li>
-<li><p>主键？？？？聚集索引，非聚集索引？</p>
+<li><p>覆盖索引？回表查询？</p>
 <ul>
-<li>主键：主键是一种用于唯一标识表中每一行数据的列或列组合。主键列的值必须唯一且不为空（NULL）。在InnoDB中，主键索引是表的物理排序顺序，它是表的聚集索引。如果表没有显式定义主键，InnoDB会选择一个合适的唯一非空索引来充当主键索引。</li>
-<li>聚集索引：在MySQL中，聚集索引决定了数据在磁盘上的物理存储顺序，即数据的存储顺序与索引顺序一致。在InnoDB存储引擎中，主键索引就是一个聚集索引。如果表没有显式定义主键，则InnoDB会选择一个唯一非空的索引来充当聚集索引。</li>
-<li>非聚集索引：非聚集索引在磁盘上维护索引键和对应数据行的引用，索引键的顺序与实际数据行的物理存储顺序无关。在MySQL中，除了InnoDB存储引擎的聚集索引（主键索引），其他索引都是非聚集索引，例如普通索引或唯一索引。</li>
+<li>覆盖索引是指一个查询语句所需的数据可以从索引中直接获取，而无需访问表格中的实际数据行。这种情况下，索引“覆盖”了查询的所有需要的列。覆盖索引的优势在于可以减少磁盘 I&#x2F;O 和内存的消耗，因为不需要额外的表格访问。</li>
+<li>回表查询指的是在使用索引的情况下，通过索引定位到主键，然后再根据主键的值去表中检索数据的过程。这通常发生在覆盖索引（Covering Index）无法满足查询需求时。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> products (</span><br><span class="line">    product_id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    product_name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    price <span class="type">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>),</span><br><span class="line">    quantity <span class="type">INT</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 为 product_name 列创建索引 idx_product_name</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name <span class="keyword">ON</span> products (product_name);</span><br><span class="line"><span class="comment">-- 假设我们有一条数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> products (product_id, product_name, price, quantity) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;Laptop&#x27;</span>, <span class="number">999.99</span>, <span class="number">50</span>);</span><br><span class="line"><span class="comment">-- 现在，如果我们执行以下查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> product_name, price <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> product_name <span class="operator">=</span> <span class="string">&#x27;Laptop&#x27;</span>;</span><br><span class="line"><span class="comment">-- 从索引中获取的列 product_name，但 price 列不在查询的列中，MySQL 将执行回表查询</span></span><br><span class="line"><span class="comment">-- MySQL 首先使用索引 idx_product_name 找到匹配 Laptop 的行，获取到对应的 product_id(主键)，然后根据 product_id 到表格中检索完整的行数据以获取 price 值</span></span><br><span class="line"><span class="comment">-- 这种情况下，如果我们希望避免回表查询，可以考虑创建一个覆盖索引，将查询语句中需要的所有列都包含在索引中，便无需执行额外的回表查询</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name_covering <span class="keyword">ON</span> products (product_name, price);</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-<li><p>覆盖索引？回表查询？<br>覆盖索引是指一个查询语句所需的数据可以从索引中直接获取，而无需访问表格中的实际数据行。这种情况下，索引“覆盖”了查询的所有需要的列。覆盖索引的优势在于可以减少磁盘 I&#x2F;O 和内存的消耗，因为不需要额外的表格访问。<br>回表查询指的是在使用索引的情况下，通过索引定位到主键，然后再根据主键的值去表中检索数据的过程。这通常发生在覆盖索引（Covering Index）无法满足查询需求时。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 考虑以下表 products</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> products (</span><br><span class="line">    product_id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    product_name <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    price <span class="type">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>),</span><br><span class="line">    quantity <span class="type">INT</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 为 product_name 列创建索引 idx_product_name</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name <span class="keyword">ON</span> products (product_name);</span><br><span class="line"><span class="comment">-- 假设我们有一条数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> products (product_id, product_name, price, quantity) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;Laptop&#x27;</span>, <span class="number">999.99</span>, <span class="number">50</span>);</span><br><span class="line"><span class="comment">-- 现在，如果我们执行以下查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> product_name, price <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> product_name <span class="operator">=</span> <span class="string">&#x27;Laptop&#x27;</span>;</span><br><span class="line"><span class="comment">-- 从索引中获取的列 `product_name`，但 `price` 列不在查询的列中，MySQL 将执行回表查询</span></span><br><span class="line"><span class="comment">-- MySQL 首先使用索引 `idx_product_name` 找到匹配 `&#x27;Laptop&#x27;` 的行，获取到对应的 `product_id`（主键），然后根据 `product_id` 到表格中检索完整的行数据以获取 `price` 值</span></span><br><span class="line"><span class="comment">-- 这种情况下，如果我们希望避免回表查询，可以考虑创建一个覆盖索引，将查询语句中需要的所有列都包含在索引中，便无需执行额外的回表查询</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX idx_product_name_covering <span class="keyword">ON</span> products (product_name, price);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>B+ Tree(InnoDB)索引</strong></p>
 <ul>
@@ -159,15 +184,6 @@
 <li>非叶节点存储数据的边界，叶子节点存储指向数据行的指针。通过边界缩小数据的范围，从而避免全表扫描，加快了查找的速度。</li>
 <li>B+ 树索引是一种索引结构，通常用于数据库管理系统中作为数据的索引方式。它可以用作聚集索引或非聚集索引，并不是严格意义上的主键索引。在数据库中，B+树索引在不同存储引擎下，例如在InnoDB中作为主键索引（聚集索引）使用，或作为其他索引（非聚集索引）的实现。  <img src="https://leo710aka.github.io/bk/job5.png" width="550" height="300" alt=""></li>
 </ul>
-</li>
-<li><p>？？？InnoDB 建议为大部分表使用默认的自增主键的主要原因</p>
-<ol>
-<li><strong>聚簇索引：</strong> InnoDB 表的主键是聚簇索引（Clustered Index），这意味着数据行的物理顺序与聚簇索引的顺序一致。使用自增主键作为聚簇索引可以确保新插入的数据按顺序添加到表的末尾，减少数据页的分裂和碎片，提高数据的顺序性。</li>
-<li><strong>插入性能：</strong> 自增主键的顺序性有助于提高插入性能。因为数据行按照主键的顺序插入，新的数据行往往直接添加到表的末尾，而不会导致页面的分裂和数据的重新排序。</li>
-<li><strong>查询性能：</strong> 使用自增主键作为聚簇索引可以提高范围查询和排序查询的性能，因为相关数据在物理上是相邻存储的。</li>
-<li><strong>减少索引大小：</strong> 自增主键通常是整数，占用的空间相对较小。相比于使用其他类型的主键，这可以减少非聚簇索引的大小，提高缓存的效率，减少磁盘 I&#x2F;O。</li>
-<li><strong>减少碎片：</strong> 自增主键的插入顺序有助于减少数据页的分裂和碎片，减小了表的维护成本。</li>
-</ol>
 </li>
 <li><p>B树 与 B+树 的区别</p>
 <ul>
@@ -189,7 +205,7 @@
 </li>
 <li><p>为什么选择 B+Tree 而不是红黑树？<br>红黑树等平衡树也可以用来实现索引,但是文件系统及数据库系统,普遍采用 B+ Tree作为索引结构这是因为使用 B+ tree 访问磁盘数据有更高的性能。我主要从两个点来回答<br>第一点：对于一个数据库来说 存储的数据量会比较多，导致索引也很大 因此需要将索引存储在磁盘，但是磁盘的 IO 操作又非常耗，所以提高索引效率的关键在于减少磁盘 IO 的次数。相同节点个数 的 B+Tree 的高度更小，树的高度基本决定了磁盘的 IO 次数 ，所以使用 B+Tree 性能要高很多<br>第二点：B+Tree 有个特点是相邻的数据在物理上也是相邻的，因为 B+Tree 的 node 的大小设为一个页，而一个节点上存有多个相邻的关键字和分支信息，每个节点只需要一次 IO就能完全载入，相当于一次 IO 载入了多个相邻的关键字和分支，而红黑树不具有这个特性，红黑树中大小相邻的数据，在物理结构上可能距离相差很大。由于程序的局部性原理，如果我们在索引中采用了预加载的技术，每次磁盘访问的时候除了将访问到的页加载到磁盘，我们还可以基于局部性原理加载，几页相邻的数据到内存中，而这个加载是不需要消耗多余磁盘 IO 时间的。<br>因此 基于局部性原理，以及 B+Tree 存储结构物理上的特性，所以 B+Tree 的索引性能比红黑树要好很多。</p>
 </li>
-<li><p>??? MySQL 索引失效的几种情况<br>  1、OR 语句前后没有同时使用索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。<br>  2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。<br>  3、like以%开头；模糊匹配<br>  4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。<br>  5、where中索引列有数学运算。<br>  6、where中索引列使用了函数。<br>  7、如果mysql觉得全表扫描更快时（数据少）。</p>
+<li><p>MySQL 索引失效的几种情况<br>1、OR 语句前后没有同时使用索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。<br>2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。<br>3、like以%开头；模糊匹配<br>4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。<br>5、where中索引列有数学运算。<br>6、where中索引列使用了函数。<br>7、如果mysql觉得全表扫描更快时（数据少）。</p>
 </li>
 <li><p>联合索引（Composite Index）</p>
 <ul>
@@ -199,11 +215,11 @@
 <li>联合索引的作用？<br>  1、减少io操作的开销和磁盘空间的开销；<br>  2、提升性能。索引列越多，通过索引筛选出的数据越少。<br>  3、覆盖索引。直接通过遍历索引取得数据，无需回表。<br>  提高查询效率：联合索引可以加速对多列数据的查询，对于联合索引中包含的列，可以同时使用它们进行筛选，减少了查询的数据量，提高了查询效率。<br>  减少磁盘IO：联合索引可以将多个列的数据存储在一起，减少了需要读取的磁盘块数，从而降低了IO的开销。<br>  优化排序操作：如果查询需要按照联合索引中的多个列进行排序，联合索引可以避免对多个独立索引的排序操作，从而提高排序操作的效率</li>
 </ul>
 </li>
-<li><p>？？简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。<br>普通索引允许被索引的数据列包含重复的值。如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。也就是说，唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，主键用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。<br>索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件</p>
+<li><p>简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件。普通索引允许被索引的数据列包含重复的值。如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。也就是说，唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，主键用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。</p>
 </li>
-<li><p>？？？SQL优化<br>1、查询语句中不要使用select *<br>2、尽量减少子查询，使用关联查询（left join,right join,inner join）替代<br>3、减少使用IN或者NOT IN ,使用exists，not exists或者关联查询语句替代<br>4、or 的查询尽量用 union或者union all 代替(在确认没有重复数据或者不用剔除重复数据时，union all会更好)<br>5、应尽量避免在 where 子句中使用!&#x3D;或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。<br>6、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询： select id from t where num&#x3D;0</p>
+<li><p>SQL优化<br>1、查询语句中不要使用select *<br>2、尽量减少子查询，使用关联查询（left join,right join,inner join）替代<br>3、减少使用 IN 或者 NOT IN，使用exists，not exists或者关联查询语句替代<br>4、or 的查询尽量用 union 或者union all 代替(在确认没有重复数据或者不用剔除重复数据时，union all会更好)<br>5、应尽量避免在 where 子句中使用 !&#x3D; 或 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描。<br>6、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</p>
 </li>
-<li><p>MySQL慢查询如何优化？<br>1，检查是否走了索引，如果没有则优化SQL利用索引<br>2、检查所利用的索引，是否是最优索引<br>3。检查所查字段是否都是必须的，是否查询了过多字段，查出了多余数据<br>4，检查表中数据是否过多，是否应该进行分库分表了<br>5。检查数据库实例所在机器的性能配置，是否太低，是否可以适当增加资源</p>
+<li><p>MySQL慢查询如何优化？<br>1、检查是否走了索引，如果没有则优化SQL利用索引<br>2、检查所利用的索引，是否是最优索引<br>3、检查所查字段是否都是必须的，是否查询了过多字段，查出了多余数据<br>4、检查表中数据是否过多，是否应该进行分库分表了<br>5、检查数据库实例所在机器的性能配置，是否太低，是否可以适当增加资源</p>
 </li>
 <li><p>优化数据库的方法<br>1、选取最适用的字段属性，尽可能减少定义字段宽度，尽量把字段设置 NOTNULL，例如’省份’、’性别’最好适用 ENUM<br>2、使用连接(JOIN)来代替子查询<br>3、适用联合(UNION)来代替手动创建的临时表<br>4、事务处理<br>5、锁定表、优化事务处理<br>6、适用外键，优化锁定表<br>7、建立索引<br>8、优化查询语句</p>
 </li>
@@ -218,11 +234,11 @@
 </li>
 <li><p>常见的 SQL 优化规则<br>SQL 的查询一定要基于索引来进行数据扫描<br>避免索引列上使用函数或者运算,这样会导致索引失效<br>？？where 字句中 like %号,尽量放置在右边<br>使用索引扫描,联合索引中的列从左往右,命中越多越好.<br>？？尽可能使用 SQL 语句用到的索引完成排序,避免使用文件排序的方式<br>查询有效的列信息即可.少用 * 代替列信息<br>？？永远用小结果集驱动大结果集。</p>
 </li>
-<li><p>？？？什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录外，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录外，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
+<li><p>什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录外，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录外，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
 </li>
-<li><p>？？？ 简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete和truncate只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;deletedelete语句是dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发. truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
+<li><p>？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
-<li><p>？？？范式。</p>
+<li><p>范式。</p>
 <ul>
 <li>范式理论是为了解决四种异常。不符合范式的关系（表的属性的组合），会产生很多异常：1、冗余数据。2、修改异常: 修改了一个记录中的信息，但是另一个记录中相同的信息却没有被修改。3、删除异常: 删除一个信息，那么也会丢失其它信息。4、插入异常: 例如想要插入一个学生的信息，如果这个学生还没选课，那么就无法插入。</li>
 <li>高级别范式的依赖于低级别的范式，1NF 是最低级别的范式。<ol>
@@ -231,7 +247,7 @@
 <li>第三范式 (3NF)：非主属性不传递函数依赖于键码。可以进行分解。</li>
 </ol>
 </li>
-<li>如何通俗地理解三个范式？<br>  第一范式：1NF 是对属性的原子性约束，要求属性具有原子性，不可再分解；<br>  第二范式：2NF 是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；<br>  第三范式：3NF 是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。<br>  ？？？</li>
+<li>如何通俗地理解三个范式？<br>  第一范式：1NF 是对属性的原子性约束，要求属性具有原子性，不可再分解；<br>  第二范式：2NF 是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；<br>  第三范式：3NF 是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。</li>
 </ul>
 </li>
 <li><p>什么是基本表？什么是视图？游标是什么？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。<br>视图本身不独立存储在数据库中，是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图是从一个或几个基本表导出的表，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。<br>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
@@ -300,7 +316,7 @@
 </li>
 <li><p>分库分表之后,id 主键如何处理？？？<br>因为要是分成多个表之后，每个表都是从 1 开始累加，这样是不对的，我们需要一个全局唯一的 id 来支持。生成全局 id 有下面这几种方式：<br>UUID：不适合作为主键，因为太长了并且无序不可读，查询效率低。比较适合用于生成唯一的名字的标示比如文件的名字。<br>数据库自增 id : 两台数据库分别设置不同步长，生成不重复ID的策略来实现高可用。这种方式生成的 id 有序，但是需要独立部署数据库实例，成本高，还会有性能瓶颈。<br>利用 redis 生成 id : 性能比较好，灵活方便，不依赖于数据库。但是，引入了新的组件造成系统更加复杂，可用性降低，编码更加复杂，增加了系统成本。</p>
 </li>
-<li><p>锁 </p>
+<li><p>锁 。</p>
 <ul>
 <li>什么是锁？<br>  答：数据库是一个多用户使用的共享资源。当多个用户并发地存取数据时，在数据库中就会产生多个事务同时存取同一数据的情况。若对并发操作不加控制就可能会读取和存储不正确的数据，破坏数据库的一致性。加锁是实现数据库并发控制的一个非常重要的技术。当事务在对某个数据对象进行操作前，先向系统发出请求，对其加锁。加锁后事务就对该数据对象有了一定的控制，在该事务释放锁之前，其他的事务不能对此数据对象进行更新操作。</li>
 <li>范围<ol>
@@ -411,7 +427,7 @@
 <li>读写分离：主机负责写，从机负责读。</li>
 </ul>
 </li>
-<li><p>不建议使用 JOIN，那么如何优化多表查询？</p>
+<li><p>不建议？使用 JOIN，那么如何优化多表查询？</p>
 <ol>
 <li><strong>使用索引：</strong> 确保关联字段上有适当的索引。索引可以大大提高 JOIN 操作的性能。在关联字段上创建索引可以减少查找匹配行的时间。</li>
 <li><strong>使用合适的 JOIN 类型：</strong> 根据查询的需求选择合适的 JOIN 类型，如 INNER JOIN、LEFT JOIN、RIGHT JOIN 等。不同的 JOIN 类型会影响结果集的形成和查询性能。</li>
@@ -422,30 +438,6 @@
 <li><strong>使用索引视图或汇总表：</strong> 对于复杂查询，可以考虑使用索引视图或汇总表，以提前计算并存储查询结果，从而减轻实时查询的负担。</li>
 <li><strong>考虑使用 NoSQL 数据库：</strong> 对于某些类型的查询，可能会考虑使用 NoSQL 数据库，特别是需要处理大量非结构化或半结构化数据的情况。</li>
 </ol>
-</li>
-<li><p>Mysql引擎 如何把硬盘上的数据查到？</p>
-<ol>
-<li><strong>解析 SQL 语句：</strong> MySQL 首先解析查询语句，检查语法和语义，确保查询是合法的。</li>
-<li><strong>查询优化：</strong> MySQL 会对查询进行优化，生成一个查询执行计划。</li>
-<li><strong>执行查询计划：</strong> MySQL 数据库引擎按照优化后的执行计划执行查询。这涉及从硬盘读取数据。</li>
-<li><strong>使用索引：</strong> 如果查询中使用了索引，并且优化器认为使用索引更有效，MySQL 将使用索引来快速定位和检索数据。索引通常存储在磁盘上，但在需要时会被加载到内存中，以提高查询速度。<br>  <strong>索引的使用发生在磁盘 I&#x2F;O 操作之前。</strong></li>
-<li><strong>读取数据块：</strong> 如果数据没有在内存中，MySQL 数据库引擎将从磁盘读取数据块（通常是页）到内存中。<br>  MySQL将数据以页(Page)为单位组织在磁盘上。一页通常包含多条记录，每页的大小是固定的。MySQL从磁盘上读取整个页，而不仅仅是所需的单个记录。读磁盘是一次 I&#x2F;0 操作，MySQL 使用一种称为预读的技术，一次性读取多个相邻的数据块，以提高性能。<br>  首先，MySQL 发送读取请求到存储设备（硬盘），包括要读取的数据块的位置信息（例如磁盘上的扇区或页）以及读取的数量。磁盘根据请求移动磁头到指定的位置。这个过程称为磁盘寻道，寻道时间是磁盘 I&#x2F;O 中的主要时间消耗部分。一旦磁头到达目标轨道，磁盘开始旋转，以便将所需的数据块转到磁头下方，磁盘开始传输数据到内存中。 </li>
-<li><strong>缓存：</strong> MySQL 使用缓存来存储经常访问的数据块，这样在后续查询中可以更快地访问这些数据。这包括查询结果的缓存、索引缓存和数据缓存等。使用一个称为InnoDB Buffer Pool的缓存池来存储数据页。</li>
-<li><strong>返回结果：</strong> 当查询完成时，MySQL 将结果返回给用户。</li>
-</ol>
-</li>
-<li><p>一条 sql 的执行过程。</p>
-<ol>
-<li>连接层：客户端是否与mysql连接。</li>
-<li>server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。</li>
-<li>语法解析器：对接收到的 SQL 语句进行解析，以检查其语法和语义是否正确。如果 SQL 语句有语法错误或违反数据库模式的约束，系统会返回相应的错误信息。</li>
-<li>编译、优化SQL 语句：解析后，DBMS 将 SQL 语句编译成一个可执行的查询计划 explain。这个计划是一个数据结构，描述了如何从数据库中获取或操作数据。在编译阶段，DBMS 可能会对查询计划进行优化，以提高执行效率。优化过程包括选择合适的索引、调整连接顺序等。</li>
-<li>执行器：DBMS 根据优化后的查询计划执行 SQL 语句，去存储引擎层读取数据库中的数据。这包括从磁盘读取数据，使用索引加速查询，应用过滤条件等。<br>  执行器执行前，会检查mysql的innodb的buffer pool的缓存，，未命中要先查db。select直接查询buffer pool，dml（增删改）还要设计日志，，，</li>
-<li>存储引擎：如 innodb、myisam、memory都会向上层提供查询接口。</li>
-<li><strong>返回结果：</strong> 执行完成后，DBMS 将结果返回给用户。结果可能是查询的结果集、执行成功的消息，或者在出现错误时的错误信息。</li>
-</ol>
-<p>  在执行过程中，数据库引擎可能会使用缓存来存储查询计划、中间结果以及常用的数据块，以提高性能。此外，如果查询中包含聚合函数、排序、分组等操作，DBMS 还会在执行过程中进行相应的计算和整理。</p>
-<p>  需要注意的是，不同的数据库管理系统（如 MySQL、PostgreSQL、Oracle 等）可能有不同的执行引擎和优化策略，但整体的执行过程大致相似。</p>
 </li>
 </ul>
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
@@ -668,21 +660,19 @@
 <li>服务端推送 （server push）<br>  在 HTTP&#x2F;2 中，服务器可以对客户端的⼀个请求发送多个响应，即服务器可以额外的向客户端    推送资源，⽽⽆需客户端明确的请求。</li>
 </ol>
 </li>
-<li><p><strong>HTTPS的⼯作原理？(https是怎么建⽴连接的)</strong></p>
-</li>
-</ul>
+<li><p>??<strong>HTTPS的⼯作原理？(https是怎么建⽴连接的)</strong></p>
 <ol>
 <li>⾸先，客户端向服务器端发送请求报⽂，请求与服务端建⽴连接。</li>
 <li>服务端产⽣⼀对公私钥，然后将⾃⼰的公钥发送给CA机构，CA机构也有⼀对公私钥，然后CA机构使⽤⾃⼰的私钥将服务端发送过来的公钥进⾏加密，产⽣⼀个CA数字证书。</li>
 <li>服务端响应客户端的请求，将CA机构⽣成的数字证书发送给客户端。</li>
-<li>客户端将服务端发送过来的数字证书进⾏解析(因为浏览器产商跟CA机构有合作，所以浏览器中已经保存了⼤部分CA机构的密钥，⽤于对服务端发送过来的数字证书进⾏解密)，验证这个数字<br>证书是否合法，如果不合法，会发送⼀个警告。如果合法，取出服务端⽣成的公钥。</li>
+<li>客户端将服务端发送过来的数字证书进⾏解析(因为浏览器产商跟CA机构有合作，所以浏览器中已经保存了⼤部分CA机构的密钥，⽤于对服务端发送过来的数字证书进⾏解密)，验证这个数字<br>  证书是否合法，如果不合法，会发送⼀个警告。如果合法，取出服务端⽣成的公钥。</li>
 <li>客户端取出公钥并⽣成⼀个随机码key（其实就是对称加密中的密钥）</li>
 <li>客户端将加密后的随机码key发送给服务端，作为接下来的对称加密的密钥</li>
 <li>服务端接收到随机码key后，使⽤⾃⼰的私钥对它进⾏解密，然后获得到随机码key。</li>
 <li>服务端使⽤随机码key对传输的数据进⾏加密，在传输加密后的内容给客户端</li>
 <li>客户端使⽤⾃⼰⽣成的随机码key解密服务端发送过来的数据，之后，客户端和服务端通过对称加密传输数据，随机码Key作为传输的密钥。</li>
 </ol>
-<ul>
+</li>
 <li><p><strong>HTTPS与HTTP的区别</strong><br>HTTP 是明⽂传输，⽽HTTPS 通过 SSL\TLS 进⾏了加密<br>HTTP 的端⼝号是 80，HTTPS 是 443<br>HTTPS 需要到 CA 申请证书<br>HTTP 的连接简单，是⽆状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进⾏加密传输、身份认证的⽹络协议，⽐ HTTP 协议安全。</p>
 </li>
 <li><p>常⻅的请求⽅式？GET和POST请求的区别？</p>
@@ -710,19 +700,17 @@
 <li>有哈希值的⽂件设置强缓存即可。没有哈希值的⽂件（⽐如index.html）设置协商缓存。</li>
 </ul>
 </li>
-<li><p>DNS是什么，及其查询过程<br>DNS（Domain Name System）域名管理系统，是当⽤户使⽤浏览器访问⽹址之后，使⽤的第⼀个重要协议。DNS 要解决的是域名和 IP 地址的映射问题。</p>
-</li>
-</ul>
+<li><p>DNS是什么，及其查询过程<br>  DNS（Domain Name System）域名管理系统，是当⽤户使⽤浏览器访问⽹址之后，使⽤的第⼀个重要协议。DNS 要解决的是域名和 IP 地址的映射问题。</p>
 <ol>
 <li>⾸先⽤户在浏览器输⼊URL地址后，会先查询浏览器缓存是否有该域名对应的IP地址。</li>
 <li>如果浏览器缓存中没有，会去计算机本地的Host⽂件中查询是否有对应的缓存。</li>
 <li>如果Host⽂件中也没有则会向本地的DNS解析器（通常由你的互联⽹服务提供商（ISP）提供）发送⼀个DNS查询请求。</li>
-<li>如果本地DNS解析器没有缓存该域名的解析记录，它会向根DNS服务器发出查询请求。根DNS服务器并不负责解析域名，但它能告诉本地DNS解析器应该向哪个顶级域（.com&#x2F;.net&#x2F;.org）的<br>DNS服务器继续查询。</li>
+<li>如果本地DNS解析器没有缓存该域名的解析记录，它会向根DNS服务器发出查询请求。根DNS服务器并不负责解析域名，但它能告诉本地DNS解析器应该向哪个顶级域（.com&#x2F;.net&#x2F;.org）的<br>  DNS服务器继续查询。</li>
 <li>本地DNS解析器接着向指定的顶级域DNS服务器发出查询请求。顶级域DNS服务器也不负责具体的域名解析，但它能告诉本地DNS解析器应该前往哪个权威DNS服务器查询下⼀步的信息。</li>
-<li>本地DNS解析器最后向权威DNS服务器发送查询请求。 权威DNS服务器是负责存储特定域名和IP地址映射的服务器。当权威DNS服务器收到查询请求时，它会查找”example.com”域名对应的IP<br>地址，并将结果返回给本地DNS解析器。</li>
+<li>本地DNS解析器最后向权威DNS服务器发送查询请求。 权威DNS服务器是负责存储特定域名和IP地址映射的服务器。当权威DNS服务器收到查询请求时，它会查找”example.com”域名对应的IP<br>  地址，并将结果返回给本地DNS解析器。</li>
 <li>本地DNS解析器将收到的IP地址返回给浏览器，并且还会将域名解析结果缓存在本地，以便下次访问时更快地响应</li>
 </ol>
-<ul>
+</li>
 <li><p>HTTP多个TCP连接怎么实现？？？<br>多个tcp连接是靠某些服务器对 Connection: keep-alive 的 Header 进⾏了⽀持。简⽽⾔<br>之，完成这个 HTTP 请求之后，不要断开 HTTP 请求使⽤的 TCP 连接。这样的好处是连接可以被重<br>新使⽤，之后发送 HTTP 请求的时候不需要重新建⽴ TCP 连接，以及如果维持连接，那么 SSL 的<br>开销也可以避免</p>
 </li>
 <li><p>TCP的三次握手和四次挥手<br>TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输.在建立TCP连接时，需要通过三次握手来建立，过程是:<br>1，客户端向服务端发送一个SYN<br>2，服务端接收到SYN后，给客户端发送一个SYN_ACK<br>3，客户端接收到SYN_ACK后，再给服务端发送一个ACK<br>在断开TCP连接时，需要通过四次挥手来断开，过程是<br>1，客户端向服务端发送FIN<br>2，服务端接收FN后，向客户燃发送AK，表示我接收到了断开连接的请求，客户端你可以不发数据了，不过服务端这边可能还有数据正在处理<br>3，服务端处理完所有数据后，向客户端发送FIN，表示服务端现在可以断开连接<br>4，客户端收到服务端的FIN，向服务端发送ACK，表示客户端也会断开连接了</p>
@@ -750,18 +738,16 @@
 <li><p>TCP 的 Keepalive 和 HTTP 的 Keep-Alive 是⼀个东⻄吗？<br>HTTP 的 Keep-Alive，是由应⽤层（⽤户态） 实现的，称为 HTTP ⻓连接；每次请求都要经历这样的过程：建⽴ TCP -&gt; 请求资源 -&gt; 响应资源 -&gt; 释放连接，这就是HTTP短连接，但是这样每次建⽴连接都只能请求⼀次资源，所以HTTP 的 Keep-Alive实现了使⽤同⼀个 TCP 连接来发送和接收多个 HTTP 请求&#x2F;应答，避免了连接建⽴和释放的开销，就就是 HTTP ⻓连接。<br>TCP 的 Keepalive，是由 TCP 层（内核态） 实现的，称为 TCP 保活机制；通俗地说，就是TCP有⼀个定时任务做倒计时，超时后会触发任务，内容是发送⼀个探测报⽂给对端，⽤来判断对端是否存活。</p>
 </li>
 <li><p>TCP连接如何确保可靠性</p>
-</li>
-</ul>
 <ol>
 <li>数据块⼤⼩控制： 应⽤数据被分割成TCP认为最合适发送的数据块，再传输给⽹络层，数据块被称为报⽂段或段。</li>
 <li>序列号： TCP给每个数据包指定序列号，接收⽅根据序列号对数据包进⾏排序，并根据序列号对数据包去重。</li>
 <li>校验和： TCP将保持它⾸部和数据的校验和。这是⼀个端到端的检验和，⽬的是检测数据在传输过程中的任何变化。如果收到报⽂的检验和有差错，TCP将丢弃这个报⽂段和不确认收到此报⽂段。</li>
-<li>流量控制： TCP连接的每⼀⽅都有固定⼤⼩的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收⽅来不及处理发送⽅的数据，能提示发送⽅降低发送的速率，防⽌<br>包丢失。TCP利⽤滑动窗⼝实现流量控制。</li>
+<li>流量控制： TCP连接的每⼀⽅都有固定⼤⼩的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收⽅来不及处理发送⽅的数据，能提示发送⽅降低发送的速率，防⽌<br>  包丢失。TCP利⽤滑动窗⼝实现流量控制。</li>
 <li>拥塞控制： 当⽹络拥塞时，减少数据的发送。</li>
 <li>确认应答： 通过 ARQ 协议实现。基本原理是每发完⼀个分组就停⽌发送，等待对⽅确认。如果没收到确认，会重发数据包，直到确认后再发下⼀个分组。</li>
 <li>超时重传： 当TCP发出⼀个数据段后，它启动⼀个定时器，等待⽬的端确认收到这个报⽂段。如果不能及时收到⼀个确认，将重发这个报⽂段。</li>
 </ol>
-<ul>
+</li>
 <li><p>既然提到了拥塞控制，那你能说说说拥塞控制是怎么实现的嘛<br>  拥塞控制算法主要有以下⼏种：</p>
 <ol>
 <li>慢启动：  在连接刚开始时，发送⽅会逐渐增加发送窗⼝⼤⼩，从⽽以指数增⻓的速度增加发送的数据量。</li>
