@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-67f3fa1a4ce861c87799a846cd661ef4_1440w.webp">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-03T14:37:53.402Z">
+<meta property="article:modified_time" content="2024-03-05T15:16:42.011Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -610,7 +610,7 @@
 <ul>
 <li>1.7中底层是数组+链表，1.8中底层是数组+链表+红黑树，加红黑树的目的是提高HashMap插入和查询整体效率</li>
 <li>1.7中链表插入使用的是头插法，1.8中链表插入使用的是尾插法，因为1.8中插入key和value时需要判断链表元素个数，所以需要遍历链表统计链表元素个数，所以正好就直接使用尾插法</li>
-<li>？？？1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源</li>
+<li>？？1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源</li>
 </ul>
 </li>
 <li><p>HashMap 和 HashTable 的区别<br>1、两者父类不同。HashMap是继承自AbstractMap类，而Hashtable是继承自Dictionary类。<br>不过它们都实现了同时实现了map、Cloneable（可复制）、Serializable（可序列化）这三个接口。<br>2、对外提供的接口不同。Hashtable比HashMap多提供了elments() 和contains() 两个方法。elments() 方法继承自Hashtable的父类Dictionnary。elements() 方法用于返回此Hashtable中的value的枚举。<br>3、对null的支持不同。Hashtable：key和value都不能为null。HashMap：key可以为null，但是这样的key只能有一个，因为必须保证key的唯一性；可以有多个key值对应的value为null。<br>4、安全性不同。HashMap是线程不安全的，在多线程并发的环境下，可能会产生死锁等问题，因此需要开发人员自己处理多线程的安全问题。Hashtable是线程安全的，它的每个方法上都有synchronized 关键字，因此可直接用于多线程中。<br>虽然HashMap是线程不安全的，但是它的效率远远高于Hashtable，这样设计是合理的，因为大部分的使用场景都是单线程。当需要多线程操作的时候可以使用线程安全的ConcurrentHashMap。ConcurrentHashMap虽然也是线程安全的，但是它的效率比Hashtable要高好多倍。因为ConcurrentHashMap使用了分段锁，并不对整个数据进行锁定。<br>5、初始容量大小和每次扩充容量大小不同<br>6、计算hash值的方法不同</p>
@@ -619,7 +619,7 @@
 <img src="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png" width="550" height="300" alt="">
 并且内部还有个 accessOrder 成员，默认是 false， 代表链表是顺序是按插入顺序来排的，如果是 true 则会根据访问顺序来进行调整，就是咱们熟知的 LRU 那种，如果哪个节点访问了，就把它移到最后，代表最近访问的节点。
 </li>
-<li><p>？？？TreeMap？<br>TreeMap的底层数据结构是红黑树，TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过实现 Comparable 接口或者自定义实现一个 comparator 传入构造函数，这样塞入的节点就会根据你定义的规则进行排序。如果comparator为null，那么就使用自然顺序 </p>
+<li><p>？？TreeMap？<br>TreeMap的底层数据结构是红黑树，TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过实现 Comparable 接口或者自定义实现一个 comparator 传入构造函数，这样塞入的节点就会根据你定义的规则进行排序。如果comparator为null，那么就使用自然顺序 </p>
 </li>
 <li><p>？？ConcurrentHashMap？</p>
 <ul>
@@ -672,10 +672,11 @@
 <li>“泛型” 意味着编写的代码可以被不同类型的对象所重用。<br> 以集合来举例，使用泛型的好处是我们不必因为添加元素类型的不同而定义不同类型的集合，如整型集合类，浮点型集合类，字符串集合类，而这并不是最重要的，因为这也只需把底层存储设置Object即可，添加的数据全部都可向上转型为Object。？？ 更重要的是我们可以通过规则按照自己的想法控制存储的数据类型。？</li>
 </ul>
 </li>
-<li><p>泛型类<br>泛型类的声明和非泛型类的声明类似，除了在类名后面添加了类型参数声明部分。和泛型方法一样，泛型类的类型参数声明部分也包含一个或多个类型参数，参数间用逗号隔开。一个泛型参数，也被称为一个类型变量，是用于指定一个泛型类型名称的标识符。因为他们接受一个或多个参数，这些类被称为参数化的类或参数化的类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Box</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T t;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(T t)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.t = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>类型通配符?<br>类 型 通 配 符 一 般 是 使 用 ? 代 替 具 体 的 类 型 参 数 。 例 如 List&lt;?&gt; 在 逻 辑 上 是List,List 等所有 List&lt;具体类型实参&gt;的父类。 </p>
+<li><p>泛型类</p>
+<ul>
+<li>泛型类的声明和非泛型类的声明类似，除了在类名后面添加了类型参数声明部分。和泛型方法一样，泛型类的类型参数声明部分也包含一个或多个类型参数，参数间用逗号隔开。一个泛型参数，也被称为一个类型变量，是用于指定一个泛型类型名称的标识符。因为他们接受一个或多个参数，这些类被称为参数化的类或参数化的类型。</li>
+<li>类型通配符 一般是 使用 ? 代替具体的类型参数。 例如 List&lt;?&gt; 在逻辑上是List, List 等所有 List&lt;具体类型实参&gt;的父类。   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Box</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T t;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(T t)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.t = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>类型擦除</p>
 <ul>
@@ -687,30 +688,36 @@
 <hr>
 
 <h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
+<li><p>“Java 跨平台”<br>因为有 JVM 屏蔽了底层操作系统。Java源代码会被编译为class文件，class文件运行在JVM之上。JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。安装JDK的时可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</p>
+</li>
 <li><p>Java 编译到执行的过程？</p>
 <ul>
-<li>“Java 跨平台”：因为有 JVM 屏蔽了底层操作系统。Java源代码会被编译为class文件，class文件运行在JVM之上。JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。安装JDK的时可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</li>
-<li>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行<ul>
-<li>「编译」java源代码 经过 语法分析、语义分析、注解处理 最后才生成会class文件。对泛型的擦除和Lombok就是在编译阶段干的。 </li>
-<li>「加载」又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析<ul>
+<li>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行</li>
+<li><strong>「编译」</strong>java源代码 经过 语法分析、语义分析、注解处理 最后才生成会class文件。对泛型的擦除和Lombok就是在编译阶段干的。 </li>
+<li><strong>「加载」</strong>又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析<ul>
+<li><strong>「装配」</strong>这个阶段做的事情可以总结为：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中 <ul>
 <li>【装载时机】为了节省内存的开销，并不会一次性把所有的类都装载至JVM，而是等到「有需要」的时候才进行装载（比如new和反射等等） 【装载发生】class文件是通过「类加载器」装载到jvm中的，为了防止内存中出现多份同样的字节码，使用了<strong>双亲委派机制</strong></li>
 <li>【装载规则】JDK 中的本地方法类一般由根加载器（Bootstrp loader）装载，JDK 中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
-<li>装载这个阶段它做的事情可以总结为：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中 </li>
-<li>「连接」这个阶段它做的事情可以总结为：对class的信息进行验证、为「类变量」分配内存空间并对其赋默认值。又可以细化为几个步骤：1. 验证：验证类是否符合 Java 规范和 JVM 规范 2. 准备：为类的静态变量分配内存，初始化为系统的初始值 3. 解析：将符号引用转为直接引用的过程 </li>
-<li>接下来就是「初始化」阶段了，可以总结为：为类的静态变量赋予正确的初始值。过程大概就是收集class的静态变量、静态代码块、静态方法至()方法，随后从上往下开始执行。如果「实例化对象」则会调用方法对实例变量进行初始化，并执行对应的构造方法内的代码。</li>
 </ul>
 </li>
-<li>「解释」则是把字节码转换成操作系统可识别的执行指令，在JVM中会有字节码解释器和即时编译器。在解释时会对代码进行分析，查看是否为「热点代码」，如果为「热点代码」则触发JIT编译，下次执行时就无需重复进行解释，提高解释速度<ul>
+<li><strong>「连接」</strong>这个阶段它做的事情可以总结为：对class的信息进行验证、为「类变量」分配内存空间并对其赋默认值。又可以细化为几个步骤：<ol>
+<li>验证：验证类是否符合 Java 规范和 JVM 规范 </li>
+<li>准备：为类的静态变量分配内存，初始化为系统的初始值 </li>
+<li>解析：将符号引用转为直接引用的过程</li>
+</ol>
+</li>
+<li><strong>「初始化」</strong>阶段可以总结为：为类的静态变量赋予正确的初始值。过程大概就是收集class的静态变量、静态代码块、静态方法至()方法，随后从上往下开始执行。如果「实例化对象」则会调用方法对实例变量进行初始化，并执行对应的构造方法内的代码。</li>
+</ul>
+</li>
+<li><strong>「解释」</strong>则是把字节码转换成操作系统可识别的执行指令，在JVM中会有字节码解释器和即时编译器。在解释时会对代码进行分析，查看是否为「热点代码」，如果为「热点代码」则触发JIT编译，下次执行时就无需重复进行解释，提高解释速度<ul>
 <li>JVM会对「热点代码」做编译，非热点代码直接进行解释。当JVM发现某个方法或代码块的运行特别频繁的时候，就有可能把这部分代码认定为「热点代码」。</li>
 <li>使用「热点探测」来检测是否为热点代码。「热点探测」一般有两种方式，计数器和抽样。HotSpot使用的是「计数器」的方式进行探测，为每个方法准备了两类计数器：方法调用计数器和回边计数器。这两个计数器都有一个确定的阈值，当计数器超过阈值溢出了，就会触发JIT编译。即时编译器把热点方法的指令码保存起来，下次执行的时候就无需重复的进行解释，直接执行缓存的机器语言。</li>
 </ul>
 </li>
-<li>「执行」 操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</li>
+<li><strong>「执行」</strong>操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>类加载器。<br>JDK自带有三个类加载器:bootstrap ClassLoader、ExtClassLoader、AppClassLoader.<br>BootStrapClassLoader是ExtClassLoader的父类加载器，默认负责加载%JAVA HOME%lib下的jar包和class文件ExtClassLoader是AppClassLoader的父类加载器，负贵加载%JAVA HOME%&#x2F;lib&#x2F;ext文件夹下的jar包和class类。AppClassLoader是自定义类加载器的父类，负贵加载classpath下的类文件。</p>
+<li><p>类加载器。<br>JDK自带有三个类加载器:bootstrap ClassLoader、ExtClassLoader、AppClassLoader.<br>BootStrapClassLoader是ExtClassLoader的父类加载器，默认负责加载%JAVA HOME%lib下的jar包和class文件<br>ExtClassLoader是AppClassLoader的父类加载器，负贵加载%JAVA HOME%&#x2F;lib&#x2F;ext文件夹下的jar包和class类。<br>AppClassLoader是自定义类加载器的父类，负贵加载classpath下的类文件。</p>
 </li>
 <li><p><strong>双亲委派模型</strong></p>
 <ul>
@@ -732,7 +739,7 @@
 </li>
 <li><p>JVM的内存结构？ <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv25819369/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv25819369/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 <ul>
-<li>前面提到了：class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」。而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」。简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+<li>.class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」。而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」。简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
 <li>要值得注意的是：这是JVM「规范」的分区概念，到具体的实现落地，不同的厂商实现可能是有所区别的。 </li>
 <li><strong>程序计数器</strong>：线程切换意味着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」。所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环、跳转、异常、线程恢复等都依赖于计数器）</li>
 <li><strong>虚拟机栈</strong>：每个线程在创建的时候都会创建一个「虚拟机栈」，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址。它的作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
@@ -748,6 +755,7 @@
 </ul>
 </li>
 <li><strong>堆</strong>：堆是线程共享的区域，几乎类的实例和数组分配的内存都来自于它。「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为 Eden 和 Survivor 区，最后 Survivor 由 From Survivor 和 To Survivor 组成。将「堆内存」分开了几块区域，主要跟「内存回收」有关（垃圾回收机制）</li>
+<li>JVM内存结构和Java内存模型有啥区别？<br>  没有啥直接关联，，Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层(Java层面上)在操作内存时在不同的平台上也有相同的效果；JVM内存结构（又称为运行时数据区域），它描述着当我们的class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担着什么作用。</li>
 </ul>
 </li>
 <li><p>jvm线程共享区？<br>线程共享：堆区和方法区<br>线程独有：栈、本地方法栈和程序计数器</p>
@@ -869,6 +877,7 @@
 <ol>
 <li><strong>QPS :</strong> 每秒查询数，表示系统在一秒内处理的查询或请求的数量。对于数据库、Web服务器等服务，QPS表示每秒处理的查询请求次数。</li>
 <li><strong>TPS:</strong> 每秒事务数，表示系统在一秒内处理的事务的数量。在分布式系统和事务性系统中，TPS是一个更为常见的指标，用于表示系统的事务处理能力。</li>
+<li><strong>KBS：</strong> 衡量系统每秒传输的数据量，通常用于评估网络或存储系统的性能。表示每秒传输的数据量为千字节。</li>
 <li><strong>RT :</strong> 响应时间，表示系统处理一个请求所花费的时间。通常以毫秒（ms）为单位。较低的响应时间通常表示系统性能较好，对用户体验更为友好。</li>
 <li><strong>吞吐量:</strong> 表示在单位时间内处理的数据量或请求总数。在性能测试中，吞吐量是一个综合指标，它同时考虑了系统的处理速度和响应时间。通常以每秒处理的请求数、事务数、或数据量为单位。</li>
 </ol>
