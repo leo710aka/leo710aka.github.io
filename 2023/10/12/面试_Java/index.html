@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-06T11:41:04.210Z">
+<meta property="article:modified_time" content="2024-03-06T14:35:32.420Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -539,26 +539,30 @@
 </li>
 <li><p><strong>ArrayList</strong><br>实现了动态扩容。当new ArrayList()时，默认会有一个大小为0，空的 Object[] 数组。<br>第一次add添加数据的时候，会给数组初始化一个默认值 <strong>10</strong> 的大小，并将元素添加到数组中。使用ArrayList在每一次add的时候，会先去计算数组空间；如果空间是够的，直接追加上去；如果不够，那就得扩容。<br>每一次扩容原来的 <strong>1.5倍</strong>，新容量的计算方式为(oldCapacity * 3)&#x2F;2 + 1 即原容量的1.5倍再加1，创建一个新的数组[newData]。然后使用System.arraycopy方法（底层为native方法实现）将旧数组[elementData]中的元素复制到新数组中。这是一个高效的底层数组拷贝操作，避免了逐个元素复制的开销。最后，将新数组[newData]替换为ArrayList的内部数组[elementData]。<br>日常开发中用得最多的是ArrayList呢：是由底层的数据结构来决定的，在日常开发中，<strong>遍历</strong>的需求比增删要多，即便是增删也是往往在List的尾部添加就OK了。像在尾部添加元素，ArrayList的时间复杂度也就O(1)。</p>
 </li>
+<li><p>LinkedList<br>基于链表实现的，对于增删操作来说，由于链表节点的指针调整相对比较简单，删除或添加一个节点的开销是 O(1) 的。但在进行遍历和随机访问时，由于链表的非连续存储，性能相对较差。因此，在实际场景中，ArrayList 在随机访问和遍历方面的性能通常比 LinkedList 更好，而在频繁的<strong>增删</strong>操作时，LinkedList 可能更具优势.<br>LinkedList 还实现了 DeQueue，可以对头尾元素操作，所以 LinkedList 也可以当作队列使用。</p>
+</li>
 <li><p>Array与ArrayList有什么不一样？<br>Array与ArrayList都是用来存储数据的集合。ArrayList底层是使用数组实现的，但是ArrayList对数组进行了封装和功能扩展，拥有许多原生数组没有的一些功能。我们可以理解成ArrayList是Array的一个升级版。</p>
 </li>
 <li><p>ArrayList 的 <code>remove</code> 方法使用。</p>
 <ol>
-<li>使用迭代器（Iterator）：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">        iterator.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>使用for-each 循环：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String element : list) &#123;</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">        list.remove(element);</span><br><span class="line">        <span class="keyword">break</span>; <span class="comment">// 避免 ConcurrentModificationException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>使用索引：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> list.get(i);</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">        list.remove(i);</span><br><span class="line">        i--; <span class="comment">// 由于移除了元素，需要调整索引</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用迭代器（Iterator）：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>))  iterator.remove(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用for-each 循环</li>
+<li>使用索引  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String element : list) &#123;</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">        list.remove(element);</span><br><span class="line">        <span class="keyword">break</span>; <span class="comment">// 避免 ConcurrentModificationException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">element</span> <span class="operator">=</span> list.get(i);</span><br><span class="line">    <span class="keyword">if</span> (element.equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">        list.remove(i);</span><br><span class="line">        i--; <span class="comment">// 由于移除了元素，需要调整索引</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
+</li>
+<li><p>ArrayList如何实现线程安全？</p>
+<ol>
+<li><strong>使用<code>Collections.synchronizedList</code>方法：</strong>这将返回一个线程安全的 <code>List</code> 包装器。通过这种方式，对 <code>synchronizedList</code> 的所有操作都会在内部被同步，从而确保线程安全。如果写入操作较为频繁，可能需要权衡使用 <code>synchronizedList</code> 或者其他并发集合类，具体根据业务需求来决定。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Type&gt; synchronizedList = Collections.synchronizedList(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Type&gt;());</span><br></pre></td></tr></table></figure></li>
+<li><strong>使用<code>CopyOnWriteArrayList</code>类：</strong><code>CopyOnWriteArrayList</code> 是 <code>java.util.concurrent</code> 包下的类，它通过在修改操作时复制整个数组来实现线程安全。这意味着在写入操作时，它会创建一个新的数组，从而不影响正在进行的读取操作。如果读取操作频繁而写入操作较少，<code>CopyOnWriteArrayList</code> 可能是更好的选择，因为它对于并发读取操作而言性能较好。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Type&gt; threadSafeList = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;Type&gt;();</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>CopyOnWriteArrayList的底层原理是怎样的<br>1，首先CopyOnWriteArraylst内部也是用过数组来实现的，在向CpyOnWriteAraist添加元素时，会复制一个新的数组，写操作在新数组上进行，读操作在原数组上行<br>2，并且，写操作会加锁，防止出现并发写入丢失数据的问题<br>3，写操作结束之后会把原数组指向新数组<br>4，CopyOnWriteArraylist允许在写操作时来读取数据，大大提高了读的性能，因此适合读多写少的应用场，但会占内存，同时可能读到的数据不是实时最新的教据（写线程操作结束后才能读到新数据），所以不适合实时性要求很高的场景</p>
 </li>
 <li><p>Vector 你了解吗？<br>Vector是底层结构是数组，一般现在已经很少用了。相对于ArrayList，它是线程安全的，在扩容的时候直接扩容两倍。<br>在Java中，Stack 类扩展了Vector，提供了一个后进先出（LIFO）的堆栈数据结构，其中元素的插入和删除都发生在堆栈的顶部。</p>
 </li>
-<li><p>LinkedList<br>基于链表实现的，对于增删操作来说，由于链表节点的指针调整相对比较简单，删除或添加一个节点的开销是 O(1) 的。但在进行遍历和随机访问时，由于链表的非连续存储，性能相对较差。因此，在实际场景中，ArrayList 在随机访问和遍历方面的性能通常比 LinkedList 更好，而在频繁的<strong>增删</strong>操作时，LinkedList 可能更具优势.<br>LinkedList 还实现了 DeQueue，可以对头尾元素操作，所以 LinkedList 也可以当作队列使用。</p>
-</li>
-<li><p>线程安全的List还有什么？<br>首先，我们也可以用Collections来将ArrayList来包装一下，变成线程安全。<br>在java.util.concurrent包下还有一个类，叫做<strong>CopyOnWriteArrayList</strong>，是一个线程安全的List，底层是通过复制数组的方式来实现的。在add()方法会加lock锁，然后会复制出一个新的数组，往新的数组里边add真正的元素，最后把array的指向改变为新的数组，get()方法又或是size()方法只是获取array所指向的数组的元素或者大小。读不加锁，写加锁。CopyOnWriteArrayList跟文件系统的COW机制是很像的。</p>
-</li>
-<li><p>？？？CopyOnWriteArrayList的底层原理是怎样的<br>1，首先CopyOnWriteArraylst内部也是用过数组来实现的，在向CpyOnWriteAraist添加元素时，会复制一个新的数组，写操作在新数组上进行，读操作在原数组上行<br>2，并且，写操作会加锁，防止出现并发写入丢失数据的问题<br>3，写操作结束之后会把原数组指向新数组<br>4，CopyOnWriteArraylist允许在写操作时来读取数据，大大提高了读的性能，因此适合读多写少的应用场，但会占内存，同时可能读到的数据不是实时最新的教据（写线程操作结束后才能读到新数据），所以不适合实时性要求很高的场景</p>
-</li>
 <li><p>set 集合<br>Set 注重独一无二的性质,该体系集合用于存储无序(存入和取出的顺序不一定相同)元素， 值不能重复。对象的相等性本质是对象 hashCode 值（java 是依据对象的内存地址计算出的此序号） 判断的， 如果想要让两个不同的对象视为相等的，就必须覆盖 Object 的 hashCode 方法和 equals 方法。</p>
 </li>
-<li><p>HashSet（ Hash 表）<br>哈希表边存放的是哈希值。 HashSet 存储元素的顺序并不是按照存入时的顺序（和 List 显然不同） 而是按照哈希值来存的所以取数据也是按照哈希值取得。<br>元素的哈希值是通过元素的hashcode 方法来获取的, HashSet 首先判断两个元素的哈希值，如果哈希值一样，接着会比较equals 方法 如果 equls 结果为 true ， HashSet 就视为同一个元素。如果 equals 为 false 就不是同一个元素。<br>哈希值相同 equals 为 false 的元素是怎么存储呢,就是在同样的哈希值下顺延（可以认为哈希值相同的元素放在一个哈希桶中）。也就是哈希一样的存一列。 </p>
+<li><p>HashSet（Hash 表）<br>哈希表边存放的是哈希值。 HashSet 存储元素的顺序并不是按照存入时的顺序（和 List 显然不同） 而是按照哈希值来存的所以取数据也是按照哈希值取得。<br>元素的哈希值是通过元素的hashcode 方法来获取的, HashSet 首先判断两个元素的哈希值，如果哈希值一样，接着会比较equals 方法 如果 equls 结果为 true ， HashSet 就视为同一个元素。如果 equals 为 false 就不是同一个元素。<br>哈希值相同 equals 为 false 的元素是怎么存储呢,就是在同样的哈希值下顺延（可以认为哈希值相同的元素放在一个哈希桶中）。也就是哈希一样的存一列。 </p>
 </li>
 <li><p>HashSet、HashMap 和 Hashtable 的关系。</p>
 <ul>
@@ -578,7 +582,7 @@
 </li>
 <li><p>？？？LinkHashSet（ HashSet+LinkedHashMap）<br>对于 LinkedHashSet 而言，它继承与 HashSet、又基于 LinkedHashMap 来实现的。LinkedHashSet 底层使用 LinkedHashMap 来保存所有元素，它继承与 HashSet，其所有的方法操作上又与 HashSet 相同，因此 LinkedHashSet 的实现上非常简单，只提供了四个构造方法，并通过传递一个标识参数，调用父类的构造器，底层构造一个 LinkedHashMap 来实现，在相关操作上与父类 HashSet 的操作相同，直接调用父类 HashSet 的方法即可。</p>
 </li>
-<li><p>Map 了解多少？<br>Map在Java里边是一个接口，常见的实现类有HashMap、LinkedHashMap、TreeMap和ConcurrentHashMap<br>在Java里边，哈希表的结构是数组+链表的方式。HashMap底层数据结构是数组+链表&#x2F;红黑树；LinkedHashMap是数组+链表&#x2F;红黑树+双向链表；TreeMap是红黑树；而ConcurrentHashMap是数组+链表&#x2F;红黑树 </p>
+<li><p>Map 了解多少？<br>Map在Java里边是一个接口，常见的实现类有 HashMap、LinkedHashMap、TreeMap 和 ConcurrentHashMap<br>在Java里边，哈希表的结构是数组+链表的方式。HashMap底层数据结构是数组+链表&#x2F;红黑树；LinkedHashMap是数组+链表&#x2F;红黑树+双向链表；TreeMap是红黑树；而ConcurrentHashMap是数组+链表&#x2F;红黑树 </p>
 </li>
 <li><p><strong>HashMap</strong></p>
 <ul>
@@ -597,24 +601,23 @@
 <li>hash 函数的优化：1.8后，在put元素的时候传递的Key，先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。相当于把高位和低位的特征进行组合，结果得到的数组位置的散列度一定会更高，可以增加了随机性，减少了碰撞冲突的可能性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><strong>put</strong>：首先对key做hash运算，计算出该key所在的index。如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。假设key是相同的，则替换到原来的值。最后判断哈希表如果满了，扩容。</li>
 <li><strong>get</strong>：还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突。假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。<br>  在HashMap中怎么判断一个元素是否相同？首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals()来判断该元素是否相同。如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals() || &#x3D;&#x3D; 都相同，那说明该元素是同一个。</li>
-</ul>
-</li>
-<li><p>HashMap <strong>扩容</strong><br>  rehash 的优化：默认是扩原来的2倍（因为HashMap的大小只能是2次幂），扩的是数组不是链表。</p>
-<ul>
-<li>1.7版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表上的每个元素<br>  3.取每个元素的key，并基于新数组长度，计算出每个元素在新数组中的下标<br>  4.将元素添加到新数组中去<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
-<li>1.8版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表或红黑树<br>  3.如果是链表，则直接将链表中的每个元素里新计算下标，并添加到新数组中去<br>  ？？4.如果是红黑树，则先遍历红黑树，先计算出红黑树中每个元素对应在新数组中的下标位置：统计每个下标位置的元素个数，如果该位置下的元素个数超过了8，则生成一个新的红黑树，并将根节点的添加到新数组的对应位置；如果该位置下的元素个数没有超过8，那么则生成一个链表，并将链表的头节点添加到新数组的对应位置<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
-</ul>
-</li>
-<li><p>Jdk1.7 到 Jdk1.8 HashMap 发生了什么变化(底层)?</p>
-<ul>
+<li>Jdk1.7 到 Jdk1.8 HashMap 发生了什么变化(底层)?<ul>
 <li>1.7中底层是数组+链表，1.8中底层是数组+链表+红黑树，加红黑树的目的是提高HashMap插入和查询整体效率</li>
 <li>1.7中链表插入使用的是头插法，1.8中链表插入使用的是尾插法，因为1.8中插入key和value时需要判断链表元素个数，所以需要遍历链表统计链表元素个数，所以正好就直接使用尾插法</li>
 <li>？？1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源</li>
 </ul>
 </li>
+</ul>
+</li>
+<li><p><strong>HashMap 扩容</strong> ：rehash 默认是扩原来的2倍（因为HashMap的大小只能是2次幂），扩的是数组不是链表。</p>
+<ul>
+<li>1.7版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表上的每个元素<br>  3.取每个元素的key，并基于新数组长度，计算出每个元素在新数组中的下标<br>  4.将元素添加到新数组中去<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
+<li>1.8版本：<br>  1.先生成新数组<br>  2.遍历老数组中的每个位置上的链表或红黑树<br>  3.如果是链表，则直接将链表中的每个元素里新计算下标，并添加到新数组中去<br>  ？？4.如果是红黑树，则先遍历红黑树，先计算出红黑树中每个元素对应在新数组中的下标位置：统计每个下标位置的元素个数，如果该位置下的元素个数超过了8，则生成一个新的红黑树，并将根节点的添加到新数组的对应位置；如果该位置下的元素个数没有超过8，那么则生成一个链表，并将链表的头节点添加到新数组的对应位置<br>  5.所有元素转移完了之后，将新数组赋值给HashMap对象的table属性</li>
+</ul>
+</li>
 <li><p>HashMap 和 HashTable 的区别<br>1、两者父类不同。HashMap是继承自AbstractMap类，而Hashtable是继承自Dictionary类。<br>不过它们都实现了同时实现了map、Cloneable（可复制）、Serializable（可序列化）这三个接口。<br>2、对外提供的接口不同。Hashtable比HashMap多提供了elments() 和contains() 两个方法。elments() 方法继承自Hashtable的父类Dictionnary。elements() 方法用于返回此Hashtable中的value的枚举。<br>3、对null的支持不同。Hashtable：key和value都不能为null。HashMap：key可以为null，但是这样的key只能有一个，因为必须保证key的唯一性；可以有多个key值对应的value为null。<br>4、安全性不同。HashMap是线程不安全的，在多线程并发的环境下，可能会产生死锁等问题，因此需要开发人员自己处理多线程的安全问题。Hashtable是线程安全的，它的每个方法上都有synchronized 关键字，因此可直接用于多线程中。<br>虽然HashMap是线程不安全的，但是它的效率远远高于Hashtable，这样设计是合理的，因为大部分的使用场景都是单线程。当需要多线程操作的时候可以使用线程安全的ConcurrentHashMap。ConcurrentHashMap虽然也是线程安全的，但是它的效率比Hashtable要高好多倍。因为ConcurrentHashMap使用了分段锁，并不对整个数据进行锁定。<br>5、初始容量大小和每次扩充容量大小不同<br>6、计算hash值的方法不同</p>
 </li>
-<li><p>LinkedHashMap？<br>LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表<br>LinkedHashMap 把 HashMap 的 Entry 加了两个指针：before 和 after。就是要把塞入的 Entry 之间进行关联，串成双向链表；有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序，而是插入有序。LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</p>
+<li><p>LinkedHashMap？<br>LinkedHashMap 底层结构是数组+链表+双向链表，实际上它继承了 HashMap，在 HashMap 的基础上维护了一个双向链表<br>LinkedHashMap 把 HashMap 的 Entry 加了两个指针：before 和 after。就是要把塞入的 Entry 之间进行关联，串成双向链表；有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序，而是插入有序。LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</p>
 <img src="https://yupi-picture-1256524210.cos.ap-shanghai.myqcloud.com/640-20230912141802980.png" width="550" height="300" alt="">
 并且内部还有个 accessOrder 成员，默认是 false， 代表链表是顺序是按插入顺序来排的，如果是 true 则会根据访问顺序来进行调整，就是咱们熟知的 LRU 那种，如果哪个节点访问了，就把它移到最后，代表最近访问的节点。
 </li>
@@ -668,7 +671,7 @@
 <li><p>Java 集合使用泛型的好处。</p>
 <ul>
 <li>可以确保类型安全，避免强制类型转换，提高代码的可读性和可维护性，能够在编译时错误检测。</li>
-<li>“泛型” 意味着编写的代码可以被不同类型的对象所重用。<br> 以集合来举例，使用泛型的好处是我们不必因为添加元素类型的不同而定义不同类型的集合，如整型集合类，浮点型集合类，字符串集合类，而这并不是最重要的，因为这也只需把底层存储设置Object即可，添加的数据全部都可向上转型为Object。？？ 更重要的是我们可以通过规则按照自己的想法控制存储的数据类型。？</li>
+<li>“泛型” 意味着编写的代码可以被不同类型的对象所重用。<br>  以集合来举例，使用泛型的好处是我们不必因为添加元素类型的不同而定义不同类型的集合，如整型集合类，浮点型集合类，字符串集合类，而这并不是最重要的，因为这也只需把底层存储设置Object即可，添加的数据全部都可向上转型为Object。？？ 更重要的是我们可以通过规则按照自己的想法控制存储的数据类型。？</li>
 </ul>
 </li>
 <li><p>泛型类</p>
@@ -689,10 +692,20 @@
 <h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
 <li><p>“Java 跨平台”<br>因为有 JVM 屏蔽了底层操作系统。Java源代码会被编译为class文件，class文件运行在JVM之上。JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。安装JDK的时可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</p>
 </li>
+<li><p>JVM 参数：</p>
+<ol>
+<li><strong>通用参数：</strong>   <code>-version</code>：显示Java版本信息。 <code>-help</code> 或 <code>-?</code>：显示命令行选项和使用信息。</li>
+<li><strong>堆相关参数：</strong>  <code>-Xms&lt;size&gt;</code>：设置初始堆大小。  <code>-Xmx&lt;size&gt;</code>：设置最大堆大小。 <code>-Xmn&lt;size&gt;</code>：设置年轻代的大小。<br>  <code>-XX:MaxPermSize=&lt;size&gt;</code>：设置持久代（Java 8之前）的最大大小。- <code>-XX:MaxMetaspaceSize=&lt;size&gt;</code>：设置元空间（Java 8及更高版本）的最大大小。</li>
+<li><strong>垃圾回收相关参数：</strong>    - <code>-XX:+UseSerialGC</code>：使用串行垃圾回收器。    - <code>-XX:+UseParallelGC</code>：使用并行垃圾回收器。<br>  <code>-XX:+UseConcMarkSweepGC</code>：使用CMS垃圾回收器。<code>-XX:+UseG1GC</code>：使用G1回收器。<code>-XX:+UseZGC</code>：使用ZGC</li>
+<li><strong>性能调优参数：</strong><br>  <code>-XX:ThreadStackSize=&lt;size&gt;</code>：设置线程堆栈大小。<br>  <code>-XX:CompileThreshold=&lt;threshold&gt;</code>：设置方法调用的编译阈值。<br>  <code>-XX:MaxGCPauseMillis=&lt;milliseconds&gt;</code>：设置垃圾回收最大停顿时间目标。</li>
+<li><strong>调试参数：</strong>   <code>-Xdebug</code>：开启远程调试。  <code>-Xrunjdwp:transport=dt_socket,address=&lt;address&gt;,server=y,suspend=n</code>：配置JDWP远程调试。 <code>-verbose:gc</code>：输出垃圾回收详细信息。</li>
+<li><strong>应用程序性能分析参数：</strong>    - <code>-javaagent:&lt;path-to-agent-jar&gt;</code>：启用Java代理，例如用于性能分析工具。</li>
+</ol>
+</li>
 <li><p>Java 编译到执行的过程？</p>
 <ul>
 <li>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行</li>
-<li><strong>「编译」</strong>java源代码 经过 语法分析、语义分析、注解处理 最后才生成会class文件。对泛型的擦除和Lombok就是在编译阶段干的。 </li>
+<li><strong>「编译」</strong>java源代码 经过 语法分析、语义分析、注解处理 最后才生成会class文件。对泛型的擦除和Lombok就在编译阶段。 </li>
 <li><strong>「加载」</strong>又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析<ul>
 <li><strong>「装配」</strong>这个阶段做的事情可以总结为：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中 <ul>
 <li>【装载时机】为了节省内存的开销，并不会一次性把所有的类都装载至JVM，而是等到「有需要」的时候才进行装载（比如new和反射等等） 【装载发生】class文件是通过「类加载器」装载到jvm中的，为了防止内存中出现多份同样的字节码，使用了<strong>双亲委派机制</strong></li>
@@ -1041,9 +1054,9 @@
 <li>使用建议：用构造器参数实现强制依赖，setter 方法实现可选依赖</li>
 </ol>
 </li>
-<li><p>？？？Spring 支持集中 bean scope（范围）？<br>Spring bean 支持 5 种 scope：<br>Singleton - 每个 Spring IoC 容器仅有一个单实例。<br>Prototype - 每次请求都会产生一个新的实例。<br>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。<br>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</p>
+<li><p>？？Spring 支持集中 bean scope（范围）？<br>Spring bean 支持 5 种 scope：<br>Singleton - 每个 Spring IoC 容器仅有一个单实例。<br>Prototype - 每次请求都会产生一个新的实例。<br>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。<br>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</p>
 </li>
-<li><p>？？？Spring bean 容器的生命周期是什么样的？<br>1、Spring 容器根据配置中的 bean 定义中实例化 bean。<br>2、Spring 使用依赖注入填充所有属性，如 bean 中所定义的配置。<br>3、如果 bean 实现BeanNameAware 接口，则工厂通过传递 bean 的 ID 来调用setBeanName()。<br>4、如果 bean 实现 BeanFactoryAware 接口，工厂通过传递自身的实例来调用 setBeanFactory()。<br>5、如果存在与 bean 关联的任何BeanPostProcessors，则调用 preProcessBeforeInitialization() 方法。<br>6、如果为 bean 指定了 init 方法（ 的 init-method 属性），那么将调用它。<br>7、最后，若存在与 bean 关联的任何 BeanPostProcessors，则将调用 postProcessAfterInitialization()方法。<br>8、如果 bean 实现DisposableBean 接口，当 spring 容器关闭时，会调用 destory()。<br>9、如果为bean 指定了 destroy 方法（ 的 destroy-method 属性），那么将调用它。</p>
+<li><p>？？Spring bean 容器的生命周期是什么样的？<br>1、Spring 容器根据配置中的 bean 定义中实例化 bean。<br>2、Spring 使用依赖注入填充所有属性，如 bean 中所定义的配置。<br>3、如果 bean 实现BeanNameAware 接口，则工厂通过传递 bean 的 ID 来调用setBeanName()。<br>4、如果 bean 实现 BeanFactoryAware 接口，工厂通过传递自身的实例来调用 setBeanFactory()。<br>5、如果存在与 bean 关联的任何BeanPostProcessors，则调用 preProcessBeforeInitialization() 方法。<br>6、如果为 bean 指定了 init 方法（ 的 init-method 属性），那么将调用它。<br>7、最后，若存在与 bean 关联的任何 BeanPostProcessors，则将调用 postProcessAfterInitialization()方法。<br>8、如果 bean 实现DisposableBean 接口，当 spring 容器关闭时，会调用 destory()。<br>9、如果为bean 指定了 destroy 方法（ 的 destroy-method 属性），那么将调用它。</p>
 </li>
 <li><p>说说SpringBean生命周期原理？<br>？？</p>
 <img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
@@ -1107,7 +1120,17 @@
 <li><p><strong>Spring AOP</strong><br>AOP(Aspect-Oriented Programming), 即 面向切面编程, 它与OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与OOP 不同的抽象软件结构的视角. 在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)<br>Spring AOP 解决的是 非业务代码抽取的问题。？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor。比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
 <img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
 </li>
-<li><p>？？？什么是 Aspect？<br>aspect 由 pointcount 和 advice 组成, 它既包含了横切逻辑的定义, 也包括了连接点的定义. Spring AOP 就是负责实施切面的框架, 它将切面所定义的横切逻辑编织到切面所指定的连接点中.<br>AOP 的工作重心在于如何将增强编织目标对象的连接点上, 这里包含两个工作:<br>1、如何通过 pointcut 和 advice 定位到特定的  joinpoint 上<br>2、如何在advice 中编写切面代码.<br>简单地认为, 使用 @Aspect 注解的类就是切面.</p>
+<li><p>AOP 可以用于的一些常见场景：</p>
+<ol>
+<li><strong>权限控制：</strong> AOP 可以用于在方法执行前或执行后添加权限控制的逻辑，例如检查用户是否有足够的权限执行某个操作。这样可以避免将权限检查逻辑散布在业务代码的各个地方。</li>
+<li><strong>事务控制：</strong>AOP 可以用于管理事务，例如在方法执行前开启事务，在方法执行后根据执行结果决定是提交事务还是回滚事务。这样可以确保事务的一致性和可靠性。</li>
+<li><strong>日志记录：</strong> AOP 可以用于添加日志记录逻辑，例如在方法执行前记录方法的输入参数，方法执行后记录返回结果。这样可以方便地进行日志管理和分析。</li>
+<li><strong>性能监控：</strong> AOP 可以用于添加性能监控逻辑，例如在方法执行前记录开始时间，在方法执行后记录结束时间，计算方法的执行时间。方便进行性能分析和优化。</li>
+<li><strong>异常处理：</strong> AOP 可以用于添加异常处理逻辑，例如捕获方法执行过程中的异常并进行统一处理。这样可以减少业务代码中的异常处理逻辑，提高代码的清晰度。</li>
+<li><strong>缓存管理：</strong> AOP 可以用于添加缓存管理逻辑，例如在方法执行前检查是否有缓存命中，如果有直接返回缓存结果，否则执行方法并将结果缓存起来。</li>
+</ol>
+</li>
+<li><p>？？什么是 Aspect？<br>aspect 由 pointcount 和 advice 组成, 它既包含了横切逻辑的定义, 也包括了连接点的定义. Spring AOP 就是负责实施切面的框架, 它将切面所定义的横切逻辑编织到切面所指定的连接点中.<br>AOP 的工作重心在于如何将增强编织目标对象的连接点上, 这里包含两个工作:<br>1、如何通过 pointcut 和 advice 定位到特定的  joinpoint 上<br>2、如何在advice 中编写切面代码.<br>简单地认为, 使用 @Aspect 注解的类就是切面.</p>
 </li>
 <li><p>什么是切点（JoinPoint），什么是通知（Advice）？<br>程序运行中的一些时间点, 例如一个方法的执行, 或者是一个异常的处理.在 Spring AOP 中, join point 总是方法的执行点。<br>特定 JoinPoint 处的 Aspect 所采取的动作称为 Advice。Spring AOP 使用一个 Advice 作为拦截器，在JoinPoint “周围”维护一系列的拦截器。</p>
 </li>
@@ -1148,7 +1171,7 @@
 </li>
 <li><p>为什么要用SpringBoot？</p>
 <ol>
-<li><strong>独立运行和简化部署：</strong> Spring Boot内嵌了各种servlet容器（如Tomcat、Jetty等），使得应用能够独立运行，无需打成war包部署到外部容器。通过打包成可执行的jar包，所有依赖包都在一个jar包内，简化了部署和运维。</li>
+<li><strong>独立运行和简化部署：</strong> Spring Boot内嵌了各种servlet容器（如Tomcat、Jetty、Undertow），使得应用能够独立运行，无需打成war包部署到外部容器。通过打包成可执行的jar包，所有依赖包都在一个jar包内，简化了部署和运维。</li>
 <li><strong>简化配置和自动配置：</strong> 使用<code>starter</code>启动器能够自动依赖其他组件，减少了Maven配置的繁琐性。Spring Boot根据当前类路径和jar包自动配置bean，例如，添加<code>spring-boot-starter-web</code>启动器即可拥有web功能，无需额外的配置。</li>
 <li><strong>无代码生成和XML配置：</strong> Spring Boot的配置过程中无需代码生成，也不需要XML配置文件，通过条件注解实现自动配置，进一步简化了项目配置。</li>
 <li><strong>应用监控和健康检测：</strong> Spring Boot提供了一系列端点用于监控服务和应用，实现健康检测等功能。</li>
