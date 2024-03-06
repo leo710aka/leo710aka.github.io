@@ -20,9 +20,8 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job4.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-67f3fa1a4ce861c87799a846cd661ef4_1440w.webp">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-05T15:16:42.011Z">
+<meta property="article:modified_time" content="2024-03-06T11:41:04.210Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -1133,21 +1132,11 @@
 </li>
 <li><p><strong>Spring MVC</strong> 框架。<br>Spring Web MVC 框架提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）<br>MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。</p>
 </li>
-<li><p>Spring MVC 流程<br>？？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
-<img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt="">
-？？？
-1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。
-2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。
-3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(...)方法）。
-4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。 
-5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；
-6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。
-7、 ViewResolver 结合 Model 和 View，来渲染视图。
-8、视图负责将渲染结果返回给客户端。
+<li><p>Spring MVC 流程<br>？？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt=""><br>1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。<br>2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。<br>3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(…)方法）。<br>4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。<br>5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；<br>6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。<br>7、 ViewResolver 结合 Model 和 View，来渲染视图。<br>8、视图负责将渲染结果返回给客户端。</p>
 </li>
 <li><p>请简述你对 Spring MVC 的理解。<br>SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。采用了 MVC 架构模式的思想，通过把 Model，View，Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件：<br>9 大重要的组件：p151<br>在 Spring MVC 的九大组件中，涉及到请求处理响应的核心组件分别是：HandlerMapping、HandlerAdapter、ViewResolver<br>具体调用分为以下几个步骤：1、HandlerMapping 回到调用 HandlerAdapter 2、HandlerAdapter 会返回 ModelAndView 3、ModelAndView 根据用户传入参数得到 ViewResolvers 4、ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染。注意：有大家最熟悉的两个类：ModelAndView 和 View 类并不属于 Spring MVC 九大组件之列。，？</p>
 </li>
-<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。这有助于提高性能和减少资源消耗。<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族，分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
+<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。有助于提高性能和减少资源消耗<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
 </li>
 <li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
 </li>
@@ -1159,27 +1148,29 @@
 </li>
 <li><p>为什么要用SpringBoot？</p>
 <ol>
-<li>独立运行：Spring Boot而且内嵌了各种servlet容器，ToTomcat、Jetty等，现在不再需要打成war包部署到容器中，Spring Boot只要打成一个可执行的jar包就能独立运行，所有的依赖包都在一个jar包内。</li>
-<li>简化配置：spring-boot-starter启动器自动依赖其他组件，简少了maven的配置。避免大量的 Maven 导入和各种版本冲突。</li>
-<li>自动配置：Spring Boot能根据当前类路径下的类、jar包来自动配置bean，如添加一个spring-boot-starter-web启动器就能拥有web的功能，无需其他配置。</li>
-<li>无代码生成和XML配置：Spring Boot配置过程中无代码生成，也无需XML配置文件就能完成所有配置工作，这一切都是借助于条件注解完成的，这也是Spring4.x的核心功能之一。</li>
-<li>应用监控：Spring Boot提供一系列端点可以监控服务及应用，做健康检测</li>
-<li>？？？以及 Spring Boot 的优点还有：<br>  1、减少开发，测试时间和努力。<br>  2、使用 JavaConfig 有助于避免使用 XML。<br>  4、提供意见发展方法。<br>  5、通过提供默认值快速开始开发。<br>  7、需要更少的配置 因为没有 web.xml 文件。只需添加用@ Configuration 注释的类，然后添加用@Bean 注释的方法，Spring 将自动加载对象并像以前一样对其进行管理。您甚至可以将@Autowired 添加到 bean 方法中，以使 Spring 自动装入需要的依赖关系中。<br>  8、基于环境的配置 使用这些属性，您可以将您正在使用的环境传递到应用程序：-Dspring.profiles.active &#x3D; {enviornment}。在加载主应用程序属性文件后，Spring 将在（application{environment} .properties）中加载后续的应用程序属性文件。</li>
+<li><strong>独立运行和简化部署：</strong> Spring Boot内嵌了各种servlet容器（如Tomcat、Jetty等），使得应用能够独立运行，无需打成war包部署到外部容器。通过打包成可执行的jar包，所有依赖包都在一个jar包内，简化了部署和运维。</li>
+<li><strong>简化配置和自动配置：</strong> 使用<code>starter</code>启动器能够自动依赖其他组件，减少了Maven配置的繁琐性。Spring Boot根据当前类路径和jar包自动配置bean，例如，添加<code>spring-boot-starter-web</code>启动器即可拥有web功能，无需额外的配置。</li>
+<li><strong>无代码生成和XML配置：</strong> Spring Boot的配置过程中无需代码生成，也不需要XML配置文件，通过条件注解实现自动配置，进一步简化了项目配置。</li>
+<li><strong>应用监控和健康检测：</strong> Spring Boot提供了一系列端点用于监控服务和应用，实现健康检测等功能。</li>
+<li><strong>减少开发、测试时间和努力：</strong> 提供快速启动开发的默认值，减少了开发和测试的时间和工作量。</li>
+<li><strong>使用JavaConfig避免XML配置：</strong> 倡导使用JavaConfig替代XML配置，提高了代码的可读性和维护性。</li>
+<li><strong>提供意见发展方法：</strong> Spring Boot提供了一套推荐的开发方法，使得团队更容易达成共识，提高了代码的一致性和规范性。</li>
+<li><strong>基于环境的配置：</strong> 支持基于环境的配置，通过传递环境参数（例如<code>-Dspring.profiles.active=&#123;environment&#125;</code>），可以在不同环境中灵活配置应用程序。</li>
 </ol>
 </li>
 <li><p>如何创建 Spring Boot Projects ？</p>
 <ul>
 <li>Spring Initiatlizr 让创建 Spring Boot 项目变的很容易，通过 start.spring.io 创建。</li>
-<li>手动设置一个 Maven 项目为 Spring Boot 项目：</li>
-</ul>
-<ol>
+<li>手动设置一个 Maven 项目为 Spring Boot 项目：<ol>
 <li><strong>添加 Spring Boot 依赖：</strong> 在 Maven 项目的 <code>pom.xml</code> 文件中，添加 Spring Boot 的依赖。通常，你可以添加 <code>spring-boot-starter</code> 或其他特定的 Starter 依赖，具体依赖根据项目需求而定。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Spring Boot Starter 依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>添加 Spring Boot 插件：</strong>在 <code>pom.xml</code> 中，添加 Spring Boot Maven 插件。这个插件用于打包和运行 Spring Boot 应用程序。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>添加 Spring Boot 插件：</strong>在 <code>pom.xml</code> 中添加 Spring Boot Maven 插件。插件用于打包和运行 Spring Boot 应用程序。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li><strong>创建 Spring Boot 主类：</strong> 在项目中创建一个包含 <code>main</code> 方法的主类，该类用于启动 Spring Boot 应用程序。这个类通常被注解为 <code>@SpringBootApplication</code>。</li>
 <li><strong>添加其他 Spring Boot 配置：</strong> 根据项目需求，配置其他 Spring Boot 特性，如数据源、JPA、Web 支持等。可以通过配置文件（<code>application.properties</code> 或 <code>application.yml</code>）或 Java 配置类进行配置。</li>
 </ol>
 </li>
-<li><p>Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？<br>启动类上面的注解是 @SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下3个注解：<br>@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。<br>@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能：@SpringBootApplication(exclude &#x3D; { DataSourceAutoConfiguration.class })。<br>@ComponentScan：Spring组件扫描</p>
+</ul>
+</li>
+<li><p>Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？<br>启动类上面的注解是 @SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下3个注解：<br>1、@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。<br>2、@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能：@SpringBootApplication(exclude &#x3D; { DataSourceAutoConfiguration.class })。<br>3、@ComponentScan：Spring组件扫描</p>
 </li>
 <li><p>Spring Boot中常用注解及其底层实现</p>
 <ul>
@@ -1307,6 +1298,9 @@
 <li><p>最后聊下你是怎么看这块源码的？？？<br>思路：我先从启动类开始，会有个@SpringBootApplication，后面会定位到一个自动配置的注解@EnableAutoConfiguration，那最后就能看到注解内部会去META-INF&#x2F;spring.factories加载配置类</p>
 </li>
 </ul>
+<hr>
+
+
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><ul>
 <li><p>什么是 Spring Cloud？<br>Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。 </p>
 </li>
@@ -1339,17 +1333,6 @@
 <li><p>什么是 Ribbon负载均衡？<br>1.Spring Cloud Ribbon是基于Netflix Ribbon实现的一套客户端 负载均衡的工具。<br>2.Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器。我们也很容易使用Ribbon实现自定义的负载均衡算法。</p>
 </li>
 <li><p>，，</p>
-</li>
-</ul>
-<h2 id="（项目（mini-spring））"><a href="#（项目（mini-spring））" class="headerlink" title="（项目（mini spring））"></a>（项目（mini spring））</h2><ul>
-<li><p>Spring框架所要实现的核心功能<br>IoC（Inversion of Control）：控制反转，控制是对创建对象的行为的控制，反转是指不由程序里来进行创建，而是反过来交给框架来进行创建。在Spring中大部分情况下你不需要用new来创建对象，而是定义Bean、Component，由框架进行创建和依赖的注入(DI, Dependency Injection)。<br>AOP（Aspect Oriented Programming）：面向切面编程，这个也是在Spring应用开发中高频使用的功能。AOP是针对Bean运行时的一个功能，核心是拦截目标Bean的方法调用，从而达成在方法调用前后运行指定的逻辑。<br>Web MVC：作为Spring应用，最基本的功能便是可以对外提供Rest服务。没有这个功能，SpringBoot也无法做到现在这样的开箱即用。<br>SpringBoot：既然我们在上面提到了“开箱即用”这个词，那必然不得不提到SpringBoot。单单仅实现Spring框架确实已经可以开发Web应用了，但没有Boot的话，另外要做的事情不免也有点繁杂，包括要另外安装Tomcat，打下来的war包也需要移到指定的文件夹里。所以Boot不可否认也是现在很重要的Spring的核心功能之一了。</p>
-</li>
-<li><p>IoC概述&amp;骨架搭建 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661167670">https://zhuanlan.zhihu.com/p/661167670</a></p>
-<ul>
-<li>首先我们知道，IoC模块核心就是要创建和管理对象（在Spring里我们把这里的对象称为Bean）。在创建对象的过程中，我们又需要把对象的依赖（依赖往往也是Bean，或者是配置的Property）自动注入到当前Bean上。在这里我们就可以把要做的事情分为两个部分：<br>  <strong>1、对我们指定包下（通常由@ComponentScan来确定）做一个扫描，获取其中所有被指定为Bean的类型或方法（通常由@Bean、@Component等注解来指定）</strong><br>  <strong>2、将上一步中所有扫描出来的类型或方法进行实例化，同时自动完成依赖的注入</strong><br>  参考Spring的做法，我们将IoC用于管理Bean的核心类命名为ApplicationContext。ApplicationContext需要做的就是以上的两件事情。那要实现上面的两件事情，我们需要一个可以扫描指定包下所有类文件的组件ResourceResolver，和一个可以获取所有配置的组件PropertyResolver，来更优雅地对我们包内的资源进行扫描和获取。<br>  于是，我们要实现的整体内容框架就有了，如下图所示：<img src="https://pic1.zhimg.com/80/v2-67f3fa1a4ce861c87799a846cd661ef4_1440w.webp"></li>
-<li>IoC骨架实现<br>  我们不妨从一个更宏观的层面开始实现我们的功能。现在想象你就是Spring的架构师，要实现这样一个IoC的功能，你会怎么设计ApplicationContext这个核心类？首先，不能忘记我们第一件要做的大事是什么：扫描所需的类和配置。我们需要有一个类来作为我们扫描的一个锚点，即我们清楚地知道这个类必然含有@ComponentScan注解，并可以根据这个注解去做扫描。于是我们先如此这般开始：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AnnotationConfigApplicationContext</span> &#123;</span><br><span class="line">    <span class="comment">// 实现构造函数，入参即为锚点类</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AnnotationConfigApplicationContext</span><span class="params">(Class&lt;?&gt; configClass)</span> &#123;</span><br><span class="line">        <span class="comment">// 扫描获取所有类型名</span></span><br><span class="line">        Set&lt;String&gt; beanClassNames = scanForClassNames(configClass);</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 后续操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Set&lt;String&gt; <span class="title function_">scanForClassNames</span><span class="params">(Class&lt;?&gt; configClass)</span> &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 获取类上的ComponentScan注解</span></span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 使用ComponentScan注解中的信息，对对应包下内容进行扫描，并得到符合条件的类名</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-，，，</li>
-</ul>
 </li>
 </ul>
 <hr>
