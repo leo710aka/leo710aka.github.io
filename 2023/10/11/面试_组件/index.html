@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-06T14:30:36.676Z">
+<meta property="article:modified_time" content="2024-03-07T07:28:58.547Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -964,7 +964,13 @@
 <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><ul>
 <li><p>绝对路径用什么符号表示？当前目录、上层目录用什么表示？主目录用什么表示? 切换目录用什么命令？<br>绝对路径： 如&#x2F;etc&#x2F;init.d<br>当前目录和上层目录： .&#x2F; ..&#x2F;<br>主目录： ~&#x2F;<br>切换目录： cd</p>
 </li>
-<li><p>Linux 下命令有哪几种可使用的通配符？分别代表什么含义?<br>“?” 可替 代单个字符。<br>“*” 可替 代任意多个字符。<br>方括号 “[charset]” 可替代 charset 集中 的任何单个字符， 如 [a-z]， [abABC]</p>
+<li><p>Linux 下命令有哪几种可使用的通配符？分别代表什么含义?</p>
+<ul>
+<li>“?” 可替代单个字符。例如，file?.txt 可以匹配 file1.txt、fileA.txt 等。</li>
+<li>“*” 可替代任意多个字符。例如，<code>*.txt</code> 可以匹配所有以 .txt 结尾的文件。</li>
+<li>方括号 “[charset]” 可替代 charset 集中 的任何单个字符，例如 file[123].txt 可以匹配 file1.txt、file2.txt、file3.txt。</li>
+<li><code>[a-zA-Z]+:[ ]+[0-9]*</code> 代表：匹配一个或多个字母（大小写不敏感）、冒号、至少一个空格，然后是零个或多个数字。<br>  例子：<code>Example: 123</code>、<code>abc:   </code>。</li>
+</ul>
 </li>
 <li><p>常用 linux 命令。<br>执行退出： exit<br>列出文件列表：ls[参数] -a 所有文件; -l 详细信息，包括大小字节数，可读可写可执行的权限等<br>用于显示文件后几行内容：tail，例如： tail -n 1000：显示最后1000行<br>打包：tar -xvf；打包并压缩：tar -zcvf<br>查找字符串：grep<br>显示当前所在目录：pwd<br>创建空文件：touch<br>编辑器：vim vi<br>查看用过的命令列表：history</p>
 </li>
