@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-08T17:30:35.403Z">
+<meta property="article:modified_time" content="2024-03-09T03:32:38.320Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -205,8 +205,6 @@
 </li>
 <li><p>为什么选择 B+Tree 而不是红黑树？<br>红黑树等平衡树也可以用来实现索引,但是文件系统及数据库系统,普遍采用 B+ Tree作为索引结构这是因为使用 B+ tree 访问磁盘数据有更高的性能。我主要从两个点来回答<br>第一点：对于一个数据库来说 存储的数据量会比较多，导致索引也很大 因此需要将索引存储在磁盘，但是磁盘的 IO 操作又非常耗，所以提高索引效率的关键在于减少磁盘 IO 的次数。相同节点个数 的 B+Tree 的高度更小，树的高度基本决定了磁盘的 IO 次数 ，所以使用 B+Tree 性能要高很多<br>第二点：B+Tree 有个特点是相邻的数据在物理上也是相邻的，因为 B+Tree 的 node 的大小设为一个页，而一个节点上存有多个相邻的关键字和分支信息，每个节点只需要一次 IO就能完全载入，相当于一次 IO 载入了多个相邻的关键字和分支，而红黑树不具有这个特性，红黑树中大小相邻的数据，在物理结构上可能距离相差很大。由于程序的局部性原理，如果我们在索引中采用了预加载的技术，每次磁盘访问的时候除了将访问到的页加载到磁盘，我们还可以基于局部性原理加载，几页相邻的数据到内存中，而这个加载是不需要消耗多余磁盘 IO 时间的。<br>因此 基于局部性原理，以及 B+Tree 存储结构物理上的特性，所以 B+Tree 的索引性能比红黑树要好很多。</p>
 </li>
-<li><p>MySQL 索引失效的几种情况<br>1、OR 语句前后没有同时使用索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。<br>2、复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。<br>3、like以%开头；模糊匹配<br>4、需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。<br>5、where中索引列有数学运算。<br>6、where中索引列使用了函数。<br>7、如果mysql觉得全表扫描更快时（数据少）。</p>
-</li>
 <li><p>在数据库的表上建立了 <code>(time DESC, name DESC)</code> 的复合索引，什么情况下失效&#x2F;生效？</p>
 <ol>
 <li><strong>索引生效的情况：</strong><ul>
@@ -221,6 +219,17 @@
 </li>
 </ol>
 </li>
+<li><p>MySQL 索引失效的几种情况</p>
+<ol>
+<li>OR 语句前后没有同时使用索引。要想使用or，又想让索引生效，只能将or条件中的每个列都加上索引。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="operator">!</span><span class="comment">-- 生效的情况 --&gt;</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> <span class="type">time</span> <span class="operator">&gt;</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="keyword">OR</span> name <span class="operator">=</span> <span class="string">&#x27;John&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">!</span><span class="comment">-- 不生效的情况 --&gt;</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> <span class="type">time</span> <span class="operator">&gt;</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="keyword">OR</span> other_column <span class="operator">=</span> <span class="string">&#x27;some_value&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>复合索引未用左列字段。对于复合索引，如果不使用前列，后续列也将无法使用。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;John&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>like以%开头；模糊匹配  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%John&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>需要类型转换。存在索引列的数据类型隐形转换，则用不上索引。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> <span class="built_in">CAST</span>(<span class="type">time</span> <span class="keyword">AS</span> <span class="type">VARCHAR</span>) <span class="operator">=</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>where中索引列有数学运算。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> <span class="type">time</span> <span class="operator">*</span> <span class="number">2</span> <span class="operator">=</span> <span class="string">&#x27;2022-01-01&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>where中索引列使用了函数。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> your_table <span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(<span class="type">time</span>) <span class="operator">=</span> <span class="number">2022</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">time</span> <span class="keyword">DESC</span>, name <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></li>
+<li>如果mysql觉得全表扫描更快时（数据少）。</li>
+</ol>
+</li>
 <li><p>联合索引（Composite Index）</p>
 <ul>
 <li>也称为复合索引，是指同时包含多个列的索引，它可以更加精确地定位数据，提高查询的效率。<br>  通常情况下，一个表中可能存在多个需要经常用于查询的列，使用联合索引可以将这些列组合起来，建立一个复合索引。在查询时，如果查询条件同时包含联合索引中的多个列，数据库可以直接使用索引定位到符合条件的行，避免了全表扫描，提高了查询效率。<br>  需要注意的是，在使用联合索引时，需要考虑索引的顺序。通常情况下，应该将最常用于查询的字段放在索引的前面，这样可以更加有效地利用索引。另外，联合索引也存在一些限制。由于索引是按照索引列的顺序建立的，因此只有在查询条件中包含索引的最左侧的列时，MySQL 才能利用这个索引。如果查询条件中包含的列不是索引的最左侧列，那么 MySQL 就无法使用这个索引。<br>  此外，由于联合索引包含多个列，因此其维护成本也相对较高。如果经常更新其中一个列的值，可能会导致索引的重建，影响数据库的性能。因此，在建立联合索引时，应该根据具体的应用场景，权衡利弊，避免滥用。</li>
@@ -229,13 +238,32 @@
 <li>联合索引的作用？<br>  1、减少io操作的开销和磁盘空间的开销；<br>  2、提升性能。索引列越多，通过索引筛选出的数据越少。<br>  3、覆盖索引。直接通过遍历索引取得数据，无需回表。<br>  提高查询效率：联合索引可以加速对多列数据的查询，对于联合索引中包含的列，可以同时使用它们进行筛选，减少了查询的数据量，提高了查询效率。<br>  减少磁盘IO：联合索引可以将多个列的数据存储在一起，减少了需要读取的磁盘块数，从而降低了IO的开销。<br>  优化排序操作：如果查询需要按照联合索引中的多个列进行排序，联合索引可以避免对多个独立索引的排序操作，从而提高排序操作的效率</li>
 </ul>
 </li>
-<li><p>简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件。普通索引允许被索引的数据列包含重复的值。如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。也就是说，唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，主键用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。</p>
+<li><p>简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件。普通索引允许被索引的数据列包含重复的值。<br>如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。</p>
 </li>
-<li><p>SQL优化<br>1、查询语句中不要使用select *<br>2、尽量减少子查询，使用关联查询（left join,right join,inner join）替代<br>3、减少使用 IN 或者 NOT IN，使用exists，not exists或者关联查询语句替代<br>4、or 的查询尽量用 union 或者union all 代替(在确认没有重复数据或者不用剔除重复数据时，union all会更好)<br>5、应尽量避免在 where 子句中使用 !&#x3D; 或 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描。<br>6、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</p>
+<li><p>SQL 优化？</p>
+<ul>
+<li>优化查询语句、、<ol>
+<li><strong>选择需要的列而不是使用 <code>SELECT *</code>：</strong></li>
+<li><strong>减少子查询，使用关联查询：</strong>   尽量使用关联查询（LEFT JOIN、RIGHT JOIN、INNER JOIN）替代子查询，以提高查询效率。使用 JOIN 操作来代替手动创建的临时表，提高查询效率。</li>
+<li><strong>避免使用 IN 或 NOT IN，使用 EXISTS 或关联查询：</strong>  以提高查询性能。</li>
+<li><strong>使用 UNION 或 UNION ALL 代替 OR 查询：</strong>  特别是当确定没有重复数据时，使用 UNION ALL 更为效率。</li>
+<li><strong>避免在 WHERE 子句中使用 !&#x3D; 或 &lt;&gt; 操作符：</strong>  以免引擎放弃使用索引而进行全表扫描。</li>
+<li><strong>避免在 WHERE 子句中对字段进行 NULL 值判断：</strong>可以设置默认值或使用其他方式，以免引擎放弃使用索引而进行全表扫描。如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</li>
+<li><strong>选择合适的字段属性：</strong>   选择最适用的字段属性，尽可能减少定义字段宽度，设置合适的数据类型。尽量把字段设置 NOTNULL，例如’省份’、’性别’最好适用 ENUM</li>
+</ol>
 </li>
-<li><p>MySQL慢查询如何优化？<br>1、检查是否走了索引，如果没有则优化SQL利用索引<br>2、检查所利用的索引，是否是最优索引<br>3、检查所查字段是否都是必须的，是否查询了过多字段，查出了多余数据<br>4、检查表中数据是否过多，是否应该进行分库分表了<br>5、检查数据库实例所在机器的性能配置，是否太低，是否可以适当增加资源</p>
+<li>基于索引查询、、<ol>
+<li>为常用的查询条件和连接条件创建索引，以加速查询速度。确保数据库引擎能够充分利用索引。</li>
+<li><strong>避免对索引列进行函数或运算：</strong>   尽量避免在索引列上使用函数或运算，以确保索引的有效使用。</li>
+<li><strong>WHERE 子句中的 LIKE 使用 % 放在右边：</strong>   在使用 LIKE 操作时，尽量将 % 放在右边，以便索引的有效使用。</li>
+<li><strong>尽量使用 SQL 语句用到的索引完成排序：</strong>  避免使用文件排序的方式。</li>
+</ol>
 </li>
-<li><p>优化数据库的方法<br>1、选取最适用的字段属性，尽可能减少定义字段宽度，尽量把字段设置 NOTNULL，例如’省份’、’性别’最好适用 ENUM<br>2、使用连接(JOIN)来代替子查询<br>3、适用联合(UNION)来代替手动创建的临时表<br>4、事务处理<br>5、锁定表、优化事务处理<br>6、适用外键，优化锁定表<br>7、建立索引<br>8、优化查询语句</p>
+<li>数据库事务<ol>
+<li><strong>事务处理和锁定表优化：</strong>    合理使用事务处理，避免锁定表的情况，以提高数据库并发性能。</li>
+</ol>
+</li>
+</ul>
 </li>
 <li><p>MySQL 优化？</p>
 <ul>
@@ -243,19 +271,17 @@
 <li>架构设计层面的优化<br>  MySQL 是一个磁盘 IO 访问量非常频繁的关系型数据库，在高并发和高性能的场景中承受巨大的并发压力，<br>  1、搭建 Mysql 主从集群，单个 Mysql 服务容易单点故障，一旦服务器宕机，将会导致依赖 Mysql 数据库的应用全部无法响应。 主从集群或者主主集群可以保证服务的高可用性。<br>  2、读写分离设计，在读多写少的场景中，通过读写分离的方案，可以避免读写冲突导致的性能影响？？<br>  3、引入分库分表机制，通过分库可以降低单个服务器节点的 IO 压力，通过分表的方式可以降低单表数据量，从而提升 sql 查询的效率。<br>  4、针对热点数据，可以引入更为高效的分布式数据库，比如 Redis、MongoDB 等，他们可以很好的缓解 Mysql 的访问压力，同时还能提升数据检索性能。</li>
 <li>MySQL 程序配置优化<br>  对于 Mysql 数据库本身的优化，一般是通过 Mysql 中的配置文件 my.cnf 来完成的，比如。<br>  Mysql5.7 版本默认的最大连接数是 151 个，这个值可以在 my.cnf 中修改。binlog 日志，默认是不开启。缓存池 bufferpoll 的默认大小配置等。<br>  由于这些配置一般都和用户安装的硬件环境以及使用场景有关系，因此这些配置官方只会提供一个默认值，具体情况还得由使用者来修改。<br>  关于配置项的修改，需要关注两个方面。1. 配置的作用域，分为会话级别和全局；2. 是否支持 热加载<br>  因此，针对这两个点，我们需要注意的是：1. 全局参数的设定对于已经存在的会话无法生效; 2. 会话参数的设定随着会话的销毁而失效; 3. 全局类的统一配置建议配置在默认配置文件中，否则重启服务会导致配置失效</li>
 <li>表结构和索引的优化<br>  主要可以下面这些方面去优化分库分表、读写分离、为字段选择合适的数据类型、适当的反范式设计，适当冗余设计、为查询操作创建必要的索引但是要避免索引滥用、尽可能使用 Not Null。</li>
-<li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.<br>  避免使用 SELECT *查询。尽可能使用索引扫描来排序。</li>
+<li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
 </ul>
 </li>
-<li><p>常见的 SQL 优化规则<br>SQL 的查询一定要基于索引来进行数据扫描<br>避免索引列上使用函数或者运算,这样会导致索引失效<br>？？where 字句中 like %号,尽量放置在右边<br>使用索引扫描,联合索引中的列从左往右,命中越多越好.<br>？？尽可能使用 SQL 语句用到的索引完成排序,避免使用文件排序的方式<br>查询有效的列信息即可.少用 * 代替列信息<br>？？永远用小结果集驱动大结果集。</p>
-</li>
-<li><p>什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录外，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录外，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
+<li><p>什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
 </li>
 <li><p>？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
-<li><p>？？部分依赖和传递依赖。</p>
+<li><p>部分依赖和传递依赖。</p>
 <ol>
-<li><strong>部分依赖（Partial Dependency）：</strong><br>  部分依赖发生在一个表的主键（Primary Key）中包含了多个字段，但是其中的某些字段并不完全依赖于主键的所有部分。简言之，某个非主键字段只依赖于主键的一部分。<br>  举例：考虑一个订单表，主键是订单号和商品编号（OrderID, ProductID），如果订单表中还有商品名称（ProductName），而商品名称仅依赖于商品编号而不依赖于订单号，那么商品名称对于订单表来说就是一个部分依赖。</li>
-<li><strong>传递依赖（Transitive Dependency）：</strong><br>  传递依赖发生在一个非主键字段依赖于其他非主键字段，而这些其他非主键字段又依赖于主键。简言之，某个非主键字段依赖于其他非主键字段，而这些其他字段依赖于主键。<br>  举例：考虑一个员工表，主键是员工编号（EmployeeID），而表中包含了部门编号（DepartmentID）和部门名称（DepartmentName）。如果部门名称依赖于部门编号，而部门编号又依赖于员工编号，那么部门名称对于员工表来说就是一个传递依赖。</li>
+<li><strong>部分依赖：</strong>发生在一个表的主键（Primary Key）中包含了多个字段，但是其中的某些字段并不完全依赖于主键的所有部分。简言之，某个非主键字段只依赖于主键的一部分。<br>  举例：考虑一个订单表，主键是订单号和商品编号（OrderID, ProductID），如果订单表中还有商品名称（ProductName），而商品名称仅依赖于商品编号而不依赖于订单号，那么商品名称对于订单表来说就是一个部分依赖。</li>
+<li><strong>传递依赖：</strong>发生在一个非主键字段依赖于其他非主键字段，而这些其他非主键字段又依赖于主键。简言之，某个非主键字段依赖于其他非主键字段，而这些其他字段依赖于主键。<br>  举例：考虑一个员工表，主键是员工编号（EmployeeID），而表中包含了部门编号（DepartmentID）和部门名称（DepartmentName）。如果部门名称依赖于部门编号，而部门编号又依赖于员工编号，那么部门名称对于员工表来说就是一个传递依赖。</li>
 </ol>
 </li>
 <li><p>范式：解决部分依赖和传递依赖的一种方法是通过数据库范式化，通常是将表拆分成更小的表。</p>
@@ -275,14 +301,18 @@
 <li><p>事务。</p>
 <ul>
 <li>事务（Transaction）是一组数据库操作，它们形成一个逻辑工作单元，要么全部成功执行，要么全部失败回滚。事务的目的是保证数据库的一致性和完整性，确保在多个操作中要么全部成功，要么全部失败，不会留下中间状态。</li>
-<li>事务的特性：通常被称为 ACID 特性<ul>
-<li>原子性（Atomicity） 事务是一个完整的操作。事务的各步操作是不可分的（原子的）；要么都执行，要么都不执行。</li>
-<li>一致性（Consistency）当事务完成时，数据必须处于一致状态。</li>
-<li>隔离性（Isolation） 对数据进行修改的所有并发事务是彼此隔离的， 这表明事务必须是独立的，它不应以任何方式依赖于或影响其他事务。</li>
-<li>永久性（Durability） 事务完成后，它对数据库的修改被永久保持，事务日志能够保持事务的永久性</li>
+<li>事务的特性：通常被称为<strong>ACID</strong>特性<ul>
+<li><strong>原子性（Atomicity）</strong> 事务是一个完整的操作。事务的各步操作是不可分的（原子的）；要么都执行，要么都不执行。</li>
+<li><strong>一致性（Consistency）</strong>当事务完成时，数据必须处于一致状态。</li>
+<li><strong>隔离性（Isolation）</strong> 对数据进行修改的所有并发事务是彼此隔离的， 这表明事务必须是独立的，它不应以任何方式依赖于或影响其他事务。</li>
+<li><strong>永久性（Durability）</strong> 事务完成后，它对数据库的修改被永久保持，事务日志能够保持事务的永久性</li>
 </ul>
 </li>
-<li>事务的隔离性<br>  并发异常：第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读<br>  隔离级别：Read Uncommitted、Read Conmitted、Repeatable Read、Serializable</li>
+<li>事务的隔离性<ul>
+<li>并发异常：第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读</li>
+<li>隔离级别：Read Uncommitted、Read Conmitted、Repeatable Read、Serializable</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><strong>并发事务带来哪些问题?</strong><br>  在典型的应用程序中，多个事务并发运行，经常会操作相同的数据来完成各自的任务（多个用户对同一数据进行操作）。并发虽然是必须的，但可能会导致以下的问题。</p>
@@ -295,9 +325,9 @@
 </li>
 <li><p><strong>事务隔离级别有哪些?</strong><br>  SQL 标准定义了四个隔离级别： </p>
 <ul>
-<li>READ-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
-<li>READ-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。 </li>
-<li>REPEATATATABLE-READ(可重复读)： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生 </li>
+<li>READ-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
+<li>READ-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
+<li>REPEATATATABLE-READ(可重复读)： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生 </li>
 <li>SERIALIZABLE(可串行化)： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
 </ul>
 </li>
@@ -309,10 +339,11 @@
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
 </li>
-<li><p>Spring事务管理：Spring事务是Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</p>
+<li><p>Spring事务管理：</p>
 <ul>
+<li>Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</li>
 <li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        myRepository.saveEntity1();</span><br><span class="line">        myRepository.saveEntity2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>编程式事务：通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">        <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 业务逻辑</span></span><br><span class="line">            myRepository.saveEntity1();</span><br><span class="line">            myRepository.saveEntity2();</span><br><span class="line">            transactionManager.commit(status);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            transactionManager.rollback(status);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编程式事务：<br>  通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">        <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 业务逻辑</span></span><br><span class="line">            myRepository.saveEntity1();</span><br><span class="line">            myRepository.saveEntity2();</span><br><span class="line">            transactionManager.commit(status);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            transactionManager.rollback(status);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
