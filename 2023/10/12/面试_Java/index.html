@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-10T03:43:54.937Z">
+<meta property="article:modified_time" content="2024-03-10T15:44:20.811Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -989,71 +989,138 @@
 
 
 <h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><ul>
-<li><p>Spring (Spring Framework) 是什么？<br>Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些<strong>扩展是针对构建J2EE？，</strong>平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO为基础的编程模型促进良好的编程习惯。<br>,,<br>Spring 是一个开源应用框架，旨在降低应用程序开发的复杂度。它是轻量级、松散耦合的。它具有分层体系结构，允许用户选择组件，同时还为 J2EE 应用程序开发提供了一个有凝聚力的框架。它可以集成其他框架，如 Structs、Hibernate、EJB 等，所以又称为框架的框架。<br>框架—–》容器——》生态、、</p>
+<li><p>Spring (Spring Framework) 是什么？<br>Spring 是个java企业级应用的开源开发框架，旨在降低应用程序开发的复杂度。它是轻量级、松散耦合的。它具有分层体系结构，允许用户选择组件(选择需要的模块：Core、AOP、WEB、、)。它可以集成其他框架，如 Structs、Hibernate、EJB 等，所以又称为框架的框架。<br>框架—–》容器——》生态、、</p>
+</li>
+<li><p>Spring的可扩展性指？<br>框架本身的设计和架构能够方便地接受和整合新的功能、模块或者扩展点，同时允许开发者通过自定义实现来扩展或修改框架的行为。这一特性使得Spring框架在不断演进的技术环境中能够灵活地适应新的需求和变化。具体而言，Spring框架的可扩展性主要表现在以下几个方面：<br>1、<strong>模块化设计：</strong> Spring框架采用模块化的设计，将不同的功能划分为独立的模块。每个模块都有清晰的职责和接口，使得开发者可以根据需要选择性地集成所需的功能，而不必引入整个框架。这样的设计使得Spring更加轻量、可定制。<br>2、<strong>扩展点和接口：</strong> Spring框架提供了许多扩展点和接口，允许开发者通过自定义实现来增加新的功能或者修改现有功能。例如，BeanPostProcessor接口可以用于在Bean实例化和初始化的过程中对Bean进行定制化操作。<br>3、<strong>第三方整合：</strong> Spring框架支持与许多其他框架和技术的集成，如Hibernate、MyBatis、Quartz等。这种集成性使得开发者可以充分利用其他优秀框架的功能，同时也能够方便地替换或升级这些框架。<br>4、<strong>自定义注解和注解驱动：</strong> Spring支持自定义注解，可以通过注解来声明配置信息、定义切面等。注解驱动的开发方式使得开发者能够以更简洁的方式实现特定的功能，同时也为自定义扩展提供了便利。<br>5、<strong>事件驱动机制：</strong> Spring框架引入了事件驱动的机制，通过Application Event和ApplicationListener接口，开发者可以实现自定义事件和监听器，从而实现在框架中添加新的业务逻辑或处理逻辑。</p>
 </li>
 <li><p>你们项目中为什么使用Spring框架？Spring框架的好处，特点。<br>轻量: Spring 是轻量的，基本的版本大约2MB。<br>控制反转: Spring通过控制反转实现了松散稠合，对象们给出它们的依赖，而不是创建或查找依赖的对象们。<br>面向切面的编程(AOP): Spring支持面向切面的编程，并且把应用业务逻辑和系统服务分开。<br>容器: Spring 包含并管理应用中对象的生命周期和配置。<br>MVC框架: Spring的WEB框架是个精心设计的框架，是Web框架的一个很好的替代品。<br>事务管理: Spring 提供一个持续的事务管理接口，可以扩展到上至本地事务下至全局事务(JTA)。（编程式事务难）<br>异常处理: Spring 提供方便的API把具体技术相关的异常(比如由JDBC，Hibernate orJDO抛出的) 转化为致的unchecked 异常。</p>
 </li>
-<li><p>???使用 Spring 有哪些方式？</p>
+<li><p>使用 Spring 有哪些方式？</p>
 <ol>
 <li><strong>作为一个成熟的 Spring Web 应用程序：</strong>Spring 提供了 Spring MVC 框架，用于构建 Web 层，同时支持通过 Spring Boot 等工具轻松配置和启动整个应用。这种方式下，Spring 负责管理应用程序的各个层次，包括表现层、业务逻辑层和数据访问层。</li>
 <li><strong>作为第三方 Web 框架，使用 Spring Frameworks 中间层：</strong>可以将 Spring 作为第三方框架集成到现有的 Web 应用程序中，而不必完全采用 Spring Web 应用程序的方式。在这种情况下，可能只使用 Spring 的某些模块，例如 Spring IOC 容器、AOP、事务管理等，以提升现有 Web 应用程序的功能和效率。</li>
 <li><strong>用于远程使用：</strong>这可能指的是将 Spring 作为远程服务的一部分，例如通过 Spring 的远程调用支持（如 Spring Remoting 或 Spring Cloud）在分布式系统中进行远程通信。在这种场景下，Spring 的特性可以用于实现远程服务的注册、调用和管理。</li>
-<li><strong>作为企业级 Java Bean，它可以包装现有的 POJO（Plain Old Java Objects）：</strong>通过 Spring 的依赖注入和其他特性，可以更方便地管理和组装这些对象，使得它们更易于测试、扩展和维护。这种方式下，Spring 赋予了这些普通对象更多的企业级特性。</li>
+<li><strong>作为企业级 Java Bean，它可以包装现有的 POJO（Plain Old Java Objects）：</strong>通过 Spring 的依赖注入和其他特性，可以更方便地管理和组装这些对象，使其更易于测试、扩展和维护。这种方式下，Spring 赋予了这些普通对象更多的企业级特性。</li>
 </ol>
 </li>
-<li><p>??? 什么是 Spring 配置文件？<br>通常，当说 “Spring 配置文件” 时，是指包含了整个 Spring 应用程序配置信息的 XML 文件。Spring 配置文件通常是一个 XML 文件，用于配置 Spring 容器的行为，包括定义和配置 Spring 中的各种组件（Bean）。这个文件包含了 Spring Bean 的定义、依赖关系、AOP 配置、事务管理等信息。<br>在 Spring 的 XML 配置文件中，可以使用 <code>&lt;bean&gt;</code> 元素来定义和配置 Spring Bean 类信息，这些类可以是普通的 Java 类、业务逻辑类、数据访问类等。每个 <code>&lt;bean&gt;</code> 元素包含了对应类的一些信息，例如类名、ID、作用域、属性值等。这样，Spring 容器在启动时会根据配置文件中的信息来实例化和管理这些类，使得它们成为 Spring 管理的 Bean。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义一个名为 &quot;myBean&quot; 的 Bean，它是 com.example.MyBean 类的实例 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置属性值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;propertyName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;propertyValue&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他 Bean 的定义 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，<code>&lt;bean&gt;</code> 元素定义了一个名为 “myBean” 的 Bean，它是 <code>com.example.MyBean</code> 类的实例。通过配置属性值，Spring 容器会在启动时实例化 <code>MyBean</code> 对象，并设置属性值。这样，”myBean” 成为了 Spring 容器中的一个受管理的 Bean。</p>
+<li><p>Spring 配置文件？（”Spring bean配置文件”是其中的一个子集）</p>
+<ul>
+<li>通常，当说 “Spring 配置文件” 时，是指包含了整个 Spring 应用程序配置信息的 XML 文件。Spring 配置文件通常是一个 XML 文件，用于配置 Spring 容器的行为，包括定义和配置 Spring 中的各种组件（Bean）。这个文件包含了 Spring Bean 的定义、依赖关系、AOP 配置、事务管理等信息。</li>
+<li>在 Spring 的 XML 配置文件中，可以使用 <code>&lt;bean&gt;</code> 元素来定义和配置 Spring Bean 类信息，这些类可以是普通的 Java 类、业务逻辑类、数据访问类等。每个 <code>&lt;bean&gt;</code> 元素包含了对应类的一些信息，例如类名、ID、作用域、属性值等。这样，Spring 容器在启动时会根据配置文件中的信息来实例化和管理这些类，使得它们成为 Spring 管理的 Bean。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义一个名为 &quot;myBean&quot; 的 Bean，它是 com.example.MyBean 类的实例 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置属性值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;propertyName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;propertyValue&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他 Bean 的定义 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>Spring 程序启动步骤。</p>
 <ul>
 <li>运行一个 Spring 程序通常需要进行以下几步配置：<ol>
-<li><strong>添加 Spring 相关的依赖：</strong><br>  在项目的构建工具（如 Maven、Gradle）中，添加 Spring 相关的依赖，包括核心容器、AOP 模块、数据访问模块、Web 模块等，具体依赖根据项目需求而定。</li>
-<li><strong>创建 Spring 配置文件：</strong><br>  创建一个 XML 文件用于配置 Spring 容器。这个配置文件通常包含了应用程序的配置信息，包括定义和配置 Spring Bean，设置数据库连接，配置事务管理等。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 示例：Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置 Spring Bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>添加 Spring 相关的依赖：</strong>在项目的构建工具（如 Maven、Gradle）中，添加 Spring 相关的依赖，包括核心容器、AOP 模块、数据访问模块、Web 模块等，具体依赖根据项目需求而定。</li>
+<li><strong>创建 Spring 配置文件：</strong>创建一个 XML 文件用于配置 Spring 容器。这个配置文件通常包含了应用程序的配置信息，包括定义和配置 Spring Bean，设置数据库连接，配置事务管理等。  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 示例：Spring 配置文件 applicationContext.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置 Spring Bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myBean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.example.MyBean&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li><strong>初始化 Spring 容器：</strong>在应用程序的启动阶段，通过加载 Spring 配置文件，初始化 Spring 容器。可以使用 <code>ClassPathXmlApplicationContext</code> 或 <code>FileSystemXmlApplicationContext</code> 等容器实现类。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：初始化 Spring 容器</span></span><br><span class="line"><span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br></pre></td></tr></table></figure></li>
-<li><strong>获取 Spring Bean：</strong>在应用程序中通过 Spring 容器获取已配置的 Bean。通过容器的 <code>getBean()</code> 方法获取 Bean 的实例。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：获取 Spring Bean</span></span><br><span class="line"><span class="type">MyBean</span> <span class="variable">myBean</span> <span class="operator">=</span> (MyBean) context.getBean(<span class="string">&quot;myBean&quot;</span>);</span><br></pre></td></tr></table></figure></li>
-<li>？？？<strong>运行应用程序：</strong>也可以通过注解、AOP 等方式利用 Spring 提供的功能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行应用程序</span></span><br><span class="line">myBean.doSomething();</span><br></pre></td></tr></table></figure></li>
+<li><strong>获取 Spring Bean：</strong>通过 Spring 容器获取已配置的 Bean。通过容器的 <code>getBean()</code> 方法获取 Bean 的实例。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：获取 Spring Bean</span></span><br><span class="line"><span class="type">MyBean</span> <span class="variable">myBean</span> <span class="operator">=</span> (MyBean) context.getBean(<span class="string">&quot;myBean&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><strong>？？？运行应用程序：</strong>也可以通过注解、AOP 等方式利用 Spring 提供的功能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行应用程序</span></span><br><span class="line">myBean.doSomething();</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
-<li>使用 Spring Boot 启动类来运行程序的一般步骤：<ol>
+<li>使用 Spring Boot 启动类来运行程序的一般步骤：（<strong>对Spring的配置进行了简化，，</strong>）<ol>
 <li><strong>添加 Spring Boot 依赖：</strong>在项目的构建工具中（如 Maven、Gradle），添加 Spring Boot 相关的依赖，包括 <code>spring-boot-starter</code> 或其他特定模块，根据项目需求选择。</li>
-<li><strong>创建 Spring Boot 启动类：</strong>创建一个 Java 类，通常命名为 <code>Application</code> 或其他类似的名字，作为 Spring Boot 应用程序的启动类。<br>  <code>@SpringBootApplication</code> 是一个组合注解，包含了 <code>@SpringBootConfiguration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code>。这个注解表明这是一个 Spring Boot 应用程序的入口类。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：Spring Boot 启动类</span></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>创建 Spring Boot 启动类：</strong>创建一个 Java 类，通常命名为 <code>Application</code> 或其他类似的名字，作为 Spring Boot 应用程序的启动类。<code>@SpringBootApplication</code> 是一个组合注解，包含了 <code>@SpringBootConfiguration</code>、<code>@EnableAutoConfiguration</code> 和 <code>@ComponentScan</code>。这个注解表明这是一个 Spring Boot 应用程序的入口类。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：Spring Boot 启动类</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><strong>编写业务逻辑：</strong> 在应用程序中编写业务逻辑代码，可以创建其他的 Spring Bean，通过依赖注入的方式使用这些 Bean。</li>
-<li><strong>运行应用程序：</strong> 通过运行 Spring Boot 启动类的 <code>main</code> 方法启动应用程序。这个方法会启动 Spring Boot 内嵌的 Tomcat 服务器，并自动扫描和配置 Spring Bean。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行 Spring Boot 应用程序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SpringApplication.run(Application.class, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  通过 Spring Boot 启动类运行程序的好处是，Spring Boot 提供了许多默认的配置，能够使开发者更轻松地构建和运行 Spring 应用程序，无需手动配置大量的 XML 文件。这样的方式使得应用程序的开发和部署变得更加简便。</li>
+<li><strong>运行应用程序：</strong> 通过运行 Spring Boot 启动类的 <code>main</code> 方法启动应用程序。这个方法会启动 Spring Boot 内嵌的 Tomcat 服务器，并自动扫描和配置 Spring Bean。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：运行 Spring Boot 应用程序</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    SpringApplication.run(Application.class, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p>三层架构：表现层 + 业务层 + 数据访问层<br>  三层架构（Presentation Layer、Business Logic Layer、Data Access Layer）是一种常见的软件架构模式，用于将一个软件系统划分为三个主要的逻辑层，以提高系统的可维护性、可扩展性和可重用性。Spring 框架提供了广泛的支持，使得开发者能够更轻松地实现和管理三层架构。</p>
+<li><p>“三层架构”：表现层 + 业务层 + 数据访问层<br>  三层架构（Presentation Layer、Business Logic Layer、Data Access Layer）是一种常见的软件架构模式，用于将一个软件系统划分为三个主要的逻辑层，以提高系统的可维护性、可扩展性和可重用性。Spring 框架提供了广泛的支持，使得开发者能够更轻松地实现和管理三层架构。</p>
 <ol>
 <li>表现层（Presentation Layer）：<br>  定义： 主要负责用户界面和用户交互，通常包括 Web 页面、UI 组件等。<br>  Spring 支持： Spring 提供了 Spring MVC 模块，用于实现 Web 应用的表现层。Spring MVC 提供了强大的控制器（Controller）机制，支持基于注解的映射、视图解析、数据绑定等功能，使得开发者能够轻松地构建和管理 Web 层。</li>
 <li>业务层（Business Logic Layer）：<br>  定义： 包含了应用程序的业务逻辑，处理用户请求、调用数据访问层进行数据操作，并进行业务规则的处理。<br>  Spring 支持： Spring 提供了 IoC（Inversion of Control）容器和 AOP（Aspect-Oriented Programming）功能，这两者共同构成了 Spring 的核心。开发者可以使用 Spring IoC 容器来管理业务层的对象，而 Spring AOP 可以用于处理横切关注点，如事务管理、日志记录等。</li>
 <li>数据访问层（Data Access Layer）：<br>  定义： 主要用于与数据存储交互，进行数据库访问、数据持久化等操作。<br>  Spring 支持： Spring 提供了对数据访问的支持，其中最重要的是 Spring 的 JDBC 模块和 Spring 的 ORM 模块。Spring JDBC 简化了 JDBC 操作，而 Spring ORM 支持集成多种 ORM 框架，如 Hibernate、MyBatis 等，使得数据访问层的开发更加便捷。</li>
 </ol>
 </li>
-<li><p>Service层 为什么用的是接口？为什么不直接使用实现类？？<br>  Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：</p>
-<ol>
+<li><p>Service层 为什么用的是接口？为什么不直接使用实现类？？</p>
+<ul>
+<li>Service 层负责处理业务逻辑、调用数据访问层（DAO，Data Access Object）并与控制器层进行交互。使用接口而不是直接使用实现类呢，这主要有以下几个原因：<ol>
 <li>解耦和可扩展性：使用接口将 Service 层与其实现类解耦。通过面向接口编程，控制器（或其他类）可以只依赖于接口而不是具体的实现类。这样使得代码更加灵活，能够轻松切换不同的实现类或者模拟测试用的虚拟实现。</li>
 <li>单一职责原则：接口定义了 Service 层的契约和行为，实现类负责具体的逻辑实现。这符合单一职责原则，即一个类应该只负责一项职责。</li>
 <li>测试和模拟：？？接口的使用使得单元测试更加容易。在测试时，可以使用模拟实现来替代真正的实现类，从而更好地进行单元测试。通过模拟，可以控制和验证不同的行为，而无需依赖于底层实现细节。</li>
 <li>依赖注入：？？Spring 容器能够通过依赖注入将接口的实现类注入到需要的地方，而不需要直接关注具体的实现细节。</li>
 </ol>
 </li>
-<li><p>切换一个接口下的不同的实现类有什么意义？为什么不直接使用不同的实现类？</p>
-<ol>
+<li>切换一个接口下的不同的实现类有什么意义？为什么不直接使用不同的实现类？<ol>
 <li>灵活性和可维护性：使用接口定义规范可以提高代码的灵活性。通过面向接口编程，可以将调用方与具体实现类解耦，使得代码更易于维护和修改。如果后续需要替换实现类或引入新的实现，只需要修改实现类的绑定，而不需要修改调用方的代码。</li>
 <li>解耦和依赖注入：接口的使用支持依赖注入，使得系统更易于管理和测试。依赖注入能够减少类之间的耦合度，提高了代码的可测试性，有利于单元测试和模拟测试。</li>
 <li>扩展性和适应性：使用接口和不同的实现类使得系统更具扩展性。根据不同的需求和场景，可以轻松地切换实现类，使得系统更具适应性和灵活性。</li>
 <li>遵循设计原则：使用接口遵循了面向对象编程的设计原则，如开闭原则（对扩展开放，对修改关闭）、单一职责原则等。这种设计模式使得代码更清晰、更易于理解和维护。</li>
 </ol>
 </li>
-<li><p><strong>Spring 核心模块</strong>。<br>  Spring是一个轻量级的IoC和AOP容器框架。是为Java应用程序提供基础性服务的一套框架，目的是用于简化企业应用程序的开发，使开发者只需要关心业务需求。常见的配置方式有三种: 基于XML的配置、基于注解的配置、基于Java的配置。<br>  主要由以下几个模块组成:</p>
+</ul>
+</li>
+<li><p>@Component, @Controller, @Repository，@Service 有何区别？<br>@Component ：这将  java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。<br>@Controller ：这将一个类标记为 Spring Web MVC 控制器。标有它的Bean 会自动导入到 IoC 容器中。<br>@Service：此注解是组件注解的特化。不对 @Component 提供任何其他行为。在服务层类中使用@Service 而不是@Component，因为它以更好的方式指定了意图。<br>@Repository ：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。</p>
+</li>
+<li><p>@Autowired 注解有什么用？@Required 注解有什么用？</p>
 <ul>
-<li>Core Container<br>  Spring Core: 核心类库，提供IOC服务;<br>  Spring Bean：构成用户应用程序主干的对象。Bean 由 Spring IoC 容器管理，由 IoC 容器实例化，配置，装配和管理。Bean 是基于用户提供给容器的配置元数据创建。<br>  Spring Context: 提供框架式的Bean访问方式，以及企业级功能 (JNDI、定时任务等);</li>
+<li>@Autowired 可以更准确地控制应该在何处以及如何进行自动装配。此注解用于在 setter 方法，构造函数，具有任意名称或多个参数的属性或方法上自动装配bean。默认情况下，它是类型驱动的注入。<br>  @Autowired为Spring提供的注解，需要导入包org.springframework.beans.factory.annotation.Autowired;只按照byType注入。默认情况下，它要求依赖对象必须存在，如果允许nul值，可以设置它的required属性为false。如果我们想使用按照名称(byName)来装配，可以结合@Qualifier注解一起使用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier(&quot;nameDao&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String nameDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>@Required 应用于 bean 属性 setter 方法。此注解仅指示必须在配置时使用bean 定义中的显式属性值或使用自动装配填充受影响的 bean属性。如果尚未填充受影响的 bean 属性，则容器将抛出 eanInitializationException。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Required</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>@Autowired 为什么不推荐使用了，而是使用构造函数？</p>
+<ul>
+<li><code>@Autowired</code> 仍然是 Spring 框架中用于进行依赖注入的一种方式，它可以用于字段、构造函数和方法上。然而，一些开发者倾向于使用构造函数注入，而不是字段注入或方法注入，这是因为构造函数注入有一些优势：<ol>
+<li><strong>显式性和明确性：</strong> 构造函数注入更加显式和明确。通过在构造函数参数上使用 <code>@Autowired</code> 注解，你可以清晰地看到依赖关系，而不用深入查看类的其他部分。</li>
+<li><strong>不可变性：</strong> 通过构造函数注入，你可以将依赖关系声明为不可变的，即一旦对象被创建，它的依赖关系就不能再被修改。这有助于确保对象在使用过程中保持一致性。</li>
+<li><strong>避免循环依赖问题：</strong> 使用构造函数注入可以有效地避免循环依赖的问题。如果两个类相互依赖，通过构造函数注入，它们将无法创建循环依赖。</li>
+<li><strong>测试方便：</strong> 构造函数注入使得在单元测试中更容易进行模拟和注入测试数据。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>@Autowired 与 @Resource的区别。</p>
+<ul>
+<li>相同点：都是做bean的注入时使用，都可以写在字段和setter方法上。两者如果都写在字段上，就不需再写setter。(注:最好是放在setter方法上，因为这样更符合面向对象的思想，通过set、get去操作属性，而不是直接去操作属性。)</li>
+<li>不同点<ol>
+<li>源头不同：<ul>
+<li><code>@Autowired</code> 是 Spring 框架自带的注解，属于 Spring 核心。</li>
+<li><code>@Resource</code> 是 Java EE提供的注解，不仅被 Spring 支持，也可以在其他 Java EE 容器中使用。</li>
+</ul>
+</li>
+<li>注入类型不同：<ul>
+<li><code>@Autowired</code>： 主要通过 byType 的方式进行注入，即按照属性的数据类型从 Spring 容器中匹配并注入。如果存在多个匹配的 Bean，则可以通过 <code>@Qualifier</code> 进行进一步指定。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
+<li><code>@Resource</code>： 主要通过 byName 的方式进行注入，即按照属性的名称从 Spring 容器中匹配并注入。也可以通过 <code>name</code> 属性指定要注入的 Bean 名称。作用相当于@Autowired，只不过@Autowired按照byType自动注入。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource(name = &quot;myService&quot;)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure>
+ @Resource装配顺序:<br> ①如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则掀出异常。<br> ②如果指定了name，则从上下文中查找名称(id)匹配的bean进行装配，找不到则抛出异常。<br> ③如果指定了type，则从上下文中找到类似匹配的唯一bean进行装配，找不到或是找到多个，都会抛出异常。<br> ④如果既没有指定name，又没有指定type，则自动按照byName方式进行装配;如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配。</li>
+</ul>
+</li>
+<li>可选性：<ul>
+<li><code>@Autowired</code>：默认必须注入的，如果找不到匹配的 Bean，会抛出异常。但可以通过设置 <code>required = false</code> 来允许 null 值。</li>
+<li><code>@Resource</code>： 默认是必须注入的，不支持设置类似 <code>required</code> 的属性。但可以通过 <code>@Resource(lookup = &quot;someName&quot;)</code> 指定 <code>lookup</code> 属性，如果找不到匹配的 Bean，则不会抛出异常。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>@RequestMapping 注解有什么用？<br>@RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类&#x2F;方法。此注释可应用于两个级别：类级别：映射请求的 URL 方法级别：映射 URL 以及 HTTP 请求方法</p>
+</li>
+</ul>
+<h4 id="Spring-核心模块"><a href="#Spring-核心模块" class="headerlink" title="Spring 核心模块"></a><strong>Spring 核心模块</strong></h4><ul>
+<li><p>Spring主要由以下几个模块组成:</p>
+<ul>
+<li>Core Container<ul>
+<li>Spring Core: 核心类库，提供IOC服务;</li>
+<li>Spring Bean：构成用户应用程序主干的对象。Bean 由 Spring IoC 容器管理、实例化、配置、装配和管理。Bean 是基于用户提供给容器的配置元数据创建。</li>
+<li>Spring Context: 提供框架式的Bean访问方式，以及企业级功能 (JNDI、定时任务等);</li>
+</ul>
+</li>
 <li>Spring AOP: AOP服务，面向切面编程;</li>
-<li>Data Access<br>  Spring DAO: 对JDBC的抽象，简化了数据访问异常的处理:<br>  Spring ORM: 对现有的ORM框架的支持;</li>
-<li>Web<br>  Spring Web: 提供了基本的面向Web的综合特性，例如多方文件上传<br>  Spring MVC：提供面向Web应用的Model-View-Controller实现。<br>  Servlet<br>  Socket</li>
+<li>Data Access<ul>
+<li>Spring DAO: 对JDBC的抽象，简化了数据访问异常的处理:</li>
+<li>Spring ORM: 对现有的ORM框架的支持;</li>
+</ul>
+</li>
+<li>Web<ul>
+<li>Spring Web: 提供了基本的面向Web的综合特性，例如多方文件上传</li>
+<li>Spring MVC：提供面向Web应用的Model-View-Controller实现。</li>
+<li>Servlet</li>
+<li>Socket</li>
+</ul>
+</li>
 <li>Test：该层为使用 JUnit 和 TestNG 进行测试提供支持。</li>
 <li>几个杂项模块: Messaging – 该模块为 STOMP 提供支持。它还支持注解编程模型，该模型用于从 WebSocket 客户端路由和处理 STOMP 消息。Aspects –该模块为与 AspectJ 的集成提供支持。</li>
 </ul>
@@ -1083,7 +1150,7 @@
 <li><p>？？？ApplicationContext 通常的实现是什么? </p>
 <ul>
 <li>FileSystemXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，XML Bean 配置文件的全路径名必须提供给它的构造函数。  </li>
-<li>ClassPathXmlApplicationContext：此容器也从一个 XML 文件中加载 beans 的定义，这里，你需要正确设置 classpath 因为这个容器将在 classpath里找 bean 配置。 </li>
+<li>ClassPathXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，你需要正确设置 classpath 因为这个容器将在 classpath里找 bean 配置。 </li>
 <li>WebXmlApplicationContext：此容器加载一个 XML 文件，此文件定义了一个 WEB 应用的所有 bean。</li>
 </ul>
 </li>
@@ -1093,12 +1160,12 @@
 </li>
 <li><p>？？Spring容器启动流程是怎样的<br>1，在创建Spring容器，也就是启动Spring时:<br>2，首先会进行扫描，扫描得到所有的BeanDefinition对象，并存在一个Map中<br>3，然后筛选出非懒加弱的单例BeanDefinton进行创建Bean，对于多例Bean不需要在启动过程中去进行创建，对于多例Bean会在每次获取Bean时利用BeanDeinition去建<br>4，利用BeanDefinition创建Bean就是Bean的创建生命因期，这期间包括了合并BeanDefintion、推断构造法、实例化、属性填充、初始化前、初始化、初始化后等步骤其中AOP就是发生在初始化后这一步骤中<br>5，单例Bean创建完了之后，Spring会发布一个容器启动事件<br>6，Spring启动结束<br>7，在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanfatoyPostProcessor和BeanPostprocessor的注册，Spring的描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的8。在sprina启动过程中还会去处理@Import等注解</p>
 </li>
-<li><p>依赖注入的方法有几种？</p>
+<li><p>依赖注入的方法有几种？<code>@Autowired</code>？</p>
 <ol>
-<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长， 不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。</li>
-<li>？？setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类<br>  优点: 灵活，可以选择性地注入需要的对象。用的最多。<br>  缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</li>
-<li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>  优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>  缺点：侵入性太强，不建议使用。PS:什么是侵入?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。</li>
-<li>使用建议：用构造器参数实现强制依赖，setter 方法实现可选依赖</li>
+<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长，不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">&#125;</span><br><span class="line">```    </span><br><span class="line"><span class="number">2.</span> setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类</span><br><span class="line">优点: 灵活，可以选择性地注入需要的对象。用的最多。</span><br><span class="line">缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</span><br><span class="line">```java</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>  优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>  缺点：侵入性太强，不建议使用。PS:什么是侵入?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MyDependency myDependency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用建议：用构造器参数实现强制依赖，setter 方法实现可选依赖。</li>
+<li>使用 @Autowired 注解可以对字段进行依赖注入。具体注入方式取决于被注入的字段的类型，可以是构造器注入、setter 方法注入、接口注入等。</li>
 </ol>
 </li>
 <li><p>？？Spring 支持集中 bean scope（范围）？<br>Spring bean 支持 5 种 scope：<br>Singleton - 每个 Spring IoC 容器仅有一个单实例。<br>Prototype - 每次请求都会产生一个新的实例。<br>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。<br>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</p>
@@ -1131,6 +1198,8 @@
 </li>
 <li><p>什么是 spring 的内部 bean？<br>只有将 bean 用作另一个 bean 的属性时，才能将 bean 声明为内部 bean。为了定义 bean，Spring 的基于 XML 的配置元数据在 或 中提供了 元素的使用。内部 bean 总是匿名的，它们总是作为原型。</p>
 </li>
+<li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
+</li>
 <li><p>？？？什么是 spring 装配？自动装配有哪些方式，有什么局限？什么是基于注解的容器配置？</p>
 <ul>
 <li>当 bean 在 Spring 容器中组合在一起时，它被称为装配或 bean 装配。Spring 容器需要知道需要什么 bean 以及容器应该如何使用依赖注入来将 bean 绑定在一起，同时装配 bean。<br>  ？？？依赖注入是一种思想或设计模式，而 Spring Bean 装配是在 Spring 框架中具体实现了依赖注入思想的一种机制。在使用 Spring 时，开发者往往会同时使用依赖注入和 Spring Bean 装配，以构建一个灵活、可维护的应用。</li>
@@ -1139,32 +1208,7 @@
 <li>基于注解的容器配置：不使用 XML 来描述 bean 装配，开发人员通过在相关的类，方法或字段声明上使用注解将配置移动到组件类本身。它可以作为 XML 设置的替代方案。<br>  例如：Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。 @Bean 注解扮演与 元素相同的角色。@Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。<br>  默认情况下，Spring 容器中未打开注解装配。因此，要使用基于注解装配，我们必须通过配置 &lt;context：annotation-config&#x2F;&gt; 元素在Spring 配置文件中启用它。</li>
 </ul>
 </li>
-<li><p>@Component, @Controller, @Repository，@Service 有何区别？<br>@Component ：这将  java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。<br>@Controller ：这将一个类标记为 Spring Web MVC 控制器。标有它的Bean 会自动导入到 IoC 容器中。<br>@Service ：此注解是组件注解的特化。它不会对 @Component 注解提供任何其他行为。您可以在服务层类中使用@Service 而不是@Component，因为它以更好的方式指定了意图。<br>@Repository ：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。</p>
-</li>
-<li><p>@Required 注解有什么用？<br>@Required 应用于 bean 属性 setter 方法。此注解仅指示必须在配置时使用bean 定义中的显式属性值或使用自动装配填充受影响的 bean属性。如果尚未填充受影响的 bean 属性，则容器将抛出 eanInitializationException。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Requiredpublic</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> string <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>@Autowired 注解有什么用？<br>@Autowired 可以更准确地控制应该在何处以及如何进行自动装配。此注解用于在 setter 方法，构造函数，具有任意名称或多个参数的属性或方法上自动装配bean。默认情况下，它是类型驱动的注入。</p>
-</li>
-<li><p>@Autowired 与 @Resource的区别。</p>
-<ol>
-<li>源头不同：**<code>@Autowired</code>** 是 Spring 框架自带的注解，属于 Spring 核心。**<code>@Resource</code>** 是 Java EE提供的注解，不仅被 Spring 支持，也可以在其他 Java EE 容器中使用。</li>
-<li>注入类型不同：<ul>
-<li><strong><code>@Autowired</code>：</strong> 主要通过 byType 的方式进行注入，即按照属性的数据类型从 Spring 容器中匹配并注入。如果存在多个匹配的 Bean，则可以通过 <code>@Qualifier</code> 进行进一步指定。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
-<li><strong><code>@Resource</code>：</strong> 主要通过 byName 的方式进行注入，即按照属性的名称从 Spring 容器中匹配并注入。也可以通过 <code>name</code> 属性指定要注入的 Bean 名称。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource(name = &quot;myService&quot;)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>可选性：<br>  <strong><code>@Autowired</code>：</strong> <code>@Autowired</code> 是默认必须注入的，如果找不到匹配的 Bean，会抛出异常。但可以通过设置 <code>required = false</code> 来允许 null 值。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired(required = false)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure>
-  <strong><code>@Resource</code>：</strong> <code>@Resource</code> 默认是必须注入的，不支持设置类似 <code>required</code> 的属性。但可以通过 <code>@Resource(lookup = &quot;someName&quot;)</code> 指定 <code>lookup</code> 属性，如果找不到匹配的 Bean，则不会抛出异常。</li>
-</ol>
-</li>
-<li><p>@RequestMapping 注解有什么用？<br>@RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类&#x2F;方法。此注释可应用于两个级别：类级别：映射请求的 URL 方法级别：映射 URL 以及 HTTP 请求方法</p>
-</li>
-<li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
-</li>
-<li><p>Spring 支持的事务管理类型.<br>Spring 支持两种类型的事务管理：<br>1、 程序化事务管理：在此过程中，在编程的帮助下管理事务。它为您提供极大的灵活性，但维护起来非常困难。<br>2、 声明式事务管理：在此，事务管理与业务代码分离。仅使用注解或基于 XML的配置来管理事务。</p>
-</li>
-<li><p><strong>Spring AOP</strong><br>AOP(Aspect-Oriented Programming), 即 面向切面编程, 它与OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与OOP 不同的抽象软件结构的视角. 在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)<br>Spring AOP 解决的是 非业务代码抽取的问题。？？？AOP 底层的技术是动态代理，在Spring内实现依赖的是BeanPostProcessor。比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码 </p>
+<li><p><strong>Spring AOP</strong><br>AOP(Aspect-Oriented Programming), 即 面向切面编程, 它与OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与OOP 不同的抽象软件结构的视角. 在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)<br>Spring AOP 解决的是「重复性」的非业务代码抽取的问题。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码，将那些与业务无关，却为业务模块所同调用的逻辑或责任(例如事务处理、日志管理、权限控制等)封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可扩展性和可维护性。<br>AOP 底层的技术是动态代理，？？？在Spring内实现依赖的是BeanPostProcessor。如果要代理的对象实现了某个接口，那么SpringAOP就会使用JDK动态代理去创建代理对象;而对于没有实现接口的对象，就无法使用IDK动态代理，转而使用CGlib动态代理生成一个被代理对象的子类来作为代理。</p>
 <img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
 </li>
 <li><p>AOP 可以用于的一些常见场景：</p>
@@ -1177,11 +1221,29 @@
 <li><strong>缓存管理：</strong> AOP 可以用于添加缓存管理逻辑，例如在方法执行前检查是否有缓存命中，如果有直接返回缓存结果，否则执行方法并将结果缓存起来。</li>
 </ol>
 </li>
-<li><p>？？什么是 Aspect？<br>aspect 由 pointcount 和 advice 组成, 它既包含了横切逻辑的定义, 也包括了连接点的定义. Spring AOP 就是负责实施切面的框架, 它将切面所定义的横切逻辑编织到切面所指定的连接点中.<br>AOP 的工作重心在于如何将增强编织目标对象的连接点上, 这里包含两个工作:<br>1、如何通过 pointcut 和 advice 定位到特定的  joinpoint 上<br>2、如何在advice 中编写切面代码.<br>简单地认为, 使用 @Aspect 注解的类就是切面.</p>
+<li><p>AspectJ？Spring AOP和AspectJ AOP有什么区别?</p>
+<ul>
+<li>AOP是一种思想，AspectJ是一种实现。SpringAOP中已经集成了AspectJ，AspectJ应该算得上是Java生态系统中最完整的AOP框架了。</li>
+<li>SpringAOP是属于运行时增强，而Aspect是编译时增强。 SpringAOP基于代理(Proxying)，而AspectJ基于字节码操作(BytecodeManipulation)。<br>  SpringAOP已经集成了AspectJ，Aspect应该算得上是Java生态系统中最完整的AOP框架了。Aspect相比于SpringAOP功能更加强大，但是SpringAOP相对来说更简单。<br>  如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择AspectJ，它比SpringAOP快很多。</li>
+</ul>
 </li>
-<li><p>什么是切点（JoinPoint），什么是通知（Advice）？<br>程序运行中的一些时间点, 例如一个方法的执行, 或者是一个异常的处理.在 Spring AOP 中, join point 总是方法的执行点。<br>特定 JoinPoint 处的 Aspect 所采取的动作称为 Advice。Spring AOP 使用一个 Advice 作为拦截器，在JoinPoint “周围”维护一系列的拦截器。</p>
+<li><p>什么是 Aspect（切面）？<br>Aspect 由 pointcount 和 advice 组成, 它既包含了横切逻辑的定义, 也包括了连接点的定义. Spring AOP 就是负责实施切面的框架, 它将切面所定义的横切逻辑编织到切面所指定的连接点中. 简单地认为, 使用 @Aspect 注解的类就是切面.<br>AOP 的工作重心在于如何将增强编织目标对象的连接点上, 这里包含两个工作:<br>1、如何通过 pointcut 和 advice 定位到特定的  joinpoint 上<br>2、如何在advice 中编写切面代码.</p>
 </li>
-<li><p>有哪些类型的通知（Advice）？<br>Before：这类 Advice 在  joinpoint 方法之前执行，并使用@Before 注解标记进行配置。<br>After Returning：这类型 Advice 在连接点方法正常执行后执行，并使用@AfterReturning 注解标记进行配置。<br>After Throwing：这些类型的 Advice 仅在 joinpoint 方法通过抛出异常退出并使用 @AfterThrowing 注解标记配置时执行。<br>After (finally)： 在连接点方法之后执行，无论方法退出是正常还是异常返回，并使用 @After 注解标记进行配置。<br>Around：在连接点之前和之后执行，并使用@Around 注解标记进行配置。</p>
+<li><p>在SpringAOP中，关注点和横切关注的区别是什么？什么是连接点呢？切入点是什么？什么是通知呢，有哪些类型呢?</p>
+<ul>
+<li>关注点是应用中一个模块的行为，一个关注点可能会被定义成一个我们想实现的一个功能。 </li>
+<li>横切关注点是一个关注点，此关注点是整个应用都会使用的功能，并影响整个应用，比如日志，安全和数据传输。</li>
+<li>连接点代表一个应用程序的某个位置，在这个位置我们可以插入一个AOP切面，它实际上是个程序执行SpringAOP的位置。</li>
+<li>切入点（JoinPoint）是一个或一组连接点，通知将在这些位置执行。可以通过表达式或匹配的方 式指明切入点。</li>
+<li>通知（Advice）是个在方法执行前或执行后要做的动作（特定 JoinPoint 处的 Aspect 所采取的动作），实际上是程序执行时要通过SpringAOP框架触发的代码段。Spring切面可以应用五种类型的通知:<ul>
+<li>Before：这类 Advice 在  joinpoint 方法之前执行，并使用@Before 注解标记进行配置。 </li>
+<li>After Returning：这类型 Advice 在连接点方法正常执行后执行，并使用@AfterReturning 注解标记进行配置。 </li>
+<li>After Throwing：这些类型的 Advice 仅在 joinpoint 方法通过抛出异常退出并使用 @AfterThrowing 标记配置时执行。 </li>
+<li>After (finally)： 在连接点方法之后执行，无论方法退出是正常还是异常返回，并使用 @After 注解标记进行配置。 </li>
+<li>Around：在连接点之前和之后执行，并使用@Around 注解标记进行配置。</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>AOP 有哪些实现方式？ </p>
 <ul>
@@ -1200,15 +1262,19 @@
 <li>如何理解 Spring 中的代理？<br>  ???将 Advice 应用于目标对象后创建的对象称为代理。在客户端对象的情况下，目标对象和代理对象是相同的。</li>
 </ul>
 </li>
-<li><p><strong>Spring MVC</strong> 框架。<br>Spring Web MVC 框架提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）<br>MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。</p>
+<li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
+</li>
+<li><p>Spring 支持的事务管理类型.<br>1、 程序化事务管理：在此过程中，在编程的帮助下管理事务。它为您提供极大的灵活性，但维护起来非常困难。<br>2、 声明式事务管理：在此，事务管理与业务代码分离。仅使用注解或基于 XML的配置来管理事务。</p>
+</li>
+<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。有助于提高性能和减少资源消耗<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
+</li>
+</ul>
+<h4 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a><strong>Spring MVC</strong></h4><ul>
+<li><p>Spring Web MVC 框架提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）<br>MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。</p>
 </li>
 <li><p>Spring MVC 流程<br>？？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt=""><br>1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。<br>2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。<br>3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(…)方法）。<br>4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。<br>5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；<br>6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。<br>7、 ViewResolver 结合 Model 和 View，来渲染视图。<br>8、视图负责将渲染结果返回给客户端。</p>
 </li>
 <li><p>请简述你对 Spring MVC 的理解。<br>SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。采用了 MVC 架构模式的思想，通过把 Model，View，Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件：<br>9 大重要的组件：p151<br>在 Spring MVC 的九大组件中，涉及到请求处理响应的核心组件分别是：HandlerMapping、HandlerAdapter、ViewResolver<br>具体调用分为以下几个步骤：1、HandlerMapping 回到调用 HandlerAdapter 2、HandlerAdapter 会返回 ModelAndView 3、ModelAndView 根据用户传入参数得到 ViewResolvers 4、ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染。注意：有大家最熟悉的两个类：ModelAndView 和 View 类并不属于 Spring MVC 九大组件之列。，？</p>
-</li>
-<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。有助于提高性能和减少资源消耗<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
-</li>
-<li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
 </li>
 </ul>
 <hr>
