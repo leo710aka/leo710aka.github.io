@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-09T09:00:16.830Z">
+<meta property="article:modified_time" content="2024-03-10T03:43:54.937Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -243,6 +243,8 @@
 <li>在JVM层面，这两个操作的实现是通过指令集中的不同指令来完成的。Java虚拟机中的字节码指令包含 iinc 指令用于递增局部变量的值。这两种递增操作在底层都是通过 iinc 指令实现的，但在具体的使用上有一些差异。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getstatic i <span class="comment">// 获取静态变量i的值</span></span><br><span class="line">iconst_1 <span class="comment">// 准备常量1</span></span><br><span class="line">iadd <span class="comment">// 自增</span></span><br><span class="line">putstatic i <span class="comment">// 将修改后的值存入静态变量i</span></span><br></pre></td></tr></table></figure>
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getstatic i <span class="comment">// 获取静态变量i的值</span></span><br><span class="line">iconst_1 <span class="comment">// 准备常量1</span></span><br><span class="line">isub <span class="comment">// 自减</span></span><br><span class="line">putstatic i <span class="comment">// 将修改后的值存入静态变量i</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+<li><p>count +&#x3D; –count; 值为？<br>1、 <code>--count</code> 表示先对 <code>count</code> 执行减一操作，然后将结果赋给 <code>count</code>。<br>2、 然后将 <code>count</code> 的当前值（执行了减一操作后的值）加上 <code>count</code> 的当前值，再将结果赋给 <code>count</code>。</p>
 </li>
 <li><p>a&#x3D;a+b 与 a+&#x3D;b 有什么区别吗?</p>
 <ul>
@@ -934,11 +936,20 @@
 <hr>
 
 <h2 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a>Java IO</h2><ul>
-<li><p>Java 中 IO 流分为几种?<br>1、按照流的流向分，可以分为输入流和输出流；<br>2、按照操作单元划分，可以划分为字节流和字符流；<br>3、按照流的角色划分为节点流和处理流。<br>Java Io 流共涉及 40 多个类，这些类看上去很杂乱，但实际上很有规则，而且彼此之间存在非常紧密的联系，都是从如下 4 个抽象类基类中派生出来的。InputStream &#x2F; Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。OutputStream &#x2F; Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。</p>
+<li><p>Java 中 IO 流分为几种?<br>1、按照流的流向分，可以分为输入流和输出流；<br>2、按照操作单元划分，可以划分为字节流和字符流；<br>3、按照流的角色划分为节点流和处理流。<br>Java Io 流共涉及 40 多个类，这些类看上去很杂乱，但实际上很有规则，而且彼此之间存在非常紧密的联系，都是从如下 4 个抽象类基类中派生出来的。<br>InputStream &#x2F; Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。<br>OutputStream &#x2F; Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。</p>
 </li>
 <li><p>字节流与字符流的区别<br>以字节为单位输入输出数据，字节流按照8位传输<br>以字符为单位输入输出数据，字符流按照16位传输</p>
 </li>
-<li><p>常用io类有那些<br>File<br>FileInputSteam，FileOutputStream<br>BufferInputStream，BufferedOutputSream<br>PrintWrite<br>FileReader，FileWriter<br>BufferReader，BufferedWriter<br>ObjectInputStream，ObjectOutputSream</p>
+<li><p>常用io类有那些<br>File<br>FileInputSteam，FileOutputStream<br>BufferInputStream，BufferedOutputSream<br>PrintWrite<br>FileReader，FileWriter<br>BufferReader，BufferedWriter<br>ObjectInputStream，ObjectOutputSream<br>在所列的 Java I&#x2F;O 类中，处理流通常是指对已有的流进行封装，以提供额外的功能或性能改进。以下是处理流的类：</p>
+</li>
+<li><p>处理流有哪些？<br>  处理流通常用于提供一些额外的功能，如缓冲、对象序列化等。其他类（File、PrintWriter）不是处理流，而是用于文件或文本输出的类。</p>
+<ol>
+<li><strong>FileInputStream，FileOutputStream：</strong>这两个类是字节流，但它们常常与其他处理流一起使用，如 <code>BufferedInputStream</code> 和 <code>BufferedOutputStream</code>，以提供缓冲功能，提高读写性能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;example.txt&quot;</span>);</span><br><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(fis);</span><br></pre></td></tr></table></figure></li>
+<li><strong>BufferedInputStream，BufferedOutputStream：</strong>提供了缓冲区功能，可以减少对底层流的直接读写次数，提高效率。</li>
+<li><strong>FileReader，FileWriter：</strong>这两个类是字符流，但它们也可以和 <code>BufferedReader</code> 和 <code>BufferedWriter</code> 一起使用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FileReader</span> <span class="variable">fr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;example.txt&quot;</span>);</span><br><span class="line"><span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(fr);</span><br></pre></td></tr></table></figure></li>
+<li><strong>BufferedReader，BufferedWriter：</strong>提供了缓冲区功能，可以减少对底层字符流的直接读写次数，提高效率。</li>
+<li><strong>ObjectInputStream，ObjectOutputStream：</strong> 这两个类用于序列化和反序列化对象。它们可以与其他流一起使用，如 <code>BufferedInputStream</code> 和 <code>BufferedOutputStream</code>。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;object.dat&quot;</span>);</span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(fos);</span><br></pre></td></tr></table></figure></li>
+</ol>
 </li>
 <li><p>阻塞 IO 模型<br>最传统的一种 IO 模型，即在读写数据过程中会发生阻塞现象。当用户线程发出 IO 请求之后，内核会去查看数据是否就绪，如果没有就绪就会等待数据就绪，而用户线程就会处于阻塞状态，用户线程交出 CPU。当数据就绪之后，内核会将数据拷贝到用户线程，并返回结果给用户线程，用户线程才解除 block 状态。<br>典型的阻塞 IO 模型的例子为： data &#x3D; socket.read(); 如果数据没有就绪，就会一直阻塞在 read 方法 </p>
 </li>
@@ -1363,7 +1374,28 @@
 <h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><ul>
 <li><p>什么是 Spring Cloud？<br>Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。 </p>
 </li>
-<li><p>使用 Spring Cloud 有什么优势？<br>使用 Spring Boot 开发分布式微服务时，我们面临以下问题<br>1、与分布式系统相关的复杂性-这种开销包括网络问题，延迟开销，带宽问题，安全问题。<br>2、服务发现-服务发现工具管理群集中的流程和服务如何查找和互相交谈。它涉及一个服务目录，在该目录中注册服务，然后能够查找并连接到该目录中的服务。<br>3、冗余-分布式系统中的冗余问题。<br>4、负载平衡 –负载平衡改善跨多个计算资源的工作负荷，诸如计算机，计算机集群，网络链路，中央处理单元，或磁盘驱动器的分布。<br>5、性能-问题 由于各种运营开销导致的性能问题。<br>6、部署复杂性-Devops 技能的要求。</p>
+<li><p>使用 Spring Cloud 有什么优势？</p>
+<ol>
+<li><strong>高可用性：</strong> 分布式架构能够提高系统的可用性。通过将系统划分为多个服务并分布在不同的节点上，即使某个节点或服务出现故障，整个系统仍然能够继续运行。</li>
+<li><strong>扩展性：</strong> 分布式系统可以更容易地进行横向扩展。通过增加节点或服务，系统可以更好地处理增加的负载，提高性能和吞吐量。</li>
+<li><strong>容错性：</strong> 分布式系统能够通过冗余和备份机制来提高容错性。即使某个节点或服务出现故障，备份节点或服务可以接管工作，保证系统的正常运行。</li>
+<li><strong>灵活性：</strong> 分布式系统能够更好地支持异构性，即不同类型的硬件、操作系统和编程语言。这使得系统更加灵活，能够选择最适合特定任务的技术栈。</li>
+<li><strong>资源共享：</strong> 分布式系统可以充分利用多个节点的计算和存储资源，实现资源的共享和最优化利用。</li>
+<li><strong>降低单点故障风险：</strong> 分布式系统通过将系统划分为多个部分，降低了单点故障的风险。即使某个节点或服务出现问题，其他部分仍然可以继续运行。</li>
+<li><strong>地理分布：</strong> 分布式系统支持地理分布，使得服务可以部署在不同的地理位置，提高服务的可用性和响应速度。</li>
+<li><strong>提高性能：</strong> 分布式系统可以通过并行计算和分布式存储来提高性能。任务可以同时在多个节点上执行，加速处理过程。</li>
+</ol>
+</li>
+<li><p>使用 Spring Boot 开发分布式微服务时，我们面临以下问题<br>1、与分布式系统相关的复杂性-这种开销包括网络问题，延迟开销，带宽问题，安全问题。<br>2、服务发现-服务发现工具管理群集中的流程和服务如何查找和互相交谈。它涉及一个服务目录，在该目录中注册服务，然后能够查找并连接到该目录中的服务。<br>3、冗余-分布式系统中的冗余问题。<br>4、负载平衡 –负载平衡改善跨多个计算资源的工作负荷，诸如计算机，计算机集群，网络链路，中央处理单元，或磁盘驱动器的分布。<br>5、性能-问题 由于各种运营开销导致的性能问题。<br>6、部署复杂性-Devops 技能的要求。</p>
+</li>
+<li><p>Spring Cloud 中的五大组件。</p>
+<ol>
+<li><strong>Eureka（服务注册与发现）：</strong> 服务注册与发现框架。它用于管理各个微服务的状态，以实现服务之间的通信和发现。</li>
+<li><strong>Ribbon（负载均衡）：</strong> Ribbon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具，在服务消费者的请求中自动实现负载均衡，从而分摊到多个服务提供者上。</li>
+<li><strong>Feign（声明式服务调用）：</strong> Feign 是一个声明式的伪 HTTP 客户端，它使得编写 HTTP 客户端变得更加简单。通过 Feign，开发者只需使用注解方式就可以轻松地调用服务，而不用手动处理 HTTP 请求和响应。</li>
+<li><strong>Hystrix（熔断器）：</strong> 一种延迟和故障容错库，用于隔离访问远程服务、第三方库或者服务的点，防止故障蔓延到整个系统，从而提高系统的弹性和可用性。</li>
+<li><strong>Zuul（API 网关）：</strong> Zuul 是 Netflix 提供的一个基于 JVM 路由和服务端的负载均衡器，用于构建微服务架构中的 API 网关，对外统一提供服务访问入口，并提供了路由、负载均衡、熔断、安全等功能。</li>
+</ol>
 </li>
 <li><p>服务注册和发现是什么意思？Spring Cloud 如何实现？<br>当我们开始一个项目时，我们通常在属性文件中进行所有的配置。随着越来越多的服务开发和部署，添加和修改这些属性变得更加复杂。有些服务可能会下降，而某些位置可能会发生变化。手动更改属性可能会产生问题。 Eureka 服务注册和发现可以在这种情况下提供帮助。由于所有服务都在 Eureka 服务器上注册并通过调用 Eureka 服务器完成查找，因此无需处理服务地点的任何更改和处理。 </p>
 </li>

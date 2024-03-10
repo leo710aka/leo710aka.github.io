@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-09T08:50:00.734Z">
+<meta property="article:modified_time" content="2024-03-10T03:18:30.630Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -281,7 +281,7 @@
 <li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
 </ul>
 </li>
-<li><p>什么是内联接、左外联接、右外联接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系</p>
+<li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
 </li>
 <li><p>？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
