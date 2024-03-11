@@ -3020,10 +3020,8 @@
 </li>
 </ul>
 </li>
-<li><p>@RequestMapping 注解有什么用？<br>@RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类&#x2F;方法。此注释可应用于两个级别：类级别：映射请求的 URL 方法级别：映射 URL 以及 HTTP 请求方法</p>
-</li>
 </ul>
-<h4 id="Spring-核心模块"><a href="#Spring-核心模块" class="headerlink" title="Spring 核心模块"></a><strong>Spring 核心模块</strong></h4><ul>
+<h4 id="Spring-核心模块"><a href="#Spring-核心模块" class="headerlink" title="Spring 核心模块"></a>Spring 核心模块</h4><ul>
 <li><p>Spring主要由以下几个模块组成:</p>
 <ul>
 <li>Core Container<ul>
@@ -3053,38 +3051,13 @@
 </li>
 <li><p>Spring 提供了哪些配置方式？一般是怎么定义Bean的？</p>
 <ul>
-<li>???基于 xml 配置<br>  bean 所需的依赖项和服务在 XML 格式的配置文件中指定。这些配置文件通常包含许多 bean 定义和特定于应用程序的配置选项。它们通常以 bean 标签开头。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;studentbean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.edureka.firstSpring.StudentBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Edureka&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>？？？基于注解配置<br>  通过在相关的类、方法或字段声明上使用注解，将 bean 配置为组件类本身，而不是使用 XML 来描述 bean 装配。默认情况下，Spring 容器中未打开注解装配。因此，您需要在使用它之前在 Spring 配置文件中启用它。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- bean definitions go here --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-  相对于 XML 文件，注解型的配置依赖于通过？？？字节码元数据装配组件，而非尖括号的声明。开发者通过在相应的类，方法或属性上使用注解的方式，直接组件类中进行配置，而不是使用 xml 表述 bean 的装配关系。</li>
-<li>基于 Java API 配置<br>  Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。<br>  1、 @Bean 注解扮演与 元素相同的角色。<br>  2、 @Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。 例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> StudentBean <span class="title function_">myStudent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">StudentBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>基于 xml 配置<br>  bean 所需的依赖项和服务在 XML 格式的配置文件中指定。这些配置文件通常包含许多 bean 定义和特定于应用程序的配置选项。它们通常以 bean 标签开头。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;studentbean&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.edureka.firstSpring.StudentBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Edureka&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>基于注解配置<br>  通过在相关的类、方法或字段声明上使用注解，将 bean 配置为组件类本身，而不是使用 XML 来描述 bean 装配。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  默认情况下，Spring 容器中未打开注解装配。因此，您需要在使用它之前在 Spring 配置文件中启用它。例如：  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- bean definitions go here --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>???基于 Java API 配置<br>  Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。<br>  1、 @Bean 注解扮演与 元素相同的角色。<br>  2、 @Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。 例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> StudentBean <span class="title function_">myStudent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">StudentBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li><strong>Spring IOC</strong><br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
-<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方</li>
-<li>「注入依赖」是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
-<li>用 Spring IOC 有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
-<li>spring 中有多少种 IOC 容器？<br>  BeanFactory - BeanFactory 就像一个包含 bean 集合的工厂类。它会在客户端要求时实例化 bean。ApplicationContext - ApplicationContext 接口扩展了 BeanFactory 接口。它在 BeanFactory 基础上提供了一些额外的功能。</li>
-<li>Spring IoC 的实现机制？<br>  IoC 的实现原理就是工厂模式加反射机制。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Apple&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Orange</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Orange&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title function_">getInstance</span><span class="params">(String ClassName)</span> &#123;</span><br><span class="line">        Fruit f=<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f=(Fruit)Class.forName(ClassName).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] a)</span> &#123;</span><br><span class="line">        Fruit f=Factory.getInstance(<span class="string">&quot;io.github.dunwu.spring.Apple&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(f!=<span class="literal">null</span>)&#123;f.eat();&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>？？？ApplicationContext 通常的实现是什么? </p>
-<ul>
-<li>FileSystemXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，XML Bean 配置文件的全路径名必须提供给它的构造函数。  </li>
-<li>ClassPathXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，你需要正确设置 classpath 因为这个容器将在 classpath里找 bean 配置。 </li>
-<li>WebXmlApplicationContext：此容器加载一个 XML 文件，此文件定义了一个 WEB 应用的所有 bean。</li>
-</ul>
-</li>
-<li><p>？？？Bean 工厂和 Application contexts 有什么区别？<br>Application contexts 提供一种方法处理文本消息，一个通常的做法是加载文件资源（比如镜像），它们可以向注册为监听器的 bean 发布事件。另外，在容器或容器内的对象上执行的那些不得不由 bean 工厂以程序化方式处理的操作，可以在Application contexts 中以声明的方式处理。Application contexts 实现了MessageSource 接口，该接口的实现以可插拔的方式提供获取本地化消息的方法。</p>
-</li>
-<li><p>列举 IoC 的一些好处。<br>它将最小化应用程序中的代码量。<br>???它将使您的应用程序易于测试，因为它不需要单元测试用例中的任何单例或  JNDI 查找机制。<br>它以最小的影响和最少的侵入机制促进松耦合。<br>支持即时的实例化和延迟加载服务。</p>
-</li>
-<li><p>？？Spring容器启动流程是怎样的<br>1，在创建Spring容器，也就是启动Spring时:<br>2，首先会进行扫描，扫描得到所有的BeanDefinition对象，并存在一个Map中<br>3，然后筛选出非懒加弱的单例BeanDefinton进行创建Bean，对于多例Bean不需要在启动过程中去进行创建，对于多例Bean会在每次获取Bean时利用BeanDeinition去建<br>4，利用BeanDefinition创建Bean就是Bean的创建生命因期，这期间包括了合并BeanDefintion、推断构造法、实例化、属性填充、初始化前、初始化、初始化后等步骤其中AOP就是发生在初始化后这一步骤中<br>5，单例Bean创建完了之后，Spring会发布一个容器启动事件<br>6，Spring启动结束<br>7，在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanfatoyPostProcessor和BeanPostprocessor的注册，Spring的描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的8。在sprina启动过程中还会去处理@Import等注解</p>
-</li>
-<li><p>依赖注入的方法有几种？<code>@Autowired</code>？</p>
+<li><p>依赖注入的方法有几种？<code>@Autowired</code>是如何工作的？</p>
 <ol>
 <li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长，不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">&#125;</span><br><span class="line">```    </span><br><span class="line"><span class="number">2.</span> setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类</span><br><span class="line">优点: 灵活，可以选择性地注入需要的对象。用的最多。</span><br><span class="line">缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</span><br><span class="line">```java</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
 <li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>  优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>  缺点：侵入性太强，不建议使用。PS:什么是侵入?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MyDependency myDependency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -3092,45 +3065,81 @@
 <li>使用 @Autowired 注解可以对字段进行依赖注入。具体注入方式取决于被注入的字段的类型，可以是构造器注入、setter 方法注入、接口注入等。</li>
 </ol>
 </li>
-<li><p>？？Spring 支持集中 bean scope（范围）？<br>Spring bean 支持 5 种 scope：<br>Singleton - 每个 Spring IoC 容器仅有一个单实例。<br>Prototype - 每次请求都会产生一个新的实例。<br>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。<br>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</p>
-</li>
-<li><p>？？Spring bean 容器的生命周期是什么样的？<br>1、Spring 容器根据配置中的 bean 定义中实例化 bean。<br>2、Spring 使用依赖注入填充所有属性，如 bean 中所定义的配置。<br>3、如果 bean 实现BeanNameAware 接口，则工厂通过传递 bean 的 ID 来调用setBeanName()。<br>4、如果 bean 实现 BeanFactoryAware 接口，工厂通过传递自身的实例来调用 setBeanFactory()。<br>5、如果存在与 bean 关联的任何BeanPostProcessors，则调用 preProcessBeforeInitialization() 方法。<br>6、如果为 bean 指定了 init 方法（ 的 init-method 属性），那么将调用它。<br>7、最后，若存在与 bean 关联的任何 BeanPostProcessors，则将调用 postProcessAfterInitialization()方法。<br>8、如果 bean 实现DisposableBean 接口，当 spring 容器关闭时，会调用 destory()。<br>9、如果为bean 指定了 destroy 方法（ 的 destroy-method 属性），那么将调用它。</p>
-</li>
-<li><p>说说SpringBean生命周期原理？<br>？？</p>
-<img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
-</li>
-<li><p>解释一下spring bean的生命周期<br>首先说一下Servlet的生命周期：实例化，初始init，接收请求service，销毁destroy；Spring上下文中的Bean生命周期也类似，如下：<br>（1）实例化Bean：对于BeanFactory容器，当客户向容器请求一个尚未初始化的bean时，或初始化bean的时候需要注入另一个尚未初始化的依赖时，容器就会调用createBean进行实例化。对于ApplicationContext容器，当容器启动结束后，通过获取BeanDefinition对象中的信息，实例化所有的bean。<br>（2）设置对象属性（依赖注入）：实例化后的对象被封装在BeanWrapper对象中，紧接着，Spring根据BeanDefinition中的信息 以及 通过BeanWrapper提供的设置属性的接口完成依赖注入。<br>（3）处理Aware接口：接着，Spring会检测该对象是否实现了xxxAware接口，并将相关的xxxAware实例注入给Bean：<br>①如果这个Bean已经实现了BeanNameAware接口，会调用它实现的setBeanName(String beanId)方法，此处传递的就是Spring配置文件中Bean的id值；<br>②如果这个Bean已经实现了BeanFactoryAware接口，会调用它实现的setBeanFactory()方法，传递的是Spring工厂自身。<br>③如果这个Bean已经实现了ApplicationContextAware接口，会调用setApplicationContext(ApplicationContext)方法，传入Spring上下文；<br>（4）BeanPostProcessor：如果想对Bean进行一些自定义的处理，那么可以让Bean实现了BeanPostProcessor接口，那将会调用postProcessBeforeInitialization(Object obj, String s)方法。<br>（5）InitializingBean 与 init-method：如果Bean在Spring配置文件中配置了 init-method 属性，则会自动调用其配置的初始化方法。<br>（6）如果这个Bean实现了BeanPostProcessor接口，将会调用postProcessAfterInitialization(Objectobj, String s)方法；由于这个方法是在Bean初始化结束时调用的，所以可以被应用于内存或缓存技术以上几个步骤完成后，Bean就已经被正确创建了，之后就可以使用这个Bean了<br>（7）DisposableBean：当Bean不再需要时，会经过清理阶段，如果Bean实现了DisposableBean这个接口，会调用其实现的destroy()方法；<br>（8）destroy-method：最后，如果这个Bean的Spring配置中配置了destroy-method属性，会自动调用其配置的销毁方法</p>
-</li>
-<li><p>？？能回答一下 Spring Bean 生命周期的执行流程吗？<br>  Spring 生命周期全过程大致分为五个阶段：创建前准备阶段、创建实例阶段、依赖注入阶段、容器缓存阶段和销毁实例阶段。</p>
-<ul>
-<li>创建前准备阶段：这个阶段主要的作用是，Bean 在开始加载之前，需要从上下文和相关配置中解析并查找 Bean 有关的扩展实现，比如像<code>init-method</code>-容器在初始化 bean 时调用的方法、<code>destory-method</code>，容器在销毁 bean 时调用的方法。以及，BeanFactoryPostProcessor 这类的 bean 加载过程中的前置和后置处理。这些类或者配置其实是 Spring 提供给开发者，用来实现 Bean 加载过程中的扩展机制，在很多和 Spring 集成的中间件中比较常见，比如 Dubbo。</li>
-<li>创建实例阶段：这个阶段主要是通过反射来创建 Bean 的实例对象，并且扫描和解析 Bean 声明的一些属性。</li>
-<li>依赖注入阶段：如果被实例化的 Bean 存在依赖其他 Bean 对象的情况，则需要对这些依赖 bean 进行对象注入。比如常见的<code>@Autowired</code>、setter 注入等依赖注入的配置形式。同时，在这个阶段会触发一些扩展的调用，比如常见的扩展类：BeanPostProcessors（用来实现 bean 初始化前后的扩展回调）、InitializingBean（这个类有一个 afterPropertiesSet()，这个在工作中也比较常见）、BeanFactoryAware 等等。</li>
-<li>容器缓存阶段：容器缓存阶段主要是把 bean 保存到容器以及 Spring 的缓存中，到了这个阶段，Bean就可以被开发者使用了。这个阶段涉及到的操作，常见的有，<code>init-method</code>这个属性配置的方法， 会在这个阶段调用。以及像 BeanPostProcessors 方法中的后置处理器方法如：postProcessAftfterInitialization，也会在这个阶段触发。</li>
-<li>销毁实例阶段：当 Spring 应用上下文关闭时，该上下文中的所有 bean 都会被销毁。如果存在 Bean 实现了 DisposableBean 接口，或者配置了<code>destory-method</code>属性，会在这个阶段被调用。</li>
 </ul>
+<ul>
+<li><strong>Spring IOC</strong><br>  Spring IOC 解决的是对象管理和对象依赖的问题。IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系；需要用对象的时候，从工厂里边获取就好了<ul>
+<li>「控制反转」指：把原有自己掌控的事交给别人去处理。它更多的是一种思想或者可以理解为设计模式。比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方</li>
+<li>「注入依赖」是「控制反转」的实现方式，对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+<li>用 Spring IOC 有什么好处吗？主要在于「将对象集中统一管理」并且「降低耦合度」<br>  如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题。但 Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理。用Spring IOC 可以方便 单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>列举 IoC 的一些好处。<br>  它将最小化应用程序中的代码量。<br>  ???它将使您的应用程序易于测试，因为它不需要单元测试用例中的任何单例或 JNDI 查找机制。<br>  它以最小的影响和最少的侵入机制促进松耦合。<br>  支持即时的实例化和延迟加载服务。</li>
+<li>spring 中有多少种 IOC 容器？<ul>
+<li>BeanFactory - BeanFactory 就像一个包含 bean 集合的工厂类。它会在客户端要求时实例化 bean。</li>
+<li>ApplicationContext - ApplicationContext 接口扩展了 BeanFactory 接口。它在 BeanFactory 基础上提供了一些额外的功能。</li>
+</ul>
+</li>
+<li>Spring IoC 的实现机制：<strong>IoC 的实现原理就是工厂模式加反射机制</strong>。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Apple&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Orange</span> <span class="keyword">implements</span> <span class="title class_">Fruit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>&#123;System.out.println(<span class="string">&quot;Orange&quot;</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title function_">getInstance</span><span class="params">(String ClassName)</span> &#123;</span><br><span class="line">        Fruit f=<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f=(Fruit)Class.forName(ClassName).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] a)</span> &#123;</span><br><span class="line">        Fruit f=Factory.getInstance(<span class="string">&quot;io.github.dunwu.spring.Apple&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(f!=<span class="literal">null</span>)&#123;f.eat();&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Ioc的底层实现<br>1、先通过createBeanFactory创建出一个Bean工厂(DefaultListableBeanFactory)<br>2、开始循环创建对象，因为容器中的bean默认都是单例的，所以优先通过getBean,doGetBean从容器中查找，找不到的话<br>3、通过createBean,doCreateBean方法，以反射的方式创建对象，一般情况下使用的是无参的构造方法(getDeclaredConstructornewinstance)<br>4、进行对象的属性填充populateBean<br>5、进行其他的初始化操作(initializingBean)</p>
+</li>
+<li><p>ApplicationContext 和 BeanFactory 有什么区别？<br>Beanfactony是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而AppitcationContext继承了Beanfactony,所以ApplicationContext拥有Beanfacton所有的特点，也是一个Bean工厂，但是AppicationContext除开继承了Beanfacton之外，还继承了诸如EnvronmentCapable、Messaaesource、AppicationEventPubishe等接口，从而ApplicationCcontext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的.<br>Application contexts 提供一种方法处理文本消息，一个通常的做法是加载文件资源（比如镜像），它们可以向注册为监听器的 bean 发布事件。另外，在容器或容器内的对象上执行的那些不得不由 bean 工厂以程序化方式处理的操作，可以在Application contexts 中以声明的方式处理。Application contexts 实现了MessageSource 接口，该接口的实现以可插拔的方式提供获取本地化消息的方法。  </p>
+</li>
+<li><p>ApplicationContext 通常的实现是什么? </p>
+<ul>
+<li>FileSystemXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，XML Bean 配置文件的全路径名必须提供给它的构造函数。  </li>
+<li>ClassPathXmlApplicationContext：此容器从一个 XML 文件中加载 beans 的定义，你需要正确设置 classpath 因为这个容器将在 classpath里找 bean 配置。 </li>
+<li>WebXmlApplicationContext：此容器加载一个 XML 文件，此文件定义了一个 WEB 应用的所有 bean。</li>
+</ul>
+</li>
+<li><p>Bean Factory 与 FactoryBean 有什么区别?<br>相同点:都是用来创建bean对象的<br>不同点:使用BeanFactory创建对象的时候，必须要道循严格的生命周期流程，太复杂了，，如果想要简单的自定义某个对象的创建，同时创建完成的对象想交给spring来管理，那么就需要实现FactroyBean接口了（Bean Factory标准化，FactoryBean个性化）<br>issingleton:是否是单例对象、getObjectType:获取返回对象的类型、getobject:自定义创建对象的过程(new，反射，动态代理)</p>
+</li>
+<li><p>Spring容器启动流程是怎样的<br>1，在创建Spring容器，也就是启动Spring时:<br>2，首先会进行扫描，扫描得到所有的BeanDefinition对象，并存在一个Map中<br>3，然后筛选出非懒加弱的单例BeanDefinton进行创建Bean，对于多例Bean不需要在启动过程中去进行创建，对于多例Bean会在每次获取Bean时利用BeanDeinition去建<br>4，利用BeanDefinition创建Bean就是Bean的创建生命因期，这期间包括了合并BeanDefintion、推断构造法、实例化、属性填充、初始化前、初始化、初始化后等步骤其中AOP就是发生在初始化后这一步骤中<br>5，单例Bean创建完了之后，Spring会发布一个容器启动事件<br>6，Spring启动结束<br>7，在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanfatoyPostProcessor和BeanPostprocessor的注册，Spring的描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的8。在sprina启动过程中还会去处理@Import等注解</p>
+</li>
+<li><p>Spring 支持集中 bean scope（范围）？</p>
+<ul>
+<li>Spring bean 支持 5 种 scope：<ul>
+<li>Singleton - 每个 Spring IoC 容器仅有一个单实例。</li>
+<li>Prototype - 每次请求都会产生一个新的实例。</li>
+<li>Request - 每一次 HTTP 请求都会产生一个新的实例，并且该 bean 仅在当前 HTTP 请求内有效。</li>
+<li>Session - 每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前HTTP session 内有效。</li>
+<li>Global-session - 类似于标准的 HTTP Session 作用域，不过它仅仅在基于portlet 的 web 应用中才有意义。<br>  ??? Portlet规范定义了全局 Session 的概念，它被所有构成某个 portlet web 应用的各种不同的 portlet 所共享。在 globalsession 作用域中定义的 bean 被限定于全局 portlet Session的生命周期范围内。如果你在 web 中使用global session 作用域来标识 bean，那么 web 会自动当成 session 类型来使用。<br>  仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://leo710aka.github.io/bk/job4.png" width="650" height="300" alt="">
+
+<ul>
+<li><p>??单例Bean和单例模式？什么是 spring 的内部 bean？<br>单例模式表示JVM中某个类的对象只会存在唯一一个。而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。<br>只有将 bean 用作另一个 bean 的属性时，才能将 bean 声明为内部 bean。为了定义 bean，Spring 的基于 XML 的配置元数据在 或 中提供了 元素的使用。内部 bean 总是匿名的，它们总是作为原型。</p>
+</li>
+<li><p><strong>SpringBean生命周期原理。</strong></p>
+<ol>
+<li>实例化Bean：反射的方式创建对象<br>  对于BeanFactory容器，当客户向容器请求一个尚未初始化的bean时，或初始化bean的时候需要注入另一个尚未初始化的依赖时，容器就会调用createBean进行实例化。<br>  对于ApplicationContext容器，当容器启动结束后，通过获取BeanDefinition对象中的信息，实例化所有的bean。</li>
+<li>设置对象属性（依赖注入）：populateBean(),循环依赖的问题(三级缓存)<br>  实例化后的对象被封装在BeanWrapper对象中，紧接着，Spring根据BeanDefinition中的信息 以及 通过BeanWrapper提供的设置属性的接口完成依赖注入。</li>
+<li>处理Aware接口：接着，Spring会检测该对象是否实现了xxxAware接口，并将相关的xxxAware实例注入给Bean。invokeAwareMethod(完成BeanName,BeanFactory,BeanClassLoader对象的属性设置）        <ul>
+<li>如果这个Bean已经实现了BeanNameAware接口，会调用它实现的setBeanName(String beanId)方法，此处传递的就是Spring配置文件中Bean的id值；</li>
+<li>如果这个Bean已经实现了BeanFactoryAware接口，会调用它实现的setBeanFactory()方法，传递的是Spring工厂自身。</li>
+<li>如果这个Bean已经实现了ApplicationContextAware接口，会调用setApplicationContext(ApplicationContext)方法，传入Spring上下文；</li>
+</ul>
+</li>
+<li>BeanPostProcessor：如果想对Bean自定义处理，那么可以让Bean实现了BeanPostProcessor接口，那将会调用postProcessBeforeInitialization(Object obj, String s)方法。<br>  使用比较多的有(ApplicationContextPostProcessor,设置ApplicationContext,Environment,ResourceLoader,EmbeddValueResolver等对象)</li>
+<li>InitializingBean 与 init-method：如果Bean在Spring配置文件中配置了 init-method 属性，则会自动调用其配置的初始化方法。<br>  invokenitmethod(),判断是否实现了initializingBean接口，如果有，调用afterPropertiesset方法，没有就不调用</li>
+<li>调用BeanPostProcessor的后置处理方法:若存在与 bean 关联的任何 BeanPostProcessors，则将调用 postProcessAfterInitialization()方法。<br>  spring的aop就是在此处实现的，AbstractAutoProxyCreator。注册Destuction相关的回调接口:钩子函数</li>
+<li>获取到完整的对象，可以通过getBean的方式来进行对象的获取</li>
+<li>DisposableBean：当Bean不再需要时，会经过清理阶段，如果Bean实现了DisposableBean这个接口，会调用其实现的destroy()方法；</li>
+<li>destroy-method：最后，如果这个Bean的Spring配置中配置了destroy-method属性，会自动调用其配置的销毁方法</li>
+</ol>
 </li>
 <li><p>Spring中Bean是线程安全的吗<br>Spring本身并没有针对Bean做线程安全的处理，所以:<br>1，如果Bean是无状志的，那么Bean则是线程安全的<br>2，如果Bean是有状态的，那么Bean则不是线程安全的<br>另外，Bean是不是线程安全，跟Bean的作用域没有关系，Bean的作用域只是表示Bean的生命周期范围，对于任何生命周期的Bean都是一个对象，这个对象是不是线挥安全的还得看这个Bean本身。</p>
 </li>
-<li><p>Spring 是如何解决循环依赖问题的？<br>如果两个或多个 Bean 互相之间持有对方的引用就会发生循环依赖。循环的依赖将会导致注入死循环。这是 Spring 发生循环依赖的原因。循环依赖有三种形态：<br>？？？<br>而 Spring 中设计了三级缓存来解决循环依赖问题，当我们去调用 getBean()方法的时候，Spring 会先从一级缓存中去找到目标 Bean，如果发现一级缓存中没有便会去二级缓存中去找，而如果一、二级缓存中都没有找到，意味着该目标 Bean 还没有实例化。于是，Spring 容器会实例化目标 Bean（PS：刚初始化的 Bean 称为早期 Bean） 。然后，将目标 Bean 放入到二级缓存中，同时，加上标记是否存在循环依赖。如果不存在循环依赖便会将目标 Bean 存入到二级缓存，否则，便会标记该 Bean 存在循环依赖，然后将等待下一次轮询赋值，也就是解析@Autowired 注解。等@Autowired 注解赋值完成后（PS：完成赋值的 Bean 称为成熟 Bean） ，会将目标 Bean 存入到一级缓存。</p>
+<li><p>Spring 是如何解决循环依赖问题的？<br>如果两个或多个 Bean 互相之间持有对方的引用就会发生循环依赖。循环的依赖将会导致注入死循环。这是 Spring 发生循环依赖的原因。循环依赖有三种形态：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mc411S7B7?p=12&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1Mc411S7B7?p=12&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a><br>、、</p>
 </li>
-<li><p>三级缓存的作用是什么？Spring 中哪些情况下，不能解决循环依赖问题？<br>p156</p>
+<li><p>三级缓存的作用是什么？Spring 中哪些情况下，不能解决循环依赖问题？<br>p156<br>、、</p>
 </li>
-<li><p>Spring中的Bean创建的生命周期有哪些步骤<br>大概分为以下几个步骤:<br>1，推断构造方法 ？？<br>2，实例化对象<br>3，填充属性，也就是依赖注入<br>4，处理Aware回调<br>5，初始化前，处理@PostConstruct注解<br>6，初始化，处理InitializingBean接口<br>7，初始化后，进行AOP<br>真正的步骤更加细致，，，，、、、、</p>
-</li>
-<li><p>ApplicationContext和BeamFactory有什么区别？<br>Beanfactony是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而AppitcationContext继承了Beanfactony,所以ApplicationContext拥有Beanfacton所有的特点，也是一个Bean工厂，但是AppicationContext除开继承了Beanfacton之外，还继承了诸如EnvronmentCapable、Messaaesource、AppicationEventPubishe等接口，从而ApplicationCcontext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的</p>
-</li>
-<li><p>什么是 spring 的内部 bean？<br>只有将 bean 用作另一个 bean 的属性时，才能将 bean 声明为内部 bean。为了定义 bean，Spring 的基于 XML 的配置元数据在 或 中提供了 元素的使用。内部 bean 总是匿名的，它们总是作为原型。</p>
-</li>
-<li><p>??单例Bean和单例模式<br>单例模式表示JVM中某个类的对象只会存在唯一一个。<br>而单例Bean并不表示JVM中只能存在唯一的某个类的Bean对象。</p>
-</li>
-<li><p>？？？什么是 spring 装配？自动装配有哪些方式，有什么局限？什么是基于注解的容器配置？</p>
-<ul>
-<li>当 bean 在 Spring 容器中组合在一起时，它被称为装配或 bean 装配。Spring 容器需要知道需要什么 bean 以及容器应该如何使用依赖注入来将 bean 绑定在一起，同时装配 bean。<br>  ？？？依赖注入是一种思想或设计模式，而 Spring Bean 装配是在 Spring 框架中具体实现了依赖注入思想的一种机制。在使用 Spring 时，开发者往往会同时使用依赖注入和 Spring Bean 装配，以构建一个灵活、可维护的应用。</li>
-<li>Spring 容器能够自动装配 bean。即可以通过检查 BeanFactory 的内容让 Spring 自动解析 bean 的协作者。<br>  自动装配的不同模式：<br>  no：这是默认设置，表示没有自动装配。应使用显式 bean 引用进行装配。<br>  byName：它根据 bean 的名称注入对象依赖项。它匹配并装配其属性与 XML文件中由相同名称定义的 bean。<br>  byTyType：根据类型注入对象依赖项。如果属性的类型与 XML 文件中的一个 bean 名称匹配，则匹配并装配属性。<br>  构造函数- 它通过调用类的构造函数来注入依赖项。它有大量的参数。<br>  autodetect - 首先容器尝试通过构造函数使用 autowire 装配，如果不能，则尝试通过 byTyType 自动装配 </li>
-<li>自动装配的局限：覆盖的可能性 - 您始终可以使用 和 设置指定依赖项，这将覆盖自动装配。基本元数据类型 - 简单属性（如原数据类型，字符串和类）无法自动装配。令人困惑的性质 - 总是喜欢使用明确的装配，因为自动装配不太精确。</li>
-<li>基于注解的容器配置：不使用 XML 来描述 bean 装配，开发人员通过在相关的类，方法或字段声明上使用注解将配置移动到组件类本身。它可以作为 XML 设置的替代方案。<br>  例如：Spring 的 Java 配置是通过使用 @Bean 和 @Configuration 来实现。 @Bean 注解扮演与 元素相同的角色。@Configuration 类允许通过简单地调用同一个类中的其他 @Bean 方法来定义 bean 间依赖关系。<br>  默认情况下，Spring 容器中未打开注解装配。因此，要使用基于注解装配，我们必须通过配置 &lt;context：annotation-config&#x2F;&gt; 元素在Spring 配置文件中启用它。</li>
-</ul>
+<li><p>缓存的放置时间、删除时间，，<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mc411S7B7?p=14&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1Mc411S7B7?p=14&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a></p>
 </li>
 <li><p><strong>Spring AOP</strong><br>AOP(Aspect-Oriented Programming), 即 面向切面编程, 它与OOP( Object-Oriented Programming, 面向对象编程) 相辅相成, 提供了与OOP 不同的抽象软件结构的视角. 在 OOP 中, 我们以类(class)作为我们的基本单元, 而 AOP 中的基本单元是 Aspect(切面)<br>Spring AOP 解决的是「重复性」的非业务代码抽取的问题。所谓「面向切面编程」在我理解下其实就是在方法前后增加非业务代码，将那些与业务无关，却为业务模块所同调用的逻辑或责任(例如事务处理、日志管理、权限控制等)封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可扩展性和可维护性。<br>AOP 底层的技术是动态代理，？？？在Spring内实现依赖的是BeanPostProcessor。如果要代理的对象实现了某个接口，那么SpringAOP就会使用JDK动态代理去创建代理对象;而对于没有实现接口的对象，就无法使用IDK动态代理，转而使用CGlib动态代理生成一个被代理对象的子类来作为代理。</p>
 <img src="https://leo710aka.github.io/bk/job3.png" width="550" height="300" alt="">
@@ -3186,19 +3195,49 @@
 <li>如何理解 Spring 中的代理？<br>  ???将 Advice 应用于目标对象后创建的对象称为代理。在客户端对象的情况下，目标对象和代理对象是相同的。</li>
 </ul>
 </li>
+<li><p>??? <strong>SpringAOP的底层实现</strong></p>
+<ul>
+<li>总: aop概念，应用场景，<strong>动态代理</strong></li>
+<li>分: bean的创建过程中有一个步骤可以对bean进行扩展实现，aop本身就是IOC 的一个扩展功能，所以在BeanPostProcessor的后置处理方法中来进行实现<br>  1、代理对象的创建过程(advice，切面，切点)<br>  2、通过jdk或者cglib的方式来生成代理对象<br>  3、在执行方法调用的时候，会调用到生成的字节码文件中，直接回找到DynamicAdvisoredlnterceptor类中的intercept方法，从此方法开始执行<br>  4、根据之前定义好的通知来生成拦截器链<br>  5、从拦截器链中依次获取每一个通知开始进行执行，在执行过程中，为了方便找到下一个通知是哪个，会有一个CglibMethodlnvocation的对象，找的时候是从-1的位置一次开始查找并且执行的。</li>
+</ul>
+</li>
 <li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
 </li>
 <li><p>Spring 支持的事务管理类型.<br>1、 程序化事务管理：在此过程中，在编程的帮助下管理事务。它为您提供极大的灵活性，但维护起来非常困难。<br>2、 声明式事务管理：在此，事务管理与业务代码分离。仅使用注解或基于 XML的配置来管理事务。</p>
 </li>
-<li><p><strong>Spring中常见的设计模式。</strong><br><strong>1，工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器，而不是由应用程序代码直接实例化对象。<br><strong>2，单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。有助于提高性能和减少资源消耗<br><strong>3，代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。<br>4，观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。<br><strong>5，模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>6，策略模式：Spring的资源加载、事务管理等功能使用了策略模式，通过定义一组算法族分别封装起来，并使它们可以相互替换。<br>7，适配器模式：Spring的AOP中，通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。<br>8，建造者模式： Spring框架中的<code>BeanDefinitionBuilder</code>等类使用了建造者模式，通过流畅的接口构建复杂对象。<br>这些设计模式使得Spring框架具有高度的可扩展性、灵活性和易维护性。Spring的设计理念强调面向接口编程、依赖注入、松耦合等原则，从而使得应用程序更容易进行测试、扩展和维护。</p>
+<li><p>Spring事务是如何回滚的？</p>
+<ul>
+<li>即：Spring事务管理是怎么实现的？<br>  考虑数据库事务：建立连接，开启事务-&gt;进行sql操作-&gt;成功，commit&#x2F;失败，rollback，，发现sql操作就是业务逻辑，前后工作完全类似AOP的around</li>
+<li>总：spring的事务是由aop来实现的，首先要生成具体的代理对象，然后按照aop的整套流程来执行具体的操作逻辑，正常情况下要通过通知来完成核心功能，但是事务不是通过通知来实现的，而是通过一个<strong>TansactionInterceptor</strong>来实现的，然后调用invoke()实现具体的逻辑</li>
+<li>？？？分：<br>  1、先做准备工作，解析各个方法上事务相关的属性，根据具体的属性来判断是否开始新事务<br>  2、当需要开启的时候，获取数据库连接，关闭自动提交功能，开起事务<br>  3、执行具体的sql逻辑操作<br>  4、在操作过程中，如果执行失败了，那么会通过completeTransactionAterThrowing看来完成事务的回滚操作，回滚的具体逻辑是通过doRollBack方法来实现的，实现的时候也是要先获取连接对象，通过连接对象来回滚<br>  5、如果执行过程中，没有任何意外情况的发生，那么通过commitTransactionAfterReturning来完成事务的提交操作，提交的具体逻辑是通过doCommit方法来实现的，实现的时候也是要获取连接，通过连接对象来提交<br>  6、当事务执行完毕之后需要清除相关的事务信息cleanupTransactionlnfo<br>  如果想要聊的更加细致的话，需要知道Transactionlnfo,Transactionstatus,</li>
+</ul>
+</li>
+<li><p>Spring事务传播。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mc411S7B7?p=18&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1Mc411S7B7?p=18&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a><br>、、</p>
+</li>
+<li><p><strong>Spring中常见的设计模式。</strong></p>
+<ol>
+<li><strong>单例模式</strong>：Spring默认情况下，容器中的Bean是单例的，即每个容器中的Bean只有一个实例。有助提高性能和减少资源消耗</li>
+<li>原型模式：指定作用域为prototype</li>
+<li><strong>工厂模式</strong>：Spring通过工厂模式实现了IOC（Inversion of Control）容器，使得对象的创建和管理被委托给了Spring容器。 BeanFactory</li>
+<li><strong>代理模式</strong>：Spring AOP就是通过代理模式实现的。AOP允许开发者在不修改原始代码的情况下，插入和控制横切关注点，如日志、事务等。</li>
+<li>责任链模式：使用aop时先生成一个拦截器链</li>
+<li><strong>模板方法模式</strong>： 在Spring中，JdbcTemplate 和 RedisTemplate 等模板类使用了模板方法模式，将通用的任务实现在模板方法中，而将具体实现留给子类。<br>  postProcessBeanFactory，onRefresh，initPropertyValue</li>
+<li>观察者模式：Spring的事件机制是基于观察者模式的。通过定义事件和监听器，应用程序可以订阅感兴趣的事件，从而实现松耦合的通信机制。</li>
+<li>策略模式：Spring的资源加载、事务管理等功能用了策略模式，通过定义一组算法族分别封装起来，并使它们可以相互替换。</li>
+<li>适配器模式：SpringAOP中通知（Advice）就是一种适配器模式的应用。通知包装了一个切面逻辑，使得它可以在切点（Join Point）上执行。</li>
+<li>装饰者模式：BeanWrapper</li>
+<li>适配器模式：Adapter</li>
+</ol>
 </li>
 </ul>
-<h4 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a><strong>Spring MVC</strong></h4><ul>
-<li><p>Spring Web MVC 框架提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）<br>MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。</p>
+<h4 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h4><ul>
+<li><p>什么是 MVC？<br>MVC是一种设计模式，解决表现层的问题；MVC 模式有助于分离应用程序的不同方面，如输入逻辑，业务逻辑和 UI 逻辑，同时在所有这些元素之间提供松散耦合。<br>Model：模型(完成业务逻辑:有javaBean构成，service+dao+entity)<br>Controller：控制器(接收请求-&gt;调用模型-&gt;根据结果派发页面)，SpringMVC通过一套注解,可以让普通的JAVA类成为contrlor控制器,无需继承Servlet<br>View：视图层（将结果渲染，相应给客户）</p>
 </li>
-<li><p>Spring MVC 流程<br>？？？<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt=""><br>1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。<br>2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。<br>3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(…)方法）。<br>4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。<br>5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；<br>6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。<br>7、 ViewResolver 结合 Model 和 View，来渲染视图。<br>8、视图负责将渲染结果返回给客户端。</p>
+<li><p>Spring MVC 框架<br>SpringMVC是一个MVC的开源框架，提供 模型-视图-控制器 架构和随时可用的组件，用于开发灵活且松散耦合的 Web 应用程序。<br>SpringMVC&#x3D;struts2+spring，springMVC就相当于是Struts2 加上sring的整合；SpringMVC是spring的一个后续产品，其实就是spring在原有基础上，又提供了web应用的MVC模块，可以简单的把springMVC理解为是spring的一个模块(类似AOP，IOC这样的模块)</p>
 </li>
-<li><p>请简述你对 Spring MVC 的理解。<br>SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式，请求驱动类型的轻量级 Web 框架。采用了 MVC 架构模式的思想，通过把 Model，View，Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件：<br>9 大重要的组件：p151<br>在 Spring MVC 的九大组件中，涉及到请求处理响应的核心组件分别是：HandlerMapping、HandlerAdapter、ViewResolver<br>具体调用分为以下几个步骤：1、HandlerMapping 回到调用 HandlerAdapter 2、HandlerAdapter 会返回 ModelAndView 3、ModelAndView 根据用户传入参数得到 ViewResolvers 4、ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染。注意：有大家最熟悉的两个类：ModelAndView 和 View 类并不属于 Spring MVC 九大组件之列。，？</p>
+<li><p><strong>？？？Spring MVC 流程</strong><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26597569/?spm_id_from=333.999.0.0&amp;jump_opus=1</a><img src="https://leo710aka.github.io/bk/job2.png" width="750" height="300" alt=""><br>1、向服务器发送 HTTP 请求，请求被前端控制器 DispatcherServlet 捕获。<br>2、 DispatcherServlet 根据 -servlet.xml 中的配置对请求的 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用HandlerMapping获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 对象的形式返回。<br>3、 DispatcherServlet 根据获得的 Handler，选择一个合适的HandlerAdapter。（附注：如果成功获得 HandlerAdapter 后，此时将开始执行拦截器的 preHandler(…)方法）。<br>4、提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（ Controller)。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：  HttpMessageConveter：将请求消息（如  Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息。 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等。 数据根式化：对请求消息进行数据格式化。如将字符串转换成格式化数字或格式化日期等。 数据验证：验证数据的有效性（长度、格式等），验证结果存储到BindingResult 或 Error 中。<br>5、Handler(Controller)执行完成后，向 DispatcherServlet 返回一个ModelAndView 对象；<br>6、根据返回的 ModelAndView，选择一个适合的 ViewResolver（必须是已经注册到 Spring 容器中的 ViewResolver)返回给DispatcherServlet。<br>7、 ViewResolver 结合 Model 和 View，来渲染视图。<br>8、视图负责将渲染结果返回给客户端。</p>
+</li>
+<li><p>SpringMVC 常见注解<br>@RequestMapping:用于处理请求url映射的注解，可用于类或方法上。用于类上，则表示类中 的所有响应请求的方法都是以该地址作为父路径。<br>@RequestBody:注解实现接收http请求的json数据，将json转换为java对象。<br>@ResponseBody:注解实现将conreoller方法返回对象转化为ison对象响应给客户<br>、、、</p>
 </li>
 </ul>
 <hr>
@@ -3413,59 +3452,6 @@
 </li>
 <li><p>什么是 Ribbon负载均衡？<br>1.Spring Cloud Ribbon是基于Netflix Ribbon实现的一套客户端 负载均衡的工具。<br>2.Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器。我们也很容易使用Ribbon实现自定义的负载均衡算法。</p>
 </li>
-<li><p>，，</p>
-</li>
-</ul>
-<hr>
-
-<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><ul>
-<li><p>什么是 Mybatis？<br>1、Mybatis 是一个开源的<strong>Java持久层框架</strong>，半 ORM（对象关系映射）框架，它内部封装了  JDBC，开发时只需要关注 SQL 语句本身，不需要花费精力去处理加载驱动、创建连接、创建statement 等繁杂的过程。程序员直接编写原生态 sql，可以严格控制 sql 执行性能，灵活度高。（JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。）<br>2、MyBatis 可以使用 XML 或注解来配置和映射原生信息，将 POJO 映射成数据库中的记录，避免了几乎所有的  JDBC 代码和手动设置参数以及获取结果集。<br>3、通过 xml 文件或注解的方式将要执行的各种 statement 配置起来，并通过 java 对象和 statement 中 sql 的动态参数进行映射生成最终执行的 sql 语句，最后由 mybatis 框架执行 sql 并将结果映射为  java 对象并返回。（从执行 sql 到返回 result 的过程）。</p>
-</li>
-<li><p>ORM，DAO，持久层？<br>ORM 和 DAO 是持久层的实现方式，ORM 和 DAO 通常一起协同工作，以实现数据的持久化和访问。持久层包括了使用 ORM 框架进行对象和数据库映射的方式，以及使用 DAO 设计模式封装数据访问操作的方式。DAO 提供了数据访问的通用接口，业务逻辑层通过 DAO 来进行数据访问，从而实现了持久层的解耦。</p>
-</li>
-<li><p>一般 JDBC 执行 SQL 查询或更新操作的流程涉及以下步骤：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 加载数据库驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>); </span><br><span class="line"><span class="comment">//2. 建立数据库连接</span></span><br><span class="line"><span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase&quot;</span>, <span class="string">&quot;username&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line"><span class="comment">//3. 创建 Statement 或 PreparedStatement 对象</span></span><br><span class="line"><span class="type">Statement</span> <span class="variable">statement</span> <span class="operator">=</span> connection.createStatement();</span><br><span class="line"><span class="comment">//4. 执行 SQL 语句</span></span><br><span class="line"><span class="type">ResultSet</span> <span class="variable">resultSet</span> <span class="operator">=</span> statement.executeQuery(<span class="string">&quot;SELECT * FROM mytable&quot;</span>);</span><br><span class="line"><span class="comment">//5. 处理结果集（如果有）</span></span><br><span class="line"><span class="keyword">while</span> (resultSet.next()) &#123;</span><br><span class="line">    <span class="comment">// 处理查询结果</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//6. 关闭资源：方法关闭 ResultSet、Statement 和 Connection 对象，释放数据库连接和资源。</span></span><br><span class="line">resultSet.close();</span><br><span class="line">statement.close();</span><br><span class="line">connection.close();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Mybatis的优缺点，适用场合。</p>
-<ul>
-<li>优点:<br>  1.基于 SQL 编程，相当灵活，不会对应用程序或者数据库的现有设计成任何影响，SQL 写在 XML 里，解除 sql 与程序代码的耦合，便于统一管理；提供XML标签，支持编写动态 SQL 语句，并可重用。<br>  2.与 JDBC 相比，减少了 50%以上的代码量，消除了JDBC 大量几余的代码，不需要手动开关连接;<br>  3.很好的与各种数据库兼容(因为 Myatis 使用JDBC 来连接数据库，所以只要 JDBC 支持的数据库 MyBatis 都支持)。<br>  4.能够与Spring 很好的集成;<br>  5.提供映射标签，支持对象与数据库的 ORM 字段关系映射;提供对象关系映射标签，支持对象关系组件维护。</li>
-<li>缺点:<br>  1.SQL 语句的编写工作量较大，尤其当字段多、关联表多时，对开发人员编写SQL 语句的功底有一定要求.<br>  2.SQL 语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。</li>
-<li>MyBatis 框架适用场合<br>  1、MyBatis 专注于 SQL 本身，是一个足够灵活的 DAO 层解决方案。<br>  2、对性能的要求很高，或者需求变化较多的项目，如互联网项目，MyBatis 将是不错的选择。</li>
-</ul>
-</li>
-<li><p>#{} 与 ${} 的区别？<br>  两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
-<ol>
-<li><strong><code>#&#123;&#125;</code>（预编译）</strong>：<code>#&#123;&#125;</code> 是 MyBatis 的预处理语法，会在 SQL 中使用占位符 <code>?</code> 的形式，通过预编译的方式来处理参数，可以有效防止 SQL 注入攻击。使用 <code>#&#123;&#125;</code> 时，MyBatis 会将传入的参数值转义并进行预编译，同时会根据参数的类型决定使用不同的 JDBC 类型。这种方式可以确保 SQL 的安全性。</li>
-<li><strong><code>$&#123;&#125;</code>（拼接字符串）</strong>：<code>$&#123;&#125;</code> 是 MyBatis 的字符串替换语法，会直接将传入的参数值以字符串的形式拼接到 SQL 语句中。使用 <code>$&#123;&#125;</code> 时，需要注意潜在的 SQL 注入风险，因为参数值会直接替换到 SQL 语句中，不会进行预编译。</li>
-<li><code>#&#123;&#125;</code> 适用于参数值，防止 SQL 注入，用于预编译。<code>$&#123;&#125;</code> 适用于非参数值，直接将参数值拼接到 SQL 语句中。在开发中，推荐使用 <code>#&#123;&#125;</code> 来处理参数，以保障 SQL 的安全性。<code>$&#123;&#125;</code> 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</li>
-</ol>
-</li>
-<li><p>当实体类中的属性名和表中的字段名不一样，怎么办 ？</p>
-<ol>
-<li>使用注解映射：ORM 框架（如 Hibernate）提供了注解（如 @Column）来映射实体类属性和数据库表字段之间的关系。<br>  可以在实体类的属性上使用注解，指定属性与表字段的映射关系  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;my_table&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyEntity</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;column_name&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields and methods</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  优点：灵活，可以通过注解直接在实体类中定义映射关系，不需要修改数据库表结构。<br>  缺点：如果数据库表结构已经存在，需要在实体类中添加注解进行映射，可能会导致代码中出现大量注解。</li>
-<li>通过在查询的 sql 语句中定义字段名的别名，让字段名的别名和实体类的属性名一致。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>”selectorder” parametertype<span class="operator">=</span>”<span class="type">int</span>” resultetype<span class="operator">=</span>”me.gacl.domain.order”<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">select</span> order_id id, order_no orderno ,order_price price form orders <span class="keyword">where</span> order_id<span class="operator">=</span>#&#123;id&#125;;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>通过 resultMap 映射字段名和实体类属性名的一一对应的关系。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;getOrder&quot; parameterType<span class="operator">=</span>&quot;int&quot; resultMap<span class="operator">=</span>&quot;orderresultmap&quot;<span class="operator">&gt;</span></span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> order_id<span class="operator">=</span>#&#123;id&#125;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span>resultMap type<span class="operator">=</span>”me.gacl.domain.order” id<span class="operator">=</span>”orderresultmap”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 id 属性来映射主键字段–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span>id property<span class="operator">=</span>”id” <span class="keyword">column</span><span class="operator">=</span>”order_id”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 <span class="keyword">result</span> 属性来映射非主键字段，property 为实体类属性名，<span class="keyword">column</span>为数据表中的属性–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property <span class="operator">=</span> “orderno” <span class="keyword">column</span> <span class="operator">=</span>”order_no”<span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property<span class="operator">=</span>”price” <span class="keyword">column</span><span class="operator">=</span>”order_price” <span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span>reslutMap<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-  优点：将映射关系从代码中分离出来，使得配置更加灵活。<br>  缺点：需要额外的配置文件，增加了维护成本。</li>
-</ol>
-</li>
-<li><p>模糊查询 like 语句该怎么写?<br>,,、、</p>
-</li>
-<li><p>???通常一个 Xml 映射文件，都会写一个 Dao 接口与之对应，请问，这个 Dao 接口的工作原理是什么？<br>Dao 接口里的方法，参数不同时，方法能重载吗？Dao 接口即 Mapper 接口。接口的全限名，就是映射文件中的 namespace 的值；接口的方法名，就是映射文件中 Mapper 的 Statement的 id 值；接口方法内的参数，就是传递给 sql 的参数。Mapper 接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为 key 值，可唯一定位一个 MapperStatement。在 Mybatis 中，每一个<br>，，、、</p>
-</li>
-<li><p>、、</p>
-</li>
-<li><p>？？？Mybatis 是否支持延迟加载？如果支持，它的实现原理是什么？<br>Mybatis 仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一，collection 指的就是一对多查询。在 Mybatis配置文件中，可以配置是否启用延迟加载 lazyLoadingEnabled&#x3D;true|false。<br>它的原理是，使用 CGLIB 创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用 a.getB().getName()，拦截器 invoke()方法发现 a.getB()是null 值，那么就会单独发送事先保存好的查询关联 B 对象的 sql，把 B 查询上来，然后调用 a.setB(b)，于是 a 的对象 b 属性就有值了，接着完成 a.getB().getName()方法的调用。这就是延迟加载的基本原理。<br>当然了，不光是 Mybatis，几乎所有的包括 Hibernate，支持延迟加载的原理都是一样的。</p>
-</li>
-<li><p>？？？Mybatis 的一级、二级缓存<br>1）一级缓存: 基于 PerpetualCache 的 HashMap 本地缓存，其存储作用域为Session，当 Session flush 或 close 之后，该 Session 中的所有 Cache 就将清空，默认打开一级缓存。<br>2）二级缓存与一级缓存其机制相同，默认也是采用 PerpetualCache，HashMap存储，不同在于其存储作用域为 Mapper(Namespace)，并且可自定义存储源，如 Ehcache。默认不打开二级缓存，要开启二级缓存，使用二级缓存属性类需要实现 Serializable 序列化接口(可用来保存对象的状态),可在它的映射文件中配置 ；<br>3）对于缓存数据更新机制，当某一个作用域(一级缓存 Session&#x2F;二级缓存Namespaces)的进行了 C&#x2F;U&#x2F;D 操作后，默认该作用域下所有 select 中的缓存将被 clear。</p>
-</li>
-<li><p>Mybatis是怎么分页的？<br>  逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>  Mybatis提供了 3 种分页方式：</p>
-<ol>
-<li>mybatis mapper配置文件写分页sql，直接在select语句里面加limit</li>
-<li>？？使用mybatis提供的RowBounds对象，实现内存级的分页</li>
-<li>？？基于mybatis中的Interceptor拦截器，在select语句执行之前动态拼接分页关键字</li>
-</ol>
-</li>
 </ul>
 
       
@@ -3506,7 +3492,48 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
-<li><p>一条 sql 的执行过程。</p>
+<li><p>MySQL 数据类型</p>
+<ol>
+<li>数值类型：<ul>
+<li><strong>整数类型：</strong>   <code>INT</code>（整数，4字节）  <code>TINYINT</code>（小整数，1字节） <code>SMALLINT</code>（小整数，2字节）  <code>MEDIUMINT</code>（中等整数，3字节）    <code>BIGINT</code>（大整数，8字节）</li>
+<li><strong>浮点数类型：</strong>   <code>FLOAT</code>（单精度浮点数）  <code>DOUBLE</code>（双精度浮点数）</li>
+<li><strong>定点数类型：</strong>   <code>DECIMAL</code>（定点数）</li>
+</ul>
+</li>
+<li>日期和时间类型： <strong>日期类型：</strong> <code>DATE</code>（日期）； <strong>时间类型：</strong> <code>TIME</code>（时间）<code>DATETIME</code>（日期和时间，包括秒） <code>TIMESTAMP</code>（日期和时间，包括秒，通常用于记录数据的修改时间）</li>
+<li>字符串类型： <strong>定长字符串：</strong> <code>CHAR</code>； <strong>变长字符串：</strong> <code>VARCHAR</code>；<strong>文本类型：</strong> <code>TEXT</code>（较小的文本） <code>MEDIUMTEXT</code>（中等大小的文本）  <code>LONGTEXT</code>（较大的文本）<ul>
+<li>CHAR 和 VAVARCHAR 的区别？<br> 1、CHAR 和 VAVARCHAR 类型在存储和检索方面有所不同<br> 2、CHAR 列长度固定为创建表时声明的长度，长度值范围是 1 到 255 当 CHAR值被存储时，它们被用空格填充到特定长度，检索 CHAR 值时需删除尾随空格。</li>
+</ul>
+</li>
+<li>二进制类型：  <code>BINARY</code>（定长二进制字符串）   <code>VARBINARY</code>（变长二进制字符串） <code>BLOB</code>（较小的二进制数据）  <code>MEDIUMBLOB</code>（中等大小的二进制数据） <code>LONGBLOB</code>（较大的二进制数据）<ul>
+<li>BLOB 和 TEXT 的区别。<ol>
+<li><strong>存储内容：</strong>   <code>BLOB</code> 存储二进制数据，不进行字符集的转换。  <code>TEXT</code> 存储字符数据，会根据字符集进行相应转换</li>
+<li><strong>大小限制：</strong>   <code>BLOB</code> 可以存储更大的二进制数据。  <code>TEXT</code> 可以存储更大的字符数据。</li>
+<li><strong>排序和比较：</strong>   <code>BLOB</code> 进行二进制排序和比较。  <code>TEXT</code> 进行字符集排序和比较。</li>
+<li><strong>用途：</strong>  <code>BLOB</code> 适用存储图像、音频、视频等二进制文件。<code>TEXT</code> 适用存储文本文档、HTML、XML 等字符数据。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>其他类型： <code>ENUM</code>（枚举类型） <code>SET</code>（集合类型）</li>
+</ol>
+</li>
+<li><p>MySQL 里记录货币用什么字段类型好？</p>
+<ul>
+<li>在记录货币金额时，一般建议使用 DECIMAL 类型。DECIMAL 类型是一种精确的定点数类型，提供了更可靠的精确度，确保不会发生舍入误差,适合用于存储货币等需要精确计算的数值。</li>
+<li>避免使用浮点数类型（如 FLOAT 或 DOUBLE）来表示货币金额，因为浮点数在计算中可能存在精度问题。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 9(precision)代表将被用于存储值的总的小数位数，而 2(scale)代表将被用于存储小数点后的位数。 </span></span><br><span class="line"><span class="comment">-- salary 列中的值的范围是从-9999999.99 到9999999.99。</span></span><br><span class="line">salary <span class="type">DECIMAL</span>(<span class="number">9</span>,<span class="number">2</span>)  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>为表中得字段选择合适得数据类型<br>字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别得数据类型，应该优先选择占用空间小的数据类型</p>
+</li>
+<li><p>LIKE 声明中的％和_是什么意思？<br>％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符<br>？？？</p>
+</li>
+<li><p>MySQL 如何优化 DISTINCT？<br>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是通用 SQL 函数？<br>1、CONCATAT(A, B) – 连接两个字符串值以创建单个字符串输出。通常用于将两个或多个字段合并为一个字段。<br>2、FORMATAT(X, D)- 格式化数字 X 到 D 有效数字。<br>3、CURRDATATE(), CURRTIME()- 返回当前日期或时间。<br>4、NOW（） – 将当前日期和时间作为一个值返回。<br>5、MONTH（），DAYAY（），YEAR（），WEEK（），WEEKDAYAY（） – 从日期值中提取给定数据。<br>6、HOUR（），MINUTE（），SECOND（） – 从时间值中提取给定数据。<br>7、DATATEDIFF（A，B） – 确定两个日期之间的差异，通常用于计算年龄<br>8、SUBTIMES（A，B） – 确定两次之间的差异。<br>9、FROMDAYAYS（INT） – 将整数天数转换为日期值</p>
+</li>
+<li><p><strong>一条 sql 的执行过程。</strong></p>
 <ol>
 <li>连接层：客户端是否与mysql连接。</li>
 <li>server层：mysql8.0前会在缓存中查询是否执行过此sql，命中则直接返回；8.0后取消了这个机制。</li>
@@ -3845,52 +3872,6 @@
 <li><strong>备份操作：</strong> 备份通常会涉及到数据库的日志文件。如果日志空间不足，可能会影响备份的正常执行。备份通常需要确保数据库的一致性，而事务日志在这个过程中是至关重要的。</li>
 </ol>
 </li>
-<li><p>MySQL 数据类型</p>
-<ol>
-<li>数值类型：<ul>
-<li><strong>整数类型：</strong>   <code>INT</code>（整数，4字节）  <code>TINYINT</code>（小整数，1字节） <code>SMALLINT</code>（小整数，2字节）  <code>MEDIUMINT</code>（中等整数，3字节）    <code>BIGINT</code>（大整数，8字节）</li>
-<li><strong>浮点数类型：</strong>   <code>FLOAT</code>（单精度浮点数）  <code>DOUBLE</code>（双精度浮点数）</li>
-<li><strong>定点数类型：</strong>   <code>DECIMAL</code>（定点数）</li>
-</ul>
-</li>
-<li>日期和时间类型：<ul>
-<li><strong>日期类型：</strong>   <code>DATE</code>（日期）</li>
-<li><strong>时间类型：</strong>   <code>TIME</code>（时间）  <code>DATETIME</code>（日期和时间，包括秒） <code>TIMESTAMP</code>（日期和时间，包括秒，通常用于记录数据的修改时间）</li>
-</ul>
-</li>
-<li>字符串类型：<ul>
-<li><strong>定长字符串：</strong>  <code>CHAR</code>（定长字符串）</li>
-<li><strong>变长字符串：</strong>  <code>VARCHAR</code>（变长字符串）</li>
-<li><strong>文本类型：</strong>    <code>TEXT</code>（较小的文本）    - <code>MEDIUMTEXT</code>（中等大小的文本）    - <code>LONGTEXT</code>（较大的文本）</li>
-</ul>
-</li>
-<li>二进制类型：<br>  <code>BINARY</code>（定长二进制字符串）   <code>VARBINARY</code>（变长二进制字符串）   <code>BLOB</code>（较小的二进制数据）  <code>MEDIUMBLOB</code>（中等大小的二进制数据） <code>LONGBLOB</code>（较大的二进制数据）</li>
-<li>其他类型：<br>  <code>ENUM</code>（枚举类型） <code>SET</code>（集合类型）</li>
-</ol>
-</li>
-<li><p>CHAR 和 VAVARCHAR 的区别？<br>1、CHAR 和 VAVARCHAR 类型在存储和检索方面有所不同<br>2、CHAR 列长度固定为创建表时声明的长度，长度值范围是 1 到 255 当 CHAR值被存储时，它们被用空格填充到特定长度，检索 CHAR 值时需删除尾随空格。 </p>
-</li>
-<li><p>MySQL 里记录货币用什么字段类型好？<br>在 MySQL 中，记录货币金额时，一般建议使用 DECIMAL 类型。DECIMAL 类型是一种精确的定点数类型，提供了更可靠的精确度，确保不会发生舍入误差,适合用于存储货币等需要精确计算的数值。???NUMERIC 和 DECIMAL 类型被 MySQL 实现为同样的类型，这在 SQL92 标准允许。避免使用浮点数类型（如 FLOAT 或 DOUBLE）来表示货币金额，因为浮点数在计算中可能存在精度问题。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salary <span class="type">DECIMAL</span>(<span class="number">9</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，9(precision)代表将被用于存储值的总的小数位数，而 2(scale)代表将被用于存储小数点后的位数。因此，在这种情况下，能被存储在 salary 列中的值的范围是从-9999999.99 到9999999.99。</p>
-</li>
-<li><p>BLOB 和 TEXT 的区别。</p>
-<ol>
-<li><strong>存储内容：</strong>   <code>BLOB</code> 存储二进制数据，不进行字符集的转换。  <code>TEXT</code> 存储字符数据，会根据字符集进行相应的转换。</li>
-<li><strong>大小限制：</strong>   <code>BLOB</code> 可以存储更大的二进制数据。  <code>TEXT</code> 可以存储更大的字符数据。</li>
-<li><strong>排序和比较：</strong>   <code>BLOB</code> 进行二进制排序和比较。  <code>TEXT</code> 进行字符集排序和比较。</li>
-<li><strong>用途：</strong>  <code>BLOB</code> 适用于存储图像、音频、视频等二进制文件。<code>TEXT</code> 适用于存储文本文档、HTML、XML 等字符数据。</li>
-</ol>
-</li>
-<li><p>为表中得字段选择合适得数据类型<br>字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别得数据类型，应该优先选择占用空间小的数据类型</p>
-</li>
-<li><p>LIKE 声明中的％和_是什么意思？<br>％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符<br>？？？</p>
-</li>
-<li><p>MySQL 如何优化 DISTINCT？<br>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>什么是通用 SQL 函数？<br>1、CONCATAT(A, B) – 连接两个字符串值以创建单个字符串输出。通常用于将两个或多个字段合并为一个字段。<br>2、FORMATAT(X, D)- 格式化数字 X 到 D 有效数字。<br>3、CURRDATATE(), CURRTIME()- 返回当前日期或时间。<br>4、NOW（） – 将当前日期和时间作为一个值返回。<br>5、MONTH（），DAYAY（），YEAR（），WEEK（），WEEKDAYAY（） – 从日期值中提取给定数据。<br>6、HOUR（），MINUTE（），SECOND（） – 从时间值中提取给定数据。<br>7、DATATEDIFF（A，B） – 确定两个日期之间的差异，通常用于计算年龄<br>8、SUBTIMES（A，B） – 确定两次之间的差异。<br>9、FROMDAYAYS（INT） – 将整数天数转换为日期值</p>
-</li>
 <li><p>MySQL 数据库作发布系统的存储，一天五万条以上的增量，预计运维三年，怎么优化？<br>1、设计良好的数据库结构，允许部分数据冗余，尽量避免 join 查询，提高效率。<br>2、选择合适的表字段数据类型和存储引擎，适当的添加索引。<br>3、MySQL 库主从读写分离。<br>4、找规律分表，减少单表中的数据量提高查询速度。<br>5、添加缓存机制，比如 memcached，apc 等。<br>6、不经常改动的页面，生成静态页面。<br>7、书写高效率的 SQL。比如 SELECT * FROM TATABEL 改为 SELECT field_1,field_2, field_3 FROM TATABLE.</p>
 </li>
 <li><p>数据库如何处理大数据量？</p>
@@ -3913,6 +3894,60 @@
 </ol>
 </li>
 </ul>
+<hr>
+
+<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><ul>
+<li><p>什么是 Mybatis？<br>1、Mybatis 是一个开源的<strong>Java持久层框架</strong>，半 ORM（对象关系映射）框架，它内部封装了  JDBC，开发时只需要关注 SQL 语句本身，不需要花费精力去处理加载驱动、创建连接、创建statement 等繁杂的过程。程序员直接编写原生态 sql，可以严格控制 sql 执行性能，灵活度高。（JDBC（Java Database Connectivity）是 Java 语言用于与关系型数据库进行交互的一种标准接口。JDBC 提供了一组 Java API，允许开发者通过 Java 代码来执行 SQL 查询、更新数据库、以及处理数据库事务等操作。）<br>2、MyBatis 可以使用 XML 或注解来配置和映射原生信息，将 POJO 映射成数据库中的记录，避免了几乎所有的  JDBC 代码和手动设置参数以及获取结果集。<br>3、通过 xml 文件或注解的方式将要执行的各种 statement 配置起来，并通过 java 对象和 statement 中 sql 的动态参数进行映射生成最终执行的 sql 语句，最后由 mybatis 框架执行 sql 并将结果映射为  java 对象并返回。（从执行 sql 到返回 result 的过程）。</p>
+</li>
+<li><p>ORM，DAO，持久层？<br>ORM 和 DAO 是持久层的实现方式，ORM 和 DAO 通常一起协同工作，以实现数据的持久化和访问。持久层包括了使用 ORM 框架进行对象和数据库映射的方式，以及使用 DAO 设计模式封装数据访问操作的方式。DAO 提供了数据访问的通用接口，业务逻辑层通过 DAO 来进行数据访问，从而实现了持久层的解耦。</p>
+</li>
+<li><p>一般 JDBC 执行 SQL 查询或更新操作的流程涉及以下步骤：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 加载数据库驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>); </span><br><span class="line"><span class="comment">//2. 建立数据库连接</span></span><br><span class="line"><span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:3306/mydatabase&quot;</span>, <span class="string">&quot;username&quot;</span>, <span class="string">&quot;password&quot;</span>);</span><br><span class="line"><span class="comment">//3. 创建 Statement 或 PreparedStatement 对象</span></span><br><span class="line"><span class="type">Statement</span> <span class="variable">statement</span> <span class="operator">=</span> connection.createStatement();</span><br><span class="line"><span class="comment">//4. 执行 SQL 语句</span></span><br><span class="line"><span class="type">ResultSet</span> <span class="variable">resultSet</span> <span class="operator">=</span> statement.executeQuery(<span class="string">&quot;SELECT * FROM mytable&quot;</span>);</span><br><span class="line"><span class="comment">//5. 处理结果集（如果有）</span></span><br><span class="line"><span class="keyword">while</span> (resultSet.next()) &#123;</span><br><span class="line">    <span class="comment">// 处理查询结果</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//6. 关闭资源：方法关闭 ResultSet、Statement 和 Connection 对象，释放数据库连接和资源。</span></span><br><span class="line">resultSet.close();</span><br><span class="line">statement.close();</span><br><span class="line">connection.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Mybatis的优缺点，适用场合。</p>
+<ul>
+<li>优点:<br>  1.基于 SQL 编程，相当灵活，不会对应用程序或者数据库的现有设计成任何影响，SQL 写在 XML 里，解除 sql 与程序代码的耦合，便于统一管理；提供XML标签，支持编写动态 SQL 语句，并可重用。<br>  2.与 JDBC 相比，减少了 50%以上的代码量，消除了JDBC 大量几余的代码，不需要手动开关连接;<br>  3.很好的与各种数据库兼容(因为 Myatis 使用JDBC 来连接数据库，所以只要 JDBC 支持的数据库 MyBatis 都支持)。<br>  4.能够与Spring 很好的集成;<br>  5.提供映射标签，支持对象与数据库的 ORM 字段关系映射;提供对象关系映射标签，支持对象关系组件维护。</li>
+<li>缺点:<br>  1.SQL 语句的编写工作量较大，尤其当字段多、关联表多时，对开发人员编写SQL 语句的功底有一定要求.<br>  2.SQL 语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。</li>
+<li>MyBatis 框架适用场合<br>  1、MyBatis 专注于 SQL 本身，是一个足够灵活的 DAO 层解决方案。<br>  2、对性能的要求很高，或者需求变化较多的项目，如互联网项目，MyBatis 将是不错的选择。</li>
+</ul>
+</li>
+<li><p>#{} 与 ${} 的区别？<br>  两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
+<ol>
+<li><strong><code>#&#123;&#125;</code>（预编译）</strong>：<code>#&#123;&#125;</code> 是 MyBatis 的预处理语法，会在 SQL 中使用占位符 <code>?</code> 的形式，通过预编译的方式来处理参数，可以有效防止 SQL 注入攻击。使用 <code>#&#123;&#125;</code> 时，MyBatis 会将传入的参数值转义并进行预编译，同时会根据参数的类型决定使用不同的 JDBC 类型。这种方式可以确保 SQL 的安全性。</li>
+<li><strong><code>$&#123;&#125;</code>（拼接字符串）</strong>：<code>$&#123;&#125;</code> 是 MyBatis 的字符串替换语法，会直接将传入的参数值以字符串的形式拼接到 SQL 语句中。使用 <code>$&#123;&#125;</code> 时，需要注意潜在的 SQL 注入风险，因为参数值会直接替换到 SQL 语句中，不会进行预编译。</li>
+<li><code>#&#123;&#125;</code> 适用于参数值，防止 SQL 注入，用于预编译。<code>$&#123;&#125;</code> 适用于非参数值，直接将参数值拼接到 SQL 语句中。在开发中，推荐使用 <code>#&#123;&#125;</code> 来处理参数，以保障 SQL 的安全性。<code>$&#123;&#125;</code> 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</li>
+</ol>
+</li>
+<li><p>当实体类中的属性名和表中的字段名不一样，怎么办 ？</p>
+<ol>
+<li>使用注解映射：ORM 框架（如 Hibernate）提供了注解（如 @Column）来映射实体类属性和数据库表字段之间的关系。<br>  可以在实体类的属性上使用注解，指定属性与表字段的映射关系  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;my_table&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyEntity</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;column_name&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other fields and methods</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  优点：灵活，可以通过注解直接在实体类中定义映射关系，不需要修改数据库表结构。<br>  缺点：如果数据库表结构已经存在，需要在实体类中添加注解进行映射，可能会导致代码中出现大量注解。</li>
+<li>通过在查询的 sql 语句中定义字段名的别名，让字段名的别名和实体类的属性名一致。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>”selectorder” parametertype<span class="operator">=</span>”<span class="type">int</span>” resultetype<span class="operator">=</span>”me.gacl.domain.order”<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">select</span> order_id id, order_no orderno ,order_price price form orders <span class="keyword">where</span> order_id<span class="operator">=</span>#&#123;id&#125;;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>通过 resultMap 映射字段名和实体类属性名的一一对应的关系。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;getOrder&quot; parameterType<span class="operator">=</span>&quot;int&quot; resultMap<span class="operator">=</span>&quot;orderresultmap&quot;<span class="operator">&gt;</span></span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> order_id<span class="operator">=</span>#&#123;id&#125;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span>resultMap type<span class="operator">=</span>”me.gacl.domain.order” id<span class="operator">=</span>”orderresultmap”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 id 属性来映射主键字段–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span>id property<span class="operator">=</span>”id” <span class="keyword">column</span><span class="operator">=</span>”order_id”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 <span class="keyword">result</span> 属性来映射非主键字段，property 为实体类属性名，<span class="keyword">column</span>为数据表中的属性–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property <span class="operator">=</span> “orderno” <span class="keyword">column</span> <span class="operator">=</span>”order_no”<span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property<span class="operator">=</span>”price” <span class="keyword">column</span><span class="operator">=</span>”order_price” <span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span>reslutMap<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+  优点：将映射关系从代码中分离出来，使得配置更加灵活。<br>  缺点：需要额外的配置文件，增加了维护成本。</li>
+</ol>
+</li>
+<li><p>模糊查询 like 语句该怎么写?<br>,,、、</p>
+</li>
+<li><p>???通常一个 Xml 映射文件，都会写一个 Dao 接口与之对应，请问，这个 Dao 接口的工作原理是什么？<br>Dao 接口里的方法，参数不同时，方法能重载吗？Dao 接口即 Mapper 接口。接口的全限名，就是映射文件中的 namespace 的值；接口的方法名，就是映射文件中 Mapper 的 Statement的 id 值；接口方法内的参数，就是传递给 sql 的参数。Mapper 接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为 key 值，可唯一定位一个 MapperStatement。在 Mybatis 中，每一个<br>，，、、</p>
+</li>
+<li><p>、、</p>
+</li>
+<li><p>？？？Mybatis 是否支持延迟加载？如果支持，它的实现原理是什么？<br>Mybatis 仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一，collection 指的就是一对多查询。在 Mybatis配置文件中，可以配置是否启用延迟加载 lazyLoadingEnabled&#x3D;true|false。<br>它的原理是，使用 CGLIB 创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用 a.getB().getName()，拦截器 invoke()方法发现 a.getB()是null 值，那么就会单独发送事先保存好的查询关联 B 对象的 sql，把 B 查询上来，然后调用 a.setB(b)，于是 a 的对象 b 属性就有值了，接着完成 a.getB().getName()方法的调用。这就是延迟加载的基本原理。<br>当然了，不光是 Mybatis，几乎所有的包括 Hibernate，支持延迟加载的原理都是一样的。</p>
+</li>
+<li><p>？？？Mybatis 的一级、二级缓存<br>1）一级缓存: 基于 PerpetualCache 的 HashMap 本地缓存，其存储作用域为Session，当 Session flush 或 close 之后，该 Session 中的所有 Cache 就将清空，默认打开一级缓存。<br>2）二级缓存与一级缓存其机制相同，默认也是采用 PerpetualCache，HashMap存储，不同在于其存储作用域为 Mapper(Namespace)，并且可自定义存储源，如 Ehcache。默认不打开二级缓存，要开启二级缓存，使用二级缓存属性类需要实现 Serializable 序列化接口(可用来保存对象的状态),可在它的映射文件中配置 ；<br>3）对于缓存数据更新机制，当某一个作用域(一级缓存 Session&#x2F;二级缓存Namespaces)的进行了 C&#x2F;U&#x2F;D 操作后，默认该作用域下所有 select 中的缓存将被 clear。</p>
+</li>
+<li><p>Mybatis是怎么分页的？<br>  逻辑分页：先查出数据，如何自己编写逻辑实现分页；物理分页：使用mysql提供的分页关键词limit<br>  Mybatis提供了 3 种分页方式：</p>
+<ol>
+<li>mybatis mapper配置文件写分页sql，直接在select语句里面加limit</li>
+<li>？？使用mybatis提供的RowBounds对象，实现内存级的分页</li>
+<li>？？基于mybatis中的Interceptor拦截器，在select语句执行之前动态拼接分页关键字</li>
+</ol>
+</li>
+</ul>
+<hr>
+
+
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
 <li><p>什么是 Redis?<br>  Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key-value 数据库。 </p>
 <ul>
