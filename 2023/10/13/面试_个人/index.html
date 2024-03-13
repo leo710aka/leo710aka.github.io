@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/572d2e33e1b44d998ab28d103f895ea9.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-12T13:43:29.545Z">
+<meta property="article:modified_time" content="2024-03-13T11:31:54.567Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job10.png">
@@ -440,6 +440,24 @@
 </ul>
 </li>
 <li><p>优化⽹站的性能<br>本地缓存：将数据缓存在应用服务器上，性能最好。常用缓存工具: Ehcache、 Guava、 Caffeine等<br>分布式缓存：将数据缓存在NoSQL数据库上，跨服务器。常用缓存工具: MemCache、 Redis等。<br>多级缓存：&gt;一级缓存 (本地缓存) &gt; 二级缓存 (分布式缓存) &gt; DB；避免缓存雪崩 (缓存失效，大量请求直达DB)，提高系统的可用性</p>
+</li>
+</ul>
+<hr>
+
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
+<li><p>排列组合（C上n下m，A上n下m）</p>
+<ul>
+<li><code>A上n下m</code>是排列，有顺序，表示m是起点（逐个减1，n是个数），从m中按顺序取n个数<br>  Amn &#x3D; m x(m-1)x(m-2)x(m-3)x … x(m-n+1)；例如：A74&#x3D; 8x7x6x5</li>
+<li><code>C上n下m</code>是组合，无顺序，表示从m中选出n个<br>  Cmn &#x3D; Amn &#x2F; Ann； 例如： C84 &#x3D; A84 &#x2F; A44 &#x3D; （8x7x6x5）&#x2F;(4x3x2x1)</li>
+</ul>
+</li>
+<li><p>5万人进行年龄排序<br>“使用快速排序算法来进行年龄排序，它的时间复杂度通常为O(n log n)。<br>我会首先将人口数据存储在一个数组中，然后根据每个人的年龄进行排序。在排序的过程中，我会使用递归来不断地划分数组，并交换元素的位置，直到整个数组按照年龄有序。如果数据量较大，我也可以考虑一些优化策略，比如随机化快速排序来避免最坏情况的发生，或者利用多线程来加速排序过程。最后，我会对排序后的结果进行验证，确保排序是准确的。”</p>
+</li>
+<li><p>智力题：25匹马选前3名，有5条赛道<br>将25匹马分成 A、B、C、D、E 5组，每组进行组内比赛，假设每组的排名就是A1&gt;A2&gt;A3&gt;A4&gt;A5（以A组为例），这里比赛5次<br>第6次，每组的第一名进行比赛，可以找出最快的马，这里假设A1&gt;B1&gt;C1&gt;D1&gt;E1，D1，E1肯定进不了前3，直接排除掉 D、E 两组<br>第7次，A2 A3 B1 B2 C1 比赛，可以找出第二、第三名。所以最少比赛需要7次</p>
+</li>
+<li><p>？？？智力题：1000瓶酒，其中只有1瓶毒酒，10只小白鼠，如何1轮测试出来毒酒是哪一瓶？<br>用小白鼠喝这瓶酒or不喝这评酒分别用1、0表示。可以凑出1024种组合，大于1000种，所以可以给1000瓶酒按照这种方式编号。<br>需要十只老鼠，如果按顺序编号，ABCDEFGHIJ分别代表从低位到高位每一个位。 每只老鼠对应一个二进制位，如果该位上的数字为1，则给老鼠喝瓶里的药。<br>然后用对应的2进制码的方式给10只小白鼠喝酒，过一段时间之后。通过观察小白鼠是哪些编号死亡，哪些编号存活，可以分别用1和0表示，然后凑出来的2进制转10进制就是答案。</p>
+</li>
+<li><p>智力题：绳子两头烧<br>现有若干不均匀的绳子，烧完这根绳子需要一个小时，问如何准确计时15分钟，30分钟，45分钟，75分钟。。。<br>15：对折之后两头烧(要求对折之后绑的够紧，否则看45分钟解法)<br>30：两头烧<br>45：两根，一根两头烧一根一头烧，两头烧完过了30分钟，立即将第二根另一头点燃，到烧完又过15分钟，加起来45分钟<br>75：&#x3D;30+45</p>
 </li>
 </ul>
 <hr>
