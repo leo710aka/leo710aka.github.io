@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-12T12:45:43.107Z">
+<meta property="article:modified_time" content="2024-03-14T15:24:26.842Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -1003,10 +1003,26 @@
 </li>
 <li><p>？？？介绍一下自己对 Netty 的认识。<br>第一：Netty 是一个 基于 NIO 模型的高性能网络通信框架，其实可以认为它是对 NIO 网络模型的封装，提供了简单易用的 API，我们可以利用这些封装好的API 快速开发自己的网络程序。<br>第二：Netty 在 NIO 的基础上做了很多优化，比如零拷贝机制、高性能无锁队列、内存池等，因此性能会比 NIO 更高。<br>第三：Netty 可以支持多种通信协议，如 Http、WebSocket 等，并且针对数据通信的拆包黏包问题，Netty 内置了拆包策略。</p>
 </li>
+</ul>
+<hr>
+
+<h2 id="大数据问题"><a href="#大数据问题" class="headerlink" title="大数据问题"></a>大数据问题</h2><ul>
 <li><p>大数据问题1：如何读取写入100万条数据？<br>数据保存在Excel的20个sheet页中，即每一个sheet中有5万条数据。实现在3秒内导入100万条数据需要高效地处理数据导入和并发操作.<br>通过线程池创建了20个线程，每个线程负责导入一个 sheet 中的数据；其中每个sheet又创建5个线程，分别处理1万条数据，将这1万条数据批处理地插入到数据库中。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/list/watchlater?oid=1001335801&bvid=BV1gx4y1k7ks&spm_id_from=333.788.top_right_bar_window_view_later.content.click">https://www.bilibili.com/list/watchlater?oid=1001335801&amp;bvid=BV1gx4y1k7ks&amp;spm_id_from=333.788.top_right_bar_window_view_later.content.click</a></p>
 </li>
 <li><p>大数据问题2：如何从十万条数据中挑选最符合要求的十条？<br>假设数据是包含对象的列表，我们可以使用 Java 8 的流操作和排序来解决这个问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;DataObject&gt; <span class="title function_">filterData</span><span class="params">(List&lt;DataObject&gt; dataList, <span class="type">int</span> count)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> dataList.stream()</span><br><span class="line">            .filter(<span class="comment">/* Your filtering condition */</span>) <span class="comment">// 根据需要添加自定义的条件</span></span><br><span class="line">            .sorted(Comparator.comparing(<span class="comment">/* Your sorting criteria */</span>))</span><br><span class="line">            .limit(count)  <span class="comment">// 排序和限制用于选择最符合条件的数据</span></span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;DataObject&gt; <span class="title function_">filterData</span><span class="params">(List&lt;DataObject&gt; dataList, <span class="type">int</span> count)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> dataList.stream()</span><br><span class="line">            .filter(<span class="comment">/* Your filtering condition */</span>) <span class="comment">// 根据需要添加自定义的条件</span></span><br><span class="line">            .sorted(Comparator.comparing(<span class="comment">/* Your sorting criteria */</span>))</span><br><span class="line">            .limit(count)  <span class="comment">// 排序和限制用于选择最符合条件的数据</span></span><br><span class="line">            .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有一批用户（百万数量级）的杂乱行为数据（千万数量级）每一条都要重新洗数，且洗数过程中同一用户的前后行为有时序性依赖关系（前一个行为的洗数结果是下一个行为进行洗数的必要条件），如果是你会怎么设计洗数流程？要求正确、高效、抗风险、、</p>
+<ol>
+<li><strong>分布式任务调度</strong>: 使用分布式任务调度系统（如Kafka、Spring Cloud Data Flow等）来调度洗数任务。这样可以方便地将任务分发到多个节点上并行执行，提高整体处理效率。</li>
+<li><strong>数据分片处理</strong>: 将用户的杂乱行为数据进行分片，每个分片包含一部分用户的数据。然后将每个分片分配给不同的洗数任务处理。这样可以减小单个任务的压力，提高并行处理效率。</li>
+<li><strong>洗数任务设计</strong>: 每个洗数任务负责处理一个用户的行为数据，并保证前后行为的时序性依赖关系。可以采用状态机等方法来实现对时序性依赖关系的处理。任务之间可以通过消息队列等方式进行通信，保证数据的正确性和一致性。</li>
+<li><strong>结果合并</strong>: 每个洗数任务处理完数据后，将结果写入到目标存储（如数据库、HDFS等）。另外可以设计一个结果合并任务，负责将所有洗数任务的结果合并，形成最终的洗数结果。</li>
+<li><strong>监控和异常处理</strong>: 设计监控系统，实时监控洗数任务的运行情况和数据处理进度，及时发现和处理异常。对于处理失败的数据，可采用重试、补偿等策略保证数据的完整性和准确性。</li>
+<li><strong>性能优化</strong>: 针对百万数量级的用户和千万数量级的行为数据，需要进行性能优化，包括优化数据读取、处理和写入的性能，以及任务调度和并行处理的性能等方面。</li>
+<li><strong>容灾和备份</strong>: 设计容灾和备份方案，确保系统在遇到故障或者灾难时能够快速恢复。可以采用数据备份、主备切换、数据同步等方式来保证系统的高可用性和可靠性。</li>
+</ol>
+</li>
 </ul>
 <hr>
 
