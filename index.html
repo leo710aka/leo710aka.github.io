@@ -1751,7 +1751,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h2><ul>
-<li><p><strong>自我介绍</strong><br>1、面试官您好，我是蔡枫，本科就读于华南理工大学计算机学院。<br>2、在校期间，我学习 Java 开发技术与相关框架，参与了一些项目的开发<br>3、我有三段实习经历，我不仅参与到了实际业务代码的编写中，还对团队中的开发流程有了一定的了解<br>4、我与您公司岗位比较匹配，，，<br>5、求职动机：。。<br>6、表现出对岗位的理解和自己清晰的职业规划，表示愿意长期从事这个岗位，，</p>
+<li><p><strong>自我介绍</strong><br>1、面试官您好，我是蔡枫，本科就读于华南理工大学计算机学院。<br>2、在校期间，我学习 Java 开发技术与相关框架，参与了一些项目的开发<br>3、我有三段实习经历，我不仅参与到了实际业务代码的编写中，还对团队中的开发流程有了一定的了解<br>4、我与您公司岗位比较匹配，，，现出对岗位的理解<br>5、求职动机：。。挑战性，自己成长，，自己清晰的职业规划，表示愿意长期从事这个岗位，，</p>
 </li>
 <li><p>自我推荐。<br>我觉得我对所从事的每一个项目都很努力、负责、勤勉。我在努力成为一个能够不惧解决困难和能够持续学习的人。</p>
 </li>
@@ -1928,24 +1928,36 @@
 </li>
 </ul>
 <h2 id="在线商城系统（黑马商城）"><a href="#在线商城系统（黑马商城）" class="headerlink" title="在线商城系统（黑马商城）"></a>在线商城系统（黑马商城）</h2><ul>
-<li><strong>高校闲置资源交易系统</strong><ul>
-<li>项目简介：本系统采用微服务架构设计，在分布式环境下利用Springcloud框架，通过业务划分，设计独立模块的微服务。<br>  拆分为用户模块、商品模块、购物车模块、交易模块、支付模块，结合了当前比较流行的互联网电商模式，为消费者提供商品贸易平台。</li>
-<li>系统架构：该系用采用SoringCoud架构，利用SpringBoot构建应用，Nacos作为服务的注册、配置中心，0penFeign实现与其他模块进行交互，Sentinel实现熔断降级和错误处理，Seata分布式事务解决方案，Gateway作为服务网关，Sleuth链路追踪，RabbitMQ实现延迟队列，Redis作为缓存解决读多写少的场景，MySQL进行持久化，MyBatisPlus作为持久化框架。</li>
-<li>我的职责:<br>  完成平台商品、购物车、订单、库存、优惠券、支付、文件上传等服务模块的接口开发;<br>  使用RabbitMQ延时队列实现未付款订单，超过一定时间后，系统自动取消订单并解锁库存;<br>  使用redis+lua脚本防止重复提交攻击，解决了用户利用浏览器刷新和回退重复提交订单的问题。<br>  通过 sentinel 完成系统限流熔断功能，防止对接的三方系统故障后影响消息系统运行<br>  通过线程池。。分布式事务，，，<br>  ，，，<br>  会员注册：客户端（移动端、PC端）调用会员服务注册接口进行会员注册，使用NatApp进行内网穿透，利用开源框架WxJava框架进行二次开发，会员先关注公众号，在公众号号接收验证码，并把验证码缓存Redis中，有效期3分钟，会员注册校验验证码是否一致，同时会员注册密码加盐加密MD5和BASE64散列存储。<br>  会员认证：使用XXL-SSO框架实现微服务平台单点登陆开发，搭建并二次开发XXL-SSO的中央认证服务器，改造认证服务器的认证界面，同时植入认证验证码功能，整合各个门户例如首页频道、搜索频道等SSO客户端。基于cookies实现，虽然 cookies本身不跨域，利用XXL-SSO框架实现跨域的进行SSO认证。<br>  广告管理：运营商广告类别管理、广告管理，使用七牛云进行广告图片分布式存储。首页频道服务广告的数据使用Redis进行缓存预热，开发并设计广告缓存系统设计，使用延迟双删、以及RabbitMQ缓存清除重试保证Redis缓存一致性。<br>  订单管理：开发并设计下单流程，使用Redission实现分布式锁防止库存超卖，使用开源框LCN进行事务的一致性操作，保证商品服务减库存，订单服务新增订单。使用雪花算法进行在高并发分布式全局订单ID的生成.</li>
+<li><p><strong>高校闲置资源交易系统</strong></p>
+<ul>
+<li>系统架构：SpringCloud + SpringBoot + Nacos + Redis + MySQL</li>
+<li>项目描述：系统采用微服务架构，旨在为消费者提供一站式商品交易平台。通过细致的业务划分，系统分为用户模块、商品模块、购物车模块与支付模块，确保每个模块服务的高效、可维护、可扩展。</li>
+<li>主要工作：<ul>
+<li>使用 Nacos 实现服务注册，消费者服务通过 Nacos 拉取和订阅服务。</li>
+<li>引入 Redis 数据库，优化项目中登录验证码的使用，对需要频繁访问的数据进行缓存。</li>
+<li>使用 Gateway 及拦截器实现了登录信息校验，避免各微服务中的代码重复。</li>
+<li>通过 Sentinel 完成系统限流熔断功能，防止服务故障后影响整个系统运行。</li>
 </ul>
 </li>
 </ul>
-<ul>
+</li>
 <li><p>单体架构改为微服务架构（分布式架构的一种实现）<br>微服务架构，是服务化思想指导下的一套最佳实践架构方案。服务化，就是把单体架构中的功能模块拆分为多个独立项目。<br>优点：粒度低、团队自治、服务自治</p>
 </li>
-<li><p>登录的流程，登录状态的检验？？<br>提交登录表单，登录请求 controller —&gt; sevice —&gt; Dao，查询、校验用户信息，生成jwt（用jwtTool生成token），返回登录信息和jwt（或登录失败信息），提示登录成功（失败）。<br>登录成功后，用户在发送请求时（如购物车），在请求头中携带 Authorization（即jwt）</p>
+<li><p>登录的流程，登录状态的检验？？<br>提交登录表单，登录请求 controller —&gt; sevice —&gt; Dao，查询、校验用户信息，生成jwt（用jwtTool生成token），返回登录信息和jwt（或登录失败信息），提示登录成功（失败）。登录成功后，用户在发送请求时（如购物车），在请求头中携带 Authorization（即jwt）</p>
+</li>
+<li><p>用户登录。。redis怎么用的？</p>
+<ol>
+<li>？？？Redis 结合 Gateway 完成登录校验（直接拦截后调用 jwtTool 验证不就行了）</li>
+<li>使用Redis缓存用户信息：将user缓存到Redis中，获取user时，先从Redis获取。取不到时，则从数据库中查询，再缓存到Redis中。因为很多界面都要用到user信息，并发时，频繁的访问数据库，会导致数据库崩溃。变更数据库时，先更新数据库，再清空缓存；</li>
+<li>？？？使用Redis缓存验证码：原本添加到session中，减轻服务器压力。将验证码存到Redis中，方便查询检验；<br>  当⽤户点击刷新验证码时，服务端⾸先给当前需要登陆的游客，设置⼀个随机字符串(kaptchaOwner)，⽤于标识当前这个游客，然后将随机字符串存⼊到cookie中，返回给浏览器，然后服务端的redis保存 “key:随机字符串,value:验证码”。接着⽤户输⼊⽤户名，密码，验证码，再次点击登陆时，服务端会从cookie中拿到kaptchaOwner,通过它，可以从Redis中得到正确的验证码，然后与⽤户输⼊的验证码做⽐较，看是否⼀致。<br>  验证码需要频繁的访问与刷新，对性能要求很高；验证码不需要永久存储，通常在很短的时间内就会失效；分布式部署时，存在session共享问题；</li>
+</ol>
 </li>
 <li><p>Nacos 服务发现</p>
 <ul>
 <li>消费者需要连接nacos以拉取和订阅服务，因此服务发现的前两步与服务注册是一样（引入nacos-discovery依赖和配置nacos地址），后面再加上服务调用即可  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> DiscoveryClient discoveryclient;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handlecartItems</span><span class="params">(List&lt;CartVO&gt; vos)</span> &#123;</span><br><span class="line"><span class="comment">// 根据服务名称拉取实例列表，负藏均衡挑选一个实例</span></span><br><span class="line">List&lt;ServiceInstance&gt; instances = discoveryclient.getInstances(<span class="string">&quot;item-service&quot;</span>);</span><br><span class="line"><span class="type">ServiceInstance</span> <span class="variable">instance</span> <span class="operator">=</span> instances.get(RandomUtil.randomInt(instances.size()));</span><br><span class="line"><span class="comment">// 获取实例的TP和端口</span></span><br><span class="line">URI uri= instance.getUri();</span><br><span class="line"><span class="comment">// ...发送请求</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>配置管理。<br>当微服务部署的实例越来越多，业务配置如 JDBC、日志、openfeign 时常变动，逐个修改微服务配置就会让人抓狂。<br>Nacos实现配置共享，配置热更新，动态路由<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/list/watchlater?oid=961238101&bvid=BV1kH4y1S7wz&spm_id_from=333.1007.top_right_bar_window_view_later.content.click&p=34">https://www.bilibili.com/list/watchlater?oid=961238101&amp;bvid=BV1kH4y1S7wz&amp;spm_id_from=333.1007.top_right_bar_window_view_later.content.click&amp;p=34</a></p>
+<li><p>Nacos 配置管理。<br>当微服务部署的实例越来越多，业务配置如 JDBC、日志、openfeign 时常变动，逐个修改微服务配置就会让人抓狂。<br>Nacos实现配置共享，配置热更新，动态路由<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/list/watchlater?oid=961238101&bvid=BV1kH4y1S7wz&spm_id_from=333.1007.top_right_bar_window_view_later.content.click&p=34">https://www.bilibili.com/list/watchlater?oid=961238101&amp;bvid=BV1kH4y1S7wz&amp;spm_id_from=333.1007.top_right_bar_window_view_later.content.click&amp;p=34</a></p>
 </li>
 <li><p>OpenFeign </p>
 <ul>
@@ -1955,22 +1967,7 @@
 </li>
 <li><p>网关 Gateway</p>
 <ul>
-<li>application.yml 配置；  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">10010</span> <span class="comment"># 网关端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">gateway</span> <span class="comment"># 服务名称</span></span><br><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment"># nacos地址</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">    <span class="attr">routes:</span> <span class="comment"># 网关路由配置</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span>    <span class="comment"># 1. 路由id，自定义，只要唯一即可</span></span><br><span class="line">        <span class="comment"># uri: http://127.0.. # 2. 路由的目标地址 http 就是固定地址</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">lb://userservice</span> <span class="comment">#    lb(loadbalance) 就是负载均衡，后面跟服务名称</span></span><br><span class="line">        <span class="attr">predicates:</span>           <span class="comment"># 3. 路由断言(可多条)，判断请求是否符合路由规则的条件</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/**</span>   <span class="comment">#    按照路径匹配，只要以/user/开头就符合要求</span></span><br><span class="line">        <span class="attr">filters:</span>              <span class="comment"># 4. 路由过滤器，，</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">order-service</span>   <span class="comment"># ...</span></span><br><span class="line">        <span class="comment"># ...                        </span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>？？？用户登录。。redis怎么用的？</p>
-<ul>
-<li>缓存点赞和关注：<ol>
-<li>Redis缓存用户点赞数用String类型，以用户ID为key，点赞时，自增，取消赞时，自减；<br>  缓存实体点赞数，set类型，用户给实体点赞时添加进列表，取消赞时则移除，最后用size统计；</li>
-<li>缓存粉丝列表，使用zset，存入粉丝的id和关注的时间戳，使用zCard获得粉丝数量。利用reverseRange的时间戳反向排序，按关注时间加载粉丝列表。</li>
-</ol>
-</li>
-<li>优化登录：<ol>
-<li>使用Redis缓存用户信息：将user缓存到Redis中，获取user时，先从Redis获取。取不到时，则从数据库中查询，再缓存到Redis中。因为很多界面都要用到user信息，并发时，频繁的访问数据库，会导致数据库崩溃。变更数据库时，先更新数据库，再清空缓存；</li>
-<li>使用Redis缓存验证码？？？：原本添加到session中，减轻服务器压力。将验证码存到Redis中，方便查询检验；<br>  当⽤户点击刷新验证码时，服务端⾸先给当前需要登陆的游客，设置⼀个随机字符串(kaptchaOwner)，⽤于标识当前这个游客，然后将随机字符串存⼊到cookie中，返回给浏览器，然后服务端的redis保存 “key:随机字符串,value:验证码”。接着⽤户输⼊⽤户名，密码，验证码，再次点击登陆时，服务端会从cookie中拿到kaptchaOwner,通过它，可以从Redis中得到正确的验证码，然后与⽤户输⼊的验证码做⽐较，看是否⼀致。<br>  验证码需要频繁的访问与刷新，对性能要求很高；验证码不需要永久存储，通常在很短的时间内就会失效；分布式部署时，存在session共享问题；</li>
-<li>登录凭证：原本添加到MySQL中，为减轻每次登录都去查询数据库的压力，将登录凭证ticket缓存在Redis中，防止每次都要进行数据库的查询，提高并发能力。退出登录时，原本要修改数据库中的登录凭证，现在只需要修改Redis即可。</li>
-</ol>
-</li>
+<li>application.yml 配置；  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">routes:</span> <span class="comment"># 网关路由配置</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span>    <span class="comment"># 1. 路由id，自定义，只要唯一即可</span></span><br><span class="line">        <span class="comment"># uri: http://127.0.. # 2. 路由的目标地址 http 就是固定地址</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">lb://userservice</span> <span class="comment">#    lb(loadbalance) 就是负载均衡，后面跟服务名称</span></span><br><span class="line">        <span class="attr">predicates:</span>           <span class="comment"># 3. 路由断言(可多条)，判断请求是否符合路由规则的条件</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/**</span>   <span class="comment">#    按照路径匹配，只要以/user/开头就符合要求</span></span><br><span class="line">        <span class="attr">filters:</span>              <span class="comment"># 4. 路由过滤器，，</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">order-service</span>   <span class="comment"># ...</span></span><br><span class="line">        <span class="comment"># ...                        </span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>网关登录校验。</p>
@@ -1986,22 +1983,28 @@
 </li>
 <li>各模块校验：登录在user模块，验证成功后得到token，后续使用每个微服务（购物车、下单，，）时，如果都要都要进行检验，会造成重复代码以及重复发送jwt秘钥造成泄露风险，，所以，在网关中，转发请求给微服务之前，进行jwt登录校验  <img src="https://leo710aka.github.io/bk/job10.png" width="550" height="300" alt=""></li>
 </ul>
-<ol>
-<li>如何登录校验？<br>  具体来说，要定义一个（自定义）过滤器，放在pre阶段；在过滤器中实现校验业务逻辑，校验通过后才会向下执行（下面的过滤器），最后由 Netty路由过滤器转发给微服务  <img src="https://leo710aka.github.io/bk/job11.png" width="650" height="300" alt="">
-  全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与路由过滤器GatewayFilter的作用一样。
-  区别在于GatewayFilter通过配置定义，可以自由的指定作用的范围，配置自定义参数，使用灵活，但处理逻辑是固定的，难以自定义GatewayFilter；
-  而GlobalFilter可以自己写代码实现，实现需要的业务逻辑，需要自定义过滤器时大多会选择 GlobalFilter。<img src="https://leo710aka.github.io/bk/job12.png" width="550" height="300" alt="">
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthGlobalFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 @RequiredArgsConstructor 后自动使用构造器注入下面成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthProperties authProperties;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> JwtTool jwtTool;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="comment">// 1.获取请求</span></span><br><span class="line">        <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();</span><br><span class="line">        <span class="comment">// 2.判断是否需要做登录拦截（使用 AntPathMatcher 匹配 authProperties 中的路径）</span></span><br><span class="line">        <span class="keyword">if</span>(isExclude(request.getPath().tostring()))&#123;</span><br><span class="line">            <span class="comment">// 放行（如 /user/login）</span></span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.获取token</span></span><br><span class="line">        <span class="type">string</span> <span class="variable">token</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        List&lt;string&gt; headers = request.getHeaders().get(<span class="string">&quot;authorization&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(headers != <span class="literal">null</span> &amp;&amp; !headers.isEmpty())&#123;</span><br><span class="line">            token= headers.get(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4.校验并解新token</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            userId = jwtTool.parseToken(token);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(UnauthorizedException e) &#123;</span><br><span class="line">            <span class="comment">// 拦裁，设置响应状态码为401（只是抛异常的话响应500，看不出具体错误）</span></span><br><span class="line">            <span class="type">ServerHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> exchange.getResponse();</span><br><span class="line">            response.setstatusCode(Httpstatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> response.setcomplete(); <span class="comment">// 结束</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO 5.传递用户信息</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 6.放行</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isExclude</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//过滤器执行领序，信越小，优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>如何将用户信息传递给微服务？<br>  对于单体架构系统，所有功能在部署在一个tomcat上，一个tomcat内部不同线程之间共享ThreadLocal；对于微服务架构，网关本身就是一个微服务，和其他微服务要通过 HTTP请求传递信息，把用户信息放在请求头中不会对业务造成影响，后续从请求头中取出用户信息、、<br>  修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中，使用ServerWebExchange类提供的API：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 5.传递用户信息</span></span><br><span class="line"><span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> userId.tostring();</span><br><span class="line"><span class="type">ServerWebExchange</span> <span class="variable">swe</span> <span class="operator">=</span> exchange.mutate().</span><br><span class="line">    request(builder -&gt; builder.header(<span class="string">&quot;user-info&quot;</span>, userInfo))</span><br><span class="line">    .build();</span><br><span class="line"><span class="comment">// 6.放行修改后的请求头(到下面过滤器链)</span></span><br><span class="line"><span class="keyword">return</span> chain.filter(swe);</span><br></pre></td></tr></table></figure>
-  在后续的微服务中，通过拦截器，从请求头中获取登录凭证，进行登录校验，并保存在 ThreadLocal；<br>  由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。  <img src="https://leo710aka.github.io/bk/job13.png" width="550" height="300" alt="">
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 springmvc 拦截器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpservletRequest request, HttpservletResponse response, obiect handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.获取登录用户信息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;user-info&quot;</span>);</span><br><span class="line">        <span class="comment">// 2.判断是否获取了用户，如果有，存入ThreadLocal</span></span><br><span class="line">        <span class="keyword">if</span>(Strutil.isNotBlank(userInfo)) &#123;</span><br><span class="line">            UserContext.setUser(Long.ValueOf(userInfo));   </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpservletRequest request, HttpservletResponse response, 0bject handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 清理用户</span></span><br><span class="line">        UserContext.removeUser();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编写 springmvc 配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">// 防止网关微服务加载此配置</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(DispatcherServlet.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123; </span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">UserInfoInterceptor</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  最后，修改每个微服务的配置扫描文件，使其能够扫描到 hm-common模块中定义的 UserInfoInterceptor 拦截器；
-  注意：网关微服务不能引用 hm-common模块中的 拦截器，因为网关的底层不是 SpringMVC 实现的，无法加载SpringMVC拦截器的功能，会报错；    </li>
-<li>如何在微服务间传递信息？<br>  微服务项目中的很多业务要多个微服务共同合作完成，而这个过程中也需要传递登录用户信息；<br>  方法同样是把用户信息保存到请求头，发送 Http请求。不同的是微服务之间发送请求通过 Openfeign，而网关发送请求是通过其内部的 http 请求方式（netty过滤器路由分发），，  <img src="https://leo710aka.github.io/bk/job14.png" width="650" height="300" alt=""></li>
-</ol>
 </li>
 </ul>
+<ol>
+<li><p>如何登录校验？<br> 具体来说，要定义一个（自定义）过滤器，放在pre阶段；在过滤器中实现校验业务逻辑，校验通过后才会向下执行（下面的过滤器），最后由 Netty 路由过滤器转发给微服务</p>
+ <img src="https://leo710aka.github.io/bk/job11.png" width="650" height="300" alt="">
+ 全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与路由过滤器GatewayFilter的作用一样。
+ 区别在于GatewayFilter通过配置定义，可以自由的指定作用的范围，配置自定义参数，使用灵活，但处理逻辑是固定的，难以自定义GatewayFilter；
+ 而GlobalFilter可以自己写代码实现，实现需要的业务逻辑，需要自定义过滤器时大多会选择 GlobalFilter。<img src="https://leo710aka.github.io/bk/job12.png" width="550" height="300" alt="">
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthGlobalFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 @RequiredArgsConstructor 后自动使用构造器注入下面成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthProperties authProperties;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> JwtTool jwtTool;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="comment">// 1.获取请求</span></span><br><span class="line">        <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();</span><br><span class="line">        <span class="comment">// 2.判断是否需要做登录拦截（使用 AntPathMatcher 匹配 authProperties 中的路径）</span></span><br><span class="line">        <span class="keyword">if</span>(isExclude(request.getPath().tostring()))&#123;</span><br><span class="line">            <span class="comment">// 放行（如 /user/login）</span></span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.获取token</span></span><br><span class="line">        <span class="type">string</span> <span class="variable">token</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        List&lt;string&gt; headers = request.getHeaders().get(<span class="string">&quot;authorization&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(headers != <span class="literal">null</span> &amp;&amp; !headers.isEmpty())&#123;</span><br><span class="line">            token= headers.get(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4.校验并解新token</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            userId = jwtTool.parseToken(token);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(UnauthorizedException e) &#123;</span><br><span class="line">            <span class="comment">// 拦裁，设置响应状态码为401（只是抛异常的话响应500，看不出具体错误）</span></span><br><span class="line">            <span class="type">ServerHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> exchange.getResponse();</span><br><span class="line">            response.setstatusCode(Httpstatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> response.setcomplete(); <span class="comment">// 结束</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO 5.传递用户信息</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 6.放行</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isExclude</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//过滤器执行领序，信越小，优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ </li>
+<li><p>如何将用户信息传递给微服务？<br> 对于单体架构系统，所有功能在部署在一个tomcat上，一个tomcat内部不同线程之间共享ThreadLocal；对于微服务架构，网关本身就是一个微服务，和其他微服务要通过 HTTP请求传递信息，把用户信息放在请求头中不会对业务造成影响，后续从请求头中取出用户信息、、<br> 修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中，使用ServerWebExchange类提供的API：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 5.传递用户信息</span></span><br><span class="line"><span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> userId.tostring();</span><br><span class="line"><span class="type">ServerWebExchange</span> <span class="variable">swe</span> <span class="operator">=</span> exchange.mutate().</span><br><span class="line">    request(builder -&gt; builder.header(<span class="string">&quot;user-info&quot;</span>, userInfo))</span><br><span class="line">    .build();</span><br><span class="line"><span class="comment">// 6.放行修改后的请求头(到下面过滤器链)</span></span><br><span class="line"><span class="keyword">return</span> chain.filter(swe);</span><br></pre></td></tr></table></figure>
+<p> 在后续的微服务中，通过拦截器，从请求头中获取登录凭证，进行登录校验，并保存在 ThreadLocal；<br> 由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。</p>
+ <img src="https://leo710aka.github.io/bk/job13.png" width="550" height="300" alt="">
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 springmvc 拦截器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpservletRequest request, HttpservletResponse response, obiect handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.获取登录用户信息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;user-info&quot;</span>);</span><br><span class="line">        <span class="comment">// 2.判断是否获取了用户，如果有，存入ThreadLocal</span></span><br><span class="line">        <span class="keyword">if</span>(Strutil.isNotBlank(userInfo)) &#123;</span><br><span class="line">            UserContext.setUser(Long.ValueOf(userInfo));   </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpservletRequest request, HttpservletResponse response, 0bject handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 清理用户</span></span><br><span class="line">        UserContext.removeUser();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编写 springmvc 配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">// 防止网关微服务加载此配置</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(DispatcherServlet.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123; </span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">UserInfoInterceptor</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 最后，修改每个微服务的配置扫描文件，使其能够扫描到 hm-common模块中定义的 UserInfoInterceptor 拦截器；
+ 注意：网关微服务不能引用 hm-common模块中的 拦截器，因为网关的底层不是 SpringMVC 实现的，无法加载SpringMVC拦截器的功能，会报错；    
+ </li>
+<li><p>如何在微服务间传递信息？<br> 微服务项目中的很多业务要多个微服务共同合作完成，而这个过程中也需要传递登录用户信息；<br> 方法同样是把用户信息保存到请求头，发送 Http请求。不同的是微服务之间发送请求通过 Openfeign，而网关发送请求是通过其内部的 http 请求方式（netty过滤器路由分发），，</p>
+ <img src="https://leo710aka.github.io/bk/job14.png" width="650" height="300" alt=""></li>
+</ol>
 <ul>
 <li><p>拦截器（Interceptor），，<br>？？<br>目的：让未登录用户不能访问某些页面<br>原理：在方法前标注自定义注解，拦截所有的请求，只处理带有该注解的方法。<br>拦截器：1.自定义拦截器 2.配置拦截器<br>首先验证用户（preHandle方法），如果用户存在，则在本次请求中持有用户，放进hostHolder里<br>经过controller后，返回到拦截器，拦截器再将用户信息存入model。<br>自定义拦截器需要实现HandlerInterceptor，然后重写preHandle（controller前执行）,postHandle（controller后执行）,以及afterCompletion（模板解析后执行）<br>配置拦截器：需要实现WebMvcConfigurer接口，然后重写addInterceptors方法，排除拦截静态页面。</p>
 </li>
@@ -2009,16 +2012,7 @@
 </li>
 </ul>
 <ul>
-<li><p>Redis 结合 Gateway 完成登录校验：</p>
-<ol>
-<li><strong>用户登录：</strong>用户通过前端应用登录，发送登录请求到后端身份验证服务。身份验证服务验证用户名和密码，如果验证通过，生成一个包含用户信息的 token。</li>
-<li><strong>Token存储到Redis：</strong>作为一个键值对，其中键为 token，值为用户信息。设置合适的过期时间，以确保 token 有一定的时效性。</li>
-<li><strong>网关配置：</strong> 配置网关，使其拦截所有需要登录校验的请求。在网关的过滤器中，从请求中获取 token，然后查询 Redis 确认 token 是否有效。</li>
-<li><strong>网关校验：</strong>当请求经过网关时，网关会拦截请求并检查 token 的有效性。如果 token 有效，允许请求通过，否则返回未授权的错误。</li>
-</ol>
-</li>
-<li><p>用 rabbitmq，，kafka<br>，，解耦支付、用户、交易<br>，，</p>
-</li>
+<li>Sentinel<br>，，解耦支付、用户、交易<br>，，</li>
 </ul>
 <h2 id="项目系统（牛客论坛）"><a href="#项目系统（牛客论坛）" class="headerlink" title="项目系统（牛客论坛）"></a>项目系统（牛客论坛）</h2><ul>
 <li><strong>论坛系统项目</strong>（高校信息平台。。。）<ul>
@@ -2037,85 +2031,12 @@
 <img src="https://leo710aka.github.io/bk/job1.png" width="750" height="300" alt="">
 
 <ul>
-<li><p>介绍项目</p>
-<ol>
+<li>介绍项目<ol>
 <li>梳理系统的项目背景以及整个系统架构设计与运转流程</li>
 <li>技术上的亮点:”我在处理数据的过程中，实现了数据的一致性和可靠性，做到了数据零丢失”、“项目引入了规则引擎，其中解决了xxx的业务问题，使得工作效率极大提升”… 等等</li>
 <li>业务上的亮点:”实现了业务隔离，不同类型之间的业务互不干扰，从原来的xxx提升到了、”参考自某平台的xx功XXx”能，从零开始实现了业务，使得平台收益增加了xxx”.. 等等</li>
 <li>梳理项目还可提升的地方：无论是提高性能，还是提高工作效率，总会有的。这时候如果能吹下自己对比过某某公司的同类型系统，借鉴了某某某优点，基于目前自身的业务觉得还有哪里可以继续优化</li>
 </ol>
-</li>
-<li><p>请简要介绍一下你的项目？<br>实现了一个基本功能完整的论坛项目，主要使用了Springboot、Mybatis、MySQL、Redis、Kafka、等工具。主要实现了用户的注册、登录、发帖、点赞、系统通知、按热度排序、搜索等功能。另外引入了redis数据库来提升网站的整体性能，实现了用户凭证的存取、点赞关注的功能。基于 Kafka 实现了系统通知：当用户获得点赞、评论后得到通知。利用定时任务定期计算帖子的分数，并在页面上展现热帖排行榜。</p>
-</li>
-<li><p>如何实现项目的注册问题？<br>我们对每一个请求的开发都是由Dao——&gt;sevice——controller层。在插入数据前，会对数据进行空值验证，对账号邮箱进行重复性验证，使用map来存储错误信息，如果controller层拿到的map为空就说明注册成功，进行后续的激活处理。在插入数据时，会对密码进行加盐处理后，在使用MD5算法进行加密，然后存储到数据库，最开始的数据Status设为0，表示无效，需要进行激活处理。<br>项目如何实现用户唯一性检验：在创建MySQL表时，使用unqiue关键字保证用户名username字段的唯一性。另外，在注册用户时进行重复性验证，如果已经用户已经存在，不能进行注册。</p>
-</li>
-<li><p>登录状态保存在哪<br>保存在用户凭证表，包括用户id，用户凭证，用户状态和过期时间，对于用户凭证表是0有效1无效。在登录时验证账号密码是否为空，或者密码是否错误等，如果没有错误就生成登录凭证。</p>
-</li>
-<li><p>用户登陆上之后怎么显示登录页面<br>用户在登录后会以ticket名称为key，以及实际的ticket为value创建一个cookie存入浏览器，之后服务端根据用户凭证在用户凭证表中查询user信息封装在模板中然后返回给浏览器。代码和流程如下图所示<br>这个过程是每一个用户登录都会存在的，所以我们需要拦截器来处理。同时对于服务端来说，同时可能会有大量的浏览器请求，所以这里还涉及到线程安全问题。</p>
-</li>
-<li><p>拦截器（Interceptor）<br>目的：让未登录用户不能访问某些页面<br>原理：在方法前标注自定义注解，拦截所有的请求，只处理带有该注解的方法。<br>拦截器：1.自定义拦截器 2.配置拦截器<br>首先验证用户（preHandle方法），如果用户存在，则在本次请求中持有用户，放进hostHolder里<br>经过controller后，返回到拦截器，拦截器再将用户信息存入model。<br>自定义拦截器需要实现HandlerInterceptor，然后重写preHandle（controller前执行）,postHandle（controller后执行）,以及afterCompletion（模板解析后执行）<br>配置拦截器：需要实现WebMvcConfigurer接口，然后重写addInterceptors方法，排除拦截静态页面。</p>
-</li>
-<li><p>ThreadLocal（线程安全）<br>从上面的代码可以看出，ThreadLocal  set赋值的时候首先会获取当前线程thread,并获取thread线程中的ThreadLocalMap属性。如果map属性不为空，则直接更新value值，如果map为空，则实例化threadLocalMap,并将value值初始化<br>ThreadLocalMap是ThreadLocal的内部静态类，而它的构成主要是用Entry来保存数据 ，而且还是继承的弱引用。在Entry内部使用ThreadLocal作为key，使用我们设置的value作为value。<br>通过当前线程对象的getMap()方法获取ThreadMap对象 然后将当前ThreadLocal对象作为key值存入map 这能保证线程内的资源共享而不同线程之间独立</p>
-</li>
-<li><p>项目哪块用到AOP了？（面向切面编程）<br>项目中统一处理日志时，用到了AOP。如果我们在每个业务组件中都记录日志，那么会产生非常多的重复代码。如果我们采用OOP的思想，将记录日志的功能封装成一个bean去调用，那么会产生耦合度高等问题。因为记录日志本身不属于业务需求，它属于系统需求，所以我们不应该将业务需求和系统需求耦合在一起，这个时候我们就需要用AOP来处理。AOP解决统一处理系统需求的方式是将代码定义到一个额外的bean，叫切面组件Aspect，这个组件在程序运行之前就需要被框架织入到某些连接点。切面组件的pointcut声明织入到哪个位置，通知Advice方法声明切面要处理什么样的逻辑。</p>
-</li>
-<li><p>项目中redis怎么用的</p>
-<ul>
-<li>缓存点赞和关注：<ol>
-<li>Redis缓存用户点赞数用String类型，以用户ID为key，点赞时，自增，取消赞时，自减；<br>  缓存实体点赞数，set类型，用户给实体点赞时添加进列表，取消赞时则移除，最后用size统计；</li>
-<li>缓存粉丝列表，使用zset，存入粉丝的id和关注的时间戳，使用zCard获得粉丝数量。利用reverseRange的时间戳反向排序，按关注时间加载粉丝列表。</li>
-</ol>
-</li>
-<li>优化登录：<ol>
-<li>使用Redis缓存用户信息：将user缓存到Redis中，获取user时，先从Redis获取。取不到时，则从数据库中查询，再缓存到Redis中。因为很多界面都要用到user信息，并发时，频繁的访问数据库，会导致数据库崩溃。变更数据库时，先更新数据库，再清空缓存；</li>
-<li>使用Redis缓存验证码：原本添加到session中，减轻服务器压力。将验证码存到Redis中，方便查询检验；<br>  当⽤户点击刷新验证码时，服务端⾸先给当前需要登陆的游客，设置⼀个随机字符串(kaptchaOwner)，⽤于标识当前这个游客，然后将随机字符串存⼊到cookie中，返回给浏览器，然后服务端的redis保存 “key:随机字符串,value:验证码”。接着⽤户输⼊⽤户名，密码，验证码，再次点击登陆时，服务端会从cookie中拿到kaptchaOwner,通过它，可以从Redis中得到正确的验证码，然后与⽤户输⼊的验证码做⽐较，看是否⼀致。<br>  验证码需要频繁的访问与刷新，对性能要求很高；验证码不需要永久存储，通常在很短的时间内就会失效；分布式部署时，存在session共享问题；</li>
-<li>登录凭证：原本添加到MySQL中，为减轻每次登录都去查询数据库的压力，将登录凭证ticket缓存在Redis中，防止每次都要进行数据库的查询，提高并发能力。退出登录时，原本要修改数据库中的登录凭证，现在只需要修改Redis即可。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>为什么⽤Redis？<br>1、Redis是⼀种基于键值对的NoSQL数据库，它⽀持多种数据结构：字符串、哈希、列表、集合、有序集合等<br>2、Redis将所有的数据都存在内存中，所以它的读写性能⼗分惊⼈。同时，还可以将数据以快照或者⽇志的形式保存到硬盘上。<br>3、缓存、排⾏榜(热⻔帖⼦)、计数器、社交⽹络(点赞数)、消息队列等。</p>
-</li>
-<li><p>redis的key怎么设计（怎样存储的点赞、关注、缓存用户数据）？<br>redis的key是String类型的，编写了一个工具类来生成redis的key。key由多个单词拼接而成，中间采用冒号隔开，有的单词是固定的，有些单词是动态的。<br>点赞使用set类型存储，key为点赞对象，set中保存点赞人的ID<br>关注使用zSet类型存储，key为被关注者，set保存关注者以及关注时间为score<br>缓存用户数据使用Value类型，key为用userID得到的key，value为user对象（设置过期时间，且数据修改时需要清除缓存）<br>验证码是与user相关的，但是这里我们不能直接传入userId,因为还未登录，我们不知道用户是谁。这里传入了一个字符串owner，这是在用户访问登录页面的时候，给他发一个凭证（随机字符串），存到cookie里，用的时候从cookie内将这个owner取出来，在得到rediskey，然后获取验证码，与输入的验证码进行对比。</p>
-</li>
-</ul>
-<ul>
-<li><p>缓存点赞数如何实现<br>帖子和评论的赞一起存，统称为实体的赞。还需要统计用户的赞（用户的帖子和评论收到的赞的总和）。因为如果统计用户所有帖子和评论的赞得到用户获得的赞太麻烦，所以这里以用户ID采用rediskey工具拼接为key记录点赞数量（这就会涉及到事务操作。用户的帖子或者评论的点赞数增加了对应的用户的赞要增加）。<br>具体实现：使用redis来存储点赞数，首先需要构造redis的key，<br>点赞使用set类型存储，key为点赞对象，set中保存点赞人的ID<br>点赞的时候需要判断用户是否已经点赞：通过redistemplate.opsforSet().ismember方法 如果已经点过赞了就要把点赞记录删除 否则添加数据。 这里用到了事务操作 重写了execute方法<br>项目中的redis在存储用户信息时，是只读模式。</p>
-</li>
-<li><p>如何解决缓存和数据库的数据不一致问题？<br>缓存和数据库的数据不一致一般是由两个原因导致的，提供了相应的解决方案。<br>1、删除缓存值或更新数据库失败而导致数据不一致，可以使用重试机制确保删除或更新操作成功。<br>2、在删除缓存值、更新数据库的这两步操作中，有其他线程的并发读操作，导致其他线程读取到旧值，应对方案是延迟双删。<br>重试机制：具体来说，可以把要删除的缓存值或者是要更新的数据库值暂存到消息队列中。当应用没有能够成功地删除缓存值或者是更新数据库值时，可以从消息队列中重新读取这些值，然后再次进行删除或更新。如果能够成功地删除或更新，我们就要把这些值从消息队列中去除，以免重复操作，此时，我们也可以保证数据库和缓存的数据一致了。否则的话，我们还需要再次进行重试。如果重试超过的一定次数，还是没有成功，我们就需要向业务层发送报错信息了 。<br>延迟双删： 一般应用于先删除缓存，再更新数据库的多线程并发访问的情况。这是因为，先更新数据库值，再删除缓存值的情况下，如果线程 A 删除了数据库中的值，但还没来得及删除缓存值，线程 B 就开始读取数据了，那么此时，线程 B 查询缓存时，发现缓存命中，就会直接从缓存中读取旧值。不过，在这种情况下，如果其他线程并发读缓存的请求不多，那么，就不会有很多请求读取到旧值。而且，线程 A 一般也会很快删除缓存值，这样一来，其他线程再次读取时，就会发生缓存缺失，进而从数据库中读取最新值。所以，这种情况对业务的影响较小。<br><img src="https://img-blog.csdnimg.cn/572d2e33e1b44d998ab28d103f895ea9.png"></p>
-</li>
-</ul>
-<ul>
-<li><p>怎么理解⽣产者和消费者？⽣产者发消息是主动调⽤；消费者接受消息，是⼀个被动调⽤的过程(监听)</p>
-</li>
-<li><p>kafka消息模型和常见术语？</p>
-<ul>
-<li>kafka入门：Apache Kafka是一个分布式流平台。一个分布式的流平台应该包含3点关键的能力：</li>
-<li>kafka特点<ul>
-<li>高吞吐量：处理TB级的海量数据</li>
-<li>消息持久化：持久化，将数据存储到硬盘上，而不仅仅存储在内存中，长久保存消息，存到硬盘中的读取速度远远小于内存，读写硬盘的效率高低取决于读取硬盘的方式，硬盘的顺序读写的效率是很高的，kafka保证对硬盘消息的读写都是顺序的；</li>
-<li>高可靠性：kafka是分布式部署，一台服务器挂了，还有别的，有容错机制</li>
-<li>高拓展性：集群的服务器不够时，可以扩展服务器，只需简单的配置</li>
-</ul>
-</li>
-<li>kafka术语<br>  消息模型：发布-订阅模型，消费者订阅了某一主题（topic）后，生产者采用类似广播的方式，将消息通过主题传递给所有的订阅者。<br>  Topic：主题，类似于文件夹，用来存放不同的数据。<br>  Partition：主题分区，同一主题的不同分区可以存放在不同的Broker上面，保证并发能力和负载均衡。<br>  Offset：消息在Partition中的存放位置。<br>  Broker：可以理解为kafka集群里面的一台或多台服务器，它本身是没有复制的，上面可能运行着topic1的leader， topic2的follower等等。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>项目哪里用到了kafka？<br>当有点赞，评论，关注请求时，会发送系统通知点赞，评论，关注的对象。在处理系统信息时，使用到了Kafka，具体来说，先定义了生产者类和消费者类，其中生产者被点赞&#x2F;评论&#x2F;关注功能对应的Controller使用，产生消息。而消费者负责消息（message）到来时，把消息存到数据库内。<br>触发事件之后, ⽣产者⽣产消息，消费者监听到有消息之后 -&gt; 将消息队列中的事件Event(或者可以简单的看作消息)取出 -&gt; 按需要将其封装为Message对象，并且持久化到数据库中保存。</li>
-</ul>
-<ul>
-<li><p>消息队列放到内存还是磁盘？放磁盘为什么还这么快？</p>
-<ul>
-<li>Kafka的消息是保存或缓存在磁盘上的，一般认为在磁盘上读写数据是会降低性能的，因为寻址会比较消耗时间，但是实际上，Kafka的特性之一就是高吞吐率。从数据写入和读取两方面分析，为什么Kafka速度这么快</li>
-<li>写入数据：磁盘读写的快慢取决于你怎么使用它，也就是顺序读写或者随机读写。在顺序读写的情况下，磁盘的顺序读写速度和内存持平。因为硬盘是机械结构，每次读写都会寻址-&gt;写入，其中寻址是一个“机械动作”，它是最耗时的。所以硬盘最讨厌随机I&#x2F;O，最喜欢顺序I&#x2F;O。为了提高读写硬盘的速度，Kafka就是使用顺序I&#x2F;O。<br>  即便是顺序写入硬盘，硬盘的访问速度还是不可能追上内存。所以Kafka的数据并不是实时的写入硬盘 ，它充分利用了现代操作系统分页存储来利用内存提高I&#x2F;O效率。</li>
-<li>读取数据：实现了零拷贝</li>
-</ul>
-</li>
-<li><p>优化⽹站的性能<br>本地缓存：将数据缓存在应用服务器上，性能最好。常用缓存工具: Ehcache、 Guava、 Caffeine等<br>分布式缓存：将数据缓存在NoSQL数据库上，跨服务器。常用缓存工具: MemCache、 Redis等。<br>多级缓存：&gt;一级缓存 (本地缓存) &gt; 二级缓存 (分布式缓存) &gt; DB；避免缓存雪崩 (缓存失效，大量请求直达DB)，提高系统的可用性</p>
 </li>
 </ul>
 <hr>
@@ -2523,6 +2444,8 @@
 </li>
 <li><p>抽象的方法是否可同时是静态的,是否可同时是本地方法（native），是否可同时被 synchronized修饰？<br>都不能。抽象方法需要子类重写，而静态的方法是无法被重写的，因此二者是矛盾的。本地方法是由本地代码（如 C 代码）实现的方法，而抽象方法是没有实现的，也是矛盾的。synchronized 和方法的实现细节有关，抽象方法不涉及实现细节，因此也是相互矛盾的。</p>
 </li>
+<li><p>abstract 和 final 同时用来修饰同一个类或方法？<br>如果一个类使用了<code>abstract</code>修饰符，表示这个类是抽象类，不能被实例化，可以包含抽象方法。<br>如果一个类使用了<code>final</code>修饰符，表示这个类是最终类，不能被其他类继承。<br>如果一个方法使用了<code>public abstract</code>修饰符，表示这个方法是抽象方法，只有声明没有实现，需要在子类中实现。<br>所以，<code>abstract final</code>不能同时修饰类或方法。<code>public abstract final</code>也是不符合Java语法的组合。需要根据具体的需求和设计来选择适当的修饰符。</p>
+</li>
 <li><p>是否可以从一个静态方法内部发出对非静态方法的调用？<br>不可以，静态方法只能访问静态成员，因为非静态方法的调用要先创建对象，在调用静态方法时可能对象并没有被初始化。</p>
 </li>
 <li><p>接口（Interface）：</p>
@@ -2602,7 +2525,7 @@
 <li>作用：<ol>
 <li>final为用于标识常量的关键字，final标识的关键字存储在常量池中（在这里final常量的具体用法将在下面进行介绍）；</li>
 <li>finalize()方法在Object中进行了定义，用于在对象“消失”时，由JVM进行调用用于对对象进行垃圾回收，类似于C++中的析构函数；用户自定义时，用于释放对象占用的资源（比如进行I&#x2F;0操作）；</li>
-<li>finally{}用于标识代码块，与try{}进行配合，不论try中的代码执行完或没有执行完（这里指有异常），该代码块之中的程序必定会进行；</li>
+<li>finally{}用于标识代码块，与try{}进行配合，不论try中的代码执行完或没有执行完（这里指有异常），该代码块之中的程序必定会进行；且finally{}中的 return也会比 try{}中的更早返回！！</li>
 </ol>
 </li>
 </ul>
@@ -2623,7 +2546,7 @@
 </li>
 <li><p>try catch finally，try里有return，finally还执行么？<br>执行，并且finally的执行早于try里面的return。结论：<br>1、不管有木有出现异常，finally块中代码都会执行；<br>2、当try和catch中有return时，finally仍然会执行；<br>3、finally是在return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，任然是之前保存的值），所以函数返回值是在finally执行前确定的；<br>4、finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。</p>
 </li>
-<li><p>？？throw与thorws区别</p>
+<li><p>throw与thorws区别</p>
 <ul>
 <li>位置不同 <ol>
 <li>throws 用在函数上，后面跟的是异常类，可以跟多个；而 throw 用在函数内，后面跟的是异常对象。</li>
