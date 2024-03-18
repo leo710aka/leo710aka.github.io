@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://pdai.tech/images/alg/alg-sort-overview-1.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/HeapSort.png?raw=true">
 <meta property="article:published_time" content="2021-09-02T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-03-16T06:40:16.745Z">
+<meta property="article:modified_time" content="2024-03-18T12:50:27.671Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/alg/alg-tree-14.png">
@@ -161,7 +161,7 @@
 <li><strong>字符串拼接</strong>：直接使用 <code>+</code> 运算符，或 <code>concat(String str)</code>：将指定字符串 str 连接到原字符串的末尾。<br>String 不可变，+&#x3D; 操作符或 concat()实际上创建了一个新的字符串对象，该对象包含 字符串值修改后的内容，然后将其分配给了原 str变量，使 str 引用了新的字符串对象，而原始的空字符串对象仍然存在，没有被修改。</li>
 <li><strong>字符串查找和比较</strong>：<br><code>indexOf(String str)</code>：返回指定子字符串 str 在主字符串中第一次出现的位置。<code>lastIndexOf()</code>：返回最后一次..<br><code>equals(Object another)</code>：比较两个字符串是否相等。<code>equalsIgnoreCase()</code>：忽略大小写比较..。</li>
 <li><strong>字符串转换</strong>：<br><code>toLowerCase()</code>：将字符串转换为小写，<code>toUpperCase()</code>：转大写。对于字符，有 <code>Character.toLowerCase()</code> 方法；<br><code>trim()</code>：去除字符串首尾的空格。</li>
-<li><strong>切割字符串：</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> <span class="string">&quot;Hello world! This is a Java example.&quot;</span>;</span><br><span class="line"><span class="comment">// split() 方法根据匹配给定的正则表达式来拆分字符串。(注意判断结果可能是空字符串)</span></span><br><span class="line"><span class="comment">// 注意：`.`、`$`、`|` 和 `*` 等转义字符，必须得加 \\。多个分隔符，可以用 | 作为连字符。</span></span><br><span class="line"><span class="comment">// 使用空格切割字符串: `\\s+` 是一个正则表达式，表示一个或多个空格</span></span><br><span class="line">String[] words = text.split(<span class="string">&quot;\\s+&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><strong>切割字符串：</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> <span class="string">&quot;Hello world! This is a Java example.&quot;</span>;</span><br><span class="line"><span class="comment">// split() 方法根据匹配给定的正则表达式来拆分字符串。(注意判断结果可能是空字符串)</span></span><br><span class="line"><span class="comment">// 注意：`.`、`$`、`|` 和 `*` 等转义字符，必须得加 \\。多个分隔符，可以用 | 作为连字符。</span></span><br><span class="line"><span class="comment">// 使用空格切割字符串: \\s+ 表示一个或多个空格</span></span><br><span class="line">String[] words = text.split(<span class="string">&quot;\\s+&quot;</span>);</span><br></pre></td></tr></table></figure></li>
 <li><strong>字符串替换</strong>：<br><code>replace(char oldChar, char newChar)</code>：将字符串中的 <code>oldChar</code> 替换为 <code>newChar</code>。<br><code>replaceAll(String regex, String replace)</code>：使用新字符串<code>replace</code>替换所有与 <code>regex</code>匹配的字符串。<br><code>replaceFirst(String regex, String replacement)</code>：替换第一个匹配的字符串。</li>
 <li><strong>字符串翻转</strong>：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">original</span> <span class="operator">=</span> <span class="string">&quot;Hello, World!&quot;</span>;</span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">reversed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(original).reverse();</span><br><span class="line"><span class="type">String</span> <span class="variable">reversedString</span> <span class="operator">=</span> reversed.toString();</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -396,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="cltrgagwq000ew4v5hav2b02y" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="cltwzkmn8000hnsv53hpz29rp" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -443,7 +443,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -460,15 +460,7 @@
           </li>
         
           <li>
-            <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-          </li>
-        
-          <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/10/Redis/">Redis</a>
           </li>
         
           <li>
@@ -480,7 +472,7 @@
           </li>
         
           <li>
-            <a href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 | career</a>
+            <a href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 / career</a>
           </li>
         
           <li>
@@ -493,6 +485,14 @@
         
           <li>
             <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
           </li>
         
       </ul>

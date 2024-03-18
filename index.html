@@ -115,134 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cltrgagwt000uw4v55pdrahc8" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-设计模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2024-01-25T03:49:42.000Z" itemprop="datePublished">2024-01-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>设计模式是为了解决软件开发过程中常见的问题而提出的一种解决方案，它们是从实际应用中总结出来的一些经验和方法论。设计模式可以帮助开发人员更加容易地解决复杂问题，提高代码的可重用性、可扩展性、可维护性等，从而提高软件开发效率和代码质量。<br>具体来说，设计模式主要是为了解决以下几类问题：<br>（1）代码复杂度问题：在软件开发中，代码往往会变得越来越复杂，难以理解和维护。设计模式提供了一些组织代码的方式，让代码结构更加清晰，易于理解和维护。<br>（2）重用问题：在开发过程中，我们希望能够尽可能地复用代码，减少重复开发的工作量。设计模式提供了一些通用的解决方案，可以让我们更加容易地复用代码。<br>（3）扩展性问题：软件开发过程中，我们需要不断地对系统进行扩展和改进。设计模式提供了一些可扩展的解决方案，可以让系统更加容易地扩展和改进，同时保持代码的高可读性和可维护性。<br>（4）协作问题：在多人协作的开发过程中，代码的组织和沟通变得非常重要。设计模式提供了一些标准化的组织方式，可以让开发者更加容易地沟通和协作。</p>
-</li>
-<li><p>设计原则<br>软件设计原则是指在软件开发过程中遵循的一些通用的、经过验证的规则和指导原则。这些原则旨在提高软件的可维护性、可扩展性、可重用性和可靠性等方面的质量。<br>以下是一些常见的软件设计原则：<br>（1）单一职责原则（SRP）：一个类应该只有一个职责或只有一个引起变化的原因。<br>（2）开放-封闭原则（OCP）：软件实体（类、模块、函数等）应该是可扩展的，但是不可修改的。<br>（3）里氏替换原则（LSP）：任何基类可以出现的地方，子类一定可以出现，而且不会导致任何错误或异常。<br>（4）依赖倒置原则（DIP）：高层模块不应该依赖于底层模块，二者都应该依赖于抽象。抽象不应该依赖于具体实现，具体实现应该依赖于抽象。<br>（5）接口隔离原则（ISP）：客户端不应该依赖于它不需要的接口。一个类对另一个类的依赖应该建立在最小的接口上。<br>（6）迪米特法则（LoD）：一个对象应该对其他对象有最少的了解。通俗地讲，就是一个类对自己依赖的类知道得越少越好。<br>（7）合成复用原则（CRP）：尽量使用对象组合，而不是继承来达到复用的目的。</p>
-</li>
-<li><p>高内聚，低耦合<br>高内聚低耦合是软件设计中的一个原则，它强调模块内部的联系应该紧密而模块之间的联系应该尽量松散。具体来说，高内聚指的是一个模块内部的各个组成部分之间的联系应该紧密，组成部分之间的关系应该尽量简单。低耦合指的是一个模块与其他模块之间的依赖关系应该尽量松散，即模块之间的耦合度应该尽量低。<br>高内聚的好处在于，一个模块内部的联系紧密，表示这个模块是一个独立的整体，对外部的干扰最小。同时，当需要对一个模块进行修改时，只需要修改该模块内部的某些部分，不会对其他部分造成影响，从而提高了系统的可维护性和可扩展性。<br>低耦合的好处在于，模块之间的联系松散，意味着这些模块之间的依赖性较小，当一个模块需要进行修改时，不会对其他模块产生影响，从而提高了系统的可维护性和可扩展性。</p>
-</li>
-<li><p>23种设计模式<br>  <img src="https://pdai.tech/images/design-pattern.png"></p>
-<ul>
-<li>创造型模式<ul>
-<li>单例模式：确保一个类只有一个实例，并提供该实例的全局访问点</li>
-<li>工厂方法模式：它定义了一个创建对象的接口，但由子类决定要实例化哪个类。工厂方法把实例化操作推迟到子类</li>
-<li>抽象工厂模式：创建的是对象家族，也就是很多对象而不是一个对象，并且这些对象是相关的，也就是说必须一起创建出来。而工厂方法模式只是用于创建一个对象，这和抽象工厂模式有很大不同</li>
-<li>建造者模式：生成器(Builder)？模式，封装一个对象的构造过程，并允许按步骤构造</li>
-<li>原型模式：使用原型实例指定要创建对象的类型，通过复制这个原型来创建新对象</li>
-</ul>
-</li>
-<li>结构型模式<ul>
-<li>适配器模式：将一个类的接口, 转换成客户期望的另一个接口。 适配器让原本接口不兼容的类可以合作无间。 对象适配器使用组合, 类适配器使用多重继承</li>
-<li>代理模式：为另一个对象提供一个替身或占位符以控制对这个对象的访问</li>
-<li>桥接模式：使用桥接模式通过将实现和抽象放在两个不同的类层次中而使它们可以独立改变</li>
-<li>装饰器模式：动态地将责任附加到对象上, 若要扩展功能, 装饰者提供了比继承更有弹性的替代方案</li>
-<li>外观模式：它提供了一个统一的接口，用来访问子系统中的一群接口，从而让子系统更容易使用</li>
-<li>组合模式：允许你将对象组合成树形结构来表现”整体&#x2F;部分”层次结构. 组合能让客户以一致的方式处理个别对象以及对象组合</li>
-<li>享元模式：利用共享的方式来支持大量细粒度的对象，这些对象一部分内部状态是相同的。 它让某个类的一个实例能用来提供许多”虚拟实例”</li>
-</ul>
-</li>
-<li>行为型模式<ul>
-<li>观察者模式：在对象之间定义一对多的依赖, 这样一来, 当一个对象改变状态, 依赖它的对象都会收到通知, 并自动更新</li>
-<li>策略模式：定义了算法族, 分别封闭起来, 让它们之间可以互相替换, 此模式让算法的变化独立于使用算法的客户</li>
-<li>命令模式：将”请求”封闭成对象, 以便使用不同的请求,队列或者日志来参数化其他对象. 命令模式也支持可撤销的操作</li>
-<li>中介者模式：使用中介者模式来集中相关对象之间复杂的沟通和控制方式</li>
-<li>备忘录模式：当你需要让对象返回之前的状态时(例如, 你的用户请求”撤销”), 你使用备忘录模式</li>
-<li>模版方式模式：在一个方法中定义一个算法的骨架, 而将一些步骤延迟到子类中. 模板方法使得子类可以在不改变算法结构的情况下, 重新定义算法中的某些步骤</li>
-<li>迭代器模式：提供一种方法顺序访问一个聚合对象中的各个元素, 而又不暴露其内部的表示</li>
-<li>状态模式：允许对象在内部状态改变时改变它的行为, 对象看起来好象改了它的类</li>
-<li>责任链模式：通过责任链模式, 你可以为某个请求创建一个对象链. 每个对象依序检查此请求并对其进行处理或者将它传给链中的下一个对象</li>
-<li>解释器模式：使用解释器模式为语言创建解释器，通常由语言的语法和语法分析来定义</li>
-<li>访问者模式：当你想要为一个对象的组合增加新的能力, 且封装并不重要时, 就使用访问者模式</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-
-<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><ul>
-<li><p>什么是单例设计模式？<br>单例模式是⼀种创建型设计模式， 它的核⼼思想是保证⼀个类只有⼀个实例，并提供⼀个全局访问点来访问这个实例。<br>只有⼀个实例的意思是，在整个应⽤程序中，只存在该类的⼀个实例对象，⽽不是创建多个相同类型的对象。<br>全局访问点的意思是，为了让其他类能够获取到这个唯⼀实例，该类提供了⼀个全局访问点（通常是⼀个静态⽅法），通过这个⽅法就能获得实例。</p>
-</li>
-<li><p>为什么要使⽤单例设计模式呢？</p>
-<ol>
-<li>全局控制：保证只有⼀个实例，这样就可以严格的控制客户怎样访问它以及何时访问它，简单的说就是对唯⼀实例的受控访问（引⽤⾃《⼤话设计模式》第21章）</li>
-<li>节省资源：也正是因为只有⼀个实例存在，就避免多次创建了相同的对象，从⽽节省了系统资源，⽽且多个模块还可以通过单例实例共享数据。</li>
-<li>懒加载：单例模式可以实现懒加载，只有在需要时才进⾏实例化，这⽆疑会提⾼程序的性能。</li>
-</ol>
-</li>
-<li><p>单例设计模式的基本要求</p>
-<ol>
-<li>私有的构造函数：防⽌外部代码直接创建类的实例</li>
-<li>私有的静态实例变量：保存该类的唯⼀实例</li>
-<li>公有的静态⽅法：通过公有的静态⽅法来获取类的实例</li>
-</ol>
-</li>
-<li><p>单例模式的实现⽅式有多种，包括懒汉式、饿汉式等。<br>饿汉式指的是在类加载时就已经完成了实例的创建，不管后⾯创建的实例有没有使⽤，先创建再说，所以叫做“饿汉”。<br>懒汉式指的是只有在请求实例时才会创建，如果在⾸次请求时还没有创建，就创建⼀个新的实例，如果已经创建，就返回已有的实例，意思就是需要使⽤了再创建，所以称为“懒汉”</p>
-</li>
-</ul>
-<h3 id="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"><a href="#饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。" class="headerlink" title="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"></a>饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。</h3><p>优点：线程安全，没有加锁，执⾏效率较⾼。<br>缺点：不是懒加载，类加载时就初始化，浪费内存空间。<br>如何保证线程安全：基于类加载机制避免了多线程的同步问题，但是如果类被不同的类加载器加载就会创建不同的实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法，防⽌外部实例化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="懒汉模式（线程安全）"><a href="#懒汉模式（线程安全）" class="headerlink" title="懒汉模式（线程安全）"></a>懒汉模式（线程安全）</h3><p>懒汉模式在单线程下使⽤没有问题，对于多线程是⽆法保证单例的。<br>通过 synchronized 关键字加锁保证线程安全，synchronized 可以添加在⽅法上⾯，也可以添加在代码块上⾯，这⾥演示添加在⽅法上⾯，存在的问题是 每⼀次调⽤ getInstance 获取实例时都需要加锁和释放锁，这样是⾮常影响性能的。<br>优点：懒加载，线程安全。<br>缺点：效率较低。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123; &#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="什么时候使⽤单例设计模式？"><a href="#什么时候使⽤单例设计模式？" class="headerlink" title="什么时候使⽤单例设计模式？"></a>什么时候使⽤单例设计模式？</h3><p>说了这么多，那在什么场景下应该考虑使⽤单例设计模式呢？可以结合单例设计模式的优点来看。</p>
-<ol>
-<li>资源共享<br>多个模块共享某个资源的时候，可以使⽤单例模式，⽐如说应⽤程序需要⼀个全局的配置管理器来存储和管理配置信息、亦或是使⽤单例模式管理数据库连接池。</li>
-<li>只有⼀个实例<br>当系统中某个类只需要⼀个实例来协调⾏为的时候，可以考虑使⽤单例模式， ⽐如说管理应⽤程序中的缓存，确保只有⼀个缓存实例，避免重复的缓存创建和管理，或者使⽤单例模式来创建和管理线程池。</li>
-<li>懒加载<br>如果对象创建本身就⽐较消耗资源，⽽且可能在整个程序中都不⼀定会使⽤，可以使⽤单例模式实现懒加载。<br>在许多流⾏的⼯具和库中，也都使⽤到了单例设计模式，⽐如Java中的 Runtime 类就是⼀个经典的单例，表示程序的运⾏时环境。此外 Spring 框架中的应⽤上下⽂ ( ApplicationContext ) 也被设计为单例，以提供对应⽤程序中所有 bean 的集中式访问点</li>
-</ol>
-<hr>
-
-
-<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><ul>
-<li><p>什么是⼯⼚⽅法模式？<br>⼯⼚⽅法模式也是⼀种创建型设计模式，简单⼯⼚模式只有⼀个⼯⼚类，负责创建所有产品，如果要添加新的产品，通常需要修改⼯⼚类的代码。<br>⽽⼯⼚⽅法模式引⼊了抽象⼯⼚和具体⼯⼚的概念，每个具体⼯⼚只负责创建⼀个具体产品，添加新的产品只需要添加新的⼯⼚类⽽⽆需修改原来的代码，这样就使得产品的⽣产更加灵活，⽀持扩展，符合开闭原则。</p>
-</li>
-<li><p>⼯⼚⽅法模式分为以下⼏个⻆⾊：<br>抽象⼯⼚：⼀个接⼝，包含⼀个抽象的⼯⼚⽅法（⽤于创建产品对象）。<br>具体⼯⼚：实现抽象⼯⼚接⼝，创建具体的产品。<br>抽象产品：定义产品的接⼝。<br>具体产品：实现抽象产品接⼝，是⼯⼚创建的对象。</p>
-</li>
-<li><p>应⽤场景<br>⼯⼚⽅法模式使得每个⼯⼚类的职责单⼀，每个⼯⼚只负责创建⼀种产品，当创建对象涉及⼀系列复杂的初始化逻辑，⽽这些逻辑在不同的⼦类中可能有所不同时，可以使⽤⼯⼚⽅法模式将这些初始化逻辑封装在⼦类的⼯⼚中。在现有的⼯具、库中，⼯⼚⽅法模式也有⼴泛的应⽤，⽐如：<br>Spring 框架中的 Bean ⼯⼚：通过配置⽂件或注解，Spring 可以根据配置信息动态地创建和管理对象。<br>JDBC 中的 Connection ⼯⼚：在 Java 数据库连接中， DriverManager 使⽤⼯⼚⽅法模式来创建数据库连接。不同的数据库驱动（如 MySQL、PostgreSQL 等）都有对应的⼯⼚来创建连接</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cltrgagwu000xw4v5fgxg3jjr" data-title="设计模式" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cltwzkmnb000snsv59xiucdrt" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -501,194 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cltrgagws000lw4v5cewi5qyb" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Redis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/10/Redis/" class="article-date">
-  <time class="dt-published" datetime="2024-01-10T03:49:42.000Z" itemprop="datePublished">2024-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/10/Redis/">Redis</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Redis是一种支持 key-value 等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。 默认端口：<strong>6379</strong></p>
-<h2 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h2><p>下载 Windows版 msi文件：<a target="_blank" rel="noopener" href="https://github.com/microsoftarchive/redis/releases">https://github.com/microsoftarchive/redis/releases</a><br>在环境变量中配好 Redis 的安装目录后，直接打开 cmd，启动 Redis 客户端<br>启动客户端后, 在客户端cmd窗口中测试 Redis 是否正常工作，设置密码（<strong>命令行设置的密码在服务重启后失效</strong>）<br>注意：<strong>在 Windows 环境下，Redis 不支持后台运行模式，因此在启动 Redis 服务器时必须保持 cmd 窗口一直打开</strong>。（如果想要在后台运行 Redis，可以考虑使用虚拟机或者 Linux 环境下的 Redis）</p>
-<ul>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\蔡枫&gt;redis-cli   <span class="comment"># 启动 Redis 客户端（默认Redis服务端未关闭）</span></span><br><span class="line">127.0.0.1:6379&gt; ping                                <span class="comment"># 在 Redis 客户端中输入 ping 命令</span></span><br><span class="line">PONG                                                <span class="comment"># 返回 PONG 表示 正常工作</span></span><br><span class="line">127.0.0.1:6379&gt; config <span class="built_in">set</span> requirepass chskj.2020   <span class="comment"># 修改密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; auth chskj.2020                     <span class="comment"># 验证密码</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; config get requirepass              <span class="comment"># 查看密码</span></span><br><span class="line">1)<span class="string">&quot;requirepass&quot;</span></span><br><span class="line">2)<span class="string">&quot;chskj.2020&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="启动-重启-Redis-服务器，客户端"><a href="#启动-重启-Redis-服务器，客户端" class="headerlink" title="启动(重启) Redis 服务器，客户端"></a>启动(重启) Redis 服务器，客户端</h3><p>进入 Redis 的安装目录(D:\Redis)，打开 cmd 窗口(地址栏cmd回车)，执行 redis-server.exe redis.windows.conf，即可<strong>启动 Redis 服务器</strong>。<br>启动Redis服务器后，在 Redis 安装目录打开另一个 cmd 窗口，执行 redis-cli.exe，(或直接双击文件夹中的redis-cli.exe)即可<strong>启动（重启）Redis 客户端</strong>。</p>
-<h3 id="库"><a href="#库" class="headerlink" title="库"></a>库</h3><p>Redis中有16个数据库（Database），每个数据库都是一个独立的命名空间，用于存储键值对数据。这些数据库被编号为0到15，默认情况下客户端连接到数据库0。可以通过<code>SELECT</code>命令选择数据库来切换不同的数据库空间，每个数据库都是相互隔离的，数据不会互相干扰。<br>每个数据库都可以包含键值对数据，命令和配置，但请注意，Redis的每个数据库是相对较小的，因此可以将不同类型的数据存储在不同的数据库中，以便更好地组织和管理数据。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 1   <span class="comment"># 切换到数据库1</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>Redis所有的key（键）都是字符串。我们在<strong>谈基础数据结构时，讨论的是存储值的数据类型</strong>，主要包括常见的5种数据类型，分别是：String、List、Set、Zset、Hash。 三种特殊的数据类型，分别是 HyperLogLogs（基数统计），Bitmaps (位图) 和 geospatial（地理位置）。 Redis5.0 中还增加了一个数据结构Stream，它借鉴了Kafka的设计，是一个新的强大的支持多播的可持久化的消息队列。</p>
-<!-- ![](https://pdai.tech/images/db/redis/db-redis-object-2-2.png) -->
-<table>
-<thead>
-<tr>
-<th>结构类型</th>
-<th>结构存储的值</th>
-<th>结构的读写能力</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>String字符串</strong></td>
-<td>可以是字符串、整数或浮点数</td>
-<td>对整个字符串或字符串的一部分进行操作；对整数或浮点数进行自增或自减操作；</td>
-</tr>
-<tr>
-<td><strong>List列表</strong></td>
-<td>一个链表，链表上的每个节点都包含一个字符串</td>
-<td>对链表的两端进行push和pop操作，读取单个或多个元素；根据值查找或删除元素；</td>
-</tr>
-<tr>
-<td><strong>Set集合包</strong></td>
-<td>含字符串的无序集合</td>
-<td>字符串的集合，包含基础的方法有看是否存在添加、获取、删除；还包含计算交集、并集、差集等</td>
-</tr>
-<tr>
-<td><strong>Hash散列</strong></td>
-<td>包含键值对的无序散列表</td>
-<td>包含方法有添加、获取、删除单个元素</td>
-</tr>
-<tr>
-<td><strong>Zset有序集合</strong></td>
-<td>和散列一样，用于存储键值对字符串成员与浮点数分数之间的有序映射；元素的排列顺序由分数的大小决定；</td>
-<td>包含方法有添加、获取、删除单个元素以及根据分值范围或成员来获取元素</td>
-</tr>
-</tbody></table>
-<h3 id="String字符串"><a href="#String字符串" class="headerlink" title="String字符串"></a>String字符串</h3><ul>
-<li>String是redis中最基本的数据类型，一个key对应一个value。</li>
-<li>String类型是二进制安全的，意思是 redis 的 string 可以包含任何数据。如数字，字符串，jpg图片或者序列化的对象。</li>
-<li>实战场景<ul>
-<li>缓存： 经典使用场景，把常用信息，字符串，图片或者视频等信息放到redis中，redis作为缓存层，mysql做持久化层，降低mysql的读写压力。</li>
-<li>计数器：redis是单线程模型，一个命令执行完才会执行下一个，同时数据可以一步落地到其他的数据源。session：常见方案spring session + redis实现session共享，</li>
-</ul>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> hello world    <span class="comment"># 设置存储在给定键中的值</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get hello          <span class="comment"># 获取存储在给定键中的值</span></span><br><span class="line"><span class="string">&quot;world&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; del hello          <span class="comment"># 删除存储在给定键中的值</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> counter 2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get counter       </span><br><span class="line"><span class="string">&quot;2&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incr counter       <span class="comment"># 将键存储的值加1</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;3&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incrby counter 100 <span class="comment"># 将键存储的值加上整数</span></span><br><span class="line">(<span class="built_in">integer</span>) 103</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;103&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; decr counter       <span class="comment"># 将键存储的值减1</span></span><br><span class="line">(<span class="built_in">integer</span>) 102</span><br><span class="line">127.0.0.1:6379&gt; get counter</span><br><span class="line"><span class="string">&quot;102&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="List列表"><a href="#List列表" class="headerlink" title="List列表"></a>List列表</h3><ul>
-<li>Redis中的List其实就是链表（Redis用双端链表实现List）。</li>
-<li>使用List结构，我们可以轻松地实现最新消息排队功能（比如新浪微博的TimeLine）。List的另一个应用就是消息队列，可以利用List的 PUSH 操作，将任务存放在List中，然后工作线程再用 POP 操作将任务取出进行执行。</li>
-<li>使用列表的技巧：lpush+lpop&#x3D;Stack(栈)，lpush+rpop&#x3D;Queue（队列），lpush+ltrim&#x3D;Capped Collection（有限集合），lpush+brpop&#x3D;Message Queue（消息队列）</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush mylist 1 2 ll <span class="built_in">ls</span> mem   <span class="comment"># 将给定值推入到列表左端，RPUSH 将给定值推入到列表右端</span></span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; lrange mylist 0 -1           <span class="comment"># 获取列表在给定范围上的所有值</span></span><br><span class="line">1) <span class="string">&quot;mem&quot;</span></span><br><span class="line">2) <span class="string">&quot;ls&quot;</span></span><br><span class="line">3) <span class="string">&quot;ll&quot;</span></span><br><span class="line">4) <span class="string">&quot;2&quot;</span></span><br><span class="line">5) <span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; lindex mylist -1             <span class="comment"># 可以使用负数下标，以 -n 表示列表的倒数第n个元素</span></span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; rpop mylist                  <span class="comment"># 从列表的右端弹出一个值，并返回被弹出的值；lpop 从左弹</span></span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; lindex mylist 10             <span class="comment"># index不在 mylist 的区间范围内</span></span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><ul>
-<li>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。</li>
-<li>Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。</li>
-<li>实战场景<ul>
-<li>标签（tag）,给用户添加标签，或用户给消息添加标签，这样有同一标签或者类似标签的可以给推荐关注的事或者关注的人。</li>
-<li>点赞，或点踩，收藏等，可以放到set中实现</li>
-</ul>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd myset hao hao1 xiaohao hao  <span class="comment"># 向集合添加一个或多个成员	</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; scard myset                      <span class="comment"># 获取集合的成员数	</span></span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; smembers myset                   <span class="comment"># 返回集合中的所有成员	</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao1&quot;</span></span><br><span class="line">3) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; sismember myset hao              <span class="comment"># 判断 member 元素是否是集合 key 的成员</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Hash散列"><a href="#Hash散列" class="headerlink" title="Hash散列"></a>Hash散列</h3><ul>
-<li>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</li>
-<li>实战场景 - 缓存： 能直观，相比string更节省空间，的维护缓存信息，如用户信息，视频信息等。</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset user name1 hao               <span class="comment"># 添加键值对	</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hset user email1 hao@163.com</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hgetall user                      <span class="comment"># 获取散列中包含的所有键值对	</span></span><br><span class="line">1) <span class="string">&quot;name1&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">3) <span class="string">&quot;email1&quot;</span></span><br><span class="line">4) <span class="string">&quot;hao@163.com&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; hget user user                    <span class="comment"># 获取指定散列键的值</span></span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; hget user name1</span><br><span class="line"><span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; hset user name2 xiaohao</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hdel user name1                   <span class="comment"># 如果给定键存在于散列中，那么就移除这个键</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hgetall user</span><br><span class="line">1) <span class="string">&quot;email1&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao@163.com&quot;</span></span><br><span class="line">3) <span class="string">&quot;name2&quot;</span></span><br><span class="line">4) <span class="string">&quot;xiaohao&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Zset有序集合"><a href="#Zset有序集合" class="headerlink" title="Zset有序集合"></a>Zset有序集合</h3><ul>
-<li>Redis 有序集合和集合一样也是 string 类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序。</li>
-<li>有序集合的成员是唯一的, 但分数(score)却可以重复。有序集合是通过两种数据结构实现：<ol>
-<li>压缩列表(ziplist): ziplist是为了提高存储效率而设计的一种特殊编码的双向链表。它可以存储字符串或者整数，存储整数时是采用整数的二进制而不是字符串形式存储。它能在O(1)的时间复杂度下完成list两端的push和pop操作。但是因为每次操作都需要重新分配ziplist的内存，所以实际复杂度和ziplist的内存使用量相关</li>
-<li>跳跃表(zSkiplist): 跳跃表的性能可以保证在查找，删除，添加等操作的时候在对数期望时间内完成，这个性能是可以和平衡树来相比较的，而且在实现方面比平衡树要优雅，这是采用跳跃表的主要原因。跳跃表的复杂度是O(log(n))。</li>
-</ol>
-</li>
-<li>实战场景 - 排行榜：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户关注数，更新时间，字数等打分，做排行。</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd myscoreset 100 hao 90 xiaohao  <span class="comment"># 将一个带有给定分值的成员添加到有序集合里面</span></span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE myscoreset 0 -1            <span class="comment"># 根据元素在有序集合中所处位置，从有序集合中获取多个元素</span></span><br><span class="line">1) <span class="string">&quot;xiaohao&quot;</span></span><br><span class="line">2) <span class="string">&quot;hao&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE myscoreset hao</span><br><span class="line"><span class="string">&quot;100&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; zrem myscoreset hao               <span class="comment"># 如果给定元素成员存在于有序集合中，那么就移除这个元素</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><p>采用一种基数算法，用于完成独立总数的统计。（同一个人多次访问，只记一访问量）（独立访客）<br>占据空间小，无论统计多少个数据，只占12K的内存空间<br>不精确的统计算法，标准误差为 0.81%。</p>
-<h3 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h3><p>不是一种独立的数据结构，实际上就是字符串<br>支持按位存取数据，可以将其看成是byte数组<br>适合存储索大量的连续的数据的布尔值。（记录一个人连续一年每天的签到情况 0&#x2F;1）（日活跃用户）</p>
-<hr>
-
-
-<h2 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h2><ul>
-<li>Spring Boot提供了<code>RedisTemplate</code>作为与Redis交互的强大工具。通过<code>RedisTemplate</code>，您可以在java项目中执行各种Redis命令来操作数据，包括字符串、列表、集合、散列、有序集合等。以下是一些常见的Redis操作示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储数据：</span></span><br><span class="line">redisTemplate.opsForValue().set(<span class="string">&quot;myKey&quot;</span>, <span class="string">&quot;myValue&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> (String) redisTemplate.opsForValue().get(<span class="string">&quot;myKey&quot;</span>);</span><br><span class="line"><span class="comment">// 列表操作：</span></span><br><span class="line">redisTemplate.opsForList().leftPush(<span class="string">&quot;myList&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">List&lt;String&gt; myList = redisTemplate.opsForList().range(<span class="string">&quot;myList&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 集合操作：</span></span><br><span class="line">redisTemplate.opsForSet().add(<span class="string">&quot;mySet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="string">&quot;member2&quot;</span>);</span><br><span class="line">Set&lt;String&gt; mySet = redisTemplate.opsForSet().members(<span class="string">&quot;mySet&quot;</span>);</span><br><span class="line"><span class="comment">// 散列操作：</span></span><br><span class="line">Map&lt;String, String&gt; myHash = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">myHash.put(<span class="string">&quot;field1&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">myHash.put(<span class="string">&quot;field2&quot;</span>, <span class="string">&quot;value2&quot;</span>);</span><br><span class="line">redisTemplate.opsForHash().putAll(<span class="string">&quot;myHash&quot;</span>, myHash);</span><br><span class="line"><span class="type">String</span> <span class="variable">fieldValue</span> <span class="operator">=</span> (String) redisTemplate.opsForHash().get(<span class="string">&quot;myHash&quot;</span>, <span class="string">&quot;field1&quot;</span>);</span><br><span class="line"><span class="comment">// 有序集合操作：</span></span><br><span class="line">redisTemplate.opsForZSet().add(<span class="string">&quot;myZSet&quot;</span>, <span class="string">&quot;member1&quot;</span>, <span class="number">1.0</span>);</span><br><span class="line">Set&lt;String&gt; myZSet = redisTemplate.opsForZSet().range(<span class="string">&quot;myZSet&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
-<li>公共命令<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redisTemplate.delete(key);  <span class="comment">// 删除一个数据结构</span></span><br><span class="line">redisTemplate.hasKey(key);  <span class="comment">// 是否存在一个数据结构</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Redis-事务管理"><a href="#Redis-事务管理" class="headerlink" title="Redis 事务管理"></a>Redis 事务管理</h3><ul>
-<li>要使用编程式事务<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testTransaction</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> redisTemplate.execute(<span class="keyword">new</span> <span class="title class_">SessionCallback</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Object <span class="title function_">execute</span><span class="params">(RedisOperations redisOperations)</span> <span class="keyword">throws</span> DataAccessException &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">redisKey</span> <span class="operator">=</span> <span class="string">&quot;text:tx&quot;</span>;           </span><br><span class="line">            redisOperations.multi();         <span class="comment">// 启用事务</span></span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">            redisOperations.opsForSet().add(redisKey, <span class="string">&quot;wangwu&quot;</span>);</span><br><span class="line">            <span class="comment">// redis事务内做查询，无效</span></span><br><span class="line">            <span class="comment">// redis事务中的所有代码在事务提交后一起执行</span></span><br><span class="line">            System.out.println(redisOperations.opsForSet().members(redisKey));            </span><br><span class="line">            <span class="keyword">return</span> redisOperations.exec();   <span class="comment">// 提交事务</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-
-
-<h2 id="Redis缓存问题"><a href="#Redis缓存问题" class="headerlink" title="Redis缓存问题"></a>Redis缓存问题</h2><p>在高并发的业务场景下，数据库大多数情况都是用户并发访问最薄弱的环节。所以，就需要使用redis做一个缓冲操作，让请求先访问到redis，而不是直接访问Mysql等数据库。这样可以大大缓解数据库的压力。<strong>当缓存库出现时，必须要考虑如下问题：</strong></p>
-<ol>
-<li><strong>缓存穿透</strong><ul>
-<li>问题来源<br> 缓存穿透是指缓存和数据库中都没有的数据，而用户不断发起请求。由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义，<br> 在流量大时，可能DB就挂掉了，要是有人利用不存在的kev频繁攻击我们的应用，这就是漏洞.<br> 如发起为id为”-1”的数据或id为特别大不存在的数据。这时的用户很可能是攻击者，攻击会导致数据库压力过大。</li>
-<li>1、接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;&#x3D;0的直接拦截<br> 2、从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有效时间可以设置短点，如30秒 (设置太长会导致正常情况也没法使用)。这样可以防止攻击用户反复用同一个id暴力攻击<br> 3、布隆过滤器。bloomfilter就类似于一个hash set，用于快速判某个元素是否存在于集合中，其典型的应用场景就是快速判断个key是否存在于某容器，不存在就直接返回。布隆过滤器的关键就在于hash算法和容器大小，</li>
-</ul>
-</li>
-<li><strong>缓存击穿</strong><ul>
-<li>问题来源：    缓存击穿是指缓存中没有但数据库中有的数据(一般是缓存时间到期)，这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力.</li>
-<li>1、设置热点数据永远不过期<br> 2、接口限流与熔断，降级。重要的接口一定要做好限流策略，防止用户恶意刷接口，同时要降级准备，当接口中的某些 &#x2F;3务不可用时候，进行熔断，失败快速返回机制。<br> 3、加互斥锁</li>
-</ul>
-</li>
-<li><strong>缓存雪崩</strong><ul>
-<li>问题来源： 缓存雪崩是指缓存中数据大批量到过期时间，而查询数据量巨大，引起数据库压力过大甚至down机。和缓存击穿不同的是缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查数据库。</li>
-<li>1、缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生<br> 2、如果缓存数据库是分布式部署，将热点数据均匀分布在不同的缓存数据库中<br> 3、设置热点数据永远不过期.</li>
-</ul>
-</li>
-<li><strong>缓存污染(或满了)</strong><ul>
-<li>缓存污染问题说的是缓存中一些只会被访问一次或者几次的的数据，被访问完后，再也不会被访问到，但这部分数据依然留存在缓存中，消耗缓存空间.</li>
-<li>缓存污染会随着数据的持续增加而逐渐显露，随着服务的不新运行，缓存中会存在大量的永远不会再次被访问的数据。缓存空间是有限的，如果缓存空间满了，再往缓存里写数据时就会有额外开销，影响Redis性能。这部分额外开销主要是指写的时候判断淘汰策略，根据淘汰策略去选择要淘汰的数据，然后进行删除操作。</li>
-</ul>
-</li>
-</ol>
-<h3 id="缓存淘汰策略"><a href="#缓存淘汰策略" class="headerlink" title="缓存淘汰策略"></a>缓存淘汰策略</h3><p>Redis共支持八种淘汰策略，分别是noeviction, volatile-random、 volatile-ttl， volatile-ru、 volatile-lfuallkeys-lru、allkeys-Iandom 和 allkevs-lfu 策略。主要看分三类看:</p>
-<ul>
-<li>不淘汰<br>noeviction (v4.0后默认的)：一旦缓存被写满了，再有写请求来时，Redis 不再提供服务，而是直接返回错误。这种策略不会淘汰数据，所以无法解决缓存污染问题。一般生产环境不建议使用。</li>
-<li>对设置了过期时间的数据中进行淘汰<br>随机 volatile-random：在设置了过期时间的键值对中，进行随机删除。因为是随机删除，无法把不再访问的数据筛选出来，所以可能依然会存在缓存污染现象，无法解决<strong>缓存污染</strong>问题。<br>tvolatile-ttl：Redis在筛选需删除的数据时，越早过期的数据越优先被选择。随机删除就无法解决缓存污染问题。<br>volatile-lru：LRU 算法的全称是 Least Recently Used，按照最近最少使用的原则来筛选数据<br>volatile-lfu：LFU 缓存策略是在 LRU 策略基础上，为每个数据增加了一个计数器，来统计这个数据的访问次数。当使用 LFU 策略筛选淘汰数据时，首先会根据数据的访问次数进行筛选，把访问次数最低的数据淘汰出缓存。如果两个数据的访问次数相同，LFU 策略再比较这两个数据的访问时效性，把距离上一次访问时间更久的数据淘汰出缓存。</li>
-<li>全部数据进行淘汰<br>随机 allkeys-random：从所有键值对中随机选择并删除数据。<br>allkeys-lru：使用 LRU 算法在所有数据中进行筛选。<br>allkeys-lfu：使用 LFU 算法在所有数据中进行筛选。</li>
-</ul>
-<h2 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h2><p>Redis 提供了两种主要的持久化方式，用于在系统重启时保持数据的持久性：RDB 持久化和 AOF 持久化。<br>用户可以根据实际需求选择 RDB 持久化、AOF 持久化或两者结合使用。通常情况下，AOF 持久化是更安全的选择，因为它可以提供更好的持久性保障，但也需要更多的磁盘空间。</p>
-<ol>
-<li><strong>RDB 持久化：</strong><ul>
-<li>RDB 持久化是通过在指定的时间间隔内将内存中的数据集快照写入磁盘的方式来实现的。</li>
-<li>快照是一个二进制文件，它记录了某个时间点上 Redis 数据集的所有键值对。</li>
-<li>RDB 持久化是一个“点对点”操作，它在指定的时间点创建了一个数据快照。</li>
-<li>RDB 持久化适用于备份、灾难恢复等场景。<br>RDB 持久化的配置选项可以在 Redis 配置文件中进行设置，例如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1      # 表示在 900 秒（15分钟）内，如果至少有 1 个 key 发生了变化，则执行快照操作</span><br><span class="line">save 300 10     # 表示在 300 秒（5分钟）内，如果至少有 10 个 key 发生了变化，则执行快照操作</span><br><span class="line">save 60 10000   # 表示在 60 秒内，如果至少有 10000 个 key 发生了变化，则执行快照操作</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><strong>AOF 持久化：</strong><ul>
-<li>AOF（Append Only File）持久化记录了服务器执行的所有写操作指令，以追加的方式将这些指令记录到一个文件中。</li>
-<li>AOF 持久化是一个“追加”操作，每个写操作都被追加到文件末尾。</li>
-<li>AOF 持久化适用于对数据的实时持久化需求。<br>AOF 持久化的配置选项可以在 Redis 配置文件中进行设置，例如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes            # 启用 AOF 持久化</span><br><span class="line">appendfsync everysec      # 每秒钟执行一次 fsync 操作</span><br></pre></td></tr></table></figure></li>
-<li><code>appendfsync</code> 选项可以设置 <code>always</code>、<code>everysec</code> 或 <code>no</code>。<code>always</code> 表示每个写命令都会立即被写入磁盘，<code>everysec</code> 表示每秒执行一次 fsync 操作，<code>no</code> 表示由操作系统自行决定何时进行写入磁盘操作。</li>
-<li>Redis 还提供了 AOF 重写机制，可以通过 <code>auto-aof-rewrite-percentage</code> 和 <code>auto-aof-rewrite-min-size</code> 选项配置。这允许 Redis 在不停机的情况下优化 AOF 文件的大小。</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/10/Redis/" data-id="cltrgagws000mw4v56lnyg8r6" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cltwzkmn9000knsv5gqn57mi6" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1210,7 +896,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cltrgagwt000rw4v56yvo9wnj" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cltwzkmnb000qnsv5hq8jhzxr" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1250,11 +936,11 @@
 <p>WiFi：gzjunbo01888</p>
 <hr>
 
-<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#99;&#x61;&#105;&#x66;&#64;&#x67;&#122;&#106;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#101;&#116;">&#99;&#x61;&#105;&#x66;&#64;&#x67;&#122;&#106;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#101;&#116;</a></p>
+<p>公司邮箱（FOXMAIL绑定登录） 账户：<a href="mailto:&#99;&#97;&#105;&#102;&#64;&#103;&#x7a;&#x6a;&#x75;&#x6e;&#98;&#111;&#x2e;&#x6e;&#x65;&#116;">&#99;&#97;&#105;&#102;&#64;&#103;&#x7a;&#x6a;&#x75;&#x6e;&#98;&#111;&#x2e;&#x6e;&#x65;&#116;</a></p>
 <p>OA系统网址 <a target="_blank" rel="noopener" href="http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&menuPathIds=1,12&_key=t0lres">http://oa.jetmobo.com/wui/index.html?v=1591093552740#/main/workflow/add?menuIds=1,12&amp;menuPathIds=1,12&amp;_key=t0lres</a> 账号：caif</p>
-<p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a> mailto：<a href="mailto:&#99;&#x61;&#x69;&#x66;&#64;&#x67;&#x7a;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#x6e;&#x65;&#116;">&#99;&#x61;&#x69;&#x66;&#64;&#x67;&#x7a;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#x6e;&#x65;&#116;</a> &#x2F; Cf123456</p>
+<p>yapi（接口文档定义）：<a target="_blank" rel="noopener" href="http://yapi.gzjunbo.net/project/100/interface/api/32013">http://yapi.gzjunbo.net/project/100/interface/api/32013</a> mailto：<a href="mailto:&#x63;&#97;&#105;&#x66;&#64;&#x67;&#122;&#106;&#x75;&#110;&#98;&#x6f;&#x2e;&#x6e;&#101;&#116;">&#x63;&#97;&#105;&#x66;&#64;&#x67;&#122;&#106;&#x75;&#110;&#98;&#x6f;&#x2e;&#x6e;&#101;&#116;</a> &#x2F; Cf123456</p>
 <p>Confluence（文档管理）产研在线：<a target="_blank" rel="noopener" href="http://doc.junbo.top/#all-updates">http://doc.junbo.top/#all-updates</a> 账户：caif </p>
-<p>Git 仓库：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/">http://git.gzjunbo.net/</a> 账户：caif 邮箱：<a href="mailto:&#99;&#97;&#x69;&#x66;&#64;&#103;&#122;&#x6a;&#x75;&#x6e;&#x62;&#x6f;&#x2e;&#110;&#x65;&#116;">&#99;&#97;&#x69;&#x66;&#64;&#103;&#122;&#x6a;&#x75;&#x6e;&#x62;&#x6f;&#x2e;&#110;&#x65;&#116;</a></p>
+<p>Git 仓库：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/">http://git.gzjunbo.net/</a> 账户：caif 邮箱：<a href="mailto:&#x63;&#x61;&#x69;&#102;&#64;&#103;&#122;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#101;&#x74;">&#x63;&#x61;&#x69;&#102;&#64;&#103;&#122;&#x6a;&#117;&#x6e;&#x62;&#x6f;&#46;&#110;&#101;&#x74;</a></p>
 <p>jenkins（开发线，用于系统构建发布）：<a target="_blank" rel="noopener" href="http://test-jenkins.gzjunbo.net/jenkins/">http://test-jenkins.gzjunbo.net/jenkins/</a> 账号：caif &#x2F; YLIYrOh1cfgu2kB</p>
 <hr>
 
@@ -1520,7 +1206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="cltrgagwv0012w4v514id00vq" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="cltwzkmnd000ynsv52hc7fmcs" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1546,7 +1232,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 | career</a>
+      <a class="p-name article-title" href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 / career</a>
     </h1>
   
 
@@ -1554,7 +1240,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.08</em>  <a href="mailto:&#50;&#48;&#50;&#x30;&#51;&#x30;&#52;&#52;&#x30;&#x30;&#x31;&#x30;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#99;&#110;">&#50;&#48;&#50;&#x30;&#51;&#x30;&#52;&#52;&#x30;&#x30;&#x31;&#x30;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#99;&#110;</a><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)[<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>]（14 February 2024）<a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a></p>
+        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.07</em>  <a href="mailto:&#50;&#x30;&#x32;&#x30;&#51;&#48;&#52;&#x34;&#48;&#48;&#49;&#x30;&#64;&#109;&#97;&#105;&#x6c;&#46;&#115;&#99;&#x75;&#116;&#46;&#101;&#x64;&#117;&#46;&#99;&#110;">&#50;&#x30;&#x32;&#x30;&#51;&#48;&#52;&#x34;&#48;&#48;&#49;&#x30;&#64;&#109;&#97;&#105;&#x6c;&#46;&#115;&#99;&#x75;&#116;&#46;&#101;&#x64;&#117;&#46;&#99;&#110;</a><br><strong>主修课程：</strong>计算机网络, 操作系统, 数据结构与算法分析, C++, Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×?，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong>[1] <strong>Feng Cai</strong>, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)[<em>All accepted papers will be published by Springer (ISSN: 2194-5357), and published papers will be submitted to DBLP, IET INSPEC, Crossref and Google Scholar for indexing</em>]（14 February 2024）<a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a></p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -1572,14 +1258,14 @@
 <li><p><strong>广州骏伯网络科技有限公司</strong>_Java开发实习生_2024年01月~至今_广州</p>
 <ul>
 <li>主要工作：<ul>
-<li>参与用户拉新系统的开发。当用户点击我方投放的广告后，将消息推送到拉新系统的 mq 队列中，我方作为消息的消费者进行消息拦截和转发。通过 Kafka 进行削峰和异步处理，避免 QPS 过高导致的系统负担。</li>
-<li>开发白名单功能。在消息转发的过程中，将调用相关接口对非目标用户进行拦截，此时不拦截白名单中的测试手机设备号，从而我方能够在投放新的广告后进行联调测试。</li>
+<li>参与用户拉新系统的开发。当用户点击我方投放的广告后，将消息推送到拉新系统的 mq 队列中，我方作为消息的消费者进行消息拦截和转发。通过 Kafka 进行削峰处理，避免 QPS 过高导致的系统负担。</li>
+<li>开发白名单功能。在消息转发的过程中，先从本地缓存及 Redis 中查看白名单数据，未命中则调用相关接口拦截非目标用户。在白名单中添加我发的测试手机设备号，从而在投放新的广告后进行联调测试。</li>
 <li>参与内部报表平台的开发。根据产品原型图设计数据库表，开发报表数据的分页查询接口。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><strong>广东创世科技有限公司</strong>__Java开发实习生__2023.03-2023.05__广州<br>牙医星球小程序：负责“个人中心”部分接口以及相关数据库字段的设计，实现了在线视频的弹幕功能。<br>广东省青少年科技创客大赛系统：参与了该在线编程竞赛平台的学生端功能开发。在已有项目的基础上，编写完善了学生登录、编程题判题等方面的代码。与产品经理和前端进行了高效积极的沟通合作，能够使用 Git, Docker 协同开发。</p>
+<li><p><strong>广东创世科技有限公司</strong>__Java开发实习生__2023.03-2023.05__广州<br>牙医星球小程序：负责”个人中心”部分接口以及相关数据库字段的设计，实现了在线视频的弹幕功能。<br>广东省青少年科技创客大赛系统：参与了该在线编程竞赛平台的学生端功能开发。在已有项目的基础上，编写完善了学生登录、编程题判题等方面的代码。熟悉了团队开发流程以及 git 的日常开发使用。</p>
 </li>
 <li><p><strong>中国电信股份有限公司东莞分公司</strong>__IT开发工程师__2023.07-2023.08__东莞<br>参与电信AI知识库的建设，打造电信业务专家水平的对话机器人。负责测试本地知识库，完善知识云文档，以及收集资料供大语言模型进行训练。此外，接触了开源项目，学习了深度学习框架。</p>
 </li>
@@ -1589,7 +1275,7 @@
 <li>主要工作：<ul>
 <li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
 <li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
-<li>考虑午饭等外卖代拿需求量大的时间，会出现多人同时抢一个任务的情况，采用了数据库锁实现抢单唯一。</li>
+<li>使用数据库悲观锁，解决同一跑腿任务的超卖订单问题，实现抢单唯一。 </li>
 <li>为代拿双方的陌生人服务安全性，对每个状态进行流水记录。流程状态切换中实现了照片上传的可靠性，为了节省服务器带宽，使用腾讯云 COS 直传方案，提供预签名给前端，保障了 COS 的安全性。</li>
 <li>在接单前，需要接单人支付押金，实现跑腿人押金的支付、押金退还的事务处理。</li>
 </ul>
@@ -1666,17 +1352,16 @@
 <hr>
 
 <h1 id="2024春招"><a href="#2024春招" class="headerlink" title="2024春招"></a>2024春招</h1><ul>
-<li>CET中电<ul>
-<li>机考简答：公司哪里吸引你？对公司的产品、服务的了解？</li>
-<li>一面 3.15 没通知？？</li>
+<li>乐刻运动<ul>
+<li>面试 3.17 面试官：把基础搞好，在实践中运用<br>  java锁，，rentanlock<br>  HashMap如何处理10w条插入？一开始就要创建大容量；为什么大小是2的指数？方便在计算插入下标时与数组大小或运算<br>  jvm组成？？老年代，GC，回收期？？new一个对象的过程<br>  mq消息确认？事务本地回滚？？channel<br>  redis多路查询为什么这么快？？过期了怎么办？手动设置一个迭代中不过期？？<br>  mysql查询优化</li>
+</ul>
+</li>
+<li>卓望数码<ul>
+<li>一面 3.18 面试官：动手能力不太行，基础知识不深入<br>  多态，，<br>  ACID，，D是永久性！！<br>  IO，如何读取一个不知道类型的文件A数据到文件B中？buffer，inputstream？？<br>  线程创建方法，区别，，<br>  sentinel流控，，<br>  远程debug？1、启动远程调试服务器； 2、IDE连接调试客户端，IntelliJ IDEA 中”Run” 菜单”Edit Configurations”配置远程调试，填写调试服务器的主机名&#x2F;IP 和端口号，然后启动远程调试会话；3. 设置断点和调试<br>  索引，最左匹配？<br>  工厂模式&#x2F;抽象工厂模式？？</li>
 </ul>
 </li>
 <li>4399游戏<ul>
 <li>一面</li>
-</ul>
-</li>
-<li>卓望数码<ul>
-<li>一面 3.18</li>
 </ul>
 </li>
 <li>小鹏汽车<ul>
@@ -1688,8 +1373,8 @@
 <li>初面：、、自我介绍、成绩，数学成绩为什么这么差，，介绍自己的一个项目，遇到了什么困难，当时是怎么解决的，，注意快排、堆排序、智力题</li>
 </ul>
 </li>
-<li>乐刻运动<ul>
-<li>面试 3.17 面试官：把基础搞好，在实践中运用<br>  java锁，，rentanlock<br>  HashMap如何处理10w条插入？一开始就要创建大容量；为什么大小是2的指数？方便在计算插入下标时与数组大小进行或运算<br>  jvm组成？？老年代，GC，回收期？？new一个对象的过程<br>  mq消息确认？事务本地回滚？？channel<br>  redis多路查询为什么这么快？？过期了怎么办？手动设置一个迭代中不过期？？<br>  mysql查询优化</li>
+<li>新凯来<ul>
+<li>面试</li>
 </ul>
 </li>
 <li>招银网络科技<ul>
@@ -1716,7 +1401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/" data-id="cltrgagwu000vw4v56r8ug3nx" data-title="寄 能 | career" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/" data-id="cltwzkmnb000rnsv55227e9b0" data-title="寄 能 / career" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1759,7 +1444,7 @@
 </li>
 <li><p>请用三个词描述您的性格特点<br><strong>诚实，勤奋，谦虚。</strong>在学习知识和与人交往的过程中，我始终保持坦诚和真实，对自己和他人负责。面对生活中的挑战，我积极看待并勤奋努力，相信努力终会有所回报。谦虚让我保持谦逊和虚心，愿意倾听他人意见并不断学习成长。</p>
 </li>
-<li><p><strong>你的优点和缺点。</strong><br>我觉得我是一个诚实，比较勤奋和乐观的人。适应能力比较强和有幽默感，愿意帮助他人。我在经过一段时间的培训及项目实战，加上实习工作，使我适合这份工作。我相信我能成功<br>（企业喜欢求职者从自己的优点说起，中间加一些小缺点，最后再把问题转回到优点上，突出优点的部分。企业喜欢聪明的求职者。）<br>我可能有时候比较内向××<br>我缺乏工作经验，但我正在学习，，面对困难的当下感觉无从下手，会压力很大，，但会用勤奋，来弥补，，</p>
+<li><p><strong>你的优点和缺点。</strong><br>我觉得我是一个诚实，勤奋和乐观的人。我的适应能力比较强，有幽默感，愿意帮助他人。<br>我缺乏工作经验，但我正在学习，我相信我会用勤奋工作来弥补，在经过一段时间的培训及项目实战后，能够在这份工作中取得成功。</p>
 </li>
 <li><p>高中到大学以来，最大的挫折。<br>高中以来一直遭到失败，学业、社团、人际交往，，一度让我十分沮丧，但也是我思考了很多的一段时间，，我渐渐了解：失败是人生的常态。<br>我很庆幸一次次经历失败的过程中，我都还是选择了再努力一下，也许就有改变呢，往往最后问题都能够解决了，，<br>最重要的，我学会在任何情况下保持冷静，，在未来，在大学面对各种压力时，都可以比较体面地应对了，并且思考如何做得更好、、</p>
 </li>
@@ -1855,7 +1540,7 @@
 <li>如何查看白名单：1、先查本地缓存caffeine 2、未命中再调用相关api从Redis里面查出set是否contain该设备号，再更新本地缓存（所以Redis新增后要10min才能同步caffeine）</li>
 <li>白名单在Redis中的保存形式：一个 Set<String></li>
 <li>白名单如何维护：需要新增时(上线前)手动Postman调接口，删减时，</li>
-<li>Redis数据何时过期？、、</li>
+<li>Redis数据何时过期？目前没有设置过期时间，可以调用Redis的SET，SETEX命令来设置</li>
 </ul>
 </li>
 <li><p>报表平台的开发是怎么开发的？</p>
@@ -1979,7 +1664,7 @@
 </li>
 <li>确保跑腿人到达取货位置，才能显示取货码，防止每三方恶意盗窃，通过拍照上传+5分钟之内上传取货拍照的双重验证<br>  (实际上，产品角度还有两个后期更可靠的方案，1是所有地点接入地图，以位置距离确认 2是商家可变二维码)</li>
 <li>亮点难点<ol>
-<li>在用户跑单时，通过拍照上传（获取取货码） + 5分钟之内上传取货拍照 的双重验证，保证取货码不被第三方获取。<br>  同时该方案造成大量图片的上传，为缓解服务器带宽压力，使用腾讯云C0S直传来代替传校招VIP统的后端上传的流程</li>
+<li>在用户跑单时，通过拍照上传（获取取货码） + 5分钟之内上传取货拍照 的双重验证，保证取货码不被第三方获取。<br>  同时该方案造成大量图片的上传，为缓解服务器带宽压力，使用腾讯云C0S直传来代替传统的后端上传的流程</li>
 <li>用户跑单会在双方产生将近10种状态，以送单人的角度设计状态的分类</li>
 </ol>
 </li>
@@ -2200,6 +1885,20 @@
 </li>
 <li><p>你的业余爱好是什么？<br>我喜欢足球，我享受和我的队友一起拼尽全力，互相信任，无论输赢一起共进退。在足球比赛中，一个团队的成功不仅仅取决于个别球员的技术水平，更重要的是整个团队的协同合作、沟通和相互理解。（回答提示：找一些富于团体合作精神的）</p>
 </li>
+<li><p>最喜欢的十本书？</p>
+<ol>
+<li>《三体》- 刘慈欣</li>
+<li>《活着》- 余华</li>
+<li>《围城》- 钱钟书</li>
+<li>《1984》- 乔治·奥威尔</li>
+<li>《动物农场》- 乔治·奥威尔</li>
+<li>《白夜行》- 东野圭吾</li>
+<li>《窗边的小豆豆》- 黑柳彻子</li>
+<li>《苏菲的世界》- 乔斯坦·贾德</li>
+<li>《水浒传》- 施耐庵</li>
+<li>《红楼梦》- 曹雪芹</li>
+</ol>
+</li>
 <li><p>作为被面试者给我打一下分<br>“我认为在这次面试中，我有机会深入了解公司，并且很高兴能够分享我的经验和能力。<br>面试官提出的问题涉及到我的专业领域和与公司文化相关的方面，这让我感到这次面试非常有价值。我觉得这是一个很好的机会，展示了我与公司的匹配度，同时也让我更深入地了解了贵公司的期望和文化。<br>我期待着有机会为公司做出积极的贡献，如果有进一步的机会，我将非常愿意深入探讨我如何能够在公司中蓬勃发展。”<br>（回答提示：试着列出四个优点和一个非常非常非常小的缺点，，可以抱怨一下设施，没有明确责任人的缺点是不会有人介意的）</p>
 </li>
 <li><p>喜欢这份工作的哪一点？<br>？？？<br>在回答面试官这个问题时可不能太直接就把自己心理的话说出来，尤其是薪资方面的问题，不过一些无伤大雅的回答是不错的考虑，如交通方便，工作性质及内容颇能符合自己的兴趣等等都是不错的答案，不过如果这时自己能仔细思考出这份工作的与众不同之处，相信在面试上会大大加分。</p>
@@ -2231,7 +1930,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="cltrgagwu000zw4v575qj0ihg" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="cltwzkmnd000wnsv50hlcgmqo" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2357,7 +2056,7 @@
 </li>
 <li><p>重载和重写的区别</p>
 <ul>
-<li>重写 Override：在子类中把父类本身有的方法重新写一遍。子类继承了父类原有的方法，但有时子类并不想原封不动的继承父类中的某个方法，所以在方法名，参数列表，返回类型(除过子类中方法的返回值是父类中方法返回值的子类时)都相同的情况下， 对方法体进行修改或重写，这就是重写。被重写方法比父类更好访问（即子类函数的访问修饰权限不能少于父类的），不能比父类被重写方法声明更多的异常（里氏代换原则）。<br>  1、发生在父类与子类之间<br>  2、<strong>方法名，参数列表，返回类型（除过子类中方法的返回类型是父类中返回类型的子类）必须相同</strong><br>  3、<strong>访问修饰符的限制一定要大于被重写方法的访问修饰符（public&gt;protected&gt;default&gt;private）</strong><br>  4、重写方法一定不能抛出新的检查异常或者比被重写方法申明更加宽泛的检查型异常</li>
+<li>重写 Override：在子类中把父类本身有的方法重新写一遍。子类继承了父类原有的方法，但有时子类并不想原封不动的继承父类中的某个方法，所以在方法名，参数列表，返回类型(除过子类中方法的返回值是父类中方法返回值的子类时)都相同的情况下， 对方法体进行修改或重写，这就是重写。被重写方法比父类更好访问（即子类函数的访问修饰权限不能少于父类的），不能比父类被重写方法声明更多的异常（里氏代换原则）。<br>  1、发生在父类与子类之间<br>  2、<strong>方法名，参数列表，返回类型（除过子类中方法的返回类型是父类中返回类型的子类）必须相同</strong><br>  3、<strong>访问修饰符的限制一定要大于被重写方法的访问修饰符（public&gt;protected&gt;default&gt;private）</strong>，子类重写方法应该要比父类方法具有相同或更广泛的可见性，子类对外暴露的接口比父类更多，这符合面向对象编程中的开闭原则（对扩展开放，对修改关闭），提供了更多的灵活性。<br>  4、重写方法一定不能抛出新的检查异常或者比被重写方法申明更加宽泛的检查型异常</li>
 <li>重载（Overload）在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同甚至是参数顺序不同）则视为重载。同时，重载对返回类型没有要求，可以相同也可以不同，但不能通过返回类型是否相同来判断重载。<br>  1、重载Overload是一个类中多态性的一种表现<br>  2、<strong>重载要求同名方法的参数列表不同(参数类型，参数个数甚至是参数顺序)</strong><br>  3、<strong>重载的时候，返回值类型可以相同也可以不相同。无法以返回型别作为重载函数的区分标准</strong></li>
 </ul>
 </li>
@@ -2399,6 +2098,12 @@
 </ol>
 </li>
 <li><p>JDK9为什么要将 String 的底层实现由 char[] 改为 byte[]？<br>jdk中字符用utf-16编码（UTF-16是Unicode的一种实现方式，它使用16位的编码单元来表示一个字符），一个字符char要占用2个字节；但是对于由纯英文字符和ascii字符组成的字符串，只需要一个字节就可以表示所有ascii字符，使用 byte[] 可以节省一半空间。<br>只有在需要存储非ascii字符时，才会使用char[]</p>
+</li>
+<li><p>Unicode 和 UTF-8 的区别：</p>
+<ol>
+<li><strong>Unicode（统一码）：</strong><br>  Unicode 是一种字符集（Character Set），用于定义字符和字符编码之间的对应关系。<br>  Unicode 中包含了世界上几乎所有的字符，包括各种语言的文字、符号、表情符号等。<br>  Unicode 采用 16 位（2 字节）来表示一个字符，因此可以表示的字符范围很广泛，共有 65536 个码位（Code Point）。</li>
+<li><strong>UTF-8（Unicode Transformation Format-8）：</strong><br>  UTF-8 是一种变长的字符编码方式，用于将 Unicode 字符编码成字节序列。<br>  UTF-8 的最大特点是兼容 ASCII 码，即 ASCII 码中的字符（0-127）与 UTF-8 中的编码是相同的，这使得 UTF-8 在 Web 上具有广泛的应用。<br>  UTF-8 使用 1 到 4 个字节来表示一个 Unicode 字符，根据字符的不同而变化，因此可以灵活地表示各种字符，包括中文、日文、韩文等等。</li>
+</ol>
 </li>
 <li><p>++i与i++的区别</p>
 <ul>
@@ -2636,10 +2341,27 @@
 </li>
 <li><p>除了使用new创建对象之外，还可以使用 Java 反射可以创建对象，谁的效率高？<br>通过new创建对象的效率比较高。通过反射时，先找查找类资源，使用类加载器创建，过程比较繁琐，所以效率较低。</p>
 </li>
-<li><p>用 new 关键字创建对象到底是编译时的还是运行时的方式？有什么区别？<br>使用 new 关键字创建对象是一种在编译时进行的方式。在编写代码时，通过 new 关键字可以直接在源代码中创建对象，在源代码被编译成字节码时就确定了对象的创建，然后在运行时，Java 虚拟机（JVM）会加载字节码文件，并根据 new 关键字创建对象。这时会分配内存、调用构造方法等，完成对象的初始化。<br>这种方式的主要特点是静态，因为对象的创建和初始化都是在编译时确定的。相比之下，使用反射等机制可以实现在运行时动态创建对象，但也更为灵活，因为它可以处理一些在编译时无法确定的类型和类。</p>
+<li><p>用 new 关键字创建对象到底是编译时的还是运行时的方式？有什么区别？new一个对象时要如何知道类的大小？<br>使用 new 关键字创建对象是一种在编译时进行的方式。在编写代码时，通过 new 关键字可以直接在源代码中创建对象，在源代码被编译成字节码时就确定了对象的创建，然后在运行时，Java 虚拟机（JVM）会加载字节码文件，并根据 new 关键字创建对象。这时会分配内存、调用构造方法等，完成对象的初始化。<br>这种方式的主要特点是静态，因为对象的创建和初始化都是在编译时确定的。相比之下，使用反射等机制可以实现在运行时动态创建对象，但也更为灵活，因为它可以处理一些在编译时无法确定的类型和类。<br>JVM 在堆内存中为对象分配内存空间时，会根据对象的实例数据（Instance Data）来确定内存大小。实例数据包括对象的成员变量（字段）以及其他内部数据，如对象头信息等。JVM 会根据类的定义中的字段信息，以及可能的对象头信息（包括对象标记、哈希码、锁信息等），来计算对象所需的内存大小，并为对象分配合适的内存空间。</p>
 </li>
 <li><p>java反射的作用<br>反射机制是在运行时，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意个对象，都能够调用它的任意一个方法。在java中，只要给定类的名字，就可以通过反射机制来获得类的所有信息。这种动态获取的信息以及动态调用对象的方法的功能称为Java语言的反射机制。</p>
 </li>
+<li><p>对象的实例数据（Instance Data）和 JVM 方法区中的类信息的区别：</p>
+<ol>
+<li><strong>对象的实例数据（Instance Data）：</strong><ul>
+<li>实例数据是指对象在内存中所存储的具体数据，包括对象的成员变量（字段）和其他实例数据。这些数据是针对每个对象实例而言的，每个对象实例都有自己的一份实例数据。</li>
+<li>对象的实例数据在堆内存中分配，用于存储对象的状态信息，例如对象的属性值等。实例数据的大小取决于对象的类定义中包含的成员变量以及可能的对象头信息等。</li>
+</ul>
+</li>
+<li><strong>JVM 方法区中的类信息：</strong><ul>
+<li>JVM 方法区（也称为永久代或元空间）是用于存储类信息、常量池、静态变量、方法字节码等数据的内存区域。它是在 JVM 启动时就被分配的，用于存储 JVM 运行时需要的类相关信息。</li>
+<li>类信息包括类的结构、字段信息、方法信息、方法字节码等，是描述类的元数据（Metadata）。这些信息是针对整个类而言的，所有的对象实例共享同一个类信息。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p>？？？<br>？</p>
+<ul>
 <li><p>哪里会用到反射机制？</p>
 <ul>
 <li>jdbc就是典型的反射，hibernate，struts等框架使用反射实现的。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&#x27;com.mysql.jdbc.Driver.class&#x27;</span>);  <span class="comment">// 加载MySQL的驱动类</span></span><br></pre></td></tr></table></figure></li>
@@ -2690,6 +2412,8 @@
 <li><p>利用反射动态创建对象实例.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0. 获取 Person 类的 Class 对象</span></span><br><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;reflection.Person&quot;</span>);</span><br><span class="line"><span class="comment">// 1. 使用 newInstane 方法创建实例对象(这种方法要求该 Class 对象对应的类有默认的空构造器)</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> (Person) clazz.newInstance();</span><br><span class="line"><span class="comment">// 2. 先获取指定的 Constructor 对象,再调用 Constructor 对象的 newInstance()方法来创建 Class 对象实例</span></span><br><span class="line"><span class="comment">// (通过这种方法可以选定构造方法创建实例)</span></span><br><span class="line"><span class="type">Constructor</span> <span class="variable">c</span> <span class="operator">=</span> clazz.getDeclaredConstructor(String.class,String.class,<span class="type">int</span>.class);  <span class="comment">// 获取构造方法</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> (Person) c.newInstance(<span class="string">&quot;李四&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="number">20</span>);  <span class="comment">// 创建对象并设置属性</span></span><br></pre></td></tr></table></figure>
 </li>
+<li><p>深拷贝和浅拷贝<br>深拷贝和浅拷贝就是指对象的拷贝，一个对象中存在两种类型的属性，一种是基本数据类型，一种是实例对象的引用。<br>1，浅拷贝是指，只会拷贝基本教据类型的值，以及实例对象的引用地址，并不会复制一份引用地处所指的对象。也就是浅拷贝出来的对象，内部的类属性指向的是同一个对象<br>2，深拷贝是指，既会拷贝基本数据类型的值，也会针对实例对象的引用地址所指向的对象进行复制，深拷贝出来的对象，内部的属性指向的不是同一个对象</p>
+</li>
 <li><p><strong>你了解动态代理吗？??</strong></p>
 <ul>
 <li>代理模式是设计模式之一。代理模型有静态代理和动态代理。<ul>
@@ -2703,9 +2427,24 @@
 </li>
 </ul>
 </li>
-<li><p>设计模式：<a target="_blank" rel="noopener" href="https://fengxiuyang.cn/articles/67">https://fengxiuyang.cn/articles/67</a></p>
+<li><p>设计模式：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">https://leo710aka.github.io/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a></p>
 </li>
-<li><p>深拷贝和浅拷贝<br>深拷贝和浅拷贝就是指对象的拷贝，一个对象中存在两种类型的属性，一种是基本数据类型，一种是实例对象的引用。<br>1，浅拷贝是指，只会拷贝基本教据类型的值，以及实例对象的引用地址，并不会复制一份引用地处所指的对象。也就是浅拷贝出来的对象，内部的类属性指向的是同一个对象<br>2，深拷贝是指，既会拷贝基本数据类型的值，也会针对实例对象的引用地址所指向的对象进行复制，深拷贝出来的对象，内部的属性指向的不是同一个对象</p>
+<li><p>工厂模式和抽象工厂的区别</p>
+<ol>
+<li><strong>简单工厂模式：</strong><ul>
+<li>简单工厂模式是一种创建型设计模式，它通过一个工厂类来封装对象的创建过程，用户只需要通过工厂类来获取所需的对象，而无需直接调用对象的构造方法。</li>
+<li>简单工厂模式只包含一个工厂类和多个产品类，工厂类根据用户的请求返回不同的产品对象。</li>
+<li>简单工厂模式适用于对象类型较少、不需要频繁变化的情况下，对于新增产品类型或者修改产品构造方法时，需要修改工厂类的代码。</li>
+</ul>
+</li>
+<li><strong>抽象工厂模式：</strong><ul>
+<li>抽象工厂模式也是一种创建型设计模式，它通过一个抽象工厂接口和多个具体工厂类来创建一组相关或者相互依赖的对象，而无需指定具体的类。</li>
+<li>抽象工厂模式包含抽象工厂接口、具体工厂类、抽象产品接口和具体产品类，每个具体工厂类负责创建一组相关的产品对象。</li>
+<li>抽象工厂模式适用于需要创建一组相关或者相互依赖的产品对象，并且对产品的具体类型和实现进行解耦的情况下，当需要新增产品类型时，只需要添加新的具体工厂类和对应的产品类，无需修改现有代码。</li>
+</ul>
+</li>
+<li>综上所述，简单工厂模式主要用于创建<strong>单一类型的对象</strong>，工厂类负责根据用户的请求返回相应的产品对象；而抽象工厂模式主要用于创建<strong>一组相关或者相互依赖的产品对象</strong>，通过抽象工厂接口和具体工厂类来实现对象的创建，并且对产品的具体类型和实现进行解耦，适用于产品类型频繁变化的情况。</li>
+</ol>
 </li>
 <li><p>什么时候用assert<br>assertion(断言)在软件开发中是一种常用的调试方式，很多开发语言中都支持这种机制。在实现中，assertion就是在程序中的一条语句，它对一个boolean表达式进行检查，一个正确程序必须保证这个boolean表达式的值为true；如果该值为false，说明程序已经处于不正确的状态下，系统将给出警告或退出。一般来说，assertion用于保证程序最基本、关键的正确性。assertion检查通常在开发和测试时开启。为了提高性能，在软件发布后，assertion检查通常是关闭的</p>
 </li>
@@ -2758,6 +2497,7 @@
 <li><code>HashSet</code> 使用 <code>HashMap</code> 作为底层实现，用于存储不重复的元素。</li>
 <li><code>HashMap</code> 是键值对的存储结构，而 <code>HashSet</code> 只存储键。</li>
 <li><code>Hashtable</code> 也是键值对的存储结构，类似于 <code>HashMap</code>，但是是同步的，因此适合于多线程环境。</li>
+<li><code>HashMap</code> 实现了 <code>Map</code> 接口。<code>Hashtable</code> 实现了 <code>Map</code> 接口以及 <code>Dictionary</code> 接口（在 Java 1.0 和 1.1 版本中使用较多，现已被 <code>Map</code> 接口取代）。</li>
 <li><code>HashMap</code> 和 <code>Hashtable</code> 允许键和值为 <code>null</code>，而 <code>HashSet</code> 只允许一个 <code>null</code> 元素。<br>  在实际开发中，一般推荐使用 <code>HashMap</code> 而不是 <code>Hashtable</code>，因为 <code>Hashtable</code> 的同步性会带来额外的性能开销。如果需要在多线程环境下使用，也可以考虑使用 <code>Collections.synchronizedMap()</code> 方法来创建一个同步的 <code>HashMap</code>。</li>
 </ul>
 </li>
@@ -2769,7 +2509,7 @@
 <li>比较此对象与指定对象的顺序。如果该对象小于、等于或大于指定对象，则分别返回负整数、零或正整数</li>
 </ol>
 </li>
-<li><p>？？？LinkHashSet（ HashSet+LinkedHashMap）<br>对于 LinkedHashSet 而言，它继承与 HashSet、又基于 LinkedHashMap 来实现的。LinkedHashSet 底层使用 LinkedHashMap 来保存所有元素，它继承与 HashSet，其所有的方法操作上又与 HashSet 相同，因此 LinkedHashSet 的实现上非常简单，只提供了四个构造方法，并通过传递一个标识参数，调用父类的构造器，底层构造一个 LinkedHashMap 来实现，在相关操作上与父类 HashSet 的操作相同，直接调用父类 HashSet 的方法即可。</p>
+<li><p>LinkHashSet（ HashSet+LinkedHashMap）<br>对于 LinkedHashSet 而言，它继承与 HashSet、又基于 LinkedHashMap 来实现的。LinkedHashSet 底层使用 LinkedHashMap 来保存所有元素，它继承与 HashSet，其所有的方法操作上又与 HashSet 相同，因此 LinkedHashSet 的实现上非常简单，只提供了四个构造方法，并通过传递一个标识参数，调用父类的构造器，底层构造一个 LinkedHashMap 来实现，在相关操作上与父类 HashSet 的操作相同，直接调用父类 HashSet 的方法即可。</p>
 </li>
 <li><p>Map 了解多少？<br>Map在Java里边是一个接口，常见的实现类有 HashMap、LinkedHashMap、TreeMap 和 ConcurrentHashMap<br>在Java里边，哈希表的结构是数组+链表的方式。HashMap底层数据结构是数组+链表&#x2F;红黑树；LinkedHashMap是数组+链表&#x2F;红黑树+双向链表；TreeMap是红黑树；而ConcurrentHashMap是数组+链表&#x2F;红黑树 </p>
 </li>
@@ -3106,9 +2846,13 @@
 <li>悲观锁：synchronized，RenntryLock<br>  、、、</li>
 </ul>
 </li>
-<li><p>锁的选型？</p>
+<li><p>锁的选型？<br>1）synchronized：适用于简单的同步需求，如小规模的并发控制，或者不需要可中断锁、公平锁等高级功能的场景。<br>2）ReentrantLock：适用于复杂的并发控制场景，特别是需要利用条件变量、公平锁、可中断锁等高级功能时。</p>
 </li>
-<li><p>Lock 和 Synchronized 区别<br>、、</p>
+<li><p>synchronized 和 ReentrantLock 的区别</p>
+<ul>
+<li>synchronized<br>  1）是 Java 内置的关键字，用于提供对象或方法级别的同步机制。<br>  2）它能够确保在同一时刻只有一个线程可以执行 synchronized 修饰的方法或代码块。<br>  3）不需要手动释放锁，当 synchronized 方法或代码块执行完毕后，锁自动释放。<br>  4）锁的获取和释放是隐式的，为开发者提供了便捷的线程同步机制。<br>  5）不支持公平锁、可中断锁等高级功能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizedExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">syncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 同步方法体</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">syncBlock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            <span class="comment">// 同步代码块</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>ReentrantLock<br>  1）属于 java.util.concurrent.locks 包下的一个类，提供了比 synchronized 更广泛的锁操作。<br>  2）必须手动声明锁的获取和释放（通过 lock() 和 unlock() 方法）。<br>  3）支持许多高级功能，如可中断的锁等待、公平锁、锁续租等。<br>  4）支持可中断的锁等待（ lockInterruptibly() ）<br>  5）提供了条件变量（Condition）支持，允许分开管理线程间的通信。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">javaCopy code<span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReentrantLockExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">// 默认非公平锁，ReentrantLock(true) 启用公平锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lockMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 受保护的代码区</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>synchronized 和 violated 的区别？</p>
 <ul>
@@ -3120,7 +2864,38 @@
 <li>4.volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化</li>
 </ul>
 </li>
+<li><p>公平锁和非公平锁</p>
+<ul>
+<li>公平锁：是指多个线程按照请求锁的顺序来获取锁，遵循先来先得的原则。如果锁已被其他线程占用，新来的线程就会进入等待队列。只有当队列中的前面所有线程都获取到锁并释放后，该线程才能获得锁。这种机制虽然保证了锁分配的绝对公平性，但是会导致更大的线程切换开销和整体吞吐量的降低，因为频繁的线程调度会消耗大量的系统资源。<ul>
+<li>优点：<br>  1）确保无饥饿发生，每个线程最终都可以获取到锁。<br>  2）适用于事务处理等对执行顺序敏感的场景。</li>
+<li>缺点：<br>  1）效率较低，因为要保证按照请求顺序获得锁，可能导致线程切换和等待的增加。<br>  2）可能会造成锁的平均获取时间延长。</li>
+</ul>
+</li>
+<li>非公平锁：是指多个线程获取锁的顺序并不是按照请求锁的顺序，允许”插队”。新请求的锁可能会直接获得锁，即使有其他线程正在等待。这种方式不保证等待的线程能够按照请求顺序获得锁，但是在多数情况下能够减少唤醒和阻塞的次数，从而提高系统的吞吐量。<ul>
+<li>优点：<br>  1）效率更高，因为减少了队列的调度，可以更快地获得锁，提高了程序的响应速度和吞吐量。<br>  2）在非竞争或低竞争的环境下，性能优于公平锁。</li>
+<li>缺点：<br>  1）可能会导致线程饥饿，即某些线程可能会很长时间获取不到锁。<br>  2）在高度竞争的环境下，线程可能会不断地尝试获取锁，从而增加CPU的负担。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>ThreadLocal的底层原理<br>1，Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据<br>2，Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（注意不是Threadloca对象）中都存在ThreadlocalMap，Map的key为Thredloca对象，Map的value为需要授存的值<br>？？3，如果在线程池中使用Threadloal会造成内存泄漏，因为当Threadloca对象使用完之后，应该要把设置的key,value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线理对象是通过观引用指向ThreadlocaMap，ThreadlocaMap也是通过用强引用指向entry对象，线理不被回收，entry对象也就不会被回收，从而出现内存泄露，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象<br>4，Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</p>
+</li>
+<li><p>线程池？</p>
+<ul>
+<li>线程池是管理一系列线程的资源池，用到了池化技术，像数据库连接池、HTTP 连接池都是池化技术的体现，主要目的是为了提高资源的利用率。</li>
+<li>使用线程池的好处<br>  1）降低资源消耗，通过重复利用已创建的线程来降低创建和销毁线程的消耗。<br>  2）提高响应速度，因为当有任务到达时，线程已经被创建完毕，立刻能执行任务。<br>  3）提高线程的可管理性，线程池可以批量管理线程，并且可以监控和调优，根据实际情况修改参数能将线程池效率发挥最大化。使用线程池可以让多个不相关的任务同时执行。</li>
+<li>Executor 框架<br>  Executor 框架在 JDK 1.5 之后引入，相比于直接用 Thread 的 Start 方法更好，方便管理，效率更高。<br>  Executor 框架包括线程池管理，还提供线程工厂、任务队列和拒绝策略。</li>
+<li>ThreadPoolExecutor 类<ul>
+<li>参数介绍：<br>  corePoolSize：核心线程数<br>  maximumPoolSize：最大线程数<br>  workQueue：任务队列<br>  keepAliveTime：空闲存活时间<br>  unit：keepAliveTime 参数的时间单位<br>  threadFactory：线程工厂<br>  handler：拒绝策略（核心线程满，任务队列满，最大线程数满，再有任务就会执行拒绝策略）</li>
+<li>流程图：<img src="https://mmbiz.qpic.cn/mmbiz_png/0ibmOSM765A8J2usBiak0kXTHDIRt4Xof4Hl25h3QtCRzL1eyuX7H2hLiaEcu47VKPz3Uw4DNECplJ5X6MFhXwoqA/640?wx_fmt=png&from=appmsg&tp=wxpic&wxfrom=5&wx_lazy=1&wx_co=1"></li>
+<li>线程池的拒绝策略默认有以下 4 种:<br>  1）AbortPolicy（中止策略）功能: 当触发拒绝策略时，直接抛出拒绝执行的异常，中止策略的意思也就是打断当前执行流程。<br>  2）CallerRunsPolicy（调用者运行策略）功能：当触发拒绝策略时，只要线程池没有关闭，就由提交任务的当前线程处理。<br>  3）DiscardPolicy（丢弃策略）功能：直接静悄悄的丢弃这个任务，不触发任何动作。<br>  4）DiscardOldestPolicy（弃老策略）功能：如果线程池未关闭，就弹出队列头部的元素，然后尝试执行。</li>
+</ul>
+</li>
+<li>线程池创建两种方式<br>  1）通过 ThreadPoolExecutor 构造函数。（推荐）<br>  2）通过 Executor 框架的工具类 Executors 创建。</li>
+<li>ThreadPoolExecutor 的类型<br>  <strong>FixedThreadPool</strong>：该方法返回一个固定线程数量的线程池。<br>  SingleThreadExecutor： 该方法返回一个只有一个线程的线程池。<br>  CachedThreadPool： 该方法返回一个可根据实际情况调整线程数量的线程池。<br>  <strong>ScheduledThreadPool</strong>：该返回一个用来在给定的延迟后运行任务或者定期执行任务的线程池。</li>
+</ul>
+</li>
+<li><p>Runnable 对比 Callable<br>Runnable 接口不会返回结果或抛出异常，而 Callable 接口可以，因此，可以根据只是需要返回值和抛出异常来判断使用哪个接口，根据实际场景去选择即可。</p>
 </li>
 <li><p>Java死锁如何避免?<br>造成死锁的几个原因:<br>1。一个资源每次只能被一个线程使用<br>2。一个线程在阻塞等待某个资源时，不释放已占有资源<br>3。一个线程已经获得的资源，在未使用完之前，不能被强行剥夺<br>4，若干线程形成头尾相接的循环等待资源关系<br>这是造成死锁必须要达到的4个条件，如果要避免死锁，只需不满足其中某一个即可，而其中前3个是作为锁要符合的条件，所以要避免死锁就要打破第4个条件，不出现循环等待锁的关系。<br>？？在开发过程中:<br>1，要注意加锁顺序，保证每个线程按同样的顺序进行加锁<br>2，要注意加锁时限，可以针对所设置一个超时时间<br>3，要注意死铁检查，这是一种预防机制，确保在第一时间发现死锁并进行解决</p>
 </li>
@@ -3139,7 +2914,9 @@
 <h2 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a>Java IO</h2><ul>
 <li><p>Java 中 IO 流分为几种?</p>
 <ul>
-<li>1、按照流的流向分，可以分为输入流和输出流；<br>  2、按照操作单元划分，可以划分为字节流和字符流；<br>  3、按照流的角色划分为节点流和处理流。</li>
+<li>1、按照流的流向分，可以分为输入流和输出流；</li>
+<li>2、按照操作单元划分，可以划分为字节流和字符流；</li>
+<li>3、按照流的角色划分为节点流和处理流。</li>
 <li>Java Io 流共涉及 40 多个类，这些类看上去很杂乱，但实际上很有规则，而且彼此之间存在非常紧密的联系，都是从如下 4 个抽象类基类中派生出来的。<br>  InputStream &#x2F; Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。<br>  OutputStream &#x2F; Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。</li>
 <li>字节流与字符流的区别<br>  以字节为单位输入输出数据，字节流按照8位传输<br>  以字符为单位输入输出数据，字符流按照16位传输</li>
 </ul>
@@ -3184,6 +2961,8 @@
 <li><p>???Selector<br>Selector 类是 NIO 的核心类， Selector 能够检测多个注册的通道上是否有事件发生，如果有事件发生，便获取事件然后针对每个事件进行相应的响应处理。这样一来，只是用一个单线程就可以管理多个通道，也就是管理多个连接。这样使得只有在连接真正有读写事件发生时，才会调用函数来进行读写，就大大地减少了系统开销，并且不必为每个连接都创建一个线程，不用去维护多个线程，并且避免了多线程之间的上下文切换导致的开销。</p>
 </li>
 <li><p>？？？介绍一下自己对 Netty 的认识。<br>第一：Netty 是一个 基于 NIO 模型的高性能网络通信框架，其实可以认为它是对 NIO 网络模型的封装，提供了简单易用的 API，我们可以利用这些封装好的API 快速开发自己的网络程序。<br>第二：Netty 在 NIO 的基础上做了很多优化，比如零拷贝机制、高性能无锁队列、内存池等，因此性能会比 NIO 更高。<br>第三：Netty 可以支持多种通信协议，如 Http、WebSocket 等，并且针对数据通信的拆包黏包问题，Netty 内置了拆包策略。</p>
+</li>
+<li><p>如何读取一个不知道类型的文件A数据到文件B中？<br>指定输入文件 input.txt 和输出文件 output.txt 的路径，然后使用 BufferedReader 和 BufferedWriter 来读写文件。<br>在 while 循环中，使用 readLine() 逐行读取文件 A 中的数据，然后将每一行数据写入到文件 B 中。通过异常处理来捕获可能出现的 IO 异常。<br>以上是针对文本文件的读取和写入，如果要处理的是二进制文件或者特定格式的文件，需要使用对应的输入输出流和处理方式。例如，可以使用 FileInputStream 和 FileOutputStream 来处理二进制文件，使用第三方库如 Apache POI 来处理 Excel 文件等。</p>
 </li>
 </ul>
 <hr>
@@ -3594,12 +3373,12 @@
 <ol>
 <li><strong>独立运行和简化部署：</strong> Spring Boot内嵌了各种servlet容器（如Tomcat、Jetty、Undertow），使得应用能够独立运行，无需打成war包部署到外部容器。通过打包成可执行的jar包，所有依赖包都在一个jar包内，简化了部署和运维。</li>
 <li><strong>简化配置和自动配置：</strong> 使用<code>starter</code>启动器能够自动依赖其他组件，减少了Maven配置的繁琐性。Spring Boot根据当前类路径和jar包自动配置bean，例如，添加<code>spring-boot-starter-web</code>启动器即可拥有web功能，无需额外的配置。</li>
-<li><strong>无代码生成和XML配置：</strong> Spring Boot的配置过程中无需代码生成，也不需要XML配置文件，通过条件注解实现自动配置，进一步简化了项目配置。</li>
-<li><strong>应用监控和健康检测：</strong> Spring Boot提供了一系列端点用于监控服务和应用，实现健康检测等功能。</li>
-<li><strong>减少开发、测试时间和努力：</strong> 提供快速启动开发的默认值，减少了开发和测试的时间和工作量。</li>
-<li><strong>使用JavaConfig避免XML配置：</strong> 倡导使用JavaConfig替代XML配置，提高了代码的可读性和维护性。</li>
-<li><strong>提供意见发展方法：</strong> Spring Boot提供了一套推荐的开发方法，使得团队更容易达成共识，提高了代码的一致性和规范性。</li>
-<li><strong>基于环境的配置：</strong> 支持基于环境的配置，通过传递环境参数（例如<code>-Dspring.profiles.active=&#123;environment&#125;</code>），可以在不同环境中灵活配置应用程序。</li>
+<li>无代码生成和XML配置： Spring Boot的配置过程中无需代码生成，也不需要XML配置文件，通过条件注解实现自动配置，进一步简化了项目配置。</li>
+<li>应用监控和健康检测： Spring Boot提供了一系列端点用于监控服务和应用，实现健康检测等功能。</li>
+<li>减少开发、测试时间和努力： 提供快速启动开发的默认值，减少了开发和测试的时间和工作量。</li>
+<li>使用JavaConfig避免XML配置： 倡导使用JavaConfig替代XML配置，提高了代码的可读性和维护性。</li>
+<li>提供意见发展方法： Spring Boot提供了一套推荐的开发方法，使得团队更容易达成共识，提高了代码的一致性和规范性。</li>
+<li>基于环境的配置： 支持基于环境的配置，通过传递环境参数（例如<code>-Dspring.profiles.active=&#123;environment&#125;</code>），可以在不同环境中灵活配置应用程序。</li>
 </ol>
 </li>
 <li><p>如何创建 Spring Boot Projects ？</p>
@@ -3802,7 +3581,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="cltrgagwv0011w4v505b49wff" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="cltwzkmnd000znsv58h151eq1" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -3952,6 +3731,18 @@
 <li>尽量的扩展索引，不要新建索引</li>
 </ol>
 </li>
+<li><p>最左前缀匹配原则</p>
+<ul>
+<li>在使用复合索引（composite index）时，如果查询条件中使用了索引的第一个列作为条件，那么数据库可以利用这个索引来加速查询；但如果查询条件中只使用了索引的前几个列，而没有使用索引的第一个列作为条件，那么数据库无法利用这个索引来加速查询。</li>
+<li>具体来说，假设有一个复合索引 <code>(col1, col2, col3)</code>，这个索引按照 <code>col1</code>、<code>col2</code>、<code>col3</code> 的顺序排列。根据最左前缀匹配原则，以下情况适用：<ol>
+<li>当查询条件中包含了索引的第一个列 <code>col1</code> 时，数据库可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>当查询条件中包含了索引的前几个列 <code>col1</code>、<code>col2</code> 时，数据库也可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>如果查询条件中包含了索引的所有列 <code>col1</code>、<code>col2</code>、<code>col3</code> 并且按照索引的顺序出现，那么可以触发索引。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>但是，如果查询条件中只使用了索引的后几个列，而没有使用索引的第一个列作为条件，那么数据库无法利用这个索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li><p>覆盖索引？回表查询？</p>
 <ul>
 <li>覆盖索引是指一个查询语句所需的数据可以从索引中直接获取，而无需访问表格中的实际数据行。这种情况下，索引“覆盖”了查询的所有需要的列。覆盖索引的优势在于可以减少磁盘 I&#x2F;O 和内存的消耗，因为不需要额外的表格访问。</li>
@@ -4061,7 +3852,7 @@
 <li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
 </ul>
 </li>
-<li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。在判定左表和右表时，要根据表名出现在Outer Join的左右位置关系<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
+<li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
 </li>
 <li><p>？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
@@ -4853,12 +4644,12 @@
 </li>
 <li><p>解释⼀下⻚⾯置换算法，例如LRU（最近最少使⽤）、FIFO（先进先出）等</p>
 <ul>
-<li>假设你的⼿机内存有限，只能同时运⾏四个原神的⻆⾊。当你想切换到⼀个新的⻆⾊时，你需要从内存中换出⼀个旧的⻆⾊，以便为新的⻆⾊腾出空间。不同的⻚⾯置换算法就相当于不同的切换策略，例如：<br>  LRU（最近最少使⽤）算法：每次选择最⻓时间没有被使⽤的⻆⾊进⾏切换。这种策略基于你对⻆⾊的喜好，认为最近被使⽤过的⻆⾊很可能还会被使⽤，⽽最久未被使⽤的⻆⾊很可能不会再 被使⽤。<br>  LRU算法可以有效地减少切换次数，但是实现起来⽐较复杂，需要记录每个⻆⾊的使⽤时间或者维护⼀个使⽤顺序的列表。<br>  FIFO（先进先出）算法：每次选择最早进⼊内存的⻆⾊进⾏切换。这种策略很简单，只需要维护⼀个⻆⾊队列，每次淘汰队⾸的⻆⾊，然后把新的⻆⾊加⼊队尾。但是FIFO算法可能会淘汰⼀些经常被使⽤的⻆⾊，导致切换次数增加。⽽且FIFO算法有可能出现⻉拉迪异常（Belady anomaly），即当分配给内存的空间增加时，切换次数反⽽增加</li>
+<li>假设你的⼿机内存有限，只能同时运⾏四个原神的⻆⾊。当你想切换到⼀个新的⻆⾊时，你需要从内存中换出⼀个旧的⻆⾊，以便为新的⻆⾊腾出空间。不同的⻚⾯置换算法就相当于不同的切换策略，例如：<br>  LRU（最近最少使⽤）算法：每次选择最⻓时间没有被使⽤的⻆⾊进⾏切换。这种策略基于你对⻆⾊的喜好，认为最近被使⽤过的⻆⾊很可能还会被使⽤，⽽最久未被使⽤的⻆⾊很可能不会再 被使⽤。 LRU算法可以有效地减少切换次数，但是实现起来⽐较复杂，需要记录每个⻆⾊的使⽤时间或者维护⼀个使⽤顺序的列表。<br>  FIFO（先进先出）算法：每次选择最早进⼊内存的⻆⾊进⾏切换。这种策略很简单，只需要维护⼀个⻆⾊队列，每次淘汰队⾸的⻆⾊，然后把新的⻆⾊加⼊队尾。但是FIFO算法可能会淘汰⼀些经常被使⽤的⻆⾊，导致切换次数增加。⽽且FIFO算法有可能出现⻉拉迪异常（Belady anomaly），即当分配给内存的空间增加时，切换次数反⽽增加</li>
 <li>常⻅⻚⾯置换算法有最佳置换算法（OPT）、先进先出（FIFO）、最近最久未使⽤算法（LRU）、时钟算法（Clock）<ol>
-<li>最佳置换算法: 该算法根据未来的⻚⾯访问情况，选择最⻓时间内不会被访问到的⻚⾯进⾏置        换。那么就有⼀个问题了，未来要访问什么⻚⾯，操作系统怎么知道的呢?操作系统当然不会知        道，所以这种算法只是⼀种理想情况下的置换算法，通常是⽆法实现的。</li>
-<li>先进先出算法：也就是最先进⼊内存的⻚⾯最先被置换出去。这个算法⽐较简单明了，就不过多<br>  解释了。但是先进先出算法会存在⼀个问题，就是Belady问题，即随着分配给进程的空闲⻚⾯数<br>  增加，缺⻚的情次反⽽也会增加。 这和我们常识是相悖的，因为我们通常认为如果⼀个进程经常<br>  发⽣缺⻚，那么就应该应该为他多分配⼀点内存。然⽽使⽤FIFO算法时，反⽽可能导致更多缺⻚<br>  情况出现。这就是Belady问题，Belady问题只会在使⽤FIFO算法时出现。</li>
-<li>最近最久未使⽤算法：LRU算法基于⻚⾯的使⽤历史，通过选择最⻓时间未被使⽤的⻚⾯进⾏置<br>  换。LRU算法的核⼼思想是，最近被访问的⻚⾯可能在未来被再次访问，⽽最⻓时间未被访问的<br>  ⻚⾯可能是最不常⽤的，因此将其置换出去可以腾出空间给新的⻚⾯。LRU算法通常是使⽤⼀个<br>  数据结构去维护⻚⾯的使⽤历史，维护使⽤历史就是通过访问字段实现的。访问字段的位数和操<br>  作系统分配给该进程的⻚⾯数有关，⽐如分配4个⻚⾯，访问字段就是2位，16个⻚⾯，访问字段<br>  就是4位，依次类推。如此，每⼀个⻚⾯的访问字段都可以不同，通过访问字段的不同，我们就<br>  可以判断⻚⾯的使⽤历史。</li>
-<li>时钟算法：Clock算法基于⼀个环形链表或者循环队列数据结构来管理⻚⾯的访问情况，⽤于选<br>  择被置换的⻚⾯。Clock算法的核⼼思想是通过使⽤⼀个指针(称为时钟指针)在环形链表上遍历，<br>  检查⻚⾯是否被访问过。这个访问过同样需要我们上⾯说到的访问字段来表示，此时访问字段只<br>  有⼀位。每个⻚⾯都与⼀个访问位相关联，标记该⻚⾯是否被访问过。<br>  当需要进⾏⻚⾯置换时，Clock算法从时钟指针的位置开始遍历环形链表。 如果当前⻚⾯的访问<br>  位为0，表示该⻚⾯最久未被访问，可以选择进⾏置换。将访问位设置为1，继续遍历下⼀个⻚<br>  ⾯。 如果当前⻚⾯的访问位为1，表示该⻚⾯最近被访问过，它仍然处于活跃状态。将访问位设<br>  置为0，并继续遍历下⼀个⻚⾯如果遍历过程中找到⼀个访问位为0的⻚⾯，那么选择该⻚⾯进⾏<br>  置换。</li>
+<li>最佳置换算法: 该算法根据未来的⻚⾯访问情况，选择最⻓时间内不会被访问到的⻚⾯进⾏置换。那么就有⼀个问题了，未来要访问什么⻚⾯，操作系统怎么知道的呢?操作系统当然不会知道，所以这种算法只是⼀种理想情况下的置换算法，通常是⽆法实现的。</li>
+<li>先进先出算法：也就是最先进⼊内存的⻚⾯最先被置换出去。这个算法⽐较简单明了，就不过多        解释了。但是先进先出算法会存在⼀个问题，就是Belady问题，即随着分配给进程的空闲⻚⾯数        增加，缺⻚的情次反⽽也会增加。 这和我们常识是相悖的，因为我们通常认为如果⼀个进程经常        发⽣缺⻚，那么就应该应该为他多分配⼀点内存。然⽽使⽤FIFO算法时，反⽽可能导致更多缺⻚        情况出现。这就是Belady问题，Belady问题只会在使⽤FIFO算法时出现。</li>
+<li>最近最久未使⽤算法：LRU算法基于⻚⾯的使⽤历史，通过选择最⻓时间未被使⽤的⻚⾯进⾏置        换。LRU算法的核⼼思想是，最近被访问的⻚⾯可能在未来被再次访问，⽽最⻓时间未被访问的        ⻚⾯可能是最不常⽤的，因此将其置换出去可以腾出空间给新的⻚⾯。LRU算法通常是使⽤⼀个        数据结构去维护⻚⾯的使⽤历史，维护使⽤历史就是通过访问字段实现的。访问字段的位数和操        作系统分配给该进程的⻚⾯数有关，⽐如分配4个⻚⾯，访问字段就是2位，16个⻚⾯，访问字段        就是4位，依次类推。如此，每⼀个⻚⾯的访问字段都可以不同，通过访问字段的不同，我们就        可以判断⻚⾯的使⽤历史。</li>
+<li>时钟算法：Clock算法基于⼀个环形链表或者循环队列数据结构来管理⻚⾯的访问情况，⽤于选        择被置换的⻚⾯。Clock算法的核⼼思想是通过使⽤⼀个指针(称为时钟指针)在环形链表上遍历，        检查⻚⾯是否被访问过。这个访问过同样需要我们上⾯说到的访问字段来表示，此时访问字段只        有⼀位。每个⻚⾯都与⼀个访问位相关联，标记该⻚⾯是否被访问过。        当需要进⾏⻚⾯置换时，Clock算法从时钟指针的位置开始遍历环形链表。 如果当前⻚⾯的访问        位为0，表示该⻚⾯最久未被访问，可以选择进⾏置换。将访问位设置为1，继续遍历下⼀个⻚        ⾯。 如果当前⻚⾯的访问位为1，表示该⻚⾯最近被访问过，它仍然处于活跃状态。将访问位设        置为0，并继续遍历下⼀个⻚⾯如果遍历过程中找到⼀个访问位为0的⻚⾯，那么选择该⻚⾯进⾏        置换。</li>
 </ol>
 </li>
 </ul>
@@ -4997,6 +4788,8 @@
 <li><code>[a-zA-Z]+:[ ]+[0-9]*</code> 代表：匹配一个或多个字母（大小写不敏感）、冒号、至少一个空格，然后是零个或多个数字。<br>  例子：<code>Example: 123</code>、<code>abc:   </code>。</li>
 </ul>
 </li>
+<li><p>正则表达式<br>\s+ 表示一个或多个空格；<br>\w：表示匹配任意字母、数字或下划线字符（即单词字符），等价于 <code>[a-zA-Z0-9_]</code>；<br>&#x2F;a?&#x2F;：表示字符 <code>a</code> 可以出现 0 次或 1 次，匹配空字符串或者单个字母 <code>a</code>；<br>i.：匹配一个字符 <code>i</code> 后面紧跟着任意字符。</p>
+</li>
 <li><p>常用 linux 命令。<br>执行退出： exit<br>列出文件列表：ls[参数] -a 所有文件; -l 详细信息，包括大小字节数，可读可写可执行的权限等<br>用于显示文件后几行内容：tail，例如： tail -n 1000：显示最后1000行<br>打包：tar -xvf；打包并压缩：tar -zcvf<br>查找字符串：grep<br>显示当前所在目录：pwd<br>创建空文件：touch<br>编辑器：vim vi<br>查看用过的命令列表：history</p>
 </li>
 <li><p>目录命令。<br>创建目录和移除目录：mkdir rmdir</p>
@@ -5043,7 +4836,110 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="cltrgagwv0010w4v59flf272u" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="cltwzkmnd000xnsv5386y7r62" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Colab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/31/Colab/" class="article-date">
+  <time class="dt-published" datetime="2023-07-31T02:25:07.000Z" itemprop="datePublished">2023-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/31/Colab/">Colab</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Google Colab</strong>是谷歌提供的免费<strong>Jupyter</strong>笔记本环境，不需要配置环境（本质是<strong>Linux虚拟机</strong>），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍。Colab Pro+ 订阅者还可获享更高的稳定性。</p>
+<p>使用Colab训练比较重要的是处理好路径的关系，找到哪个文件在哪里，文件夹的执行目录在哪里，就可以比较简单的运行起程序了，不过Colab确实存在断线问题，我们需要时刻保存好文件，因此我将权值直接保存在云盘上，这样也不会丢失。<br><strong>12h</strong>的限额比较难受，有时候没到时间就限额了。因此需要及时保存训练的模型，长时间不用gpu的情况下也会被限额（Pro版也一样），因此训练完建议及时改成gpu或停止。</p>
+<h3 id="Google-Drive"><a href="#Google-Drive" class="headerlink" title="Google Drive"></a>Google Drive</h3><p>谷歌云盘，谷歌云端硬盘。免费用户可以获取15G的空间，付费用户根据套餐可以选择最大20TB的储存空间。<br><strong>虚拟机根目录为 &#x2F;content，谷歌云盘地址为 &#x2F;content&#x2F;Drive&#x2F;MyDrive</strong></p>
+<h3 id="深度学习库的下载"><a href="#深度学习库的下载" class="headerlink" title="深度学习库的下载"></a>深度学习库的下载</h3><p>使用git clone指令进行下载，然后通过cd指令将根目录转移到了xx文件夹。<strong>此时根目录为 &#x2F;content&#x2F;xx</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!git <span class="built_in">clone</span> https://github.com/xx/xx.git</span><br><span class="line">%<span class="built_in">cd</span> xx/</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据集与预训练权重的上传"><a href="#数据集与预训练权重的上传" class="headerlink" title="数据集与预训练权重的上传"></a>数据集与预训练权重的上传</h3><p>数据集压缩，上传Google Drive，在colab中打开的jupyter文件（等于打开了一个Linux<strong>虚拟机本地</strong>）中挂载Google Drive；将数据集从Drive中复制到当前根目录，解压。<strong>直接将数据集布置在谷歌云盘会导致大量的云盘数据传输，且谷歌云盘和虚拟机之间存在通信带宽，速度远不及本地(虚拟机)文件，因此需要将数据集复制解压到本地(虚拟机)里进行处理。</strong> (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501</a>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">cp</span> /content/Drive/MyDrive/xx.zip ./</span><br><span class="line">!unzip ./xx.zip -d ./</span><br></pre></td></tr></table></figure>
+<p>预训练权重存放在 &#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx，然后创建logs和model_data。model_data放置的是预训练文件,logs放置的是网络训练过程中产生的权值。</p>
+<h3 id="保存路径设置"><a href="#保存路径设置" class="headerlink" title="保存路径设置"></a>保存路径设置</h3><p>如果将权值保存在当前根目录下的logs文件夹（&#x2F;content&#x2F;xx&#x2F;logs），发生断线网络就白训练了，浪费大量的时间。<br>可以将google云盘软连接到根目录下，那么即使断线，权值也保留在云盘中。<br>本文之前在云盘中创建了logs文件夹（&#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx&#x2F;logs），将该文件夹链接到当前根目录下的logs文件夹中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">ln</span> -s /content/Drive/MyDrive/Models/xx/logs logs   <span class="comment"># 即/content/xx/logs</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>1、标注文件的处理<br>2、训练文件的处理<br>1）预训练文件的使用。<br>2）保存周期的设置，这个设置是因为云盘的存储空间有限，每代都保存会导致存储空间满出。<br>3、开始训练：!python train.py</p>
+<h3 id="常用-colab-命令"><a href="#常用-colab-命令" class="headerlink" title="常用 colab 命令"></a>常用 colab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import shutil</span><br><span class="line">shutil.copytree(<span class="string">&quot;复制的文件夹&quot;</span>,<span class="string">&quot;目标路径+目标路径下的文件夹&quot;</span>)  <span class="comment"># 复制路径下的文件夹</span></span><br><span class="line">shutil.copytree(<span class="string">&quot;/content/drive/My Drive/channel&quot;</span>,<span class="string">&quot;/content/drive/My Drive/channel10&quot;</span>) <span class="comment"># ex</span></span><br><span class="line">shutil.rmtree(<span class="string">&quot;移除路径下的文件夹&quot;</span>) <span class="comment"># 移除路径下的文件夹</span></span><br><span class="line">shutil.copy(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>) <span class="comment"># 复制单个文件的命令  同上</span></span><br><span class="line"><span class="comment"># 删除单个文件可以右键删除</span></span><br><span class="line">!<span class="built_in">pwd</span> <span class="comment"># 显示当前目录, /content 为根目录</span></span><br><span class="line">import os </span><br><span class="line">os.chdir(<span class="string">&quot;/content/federated-learning&quot;</span>) <span class="comment"># 变更根目录操作</span></span><br><span class="line">!python <span class="string">&quot;/content/federated-learning/main_nn.py&quot;</span> <span class="comment"># 运行python 文件</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="cltwzkmmy0006nsv5blls8asm" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Pytorch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/14/Pytorch/" class="article-date">
+  <time class="dt-published" datetime="2023-07-14T03:58:39.000Z" itemprop="datePublished">2023-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/07/14/Pytorch/">Pytorch</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h3><p>打开localhost:6006，访问TensorBoard，查看TensorFlow模型的图形、损失函数、精度等信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;xxx&quot;</span>)               <span class="comment"># 在文件夹里新建一个abc文件夹</span></span><br><span class="line">writer.add_scalar(<span class="string">&quot;y=2i&quot;</span>, <span class="number">2</span>*i, i)           <span class="comment"># 加坐标</span></span><br><span class="line">writer.add_images(<span class="string">&quot;test_data&quot;</span>, imgs, step)  <span class="comment"># 加图</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pycharm -&gt; Terminal</span></span><br><span class="line">PS C:\Users\cf\Documents\Visual Studio Code\Python\learn_pytorch&gt; tensorboard --logdir=<span class="string">&quot;xxx&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="nn-Module"><a href="#nn-Module" class="headerlink" title="nn.Module"></a>nn.Module</h3><p>基本神经网络</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">cf</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__int__</span>(<span class="params">self</span>):   <span class="built_in">super</span>().__init__()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):      <span class="comment"># 必须重写forword()</span></span><br><span class="line">        output = <span class="built_in">input</span> + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<p><strong>输入层（Input Layer）：</strong>接受原始图像或数据作为输入。<br><strong>卷积层（Convolutional Layer）：</strong>进行特征提取。通过卷积操作，利用卷积核（或过滤器）从输入图像中提取特定的特征，如边缘、纹理等。卷积核会在整个图像上滑动，产生特征图。<br>卷积核的输入通道数与输入数据的通道数对应，卷积核的输出通道数与卷积核的数量对应。<br>卷积操作在神经网络中扮演着关键的角色，它通过特征提取、参数共享、空间局部性和参数数量控制等方面，使得卷积神经网络成为图像处理和计算机视觉任务中非常有效的工具。<br><strong>池化层（Pooling Layer）</strong>【最大ceil, 最小floor】：降采样和减少参数，避免过拟合。池化操作对特征图进行降采样，减少特征图的尺寸，并保留重要的特征信息。常用的池化方式为最大池化（Max Pooling）和平均池化（Average Pooling）。<br><strong>非线性激活：</strong>线性变换（如全连接层）在神经网络中只能实现线性映射，而现实世界中的数据和任务通常都是非线性的。为了解决这个问题，需要在网络中引入非线性激活函数，以增加网络的表达能力和灵活性。 给网络中引入非线性特征，以训练出符合各种曲线的模型。<br>·ReLU（Rectified Linear Unit）：f(x) &#x3D; max(0, x)，它在x大于0时是线性的，小于等于0时为0，能够有效地解决梯度消失问题。<br>·Sigmoid：f(x) &#x3D; 1 &#x2F; (1 + exp(-x))，它将输入映射到[0, 1]区间，用于二分类问题。<br>·Tanh：f(x) &#x3D; (exp(x) - exp(-x)) &#x2F; (exp(x) + exp(-x))，它将输入映射到[-1, 1]区间，也用于解决梯度消失问题。<br><strong>正则化层（Regularization Layer）：</strong>正则化层用于防止过拟合。过拟合是指模型在训练数据上表现良好，但在未见过的测试数据上表现较差的现象。正则化层通过添加一些额外的约束或惩罚项来控制模型的复杂度，以避免过度拟合。<br>·L1正则化：将参数的绝对值加入到损失函数中，使得模型倾向于产生稀疏的权重矩阵。<br>·L2正则化：将参数的平方加入到损失函数中，限制权重的大小，防止权重过大造成过拟合。<br>·Dropout正则化：随机在训练过程中丢弃一部分神经元，减少神经元之间的共适应性，提高泛化能力。<br><strong>全连接层（Fully Connected Layer）：</strong>将特征矩阵集合向量化。与卷积层不同，全连接层的神经元排成一列，这些神经元与前一层神经元通过权值互连，呈全连接结构。全连接层的层数以及每层神经元数并不固定。通常层数越高，神经元数目越少。<br>功能：进行分类。在卷积和池化层之后，通过全连接层将得到的特征映射转换为一维向量，并通过一系列的全连接神经元进行分类操作，将输入映射到对应的类别概率。<br><strong>输出层（Output Layer）：</strong>经过多层特征提取后，最后一层输出层可视为分类器，预测输入样本的类别。通常使用Softmax函数将全连接层的输出转换为类别概率分布，确定输入图像最可能属于哪个类别。<br><img src="https://leo710aka.github.io/bk/nn.png"></p>
+<p>Sequential</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=<span class="number">3</span>, out_channels=<span class="number">32</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(kernel_size=<span class="number">2</span>, ceil_mode=<span class="literal">True</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),     <span class="comment"># 二维卷积层</span></span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(<span class="number">1024</span>, <span class="number">64</span>),</span><br><span class="line">            Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<p>一次训练+验证：准备数据 - 加载数据 - 准备模型 - 设置损失函数 - 设置优化器 - 开始训练 - 验证 - 聚合展示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):  <span class="comment"># 共20轮训练</span></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> dataloader:  <span class="comment"># 对数据进行一轮学习</span></span><br><span class="line">        imgs, targets = data</span><br><span class="line">        output = fc(imgs)</span><br><span class="line">        result_loss = loss(output, targets)  <span class="comment"># 计算损失</span></span><br><span class="line">        optim.zero_grad()  <span class="comment"># 优化器中，梯度置0</span></span><br><span class="line">        result_loss.backward()  <span class="comment"># 损失函数求梯度，反向传播</span></span><br><span class="line">        optim.step()  <span class="comment"># 优化器，优化卷积核参数</span></span><br><span class="line">        running_loss = running_loss + result_loss</span><br><span class="line">    <span class="built_in">print</span>(running_loss)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/14/Pytorch/" data-id="cltwzkmn8000insv50w33ef0b" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -5078,7 +4974,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -5095,15 +4991,7 @@
           </li>
         
           <li>
-            <a href="/2024/01/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-          </li>
-        
-          <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/10/Redis/">Redis</a>
           </li>
         
           <li>
@@ -5115,7 +5003,7 @@
           </li>
         
           <li>
-            <a href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 | career</a>
+            <a href="/2023/10/20/%E6%8A%80%E8%83%BD_%E6%B1%82%E8%81%8C/">寄 能 / career</a>
           </li>
         
           <li>
@@ -5128,6 +5016,14 @@
         
           <li>
             <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/31/Colab/">Colab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/14/Pytorch/">Pytorch</a>
           </li>
         
       </ul>
