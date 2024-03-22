@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-20T16:08:21.571Z">
+<meta property="article:modified_time" content="2024-03-22T09:42:46.808Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -294,8 +294,10 @@
 </li>
 <li><p>java中有没有指针？java中是值传递引用传递？<br>有指针，但是隐藏了，开发人员无法直接操作指针，由jvm来操作指针<br><strong>java都是值传递</strong>，对于基本数据类型，传递是值的副本，而不是值本身。对于对象类型，传递是对象的引用，当在一个方法操作操作参数的时候，其实操作的是引用所指向的对象。</p>
 </li>
-<li><p>构造方法。<br>  构造方法是Java类中的一种特殊方法，用于在创建对象时进行初始化操作。构造方法的名称必须与类名相同，并且没有返回类型，包括 void。构造方法通常用于设置对象的初始状态，为对象的属性赋初值或执行其他初始化任务。</p>
+<li><p>构造方法 constructor</p>
 <ul>
+<li>构造方法是Java类中的一种特殊方法（可省略），用于在创建对象时进行初始化操作。<br>  构造方法的名称必须与类名相同，并且没有返回类型，包括 void。构造方法通常用于设置对象的初始状态，为对象的属性赋初值或执行其他初始化任务。</li>
+<li>方法也可以与class同名，区别在于方法必须要有void或具体返回值类型；</li>
 <li>一个类可以拥有多个构造方法，只要它们的参数列表不同。这称为构造方法的重载。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="comment">// 无参构造方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">()</span> &#123;<span class="built_in">this</span>.value = <span class="number">0</span>;&#125;</span><br><span class="line">    <span class="comment">// 有参构造方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(<span class="type">int</span> value)</span> &#123;<span class="built_in">this</span>.value = value;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>构造方法能不能显式调用？<br>  不能，构造方法当成普通方法调用，只有在创建对象的时候它才会被系统调用</li>
 <li>构造方法能不能重写，重载？<br>  可以重载，但不能重写。</li>
