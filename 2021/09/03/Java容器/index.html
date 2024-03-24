@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   
-  <title>Java 集合 | Qué miras Bobo</title>
+  <title>Java 容器 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="集合（Collection）：Java 集合框架是一组类和接口，用于存储和操作一组对象。List, Set, Queue都是 Java集合的接口。 容器（Container）：Java 容器就是可以容纳其他 Java 对象的对象。Java Collections Framework(JCF) 为开发者提供了通用的容器，始于JDK 1.2 优点: 降低编程难度，提高程序性能，提高API间的互操作性">
+  <meta name="description" content="容器：Java 容器就是可以容纳其他 Java 对象的对象。Java Collections Framework(JCF) 为开发者提供了通用的容器，始于JDK 1.2 优点: 降低编程难度，提高程序性能，提高API间的互操作性，降低设计和实现相关API的难度，增加程序的重用性 对于基本类型(int, long, float, double等)，需要将其包装成对象类型后(Integer, Lon">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 集合">
-<meta property="og:url" content="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/index.html">
+<meta property="og:title" content="Java 容器">
+<meta property="og:url" content="http://example.com/2021/09/03/Java%E5%AE%B9%E5%99%A8/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="集合（Collection）：Java 集合框架是一组类和接口，用于存储和操作一组对象。List, Set, Queue都是 Java集合的接口。 容器（Container）：Java 容器就是可以容纳其他 Java 对象的对象。Java Collections Framework(JCF) 为开发者提供了通用的容器，始于JDK 1.2 优点: 降低编程难度，提高程序性能，提高API间的互操作性">
+<meta property="og:description" content="容器：Java 容器就是可以容纳其他 Java 对象的对象。Java Collections Framework(JCF) 为开发者提供了通用的容器，始于JDK 1.2 优点: 降低编程难度，提高程序性能，提高API间的互操作性，降低设计和实现相关API的难度，增加程序的重用性 对于基本类型(int, long, float, double等)，需要将其包装成对象类型后(Integer, Lon">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pdai.tech/images/java_collections_overview.png">
 <meta property="article:published_time" content="2021-09-03T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-02-22T13:52:32.483Z">
+<meta property="article:modified_time" content="2024-03-24T06:16:07.288Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -73,9 +73,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Java集合" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Java容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/09/03/Java%E9%9B%86%E5%90%88/" class="article-date">
+    <a href="/2021/09/03/Java%E5%AE%B9%E5%99%A8/" class="article-date">
   <time class="dt-published" datetime="2021-09-03T03:49:42.000Z" itemprop="datePublished">2021-09-03</time>
 </a>
     
@@ -87,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Java 集合
+      Java 容器
     </h1>
   
 
@@ -96,15 +96,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <ul>
-<li><strong>集合（Collection）</strong>：Java 集合框架是一组类和接口，用于存储和操作一组对象。<code>List, Set, Queue</code>都是 Java集合的接口。</li>
-<li><strong>容器（Container）</strong>：Java 容器就是可以容纳其他 Java 对象的对象。<em>Java Collections Framework(JCF)</em> 为开发者提供了通用的容器，始于JDK 1.2<ul>
+<li><strong>容器</strong>：Java 容器就是可以容纳其他 Java 对象的对象。<em>Java Collections Framework(JCF)</em> 为开发者提供了通用的容器，始于JDK 1.2<ul>
 <li><strong>优点</strong>: 降低编程难度，提高程序性能，提高API间的互操作性，降低设计和实现相关API的难度，增加程序的重用性</li>
 <li>对于基本类型(int, long, float, double等)，需要将其<strong>包装</strong>成对象类型后(Integer, Long, Float, Double等)才能放到容器里。很多时候拆包装和解包装能够自动完成。这虽然会导致额外的性能和空间开销，但简化了设计和编程。</li>
+<li><strong>容器</strong>接口 主要包括 <strong>Collection(容器类) 和 Map</strong> 两种，<br>  Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。</li>
 </ul>
 </li>
-<li>在 Java 中，常见的集合类和容器类都可以用于存储和管理数据，它们提供了不同的功能和特性，比如：<br><code>ArrayList</code> 和 <code>LinkedList</code> 是常见的列表（List）实现，提供了不同的插入、删除和访问元素的性能特性。<br><code>HashSet</code> 和 <code>TreeSet</code> 是 <code>Set</code> 接口的实现，分别基于哈希表和树结构，用于存储唯一元素，但没有顺序。<br><code>HashMap</code> 和 <code>TreeMap</code> 是 <code>Map</code> 接口的实现，用键值对的形式存储数据。</li>
 </ul>
-<p>Java 集合 主要包括 <strong>Collection 和 Map</strong> 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。</p>
 <p><img src="https://pdai.tech/images/java_collections_overview.png"></p>
 <h2 id="1-Collection"><a href="#1-Collection" class="headerlink" title="1. Collection"></a>1. Collection</h2><h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>主要功能是保证存储的集合不会重复，至于集体是有序还是无序的，需要看具体的实现类，比如 TreeSet 有序，HashSet 无序</p>
 <ul>
@@ -150,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/03/Java%E9%9B%86%E5%90%88/" data-id="clu2auuvn000bp8v5dpmv5qoj" data-title="Java 集合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/03/Java%E5%AE%B9%E5%99%A8/" data-id="clu5a4qxu00094kv5ekgg02x4" data-title="Java 容器" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

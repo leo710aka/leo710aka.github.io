@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-22T09:48:10.258Z">
+<meta property="article:modified_time" content="2024-03-24T08:41:20.868Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -394,6 +394,28 @@
 </li>
 <li><p>MySQL的默认隔离级别是?<br>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATATATABLE-READ（可重读）。<br>这里需要注意的是：与 SQL 标准不同的地方在于 InnoDB 存储引擎在 REPEATATATABLE-READ（可重读）事务隔离级别下使用的是Next-KeyLock 锁算法，因此可以避免幻读的产生，这与其他数据库系统(如SQL Server) 是不同的。所以说InnoDB 存储引擎的默认支持的隔离级别是REPEATATATABLE-READ（可重读） 已经可以完全保证事务的隔离性要求，即达到了 SQL标准的 SERIALIZABLE(可串行化) 隔离级别。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是 READCOMMITTED(读取提交内容) ，但是你要知道的是InnoDB 存储引擎默认使用 REPEAaTATABLEREAD（可重读） 并不会有任何性能损失<br>InnoDB 存储引擎在 分布式事务 的情况下一般会用到 SERIALIZABLE(可串行化) 隔离级别。</p>
 </li>
+<li><p>MySQL的事务隔离级别与锁的关系、、？？</p>
+<ul>
+<li>MySQL 中的事务隔离级别通过不同类型的锁（共享锁、排它锁等）以及锁的粒度（行级锁、表级锁等）来实现对事务的隔离，保证了事务在并发环境下的正确执行。选择合适的事务隔离级别需要根据具体业务需求和性能要求进行权衡。</li>
+</ul>
+<ol>
+<li><strong>读未提交（Read Uncommitted）</strong>：这个级别不涉及锁的机制，允许事务读取其他事务未提交的数据，可能会出现脏读。</li>
+<li><strong>读提交（Read Committed）</strong>：<ul>
+<li>读取数据时，MySQL 会对数据行进行短暂的共享锁（读取操作）或排它锁（写入操作），这样可以防止其他事务对数据进行修改。</li>
+<li>写入数据时，MySQL 会对数据行进行排它锁，防止其他事务读取或写入数据。</li>
+</ul>
+</li>
+<li><strong>可重复读（Repeatable Read）</strong>：<ul>
+<li>在整个事务过程中，MySQL 会对读取的数据行进行共享锁，防止其他事务修改数据，也会对写入的数据行进行排它锁。这种锁的机制保证了事务在整个过程中看到的数据保持一致性，避免了不可重复读的问题。</li>
+</ul>
+</li>
+<li><strong>串行化（Serializable）</strong>：<ul>
+<li>这个级别下，MySQL 会对读取的数据行和写入的数据行都进行排它锁，确保事务串行执行，避免了幻读的问题。</li>
+<li>串行化级别的锁机制最严格，性能开销也最大，因为它会限制并发性。</li>
+</ul>
+</li>
+</ol>
+</li>
 <li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以在缺省情况下，MySQL 是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
 <li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
@@ -432,13 +454,29 @@
 <h3 id="Mysql锁、、"><a href="#Mysql锁、、" class="headerlink" title="Mysql锁、、"></a>Mysql锁、、</h3><ul>
 <li><p>什么是锁？<br>答：数据库是一个多用户使用的共享资源。当多个用户并发地存取数据时，在数据库中就会产生多个事务同时存取同一数据的情况。若对并发操作不加控制就可能会读取和存储不正确的数据，破坏数据库的一致性。加锁是实现数据库并发控制的一个非常重要的技术。当事务在对某个数据对象进行操作前，先向系统发出请求，对其加锁。加锁后事务就对该数据对象有了一定的控制，在该事务释放锁之前，其他的事务不能对此数据对象进行更新操作。</p>
 </li>
+<li><p><strong>锁的类型</strong>（按类型）</p>
+<ul>
+<li>悲观锁：悲观锁就是在读取数据的时候，为了不让别人修改自己读取的数据，就会先对自己读取的数据加锁，只有自己把数据读完了，才允许别人修改那部分数据，或者反过来说，就是自己修改某条数据的时候，不允许别人读取该数据，只有的整个事务提交了，才释放自己加上的锁，允许其他用户访问那部分数据。<ul>
+<li>悲观锁所说的加“锁”，其实分为几种锁，分别是： 排它锁（写锁）和共享锁（读锁） 。</li>
+</ul>
+</li>
+<li>乐观锁：乐观锁认为一个用户读数据的时候，别人不会去写自己所读的数据；悲观锁就刚好相反，觉得自己读数据库的时候，别人可能刚好在写自己刚读的数据，其实就是持一种比较保守的态度；<ul>
+<li>时间戳：时间戳就是不加锁，通过时间戳来控制并发出现的问题。在数据库表中单独加一列时间戳，比如“TimeStamp”， 每次读出来的时候，把该字段也读出来，当写回去的时候，把该字段加1，提交之前 ，跟数据库的该字段比较一次，如果比数据库的值大的话，就允许保存，否则不允许保存，这种处理方法虽然不使用数据库系统提供的锁机制，但是这种方法可以大大提高数据库处理的并发量</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p><strong>锁的类型</strong>（按粒度）</p>
 <ol>
 <li>全局锁：锁定数据库中所有的表（数据备份）</li>
 <li>表级锁：对当前操作的整张表加锁，它实现简单，开销小、加锁快，发生锁冲突的概率高、并发度低，不会出现死锁；被大部分 MySQL 引擎支持。最常使用的 MYISAM 与 INNODB 都支持表级锁定。表级锁定分为表共享读锁（共享锁）与表独占写锁（排他锁）。        <ul>
 <li>表锁：锁住整张表，粒度较大</li>
 <li>元数据锁：防止 DML 和 DDL 冲突</li>
-<li>意向锁：避免加锁是一行一行查看行锁加锁情况，解决上述低效的问题</li>
+<li>意向锁：避免加锁是一行一行查看行锁加锁情况，解决上述低效的问题<ul>
+<li>意向共享锁 (IS): 表级，准备加共享锁</li>
+<li>意向排他锁 (Ix) : 表级，准备加排他锁</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>行级锁：开销大、加锁慢，发生锁冲突的概率低、并发度高，会出现死锁<ul>
@@ -448,27 +486,24 @@
 <li>使用 COMMIT 或 ROLLBACK 语句释放锁。</li>
 </ol>
 </li>
+<li>共享锁 (s) : 行级，读取一行</li>
+<li>排他锁 (x) : 行级，更新一行</li>
+<li>间隙锁 (NK) : 行级，使用范围条件时</li>
 </ul>
 </li>
 </ol>
 </li>
-<li><p>类型 (InnoDB)<br>共享锁 (s) : 行级，读取一行<br>排他锁 (x) : 行级，更新一行<br>意向共享锁 (IS): 表级，准备加共享锁<br>意向排他锁 (Ix) : 表级，准备加排他锁<br>间隙锁 (NK) : 行级，使用范围条件时</p>
-</li>
-<li><p>加锁<br>  对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要<br>  增加行级锁之前，InnoDB会自动给表加意向锁<br>  执行DML语句时，InnoDB会自动给数据加排他锁<br>  ？？？执行DQL语句时：</p>
+<li><p>加锁</p>
 <ul>
+<li>对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要</li>
+<li>增加行级锁之前，InnoDB会自动给表加意向锁</li>
+<li>执行DML语句时，InnoDB会自动给数据加排他锁</li>
+<li>？？？执行DQL语句时：<ul>
 <li>共享锁 (s) :SELECT … FROM … WHERE … LOCK IN SHARE MODE</li>
 <li>排他锁 (x) :SELECT … FROM … WHERE … FOR UPDATE;</li>
 <li>间隙锁 (NK) : 上述sQ采用范围条件时，InnoDB对不存在的记录自动增加间隙锁</li>
 </ul>
 </li>
-<li><p>悲观锁：悲观锁就是在读取数据的时候，为了不让别人修改自己读取的数据，就会先对自己读取的数据加锁，只有自己把数据读完了，才允许别人修改那部分数据，或者反过来说，就是自己修改某条数据的时候，不允许别人读取该数据，只有等自己的整个事务提交了，才释放自己加上的锁，才允许其他用户访问那部分数据。</p>
-<ul>
-<li>悲观锁所说的加“锁”，其实分为几种锁，分别是： 排它锁（写锁）和共享锁（读锁） 。</li>
-</ul>
-</li>
-<li><p>乐观锁：乐观锁认为一个用户读数据的时候，别人不会去写自己所读的数据；悲观锁就刚好相反，觉得自己读数据库的时候，别人可能刚好在写自己刚读的数据，其实就是持一种比较保守的态度；时间戳就是不加锁，通过时间戳来控制并发出现的问题。</p>
-<ul>
-<li>时间戳：就是在数据库表中单独加一列时间戳，比如“TimeStamp”， 每次读出来的时候，把该字段也读出来，当写回去的时候，把该字段加1，提交之前 ，跟数据库的该字段比较一次，如果比数据库的值大的话，就允许保存，否则不允许保存，这种处理方法虽然不使用数据库系统提供的锁机制，但是这种方法可以大大提高数据库处理的并发量</li>
 </ul>
 </li>
 <li><p>数据库并发策略<br>并发控制一般采用三种方法，分别是乐观锁和悲观锁以及时间戳。</p>
@@ -1366,7 +1401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clu2auuvt000zp8v5aqc91qm7" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clu5a4qy5000w4kv5c45j4ah1" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
