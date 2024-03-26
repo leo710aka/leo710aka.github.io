@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-25T14:51:05.152Z">
+<meta property="article:modified_time" content="2024-03-26T12:23:13.341Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -133,7 +133,7 @@
 </li>
 <li><p>为表中得字段选择合适得数据类型<br>字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别得数据类型，应该优先选择占用空间小的数据类型</p>
 </li>
-<li><p>LIKE 声明中的％和_是什么意思？<br>％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符<br>？？？</p>
+<li><p>LIKE 声明中的％和_是什么意思？<br>？？？％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符</p>
 </li>
 <li><p>MySQL 如何优化 DISTINCT？<br>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure>
@@ -168,7 +168,7 @@
 </li>
 <li><p>MyIASM，Memory<br>MyIASM是 MySQL默认的引擎，但是它没有提供对数据库事务的支持，也不支持行级锁和外键，因此当 NSERT(插入)或 UPDATATE(更新)数据时即写操作需要锁定整个表，效率便会低一些。<br>ISAM 执行读取操作的速度很快，而且不占用大量的内存和存储资源。在设计之初就预想数据组织成有固定长度的记录，按顺序存储的。 —ISAM 是一种静态索引结构。缺点是它不 支持事务处理。<br>Memery 就是将数据放在内存中，数据处理速度很快，但是安全性不⾼。</p>
 </li>
-<li><p>MyISAM 和 InnoDB 有什么区别？<br>（1）InnoDB 支持行级别的锁粒度，MyISAM 不支持，只支持表级别的锁粒度。<br>（2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>（3）MyISAM 不支持外键，而 InnoDB 支持。<br>（4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>（5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>（6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>（7）InnoDB 的性能比 MyISAM 更强大。</p>
+<li><p>MyISAM 和 InnoDB 有什么区别？<br>（1）MyISAM 只支持表级别的锁粒度，InnoDB 支持行级别的锁粒度。<br>（2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>（3）MyISAM 不支持外键，而 InnoDB 支持。<br>（4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>（5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>（6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>（7）InnoDB 的性能比 MyISAM 更强大。</p>
 </li>
 <li><p>索引。<br>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。<br>索引（Index）是帮助 MySQL 高效获取数据的数据结构。 常见的查询算法,顺序查找,二分查找,二叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树（B-tree） ，索引是对数据库表中一个或多个列的值进行排序的结构，建立索引有助于快速获取信息。<br>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库 mysql。<br>索引并非是越多越好，创建索引也需要耗费资源，一是增加了数据库的存储空间，二是在插入和删除时要花费较多的时间维护索引<br>索引加快数据库的检索速度<br>索引降低了插入、删除、修改等维护任务的速度<br>唯一索引可以确保每一行数据的唯一性<br>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能<br>索引需要占物理和数据空间</p>
 </li>
@@ -189,7 +189,7 @@
 <li><p>InnoDB 建议为大部分表使用默认的自增主键的主要原因</p>
 <ol>
 <li><strong>聚簇索引：</strong> InnoDB 表的主键是聚簇索引（Clustered Index），这意味着数据行的物理顺序与聚簇索引的顺序一致。使用自增主键作为聚簇索引可以确保新插入的数据按顺序添加到表的末尾，减少数据页的分裂和碎片，提高数据的顺序性。</li>
-<li><strong>插入性能：</strong> 自增主键的顺序性有助于提高插入性能。因为数据行按照主键的顺序插入，新的数据行往往直接添加到表末尾，而不会导致页面的分裂和数据的重新排序。</li>
+<li><strong>插入性能：</strong> 自增主键的顺序性有助于提高插入性能。因为数据行按主键的顺序插入，新的数据行往往直接添加到表末尾，而不会导致页面的分裂和数据的重新排序。</li>
 <li><strong>查询性能：</strong> 使用自增主键作为聚簇索引可以提高范围查询和排序查询的性能，因为相关数据在物理上是相邻存储的。</li>
 <li><strong>减少索引大小：</strong> 自增主键通常是整数，占用的空间相对较小。相比于使用其他类型的主键，这可以减少非聚簇索引的大小，提高缓存的效率，减少磁盘 I&#x2F;O。</li>
 <li><strong>减少碎片：</strong> 自增主键的插入顺序有助于减少数据页的分裂和碎片，减小了表的维护成本。</li>
@@ -308,16 +308,16 @@
 <li><strong>减少子查询，使用关联查询：</strong>   尽量使用关联查询（LEFT JOIN、RIGHT JOIN、INNER JOIN）替代子查询，以提高查询效率。使用 JOIN 操作来代替手动创建的临时表，提高查询效率。</li>
 <li><strong>避免使用 IN 或 NOT IN，使用 EXISTS 或关联查询：</strong>  以提高查询性能。</li>
 <li><strong>使用 UNION 或 UNION ALL 代替 OR 查询：</strong>  特别是当确定没有重复数据时，使用 UNION ALL 更为效率。</li>
-<li><strong>避免在 WHERE 子句中使用 !&#x3D; 或 &lt;&gt; 操作符：</strong>  以免引擎放弃使用索引而进行全表扫描。</li>
-<li><strong>避免在 WHERE 子句中对字段进行 NULL 值判断：</strong>可以设置默认值或使用其他方式，以免引擎放弃使用索引而进行全表扫描。如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</li>
-<li><strong>选择合适的字段属性：</strong>   选择最适用的字段属性，尽可能减少定义字段宽度，设置合适的数据类型。尽量把字段设置 NOTNULL，例如’省份’、’性别’最好适用 ENUM</li>
+<li><strong>选择合适的字段属性：</strong>   选择最适用的字段属性，尽可能减少定义字段宽度，设置合适的数据类型。尽量把字段设置 NOT NULL，例如’省份’、’性别’最好适用 ENUM</li>
 </ol>
 </li>
 <li>基于索引查询、、<ol>
 <li>为常用的查询条件和连接条件创建索引，以加速查询速度。确保数据库引擎能够充分利用索引。</li>
-<li><strong>避免对索引列进行函数或运算：</strong>   尽量避免在索引列上使用函数或运算，以确保索引的有效使用。</li>
+<li><strong>避免对索引列进行函数或运算：</strong>  尽量避免在索引列上使用函数或运算，以确保索引的有效使用。</li>
 <li><strong>WHERE 子句中的 LIKE 使用 % 放在右边：</strong>   在使用 LIKE 操作时，尽量将 % 放在右边，以便索引的有效使用。</li>
 <li><strong>尽量使用 SQL 语句用到的索引完成排序：</strong>  避免使用文件排序的方式。</li>
+<li><strong>避免在 WHERE 子句中使用 !&#x3D; 或 &lt;&gt; 操作符：</strong>  以免引擎放弃使用索引而进行全表扫描。</li>
+<li><strong>避免在 WHERE 子句中对字段进行 NULL 值判断：</strong>可以设置默认值或使用其他方式，以免引擎放弃使用索引而进行全表扫描。如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</li>
 </ol>
 </li>
 <li>数据库事务<ol>
@@ -337,7 +337,7 @@
 </li>
 <li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
 </li>
-<li><p>？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
+<li><p>？？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
 <li><p>部分依赖和传递依赖。</p>
 <ol>
@@ -386,27 +386,26 @@
 </li>
 <li><p><strong>事务隔离级别有哪些?</strong><br>  SQL 标准定义了四个隔离级别： </p>
 <ul>
-<li>READ-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
-<li>READ-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
-<li>REPEATATATABLE-READ(可重复读)： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生 </li>
-<li>SERIALIZABLE(可串行化)： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
+<li>**READ-UNCOMMITTED(读取未提交)**： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
+<li>**READ-COMMITTED(读取已提交)**： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
+<li>**REPEATATATABLE-READ(可重复读)**： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生 </li>
+<li>**SERIALIZABLE(可串行化)**： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
 </ul>
 </li>
 <li><p>MySQL的默认隔离级别是?<br>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATATATABLE-READ（可重读）。<br>这里需要注意的是：与 SQL 标准不同的地方在于 InnoDB 存储引擎在 REPEATATATABLE-READ（可重读）事务隔离级别下使用的是Next-KeyLock 锁算法，因此可以避免幻读的产生，这与其他数据库系统(如SQL Server) 是不同的。所以说InnoDB 存储引擎的默认支持的隔离级别是REPEATATATABLE-READ（可重读） 已经可以完全保证事务的隔离性要求，即达到了 SQL标准的 SERIALIZABLE(可串行化) 隔离级别。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是 READCOMMITTED(读取提交内容) ，但是你要知道的是InnoDB 存储引擎默认使用 REPEAaTATABLEREAD（可重读） 并不会有任何性能损失<br>InnoDB 存储引擎在 分布式事务 的情况下一般会用到 SERIALIZABLE(可串行化) 隔离级别。</p>
 </li>
-<li><p>MySQL的事务隔离级别与锁的关系、、？？</p>
+<li><p>MySQL的事务隔离级别与锁的关系、、</p>
 <ul>
-<li>MySQL 中的事务隔离级别通过不同类型的锁（共享锁、排它锁等）以及锁的粒度（行级锁、表级锁等）来实现对事务的隔离，保证了事务在并发环境下的正确执行。选择合适的事务隔离级别需要根据具体业务需求和性能要求进行权衡。</li>
-</ul>
-<ol>
+<li>MySQL 中的事务隔离级别通过不同类型的锁（共享锁、排它锁等）以及锁的粒度（行级锁、表级锁等）来实现对事务的隔离，保证了事务在并发环境下的正确执行。选择合适的事务隔离级别需要根据具体业务需求和性能要求进行权衡。<ol>
 <li><strong>读未提交（Read Uncommitted）</strong>：这个级别不涉及锁的机制，允许事务读取其他事务未提交的数据，可能会出现脏读。</li>
-<li><strong>读提交（Read Committed）</strong>：<ul>
-<li>读取数据时，MySQL 会对数据行进行短暂的共享锁（读取操作）或排它锁（写入操作），这样可以防止其他事务对数据进行修改。</li>
-<li>写入数据时，MySQL 会对数据行进行排它锁，防止其他事务读取或写入数据。</li>
+<li><strong>读提交（Read Committed）</strong>：使用共享锁（Shared Locks）和瞬时的排他锁（Exclusive Locks）来实现读提交隔离级别；<ul>
+<li>当一个事务读取数据时，会对数据进行共享锁定，这样其他事务可以读取相同的数据，但不能修改。</li>
+<li>当一个事务修改数据时，会对数据进行排他锁定，这样其他事务不能读取也不能修改相同的数据，直到该事务提交或回滚。</li>
 </ul>
 </li>
-<li><strong>可重复读（Repeatable Read）</strong>：<ul>
-<li>在整个事务过程中，MySQL 会对读取的数据行进行共享锁，防止其他事务修改数据，也会对写入的数据行进行排它锁。这种锁的机制保证了事务在整个过程中看到的数据保持一致性，避免了不可重复读的问题。</li>
+<li><strong>可重复读（Repeatable Read）</strong>：使用共享锁（Shared Locks）和持久的排他锁（Exclusive Locks）来实现可重复读隔离级别；<ul>
+<li>当一个事务读取数据时，会对数据进行共享锁定，这样其他事务可以读取相同的数据，但不能修改。</li>
+<li>当一个事务修改数据时，会对数据进行持久的排他锁定，直到该事务提交或回滚，其他事务都不能读取或修改相同的数据。</li>
 </ul>
 </li>
 <li><strong>串行化（Serializable）</strong>：<ul>
@@ -416,9 +415,11 @@
 </li>
 </ol>
 </li>
+</ul>
+</li>
 <li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以在缺省情况下，MySQL 是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
-<li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+<li><p>？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
 </li>
@@ -525,9 +526,19 @@
 </li>
 <li><p>如何避免 SQL 注入？<br>1、过滤输入内容，校验字符串：在数据提交到数据库之前，就把用户输入中的不合法字符剔除掉。<br>2、参数化查询：参数化查询目前被视作是预防 SQL 注入攻击最有效的方法。指在设计与数据库连接并访问数据时，在需要填入数值或数据的地方，使用参数（Parameter）来给值。</p>
 </li>
-<li><p>？？？mvcc机制。<br>MVCC（Multi-Version Concurrency Control）多版本并发控制，⽤于管理多个事务同时访问和修改数据库的数据，⽽不会导致数据不⼀致或冲突。MVCC的核⼼思想是每个事务在数据库中看到的数据版本是事务开始时的⼀个快照，⽽不是实际的最新版本。这使得多个事务可以并发执⾏，⽽不会互相⼲扰。<br>MySQL的事务有ACID四⼤特性，其中的隔离性可以通过锁和MVCC来实现，MVCC适合在⼀些锁性能较为差的情况下使⽤，提⾼效率。<br>如何实现：每⼀个 UndoLog ⽇志中都有⼀个 roll_pointer （回滚指针）⽤于指向上⼀个版本的 Undo Log 。这样对于每⼀条记录就会构成⼀个版本链，⽤于记录所有的修改，每⼀次进⾏新的修改后，新的 Undo Log 会放在版本链的头部。<br>在我们进⾏查询的时候应该查询哪个版本呢？这时候就可以通过 ReadView 来实现。在事务SELECT查询数据时，就会构造⼀个 ReadView ，它包含了版本链的统计信息：<br>m_ids 当前活跃的所有事务id（所有未提交的事务）<br>min_trx_id 版本链尾的id<br>max_trx_id 下⼀个将要分配的事务id（版本链头事务id+1）<br>creator_trx_id 创建这个ReadView的事务的id 查询规则：<br>该版本是否为当前事务创建（读取⾃⼰修改的数据），如果是就返回，否则进⼊下⼀个判断<br>该版本的事务id是否⼩于min_trx_id（在ReadView创建之前，数据已经提交），可以直接访问<br>该版本的事务id是否⼤于max_trx_id（在ReadView创建后，该版本才开启），不能被访问<br>该版本事务id在[min_trx_id, max_trx_id]之间，则判断当前版本事务id是否在m_ids中，如果不在，说明事务已经提交可以访问，否则不能访问。</p>
+<li><p>？？？mvcc机制。</p>
+<ul>
+<li>MVCC（Multi-Version Concurrency Control）多版本并发控制，⽤于管理多个事务同时访问和修改数据库的数据，⽽不会导致数据不⼀致或冲突。MVCC的核⼼思想是每个事务在数据库中看到的数据版本是事务开始时的⼀个快照，⽽不是实际的最新版本。这使得多个事务可以并发执⾏，⽽不会互相⼲扰。</li>
+<li>MySQL的事务有ACID四⼤特性，其中的隔离性可以通过锁和MVCC来实现，MVCC适合在⼀些锁性能较为差的情况下使⽤，提⾼效率。</li>
+<li>如何实现：每⼀个 UndoLog ⽇志中都有⼀个 roll_pointer （回滚指针）⽤于指向上⼀个版本的 Undo Log 。这样对于每⼀条记录就会构成⼀个版本链，⽤于记录所有的修改，每⼀次进⾏新的修改后，新的 Undo Log 会放在版本链的头部。</li>
+<li>在我们进⾏查询的时候应该查询哪个版本呢？这时候就可以通过 ReadView 来实现。在事务SELECT查询数据时，就会构造⼀个 ReadView ，它包含了版本链的统计信息：<br>  m_ids 当前活跃的所有事务id（所有未提交的事务）<br>  min_trx_id 版本链尾的id<br>  max_trx_id 下⼀个将要分配的事务id（版本链头事务id+1）<br>  creator_trx_id 创建这个ReadView的事务的id 查询规则：<br>  该版本是否为当前事务创建（读取⾃⼰修改的数据），如果是就返回，否则进⼊下⼀个判断<br>  该版本的事务id是否⼩于min_trx_id（在ReadView创建之前，数据已经提交），可以直接访问<br>  该版本的事务id是否⼤于max_trx_id（在ReadView创建后，该版本才开启），不能被访问<br>  该版本事务id在[min_trx_id, max_trx_id]之间，则判断当前版本事务id是否在m_ids中，如果不在，说明事务已经提交可以访问，否则不能访问。</li>
+</ul>
 </li>
-<li><p>？？对 MVCC 的理解。<br>对于 MVCC 的理解，我觉得可以先从数据库的三种并发场景说起：<br>第一种：读读就是线程 A 与线程 B 同时在进行读操作，这种情况下不会出现任何并发问题。<br>第二种：读写就是线程 A 与线程 B 在同一时刻分别进行读和写操作。这种情况下，可能会对数据库中的数据造成以下问题：事物隔离性问题，出现脏读，幻读，不可重复读的问题<br>第三种：写写就是线程 A 与线程 B 同时进行写操作。这种情况下可能会存在数据更新丢失的问题。而 MVCC 就是为了解决事务操作中并发安全性问题的无锁并发控制技术全称为Multi-Version Concurrency Control ，也就是多版本并发控制。它是通过数据库记录中的隐式字段，undo 日志 ，Read View 来实现的。<br>MVCC 主要解决了三个问题<br>第一个是：通过 MVCC 可以解决读写并发阻塞问题从而提升数据并发处理能力<br>第二个是：MVCC 采用了乐观锁的方式实现，降低了死锁的概率<br>第三个是：解决了一致性读的问题。也就是事务启动时根据某个条件读取到的数据，直到事务结束时，再次执行相同条件，还是读到同一份数据，不会发生变化。而我们在使用 MVCC 时一般会根据业务场景来选择组合搭配乐观锁或悲观锁。这两个组合中，MVCC 用来解决读写冲突，乐观锁或者悲观锁解决写写冲突从而最大程度的提高数据库并发性能。以上就是我的对 MVCC 的理解。</p>
+<li><p>？？对 MVCC 的理解。</p>
+<ul>
+<li>对于 MVCC 的理解，我觉得可以先从数据库的三种并发场景说起：<br>  第一种：读读就是线程 A 与线程 B 同时在进行读操作，这种情况下不会出现任何并发问题。<br>  第二种：读写就是线程 A 与线程 B 在同一时刻分别进行读和写操作。这种情况下，可能会对数据库中的数据造成以下问题：事物隔离性问题，出现脏读，幻读，不可重复读的问题<br>  第三种：写写就是线程 A 与线程 B 同时进行写操作。这种情况下可能会存在数据更新丢失的问题。而 MVCC 就是为了解决事务操作中并发安全性问题的无锁并发控制技术全称为Multi-Version Concurrency Control ，也就是多版本并发控制。它是通过数据库记录中的隐式字段，undo 日志 ，Read View 来实现的。</li>
+<li>MVCC 主要解决了三个问题<br>  第一个：通过 MVCC 可以解决读写并发阻塞问题从而提升数据并发处理能力<br>  第二个：MVCC 采用了乐观锁的方式实现，降低了死锁的概率<br>  第三个：解决了一致性读的问题。也就是事务启动时根据某个条件读取到的数据，直到事务结束时，再次执行相同条件，还是读到同一份数据，不会发生变化。而我们在使用 MVCC 时一般会根据业务场景来选择组合搭配乐观锁或悲观锁。这两个组合中，MVCC 用来解决读写冲突，乐观锁或者悲观锁解决写写冲突从而最大程度的提高数据库并发性能。以上就是我的对 MVCC 的理解。</li>
+</ul>
 </li>
 <li><p>？？Mysql日志。<br>binlog (归档⽇志) 是Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog。。<br>redo log 是 Innodb 存储引擎层 ？？物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。<br>undo log 是 Innodb 存储引擎层⽣成的⽇志，实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。<br>relay log 中继⽇志，⽤于主从复制场景下， slave 通过io线程拷⻉master的 binlog 后本地⽣成的⽇志</p>
 </li>
@@ -550,7 +561,7 @@
 <li><p>不建议？使用 JOIN，那么如何优化多表查询？</p>
 <ol>
 <li><strong>使用索引：</strong> 确保关联字段上有适当的索引。索引可以大大提高 JOIN 操作的性能。在关联字段上创建索引可以减少查找匹配行的时间。</li>
-<li><strong>使用合适的 JOIN 类型：</strong> 根据查询的需求选择合适的 JOIN 类型，如 INNER JOIN、LEFT JOIN、RIGHT JOIN 等。不同的 JOIN 类型会影响结果集的形成和查询性能。</li>
+<li><strong>使用合适的 JOIN 类型：</strong> 根据查询的需求选择合适的 JOIN 类型，如 INNER JOIN、LEFT JOIN 等。不同的 JOIN 类型会影响结果集的形成和查询性能。</li>
 <li><strong>LIMIT 结果集大小：</strong> 如果可能的话，尽量使用 LIMIT 限制结果集的大小。可以减少检索和传输的数据量。</li>
 <li><strong>尽量避免使用多个子查询：</strong>多个嵌套的子查询可能会导致性能问题。尝试将复杂的查询拆分成多个简单的查询，并使用 JOIN 连接它们。</li>
 <li><strong>考虑缓存：</strong> 对于频繁查询的数据，考虑使用缓存机制，如缓存查询结果或使用缓存系统（例如 Redis）。</li>
@@ -661,7 +672,39 @@
 </li>
 <li><p>Redis 是单进程单线程的？<br>Redis 是单进程单线程的，redis 利用队列技术将并发访问变为串行访问，消除了传统数据库串行控制的开销。 </p>
 </li>
-<li><p><strong>Redis多路复用</strong><br>、、<br>、</p>
+<li><p><strong>Redis网络多路I&#x2F;O复用</strong></p>
+<ul>
+<li>多路复用是一种提高 I&#x2F;O 效率的技术，它可以同时监听多个文件描述符的 I&#x2F;O 事件，并且在有事件发生时立即通知应用程序，从而避免了轮询的开销。在 Redis 中，网络 I&#x2F;O 多路复用主要涉及到客户端与服务端之间的通信，使用类似 epoll 的事件驱动机制来处理网络 I&#x2F;O 多路复用，通过监听套接字上的事件并采用非阻塞 I&#x2F;O 模式，实现了高效的网络通信和并发处理能力。</li>
+</ul>
+<ol>
+<li><strong>事件驱动模型</strong>：</li>
+</ol>
+<ul>
+<li>Redis 使用事件驱动模型来处理网络 I&#x2F;O，通过监听套接字上的读写事件，实现异步的网络通信。</li>
+<li>在客户端连接到 Redis 服务器时，服务器会将该客户端的套接字加入到事件驱动器中进行监听。</li>
+</ul>
+<ol start="2">
+<li><strong>epoll 机制</strong>：</li>
+</ol>
+<ul>
+<li>在 Linux 系统中，Redis 使用 epoll 作为网络 I&#x2F;O 多路复用的实现机制之一。</li>
+<li>epoll 是一种高效的 I&#x2F;O 多路复用技术，可以同时监控多个文件描述符的 I&#x2F;O 事件，并将有事件发生的文件描述符返回给应用程序处理。</li>
+<li>Redis 使用 epoll_wait 函数来等待套接字上的事件，并在事件发生时处理对应的网络 I&#x2F;O 操作。</li>
+</ul>
+<ol start="3">
+<li><strong>非阻塞 I&#x2F;O</strong>：</li>
+</ol>
+<ul>
+<li>Redis 使用了非阻塞 I&#x2F;O 模式来处理套接字的读写操作，这样可以避免在等待数据到达时线程被阻塞，提高了系统的并发处理能力。</li>
+<li>当客户端发送数据给 Redis 服务器时，服务器会尽可能地读取数据，而不是等待数据全部到达再进行处理。</li>
+</ul>
+<ol start="4">
+<li><strong>事件循环</strong>：</li>
+</ol>
+<ul>
+<li>Redis 的服务器主循环是一个事件驱动的循环，不断地监听客户端套接字上的事件并处理。</li>
+<li>当有新的连接请求、数据到达、连接断开等事件发生时，服务器会相应地调用相应的处理函数来处理这些事件。</li>
+</ul>
 </li>
 <li><p>Redis 常见性能问题和解决方案？<br>(1) Master 最好不要做任何持久化工作，如 RDB 内存快照和 AOF 日志文件<br>(2) 如果数据比较重要，某个 Slave 开启 AOF 备份数据，策略设置为每秒同步一次<br>(3) 为了主从复制的速度和连接的稳定性， Master 和 Slave 最好在同一个局域网内<br>(4) 尽量避免在压力很大的主库上增加从库(5) 主从复制不要用图状结构，用单向链表结构更为稳定，即： Master &lt;- Slave1 &lt;- Slave2 &lt;-Slave3…</p>
 </li>
@@ -1071,9 +1114,9 @@
 <li>连接：TCP 是⾯向连接的传输层协议，传输数据前先要建⽴连接。UDP 是不需要连接，即刻传输数据。</li>
 <li>服务对象：TCP 是⼀对⼀的两点服务，即⼀条连接只有两个端点。UDP ⽀持⼀对⼀、⼀对多、多对多的交互通信</li>
 <li>是否有状态：TCP 传输是有状态的，它会去记录⾃⼰发送消息的状态⽐如消息是否发送了、是否被接收了等等，⽽ UDP 是⽆状态的。</li>
-<li>可靠性：TCP是可靠交付数据的，数据可以⽆差错、不丢失、不重复、按需到达。UDP尽最⼤努⼒，不保证可靠交付数据。<br>  TCP在传递数据之前，会有三次握⼿来建⽴连接；在数据传递时，有确认、窗⼝、重传、拥塞控制机制，保证数据传输的安全性。UDP数据传递不需要给出任何确认，且不保证数据不丢失及到达顺序；没有拥塞控制，即使⽹络⾮常拥堵了，也不会影响 UDP 的发送速率。</li>
+<li>可靠性：TCP可靠交付数据，数据可以⽆差错、不丢失、不重复、按需到达。UDP尽最⼤努⼒，不保证可靠交付数据。<br>  TCP在传递数据之前，会有三次握⼿来建⽴连接；在数据传递时，有确认、窗⼝、重传、拥塞控制机制，保证数据传输的安全性。UDP数据传递不需要给出任何确认，且不保证数据不丢失及到达顺序；没有拥塞控制，即使⽹络⾮常拥堵了，也不会影响 UDP 的发送速率。</li>
 <li>⾸部开销：TCP ⾸部⻓度较⻓，会有⼀定的开销，⾸部在没有使⽤「选项」字段时是 20 个字节，如果使⽤了「选项」字段则会变⻓的 (20 ~ 60字节)。UDP ⾸部只有 8 个字节，并且是固定不变的，开销较⼩。</li>
-<li>传输⽅式：TCP 是⾯向字节流的，UDP 是⾯向报⽂的。TCP 是流式传输，没有边界，但保证顺序和可靠。UDP 是⼀个包⼀个包的发送，是有边界的，但可能丢包和乱序。</li>
+<li>传输⽅式：TCP 是⾯向字节流的，UDP ⾯向报⽂。TCP 是流式传输，没有边界，但保证顺序和可靠。UDP 是⼀个包⼀个包的发送，是有边界的，但可能丢包和乱序。</li>
 <li>传输效率：由于TCP 传输的时候多了连接、确认重传等机制，所以TCP 的传输效率要⽐UDP 低。</li>
 <li>分⽚不同：<ul>
 <li>TCP 的数据⼤⼩如果⼤于 MSS ⼤⼩，则会在传输层进⾏分⽚，⽬标主机收到后，也同样在传输层组装 TCP 数据包，如果中途丢失了⼀个分⽚，只需要传输丢失的这个分⽚。</li>
@@ -1123,7 +1166,7 @@
 </li>
 <li><p>Cookie 和 Session 是什么？有什么区别？</p>
 <ul>
-<li>都⽤于管理⽤户的状态和身份, Cookie 通过在客户端记录信息确定⽤户身份， Session 通过在服务器端记录信息确定⽤户身份。</li>
+<li>都⽤于管理⽤户的状态和身份, Cookie 通过在客户端记录信息确定⽤户身份， Session 在服务器端记录信息确定⽤户身份。</li>
 <li>Cookie：是存储在⽤户浏览器中的⼩型⽂本⽂件，⼀般为⼏ KB，⽤于在⽤户和服务器之间传递数据。通常，服务器会将⼀个或多个 Cookie 发送到⽤户浏览器，然后浏览器将这些 Cookie 存储在本地。<br>  服务器在接收到来⾃客户端浏览器的请求之后，就能够通过分析存放于请求头的Cookie得到客户端特有的信息，从⽽动态⽣成与该客户端相对应的内容。</li>
 <li>Session：客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是 Session，主要⽤于维护⽤户登录状态、存储⽤户的临时数据和上下⽂信息等。存储容量较⼤，通常没有固定限制，取决于服务器的配置和资源。</li>
 <li>安全性：由于 Cookie 存储在⽤户浏览器中，因此可以被⽤户读取和篡改。相⽐之下，Session 数据存储在服务器上，更难被⽤户访问和修改。</li>
@@ -1153,7 +1196,7 @@
 <li>进程是程序的执行实例，拥有独立的内存空间和系统资源，是操作系统进行资源分配和调度的基本单位。是系统进⾏资源分配和调度的基本单位。</li>
 <li>线程 Thread 是进程内的独立执行单元，共享相同的内存空间和资源，是进程的子执行单元。是操作系统能够进⾏运算调度的最⼩单位。<br>  线程⼀个进程⾄少有⼀个线程，⼀个进程可以运⾏多个线程，这些线程共享同⼀块内存。</li>
 <li>资源开销：<br>  进程：由于每个进程都有独⽴的内存空间，创建和销毁进程的开销较⼤。进程间切换需要保存和恢复整个进程的状态，因此上下⽂切换的开销较⾼。<br>  线程：线程共享相同的内存空间，创建和销毁线程的开销较⼩。线程间切换只需要保存和恢复少量的线程上下⽂，因此上下⽂切换的开销较⼩。</li>
-<li>通信与同步：<br>  进程：由于进程间相互隔离，进程之间的通信需要使⽤⼀些特殊机制，如管道、消息队列、共享    内存等。<br>  线程：由于线程共享相同的内存空间，它们之间可以直接访问共享数据，线程间通信更加⽅便。</li>
+<li>？？通信与同步：<br>  进程：由于进程间相互隔离，进程之间的通信需要使⽤⼀些特殊机制，如管道、消息队列、共享    内存等。<br>  线程：由于线程共享相同的内存空间，它们之间可以直接访问共享数据，线程间通信更加⽅便。</li>
 <li>安全性：<br>  进程：由于进程间相互隔离，⼀个进程的崩溃不会直接影响其他进程的稳定性。<br>  线程：由于线程共享相同的内存空间，⼀个线程的错误可能会影响整个进程的稳定性。</li>
 </ul>
 </li>
