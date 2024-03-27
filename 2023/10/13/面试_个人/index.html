@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-26T14:08:03.870Z">
+<meta property="article:modified_time" content="2024-03-26T16:57:43.672Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
@@ -163,10 +163,10 @@
 </li>
 <li><p><strong>介绍一下实习经历、、</strong></p>
 <ul>
-<li>岗位职责：互联网营销行业公司，主要接触了公司核心的拉新系统的迭代开发，另外独立开发了公司内部的报表平台的一些接口</li>
+<li>岗位职责：互联网营销行业公司，主要接触了公司核心的拉新系统的迭代开发，另外独立开发了公司内部的报表平台的接口</li>
 <li>一个项目：其中拉新系统让我印象深刻、、<ul>
 <li>项目是什么：拉新指的是给例如 APP 拉取新的用户，实现方法是 我发根据 APP 的要求投放广告到如 抖音 等媒体平台，那么就会产生广告的曝光、用户点击等数据消息，需要转发给 APP 端。我方的拉新系统就在消息转发过程中，进行一个消息拦截的工作。具体来说，消息会先发送到我方拉新系统的mq，首先是进行了削峰，然后根据需求和策略进行拦截处理，最后才转发给 APP，，</li>
-<li>为何这样做：这样，就给企业提供了符合要求的消息数据，获得收益，，(我方在数据转发的过程中，积累了用户数据，，)</li>
+<li>为何这样做：这样，就给企业提供了符合要求的消息数据，获得收益(我方在数据转发的过程中，积累了用户数据，，</li>
 <li>负责的工作：我负责数据拦截这一部分的迭代开发，，具体来说实现了白名单，，，计划调整RTA拦截在用户看到广告之前（而不是在消息转发给APP端这一步）以减少广告投放的成本</li>
 <li>有什么成果：，，实现联调，，节约成本</li>
 <li>最大的收获：</li>
@@ -222,11 +222,8 @@
 <li><strong>零拷贝技术</strong>：Kafka 使用零拷贝技术来提高数据的传输效率。在消息生产者发送消息和消息消费者接收消息的过程中，尽量减少数据的拷贝操作，降低 CPU 和内存的开销，提高性能和吞吐量。</li>
 <li><strong>批量处理</strong>：Kafka 支持批量处理消息，可以将多个消息批量发送到 Broker，减少网络传输和通信开销，提高性能。同时，消息消费者也可以批量拉取消息，降低消费者和 Broker 之间的通信成本。</li>
 <li><strong>水平扩展</strong>：Kafka 可以通过增加 Broker 节点来进行水平扩展，将负载分布到多个节点上，提高系统的整体性能和吞吐量。使用水平扩展可以处理大规模数据和高并发请求，适应业务的增长和变化。</li>
-<li><strong>监控和管理</strong>：</li>
+<li><strong>监控和管理</strong>：Kafka 提供了丰富的监控和管理工具，例如 Kafka Manager、Confluent Control Center 等，可以实时监控集群的运行状态、性能指标和故障情况，及时发现和解决问题，保证系统的稳定性和可用性。</li>
 </ol>
-<ul>
-<li>Kafka 提供了丰富的监控和管理工具，例如 Kafka Manager、Confluent Control Center 等，可以实时监控集群的运行状态、性能指标和故障情况，及时发现和解决问题，保证系统的稳定性和可用性。</li>
-</ul>
 </li>
 <li><p>mq 事务，回滚？</p>
 <ul>
@@ -402,7 +399,7 @@
 </ul>
 </li>
 <li><p>怎么设计退款的？<br>设计了退款＋流水变更事务，退款接入已经做好的接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="在线商城系统（黑马商城）"><a href="#在线商城系统（黑马商城）" class="headerlink" title="在线商城系统（黑马商城）"></a>在线商城系统（黑马商城）</h2><ul>
 <li><p><strong>高校闲置资源交易系统</strong></p>
@@ -657,7 +654,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clu74xu6p000xeov55cc965zr" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clu9usdlc000tg0v56258b9g0" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
