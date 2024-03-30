@@ -6,19 +6,19 @@
   
   <title>面 逝 | 组件 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="八股（MySQL） MySQL 数据类型  数值类型： 整数类型：   INT（整数，4字节）  TINYINT（小整数，1字节） SMALLINT（小整数，2字节）  MEDIUMINT（中等整数，3字节）    BIGINT（大整数，8字节） 浮点数类型：   FLOAT（单精度浮点数）  DOUBLE（双精度浮点数） 定点数类型：   DECIMAL（定点数）   日期和时间类型： 日期类型">
+  <meta name="description" content="八股（MySQL） SQL 语言类别。  DDL（Data Definition Language，数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）  CREATE TABLE：创建表。- ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 ALTER INDEX：修改索引。 DML（Data Manipulation La">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面 逝 | 组件">
 <meta property="og:url" content="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="八股（MySQL） MySQL 数据类型  数值类型： 整数类型：   INT（整数，4字节）  TINYINT（小整数，1字节） SMALLINT（小整数，2字节）  MEDIUMINT（中等整数，3字节）    BIGINT（大整数，8字节） 浮点数类型：   FLOAT（单精度浮点数）  DOUBLE（双精度浮点数） 定点数类型：   DECIMAL（定点数）   日期和时间类型： 日期类型">
+<meta property="og:description" content="八股（MySQL） SQL 语言类别。  DDL（Data Definition Language，数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）  CREATE TABLE：创建表。- ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 ALTER INDEX：修改索引。 DML（Data Manipulation La">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-26T12:23:13.341Z">
+<meta property="article:modified_time" content="2024-03-30T12:47:58.202Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -99,6 +99,14 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
+<li><p>SQL 语言类别。</p>
+<ol>
+<li><strong>DDL（Data Definition Language，数据定义语言）</strong>：DDL 用于定义和管理数据库对象（如表、索引、视图等）<br>  <code>CREATE TABLE</code>：创建表。- <code>ALTER TABLE</code>：修改表结构。<code>DROP TABLE</code>：删除表。<code>CREATE INDEX</code>：创建索引。 <code>ALTER INDEX</code>：修改索引。</li>
+<li><strong>DML（Data Manipulation Language，数据操作语言）</strong>：DML 用于对数据库中的数据进行操作<br>  <code>SELECT</code>：查询数据。 - <code>INSERT</code>：插入数据。   - <code>UPDATE</code>：更新数据。   - <code>DELETE</code>：删除数据。</li>
+<li><strong>DCL（Data Control Language，数据控制语言）</strong>：用于授予或回收数据库对象的访问权限，常用命令包括 <code>GRANT</code>：授予用户访问权限、<code>REVOKE</code>：回收用户访问权限 等。</li>
+<li><strong>TCL（Transaction Control Language，事务控制语言）</strong>：用于管理数据库的事务，常用的命令包括 <code>COMMIT</code>：提交事务、 <code>ROLLBACK</code>：回滚事务、 <code>SAVEPOINT</code>：设置保存点，用于部分回滚。</li>
+</ol>
+</li>
 <li><p>MySQL 数据类型</p>
 <ol>
 <li>数值类型：<ul>
@@ -301,6 +309,22 @@
 </li>
 <li><p>简单描述 MySQL 中，索引，主键，唯一索引，联合索引的区别，对数据库的性能有什么影响？（从读写两方面）<br>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。<br>普通索引(由关键字 KEY 或 INDEX 定义的索引)的唯一任务是加快对数据的访问速度。索引可以极大的提高数据的查询速度，但是会降低插入、删除、更新表的速度，因为在执行这些写操作时还要操作索引文件。普通索引允许被索引的数据列包含重复的值。<br>如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该用关键字 UNIQUE 把它定义为一个唯一索引。唯一索引可以保证数据记录的唯一性。<br>主键，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。<br>索引可以覆盖多个数据列，如像 INDEX(columnA, columnB)索引，这就是联合索引。</p>
 </li>
+<li><p><code>EXPLAIN</code> 执行计划</p>
+<ul>
+<li>通过分析 <code>EXPLAIN</code> 返回的执行计划，可以了解查询的优化情况，如是否使用了索引、是否进行了全表扫描等。对于需要优化的查询，可以根据执行计划进行优化，例如添加适当的索引、调整查询语句等。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> customers <span class="keyword">WHERE</span> city <span class="operator">=</span> <span class="string">&#x27;New York&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>执行计划中的信息通常包括以下内容：<ul>
+<li>id：查询步骤的标识符。</li>
+<li>select_type：查询类型，如 SIMPLE、PRIMARY、SUBQUERY 等。</li>
+<li>table：查询涉及的表。</li>
+<li>type：访问类型，如 ALL、INDEX、RANGE 等，表示数据库如何访问表中的数据。</li>
+<li>possible_keys：可能用到的索引。</li>
+<li>key：实际使用的索引。</li>
+<li>rows：估计的返回行数。</li>
+<li>Extra：其他信息，如使用了临时表、使用了文件排序等。</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>SQL 优化？</p>
 <ul>
 <li>优化查询语句、、<ol>
@@ -337,7 +361,7 @@
 </li>
 <li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
 </li>
-<li><p>？？简单说一说drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中,事务提交之后才生效;如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效,原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
+<li><p>drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中，事务提交之后才生效；如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效，原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
 <li><p>部分依赖和传递依赖。</p>
 <ol>
@@ -357,7 +381,7 @@
 <li>如何通俗地理解三个范式？<br>  第一范式：1NF 是对属性的原子性约束，要求属性具有原子性，不可再分解；<br>  第二范式：2NF 是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；<br>  第三范式：3NF 是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。</li>
 </ul>
 </li>
-<li><p>什么是基本表？什么是视图？游标是什么？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。<br>视图本身不独立存储在数据库中，是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图是从一个或几个基本表导出的表，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。<br>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+<li><p>什么是基本表？什么是<strong>视图</strong>？游标是什么？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。<br>视图本身不独立存储在数据库中，是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图是从一个或几个基本表导出的表，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。<br>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
 </li>
 <li><p>事务。</p>
 <ul>
@@ -384,40 +408,39 @@
 <li>幻读（Phantom read）: 幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）插入了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了一些原本不存在的记录，就好像发生了幻觉一样，所以称为幻读。不可重复读和幻读区别：不可重复读的重点是修改比如多次读取一条记录发现其中某些列的值被修改，幻读的重点在于新增或者删除比如多次读取一条记录发现记录增多或减少了</li>
 </ul>
 </li>
-<li><p><strong>事务隔离级别有哪些?</strong><br>  SQL 标准定义了四个隔离级别： </p>
+<li><p>SQL 标准定义的<strong>四个事务隔离级别有哪些?</strong></p>
 <ul>
 <li>**READ-UNCOMMITTED(读取未提交)**： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
 <li>**READ-COMMITTED(读取已提交)**： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
-<li>**REPEATATATABLE-READ(可重复读)**： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生 </li>
+<li><strong>REPEATATATABLE-READ(可重复读)<strong>： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生（特点情况下）、、</strong>InnoDB 存储引擎的默认支持的隔离级别是 【可重复读】</strong>。</li>
 <li>**SERIALIZABLE(可串行化)**： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
 </ul>
-</li>
-<li><p>MySQL的默认隔离级别是?<br>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATATATABLE-READ（可重读）。<br>这里需要注意的是：与 SQL 标准不同的地方在于 InnoDB 存储引擎在 REPEATATATABLE-READ（可重读）事务隔离级别下使用的是Next-KeyLock 锁算法，因此可以避免幻读的产生，这与其他数据库系统(如SQL Server) 是不同的。所以说InnoDB 存储引擎的默认支持的隔离级别是REPEATATATABLE-READ（可重读） 已经可以完全保证事务的隔离性要求，即达到了 SQL标准的 SERIALIZABLE(可串行化) 隔离级别。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是 READCOMMITTED(读取提交内容) ，但是你要知道的是InnoDB 存储引擎默认使用 REPEAaTATABLEREAD（可重读） 并不会有任何性能损失<br>InnoDB 存储引擎在 分布式事务 的情况下一般会用到 SERIALIZABLE(可串行化) 隔离级别。</p>
 </li>
 <li><p>MySQL的事务隔离级别与锁的关系、、</p>
 <ul>
 <li>MySQL 中的事务隔离级别通过不同类型的锁（共享锁、排它锁等）以及锁的粒度（行级锁、表级锁等）来实现对事务的隔离，保证了事务在并发环境下的正确执行。选择合适的事务隔离级别需要根据具体业务需求和性能要求进行权衡。<ol>
-<li><strong>读未提交（Read Uncommitted）</strong>：这个级别不涉及锁的机制，允许事务读取其他事务未提交的数据，可能会出现脏读。</li>
-<li><strong>读提交（Read Committed）</strong>：使用共享锁（Shared Locks）和瞬时的排他锁（Exclusive Locks）来实现读提交隔离级别；<ul>
+<li><strong>读未提交（Read Uncommitted）</strong>：不涉及锁的机制，允许事务读取其他事务未提交的数据，可能会出现脏读。</li>
+<li><strong>读提交（Read Committed）</strong>：使用共享锁（Shared Locks）和瞬时的排他锁（Exclusive Locks）来实现；<ul>
 <li>当一个事务读取数据时，会对数据进行共享锁定，这样其他事务可以读取相同的数据，但不能修改。</li>
 <li>当一个事务修改数据时，会对数据进行排他锁定，这样其他事务不能读取也不能修改相同的数据，直到该事务提交或回滚。</li>
 </ul>
 </li>
-<li><strong>可重复读（Repeatable Read）</strong>：使用共享锁（Shared Locks）和持久的排他锁（Exclusive Locks）来实现可重复读隔离级别；<ul>
+<li><strong>可重复读（Repeatable Read）</strong>：使用共享锁（Shared Locks）和持久的排他锁（Exclusive Locks）来实现；<ul>
 <li>当一个事务读取数据时，会对数据进行共享锁定，这样其他事务可以读取相同的数据，但不能修改。</li>
 <li>当一个事务修改数据时，会对数据进行持久的排他锁定，直到该事务提交或回滚，其他事务都不能读取或修改相同的数据。</li>
 </ul>
 </li>
 <li><strong>串行化（Serializable）</strong>：<ul>
-<li>这个级别下，MySQL 会对读取的数据行和写入的数据行都进行排它锁，确保事务串行执行，避免了幻读的问题。</li>
-<li>串行化级别的锁机制最严格，性能开销也最大，因为它会限制并发性。</li>
+<li>这个级别下，MySQL 会对读取的数据行和写入的数据行都进行（行级）排它锁，确保事务串行执行，避免了幻读的问题。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="comment">-- 对某个数据进行读取时，其他事务无法对该数据进行写入或者读取的操作，直到该事务完成读取操作</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> <span class="keyword">condition</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"><span class="comment">-- 在这里进行读取和处理操作</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
 </li>
+<li>隔离级别越低，锁机制越不严格，事务请求的锁越少，并发性越高，性能开销也越小</li>
+<li>InnoDB 默认支持的隔离级别是REPEATATATABLE-READ（可重读），在 分布式事务 的情况下一般会用到 SERIALIZABLE(可串行化) 隔离级别。</li>
 </ul>
 </li>
-<li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以在缺省情况下，MySQL 是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
+<li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以 MySQL 默认是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
 <li><p>？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
@@ -426,8 +449,8 @@
 <li><p>Spring事务管理：</p>
 <ul>
 <li>Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</li>
-<li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        myRepository.saveEntity1();</span><br><span class="line">        myRepository.saveEntity2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>编程式事务：<br>  通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyRepository myRepository;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">        <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 业务逻辑</span></span><br><span class="line">            myRepository.saveEntity1();</span><br><span class="line">            myRepository.saveEntity2();</span><br><span class="line">            transactionManager.commit(status);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            transactionManager.rollback(status);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编程式事务：<br>  通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">    <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        transactionManager.commit(status);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        transactionManager.rollback(status);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
@@ -755,7 +778,14 @@
 <ol>
 <li>缓存穿透<ul>
 <li>缓存穿透是指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库再查询一遍，然后返回空（相当于进行了两次无用的查询）。这样请求就绕过缓存直接查数据库，这也是经常提的缓存命中率问题。</li>
-<li>解决办法：<br> 1、最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。<br> 2、另外也有一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库。<br>  <strong>5TB的硬盘上放满了数据，请写一个算法将这些数据进行排重。如果这些数据是一些32bit大小的数据该如何解决？如果是64bit的呢？</strong><br>  对于空间的利用到达了一种极致，那就是Bitmap和布隆过滤器(Bloom Filter)。<br>  <strong>Bitmap：典型的就是哈希表</strong>；缺点是，Bitmap对于每个元素只能记录1bit信息，如果还想完成额外的功能，恐怕只能靠牺牲更多的空间、时间来完成了<br>  ？？？<strong>布隆过滤器（推荐）</strong><br>  就是引入了 k(k&gt;1) 个相互独立的哈希函数，保证在给定的空间、误判率下，完成元素判重的过程。它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。Bloom-Filter算法的核心思想就是利用多个不同的Hash函数来解决“冲突”。Hash存在一个冲突（碰撞）的问题，用同一个Hash得到的两个URL的值有可能相同。为了减少冲突，我们可以多引入几个Hash，如果通过其中的一个Hash值我们得出某元素不在集合中，那么该元素肯定不在集合中。只有在所有的Hash函数告诉我们该元素在集合中时，才能确定该元素存在于集合中。这便是Bloom-Filter的基本思想。Bloom-Filter一般用于在大数据量的集合中判定某元素是否存在。</li>
+<li>解决办法：<ul>
+<li>1、最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</li>
+<li>2、另外也有一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库。</li>
+<li><strong>5TB的硬盘上放满了数据，请写一个算法将这些数据进行排重。如果这些数据是一些32bit大小的数据该如何解决？如果是64bit的呢？</strong><br>  对于空间的利用到达了一种极致，那就是Bitmap和布隆过滤器(Bloom Filter)。</li>
+</ul>
+</li>
+<li><strong>Bitmap：典型的就是哈希表</strong>；缺点是，Bitmap对于每个元素只能记录1bit信息，如果还想完成额外的功能，恐怕只能靠牺牲更多的空间、时间来完成了 </li>
+<li><strong>布隆过滤器（推荐）：</strong>就是引入了 k(k&gt;1) 个相互独立的哈希函数，保证在给定的空间、误判率下，完成元素判重的过程。<br> 它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。Bloom-Filter算法的核心思想就是利用多个不同的Hash函数来解决“冲突”。Hash存在一个冲突（碰撞）的问题，用同一个Hash得到的两个URL的值有可能相同。为了减少冲突，我们可以多引入几个Hash，如果通过其中的一个Hash值我们得出某元素不在集合中，那么该元素肯定不在集合中。只有在所有的Hash函数告诉我们该元素在集合中时，才能确定该元素存在于集合中。这便是Bloom-Filter的基本思想。Bloom-Filter一般用于在大数据量的集合中判定某元素是否存在。</li>
 </ul>
 </li>
 <li>缓存击穿<ul>
@@ -772,7 +802,7 @@
 </li>
 <li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程？？？都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>具体做法：？？？<br>先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</p>
 </li>
-<li><p>分布式锁实现？？？<br>实现分布式锁可以通过数据库 redis zookeeper。<br>redis setnx是最简单的一种。可以满足基本使用但有些特性和场景没法满足 比如不可重入 不可重试  锁过期删除的一些问题。redisson是在redis基础上也实现了分布式锁，解决了这几个问题就是redisson里面的可重入锁，比如解决不可重入用的是hash结构解决。解决不可重试基于redis的发布订阅。解决锁过期删除基于自己实现的一个看门狗机制。但是redisson这把可重入锁还有一些问题，比如主从时宕机的问题，redisson里面又可以通过有联锁啊 红锁啊解决。不过setnx基本上可以应用于分布式锁了，有一些业务上需要满足一些锁的需求的时候可以考虑更复杂的实现</p>
+<li><p>分布式锁实现？？？<br>实现分布式锁可以通过数据库 redis zookeeper。<br>redis setnx是最简单的一种。可以满足基本使用但有些特性和场景没法满足 比如不可重入 不可重试  锁过期删除的一些问题。redisson是在redis基础上也实现了分布式锁，解决了这几个问题就是redisson里面的可重入锁，比如解决不可重入用的是hash结构解决。解决不可重试基于redis的发布订阅。解决锁过期删除基于自己实现的一个看门狗机制。但是redisson这把可重入锁还有一些问题，比如主从时宕机的问题，redisson里面又可以通过有联锁啊 红锁啊解决。不过setnx基本上可以应用于分布式锁了，有一些业务上需要满足一些锁的需求的时候可以考虑更复杂的实现<br>支付宝一面：如何基于Redis实现分布式锁？？？<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA">https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA</a></p>
 </li>
 <li><p>缓存预热、缓存更新、缓存降级</p>
 <ol>
