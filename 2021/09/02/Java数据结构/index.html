@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://pdai.tech/images/alg/alg-sort-overview-1.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/HeapSort.png?raw=true">
 <meta property="article:published_time" content="2021-09-02T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-03-26T02:01:23.945Z">
+<meta property="article:modified_time" content="2024-03-31T08:54:58.023Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/alg/alg-tree-14.png">
@@ -355,11 +355,27 @@
 <h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><p>我们读取 <code>a.txt</code> 和 <code>b.txt</code> 中的内容，并将其写入到 <code>c.txt</code> 中。然后，我们统计总行数并在第一行写入总行数。<br>请注意，在写入总行数之前需要先将文件关闭并重新打开以实现在文件的开头插入内容。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileCopyWithLineCount</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (</span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">reader1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;a.txt&quot;</span>));</span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">reader2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;b.txt&quot;</span>));</span><br><span class="line">            <span class="type">BufferedWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;c.txt&quot;</span>))</span><br><span class="line">        ) &#123;</span><br><span class="line">            <span class="comment">// 读取第一个文件并写入到输出文件</span></span><br><span class="line">            String line;</span><br><span class="line">            <span class="type">int</span> <span class="variable">totalCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader1.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                writer.write(line);</span><br><span class="line">                writer.newLine();</span><br><span class="line">                totalCount++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读取第二个文件并写入到输出文件</span></span><br><span class="line">            <span class="keyword">while</span> ((line = reader2.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                writer.write(line);</span><br><span class="line">                writer.newLine();</span><br><span class="line">                totalCount++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在第一行写入总行数</span></span><br><span class="line">            writer.flush();</span><br><span class="line">            writer.close();</span><br><span class="line">            <span class="type">BufferedWriter</span> <span class="variable">writer2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;c.txt&quot;</span>, <span class="literal">true</span>));</span><br><span class="line">            writer2.write(<span class="string">&quot;Total Lines: &quot;</span> + totalCount);</span><br><span class="line">            writer2.newLine();</span><br><span class="line">            writer2.flush();</span><br><span class="line">            writer2.close();</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">&quot;内容已成功从 &quot;</span> + <span class="string">&quot;a.txt&quot;</span> + <span class="string">&quot; 和 &quot;</span> + <span class="string">&quot;b.txt&quot;</span> + <span class="string">&quot; 读取并写入 &quot;</span> + <span class="string">&quot;c.txt&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;发生IO异常: &quot;</span> + e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
 <br>
 
+<hr>
+
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>Java 中的位运算是对二进制数据进行操作的一种方式，常用的位运算符有以下几种：</p>
+<ol>
+<li><p><strong>按位与（&amp;）</strong>：两个位都为 1 时，结果为 1；否则为 0。例如：<code>1010 &amp; 1100 = 1000</code>。</p>
+</li>
+<li><p><strong>按位或（|）</strong>：两个位中至少有一个为 1 时，结果为 1；否则为 0。例如：<code>1010 | 1100 = 1110</code>。</p>
+</li>
+<li><p><strong>按位异或（^）</strong>：两个位相同为 0，不同为 1。例如：<code>1010 ^ 1100 = 0110</code>。</p>
+</li>
+<li><p><strong>按位取反（~）</strong>：对一个二进制数的每个位取反，0 变为 1，1 变为 0。例如：<code>~1010 = 0101</code>。</p>
+</li>
+<li><p><strong>左移（&lt;&lt;）</strong>：将一个数的所有位向左移动指定的位数，右侧空出的位用 0 填充。例如：<code>1010 &lt;&lt; 2 = 101000</code>。</p>
+</li>
+<li><p><strong>右移（&gt;&gt;）</strong>：将一个数的所有位向右移动指定的位数，左侧空出的位用符号位填充（正数用 0，负数用 1）。例如：<code>1010 &gt;&gt; 2 = 10</code>。</p>
+</li>
+<li><p><strong>无符号右移（&gt;&gt;&gt;）</strong>：将一个数的所有位向右移动指定的位数，左侧空出的位用 0 填充。例如：<code>1010 &gt;&gt;&gt; 2 = 10</code>。</p>
+</li>
+</ol>
 <hr>
 
 <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><ul>
