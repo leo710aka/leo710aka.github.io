@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg2.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg3.png?raw=true">
 <meta property="article:published_time" content="2022-09-01T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-01T08:41:43.471Z">
+<meta property="article:modified_time" content="2024-04-03T14:44:09.279Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/djg1.png?raw=true">
@@ -147,10 +147,59 @@
 
 <h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><img src="https://github.com/leo710aka/bk/blob/main/djg3.png?raw=true" width="700" height="300" alt="">
 
-<h2 id="一个示例"><a href="#一个示例" class="headerlink" title="一个示例"></a>一个示例</h2><ul>
-<li>一个流程<br>1.从0开始建立一个Django工程<br>2.创建一个APP，即一个网站<br>3.创建model，创建数据表(库，有几个简单字段)<br>4.创建一个渲染模版页面并需要完成一个运算功能(加法)<br>5.每次运算结果保存起来<br>6.通过model读取全部的运算结果<br>7.前端页面呈现数据库里的结果<br>前端我们加一个清库功能，一键删除数据库内容</li>
-<li>几个入门命令<br>创建项目:django-admin startproject mainproject<br>创建APP(进入工程目录):python manage.py firstWEB<br>创建库表(进入工程目录):python manage.py makemigrations<br>执行库表建立(进入工程目录):python manage.py migrate<br>模版渲染嵌入语法:在html可以嵌入后台语言</li>
-<li>几个入门设置<br>Django 框架时间设置<br>Django APP添加<br>Templates目录设置(在APP日录下，需要独立建立)</li>
+<p>一个Django项目就是一个基于Django的Web应用，一个Django项目包含一组配置和若干个Django应用<br>一个Django应用就是一个可重用的Python软件包，每个应用可以自己管理模型、视图、模板、路由和静态文件等</p>
+<ul>
+<li>几个入门命令（文件路径cmd）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject mainproject  <span class="comment"># 创建项目，生成工程目录</span></span><br><span class="line">python manage.py startapp firstWEB     <span class="comment"># 创建APP(进入工程目录/IDE console)</span></span><br><span class="line">python manage.py makemigrations        <span class="comment"># 创建库表(进入工程目录/IDE console)</span></span><br><span class="line">python manage.py migrate               <span class="comment"># 执行库表建立(进入工程目录/IDE console)</span></span><br><span class="line">python manage.py runserver             <span class="comment"># 启动项目(进入IDE console)</span></span><br></pre></td></tr></table></figure></li>
+<li>几个入门设置（settings.py）<br>Django 框架时间设置<br>Django APP添加<br>Templates目录设置(在APP日录下，需要独立建立)</li>
+</ul>
+<h2 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h2><ul>
+<li>实现一个请求view，访问主项目project中的blog应用的hello_world接口 <ol>
+<li>编写应用请求 project&#x2F;blog&#x2F;views.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;2323&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>配置应用路由 project&#x2F;blog&#x2F;urls.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;hello_world&#x27;</span>, blog.views.hello_world)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li>配置项目路由 project&#x2F;project&#x2F;urls.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),</span><br><span class="line">    <span class="comment"># 如果url中含有 &#x27;blog&#x27;，就转发到应用层面的路由处理</span></span><br><span class="line">    path(<span class="string">&#x27;blog/&#x27;</span>, include(<span class="string">&#x27;blog.urls&#x27;</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li>添加blog应用到项目配置中 project&#x2F;project&#x2F;settings.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="string">&#x27;blog.apps.BlogConfig&#x27;</span>, <span class="comment"># 创建APP时自动创建</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>请求转发流程 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/blog/">http://127.0.0.1:8000/blog/</a><br>浏览器 –(项目路由)–&gt; Blog App –&gt; view.py –(应用路由)–&gt; hello_world函数 –&gt; 浏览器</li>
+</ul>
+<h2 id="模型层"><a href="#模型层" class="headerlink" title="模型层"></a>模型层</h2><ul>
+<li>模型层是什么？<ul>
+<li>模型层：位于Django视图层和数据库之间, Python对象和数据库表之间转换</li>
+<li>为什么需要模型层？屏蔽不同数据库之间的差异, 开发者更加专注于业务逻辑的开发, 提供很多便捷工具有助开发</li>
+<li>模型层配置  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># project/project/settings.py</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.sqlite3&#x27;</span>,  <span class="comment"># 自带的数据库？？</span></span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: BASE_DIR / <span class="string">&#x27;db.sqlite3&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>实现文章模型model<ol>
+<li>定义文章模型 project&#x2F;blog&#x2F;models.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Article</span>(models.Model):</span><br><span class="line">    <span class="comment"># 文章的唯一ID</span></span><br><span class="line">    article_id = models.AutoField(primary_key=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 文章标题</span></span><br><span class="line">    title = models.TextField()</span><br><span class="line">    <span class="comment"># 文章的摘要</span></span><br><span class="line">    brief_content = models.TextField</span><br><span class="line">    <span class="comment"># 文章的主要内容</span></span><br><span class="line">    content = models.TextField</span><br><span class="line">    <span class="comment"># 文章的发布目期</span></span><br><span class="line">    publish_date = models.DateTimeField(auto_now=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+<li>创建迁移文件  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
+<li>运行迁移文件 同步数据库  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>Djungo shell操作<ul>
+<li>Djungo shell：继承Django项目环境，用于交互的Python编程，方便快捷</li>
+<li>新建文章<br>  进入shell  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py shell  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure>
+  shell操作  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from blog.models import Article  <span class="comment"># 导入模型</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a = Article()                    <span class="comment"># 创建文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.title = <span class="string">&#x27;Test Django Shell&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.brief = <span class="string">&#x27;...&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.save()                         <span class="comment"># 保存文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; articles = Article.objects.all() <span class="comment"># 获取文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; <span class="built_in">print</span>(articles[0].title)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Django Admin模块<ul>
+<li>Django的后台管理工具，简化Djungo shell的使用；直接读取定义的模型元数据，提供强大的管理使用页面</li>
+<li>Django的使用<br>  创建管理员用户：caif &#x2F; cxxxxxxx  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure>
+  将模型注册到admin模块 project&#x2F;blog&#x2F;admin.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Article</span><br><span class="line"></span><br><span class="line">admin.site.register(Article)</span><br></pre></td></tr></table></figure>
+  登录页面进行管理：<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/login/?next=/admin/">http://127.0.0.1:8000/admin/login/?next=/admin/</a><br>  选择模型，进行创建、修改、删除对象操作</li>
+</ul>
+</li>
+<li>model数据返回页面<ol>
+<li>编写应用请求 project&#x2F;blog&#x2F;views.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> Article</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">article_content</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="comment"># 就是返回处理过的model数据</span></span><br><span class="line">    article = Article.<span class="built_in">object</span>.<span class="built_in">all</span>()[<span class="number">0</span>]</span><br><span class="line">    ans_str = article.title + ...</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(ans_str)</span><br></pre></td></tr></table></figure></li>
+<li>配置应用路由 project&#x2F;blog&#x2F;urls.py</li>
+<li>配置项目路由 project&#x2F;project&#x2F;urls.py</li>
+<li>添加blog应用到项目配置中 project&#x2F;project&#x2F;settings.py</li>
+</ol>
+</li>
+</ul>
+<h2 id="视图与模版"><a href="#视图与模版" class="headerlink" title="视图与模版"></a>视图与模版</h2><ul>
+<li>使用Bootstrap实现静态博客页面</li>
+<li>初识Django的模板系统</li>
+<li>使用模板系统渲染博客页面</li>
 </ul>
 
       

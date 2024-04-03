@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-30T12:47:58.202Z">
+<meta property="article:modified_time" content="2024-04-03T14:52:30.598Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -311,7 +311,7 @@
 </li>
 <li><p><code>EXPLAIN</code> 执行计划</p>
 <ul>
-<li>通过分析 <code>EXPLAIN</code> 返回的执行计划，可以了解查询的优化情况，如是否使用了索引、是否进行了全表扫描等。对于需要优化的查询，可以根据执行计划进行优化，例如添加适当的索引、调整查询语句等。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> customers <span class="keyword">WHERE</span> city <span class="operator">=</span> <span class="string">&#x27;New York&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>通过分析 EXPLAIN 返回的执行计划，可以了解查询的优化情况，如是否使用了索引、是否进行了全表扫描等。对于需要优化的查询，可以根据执行计划进行优化，例如添加适当的索引、调整查询语句等。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> customers <span class="keyword">WHERE</span> city <span class="operator">=</span> <span class="string">&#x27;New York&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
 <li>执行计划中的信息通常包括以下内容：<ul>
 <li>id：查询步骤的标识符。</li>
 <li>select_type：查询类型，如 SIMPLE、PRIMARY、SUBQUERY 等。</li>
@@ -356,17 +356,17 @@
 <li>架构设计层面的优化<br>  MySQL 是一个磁盘 IO 访问量非常频繁的关系型数据库，在高并发和高性能的场景中承受巨大的并发压力，<br>  1、搭建 Mysql 主从集群，单个 Mysql 服务容易单点故障，一旦服务器宕机，将会导致依赖 Mysql 数据库的应用全部无法响应。 主从集群或者主主集群可以保证服务的高可用性。<br>  2、读写分离设计，在读多写少的场景中，通过读写分离的方案，可以避免读写冲突导致的性能影响？？<br>  3、引入分库分表机制，通过分库可以降低单个服务器节点的 IO 压力，通过分表的方式可以降低单表数据量，从而提升 sql 查询的效率。<br>  4、针对热点数据，可以引入更为高效的分布式数据库，比如 Redis、MongoDB 等，他们可以很好的缓解 Mysql 的访问压力，同时还能提升数据检索性能。</li>
 <li>MySQL 程序配置优化<br>  对于 Mysql 数据库本身的优化，一般是通过 Mysql 中的配置文件 my.cnf 来完成的，比如。<br>  Mysql5.7 版本默认的最大连接数是 151 个，这个值可以在 my.cnf 中修改。binlog 日志，默认是不开启。缓存池 bufferpoll 的默认大小配置等。<br>  由于这些配置一般都和用户安装的硬件环境以及使用场景有关系，因此这些配置官方只会提供一个默认值，具体情况还得由使用者来修改。<br>  关于配置项的修改，需要关注两个方面。1. 配置的作用域，分为会话级别和全局；2. 是否支持 热加载<br>  因此，针对这两个点，我们需要注意的是：1. 全局参数的设定对于已经存在的会话无法生效; 2. 会话参数的设定随着会话的销毁而失效; 3. 全局类的统一配置建议配置在默认配置文件中，否则重启服务会导致配置失效</li>
 <li>表结构和索引的优化<br>  主要可以下面这些方面去优化分库分表、读写分离、为字段选择合适的数据类型、适当的反范式设计，适当冗余设计、为查询操作创建必要的索引但是要避免索引滥用、尽可能使用 Not Null。</li>
-<li>??? SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
+<li>？？？ SQL 优化<br>  第一、慢 SQL 的定位和排查我们可以通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表。<br>  第二、执行计划分析针对慢 SQL，我们可以使用关键字 explain 来查看当前 sql 的执行计划.可以重点关注type key rows filterd 等字段 ，从而定位该 SQL 执行慢的根本原因。再有的放矢的进行优化<br>  第三、使用 show profile 工具Show Profile 是 MySQL 提供的可以用来分析当前会话中，SQL 语句资源消耗情况的工具，可用于 SQL 调优的测量。在当前会话中.默认情况下处于 show profile 是关闭状态，打开之后保存最近 15 次的运行结果。针对运行慢的 SQL，通过 profile 工具进行详细分析.可以得到 SQL 执行过程中所有的资源开销情况. 如 IO 开销,CPU 开销,内存开销等.</li>
 </ul>
 </li>
-<li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表中未匹配到的字段用NULL表示。<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
+<li><p>什么是内联接、左外联接、右外联接、全连接？<br>内联接（Inner Join）：匹配2张表中相关联的记录。<br>左外联接（Left Outer Join）：除了匹配2张表中相关联的记录，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。<br>右外联接（Right Outer Join）：除了匹配2张表中相关联的记录，还会匹配右表中剩余的记录，左表未匹配到的字段用NULL表示。<br>全连接（Full Join 或 Full Outer Join）：在使用全连接时，无论左表和右表是否存在匹配，都会返回两个表中所有的行，并在没有匹配的行处填充 NULL 值。</p>
 </li>
-<li><p>drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 dml,这个操作会放到rollback segement中，事务提交之后才生效；如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是ddl, 操作立即生效，原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
+<li><p>drop、delete与truncate的区别<br>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别<br>delete 和 truncate 只删除表的数据不删除表的结构速度,一般来说: drop&gt; truncate &gt;delete<br>delete 语句是 <strong>dml</strong>,这个操作会放到rollback segement中，事务提交之后才生效；如果有相应的trigger,执行的时候将被触发.<br>truncate,drop是 <strong>ddl</strong>, 操作立即生效，原数据不放到rollbacksegment中,不能回滚. 操作不触发trigger</p>
 </li>
 <li><p>部分依赖和传递依赖。</p>
 <ol>
 <li><strong>部分依赖：</strong>发生在一个表的主键（Primary Key）中包含了多个字段，但是其中的某些字段并不完全依赖于主键的所有部分。简言之，某个非主键字段只依赖于主键的一部分。<br>  举例：考虑一个订单表，主键是订单号和商品编号（OrderID, ProductID），如果订单表中还有商品名称（ProductName），而商品名称仅依赖于商品编号而不依赖于订单号，那么商品名称对于订单表来说就是一个部分依赖。</li>
-<li><strong>传递依赖：</strong>发生在一个非主键字段依赖于其他非主键字段，而这些其他非主键字段又依赖于主键。简言之，某个非主键字段依赖于其他非主键字段，而这些其他字段依赖于主键。<br>  举例：考虑一个员工表，主键是员工编号（EmployeeID），而表中包含了部门编号（DepartmentID）和部门名称（DepartmentName）。如果部门名称依赖于部门编号，而部门编号又依赖于员工编号，那么部门名称对于员工表来说就是一个传递依赖。</li>
+<li><strong>传递依赖：</strong>发生在一个非主键字段依赖于其他非主键字段，而这些其他非主键字段又依赖于主键。简言之，某个非主键字段依赖于其他非主键字段，而这些其他字段依赖于主键。<br>  举例：考虑员工表，主键是员工编号(EmployeeID)，表中包含了部门编号(DepartmentID）)和部门名称(DepartmentName)。如果部门名称依赖于部门编号，而部门编号又依赖于员工编号，那么部门名称对于员工表来说就是一个传递依赖。</li>
 </ol>
 </li>
 <li><p>范式：解决部分依赖和传递依赖的一种方法是通过数据库范式化，通常是将表拆分成更小的表。</p>
@@ -386,7 +386,7 @@
 <li><p>事务。</p>
 <ul>
 <li>事务（Transaction）是一组数据库操作，它们形成一个逻辑工作单元，要么全部成功执行，要么全部失败回滚。事务的目的是保证数据库的一致性和完整性，确保在多个操作中要么全部成功，要么全部失败，不会留下中间状态。</li>
-<li>事务的特性：通常被称为<strong>ACID</strong>特性<ul>
+<li>事务的特性：通常被称为 <strong>ACID</strong> 特性<ul>
 <li><strong>原子性（Atomicity）</strong> 事务是一个完整的操作。事务的各步操作是不可分的（原子的）；要么都执行，要么都不执行。</li>
 <li><strong>一致性（Consistency）</strong>当事务完成时，数据必须处于一致状态。</li>
 <li><strong>隔离性（Isolation）</strong> 对数据进行修改的所有并发事务是彼此隔离的， 这表明事务必须是独立的，它不应以任何方式依赖于或影响其他事务。</li>
@@ -410,10 +410,10 @@
 </li>
 <li><p>SQL 标准定义的<strong>四个事务隔离级别有哪些?</strong></p>
 <ul>
-<li>**READ-UNCOMMITTED(读取未提交)**： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
-<li>**READ-COMMITTED(读取已提交)**： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
+<li>READ-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能导致脏读、幻读或不可重复读。</li>
+<li>READ-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍可能发生。 </li>
 <li><strong>REPEATATATABLE-READ(可重复读)<strong>： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍可能发生（特点情况下）、、</strong>InnoDB 存储引擎的默认支持的隔离级别是 【可重复读】</strong>。</li>
-<li>**SERIALIZABLE(可串行化)**： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
+<li>SERIALIZABLE(可串行化)：最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读</li>
 </ul>
 </li>
 <li><p>MySQL的事务隔离级别与锁的关系、、</p>
@@ -431,7 +431,7 @@
 </ul>
 </li>
 <li><strong>串行化（Serializable）</strong>：<ul>
-<li>这个级别下，MySQL 会对读取的数据行和写入的数据行都进行（行级）排它锁，确保事务串行执行，避免了幻读的问题。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="comment">-- 对某个数据进行读取时，其他事务无法对该数据进行写入或者读取的操作，直到该事务完成读取操作</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> <span class="keyword">condition</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"><span class="comment">-- 在这里进行读取和处理操作</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></li>
+<li>MySQL 会对读取的数据行和写入的数据行都进行（行级）排它锁，确保事务串行执行，避免了幻读的问题。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="comment">-- 对某个数据进行读取时，其他事务无法对该数据进行写入或者读取的操作，直到该事务完成读取操作</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> <span class="keyword">condition</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"><span class="comment">-- 在这里进行读取和处理操作</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
@@ -522,7 +522,7 @@
 <li>对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要</li>
 <li>增加行级锁之前，InnoDB会自动给表加意向锁</li>
 <li>执行DML语句时，InnoDB会自动给数据加排他锁</li>
-<li>？？？执行DQL语句时：<ul>
+<li>执行DQL语句时：<ul>
 <li>共享锁 (s) :SELECT … FROM … WHERE … LOCK IN SHARE MODE</li>
 <li>排他锁 (x) :SELECT … FROM … WHERE … FOR UPDATE;</li>
 <li>间隙锁 (NK) : 上述sQ采用范围条件时，InnoDB对不存在的记录自动增加间隙锁</li>
@@ -532,7 +532,7 @@
 </li>
 <li><p>数据库并发策略<br>并发控制一般采用三种方法，分别是乐观锁和悲观锁以及时间戳。</p>
 </li>
-<li><p>???锁的优化策略<br>1、读写分离<br>2、分段加锁<br>3、减少锁持有的时间<br>4.多个线程尽量以相同的顺序去获取资源不能将锁的粒度过于细化，不然可能会出现线程的加锁和释放次数过多，反而效率不如一次加一把大锁。</p>
+<li><p>？？？锁的优化策略<br>1、读写分离<br>2、分段加锁<br>3、减少锁持有的时间<br>4.多个线程尽量以相同的顺序去获取资源不能将锁的粒度过于细化，不然可能会出现线程的加锁和释放次数过多，反而效率不如一次加一把大锁。</p>
 </li>
 <li><p>存储过程。什么是存储过程？用什么来调用？<br>一组为了完成特定功能的 SQL 语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。如果某次操作需要执行多次 SQL，使用存储过程比单纯 SQL 语句执行要快。存储过程是数据库中的一个重要对象。</p>
 </li>

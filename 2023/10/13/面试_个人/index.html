@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-03-30T07:12:44.176Z">
+<meta property="article:modified_time" content="2024-04-02T05:13:22.816Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
@@ -243,8 +243,8 @@
 <li>如何查看白名单：1、先查本地缓存caffeine 2、未命中再调用相关api从Redis里面查出set是否contain该设备号，再更新本地缓存（所以Redis新增后要10min才能同步caffeine）</li>
 <li>白名单在Redis中的保存形式：一个 Set<String></li>
 <li>白名单如何维护：需要新增时(上线前)手动Postman调接口，使用 SADD 命令向 Set 中添加一个或多个成员：SADD key member [member …]；删减时、、</li>
-<li>Redis数据何时过期？目前没有设置过期时间，可以调用 Redis 的 EXPIRE 命令为单个键（Key）或整个 Set 设置过期时间，也可以通过 SETEX 命令一次性设置键的值和过期时间以确保设置值和过期时间的原子性。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SADD myset value1</span><br><span class="line">EXPIRE myset 60         <span class="comment"># 设置 myset 整个 Set 结构的过期时间为 60 秒</span></span><br><span class="line">EXPIRE myset:value1 60  <span class="comment"># 设置 myset 中的 value1 元素的过期时间为 60 秒</span></span><br></pre></td></tr></table></figure></li>
-<li>设置过期时长：20分钟，到期后，会触发数据库查询，同时会将数据加载到缓存中，用于接下来一个20分钟<br>  Redis 提供了键过期时的通知功能，可以通过配置 Redis 的 notify-keyspace-events 参数来开启过期事件通知。在 Redis 配置文件中设置 notify-keyspace-events Ex，表示开启键过期事件通知。</li>
+<li>Redis 数据何时过期？目前没有设置过期时间，可以调用 Redis 的 EXPIRE 命令为单个键（Key）或整个 Set 设置过期时间，也可以通过 SETEX 命令一次性设置键的值和过期时间以确保设置值和过期时间的原子性。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SADD myset value1</span><br><span class="line">EXPIRE myset 60         <span class="comment"># 设置 myset 整个 Set 结构的过期时间为 60 秒</span></span><br><span class="line">EXPIRE myset:value1 60  <span class="comment"># 设置 myset 中的 value1 元素的过期时间为 60 秒</span></span><br></pre></td></tr></table></figure></li>
+<li>白名单优化：可以设置过期时长为20分钟，到期后，会触发数据库查询，同时会将数据加载到缓存中，用于接下来一个20分钟<br>  Redis 提供了键过期时的通知功能，可以通过配置 Redis 的 notify-keyspace-events 参数来开启过期事件通知。在 Redis 配置文件中设置 notify-keyspace-events Ex，表示开启键过期事件通知。</li>
 </ul>
 </li>
 <li><p>本地缓存与Redis不同步、、</p>
