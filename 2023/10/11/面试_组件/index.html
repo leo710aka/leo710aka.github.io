@@ -6,19 +6,19 @@
   
   <title>面 逝 | 组件 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="八股（MySQL） SQL 语言类别。  DDL（Data Definition Language，数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）  CREATE TABLE：创建表。- ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 ALTER INDEX：修改索引。 DML（Data Manipulation La">
+  <meta name="description" content="八股（MySQL） SQL 语言类别。  DDL（数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）；  CREATE TABLE：创建表。 ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 DML（数据操作语言）：DML 用于对数据库中的数据进行操作；  SELECT：查询数据。 INSERT：插入数据。 UPDATE：更">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面 逝 | 组件">
 <meta property="og:url" content="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="八股（MySQL） SQL 语言类别。  DDL（Data Definition Language，数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）  CREATE TABLE：创建表。- ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 ALTER INDEX：修改索引。 DML（Data Manipulation La">
+<meta property="og:description" content="八股（MySQL） SQL 语言类别。  DDL（数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）；  CREATE TABLE：创建表。 ALTER TABLE：修改表结构。DROP TABLE：删除表。CREATE INDEX：创建索引。 DML（数据操作语言）：DML 用于对数据库中的数据进行操作；  SELECT：查询数据。 INSERT：插入数据。 UPDATE：更">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job5.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-03T14:52:30.598Z">
+<meta property="article:modified_time" content="2024-04-05T12:31:35.061Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -101,31 +101,31 @@
         <h2 id="八股（MySQL）"><a href="#八股（MySQL）" class="headerlink" title="八股（MySQL）"></a>八股（MySQL）</h2><ul>
 <li><p>SQL 语言类别。</p>
 <ol>
-<li><strong>DDL（Data Definition Language，数据定义语言）</strong>：DDL 用于定义和管理数据库对象（如表、索引、视图等）<br>  <code>CREATE TABLE</code>：创建表。- <code>ALTER TABLE</code>：修改表结构。<code>DROP TABLE</code>：删除表。<code>CREATE INDEX</code>：创建索引。 <code>ALTER INDEX</code>：修改索引。</li>
-<li><strong>DML（Data Manipulation Language，数据操作语言）</strong>：DML 用于对数据库中的数据进行操作<br>  <code>SELECT</code>：查询数据。 - <code>INSERT</code>：插入数据。   - <code>UPDATE</code>：更新数据。   - <code>DELETE</code>：删除数据。</li>
-<li><strong>DCL（Data Control Language，数据控制语言）</strong>：用于授予或回收数据库对象的访问权限，常用命令包括 <code>GRANT</code>：授予用户访问权限、<code>REVOKE</code>：回收用户访问权限 等。</li>
-<li><strong>TCL（Transaction Control Language，事务控制语言）</strong>：用于管理数据库的事务，常用的命令包括 <code>COMMIT</code>：提交事务、 <code>ROLLBACK</code>：回滚事务、 <code>SAVEPOINT</code>：设置保存点，用于部分回滚。</li>
+<li>DDL（数据定义语言）：DDL 用于定义和管理数据库对象（如表、索引、视图等）；<br>  <code>CREATE TABLE</code>：创建表。 <code>ALTER TABLE</code>：修改表结构。<code>DROP TABLE</code>：删除表。<code>CREATE INDEX</code>：创建索引。</li>
+<li>DML（数据操作语言）：DML 用于对数据库中的数据进行操作；<br>  <code>SELECT</code>：查询数据。 <code>INSERT</code>：插入数据。 <code>UPDATE</code>：更新数据。  - <code>DELETE</code>：删除数据。</li>
+<li>DCL（数据控制语言）：管理数据库对象的访问权限， <code>GRANT</code>：授予用户访问权限、<code>REVOKE</code>：回收用户访问权限 等。</li>
+<li>TCL（事务控制语言）：用于管理数据库的事务，常用的命令包括 <code>COMMIT</code>：提交事务、 <code>ROLLBACK</code>：回滚事务、 <code>SAVEPOINT</code>：设置保存点，用于部分回滚。</li>
 </ol>
 </li>
 <li><p>MySQL 数据类型</p>
 <ol>
 <li>数值类型：<ul>
-<li><strong>整数类型：</strong>   <code>INT</code>（整数，4字节）  <code>TINYINT</code>（小整数，1字节） <code>SMALLINT</code>（小整数，2字节）  <code>MEDIUMINT</code>（中等整数，3字节）    <code>BIGINT</code>（大整数，8字节）</li>
-<li><strong>浮点数类型：</strong>   <code>FLOAT</code>（单精度浮点数）  <code>DOUBLE</code>（双精度浮点数）</li>
-<li><strong>定点数类型：</strong>   <code>DECIMAL</code>（定点数）</li>
+<li>整数类型：<code>INT</code>（整数，4字节）  <code>TINYINT</code>（小整数，1字节） <code>SMALLINT</code>（小整数，2字节）  <code>MEDIUMINT</code>（中等整数，3字节）    <code>BIGINT</code>（大整数，8字节）</li>
+<li>浮点数类型：<code>FLOAT</code>（单精度浮点数）  <code>DOUBLE</code>（双精度浮点数）</li>
+<li>定点数类型：<code>DECIMAL</code>（定点数）</li>
 </ul>
 </li>
-<li>日期和时间类型： <strong>日期类型：</strong> <code>DATE</code>（日期）； <strong>时间类型：</strong> <code>TIME</code>（时间）<code>DATETIME</code>（日期和时间，包括秒） <code>TIMESTAMP</code>（日期和时间，包括秒，通常用于记录数据的修改时间）</li>
-<li>字符串类型： <strong>定长字符串：</strong> <code>CHAR</code>； <strong>变长字符串：</strong> <code>VARCHAR</code>；<strong>文本类型：</strong> <code>TEXT</code>（较小的文本） <code>MEDIUMTEXT</code>（中等大小的文本）  <code>LONGTEXT</code>（较大的文本）<ul>
+<li>日期和时间类型：<code>DATE</code>（日期）；<code>TIME</code>（时间）<code>DATETIME</code>（日期和时间，包括秒） <code>TIMESTAMP</code>（日期和时间，包括秒，通常用于记录数据的修改时间）</li>
+<li>字符串类型：<code>CHAR</code>（定长字符串）； <code>VARCHAR</code>（变长字符串）；<code>TEXT</code>（较小的文本） <code>MEDIUMTEXT</code>（中等大小的文本）  <code>LONGTEXT</code>（较大的文本）<ul>
 <li>CHAR 和 VAVARCHAR 的区别？<br> 1、CHAR 和 VAVARCHAR 类型在存储和检索方面有所不同<br> 2、CHAR 列长度固定为创建表时声明的长度，长度值范围是 1 到 255 当 CHAR值被存储时，它们被用空格填充到特定长度，检索 CHAR 值时需删除尾随空格。</li>
 </ul>
 </li>
 <li>二进制类型：  <code>BINARY</code>（定长二进制字符串）   <code>VARBINARY</code>（变长二进制字符串） <code>BLOB</code>（较小的二进制数据）  <code>MEDIUMBLOB</code>（中等大小的二进制数据） <code>LONGBLOB</code>（较大的二进制数据）<ul>
 <li>BLOB 和 TEXT 的区别。<ol>
-<li><strong>存储内容：</strong>   <code>BLOB</code> 存储二进制数据，不进行字符集的转换。  <code>TEXT</code> 存储字符数据，会根据字符集进行相应转换</li>
-<li><strong>大小限制：</strong>   <code>BLOB</code> 可以存储更大的二进制数据。  <code>TEXT</code> 可以存储更大的字符数据。</li>
-<li><strong>排序和比较：</strong>   <code>BLOB</code> 进行二进制排序和比较。  <code>TEXT</code> 进行字符集排序和比较。</li>
-<li><strong>用途：</strong>  <code>BLOB</code> 适用存储图像、音频、视频等二进制文件。<code>TEXT</code> 适用存储文本文档、HTML、XML 等字符数据。</li>
+<li>存储内容： <code>BLOB</code> 存储二进制数据，不进行字符集的转换。  <code>TEXT</code> 存储字符数据，会根据字符集进行相应转换</li>
+<li>大小限制： <code>BLOB</code> 可以存储更大的二进制数据。  <code>TEXT</code> 可以存储更大的字符数据。</li>
+<li>排序和比较： <code>BLOB</code> 进行二进制排序和比较。  <code>TEXT</code> 进行字符集排序和比较。</li>
+<li>用途：  <code>BLOB</code> 适用存储图像、音频、视频等二进制文件。<code>TEXT</code> 适用存储文本文档、HTML、XML 等字符数据。</li>
 </ol>
 </li>
 </ul>
@@ -137,14 +137,16 @@
 <ul>
 <li>在记录货币金额时，一般建议使用 DECIMAL 类型。DECIMAL 类型是一种精确的定点数类型，提供了更可靠的精确度，确保不会发生舍入误差,适合用于存储货币等需要精确计算的数值。</li>
 <li>避免使用浮点数类型（如 FLOAT 或 DOUBLE）来表示货币金额，因为浮点数在计算中可能存在精度问题。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 9(precision)代表将被用于存储值的总的小数位数，而 2(scale)代表将被用于存储小数点后的位数。 </span></span><br><span class="line"><span class="comment">-- salary 列中的值的范围是从-9999999.99 到9999999.99。</span></span><br><span class="line">salary <span class="type">DECIMAL</span>(<span class="number">9</span>,<span class="number">2</span>)  </span><br></pre></td></tr></table></figure></li>
+<li><strong>为表中得字段选择合适得数据类型</strong>：<br>  字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>  优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别的数据类型，应该优先选择占用空间小的</li>
 </ul>
 </li>
-<li><p>为表中得字段选择合适得数据类型<br>字段类型优先级: 整形&gt;date,time&gt;enum,char&gt;varchar&gt;blob,text<br>优先考虑数字类型，其次是日期或者二进制类型，最后是字符串类型，同级别得数据类型，应该优先选择占用空间小的数据类型</p>
-</li>
-<li><p>LIKE 声明中的％和_是什么意思？<br>？？？％对应于 0 个或更多字符，_只是 LIKE 语句中的一个字符</p>
-</li>
-<li><p>MySQL 如何优化 DISTINCT？<br>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure>
+<li><p>MySQL 中 <code>IN</code>、<code>EXISTS</code> 和 <code>LIKE</code> 的作用和用法，如何优化 <code>DISTINCT</code>？</p>
+<ul>
+<li><strong>IN</strong>：用于在 <code>WHERE</code> 子句中筛选出符合指定值列表中任一值的数据行。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询出 `id` 字段值为 1、2 或 3 的用户数据行</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure></li>
+<li><strong>EXISTS</strong>：用于检查子查询是否返回任何行，如果子查询返回至少一行数据，则 <code>EXISTS</code> 返回 true；否则返回 false。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 上述示例会查询出至少有一笔订单关联的产品数据行</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> products p <span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> orders o <span class="keyword">WHERE</span> o.product_id <span class="operator">=</span> p.id);</span><br></pre></td></tr></table></figure></li>
+<li><strong>LIKE</strong>：用于在 <code>WHERE</code> 子句中进行模糊查询，通常配合通配符使用包括 <code>%</code>（匹配任意长度的字符串）和 <code>_</code>（匹配单个字符）  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 上述示例会查询出名称以 &quot;apple&quot; 开头的产品数据行</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;apple%&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>DISTINCT 在所有列上转换为 GROUP BY，并与 ORDER BY 子句结合使用。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> t1.a <span class="keyword">FROM</span> t1,t2 <span class="keyword">where</span> t1.a<span class="operator">=</span>t2.a;</span><br><span class="line"><span class="comment">-- 转换为等效的 GROUP BY 查询：</span></span><br><span class="line"><span class="keyword">SELECT</span> t1.a <span class="keyword">FROM</span> t1, t2 <span class="keyword">WHERE</span> t1.a <span class="operator">=</span> t2.a <span class="keyword">GROUP</span> <span class="keyword">BY</span> t1.a;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>什么是通用 SQL 函数？<br>1、CONCATAT(A, B) – 连接两个字符串值以创建单个字符串输出。通常用于将两个或多个字段合并为一个字段。<br>2、FORMATAT(X, D)- 格式化数字 X 到 D 有效数字。<br>3、CURRDATATE(), CURRTIME()- 返回当前日期或时间。<br>4、NOW（） – 将当前日期和时间作为一个值返回。<br>5、MONTH（），DAYAY（），YEAR（），WEEK（），WEEKDAYAY（） – 从日期值中提取给定数据。<br>6、HOUR（），MINUTE（），SECOND（） – 从时间值中提取给定数据。<br>7、DATATEDIFF（A，B） – 确定两个日期之间的差异，通常用于计算年龄<br>8、SUBTIMES（A，B） – 确定两次之间的差异。<br>9、FROMDAYAYS（INT） – 将整数天数转换为日期值</p>
 </li>
@@ -170,15 +172,17 @@
 <li><strong>返回结果：</strong> 当查询完成时，MySQL 将结果返回给用户。</li>
 </ol>
 </li>
-<li><p>数据库存储引擎<br>数据库存储引擎是数据库底层软件组织，数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。不同的存储引擎提供不同的存储机制、索引技巧、锁定水平等功能，使用不同的存储引擎，还可以 获得特定的功能。现在许多不同的数据库管理系统都支持多种不同的数据引擎。存储引擎主要有： 1. MyIsam, 2. InnoDB, 3. Memory, 4. Archive, 5. Federated 。</p>
+<li><p>数据库存储引擎</p>
+<ul>
+<li>数据库存储引擎是数据库底层软件组织，数据库管理系统（DBMS）使用数据引擎进行创建、查询、更新和删除数据。不同的存储引擎提供不同的存储机制、索引技巧、锁定水平等功能，使用不同的存储引擎，还可以 获得特定的功能。现在许多不同的数据库管理系统都支持多种不同的数据引擎。<br>  存储引擎主要有： 1. MyIsam, 2. InnoDB, 3. Memory, 4. Archive, 5. Federated</li>
+<li>InnoDB：底层存储结构为B+树， B树的每个节点对应innodb的一个page， page大小是固定的，一般设为 16k。其中非叶子节点只有键值，叶子节点包含完成数据、、适用场景：<br>  1）经常更新的表，适合处理多重并发的更新请求。<br>  2）支持事务。<br>  3）可以从灾难中恢复（通过 bin-log 日志等）。<br>  4）外键约束。只有他支持外键。<br>  5）支持自动增加列属性 auto_increment。</li>
+<li>MyIASM：是 MySQL默认的引擎，但是它没有提供对数据库事务的支持，也不支持行级锁和外键，因此当 NSERT(插入)或 UPDATATE(更新)数据时即写操作需要锁定整个表，效率便会低一些。<br>  ISAM 执行读取操作的速度很快，而且不占用大量的内存和存储资源。在设计之初就预想数据组织成有固定长度的记录，按顺序存储的。 —ISAM 是一种静态索引结构。缺点是它不 支持事务处理。</li>
+<li>Memery 就是将数据放在内存中，数据处理速度很快，但是安全性不⾼。</li>
+</ul>
 </li>
-<li><p>InnoDB（B+树）<br>InnoDB 底层存储结构为B+树， B树的每个节点对应innodb的一个page， page大小是固定的，一般设为 16k。其中非叶子节点只有键值，叶子节点包含完成数据<br>适用场景：<br>1）经常更新的表，适合处理多重并发的更新请求。<br>2）支持事务。<br>3）可以从灾难中恢复（通过 bin-log 日志等）。<br>4）外键约束。只有他支持外键。<br>5）支持自动增加列属性 auto_increment。</p>
+<li><p><strong>MyISAM 和 InnoDB</strong> 有什么区别？<br>（1）MyISAM 只支持表级别的锁粒度，InnoDB 支持行级别的锁粒度。<br>（2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>（3）MyISAM 不支持外键，而 InnoDB 支持。<br>（4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>（5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>（6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>（7）InnoDB 的性能比 MyISAM 更强大。</p>
 </li>
-<li><p>MyIASM，Memory<br>MyIASM是 MySQL默认的引擎，但是它没有提供对数据库事务的支持，也不支持行级锁和外键，因此当 NSERT(插入)或 UPDATATE(更新)数据时即写操作需要锁定整个表，效率便会低一些。<br>ISAM 执行读取操作的速度很快，而且不占用大量的内存和存储资源。在设计之初就预想数据组织成有固定长度的记录，按顺序存储的。 —ISAM 是一种静态索引结构。缺点是它不 支持事务处理。<br>Memery 就是将数据放在内存中，数据处理速度很快，但是安全性不⾼。</p>
-</li>
-<li><p>MyISAM 和 InnoDB 有什么区别？<br>（1）MyISAM 只支持表级别的锁粒度，InnoDB 支持行级别的锁粒度。<br>（2）MyISAM 不提供事务支持。InnoDB 提供事务支持，实现了 SQL 标准定义了四个隔离级别。<br>（3）MyISAM 不支持外键，而 InnoDB 支持。<br>（4）MyISAM 不支持 MVCC，而 InnoDB 支持。<br>（5）虽然 MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是两者的实现方式不太一样。<br>（6）MyISAM 不支持数据库异常崩溃后的安全恢复，而 InnoDB 支持。<br>（7）InnoDB 的性能比 MyISAM 更强大。</p>
-</li>
-<li><p>索引。<br>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。<br>索引（Index）是帮助 MySQL 高效获取数据的数据结构。 常见的查询算法,顺序查找,二分查找,二叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树（B-tree） ，索引是对数据库表中一个或多个列的值进行排序的结构，建立索引有助于快速获取信息。<br>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库 mysql。<br>索引并非是越多越好，创建索引也需要耗费资源，一是增加了数据库的存储空间，二是在插入和删除时要花费较多的时间维护索引<br>索引加快数据库的检索速度<br>索引降低了插入、删除、修改等维护任务的速度<br>唯一索引可以确保每一行数据的唯一性<br>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能<br>索引需要占物理和数据空间</p>
+<li><p>索引、、<br>在 MySQL 中，索引是一种特殊的数据结构，用于加快数据库表中数据的检索速度。索引在数据库表中的一个或多个列上创建，可以将这些列的值快速映射到实际数据的物理位置。<br>索引（Index）是帮助 MySQL 高效获取数据的数据结构。 常见的查询算法,顺序查找,二分查找,二叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树（B-tree） ，索引是对数据库表中一个或多个列的值进行排序的结构，建立索引有助于快速获取信息。<br>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库 mysql。<br>索引并非是越多越好，创建索引也需要耗费资源，一是增加了数据库的存储空间，二是在插入和删除时要花费较多的时间维护索引<br>索引加快数据库的检索速度<br>索引降低了插入、删除、修改等维护任务的速度<br>唯一索引可以确保每一行数据的唯一性<br>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能<br>索引需要占物理和数据空间</p>
 </li>
 <li><p>索引有哪些种类。</p>
 <ul>
@@ -225,13 +229,10 @@
 <li><p>最左前缀匹配原则</p>
 <ul>
 <li>在使用复合索引（composite index）时，如果查询条件中使用了索引的第一个列作为条件，那么数据库可以利用这个索引来加速查询；但如果查询条件中只使用了索引的前几个列，而没有使用索引的第一个列作为条件，那么数据库无法利用这个索引来加速查询。</li>
-<li>具体来说，假设有一个复合索引 <code>(col1, col2, col3)</code>，这个索引按照 <code>col1</code>、<code>col2</code>、<code>col3</code> 的顺序排列。根据最左前缀匹配原则，以下情况适用：<ol>
-<li>当查询条件中包含了索引的第一个列 <code>col1</code> 时，数据库可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
-<li>当查询条件中包含了索引的前几个列 <code>col1</code>、<code>col2</code> 时，数据库也可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
-<li>如果查询条件中包含了索引的所有列 <code>col1</code>、<code>col2</code>、<code>col3</code> 并且按照索引的顺序出现，那么可以触发索引。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li>但是，如果查询条件中只使用了索引的后几个列，而没有使用索引的第一个列作为条件，那么数据库无法利用这个索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>具体来说，假设有一个复合索引 <code>(col1, col2, col3)</code>，这个索引按照 <code>col1</code>、<code>col2</code>、<code>col3</code> 的顺序排列。根据最左前缀匹配原则，以下情况适用：<br>  1.当查询条件中包含了索引的第一个列 <code>col1</code> 时，数据库可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value&#x27;</span>;</span><br></pre></td></tr></table></figure>
+  2.当查询条件中包含了索引的前几个列 <code>col1</code>、<code>col2</code> 时，数据库也可以使用索引来加速查询。例如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span>;</span><br></pre></td></tr></table></figure>
+  3.如果查询条件中包含了索引的所有列 <code>col1</code>、<code>col2</code>、<code>col3</code> 并且按照索引的顺序出现，那么可以触发索引。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col1 <span class="operator">=</span> <span class="string">&#x27;value1&#x27;</span> <span class="keyword">AND</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>但是，如果查询条件中只使用了索引的后几个列，而没有使用索引的第一个列作为条件，则无法利用这个索引加速查询。如：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> table_name <span class="keyword">WHERE</span> col2 <span class="operator">=</span> <span class="string">&#x27;value2&#x27;</span> <span class="keyword">AND</span> col3 <span class="operator">=</span> <span class="string">&#x27;value3&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>覆盖索引？回表查询？</p>
@@ -330,9 +331,9 @@
 <li>优化查询语句、、<ol>
 <li><strong>选择需要的列而不是使用 <code>SELECT *</code>：</strong></li>
 <li><strong>减少子查询，使用关联查询：</strong>   尽量使用关联查询（LEFT JOIN、RIGHT JOIN、INNER JOIN）替代子查询，以提高查询效率。使用 JOIN 操作来代替手动创建的临时表，提高查询效率。</li>
-<li><strong>避免使用 IN 或 NOT IN，使用 EXISTS 或关联查询：</strong>  以提高查询性能。</li>
-<li><strong>使用 UNION 或 UNION ALL 代替 OR 查询：</strong>  特别是当确定没有重复数据时，使用 UNION ALL 更为效率。</li>
-<li><strong>选择合适的字段属性：</strong>   选择最适用的字段属性，尽可能减少定义字段宽度，设置合适的数据类型。尽量把字段设置 NOT NULL，例如’省份’、’性别’最好适用 ENUM</li>
+<li><strong>避免使用 IN 或 NOT IN，使用 EXISTS 或关联查询：</strong> 以提高查询性能。</li>
+<li><strong>使用 UNION 或 UNION ALL 代替 OR 查询：</strong> 特别是当确定没有重复数据时，使用 UNION ALL 更为效率。</li>
+<li><strong>选择合适的字段属性：</strong> 尽可能减少定义字段宽度，设置合适的数据类型。尽量把字段设置 NOT NULL，例如’省份’、’性别’最好适用 ENUM</li>
 </ol>
 </li>
 <li>基于索引查询、、<ol>
@@ -344,7 +345,7 @@
 <li><strong>避免在 WHERE 子句中对字段进行 NULL 值判断：</strong>可以设置默认值或使用其他方式，以免引擎放弃使用索引而进行全表扫描。如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：select id from t where num&#x3D;0</li>
 </ol>
 </li>
-<li>数据库事务<ol>
+<li>数据库事务、、<ol>
 <li><strong>事务处理和锁定表优化：</strong>    合理使用事务处理，避免锁定表的情况，以提高数据库并发性能。</li>
 </ol>
 </li>
@@ -383,7 +384,7 @@
 </li>
 <li><p>什么是基本表？什么是<strong>视图</strong>？游标是什么？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。<br>视图本身不独立存储在数据库中，是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图是从一个或几个基本表导出的表，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。<br>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
 </li>
-<li><p>事务。</p>
+<li><p>事务、、</p>
 <ul>
 <li>事务（Transaction）是一组数据库操作，它们形成一个逻辑工作单元，要么全部成功执行，要么全部失败回滚。事务的目的是保证数据库的一致性和完整性，确保在多个操作中要么全部成功，要么全部失败，不会留下中间状态。</li>
 <li>事务的特性：通常被称为 <strong>ACID</strong> 特性<ul>
@@ -442,7 +443,7 @@
 </li>
 <li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以 MySQL 默认是不支持事务的。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
-<li><p>？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool,LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+<li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool，LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
 </li>
@@ -450,7 +451,7 @@
 <ul>
 <li>Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</li>
 <li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>编程式事务：<br>  通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">    <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        transactionManager.commit(status);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        transactionManager.rollback(status);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编程式事务：通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">    <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        transactionManager.commit(status);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        transactionManager.rollback(status);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
@@ -466,7 +467,7 @@
 <li>锁和并发：在执行更新或删除操作时，数据库可能需要对表进行锁定，以确保数据的一致性。大表的锁定可能会阻塞其他操作，影响并发性能。</li>
 </ul>
 </li>
-<li><p>分表。</p>
+<li><p>分表、、</p>
 <ul>
 <li>分表是一种应对大表数据量的常见方法。通过将大表拆分为多个小表（分区），可以减轻数据库管理系统的负担，提高查询性能和管理效率。分表可以根据业务逻辑或特定的列值进行拆分，例如按时间范围、地理区域等方式进行分区。</li>
 <li>在考虑分表之前，建议进行以下操作：<br>  优化查询和索引：确保数据库表有适当的索引来支持常见的查询，并优化查询语句以提高性能。<br>  限定数据的范围：务必禁止不带任何限制数据范围条件的查询语句。比如：我们当用户在查询订单历史的时候，我们可以控制在一个月的范围内；<br>  ？？？读&#x2F;写分离：经典的数据库拆分方案，主库负责写，从库负责读；<br>  垂直和水平分割：考虑将大表进行垂直切分（按列拆分）或水平切分（按行拆分）以减少单个表的数据量。<br>  使用分区：针对数据库支持的分区功能，可以考虑根据特定的标准将表分成多个逻辑分区。<br>  数据库优化：定期清理无用数据、重新构建索引、优化数据库配置等，以提高数据库的整体性能。</li>
@@ -517,7 +518,7 @@
 </li>
 </ol>
 </li>
-<li><p>加锁</p>
+<li><p>加锁、、</p>
 <ul>
 <li>对范围内不存在的记录加锁。一是为了防止幻读，二是为了满足恢复和复制的需要</li>
 <li>增加行级锁之前，InnoDB会自动给表加意向锁</li>
@@ -581,17 +582,36 @@
 <li>读写分离：主机负责写，从机负责读。</li>
 </ul>
 </li>
-<li><p>不建议？使用 JOIN，那么如何优化多表查询？</p>
-<ol>
-<li><strong>使用索引：</strong> 确保关联字段上有适当的索引。索引可以大大提高 JOIN 操作的性能。在关联字段上创建索引可以减少查找匹配行的时间。</li>
-<li><strong>使用合适的 JOIN 类型：</strong> 根据查询的需求选择合适的 JOIN 类型，如 INNER JOIN、LEFT JOIN 等。不同的 JOIN 类型会影响结果集的形成和查询性能。</li>
-<li><strong>LIMIT 结果集大小：</strong> 如果可能的话，尽量使用 LIMIT 限制结果集的大小。可以减少检索和传输的数据量。</li>
-<li><strong>尽量避免使用多个子查询：</strong>多个嵌套的子查询可能会导致性能问题。尝试将复杂的查询拆分成多个简单的查询，并使用 JOIN 连接它们。</li>
-<li><strong>考虑缓存：</strong> 对于频繁查询的数据，考虑使用缓存机制，如缓存查询结果或使用缓存系统（例如 Redis）。</li>
-<li><strong>分析查询计划：</strong> 使用 <code>EXPLAIN</code> 关键字来分析查询计划，了解 MySQL 如何执行查询。这有助于确定是否使用了适当的索引，以及是否有潜在的性能问题。</li>
-<li><strong>使用索引视图或汇总表：</strong> 对于复杂查询，可以考虑使用索引视图或汇总表，以提前计算并存储查询结果，从而减轻实时查询的负担。</li>
-<li><strong>考虑使用 NoSQL 数据库：</strong> 对于某些类型的查询，可能会考虑使用 NoSQL 数据库，特别是需要处理大量非结构化或半结构化数据的情况。</li>
-</ol>
+<li><p>MySQL主从、、</p>
+<ul>
+<li>主是主库的意思，从是从库的意思。数据库主库对外提供读写的操作，从库对外提供读的操作。</li>
+<li>数据库为什么需要主从架构呢?<ul>
+<li>高可用，实时灾备，用于故障切换。比如主库挂了，可以切从库。</li>
+<li>读写分离，提供查询服务，减少主库压力，提升性能</li>
+<li>备份数据，避免影响业务。</li>
+</ul>
+</li>
+<li>主从复制原理，简言之，分三步曲进行:<ul>
+<li>主数据库有个 <code>bin 1og</code> 二进制文件，纪录了所有增删改 sQL语句。(binlog线程)</li>
+<li>从数据库把主数据库的 <code>bin 1og</code> 文件的 sQL 语句复制到自己的中继日志 <code>relay 1og</code> (io线程)</li>
+<li>从数据库的 <code>relay 1og</code> 重做日志文件，再执行一次这些sql语句。(Sql执行线程)</li>
+</ul>
+</li>
+<li>怎么保证主从一致？<br>  我们学习数据库的主从复制原理后，了解到从库拿到并执行主库的binlog日志，就可以保持数据与主库一致了。这是为什么呢?哪些情况会导致不一致呢?<ul>
+<li>1 长链接<br>  主库和从库在同步数据的过程中断怎么办呢，数据不就会丢失了嘛。因此主库与从库之间维持了一个长链接，主库内部有一个线程，专门服务于从库的这个长链接的。</li>
+<li>2 bintog格式<br>  binlog 日志有三种格式，分别是statement，row和mixed。<br>  如果是 statement 格式，binlog记录的是SQL的原文，如果主库和从库选的索引不一致，可能会导致主库不一致。<br>  如何解决这个问题呢？可以把binlog格式修改为 row。row 格式的 binlog 日志，记录的不是SQL原文，而是两个 event:Table_map 和 Delete_rows 。Table_map event说明要操作的表，Delete_rows event用于定义要删除的行为:记录删除的具体行数。row 格式的binlog记录的就是要删除的主键ID信息,因此不会出现主从不一致的问题。<br>  但是如果SQL删除10万行数据，使用row格式就会很占空间的，10万条数据都在binlog里面写binlog的时候也很耗I0。但是 statement 格式的binlog可能会导致数据不一致，因此设计MySQL的大叔想了一个折中的方案， mixed 格式的binlog。所谓的mixed格式其实就是 row 和statement 格式混合使用，当MySQL判断可能数据不一致时，就用row 格式，否则使用就用statement 格式。</li>
+</ul>
+</li>
+<li>主从延迟、、</li>
+<li>高可用方案<ul>
+<li>双机主备：两台机器A和B，A为主库，负责读写，B为备库，只备份数据。如果A库发生故障，B库成为主库负责读写。修复故障后，A成为备库，主库B同步数据到备库A</li>
+<li>一主一从：两台机器A和B，A为主库，负责读写，B为从库，负责读数据。如果A库发生故障，B库成为主库负责读写。修复故障后，A成为从库，主库B同步数据到从库A</li>
+<li>一主多从：多个从库支持读，分担了主库的压力，明显提升了读的并发度。但只有台主机写，因此写的并发度不高</li>
+<li>MariaDB同步多主机：有代理层实现负载均衡，多个数据库可以同时进行读写操作；各个数据库之间可以通过 Galera Replication 方法进行数据同步，每个库理论上数据是完全一致的。数据库不支持过大。</li>
+<li>数据库中间件：mycat分片存储，每个分片配置一主多从的集群。优点:解决高并发高数据量的高可用方案；缺点:维护成本比较大。</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -772,7 +792,12 @@
 </li>
 <li><p>Redis如何通过 key 查到 value？<br>？？</p>
 </li>
-<li><p>Redis持久化。<br>Redis是基于内存的，假设不做任何操作，只要Redis服务器重启（或者中途故障挂掉了）那内存的数据就会没掉<br>所以Redis提供了持久化机制给我们用，分别是RDB和AOF。通过持久化机制把内存中的数据同步到硬盘文件来保证数据持久化。当Redis重启后通过把硬盘文件重新加载到内存，就能达到恢复数据的目的。<br>RDB：Redis默认的持久化方式。根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redis就会去生成RDB文件。这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据。<br>(RDB是按照一定的时间周期策略把内存的数据以快照的形式保存到硬盘的二进制文件。即Snapshot快照存储，对应产生的数据文件为dump.rdb，通过配置文件中的save参数来定义快照的周期。（ 快照可以是其所表示的数据的一个副本，也可以是数据的一个复制品。）)<br>AOF：Redis会将每一个收到的写命令都通过Write函数追加到文件最后，类似于MySQL的binlog。当Redis重启是会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当两种方式同时开启时，数据恢复Redis会优先选择AOF恢复。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<li><p>Redis持久化。</p>
+<ul>
+<li>Redis是基于内存的，假设不做任何操作，只要Redis服务器重启（或者中途故障挂掉了）那内存的数据就会没掉。所以Redis提供了持久化机制给我们用，分别是RDB和AOF。通过持久化机制把内存中的数据同步到硬盘文件来保证数据持久化。当Redis重启后通过把硬盘文件重新加载到内存，就能达到恢复数据的目的。</li>
+<li>RDB：Redis默认的持久化方式。根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redis就会去生成RDB文件。这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据。<br>  (RDB是按照一定的时间周期策略把内存的数据以快照的形式保存到硬盘的二进制文件。即Snapshot快照存储，对应产生的数据文件为dump.rdb，通过配置文件中的save参数来定义快照的周期。（ 快照可以是其所表示的数据的一个副本，也可以是数据的一个复制品。）)</li>
+<li>AOF：Redis会将每一个收到的写命令都通过Write函数追加到文件最后，类似于MySQL的binlog。当Redis重启是会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当两种方式同时开启时，数据恢复Redis会优先选择AOF恢复。<br>  <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv28294981/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></li>
+</ul>
 </li>
 <li><p>缓存雪崩、缓存击穿、缓存穿透</p>
 <ol>
@@ -800,7 +825,7 @@
 </li>
 </ol>
 </li>
-<li><p>分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程？？？都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>具体做法：？？？<br>先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</p>
+<li><p>？？？分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程？？？都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>具体做法：？？？<br>先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</p>
 </li>
 <li><p>分布式锁实现？？？<br>实现分布式锁可以通过数据库 redis zookeeper。<br>redis setnx是最简单的一种。可以满足基本使用但有些特性和场景没法满足 比如不可重入 不可重试  锁过期删除的一些问题。redisson是在redis基础上也实现了分布式锁，解决了这几个问题就是redisson里面的可重入锁，比如解决不可重入用的是hash结构解决。解决不可重试基于redis的发布订阅。解决锁过期删除基于自己实现的一个看门狗机制。但是redisson这把可重入锁还有一些问题，比如主从时宕机的问题，redisson里面又可以通过有联锁啊 红锁啊解决。不过setnx基本上可以应用于分布式锁了，有一些业务上需要满足一些锁的需求的时候可以考虑更复杂的实现<br>支付宝一面：如何基于Redis实现分布式锁？？？<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA">https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA</a></p>
 </li>
@@ -908,9 +933,9 @@
 </li>
 <li><p>消息队列的应用场景较多，常用的可以分为三种：</p>
 <ul>
-<li>异步处理：主要应用于对实时性要求不严格的场景，比如：用户注册发送验证码、下单通知、发送优惠券等等。服务方只需要把协商好的消息发送到消息队列，剩下的由消费消息的服务去处理，不用等待消费服务返回结果。</li>
-<li>应用解耦：可以看作是把相关但耦合度不高的系统联系起来。比如订单系统与 WMS、EHR 系统，有关联但不哪么紧密，每个系统之间只需要把约定的消息发送到 MQ，另外的系统去消费即可。解决了各个系统可以采用不同的架构、语言来实现，从而大大增加了系统的灵活性。</li>
-<li>流量削峰：一般应用在大流量入口且短时间内业务需求处理不完的服务中心，为了权衡高可用，把大量的并行任务发送到 MQ 中，依据 MQ 的存储及分发功能，平稳的处理后续的业务，起到一个大流量缓冲的作用。</li>
+<li><strong>异步处理：</strong>主要应用于对实时性要求不严格的场景，比如：用户注册发送验证码、下单通知、发送优惠券等等。服务方只需要把协商好的消息发送到消息队列，剩下的由消费消息的服务去处理，不用等待消费服务返回结果。</li>
+<li><strong>应用解耦：</strong>可以看作是把相关但耦合度不高的系统联系起来。比如订单系统与 WMS、EHR 系统，有关联但不哪么紧密，每个系统之间只需要把约定的消息发送到 MQ，另外的系统去消费即可。解决了各个系统可以采用不同的架构、语言来实现，从而大大增加了系统的灵活性。</li>
+<li><strong>流量削峰：</strong>一般应用在大流量入口且短时间内业务需求处理不完的服务中心，为了权衡高可用，把大量的并行任务发送到 MQ 中，依据 MQ 的存储及分发功能，平稳的处理后续的业务，起到一个大流量缓冲的作用。</li>
 </ul>
 </li>
 <li><p>如何进行消息队列选型?</p>

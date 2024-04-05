@@ -354,22 +354,35 @@
 </ul>
 <hr>
 
-<h1 id="毕业设计"><a href="#毕业设计" class="headerlink" title="毕业设计"></a>毕业设计</h1><p><strong>选题</strong>：基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发<br>应完成的项目：<br>（0） 进行金融平台和数据原型系统相关的论文学习<br>（1） 明确系统的功能需求和业务流程，调研各种技术的可行性和使用方法，进行详细设计<br>（2） 爬取金融数据，建设数据库<br>（3） 开发系统前端界面和功能接口<br>（4） 利用Web开发框架及相关组件进行后端开发<br>（5） 对系统前后端功能进行优化和测试评价<br>（6） 完成论文的撰写以及答辩的准备 </p>
+<h1 id="毕业设计"><a href="#毕业设计" class="headerlink" title="毕业设计"></a>毕业设计</h1><p><strong>选题</strong>：基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发<br>应完成的项目（自认为、、）：<br>（0） 进行金融平台和数据原型系统相关的论文学习<br>（1） 明确系统的功能需求和业务流程，调研各种技术的可行性和使用方法，进行详细设计<br>（2） 爬取金融数据，建设数据库<br>（3） 开发系统前端界面和功能接口<br>（4） 利用Web开发框架及相关组件进行后端开发<br>（5） 对系统前后端功能进行优化和测试评价<br>（6） 完成论文的撰写以及答辩的准备 </p>
 <h2 id="数据库建设"><a href="#数据库建设" class="headerlink" title="数据库建设"></a>数据库建设</h2><ul>
 <li>香港市场股票数据库的构建<ul>
 <li>MySql数据库：股票、基金、期货</li>
-<li><h2 id="数据库表结构：参考旧论文"><a href="#数据库表结构：参考旧论文" class="headerlink" title="数据库表结构：参考旧论文"></a>数据库表结构：参考旧论文</h2></li>
-</ul>
-</li>
+<li>数据库表结构：参考旧论文</li>
 <li>用python程序爬取数据<ul>
 <li>python爬虫</li>
 <li>数据清洗</li>
 <li>数据需要爬取相关历史数据，如果不能获取历史数据，就要从现在开始爬取每日的交易数据写入到数据库中；</li>
 </ul>
 </li>
+</ul>
+</li>
 <li>系统架构<ul>
-<li>前端</li>
+<li>前端：</li>
 <li>后端：Django</li>
+<li>定时任务？？</li>
+</ul>
+</li>
+<li>主要工作<ul>
+<li>数据更新、数据下载、数据分析、数据维护四大模块 </li>
+<li>一、香港数据<ol>
+<li>数据实时更新 （1.1 数据列表(香港股票，香港基金，香港指数，香港期货，香港交易所),1.2 基本信息数据（股票、基金、期货），1.3 基本信息， 1.4 财务报表， 1.5 香港历史交易数据（香港股票，香港基金，香港指数，香港期货）， 1.6 当日交易数据（香港股票，香港基金，香港指数，香港期货）） </li>
+<li>数据下载 （2.1 列表数据下载(香港股票，香港基金，香港指数，香港期货，香港交易所)，2.2 基本信息数据下载（股票、基金、期货），2.3 基本信息下载， 2.4 财务报表数据下载， 2.5 香港历史交易数据下载（大陆股票，大陆基金，大陆指数，大陆期货）， 2.6 当日交易数据下载（香港股票，香港基金，香港指数，香港期货））</li>
+<li>数据分析 （3.1 列表数据分析(香港股票，香港基金，香港指数，香港期货，香港交易所)，3.2 基本信息数据分析（股票、基金、期货），3.3 基本信息分析， 3.4 财务报表数据分析， 3.5 大陆历史交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货）， 3.6 当日交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货））</li>
+<li>数据维护 （4.1 数据导出 4.1.1 数据列表导出(香港股票，香港基金，香港指数，香港期货，香港交易所),4.1.2 基本信息数据导出（股票、基金、期货），4.1.3 基本信息数据导出， 4.1.4 财务报表导出， 4.1.5 香港历史交易数据导出（香港陆股票，香港基金，香港指数，香港期货）， 4.1.6 当日交易数据导出（香港股票，香港基金，香港指数，香港期货）， 4.2 数据导入（ 4.2.1 数据列表导入(香港股票，香港基金，香港指数，香港期货，香港交易所),4.2.2 基本信息数据导入（股票、基金、期货），4.2.3 基本信息数据导入， 4.2.4 财务报表导入， 4.2.5 香港历史交易数据导入（香港股票，香港基金，香港指数，香港期货）， 4.2.6 当日交易数据导入（香港股票，香港基金，香港指数，香港期货））】</li>
+</ol>
+</li>
+<li>二、香港相关数据还要包括 【1 深港通、沪港通数据；2. 在港上市的大陆股票；3. 在港国企股；4. 港股的科创板】</li>
 </ul>
 </li>
 </ul>
@@ -511,9 +524,18 @@
 </li>
 </ul>
 <h2 id="视图与模版"><a href="#视图与模版" class="headerlink" title="视图与模版"></a>视图与模版</h2><ul>
-<li>使用Bootstrap实现静态博客页面</li>
-<li>初识Django的模板系统</li>
-<li>使用模板系统渲染博客页面</li>
+<li>使用Bootstrap实现静态博客页面<ul>
+<li>在 project&#x2F;blog&#x2F;template 下创建 index.html</li>
+<li>在 header 引入  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 最新版本的 Bootstrap 核心 CSS 文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css&quot;</span> <span class="attr">integrity</span>=<span class="string">&quot;sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js&quot;</span> <span class="attr">integrity</span>=<span class="string">&quot;sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>静态代码块  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container page-header&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;text-center mb-4&quot;</span>&gt;</span>博客标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container page-body&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-lg-9&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 博客详情1, 2, ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-lg-3&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 博客链接1, 2, ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Django模板系统<ul>
+<li>一个类似html的文本文件，结合view，实现动态页面</li>
+<li>模板语法  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Blog Post&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123; post.title &#125;&#125;&lt;/h1&gt;</span><br><span class="line">   </span><br><span class="line">    &#123;% <span class="keyword">if</span> user.is_authenticated %&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;% url &#x27;logout&#x27; %&#125;&quot;</span>&gt;Logout&lt;/a&gt;</span><br><span class="line">    &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;% url &#x27;login&#x27; %&#125;&quot;</span>&gt;Login&lt;/a&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">    &#123;% <span class="keyword">for</span> comment in post.comments.all %&#125;</span><br><span class="line">        &lt;li&gt;&#123;&#123; comment.content &#125;&#125; - &#123;&#123; comment.author.username &#125;&#125;&lt;/li&gt;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用模板系统渲染博客页面<br>  在 Django 中，模板文件通常存储在应用的 <code>templates</code> 目录下。每个应用都应该有自己的 <code>templates</code> 目录，以便组织模板文件。<br>  在应用的视图函数中，使用模板渲染这个模板文件，并传递上下文数据：  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment"># home_view 视图函数渲染了 home.html 模板，并向模板传递了两个变量：name 和 date</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">home_view</span>(<span class="params">request</span>):</span><br><span class="line">    context = &#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;My Django Website&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;date&#x27;</span>: datetime.now(),</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;home.html&#x27;</span>, context)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ul>
 
       
