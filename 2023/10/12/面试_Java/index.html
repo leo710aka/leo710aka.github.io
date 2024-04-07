@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-06T15:58:04.191Z">
+<meta property="article:modified_time" content="2024-04-07T03:42:10.409Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -243,7 +243,7 @@
 <ul>
 <li>“字面量创建字符串”：yesA 是一个引用指向了堆里面的字符串常量池里的对象 a。如果字符串常量池已经有了 abb，那么直接返回其引用，如果没有 abb，则会创建 abb 对象，然后返回其引用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;abb&quot;</span>; </span><br><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="string">&quot;abb&quot;</span>;                </span><br><span class="line">System.out.printIn(yesA == yesB);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
 <li>“new String创建字符串”：先判断字符串常量池里面是否有 abb，如果没有 abb 则创建一个 abb，然后会在堆内存里面创建一个对象 abb，返回堆内存对象 abb 的引用，也就是说返回的不是字符串常量池里面的 abb  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yesA = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abb&quot;</span>); </span><br><span class="line">yesB = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abb&quot;</span>);           </span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure></li>
-<li>intern()：判断下 yesB 引用指向的值在字符串常量里面是否有，如果没有就在字符串常量池里面新建一个 aaabbb 对象，返回其引用，如果有则直接返回引用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;      <span class="comment">// 通过字面量定义了 yesA，在字符串常量池里创建 aaabbb 对象，返回其引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>); <span class="comment">// 返回堆内的引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       </span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// false</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+<li>intern()：判断下 yesB 引用指向的值在字符串常量里面是否有，如果没有就在字符串常量池里面新建一个 aaabbb 对象，返回其引用，如果有则直接返回引用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;    <span class="comment">// 通过字面量定义了 yesA，在字符串常量池里创建 aaabbb 对象，返回其引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>); <span class="comment">// 返回堆内的引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       </span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// false</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
 <li>JDK 1.6 时，字符串常量池是放置在永久代的;<br>  ??? JDK 1.7 之后字符串常量池是放在堆内的  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">yesB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;bbb&quot;</span>);  <span class="comment">// 此时，堆内会新建一个 aaabbb 对象，字符串常量池里不会创建，因为并没有出现 aaabbb 这个字面量。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesC</span> <span class="operator">=</span> yesB.intern();       <span class="comment">// 1.7 之后，如果堆内已经存在某个字符串对象的话，再调用 intern 此时不会在字符串常量池内新建对象，而是直接保存这个引用然后返回。</span></span><br><span class="line"><span class="type">String</span> <span class="variable">yesA</span> <span class="operator">=</span> <span class="string">&quot;aaabbb&quot;</span>;            <span class="comment">// yesA 得到的引用与 yesC 和 yesB 一致，都指向堆内的 aaabbb 对象。</span></span><br><span class="line">System.out.println(yesA == yesB);  <span class="comment">// true</span></span><br><span class="line">System.out.println(yesA == yesC);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -611,25 +611,34 @@
 </li>
 </ul>
 </li>
+<li><p>面向对象设计中五大设计原则 SOLID、、</p>
+<ol>
+<li><strong>单一职责原则（SRP）</strong>：    每个类或模块应该有且仅有一个引起它变化的原因，即一个类或模块应该只负责一种类型的任务或功能。这样可以提高代码的内聚性和可维护性，减少代码的复杂度。</li>
+<li><strong>开放封闭原则（OCP）</strong>：    软件实体（类、模块、函数等）应该对扩展开放，对修改关闭。即通过扩展现有的代码来实现新的功能，而不是修改已有的代码。这样可以降低修改已有代码带来的风险，并提高系统的稳定性。</li>
+<li><strong>里氏替换原则（LSP）</strong>：    子类必须能够替换掉父类并出现在父类能够出现的任何地方，而不影响程序的正确性。即子类应该完全实现父类的方法，并且遵循父类的约定和契约。</li>
+<li><strong>接口隔离原则（ISP）</strong>：    不应该强迫客户端依赖它们不需要的接口。接口应该小而专一，应该根据实际需要定义多个接口，而不是一个臃肿的接口。这样可以降低类之间的耦合度，提高系统的灵活性和可维护性。</li>
+<li><strong>依赖倒置原则（DIP）</strong>：    高层模块不应该依赖于低层模块，它们都应该依赖于抽象。抽象不应该依赖于具体实现细节，具体实现细节应该依赖于抽象。这样可以降低模块之间的耦合度，提高系统的灵活性和可扩展性。</li>
+</ol>
+</li>
 <li><p>常用的<strong>设计模式、、</strong></p>
 <ul>
-<li>策略模式：定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的的客户。<ul>
+<li><strong>策略模式</strong>：定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的的客户。<ul>
 <li>使用场景：如果代码有多个 if…else 等条件分支，并且每个条件分支，可以封装起来替换的，我们就可以使用策略模式来优化。</li>
 <li>模式实现：一个接口或者抽象类，里面两个方法(一个方法匹配类型，一个可替换的逻辑实现方法)、不同策略的差异化实现(即，不同策略的实现类)、使用策略模式</li>
 <li>模式使用：我们借助 spring 的生命周期，使用 ApplicationcontextAware 接口，把对用的策略，初始化到 map 里面。然后对外提供 resolveFile 方法即可。</li>
 </ul>
 </li>
-<li>责任链模式：实际上是一种处理请求的模式，它让多个处理器(对象节点)都有机会处理该请求，直到其中某个处理成功为止。责任链模式把多个处理器串成链，然后让请求在链上传递。<ul>
+<li><strong>责任链模式</strong>：实际上是一种处理请求的模式，它让多个处理器(对象节点)都有机会处理该请求，直到其中某个处理成功为止。责任链模式把多个处理器串成链，然后让请求在链上传递。<ul>
 <li>使用场景：当你想要让一个以上的对象有机会能够处理某个请求的时候，就使用责任链模式。责任链上，每个对象的差异化处理，如本小节的业务场景，就有参数校验对象、安全校验对象、黑名单校验对象、规则拦截对象</li>
 <li>模式实现：一个接口或者抽象类、每个对象差异化处理、对象链(数组)初始化(连起来)</li>
 <li>这个接口或者抽象类，需要：有一个指向责任下一个对象的属性、一个没置下一个对象的set方法、给子类对象有异化实现的方法(如以下代码的doFiter方法)</li>
 </ul>
 </li>
-<li>模版方法模式：定义一个操作中的算法的骨架流程，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。它的核心思想就是:定义一个操作的一系列步骤，对于某些暂时确定不下来的步骤，就留给子类去实现，这样不同的子类就可以定义出不同的步骤。<ul>
+<li><strong>模版方法模式</strong>：定义一个操作中的算法的骨架流程，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。它的核心思想就是:定义一个操作的一系列步骤，对于某些暂时确定不下来的步骤，就留给子类去实现，这样不同的子类就可以定义出不同的步骤。<ul>
 <li>模式实现：一个抽象类，定义骨架流程(抽象方法放一起)确定的共同方法步骤，放到抽象类(去除抽象方法标记)。不确定的步骤，给子类去差异化实现</li>
 </ul>
 </li>
-<li>观察者模式：于行为模式，一个对象(被观察者)的状态发生改变，所有的依赖对象(观察者对象)都将得到通知，进行广播通知。<ul>
+<li>观察者模式：行为模式，一个对象(被观察者)的状态发生改变，所有的依赖对象(观察者对象)都将得到通知，进行广播通知。<ul>
 <li>它的主要成员就是观察者和被观察者。<ul>
 <li>被观察者(0bserverable):目标对象，状态发生变化时，将通知所有的观察者。</li>
 <li>观察者(observer):接受被观察者的状态变化通知，执行预先定义的业务。</li>
@@ -639,11 +648,12 @@
 <li>模式实现：一个被观察者的类Observerable、多个观察者Observer、观察者的差异化实现、经典观察者模式封装:EventBus实战</li>
 </ul>
 </li>
-<li>工厂模式：<ul>
+<li><strong>工厂模式</strong>：<ul>
 <li>工厂模式一般配合策略模式一起使用。用来去优化大量的if..else..或switc…cas…条件语句。</li>
 <li>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。</li>
 </ul>
 </li>
+<li>单例模式、、</li>
 </ul>
 </li>
 <li><p>工厂模式和抽象工厂的区别</p>
@@ -730,9 +740,14 @@
 </li>
 <li><p>ArrayList 的 <code>remove</code>、、</p>
 <ul>
-<li>根据索引删除元素：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// 删除索引为 0 的元素，可能会抛 ConcurrentModificationException 异常</span></span><br></pre></td></tr></table></figure></li>
-<li>根据对象删除元素：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(Integer.valueOf(<span class="number">5</span>)); <span class="comment">// 删除值为 5 的元素</span></span><br></pre></td></tr></table></figure></li>
-<li>使用迭代器删除元素：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">    <span class="keyword">if</span> (num == <span class="number">5</span>) &#123;</span><br><span class="line">        iterator.remove(); <span class="comment">// 删除符合条件的元素</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>根据索引删除元素；删除元素后，后面的元素会向前移动，列表的大小会减少。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// 删除索引为 0 的元素</span></span><br></pre></td></tr></table></figure></li>
+<li>根据对象删除元素：remove(Object o) 方法可以删除列表中第一次出现的指定对象。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(Integer.valueOf(<span class="number">5</span>)); <span class="comment">// 删除值为 5 的元素</span></span><br></pre></td></tr></table></figure></li>
+<li>使用迭代器删除元素：使用 Iterator 遍历 ArrayList，并使用迭代器的 remove 方法安全地删除元素。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">    <span class="keyword">if</span> (num == <span class="number">5</span>) &#123;</span><br><span class="line">        iterator.remove(); <span class="comment">// 删除符合条件的元素</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>**<code>ConcurrentModificationException</code>**异常：在遍历过程中直接调用 remove() 可能会引起并发修改异常。这是因为在遍历过程中修改了集合结构，导致迭代器的检测机制检测到并抛出异常。为避免，可采用以下方法：<ul>
+<li>在迭代过程中不修改集合的结构，可以通过复制集合或者使用迭代器的 remove 方法进行安全的删除操作。</li>
+<li>在多线程环境下，可以使用线程安全的集合类（如 ConcurrentHashMap）或者采用同步机制（如使用 synchronized 关键字或者使用 Lock）来保证集合的线程安全性。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>ArrayList如何实现线程安全？</p>
@@ -753,7 +768,7 @@
 </li>
 <li><p>set 集合<br>Set 注重独一无二的性质,该体系集合用于存储无序(存入和取出的顺序不一定相同)元素， 值不能重复。对象的相等性本质是对象 hashCode 值（java 是依据对象的内存地址计算出的此序号） 判断的， 如果想要让两个不同的对象视为相等的，就必须覆盖 Object 的 hashCode 方法和 equals 方法。</p>
 </li>
-<li><p>HashSet（Hash 表）<br>哈希表边存放的是哈希值。 HashSet 存储元素的顺序并不是按照存入时的顺序（和 List 显然不同） 而是按照哈希值来存的所以取数据也是按照哈希值取得。<br>元素的哈希值是通过元素的hashcode 方法来获取的, HashSet 首先判断两个元素的哈希值，如果哈希值一样，接着会比较equals 方法 如果 equls 结果为 true ， HashSet 就视为同一个元素。如果 equals 为 false 就不是同一个元素。<br>哈希值相同 equals 为 false 的元素是怎么存储呢,就是在同样的哈希值下顺延（可以认为哈希值相同的元素放在一个哈希桶中）。也就是哈希一样的存一列。 </p>
+<li><p>HashSet（Hash 表）<br>哈希表边存放的是哈希值。 HashSet 存储元素的顺序并不是按照存入时的顺序（和 List 显然不同） 而是按照哈希值来存的所以取数据也是按照哈希值取得。<br>元素的哈希值是通过元素的hashcode 方法来获取的, HashSet 首先判断两个元素的哈希值，如果哈希值一样，接着会比较equals 方法 如果 equls 结果为 true ， HashSet 就视为同一个元素。如果 equals 为 false 就不是同一个元素。<br>哈希值相同 equals 为 false 的元素是怎么存储呢,就是在同样的哈希值下顺延（可以认为哈希值相同的元素放在一个哈希桶中）。</p>
 </li>
 <li><p>HashSet、HashMap 和 Hashtable 的关系。</p>
 <ul>
@@ -797,7 +812,7 @@
 <li>Jdk1.7 到 Jdk1.8 HashMap 发生了什么变化(底层)?<ul>
 <li>1.7中底层是数组+链表，1.8中底层是数组+链表+红黑树，加红黑树的目的是提高HashMap插入和查询整体效率</li>
 <li>1.7中链表插入使用的是头插法，1.8使用的是尾插法，因为1.8中插入key和value时需要判断链表元素个数，所以需要遍历链表统计链表元素个数，所以正好就直接使用尾插法</li>
-<li>1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源  <img src="https://leo710aka.github.io/bk/job13.png" width="550" height="300" alt=""></li>
+<li>1.7中哈希算法比较复杂，存在各种右移与异或运算，1.8中进行了简化，因为复杂的哈希算法的目的就是提高散列性，来提供HashMap的整体效率，而1.8中新增了红黑树，所以可以适当的简化哈希算法，节省CPU资源<br>  ？？？<img src="https://leo710aka.github.io/bk/job13.png" width="550" height="300" alt=""><br>  ？？？</li>
 </ul>
 </li>
 </ul>
@@ -877,7 +892,7 @@
 <li><p>红黑树</p>
 <ul>
 <li>Red-Black Tree是一种自平衡的二叉搜索树，它通过一些附加的信息（颜色标记）保持树的平衡。这种平衡性质确保了在最坏情况下对于各种基本动态集合操作（插入、删除、查找）的性能都有较好的上界，保证了树的高度是对数级别的。</li>
-<li>在Java中，<code>TreeMap</code> 和 <code>TreeSet</code> 类使用红黑树来实现<strong>有序</strong>映射和<strong>有序</strong>集合。(HashMap使用了数组，结合链表或红黑树来处理碰撞)</li>
+<li>在Java中，<code>TreeMap</code> 和 <code>TreeSet</code> 类使用红黑树来实现<strong>有序</strong>映射和<strong>有序</strong>集合。</li>
 <li>红黑树具有以下几个特征：<ol>
 <li>节点颜色： 每个节点都带有颜色，可以是红色或黑色。</li>
 <li>根节点和叶子节点： 根节点和所有叶子节点（NIL节点）都是黑色的。</li>
@@ -1041,11 +1056,15 @@
 </li>
 <li><p>程序员可以根据需要控制JVM在特定时间进行垃圾回收吗？<br>在大多数情况下，不能直接控制 JVM 在特定时间进行垃圾回收。垃圾回收是 JVM 的自动内存管理系统的一部分，其目标是在运行时自动回收不再使用的内存，而不需要程序员显式干预。但是,可以通过一些 JVM 参数和 API 间接地影响垃圾回收的行为。</p>
 </li>
-<li><p>如何判断对象可以被回收判断？<br>一般有两种方式：<br>引用计数：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。<br>可达性分析：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的，不可达对象。</p>
+<li><p>如何判断对象可以被回收判断？</p>
+<ol>
+<li>引用计数：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</li>
+<li>可达性分析：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的，不可达对象。</li>
+</ol>
 </li>
 <li><p>JVM有哪些垃圾回收算法?</p>
 <ol>
-<li>标记清除算法:<br>  a.标记阶段:把垃圾内存标记出来<br>  b.清除阶段：直接将垃圾内存回收。<br>  c.这种算法是比较简单的，但是有个很严重的问题，就是会产生大量的内存碎片。</li>
+<li>标记清除算法：a.标记阶段:把垃圾内存标记出来；b.清除阶段：直接将垃圾内存回收。<br>  这种算法是比较简单的，但是有个很严重的问题，就是会产生大量的内存碎片。</li>
 <li>复制算法：为了解决标记清除算法的内存碎片问题，就产生了复制算法。复制算法将内存分为大小相等的两半，每次只使用其中一半。垃圾回收时，将当前这一块的存活对象全部拷贝到另一半，然后当前这一半内存就可以直接清除。这种算法有内存碎片，但是他的问题就在于浪费空间。而且，他的效率跟存活对象的个数有关。</li>
 <li>标记压缩算法:为了解决复制算法的缺陷，就提出了标记压缩算法。这种算在标记阶段跟标记清除算法是一样的，但是在完成标记之后，不是直接清理垃圾内存，而是将存活对象往一端移动，然后将边界以外的所有内存直接清除。</li>
 </ol>
@@ -1103,8 +1122,9 @@
 </li>
 </ul>
 </li>
-<li><p>有没有排查过线上 oom 的问题？<br>  没有，但是，知道。。。<br>  OOM 是 out of memory 的简称，表示程序需要的内存空间大于 JVM 分配的内存空间。OOM 后果就是导致程序崩溃；可以通俗理解：程序申请内存过大，虚拟机无法满足。</p>
+<li><p>有没有排查过线上 oom 的问题？</p>
 <ul>
+<li>没有，但是，知道。。。<br>  OOM 是 out of memory 的简称，表示程序需要的内存空间大于 JVM 分配的内存空间。OOM 后果就是导致程序崩溃；可以通俗理解：程序申请内存过大，虚拟机无法满足。</li>
 <li>导致 OOM 错误的情况一般是：<br>  1、给 JVM 虚拟机分配的内存太小，实际业务需求对内存的消耗比较多<br>  2、Java 应用里面存在内存泄漏的问题，或者应用中有大量占用内存的对象，并且没办法及时释放。我给大家解释一下内存泄漏和内存溢出是两个完全不一样的情况<br>  内存泄露：申请使用完的内存没有释放，导致虚拟机不机不能再次使用该内存，此时这段内存就泄露了，因为申请者不用了，而又不能被虚拟机分机分配给别人用。<br>  内存溢出：申请的内存超出了 JVM 能提供的内存大小，此时称之为溢出。</li>
 <li>常见的 OOM 异常情况有两种：<br>  java.lang.OutOfMemoryError: Java heap space ——&gt;java 堆内存溢出，此种情况最常见，一般由于内存泄露或者堆的大小设置不当引起。对于内存泄露，需要通过内存监控软件查找程序中的泄露代码，而堆大小可以通过虚拟机参数-Xms,-Xmx 来修改。<br>  java.lang.OutOfMemoryError: PermGen space 或java.lang.OutOfMemoryError：MetaSpace ——&gt;java 方法区，溢出了，一般出现在大量 Class、或者采用 cglib 等反射机制的情况，因为这些情况会产生大量的 Class 信息存储于方法区。这种情况可以通过更改方法区的大小来解决，使用类似-XX:PermSize&#x3D;64m-XX:MaxPermSize&#x3D;256m 的形式修改。</li>
 <li>另外，过多的常量尤其是字符串也会导致方法区溢出。<br>  遇到这类问题，通常的排查方式是，先获取内存的 Dump 文件。Dump 文件有两种方式来生成：第一种是配置 JVM 启动参数，当触发了 OOM 异常的时候自动生成；第二种是使用 jmap 工具来生成。<br>  然后使用 MAT 工具来分析 Dump 文件。如果是内存泄漏，可进一步通过工具查看泄漏对象到 GC Roots 的引用链。掌握了泄漏对象的类信息和 GC Roots 引用链的信息，就可以比较准确地定位泄漏代码的位置。如果是普通的内存溢出，确实有很多占用内存的对象，那就只需要提升堆内存空间即可。</li>
@@ -1281,6 +1301,11 @@
 </li>
 <li><p>volatile</p>
 </li>
+<li><p>Reentrantlock</p>
+<ul>
+<li>基本使用：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReentrantLockExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">// 默认非公平锁，true 启用公平锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lockMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 受保护的代码区</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li><p><strong>synchronized 和 ReentrantLock 的区别</strong></p>
 <ul>
 <li>synchronized<ol>
@@ -1288,7 +1313,7 @@
 <li>它能够确保在同一时刻只有一个线程可以执行 synchronized 修饰的方法或代码块。</li>
 <li>不需要手动释放锁，当 synchronized 方法或代码块执行完毕后，锁自动释放。</li>
 <li>不支持公平锁、可中断锁等高级功能。</li>
-<li>具有可重入性。当一个线程已经获取了某个对象的 synchronized 锁时，可以继续在持有该锁的情况下进入其他被该锁保护的代码块，而不会被阻塞。例如，当一个方法中嵌套调用另一个使用 synchronized 的方法时，同一个线程可以重复获取该对象的锁而不会发生死锁。</li>
+<li>？？？具有可重入性。当一个线程已经获取了某个对象的 synchronized 锁时，可以继续在持有该锁的情况下进入其他被该锁保护的代码块，而不会被阻塞。例如，当一个方法中嵌套调用另一个使用 synchronized 的方法时，同一个线程可以重复获取该对象的锁而不会发生死锁。</li>
 </ol>
 </li>
 <li>ReentrantLock<ol>
@@ -1296,7 +1321,7 @@
 <li>必须手动声明锁的获取和释放（通过 lock() 和 unlock() 方法）。</li>
 <li>支持许多高级功能，如可中断的锁等待、公平锁、锁续租等。</li>
 <li>支持可中断的锁等待（ lockInterruptibly() ）、提供了条件变量（Condition）支持，允许分开管理线程间的通信。</li>
-<li>具有可重入性。当一个线程已经获取了 ReentrantLock 锁时，可以继续多次获取相同的锁而不会被阻塞，从而实现锁的可重入性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReentrantLockExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">// 默认非公平锁，ReentrantLock(true) 启用公平锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lockMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 受保护的代码区</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>？？？具有可重入性。当一个线程已经获取了 ReentrantLock 锁时，可以继续多次获取相同的锁而不会被阻塞，从而实现锁的可重入性。</li>
 </ol>
 </li>
 </ul>
@@ -1304,7 +1329,7 @@
 <li><p>synchronized 和 violated 的区别？</p>
 <ul>
 <li>synchronized 是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。</li>
-<li>volatile 本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取；<br>  一旦一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰之后，那么就具备了两层语义：<br>  1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>  2）禁止进行指令重排序。</li>
+<li>volatile 本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取；<br>  一旦一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰之后，那么就具备了两层语义：<br>  1、保证了不同线程对这个变量进行操作时的可见性，即一个线程修改某个变量的新值对其他线程是立即可见的；<br>  2、禁止进行指令重排序。</li>
 <li>1.volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、和类级别的</li>
 <li>2.volatile仅能实现变量的修改可见性，并不能保证原子性；synchronized则可以保证变量的修改可见性和原子性</li>
 <li>3.volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞。</li>
@@ -1337,7 +1362,7 @@
 </li>
 <li><p>ThreadLocal的底层原理<br>1，Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据<br>2，Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（注意不是Threadloca对象）中都存在ThreadlocalMap，Map的key为Thredloca对象，Map的value为需要授存的值<br>？？3，如果在线程池中使用Threadloal会造成内存泄漏，因为当Threadloca对象使用完之后，应该要把设置的key,value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线理对象是通过观引用指向ThreadlocaMap，ThreadlocaMap也是通过用强引用指向entry对象，线理不被回收，entry对象也就不会被回收，从而出现内存泄露，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象<br>4，Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</p>
 </li>
-<li><p>线程池？</p>
+<li><p>？？？线程池？</p>
 <ul>
 <li>线程池是管理一系列线程的资源池，用到了池化技术，像数据库连接池、HTTP 连接池都是池化技术的体现，主要目的是为了提高资源的利用率。</li>
 <li>使用线程池的好处<br>  1）降低资源消耗，通过重复利用已创建的线程来降低创建和销毁线程的消耗。<br>  2）提高响应速度，因为当有任务到达时，线程已经被创建完毕，立刻能执行任务。<br>  3）提高线程的可管理性，线程池可以批量管理线程，并且可以监控和调优，根据实际情况修改参数能将线程池效率发挥最大化。使用线程池可以让多个不相关的任务同时执行。</li>

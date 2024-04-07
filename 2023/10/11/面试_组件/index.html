@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-05T12:31:35.061Z">
+<meta property="article:modified_time" content="2024-04-07T03:02:25.695Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -645,13 +645,16 @@
 <li>MyBatis 框架适用场合<br>  1、MyBatis 专注于 SQL 本身，是一个足够灵活的 DAO 层解决方案。<br>  2、对性能的要求很高，或者需求变化较多的项目，如互联网项目，MyBatis 将是不错的选择。</li>
 </ul>
 </li>
-<li><p>#{} 与 ${} 的区别？<br>  两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析</p>
-<ol>
+<li><p>#{} 与 ${} 的区别？</p>
+<ul>
+<li>两种占位符，都是实现动态sql的方式，可以把参数传递到xml中，执行操作前，mybatis会对这两个占位符进行动态解析<ol>
 <li><strong><code>#&#123;&#125;</code>（预编译）</strong>：<code>#&#123;&#125;</code> 是 MyBatis 的预处理语法，会在 SQL 中使用占位符 <code>?</code> 的形式，通过预编译的方式来处理参数，可以有效防止 SQL 注入攻击。使用 <code>#&#123;&#125;</code> 时，MyBatis 会将传入的参数值转义并进行预编译，同时会根据参数的类型决定使用不同的 JDBC 类型。这种方式可以确保 SQL 的安全性。</li>
 <li><strong><code>$&#123;&#125;</code>（拼接字符串）</strong>：<code>$&#123;&#125;</code> 是 MyBatis 的字符串替换语法，会直接将传入的参数值以字符串的形式拼接到 SQL 语句中。使用 <code>$&#123;&#125;</code> 时，需要注意潜在的 SQL 注入风险，因为参数值会直接替换到 SQL 语句中，不会进行预编译。</li>
-<li>#{} 适用于参数值，防止 SQL 注入，用于预编译。${} 适用于非参数值，直接将参数值拼接到 SQL 语句中。</li>
 </ol>
-<p>  在开发中，推荐使用 #{} 来处理参数，以保障 SQL 的安全性。${} 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</p>
+</li>
+<li>#{} 适用于参数值，防止 SQL 注入，用于预编译。${} 适用于非参数值，直接将参数值拼接到 SQL 语句中。</li>
+<li>在开发中，推荐使用 #{} 来处理参数，以保障 SQL 的安全性。${} 的使用应谨慎，尽量避免直接将用户输入的数据用于 <code>$&#123;&#125;</code> 形式的参数。</li>
+</ul>
 </li>
 <li><p>当实体类中的属性名和表中的字段名不一样，怎么办 ？</p>
 <ol>
@@ -661,9 +664,6 @@
 <li>通过 resultMap 映射字段名和实体类属性名的一一对应的关系。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;getOrder&quot; parameterType<span class="operator">=</span>&quot;int&quot; resultMap<span class="operator">=</span>&quot;orderresultmap&quot;<span class="operator">&gt;</span></span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> order_id<span class="operator">=</span>#&#123;id&#125;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span>resultMap type<span class="operator">=</span>”me.gacl.domain.order” id<span class="operator">=</span>”orderresultmap”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 id 属性来映射主键字段–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span>id property<span class="operator">=</span>”id” <span class="keyword">column</span><span class="operator">=</span>”order_id”<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">!</span>–用 <span class="keyword">result</span> 属性来映射非主键字段，property 为实体类属性名，<span class="keyword">column</span>为数据表中的属性–<span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property <span class="operator">=</span> “orderno” <span class="keyword">column</span> <span class="operator">=</span>”order_no”<span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line">    <span class="operator">&lt;</span><span class="keyword">result</span> property<span class="operator">=</span>”price” <span class="keyword">column</span><span class="operator">=</span>”order_price” <span class="operator">/</span><span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span>reslutMap<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
   优点：将映射关系从代码中分离出来，使得配置更加灵活。<br>  缺点：需要额外的配置文件，增加了维护成本。</li>
 </ol>
-</li>
-<li><p>模糊查询 like 语句该怎么写?<br>结合动态 SQL 来实现，需要根据 name 进行模糊查询，在 Mapper.xml 文件中编写 SQL 语句：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;findUserByName&quot; parameterType<span class="operator">=</span>&quot;string&quot; resultType<span class="operator">=</span>&quot;User&quot;<span class="operator">&gt;</span></span><br><span class="line">    <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span></span><br><span class="line">    <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> CONCAT(<span class="string">&#x27;%&#x27;</span>, #&#123;name&#125;, <span class="string">&#x27;%&#x27;</span>)</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>???通常一个 Xml 映射文件，都会写一个 Dao 接口与之对应，请问，这个 Dao 接口的工作原理是什么？<br>Dao 接口里的方法，参数不同时，方法能重载吗？Dao 接口即 Mapper 接口。接口的全限名，就是映射文件中的 namespace 的值；接口的方法名，就是映射文件中 Mapper 的 Statement的 id 值；接口方法内的参数，就是传递给 sql 的参数。Mapper 接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为 key 值，可唯一定位一个 MapperStatement。在 Mybatis 中，每一个<br>，，、、</p>
 </li>
@@ -699,7 +699,7 @@
 <h2 id="八股（Redis）"><a href="#八股（Redis）" class="headerlink" title="八股（Redis）"></a>八股（Redis）</h2><ul>
 <li><p>什么是 Redis?</p>
 <ul>
-<li>Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key-value 数据库。 Redis是一种NoSQL。<br>  NoSQL（Not Only SQL）是一种用于存储和检索非结构化或半结构化数据的数据库系统，主要包括以下几种类型：<br>  1、键值存储数据库（Key-Value Stores）**包括Redis、Amazon DynamoDB和Riak。<br>  2、文档型数据库：存储的是类似于JSON或XML格式的文档，可以使用键来检索。示例包括MongoDB和Couchbase。<br>  3、图形数据库：以图形结构存储数据，用于处理复杂的关系和连接。示例包括Neo4j和Amazon Neptune。<br>  4、搜索引擎：搜索引擎允许用户通过关键字搜索文本数据。示例包括Elasticsearch和Apache Solr。</li>
+<li>Redis 是完全开源免费的，遵守 BSD 协议，是一个高性能的 key-value 数据库。 Redis是一种NoSQL。<br>  NoSQL（Not Only SQL）是一种用于存储和检索非结构化或半结构化数据的数据库系统，主要包括以下几种类型：<br>  1、键值存储数据库（Key-Value Stores）包括Redis、Amazon DynamoDB和Riak。<br>  2、文档型数据库：存储的是类似于JSON或XML格式的文档，可以使用键来检索。示例包括MongoDB和Couchbase。<br>  3、图形数据库：以图形结构存储数据，用于处理复杂的关系和连接。示例包括Neo4j和Amazon Neptune。<br>  4、搜索引擎：搜索引擎允许用户通过关键字搜索文本数据。示例包括Elasticsearch和Apache Solr。</li>
 <li>Redis 与其他 key-value 缓存产品有以下三个特点：<br>  Redis 支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。<br>  Redis 不仅仅支持简单的 key-value 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储。<br>  Redis 支持数据的备份，即 master-slave 模式的数据备份。</li>
 <li>Redis 优势<br>  性能极高；Redis 能读的速度是 110000 次&#x2F;s,写的速度是 81000 次&#x2F;s 。<br>  丰富的数据类型,Redis 支持二进制案例的 Strings, Lists, Hashes,Sets 及Ordered Sets 数据类型操作。<br>  原子:Redis 的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。通过 MULTI 和 EXEC指令包起来。<br>  丰富的特性 – Redis 还支持 publish&#x2F;subscribe, 通知, key 过期等等特性。</li>
 </ul>
@@ -720,34 +720,28 @@
 <li>多路复用是一种提高 I&#x2F;O 效率的技术，它可以同时监听多个文件描述符的 I&#x2F;O 事件，并且在有事件发生时立即通知应用程序，从而避免了轮询的开销。在 Redis 中，网络 I&#x2F;O 多路复用主要涉及到客户端与服务端之间的通信，使用类似 epoll 的事件驱动机制来处理网络 I&#x2F;O 多路复用，通过监听套接字上的事件并采用非阻塞 I&#x2F;O 模式，实现了高效的网络通信和并发处理能力。</li>
 </ul>
 <ol>
-<li><strong>事件驱动模型</strong>：</li>
-</ol>
-<ul>
+<li><strong>事件驱动模型</strong>：<ul>
 <li>Redis 使用事件驱动模型来处理网络 I&#x2F;O，通过监听套接字上的读写事件，实现异步的网络通信。</li>
 <li>在客户端连接到 Redis 服务器时，服务器会将该客户端的套接字加入到事件驱动器中进行监听。</li>
 </ul>
-<ol start="2">
-<li><strong>epoll 机制</strong>：</li>
-</ol>
-<ul>
+</li>
+<li><strong>epoll 机制</strong>：<ul>
 <li>在 Linux 系统中，Redis 使用 epoll 作为网络 I&#x2F;O 多路复用的实现机制之一。</li>
 <li>epoll 是一种高效的 I&#x2F;O 多路复用技术，可以同时监控多个文件描述符的 I&#x2F;O 事件，并将有事件发生的文件描述符返回给应用程序处理。</li>
 <li>Redis 使用 epoll_wait 函数来等待套接字上的事件，并在事件发生时处理对应的网络 I&#x2F;O 操作。</li>
 </ul>
-<ol start="3">
-<li><strong>非阻塞 I&#x2F;O</strong>：</li>
-</ol>
-<ul>
+</li>
+<li><strong>非阻塞 I&#x2F;O</strong>：<ul>
 <li>Redis 使用了非阻塞 I&#x2F;O 模式来处理套接字的读写操作，这样可以避免在等待数据到达时线程被阻塞，提高了系统的并发处理能力。</li>
 <li>当客户端发送数据给 Redis 服务器时，服务器会尽可能地读取数据，而不是等待数据全部到达再进行处理。</li>
 </ul>
-<ol start="4">
-<li><strong>事件循环</strong>：</li>
-</ol>
-<ul>
+</li>
+<li><strong>事件循环</strong>：<ul>
 <li>Redis 的服务器主循环是一个事件驱动的循环，不断地监听客户端套接字上的事件并处理。</li>
 <li>当有新的连接请求、数据到达、连接断开等事件发生时，服务器会相应地调用相应的处理函数来处理这些事件。</li>
 </ul>
+</li>
+</ol>
 </li>
 <li><p>Redis 常见性能问题和解决方案？<br>(1) Master 最好不要做任何持久化工作，如 RDB 内存快照和 AOF 日志文件<br>(2) 如果数据比较重要，某个 Slave 开启 AOF 备份数据，策略设置为每秒同步一次<br>(3) 为了主从复制的速度和连接的稳定性， Master 和 Slave 最好在同一个局域网内<br>(4) 尽量避免在压力很大的主库上增加从库(5) 主从复制不要用图状结构，用单向链表结构更为稳定，即： Master &lt;- Slave1 &lt;- Slave2 &lt;-Slave3…</p>
 </li>
@@ -825,9 +819,17 @@
 </li>
 </ol>
 </li>
-<li><p>？？？分布式锁<br>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.<br>基本原理：<br>1、同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。<br>2、分布式锁：在多个进程？？？都能访问到的地方，做一个标记，标识该数据的访问权限<br>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>具体做法：？？？<br>先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</p>
+<li><p>？？？分布式锁、、</p>
+<ul>
+<li>场景：修改时，经常需要先将数据读取到内存，在内存中修改后再存回去。在分布式应用中，可能多个进程同时执行上述操作，而读取和修改非原子操作，所以会产生冲突。增加分布式锁，可以解决此类问题.</li>
+<li>基本原理：<ol>
+<li>同步锁：在多个线程都能访问到的地方，做一个标记，标识该数据的访问权限。</li>
+<li>分布式锁：在多个进程？？？都能访问到的地方，做一个标记，标识该数据的访问权限</li>
+</ol>
 </li>
-<li><p>分布式锁实现？？？<br>实现分布式锁可以通过数据库 redis zookeeper。<br>redis setnx是最简单的一种。可以满足基本使用但有些特性和场景没法满足 比如不可重入 不可重试  锁过期删除的一些问题。redisson是在redis基础上也实现了分布式锁，解决了这几个问题就是redisson里面的可重入锁，比如解决不可重入用的是hash结构解决。解决不可重试基于redis的发布订阅。解决锁过期删除基于自己实现的一个看门狗机制。但是redisson这把可重入锁还有一些问题，比如主从时宕机的问题，redisson里面又可以通过有联锁啊 红锁啊解决。不过setnx基本上可以应用于分布式锁了，有一些业务上需要满足一些锁的需求的时候可以考虑更复杂的实现<br>支付宝一面：如何基于Redis实现分布式锁？？？<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA">https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA</a></p>
+<li>实现方式：1、基于数据库实现分布式锁 2、基于Redis实现分布式锁 3、基于zookeeper实现分布式锁<br>  具体做法：？？？    先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放。</li>
+<li>分布式锁实现？？？<br>  实现分布式锁可以通过数据库 redis zookeeper。<br>  redis setnx是最简单的一种。可以满足基本使用但有些特性和场景没法满足 比如不可重入 不可重试  锁过期删除的一些问题。redisson是在redis基础上也实现了分布式锁，解决了这几个问题就是redisson里面的可重入锁，比如解决不可重入用的是hash结构解决。解决不可重试基于redis的发布订阅。解决锁过期删除基于自己实现的一个看门狗机制。但是redisson这把可重入锁还有一些问题，比如主从时宕机的问题，redisson里面又可以通过有联锁啊 红锁啊解决。不过setnx基本上可以应用于分布式锁了，有一些业务上需要满足一些锁的需求的时候可以考虑更复杂的实现<br>  支付宝一面：如何基于Redis实现分布式锁？？？<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA">https://mp.weixin.qq.com/s/y8kAflIenRpa4zIwCP_8iA</a></li>
+</ul>
 </li>
 <li><p>缓存预热、缓存更新、缓存降级</p>
 <ol>
@@ -1012,7 +1014,7 @@
 </li>
 <li><p>浏览器发出一个请求到收到响应经历了哪些步骤?<br>1，浏览器解析用户输入的URL，生成一个HTTP格式的请求<br>2，先根据URL域名从本地hosts文件查找是否有映射IP，如果没有就将域名发送给电脑所配置的DNS进行域名解析，得到IP地址<br>3，浏览器通过操作系统将请求通过四层网络协议发送出去<br>4，途中可能会经过各种路由器、交换机，最终到达服务器<br>5，服务器收到请求后，根据请求所指定的端口，将请求传递给绑定了该端口的应用程序，比如8080被tomcat占用了<br>6，tomcat接收到请求数据后，按照http协议的格式进行解析，解析得到所要访问的servlet<br>7，然后servlet来处理这个请求，如果是pringMVC中的DispatcherServet，那么则会找到对应的Controller中的方法，并执行该方法得到结果<br>8，Tomcat得到响应结果后封装成HTTP响应的格式，并再次通过网络发送给浏览器所在的服务器<br>9，浏览器所在的服务器拿到结果后再传递给浏览器，浏览器则负责解析并洁染</p>
 </li>
-<li><p>介绍 TCP&#x2F;IP 模型。<br>  TCP&#x2F;IP模型是计算机网络通信的基本参考模型，它将网络通信分为四个抽象的层次，每个层次负责特定的功能。包括以下四个层次，自下而上分别是：</p>
+<li><p>介绍 TCP&#x2F;IP 模型。</p>
 <ol>
 <li><strong>链路层（Link Layer）：</strong>负责物理介质上的数据传输，处理硬件相关的问题。主要包括网络驱动、接口卡、物理介质等。作用：实现原始比特流的传输，通过物理链路进行直接通信。</li>
 <li><strong>网络层（Internet Layer）：</strong>提供数据包在不同网络之间的传输和路由。主要包括IP、ICMP等。作用：实现不同网络之间的通信，处理数据包的寻址和路由问题。</li>
@@ -1033,11 +1035,11 @@
 </li>
 <li><p>HTTP请求常⻅的状态码和字段</p>
 <ul>
-<li>常见的HTTP状态码：<br>  <strong>1xx（信息性状态码）：</strong>   100 Continue：继续。客户端应继续其请求。<br>  <strong>2xx（成功状态码）：</strong>   200 OK：请求成功。一般用于GET和POST请求。 201 Created：已创建。成功请求并创建了新的资源。  204 No Content：无内容。服务器成功处理请求，但没有返回任何内容。<br>  <strong>3xx（重定向状态码）：</strong>  301 Moved Permanently：永久重定向。请求的资源已被永久移动到新位置。 302 Found：临时重定向。请求的资源临时移动到新位置。<br>  <strong>4xx（客户端错误状态码）：</strong>   400 Bad Request：请求无效。服务器无法理解请求的语法。 401 Unauthorized：未授权。需要身份验证或权限不足。 403 Forbidden：禁止访问。服务器理解请求，但拒绝执行。 404 Not Found：未找到。请求的资源不存在。<br>  <strong>5xx（服务器错误状态码）：</strong>   500 Internal Server Error：服务器内部错误。通用错误消息，服务器遇到意外的情况。  502 Bad Gateway：网关错误。服务器作为网关或代理，从上游服务器接收到无效的响应。 503 Service Unavailable：服务不可用。服务器目前无法处理请求。</li>
+<li>常见的HTTP状态码：<br>  <strong>1xx（信息性状态码）：</strong>  100 Continue：继续。客户端应继续其请求。<br>  <strong>2xx（成功状态码）：</strong>  200 OK：请求成功。一般用于GET和POST请求。 201 Created：已创建。成功请求并创建了新的资源。  204 No Content：无内容。服务器成功处理请求，但没有返回任何内容。<br>  <strong>3xx（重定向状态码）：</strong>  301 Moved Permanently：永久重定向。请求的资源已被永久移动到新位置。 302 Found：临时重定向。请求的资源临时移动到新位置。<br>  <strong>4xx（客户端错误状态码）：</strong>  400 Bad Request：请求无效。服务器无法理解请求的语法。401 Unauthorized：未授权。需要身份验证或权限不足。 403 Forbidden：禁止访问。服务器理解请求，但拒绝执行。 404 Not Found：请求的资源不存在。<br>  <strong>5xx（服务器错误状态码）：</strong>  500 Internal Server Error：服务器内部错误。通用错误消息，服务器遇到意外的情况。  502 Bad Gateway：网关错误。服务器作为网关或代理，从上游服务器接收到无效的响应。 503 Service Unavailable：服务不可用。服务器目前无法处理请求。</li>
 <li>常见的HTTP字段：<ol>
 <li><strong>通用字段：</strong> Cache-Control：控制缓存行为。 Connection：控制是否保持连接。Date：表示消息创建时间。</li>
 <li><strong>请求字段：</strong>  Host：指定被请求资源的主机名和端口号。User-Agent：表示客户端信息。</li>
-<li><strong>响应字段：</strong>  Server：表示服务器信息。 Content-Type：指定响应内容的MIME类型。Content-Length：表示响应内容的长度。</li>
+<li><strong>响应字段：</strong>  Server：表示服务器信息。 Content-Type：指定响应内容的MIME类型。Content-Length：响应内容长度。</li>
 <li><strong>实体字段：</strong>ETag：用于检测资源是否发生改变。 Last-Modified：表示资源的最后修改时间。</li>
 </ol>
 </li>
@@ -1058,8 +1060,8 @@
 </li>
 <li><p>HTTP1.0 和 HTTP1.1 的区别？</p>
 <ol>
-<li>⻓连接<br>  HTTP1.1 ⽀持⻓连接，每⼀个TCP连接上可以传送多个HTTP请求和响应，默认开启 Connection:Keep-Alive<br>  HTTP1.0 默认为短连接，每次请求都需要建⽴⼀个TCP连接。</li>
-<li>缓存<br>  HTTP1.0 主要使⽤ If-Modified-Since&#x2F;Expires 来做为缓存判断的标准<br>  HTTP1.1 则引⼊了更多的缓存控制策略例如 Entity tag &#x2F; If-None-Match 等更多可供<br>  选择的缓存头来控制缓存策略。</li>
+<li>⻓连接<br>  HTTP1.1 ⽀持⻓连接，每⼀个TCP连接上可以传送多个HTTP请求和响应，默认开启 Connection:Keep-Alive；<br>  HTTP1.0 默认为短连接，每次请求都需要建⽴⼀个TCP连接。</li>
+<li>缓存<br>  HTTP1.0 主要使⽤ If-Modified-Since&#x2F;Expires 来做为缓存判断的标准<br>  HTTP1.1 则引⼊了更多的缓存控制策略，如 Entity tag &#x2F; If-None-Match 等更多可供选择的缓存头来控制缓存策略。</li>
 <li>管道化：基于 HTTP1.1 的⻓连接，使得请求管线化成为可能。管线化使得请求能够“并⾏”传输，但是响应必须按照请求发出的顺序依次返回，性能在⼀定程度上得到改善</li>
 <li>增加Host字段： 使得⼀个服务器能够⽤来创建多个 Web 站点。</li>
 <li>状态码： 新增了24个错误状态响应码</li>
@@ -1087,7 +1089,7 @@
 <li>客户端使⽤⾃⼰⽣成的随机码key解密服务端发送过来的数据，之后，客户端和服务端通过对称加密传输数据，随机码Key作为传输的密钥。</li>
 </ol>
 </li>
-<li><p><strong>HTTPS与HTTP的区别</strong><br>HTTP 是明⽂传输，⽽HTTPS 通过 SSL\TLS 进⾏了加密<br>HTTP 的端⼝号是 80，HTTPS 是 443<br>HTTPS 需要到 CA 申请证书<br>HTTP 的连接简单，是⽆状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进⾏加密传输、身份认证的⽹络协议，⽐ HTTP 协议安全。</p>
+<li><p><strong>HTTPS与HTTP的区别</strong><br>HTTP 是明⽂传输，⽽ HTTPS 通过 SSL\TLS 进⾏了加密<br>HTTP 的端⼝号是 80，HTTPS 是 443<br>HTTPS 需要到 CA 申请证书<br>HTTP 的连接简单，是⽆状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进⾏加密传输、身份认证的安全的⽹络协议。</p>
 </li>
 <li><p>常⻅的请求⽅式？GET 和 POST 请求的区别？</p>
 <ol>
@@ -1114,8 +1116,10 @@
 <li>有哈希值的⽂件设置强缓存即可。没有哈希值的⽂件（⽐如index.html）设置协商缓存。</li>
 </ul>
 </li>
-<li><p>DNS是什么，及其查询过程<br>  DNS（Domain Name System）域名管理系统，是当⽤户使⽤浏览器访问⽹址之后，使⽤的第⼀个重要协议。DNS 要解决的是域名和 IP 地址的映射问题。</p>
-<ol>
+<li><p>DNS、、</p>
+<ul>
+<li>DNS（Domain Name System）域名管理系统，是当⽤户使⽤浏览器访问⽹址之后，使⽤的第⼀个重要协议。DNS 要解决的是域名和 IP 地址的映射问题。</li>
+<li>查询过程：<ol>
 <li>⾸先⽤户在浏览器输⼊URL地址后，会先查询浏览器缓存是否有该域名对应的IP地址。</li>
 <li>如果浏览器缓存中没有，会去计算机本地的Host⽂件中查询是否有对应的缓存。</li>
 <li>如果Host⽂件中也没有则会向本地的DNS解析器（通常由你的互联⽹服务提供商（ISP）提供）发送⼀个DNS查询请求。</li>
@@ -1124,6 +1128,8 @@
 <li>本地DNS解析器最后向权威DNS服务器发送查询请求。 权威DNS服务器是负责存储特定域名和IP地址映射的服务器。当权威DNS服务器收到查询请求时，它会查找”example.com”域名对应的IP地址，并将结果返回给本地DNS解析器。</li>
 <li>本地DNS解析器将收到的IP地址返回给浏览器，并且还会将域名解析结果缓存在本地，以便下次访问时更快地响应</li>
 </ol>
+</li>
+</ul>
 </li>
 <li><p>HTTP多个TCP连接怎么实现？？？<br>多个tcp连接是靠某些服务器对 Connection: keep-alive 的 Header 进⾏了⽀持。简⽽⾔之，完成这个 HTTP 请求之后，不要断开 HTTP 请求使⽤的 TCP 连接。这样的好处是连接可以被重新使⽤，之后发送 HTTP 请求的时候不需要重新建⽴ TCP 连接，以及如果维持连接，那么 SSL 的开销也可以避免</p>
 </li>
@@ -1136,8 +1142,8 @@
 <li><p><strong>三次握⼿的过程，以及为什么是三次，⽽不是四次，两次？</strong></p>
 <ul>
 <li>三次握⼿的过程如下：<ol>
-<li>客户端向服务器发送 SYN 报⽂、初始化序列号 ISN（seq&#x3D;x） ，然后客户端进⼊ SYN_SEND 状态，等待服务器确认。</li>
-<li>服务端发送 ACK 确认服务端的 SYN 报⽂ (ack&#x3D;x+1) ，同时发出⼀个 SYN 报⽂，带上⾃⼰的初始化序列号 （seq&#x3D;y ），然后服务端进⼊ SYN_RECV 状态。</li>
+<li>客户端向服务器发送 SYN 报⽂、初始化序列号 ISN（seq&#x3D;x），然后客户端进⼊ SYN_SEND 状态，等待服务器确认。</li>
+<li>服务端发送 ACK 确认服务端的 SYN 报⽂ (ack&#x3D;x+1) 同时发出⼀个 SYN 报⽂，带上⾃⼰的初始化序列号 （seq&#x3D;y ），然后服务端进⼊ SYN_RECV 状态。</li>
 <li>客户端接收到服务端的 SYN、ACK 报⽂，ACK确认服务端的 SYNC 报⽂ （ACK&#x3D;y+1） ，然后客户端和服务器端都进⼊ ESTABLISHED 状态，完成 TCP 三次握⼿</li>
 </ol>
 </li>
@@ -1148,7 +1154,7 @@
 <ul>
 <li>四次挥⼿的过程：<ol>
 <li>客户端发送⼀个 FIN 报⽂给服务端，表示⾃⼰要断开数据传送，报⽂中会指定⼀个序列号 (seq&#x3D;x) 。然后,客户端进⼊ FIN-WAIT-1 状态。</li>
-<li>服务端收到 FIN 报⽂后，回复 ACK 报⽂给客户端，且把客户端的序列号值 +1 ，作为ACK + 1 报⽂的序列号 (seq&#x3D;x+1) 。然后，服务端进⼊ CLOSE-WAIT (seq&#x3D;x+1) 状态，客户端进⼊ FIN-WAIT-2 状态。</li>
+<li>服务端收到 FIN 报⽂后，回复 ACK 报⽂给客户端，且把客户端的序列号值 +1 ，作为ACK + 1 报⽂的序列号 (seq&#x3D;x+1) 然后，服务端进⼊ CLOSE-WAIT (seq&#x3D;x+1) 状态，客户端进⼊ FIN-WAIT-2 状态。</li>
 <li>服务端也要断开连接时，发送 FIN 报⽂给客户端，且指定⼀个序列号 (seq&#x3D;y+1) ，随后服务端进⼊ LAST-ACK 状态。</li>
 <li>客户端收到 FIN 报⽂后，发出 ACK 报⽂进⾏应答，并把服务端的序列号值 +1 作为 ACK 报⽂序列号 (seq&#x3D;y+2) 。此时客户端进⼊ TIME-WAIT 状态。服务端在收到客户端的 ACK 报⽂后进⼊ CLOSE 状态。如果客户端等待 2MSL 没有收到回复，才关闭连接</li>
 </ol>

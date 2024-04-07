@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-02T05:13:22.816Z">
+<meta property="article:modified_time" content="2024-04-07T09:34:57.018Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
@@ -310,10 +310,10 @@
 </ul>
 <hr>
 
-<h2 id="“校跑跑”校园代拿平台（跑个腿）"><a href="#“校跑跑”校园代拿平台（跑个腿）" class="headerlink" title="“校跑跑”校园代拿平台（跑个腿）"></a>“校跑跑”校园代拿平台（跑个腿）</h2><ul>
+<h2 id="1-“校跑跑”校园代拿平台（跑个腿）"><a href="#1-“校跑跑”校园代拿平台（跑个腿）" class="headerlink" title="1 “校跑跑”校园代拿平台（跑个腿）"></a>1 “校跑跑”校园代拿平台（跑个腿）</h2><ul>
 <li><p>“校跑跑”校园代拿平台</p>
 <ul>
-<li>项目描述：”校跑跑”平台是一款致力于解决大学校园内代拿服务需求的创新型应用，提供方便快捷的外卖、快递、文件等代拿业务，同时确保支付双方的信用和流程的可跟踪。</li>
+<li>项目描述：”校跑跑”平台是一款致力于解决大学校园内代拿服务需求的创新型应用，提供方便快捷的外卖、快递、文件等代拿业务，同时确保支付双方的信用和流程的可跟踪</li>
 <li>主要工作：<ul>
 <li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
 <li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
@@ -324,7 +324,17 @@
 </li>
 </ul>
 </li>
-<li><p><strong>介绍一下跑腿项目、、</strong><br>“校跑跑”平台我们学校创业团队做的一个项目，后面会上线运营。<br>它的业务也比较简单，提供校园内外卖、文件等物品的代拿服务，同学们在平台上发布订单，接单，支付，同时确保支付双方的信用和流程的可跟踪。<br>我参与了几个模块的后端开发，，考虑到校园内客户和流量的量级不大，我们使用的是单体项目而非微服务架构，但是也考虑到了重复下单、订单超卖等一些场景，，<br>、、</p>
+<li><p><strong>介绍一下跑腿项目！！</strong></p>
+<ul>
+<li>“校跑跑”是我们学校创业团队做的一个项目，后续会上线运营。它是根据校园中的真实的外卖、文件等物品代拿需求而设计的，同学们在平台上发布订单，接单，支付，同时能够确保支付双方的信用和流程的可跟踪。、、我们是根据校内距离不重要，也就是跟美团跑腿这种点到点不一样的，而是点到面或者是点到线，也就是这个学生的终点附近的也可以顺手去送，所以可以实现单价比较便宜，一单正常是两块钱</li>
+<li>我参与了项目中几个模块的后端开发。（考虑到校园内用户量和流量量级不大，使用的是单体架构，对于存在的订单超卖等一些场景问题，参考了一些别的项目中的做法）<ul>
+<li>我做的模块里面难点比较多的，一个是跑腿任务的发布模块，这个模块一个是要对信息进行非法过滤，另一个也要基于redis实现非重复支付的方案</li>
+<li>然后在详情模块，针对学生代拿需求比较聚集如午饭的情况，会导致多个人同时抢列表的第一个，导致出现并发问题，我这里使用了悲观锁来解决</li>
+<li>另外，更难的是，在配送过程中，如何去保证双方陌生人的信用安全？比如说在取货的时候，怎么能够知道是跑腿人去拿的货？而不是别人拿着这个验证码去拿到货，或者是说物品送到了，但是说没送到，或者是说会了、、<br>  我们采用的是基于拍照确定地点的方式，比如他到现场，拍照上传，我们才给他公开取货码，他必须在五分钟之内取货，再拍照片，进行验证、、那这个地方就会产生很多的图片，传统的直传方案，会对服务器带宽造成很大的影响，所以项目采用了阿里云或者腾讯云的直传方案，解决了有效性和跨域的签名</li>
+<li>第四个押金模块就可以不说了。事务。。</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>项目背景</p>
 <ul>
@@ -363,13 +373,16 @@
 </li>
 </ul>
 </li>
-<li><p>MySQL悲观锁，解决抢单情况下的订单超卖问题？<br>  悲观锁的核心思想是在操作数据前先锁定数据，确保其他线程无法同时修改数据，从而保证数据的一致性。</p>
-<ol>
+<li><p>MySQL悲观锁，解决抢单情况下的订单超卖问题？</p>
+<ul>
+<li>悲观锁的核心思想是在操作数据前先锁定数据，确保其他线程无法同时修改数据，从而保证数据的一致性。<ol>
 <li><strong>查询订单信息并加锁</strong>：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。可以使用 <code>SELECT ... FOR UPDATE</code> 语句来查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
 <li><strong>更新订单状态</strong>：如果查询到符合条件的订单，就可以更新订单状态并完成抢单操作，示例代码如下：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> orders <span class="keyword">SET</span> status <span class="operator">=</span> <span class="number">2</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure></li>
 <li><strong>提交事务</strong>：完成操作后，需要<code>COMMIT;</code>提交事务来释放锁并保证数据的一致性</li>
 <li><strong>处理超时情况</strong>：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
 </ol>
+</li>
+</ul>
 </li>
 <li><p>三、跑腿双方状态与安全保障</p>
 <ul>
@@ -394,16 +407,23 @@
 </li>
 </ul>
 </li>
+<li><p>腾讯云COS的参数是怎么配置的？<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/practice/436/9067">https://cloud.tencent.com/document/practice/436/9067</a></p>
+</li>
+<li><p>图片直传那一块具体做了什么？<br>就是后端 针对前端指定的cos文件夹 和指定的文件名 进行临时权限的生成， 同时也保证其它人和文件没有权限直传 保证cos安全性 怎么进行的权限签名的生成 就是使用的官方SDK就可以了？？</p>
+</li>
 <li><p>四、押金和钱包事务模块</p>
 <ul>
 <li>模块说明：因为业务上与钱的流水关系很大，需要单独分离是钱包模块，可以是记录流水、以及押金和收入的提现、发起人的退款记录等</li>
 <li>亮点难点<br>  1 押金的退还属于原路退回，主要接入对应支付渠道的退款接口，但是核心是退款流程分为两部分，一是退款成功，二是押金流水变更，两个阶段存在原子性，因为这部分业务，属于较低频型业务，所以使用事务方案，而不是补偿方案。<br>  2 提现需要使用另外的支付宝公对私打款接口，在收取10%的平台费用后(不做个税扣除)，进行批量打款。打款不做强可靠性，用户对提现和退款 不像支付要求那么高</li>
 </ul>
 </li>
-<li><p>怎么设计退款的？<br>设计了退款＋流水变更事务，退款接入已经做好的接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>怎么设计退款的？ </p>
+<ul>
+<li>？？？设计了退款＋流水变更事务，退款接入已经做好的接口  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="在线商城系统（黑马商城）"><a href="#在线商城系统（黑马商城）" class="headerlink" title="在线商城系统（黑马商城）"></a>在线商城系统（黑马商城）</h2><ul>
+</li>
+</ul>
+<h2 id="2-在线商城系统（黑马商城-牛客论坛）"><a href="#2-在线商城系统（黑马商城-牛客论坛）" class="headerlink" title="2 在线商城系统（黑马商城+牛客论坛）"></a>2 在线商城系统（黑马商城+牛客论坛）</h2><ul>
 <li><p><strong>高校闲置资源交易系统</strong></p>
 <ul>
 <li>系统架构：SpringCloud + SpringBoot + Nacos + Redis + MySQL</li>
