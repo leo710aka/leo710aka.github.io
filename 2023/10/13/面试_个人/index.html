@@ -13,7 +13,6 @@
 <meta property="og:site_name" content="Qué miras Bobo">
 <meta property="og:description" content="个人 自我介绍1、面试官您好，我是蔡枫，本科就读于华南理工大学计算机学院2、在校期间，我学习 Java 开发技术与相关组件，也跟着学校的创业团队的开发了一些项目3、有几段实习经历，让我对团队中的开发流程有了一定的了解，并且也参与到了实际业务代码的编写4、我与您公司岗位比较匹配：中台数据转发、、银行数字化转型、、5、我的求职动机：挑战性，成长，机会，，自己清晰的职业规划，表示愿意长期从事这个岗位，，">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job10.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job11.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job12.png">
@@ -21,10 +20,10 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-07T09:34:57.018Z">
+<meta property="article:modified_time" content="2024-04-09T09:57:23.285Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
+<meta name="twitter:image" content="https://leo710aka.github.io/bk/job10.png">
   
     <link rel="alternate" href="/atom.xml" title="Qué miras Bobo" type="application/atom+xml">
   
@@ -161,14 +160,14 @@
 <hr>
 
 <h2 id="实习（骏伯）"><a href="#实习（骏伯）" class="headerlink" title="实习（骏伯）"></a>实习（骏伯）</h2><ul>
-<li><p>广州骏伯网络？<br>使命：让移动互联网营销简单高效; 价值观：创造价值，分享价值; 愿景：做最受信赖的移动互联网营销服务商;<br>产品研发中心 - 应用开发部-基础建设组 - Java开发实习生 - 2024.1.8 ~</p>
+<li><p>广州骏伯网络？<br>使命：让移动互联网营销简单高效; 价值观：创造价值，分享价值; 愿景：做最受信赖的移动互联网营销服务商;<br>产品研发中心 - 应用开发部-基础建设组 - Java开发实习生 - 2024.1.8 ~ 4.12</p>
 </li>
 <li><p><strong>介绍一下实习经历、、</strong></p>
 <ul>
 <li>岗位职责：互联网营销行业公司，主要接触了公司核心的拉新系统的迭代开发，另外独立开发了公司内部的报表平台的接口</li>
 <li>一个项目：其中拉新系统让我印象深刻、、<ul>
 <li>项目是什么：拉新指的是给例如 APP 拉取新的用户，实现方法是 我发根据 APP 的要求投放广告到如 抖音 等媒体平台，那么就会产生广告的曝光、用户点击等数据消息，需要转发给 APP 端。我方的拉新系统就在消息转发过程中，进行一个消息拦截的工作。具体来说，消息会先发送到我方拉新系统的mq，首先是进行了削峰，然后根据需求和策略进行拦截处理，最后才转发给 APP，，</li>
-<li>为何这样做：这样，就给企业提供了符合要求的消息数据，获得收益(我方在数据转发的过程中，积累了用户数据，，</li>
+<li>为何这样做：这样，就给企业提供了符合要求的消息数据，获得收益（我方在数据转发的过程中，积累了用户数据）</li>
 <li>负责的工作：我负责数据拦截这一部分的迭代开发，，具体来说实现了白名单，，，计划调整RTA拦截在用户看到广告之前（而不是在消息转发给APP端这一步）以减少广告投放的成本</li>
 <li>有什么成果：，，实现联调，，节约成本</li>
 <li>最大的收获：</li>
@@ -178,13 +177,22 @@
 </li>
 </ul>
 </li>
-<li><p>拦截做了什么？</p>
+<li><p>拦截做了什么？？</p>
 <ul>
-<li>upload方法的内部处理逻辑如下：<br>  参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。<br>  参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。<br>  参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。<br>  将校验通过的点击数据发给客户（transferToCustomer）。<br>  保存数据到数据库&#x2F;缓存（save）。</li>
-<li>内部处理逻辑（在参数后置处理部分，进行RTA拦截）<br>  媒体发给我方的数据可能不止用户点击数据，还包括了广告曝光数据（即用户只要看了广告，媒体就会通知我们），这类数据我们是不需要发给客户的，因此需要设置状态为NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。<br>  走RTA拦截，有一些前置条件，包括：<br>  1、业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）<br>  2、如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）<br>  对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用<br>  如果客户不接受当前用户，则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。（添加白名单后，如果客户不接受当前用户，不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户）</li>
-<li>我做了什么？<ul>
-<li>实现了白名单，，，</li>
-<li>计划调整RTA拦截在用户看到广告之前（而不是在消息转发给APP端这一步）以减少广告投放的成本</li>
+<li>使用stream流，串行？？调用一系列方法：<br>  参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。<br>  参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。<br>  参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。<br>  将校验通过的点击数据发给客户（transferToCustomer）。<br>  保存数据到数据库&#x2F;缓存（save）。</li>
+<li>内部处理逻辑（在参数后置处理部分，进行RTA拦截）<ul>
+<li>拦截具体指什么：设置状态为 NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。</li>
+<li>拦截逻辑：<ul>
+<li>校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户</li>
+<li>走RTA拦截，有一些前置条件，包括：<br>  1、业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）<br>  2、如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）<br>  对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用<br>  如果客户不接受当前用户，则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。（添加白名单后，如果客户不接受当前用户，不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户）</li>
+<li>白名单，检查内部测试设备号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>白名单、、<ul>
+<li>需求：为联调，不拦截内部测试设备号，，</li>
+<li>实现：就在 initPostValidate，，</li>
 </ul>
 </li>
 <li>可以用spring的设计模式或者技术吗？？<ul>
@@ -194,38 +202,13 @@
 </li>
 </ul>
 </li>
-<li><p>你们项目中为什么要用消息队列？ MQ 的作用是什么？<br>使用 kafka存放数据，再以 200kbs消费。。。<br>主要起了削峰的作用，解决系统前后处理能力不一致的问题。。<br>主要起了异步处理的作用。。拉新系统需要接收媒体数据，进行拦截处理后才转发给客户。当媒体数据达到 2000kbs，系统就挂掉，主要原因是对数据的拦截处理涉及到io、阻断、调用客户接口、数据库，，</p>
-</li>
-<li><p>kafka <a target="_blank" rel="noopener" href="https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g">https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g</a> udd1</p>
-</li>
-<li><p>kafka 架构？</p>
-<ol>
-<li>Producer:消息生产者，发布消息到Kafka集群的终端或服务</li>
-<li>Broker:-个 Kafka 节点就是一个 Broker，多个Broker可组成一个Kafka 集群<br>  如果某个 Topic 下有n个Partition 且集群有n个Broker，那么每个 Broker会存储该 Topic 下的一个 Partition<br>  如果某个 Topic 下有n个Partition 且集群中有 m+n个Broker，那么只有n个Broker会存储该Topic下的一个Partition<br>  如果某个 Topic 下有n个Partition 且集群中的Broker数量小于 n，那么一个 Broker 会存储该 Topic 下的一或多个 Partition，这种情况尽量避免，会导致集群数据不均衡</li>
-<li>Topic:消息主题，每条发布到Kafka集群的消息都会归集于此，Kafka是面向Topic 的</li>
-<li>Partition: Partition 是Topic在物理上的分区，一个Topic可以分为多个Partition，每个Partition是一个有序的不可变的记录序列。单一主题中的分区有序，但无法保证主题中所有分区的消息有序。</li>
-<li>Consumer: 从Kafka集群中消费消息的终端或服务</li>
-<li>Consumer Group:每个Consumer都属于一个Consumer Group，每条消息只能被Consumer Group中的-个Consumer消费，但可以被多个Consumer Group消费。</li>
-<li>Zookeeper: Kafka 通过Zookeeper来存储集群中的 meta 消息<img src="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true" width="550" height="300" alt=""></li>
-</ol>
-</li>
-<li><p>Kafka 性能高原因<br>1.利用了 PageCache 缓存<br>2.磁盘顺序写<br>3.零拷贝技术<br>4.pull 拉模式</p>
-</li>
-<li><p>kafka如何实现高性能，高吞吐量，高可用？</p>
-<ol>
-<li><strong>分布式架构</strong>：Kafka 是基于分布式架构设计的，集群中包含多个 Broker（服务器），每个 Broker 负责存储和处理一部分数据。分布式架构可以实现数据的水平扩展，提高系统的整体性能和吞吐量。</li>
-<li><strong>副本机制</strong>：<ul>
-<li>Kafka 使用副本机制来提高可用性和容错性。每个分区可以配置多个副本，其中一个是 Leader 副本，其余是 Follower 副本。</li>
-<li>Leader 副本负责处理客户端的读写请求，Follower 副本负责复制 Leader 副本的数据并保持同步。</li>
-<li>当 Leader 副本发生故障时，Kafka 可以自动选举一个 Follower 副本作为新的 Leader，确保系统的高可用性。</li>
+<li><p>你们项目中为什么要用消息队列？ MQ 的作用是什么？</p>
+<ul>
+<li>【异步】拉新系统接收媒体数据存放于 kafka，再消费即拦截处理后才转发，涉及io、阻断、调用客户接口、数据库、、</li>
+<li>【削峰】接口接收2000qps的请求，以 200kbs 消费 mq中的数据，解决系统前后处理能力不一致的问题</li>
 </ul>
 </li>
-<li><strong>消息持久化</strong>：Kafka 将消息持久化到磁盘上，保证数据不会丢失。可以通过配置来控制消息的持久化策略，例如消息的保留时间、消息的大小等。使用持久化机制可以确保即使发生故障或重启，数据仍然可靠地存储和恢复。</li>
-<li><strong>零拷贝技术</strong>：Kafka 使用零拷贝技术来提高数据的传输效率。在消息生产者发送消息和消息消费者接收消息的过程中，尽量减少数据的拷贝操作，降低 CPU 和内存的开销，提高性能和吞吐量。</li>
-<li><strong>批量处理</strong>：Kafka 支持批量处理消息，可以将多个消息批量发送到 Broker，减少网络传输和通信开销，提高性能。同时，消息消费者也可以批量拉取消息，降低消费者和 Broker 之间的通信成本。</li>
-<li><strong>水平扩展</strong>：Kafka 可以通过增加 Broker 节点来进行水平扩展，将负载分布到多个节点上，提高系统的整体性能和吞吐量。使用水平扩展可以处理大规模数据和高并发请求，适应业务的增长和变化。</li>
-<li><strong>监控和管理</strong>：Kafka 提供了丰富的监控和管理工具，例如 Kafka Manager、Confluent Control Center 等，可以实时监控集群的运行状态、性能指标和故障情况，及时发现和解决问题，保证系统的稳定性和可用性。</li>
-</ol>
+<li><p>kafka 架构？kafka 如何实现高性能，高吞吐量？kafka 如何不消费重复数据？</p>
 </li>
 <li><p>mq 事务，回滚？</p>
 <ul>

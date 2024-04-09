@@ -17,8 +17,9 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job7.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job8.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
+<meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-07T03:02:25.695Z">
+<meta property="article:modified_time" content="2024-04-08T16:24:46.884Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -987,24 +988,60 @@
 </ul>
 </li>
 </ul>
-<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><ul>
-<li><p>Kafka 是什么？<br>Kafka 是一种高吞吐量、分布式、基于发布&#x2F;订阅的消息系统，最初由 LinkedIn 公司开发，使用Scala 语言编写，目前是 Apache 的开源项目。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
+<li><p>kafka <a target="_blank" rel="noopener" href="https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g">https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g</a> udd1</p>
 </li>
-<li><p>Kafka组成。</p>
-<ol>
-<li>broker： Kafka 服务器，负责消息存储和转发</li>
-<li>topic：消息类别， Kafka 按照 topic 来分类消息</li>
-<li>partition： topic 的分区，一个 topic 可以包含多个 partition， topic 消息保存在各个partition 上</li>
-<li>offset：消息在日志中的位置，可以理解是消息在 partition 上的偏移量，也是代表该消息的唯一序号</li>
-<li>Producer：消息生产者</li>
-<li>Consumer：消息消费者</li>
-<li>Consumer Group：消费者分组，每个 Consumer 必须属于一个 group</li>
-<li>Zookeeper：保存着集群 broker、 topic、 partition 等 meta 数据；另外，还负责 broker 故障发现， partition leader 选举，负载均衡等功能。<br>  Zookeeper 是一个开放源码的、高性能的协调服务，？？主要用于在集群中不同节点之间进行通信。在 Kafka 中，它被用于提交偏移量，因此如果节点在任何情况下都失败了，它都可以从之前提交的偏移量中获取除此之外，它还执行其他活动，如: leader 检测、分布式同步、配置管理、识别新节点何时离开或连接、集群、节点实时状态等等。</li>
+<li><p>Kafka 是什么？优缺点？</p>
+<ul>
+<li>Kafka 是一种高吞吐量、分布式、基于发布&#x2F;订阅的消息系统，最初由 LinkedIn 公司开发，使用Scala 语言编写，目前是 Apache 的开源项目。</li>
+<li>优点<br>  高性能、高吞吐量、低延迟:Kafka 生产和消费消息的速度都达到每秒10万级高可用:所有消息持久化存储到磁盘，并支持数据备份防止数据丢失<br>  高并发:支持数千个客户端同时读写<br>  容错性:允许集群中节点失败(若副本数量为n，则允许 n-1 个节点失败)高扩展性:Kafka 集群支持热伸缩，无须停机</li>
+<li>缺点<br>  没有完整的监控工具集<br>  不支持通配符主题选择</li>
+</ul>
+</li>
+<li><p>kafka 架构？</p>
+<ul>
+<li>Kafka 将消息以 topic 为单位进行归纳，发布消息的程序称为 Producer，消费消息的程序称为 Consumer。它是以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个 Broker，Producer 通过网络将消息发送到 kafka 集群，集群向消费者提供消息，broker 在中间起到一个代理保存消息的中转站。</li>
+<li>kafka 组成：<ol>
+<li>Producer:消息生产者，发布消息到Kafka集群的终端或服务</li>
+<li>Broker:<strong>一个 Kafka 节点就是一个 Broker，多个Broker可组成一个Kafka 集群</strong><br>  如果某个 Topic 下有n个Partition 且集群有n个Broker，那么每个 Broker会存储该 Topic 下的一个 Partition<br>  如果某个 Topic 下有n个Partition 且集群中有 m+n个Broker，那么只有n个Broker会存储该Topic下的一个Partition<br>  如果某个 Topic 下有n个Partition 且集群中的Broker数量小于 n，那么一个 Broker 会存储该 Topic 下的一或多个 Partition，这种情况尽量避免，会导致集群数据不均衡</li>
+<li>Topic:消息主题，每条发布到Kafka集群的消息都会归集于此，<strong>Kafka是面向Topic 的</strong></li>
+<li>Partition: Partition 是Topic在物理上的分区，一个Topic可以分为多个Partition，每个Partition是一个有序的不可变的记录序列。单一主题中的分区有序，但无法保证主题中所有分区的消息有序。</li>
+<li>Consumer: 从Kafka集群中消费消息的终端或服务</li>
+<li>Consumer Group:每个Consumer都属于一个Consumer Group，每条消息只能被Consumer Group中的-个Consumer消费，但可以被多个Consumer Group消费。</li>
+<li>Zookeeper: Kafka 通过Zookeeper来存储集群中的 meta 消息  <img src="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true" width="550" height="300" alt=""></li>
 </ol>
 </li>
-<li><p>kafka 如何不消费重复数据？<br>其实还是得结合业务来思考，我这里给几个思路：比如你拿个数据要写库，你先根据主键查一下，如果这数据都有了，你就别插入了，update 一下好吧。比如你是写 Redis，那没问题了，反正每次都是 set，天然幂等性。比如你不是上面两个场景，那做的稍微复杂一点，你需要让生产者发送每条数据的时候，里面加一个全局唯一的 id，类似订单 id 之类的东西，然后你这里消费到了之后，先根据这个 id 去比如 Redis 里查一下，之前消费过吗？如果没有消费过，你就处理，然后这个 id 写 Redis。如果消费过了，那你就别处理了，保证别重复处理相同的消息即可。比如基于数据库的唯一键来保证重复数据不会重复插入多条。因为有唯一键约束了，重复数据插入只会报错，不会导致数据库中出现脏数据</p>
+</ul>
 </li>
-<li><p>kafka 的高可用机制是什么？<br>？？</p>
+<li><p>如何判断一个 Broker 是否还有效<br>1.Broker必须可以维护和ZooKeeper的连接，Zookeeper通过心跳机制检查每个结点的连接<br>2.如果Broker是个Follower，它必须能及时同步Leader的写操作，延时不能太久。</p>
+</li>
+<li><p>kafka 如何实现高性能，高吞吐量？</p>
+<ul>
+<li>Kafka在「存储」和「读取」这个过程中又做了很多的优化，比如说：<br>  我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在处理【并行】<br>  在存储消息时，Kafka内部是顺序写磁盘的，并且利用了操作系统的缓冲区来提高性能【append+cache】<br>  在读写数据中也减少CPU拷贝文件的次数【零拷贝】</li>
+<li>pull拉？？？<br>  如果采用 Push 模式，则Consumer难以处理不同速率的上游推送消息。采用 Pull 模式的好处是Consumer可以自主决定是否批量的从Broker拉取数据。Pull模式有个缺点是，如果Broker没有可供消费的消息，将导致Consumer不断在循环中轮询，直到新消息到达。为了避免这点，Kafka有个参数可以让Consumer阻赛直到新消息到达。</li>
+<li>零拷贝？？？</li>
+</ul>
+</li>
+<li><p>kafka 分区、、partition？？</p>
+<ul>
+<li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。offset 是消息在分区中的唯一标识，kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。<br>  在分区中又引入了多副本(replica)的概念，通过增加副本数量可以提高容灾能力。同一分区的不同副本中保存的是相同的消息。副本之间是一主多从的关系，其中主副本负责读写，从副本只负责消息同步。副本处于不同的broker中，当主副本出现异常，便会在从副本中提升一个为主副本。</li>
+<li>？？？Kafka 中分区的原则<br>  1.指明Partition的情况下，直接将指明的值作为Partition值<br>  2.没有指明Partition值但有 key 的情况下，将 key 的 Hash 值与 topic的Partition值进行取余得到Partition值<br>  3.既没有Partition值又没有 key 值的情况下，第一次调用时随机生成一个整数(后面每次调用在这个整数上自增)，将这个值与Topic可用的Partition总数取余得到Parittion值，也就是常说的round-robin 算法</li>
+<li>Kafka 为什么要把消息分区<br>  1.方便在集群中扩展，每个 Partition 可用通过调整以适应它所在的机器，而一个Topic又可以有多个Partition组成，因此整个集群就可以适应任意大小的数据了<br>  2.可以提高并发，因为可以以Partition为单位进行读写</li>
+</ul>
+</li>
+<li><p>kafka 消费重复数据？</p>
+<ul>
+<li>原因：<br>  1、服务宕机，5秒钟内没有提交offerset<br>  2、5分钟内没消费完partition数据，触发reblance</li>
+<li>解决（提升消费端性能）：<br>  1、异步消费<br>  2、调整超时时间<br>  3、减少一次性拉取的数据<br>  4、每一条消费的消息生成md5存到redis</li>
+</ul>
+</li>
+<li><p>Kafka 中什么情况下会出现消息丢失&#x2F;不一致的问题</p>
+<ul>
+<li>消息发送时<br>  消息发送有两种方式:同步-sync 和异步-async。默认是同步的方式，可以通过 producer.type 厘性进行配置，kafka 也可以通过配置 acks 属性来确认消息的生产<br>  0 :表示不进行消息接收是否成功的确认<br>  1:表示当leader 接收成功时的确认<br>  -1:表示leader和 follower 都接收成功的确认<br>  当 acks &#x3D;0时，不和 Kafka 进行消息接收确认，可能会因为网络异常，缓冲中区满的问题，导致消息丢失<br>  当 acks &#x3D;1时，只有 leader 同步成功而 follower 尚未完成同步，如果leader 挂了，就会造成数据丢失</li>
+<li>消息消费时<br>  Kafka有两个消息消费的consumer接口，分别是 1ow-level和 hign-level<br>  low-level :消费者自己维护 offset 等值，可以实现对 kafka 的完全控制1.2.high-level:封装了对 partition 和 offset，使用简单<br>  如果使用高级接口，可能存在一个消费者提取了一个消息后便提交了 offset，那么还没来得及消费就已经挂了下次消费时的数据就是 offset+1的位置，那么原先 offset 的数据就丢失了</li>
+</ul>
+</li>
+<li><p>Kafa 中如何保证顺序消费<br>Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性，但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，因此我们需要将所有消息发往统一 Partition 才能保证消息顺序消费，那么可以在发送的时候指定 MessageKey，同一个 key 的消息会发到同一个 Partition 中。</p>
 </li>
 </ul>
 <hr>
