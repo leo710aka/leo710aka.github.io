@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="Qué miras Bobo">
 <meta property="og:description" content="个人 自我介绍1、面试官您好，我是蔡枫，本科就读于华南理工大学计算机学院2、在校期间，我学习 Java 开发技术与相关组件，也跟着学校的创业团队的开发了一些项目3、有几段实习经历，让我对团队中的开发流程有了一定的了解，并且也参与到了实际业务代码的编写4、我与您公司岗位比较匹配：中台数据转发、、银行数字化转型、、5、我的求职动机：挑战性，成长，机会，，自己清晰的职业规划，表示愿意长期从事这个岗位，，">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://leo710aka.github.io/bk/job17.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job10.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job11.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job12.png">
@@ -20,10 +21,10 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-09T09:57:23.285Z">
+<meta property="article:modified_time" content="2024-04-10T13:30:13.779Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://leo710aka.github.io/bk/job10.png">
+<meta name="twitter:image" content="https://leo710aka.github.io/bk/job17.png">
   
     <link rel="alternate" href="/atom.xml" title="Qué miras Bobo" type="application/atom+xml">
   
@@ -309,11 +310,11 @@
 </li>
 <li><p><strong>介绍一下跑腿项目！！</strong></p>
 <ul>
-<li>“校跑跑”是我们学校创业团队做的一个项目，后续会上线运营。它是根据校园中的真实的外卖、文件等物品代拿需求而设计的，同学们在平台上发布订单，接单，支付，同时能够确保支付双方的信用和流程的可跟踪。、、我们是根据校内距离不重要，也就是跟美团跑腿这种点到点不一样的，而是点到面或者是点到线，也就是这个学生的终点附近的也可以顺手去送，所以可以实现单价比较便宜，一单正常是两块钱</li>
-<li>我参与了项目中几个模块的后端开发。（考虑到校园内用户量和流量量级不大，使用的是单体架构，对于存在的订单超卖等一些场景问题，参考了一些别的项目中的做法）<ul>
-<li>我做的模块里面难点比较多的，一个是跑腿任务的发布模块，这个模块一个是要对信息进行非法过滤，另一个也要基于redis实现非重复支付的方案</li>
+<li>“校跑跑”是我们学校创业团队做的一个项目，后续会上线运营。它是根据校园中的真实的外卖、文件等物品代拿需求而设计的，另外同学看到送货路线与自己顺路可以顺手接单跑腿。同学们在平台上发布订单，接单，支付，同时能够确保支付双方的信用和流程的可跟踪、、</li>
+<li>我参与了项目中几个模块的后端开发。（考虑到校园内用户量和流量量级不大，使用的是单体架构，对于存在的订单超卖等一些场景问题，参考了一些别的项目中的做法）；我做的模块里面难点比较多的：<ul>
+<li>一个是跑腿任务的发布模块，这个模块一是要对信息进行非法过滤，另一个也要基于redis实现非重复支付的方案</li>
 <li>然后在详情模块，针对学生代拿需求比较聚集如午饭的情况，会导致多个人同时抢列表的第一个，导致出现并发问题，我这里使用了悲观锁来解决</li>
-<li>另外，更难的是，在配送过程中，如何去保证双方陌生人的信用安全？比如说在取货的时候，怎么能够知道是跑腿人去拿的货？而不是别人拿着这个验证码去拿到货，或者是说物品送到了，但是说没送到，或者是说会了、、<br>  我们采用的是基于拍照确定地点的方式，比如他到现场，拍照上传，我们才给他公开取货码，他必须在五分钟之内取货，再拍照片，进行验证、、那这个地方就会产生很多的图片，传统的直传方案，会对服务器带宽造成很大的影响，所以项目采用了阿里云或者腾讯云的直传方案，解决了有效性和跨域的签名</li>
+<li>另外，要在配送过程中，如何去保证双方陌生人的信用安全？比如说在取货的时候，怎么能够知道是跑腿人去拿的货？而不是别人拿着这个验证码去拿到货，或者是说物品送到了，但是说没送到，或者、、<br>  我们采用的是基于拍照确定地点的方式，比如他到现场，拍照上传，我们才给他公开取货码，他必须在五分钟之内取货，再拍照片，进行验证、、那这个地方就会产生很多的图片，传统的直传方案，会对服务器带宽造成很大的影响，所以项目采用了阿里云或者腾讯云的直传方案，解决了有效性和跨域的签名</li>
 <li>第四个押金模块就可以不说了。事务。。</li>
 </ul>
 </li>
@@ -323,21 +324,25 @@
 <ul>
 <li>我（跟着团队）做的商业创业项目？？目前已经（在准备）上线运营、、产品需求都是真是的、、产品业务做的都是核心的（而一般的实习都是打杂）</li>
 <li>需求分析：发单人懒的动弹，需要校内代拿服务；接单人查看送达地点与宿舍很近，回宿舍路上顺便接个单</li>
+<li>竞品差别：美团跑腿是根据点到点距离计算费用，我们是根据校内距离不重要，是点到面或者是点到线，也就是这个学生的终点附近的也可以顺手去送，所以可以实现单价比较便宜，一单正常是两块钱</li>
+<li>项目架构：单体项目，SpringBoot + Maven</li>
 <li>四大模块：跑腿需求发布、跑腿抢单和列表、双方状态和安全、押金和微信支付</li>
 <li>产品规划：1、目前是第一版，极小版本上线，核心发布功能、接单功能、押金功能；2、双方信用和评价体系上线；3、集中引用第三方方案(即货物送达方+已经智能货柜)、盗窃监控</li>
-<li>项目架构：单体项目，SpringBoot + Maven</li>
 </ul>
 </li>
 <li><p>一、跑腿需求发布模块</p>
 <ul>
-<li>产品原型<br>  取货地点、收货地点、期望送达时间、费用、、</li>
+<li>产品原型<br>  订单id、发布人id、取货地点、收货地点、货物种类、货物重量、期望送达时间（datetime）、费用、订单状态、创建时间、修改时间</li>
+<li>数据库设计  <img src="https://leo710aka.github.io/bk/job17.png" width="550" height="300" alt=""></li>
 <li>亮点难点<ol>
 <li>(小亮点): 物品信息非法关键字过滤<br>  提交时，使用小程序的过滤接口，对发起人的物品信息要素进行非法关键字过滤，并对手机号和“微信”“vx”等字眼进行正则查验，防止后序跑腿双方私下沟通，</li>
-<li>(小亮点): 分类等信息使用双重枚举<br>  对送货的类型、重量等固定有限项要素，要用多值举的方式实现，方便在前端接口和数据库里以字典id类型进行插入，而不是易错的字符串类型</li>
-<li>(大亮点): 后端防止重复提交(一个用户下了多次单)<br>  (1) 目前是单机项目：在提交接口，使用并发方法(sychronized方法)，使用redis随机Key来进行验证(前端给用户生成随机key)<br>  (2) 后序推广到更多高校，变成分布式环境时，考虑升级到redis分布式锁</li>
+<li>(小亮点): 分类等信息使用双重枚举<br>  对送货的类型、重量等固定有限项要素，要用多值举的方式实现，方便在前端接口和数据库里以字典id类型进行插入，前端传过来的url中携带的是id值（如1：食品、2：文件、、）而不是易错的字符串类型</li>
+<li>(大亮点): 后端防止重复提交(一个用户下了多次单)<br>  (1) 目前是单机项目：在提交接口，使用并发方法(sychronized方法)，使用redis随机Key来进行验证(前端给用户生成随机key)<br>  在下单页面加载时，在后端生成一个唯一的标识符（例如 UUID）作为订单提交的唯一标识符，将这个一次性的标识符存到 Redis。当用户点击提交订单时，在后端根据用户提交的标识符从 Redis 中获取对应的标识符。如果获取到了，则是首次提交，处理后返回提交成功，并且删除redis中的标识符；如果未获取到，则表示是重复提交。<br>  (2) 后序推广到更多高校，变成分布式环境时，考虑升级到redis分布式锁</li>
 </ol>
 </li>
 </ul>
+</li>
+<li><p>防止重复提交的逻辑：<br>在下单页面加载时，后端生成一个UUID作为订单提交的唯一标识符，将这个一次性的标识符存到 Redis。<br>当用户点击提交订单时，根据用户提交的标识符从 Redis 中获取对应的标识符。如果获取到了，则是首次提交，处理后返回提交成功，并且从Redis中删除；如果未获取到，则表示是重复提交。</p>
 </li>
 <li><p>二、跑腿抢单和动态列表模块</p>
 <ul>
@@ -356,16 +361,17 @@
 </li>
 </ul>
 </li>
-<li><p>MySQL悲观锁，解决抢单情况下的订单超卖问题？</p>
-<ul>
-<li>悲观锁的核心思想是在操作数据前先锁定数据，确保其他线程无法同时修改数据，从而保证数据的一致性。<ol>
-<li><strong>查询订单信息并加锁</strong>：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。可以使用 <code>SELECT ... FOR UPDATE</code> 语句来查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>抢单情况下的订单超卖问题？</p>
+<ol>
+<li><strong>查询订单信息并加锁</strong>：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。读和写是在同一步，可以使用 <code>SELECT ... FOR UPDATE</code> 语句来查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
 <li><strong>更新订单状态</strong>：如果查询到符合条件的订单，就可以更新订单状态并完成抢单操作，示例代码如下：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> orders <span class="keyword">SET</span> status <span class="operator">=</span> <span class="number">2</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure></li>
 <li><strong>提交事务</strong>：完成操作后，需要<code>COMMIT;</code>提交事务来释放锁并保证数据的一致性</li>
 <li><strong>处理超时情况</strong>：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
 </ol>
 </li>
-</ul>
+<li><p>动态分页查询？？</p>
+</li>
+<li><p>同一时刻大量跑腿任务发布，翻页时需要实时查出最新数据吗？<br>、、</p>
 </li>
 <li><p>三、跑腿双方状态与安全保障</p>
 <ul>
@@ -400,7 +406,7 @@
 <li>亮点难点<br>  1 押金的退还属于原路退回，主要接入对应支付渠道的退款接口，但是核心是退款流程分为两部分，一是退款成功，二是押金流水变更，两个阶段存在原子性，因为这部分业务，属于较低频型业务，所以使用事务方案，而不是补偿方案。<br>  2 提现需要使用另外的支付宝公对私打款接口，在收取10%的平台费用后(不做个税扣除)，进行批量打款。打款不做强可靠性，用户对提现和退款 不像支付要求那么高</li>
 </ul>
 </li>
-<li><p>怎么设计退款的？ </p>
+<li><p>押金退款的事务？ </p>
 <ul>
 <li>？？？设计了退款＋流水变更事务，退款接入已经做好的接口  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>

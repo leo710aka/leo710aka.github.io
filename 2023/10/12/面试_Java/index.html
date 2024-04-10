@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-09T05:32:40.396Z">
+<meta property="article:modified_time" content="2024-04-10T07:53:46.174Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -998,11 +998,19 @@
 <li><strong>「执行」</strong>操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</li>
 </ul>
 </li>
-<li><p>类加载器。<br>JDK自带有三个类加载器:bootstrap ClassLoader、ExtClassLoader、AppClassLoader.<br>BootStrapClassLoader是ExtClassLoader的父类加载器，默认负责加载%JAVA HOME%lib下的jar包和class文件<br>ExtClassLoader是AppClassLoader的父类加载器，负贵加载%JAVA HOME%&#x2F;lib&#x2F;ext文件夹下的jar包和class类。<br>AppClassLoader是自定义类加载器的父类，负贵加载classpath下的类文件。</p>
-</li>
-<li><p><strong>双亲委派模型</strong></p>
+<li><p><strong>类加载器</strong>、、</p>
 <ul>
-<li>上次提到了：class文件是通过「类加载器」装载至JVM中的，为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>JDK自带有三个类加载器:bootstrap ClassLoader、ExtClassLoader、AppClassLoader；   JDK 中的本地方法类一般由根加载器（Bootstrp loader）装载，内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。 <ul>
+<li>BootStrapClassLoader是ExtClassLoader的父类加载器，默认负责加载%JAVA HOME%lib下的jar包和class文件</li>
+<li>ExtClassLoader是AppClassLoader的父类加载器，负贵加载%JAVA HOME%&#x2F;lib&#x2F;ext文件夹下的jar包和class类。</li>
+<li>AppClassLoader是自定义类加载器的父类，负贵加载classpath下的类文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>双亲委派模型</p>
+<ul>
+<li>class文件是通过「类加载器」装载至JVM中的，为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
 <li>JDK 中的本地方法类一般由根加载器（Bootstrp loader）装载，内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。<br>  AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</li>
 <li>打破双亲委派机制：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制） </li>
 <li>打破双亲委派机制案例：Tomcat<ul>
