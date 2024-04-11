@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-10T13:30:13.779Z">
+<meta property="article:modified_time" content="2024-04-11T07:23:15.394Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job17.png">
@@ -369,9 +369,9 @@
 <li><strong>处理超时情况</strong>：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
 </ol>
 </li>
-<li><p>动态分页查询？？</p>
+<li><p>跑腿抢单的请求是直达数据库吗？<br>是的。我们项目是第一版，目标也只是在南航一所学校先试点运营，用户量很小，每一个订单的抢单并发 评估过 1s不过超过5人。所以直接使用数据库锁方案。所以我们测试人员只给业务case,完全不做压力测试。</p>
 </li>
-<li><p>同一时刻大量跑腿任务发布，翻页时需要实时查出最新数据吗？<br>、、</p>
+<li><p>假如数据库中有十万条数据，如何查第100页的数据？<br>数据比较大的分页的性能考虑，考点部分自己解决。<br>？？？<br>、、</p>
 </li>
 <li><p>三、跑腿双方状态与安全保障</p>
 <ul>
@@ -398,7 +398,7 @@
 </li>
 <li><p>腾讯云COS的参数是怎么配置的？<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/practice/436/9067">https://cloud.tencent.com/document/practice/436/9067</a></p>
 </li>
-<li><p>图片直传那一块具体做了什么？<br>就是后端 针对前端指定的cos文件夹 和指定的文件名 进行临时权限的生成， 同时也保证其它人和文件没有权限直传 保证cos安全性 怎么进行的权限签名的生成 就是使用的官方SDK就可以了？？</p>
+<li><p>图片直传那一块具体做了什么？<br>就是后端，使用的官方SDK，针对前端指定的cos文件夹 和指定的文件名，进行临时权限签名的生成， 同时也保证其它人和文件没有权限直传 保证cos安全性。</p>
 </li>
 <li><p>四、押金和钱包事务模块</p>
 <ul>
@@ -406,9 +406,9 @@
 <li>亮点难点<br>  1 押金的退还属于原路退回，主要接入对应支付渠道的退款接口，但是核心是退款流程分为两部分，一是退款成功，二是押金流水变更，两个阶段存在原子性，因为这部分业务，属于较低频型业务，所以使用事务方案，而不是补偿方案。<br>  2 提现需要使用另外的支付宝公对私打款接口，在收取10%的平台费用后(不做个税扣除)，进行批量打款。打款不做强可靠性，用户对提现和退款 不像支付要求那么高</li>
 </ul>
 </li>
-<li><p>押金退款的事务？ </p>
+<li><p>？？？押金退款的事务？ </p>
 <ul>
-<li>？？？设计了退款＋流水变更事务，退款接入已经做好的接口  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>押金的原路退回可能会破坏退款流水和押金流水的原子性，两个步骤必须一起进行，属于最常见的事务场景 1 退款流水状态变成“已退款” 2 押金退款接口返回成功<br>  接口肯定得有返回值  正常逻辑不要总想着加异常 就算有可能出现异常 在service方法级别 一般都是内部处理 不抛出？？<br>  能不能理解为退款是调接口实现，押金流水是数据库操作？？？事务逻辑如下：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
