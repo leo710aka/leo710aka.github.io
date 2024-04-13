@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-11T03:27:50.179Z">
+<meta property="article:modified_time" content="2024-04-12T01:55:31.878Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -1913,7 +1913,12 @@
 </li>
 <li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
 </li>
-<li><p>Spring 支持的事务管理类型.<br>1、 程序化事务管理：在此过程中，在编程的帮助下管理事务。它为您提供极大的灵活性，但维护起来非常困难。<br>2、 声明式事务管理：在此，事务管理与业务代码分离。仅使用注解或基于 XML的配置来管理事务。</p>
+<li><p>Spring事务管理：</p>
+<ul>
+<li>Spring框架提供的一种事务管理机制，它简化了事务管理的操作，并提供了对不同事务管理器的统一接口。两种方式：</li>
+<li>声明式事务：通过在方法上使用 @Transactional 注解来声明事务。这种方式更为常用，允许开发者将精力集中在业务逻辑上，而不需要关心事务的开始、提交或回滚。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myTransactionalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编程式事务：通过编写代码手动管理事务的开始、提交或回滚。虽然不太常用，但在一些特殊情况下可能会用到。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">myProgrammaticMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">DefaultTransactionDefinition</span> <span class="variable">def</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">    <span class="type">TransactionStatus</span> <span class="variable">status</span> <span class="operator">=</span> transactionManager.getTransaction(def);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        transactionManager.commit(status);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        transactionManager.rollback(status);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>Spring事务是如何回滚的？</p>
 <ul>
@@ -1922,7 +1927,11 @@
 <li>？？？分：<br>  1、先做准备工作，解析各个方法上事务相关的属性，根据具体的属性来判断是否开始新事务<br>  2、当需要开启的时候，获取数据库连接，关闭自动提交功能，开起事务<br>  3、执行具体的sql逻辑操作<br>  4、在操作过程中，如果执行失败了，那么会通过completeTransactionAterThrowing看来完成事务的回滚操作，回滚的具体逻辑是通过doRollBack方法来实现的，实现的时候也是要先获取连接对象，通过连接对象来回滚<br>  5、如果执行过程中，没有任何意外情况的发生，那么通过commitTransactionAfterReturning来完成事务的提交操作，提交的具体逻辑是通过doCommit方法来实现的，实现的时候也是要获取连接，通过连接对象来提交<br>  6、当事务执行完毕之后需要清除相关的事务信息cleanupTransactionlnfo<br>  如果想要聊的更加细致的话，需要知道Transactionlnfo,Transactionstatus,</li>
 </ul>
 </li>
-<li><p>Spring事务传播。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mc411S7B7?p=18&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1Mc411S7B7?p=18&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a><br>、、</p>
+<li><p>Spring中的事务是如何实现的<br>1，Spring事务底层是基于数据库事务和AOP机制的<br>2，首先对于使用了@Transactional注解的Bean，Spring会创建一个代理对象作为Bean<br>3，当调用代理对象的方法时，会先判断该方法上是否加了@Transactional注解<br>4，如果加了，那么则利用事务管理器创建一个数据库连接、<br>5，并且修改数据库连接的autocommit属性为false，禁止此连接的白动提交，这是实现Spring事务非常重要的一步<br>6，然后执行当前方法，方法中会执行sql<br>7。执行完当前方法后，如果没有出现异常就直接提交事务<br>8，如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务<br>9，Spring事务的隔离圾别对应的就是数据库的隔离级别<br>10，Spring事务的传播机制是Spring事务自己实现的，也是Spring事务中最复杂的<br>11，Spring事务的传机制是基于数据库连接来做的，一个数据库连接一个事务，如果传机制配置为需要新开一个事务，那么实际上就是先建立一个数库连接，在此新数据库连接上执行sql    </p>
+</li>
+<li><p>Spring事务传播机制<br>多个事务方法相互调用时，事务如何在这些法间传摇，方法A是一个事务的方法，方法A执行过程中调用了方法B，那么方法B有无事务以及方法B对事务的要求不同都会对方法A的事务具体执行造成影响，同时方法A的事务对方法B的事务执行也有影响，这种影响具体是什么就由两个方法所定义的事务传播类型所决定。<br>1，REQUIRED(Spring默认的事务传播类型): 如果当前没有事务，则自己新建一个事务，如果当前存在事务，则加入这个事务<br>2，SUPPORTS:当前存在事务，则加加入当前事务，如果当前没有事务，就以非事务方法执行<br>3。MANDATORY:当前存在事务，则加入当前事务，如果当前事务不存在，则抛出异常。<br>4，REQUIRES_NEW: 创建一个新事务，如果存在当前事务，则挂起该事务。<br>5，NOT_SUPPORTED: 以非事务方式执行如里当前存在事务，则持起当前事务<br>6，NEVER:不使用事务，如果当前事务存在，则抛出异常<br>7，NESTED: 如果当前事存在，则在嵌套事务中执行，否则REQUIRED的操作一样 (开启一个事务)<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mc411S7B7?p=18&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1Mc411S7B7?p=18&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a></p>
+</li>
+<li><p>Spring事务什么时候会失效?<br>spring事务的原理是AOP，进行了切面增强，那么失效的根本原因是这个AOP不起作用了! 常见情况有如下几种<br>？？1、发生自调用，类里面使用this调用本类的方法(this通常省略)，此时这个this对象不是代理类，而是UserService对象本身!解决方法很简单，让那个this变成UserService的代理类即可!<br>2、方法不是public的:@Transactional 只能用于 public 的方法上，否则事务不会失效，如果要用在非 public 方法上，可以开启 Aspectj 代理楼式<br>3、数据库不支持事务<br>4、没有被spring管理<br>5、异常被吃掉，事务不会回滚(或者抛出的异常没有被定义，默认为RuntimeException)</p>
 </li>
 <li><p><strong>Spring中常见的设计模式。</strong></p>
 <ol>
