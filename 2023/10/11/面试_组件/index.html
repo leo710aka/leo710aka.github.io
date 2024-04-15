@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-12T17:06:28.020Z">
+<meta property="article:modified_time" content="2024-04-15T05:33:36.654Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -707,7 +707,7 @@
 <li><p>Redis 为什么这么快？</p>
 <ul>
 <li>Redis 的大部分操作都在内存中完成，并且采用了高效的数据结构(压缩表、跳跃表等方式降低了时间复杂读，同时还提供了不同时间复杂度的数据类型)，因此 Redis 瓶颈可能是机器的内存或者网络带宽，而并非 CPU，既然 CPU 不是瓶颈，那么自然就采用单线程的解决方案了;</li>
-<li>Redis 采用单线程模型可以避免了多线程之间的竞争，省去了多线程切换带来的时间和性能上的开销，而且也不会导致死锁问题，</li>
+<li>Redis 采用单线程模型可以避免了多线程之间的竞争，省去了多线程切换的时间和性能上的开销，而且也不会导致死锁问题；</li>
 <li>Redis 采用了 I&#x2F;0 多路复用机制处理大量的客户端 Socket 请求，I0 多路复用机制是指一个线程处理多个I0流，就是我们经常听到的 select&#x2F;epoll 机制。简单来说，在 Redis 只运行单线程的情况下，该机制允许内核中，同时存在多个监听 Socket 和已连接 Socket.内核会一直监听这些 Socket 上的连接请求或数据请求。一旦有请求到达，就会交给 Redis线程处理，这就实现了一个 Redis 线程处理多个 IO 流的效果。</li>
 </ul>
 </li>
@@ -780,6 +780,18 @@
 <li>有序集合：集合是无序的，有序集合可以设置顺序，可以用来实现排行榜功能，按时间播放量点击</li>
 </ol>
 </li>
+<li><p>Redis 中 String 的底层实现、、</p>
+<ul>
+<li>Redis底层是C实现的，Redis中String是一种动态字符串类型，它的底层实现就是 SDS。每个字符串对象（string object）都有对应的 SDS 结构，存储在内存中。</li>
+<li>SDS 是 Redis 自己实现的字符串抽象数据结构，当 Redis 执行字符串操作如 SET、GET、APPEND 等操作，实际上是对 SDS 结构进行操作，包括修改长度、扩展空间、拷贝数据等操作。相较于 C 语言的原生字符串，SDS 具有以下优势：<ol>
+<li><strong>O(1) 复杂度的长度计算</strong>：SDS 不需要每次计算字符串长度，因为它在结构中记录了字符串的长度，因此获取字符串长度的操作是 O(1) 复杂度的。</li>
+<li><strong>空间预分配</strong>：SDS 在空间分配时会预留额外的空间，以减少字符串增长时频繁地重新分配内存的次数，从而提高性能。</li>
+<li><strong>修改操作的高效性</strong>：SDS 通过记录字符串的长度，可以直接修改字符串内容，而无需像 C 语言原生字符串那样，重新计算长度和分配内存。</li>
+</ol>
+</li>
+<li>SDS 的结构如下所示：  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> len;        <span class="comment">// 字符串长度</span></span><br><span class="line">    <span class="type">int</span> <span class="built_in">free</span>;       <span class="comment">// 未使用空间长度</span></span><br><span class="line">    <span class="type">char</span> buf[];     <span class="comment">// 字符串数据</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li><p>Redis 应用场景。</p>
 <ol>
 <li>缓存层。防止所有的请求打到DB，做过多的IO</li>
@@ -843,7 +855,13 @@
 </li>
 <li><p>热点数据和冷数据？<br><strong>数据更新前至少读取两次</strong>，缓存才有意义。对于热点数据，比如生日祝福模块中当天的寿星列表，缓存以后可能读取数十万次，同时信息修改频率不高。这个是最基本的策略，若缓存还没有起作用就失效就没有太大价值了。<br>那存不存在，修改频率很高，但是又不得不考虑缓存的场景呢？有！比如，这个读取接口对数据库的压力很大，但是又是热点数据，这个时候就需要考虑通过缓存手段，减少数据库的压力，比如我们的某助手产品的，点赞数，收藏数，分享数等是非常典型的热点数据，但是又不断变化，此时就需要将数据同步保存到Redis缓存，减少数据库压力</p>
 </li>
-<li><p>过期策略。<br>Redis会把设置了过期时间的key放入一个独立的字典里，在key过期时并不会立刻删除它<br>Redis会通过如下两种策略，来删除过期的key:<br>1、惰性删除：客户端访问某个key时，Redis会检查该key是否过期，若过期则删除。(问题: 有些键值对,可能已经过期了,但是由于没有再被访问,导致未被删除,因而占用内存)。<br>2、定期扫描：Redis默认每秒执行10次过期扫描 (配置hz选项) ，扫描策略如下 (1). 从过期字典中随机选择20个key; (2)删除这20个key中已过期的key; (3)如果过期的key的比例超过25%，则重复步骤1<br><strong>为什么不用定时删除策略?</strong><br>定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略.<br><strong>定期删除+惰性删除是如何工作的呢?</strong><br>定期删除，redis默认每个100ms检查，是否有过期的key,有过期key则删除。需要说明的是，redis不是每个100ms将所有的key检查一次，而是随机抽取进行检查(如果每隔100ms,全部key进行检查，redis岂不是卡死)。因此，如果只采用定期删除策略，会导致很多key到时间没有删除。于是，惰性删除派上用场。也就是说在你获取某个key的时候，redis会检查一下，这个key如果设置了过期时间那么是否过期了？如果过期了此时就会删除。<br><strong>采用定期删除+惰性删除就没其他问题了么?</strong><br>不是的，如果定期删除没删除key。然后你也没即时去请求key，也就是说惰性删除也没生效。这样，redis的内存会越来越高。那么就应该采用内存淘汰机制。在redis.conf中有一行配置</p>
+<li><p>过期策略。</p>
+<ul>
+<li>Redis会把设置了过期时间的key放入一个独立的字典里，过期时并不会立刻删除，通过如下两种策略来删除过期的key:<br>  1、惰性删除：客户端访问某个key时，Redis会检查该key是否过期，若过期则删除。(问题: 有些键值对,可能已经过期了,但是由于没有再被访问,导致未被删除,因而占用内存)。<br>  2、定期扫描：Redis默认每秒执行10次过期扫描 (配置hz选项) ，扫描策略如下 (1). 从过期字典中随机选择20个key; (2)删除这20个key中已过期的key; (3)如果过期的key的比例超过25%，则重复步骤(1)</li>
+<li><strong>为什么不用定时删除策略?</strong><br>  定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略.</li>
+<li><strong>定期删除+惰性删除是如何工作的呢?</strong><br>  定期删除，redis默认每个100ms检查，是否有过期的key,有过期key则删除。需要说明的是，redis不是每个100ms将所有的key检查一次，而是随机抽取进行检查(如果每隔100ms,全部key进行检查，redis岂不是卡死)。因此，如果只采用定期删除策略，会导致很多key到时间没有删除。于是，惰性删除派上用场。也就是说在你获取某个key的时候，redis会检查一下，这个key如果设置了过期时间那么是否过期了？如果过期了此时就会删除。</li>
+<li><strong>采用定期删除+惰性删除就没其他问题了么?</strong><br>  不是的，如果定期删除没删除key。然后你也没即时去请求key，也就是说惰性删除也没生效。这样，redis的内存会越来越高。那么就应该采用内存淘汰机制。在redis.conf中有一行配置</li>
+</ul>
 </li>
 <li><p>淘汰策略。<br>当Redis占用内存超出最大限制(maxmemory)时，可采用如下策略(maxmemory-policy)淘汰一些数据以腾出空间继续提供读写服务:<br>noeviction：对可能导致增大内存的命令返回错误 (大多数写命令，DEL除外)<br>volatile-ttl：在设置了过期时间的key中，选择剩余寿命(TTI) 最短的key，将其淘汰<br>volatile-lru：在设置了过期时间的kev中，选择最少使用的kev (LRu) ，将其淘汰:<br>volatile-random：在设置了过期时间的key中，随机选择一些key，将其淘汰;<br>allkeys-lru：在所有的ke中，选择最少使用的key (LRu) ，将其淘汰<br>allkeys-random：在所有的key中，随机选择一些key，将其淘汰<br>(这里其实还有volatile-lfu、allkeys-lfu，所谓&#x3D;&#x3D;LFU算法&#x3D;&#x3D;，就是先考虑键值对访问的次数，优先淘汰访问次数少的键值对，对于访问次数相同的键值对，再选择最近久未被访问的键值对进行淘汰(也就是LRU算法))<br>LRU算法：维护一个链表，用于顺序存储被访问过的key。在访问数据时，最新访问过的kev将被移动到表头, 即最近访问的key在表头，最少访问的key在表尾。</p>
 </li>
@@ -1332,8 +1350,6 @@
 </li>
 <li><p>什么是死锁？如何避免死锁？<br>死锁是指两个或多个进程在争夺系统资源时，由于互相等待对⽅释放资源⽽⽆法继续执⾏的状态。死锁只有同时满⾜以下四个条件才会发⽣：<br>1、互斥条件：⼀个进程占⽤了某个资源时，其他进程⽆法同时占⽤该资源。<br>2、请求保持条件：⼀个线程因为请求资源⽽阻塞的时候，不会释放⾃⼰的资源。<br>3、不可剥夺条件：资源不能被强制性地从⼀个进程中剥夺，只能由持有者⾃愿释放。<br>4、环路等待条件：多个进程之间形成⼀个循环等待资源的链，每个进程都在等待下⼀个进程所占有的资源。<br>只需要破坏上⾯⼀个条件就可以破坏死锁。<br>破坏请求与保持条件：⼀次性申请所有的资源。<br>破坏不可剥夺条件：占⽤部分资源的线程进⼀步申请其他资源时，如果申请不到，可以主动释放它占有的资源。<br>破坏循环等待条件：靠按序申请资源来预防。让所有进程按照相同的顺序请求资源，释放资源则反序释放。</p>
 </li>
-<li><p>多线程编程：<br>？？多线程编程是指在一个进程内创建多个线程，这些线程共享进程的资源，但拥有独立的执行流。多线程可以提高程序的并发性和响应性。</p>
-</li>
 <li><p>多进程与多线程区别：</p>
 <ul>
 <li>多进程是在不同的地址空间中执行，相互独立，通信相对复杂，但更稳定。</li>
@@ -1401,23 +1417,10 @@
 </li>
 </ul>
 </li>
-<li><p>垃圾回收：</p>
-<ul>
-<li>优点：自动释放内存，减少内存泄漏的风险，提高程序稳定性。</li>
-<li>原理：垃圾回收通过标记-清除、引用计数等算法识别并回收不再使用的对象。</li>
-<li>两种回收机制：<ul>
-<li>引用计数：通过计算对象的引用数来确定是否回收对象。</li>
-<li>标记-清除：通过标记不再使用的对象，然后清除这些对象来回收内存。</li>
-</ul>
-</li>
-</ul>
-</li>
 <li><p>CPU 飙高系统反应慢怎么排查？<br>CPU 是整个电脑的核心计算资源，对于一个应用进程来说，CPU 的最小执行单元是线程。导致 CPU 飙高的原因有几个方面：<br>1、CPU 上下文切换过多，对于 CPU 来说，同一时刻下每个 CPU 核心只能运行一个线程，如果有多个线程要执行，CPU 只能通过上下文切换的方式来执行不同的线程。较多的上下文切换会占据大量 CPU 资源，从而使得 cpu 无法去执行用户进程中的指令，导致响应速度下降。在 Java 中，文件 IO、网络 IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换<br>2、CPU 资源过度消耗，也就是在程序中创建了大量的线程，或者有线程一直占用CPU 资源无法被释放，比如死循环！CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率<br>3、既然是这两个问题导致的 CPU 利用率较高，于是我们可以通过 top 命令，找到 CPU利用率较高的进程，在通过 Shift+H 找到进程中 CPU 消耗过高的线程，这里有两种情况。<br>CPU 利用率过高的线程一直是同一个，说明程序中存在线程长期占用 CPU 没有释放的情况，这种情况直接通过jstack 获得线程的 Dump 日志，定位到线程日志后就可以找到问题的代码。<br>CPU 利用率过高的线程 id 不断变化，说明线程创建过多，需要挑选几个线程id通过 jstack 去线程 dump 日志中排查。<br>4、最后有可能定位的结果是程序正常，只是在 CPU 飙高的那一刻，用户访问量较大，导致系统资源不够。</p>
 </li>
 </ul>
 <hr>
-
-
 
 <h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><ul>
 <li><p>分布式、SOA、微服务之间有什么关系和区别?<br>1，分布式架构是指将单体架构中的各个部分拆分，然后部署不同的机器或进程中去，SOA和微服务都是分布式架构的<br>2，SOA 是一种面向服务的架构，系统的所有服务都注册在总线上，当调用服务时，从总线上查找服务信息，然后调用<br>3，微服务是一种更彻底的面向服务的架构，将系统中各个功能个体抽成一个个小的应用程序，基本保持一个应用对应的一个服务的架构</p>
@@ -1574,7 +1577,7 @@
 </li>
 <li><p>使用什么命令查看网络是否连通?使用什么命令查看 ip 地址及接口信息？<br>natstat，ifconfig</p>
 </li>
-<li><p>文件的权限可以用一串字符表示，其中”-rwxrw-rw-“是一个典型的例子。<br>  每个权限字符串由10个字符组成，分为四个部分：<br>  1、<strong>文件类型：</strong> 第一个字符表示文件的类型。包括：<code>-</code>：普通文件。<code>d</code>：目录。<code>l</code>：符号链接（软链接）<br>  2、<strong>用户权限：</strong> 接下来的三个字符表示文件所有者的权限。 <code>r</code>：读取权限（Read） <code>w</code>：写入权限（Write） <code>x</code>：执行权限（eXecute）<br>  3、<strong>组权限：</strong> 再接下来的三个字符表示文件所属组的权限。<br>  4、<strong>其他用户权限：</strong> 最后的三个字符表示其他用户的权限。<br>  在给定的例子”-rwxrw-rw-“中：文件类型是普通文件，文件所有者有读、写和执行权限，文件所属组有读和写权限，其他用户有读和写权限。</p>
+<li><p>文件的权限可以用一串字符表示，其中”-rwxrw-rw-“是一个典型的例子。<br>  每个权限字符串由10个字符组成，分为四个部分：<br>  1、<strong>文件类型：</strong> 第一个字符表示文件的类型。包括：<code>-</code>：普通文件。<code>d</code>：目录。<code>l</code>：符号链接（软链接）<br>  2、<strong>用户权限：</strong> 接下来的三个字符表示文件所有者的权限。 <code>r</code>：读权限（Read） <code>w</code>：写权限（Write） <code>x</code>：执行权限（eXecute）<br>  3、<strong>组权限：</strong> 再接下来的三个字符表示文件所属组的权限。<br>  4、<strong>其他用户权限：</strong> 最后的三个字符表示其他用户的权限。<br>  在给定的例子”-rwxrw-rw-“中：文件类型是普通文件，文件所有者有读、写和执行权限，文件所属组有读和写权限，其他用户有读和写权限。</p>
 </li>
 <li><p>文件唯一标识符（File Identifier）<br>通常是通过文件的<code>inode</code>来实现的，而不是文件目录。<br><code>inode</code>是文件系统中用于唯一标识文件或目录的数据结构。每个文件或目录都有一个唯一的<code>inode</code>号码，它是一个整数值。</p>
 </li>
@@ -1583,7 +1586,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="cluzdrdjg000vnkv5h1cn62tu" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clv0p1dcv000wwkv57kwgeiy2" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

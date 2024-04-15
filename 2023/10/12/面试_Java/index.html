@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-12T01:55:31.878Z">
+<meta property="article:modified_time" content="2024-04-15T08:28:37.830Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -1084,7 +1084,7 @@
 <li>标记压缩算法:为了解决复制算法的缺陷，就提出了标记压缩算法。这种算在标记阶段跟标记清除算法是一样的，但是在完成标记之后，不是直接清理垃圾内存，而是将存活对象往一端移动，然后将边界以外的所有内存直接清除。</li>
 </ol>
 </li>
-<li><p>堆的分区<br>堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「survivor」区又分为「From Survivor」和「To Survivor」区 </p>
+<li><p>堆的分区、、<br>堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「survivor」区又分为「From Survivor」和「To Survivor」区 </p>
 </li>
 <li><p>java的对象是怎么被回收的？</p>
 <ul>
@@ -1096,11 +1096,28 @@
 <li>为什么需要分代：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the world」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</li>
 <li>垃圾回收器：实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）<br>  「年轻代」的垃圾收集器有：Seria、Parallel Scavenge、ParNew<br>  「老年代」的垃圾收集器有：Serial Old、Parallel Old、CMS</li>
 <li>Minor GC：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</li>
-<li>什么是card table【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对应进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</li>
+<li>什么是card table【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对应进而顺利进行Minor GC案例：老年代对象持有年轻代对象引用）</li>
 <li>Full GC：。。。</li>
 </ul>
 </li>
 <li><p>CMS垃圾收集器 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<ul>
+<li>CMS的全称：Concurrent Mark Sweep，翻译过来是「并发标记清除」<br>  对比其他垃圾收集器(Seria和Parallel和parNew)，它最大的不同点就是“并发”：在GC线程工作的时候，用户线程不会完全停止，用户线程在“部分场景下”与GC线程一起并发执行，避免老年代 GC出现长时间的卡顿（Stop The World）</li>
+<li>CMS可简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记及并发清除，即<strong>CMS主要是实现了「标记清除」GC</strong><ol>
+<li>「初始标记」会标记GCRoots「直接关联」的对象以及「年轻代」指向「老年代」的对象。这个过程是会发生Stop The World的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
+<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The World）。这一阶段主要是从GC Roots向下「追溯」，标记所有可达的对象；在GC的角度而言，是比较耗费时间的（需要追溯）</li>
+<li>「并发预处理」这个阶段主要想干的事情：希望能减少下一个阶段「重新标记」所消耗的时间，因为下一个阶段「重新标记」是需要Stop The World的<br>  这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象（「并发标记」这个阶段由于用户线程是没有被挂起的，可能有些对象从新生代晋升到了老年代，可能有些大对象直接分配到了老年代，可能老年代或者新生代的对象引用发生了变化…），会再扫描一遍标记为dirty的卡页<br>  针对老年代的对象，其实还是可以借助类card table的存储（将老年代对象发生变化所对应的卡页标记为dirty）；对于新生代的对象，我们还是得遍历新生代来看看在并发标记过程中有没有对象引用了老年代..</li>
+<li>「重新标记」阶段会Stop The World，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段（可以发现，这是一个追赶的过程：一边在标记存活对象，一边用户线程在执行产生垃圾）</li>
+<li>最后就是「并发清除」阶段，不会Stop The World，一边用户线程在执行，一边GC线程在回收不可达的对象。这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC 进行处理了，产生的这些垃圾被叫做“浮动垃圾”，完了以后会重置 CMS 算法相关的内部数据，为下一次 GC 循环做准备</li>
+</ol>
+</li>
+<li>比起G1，CMS有什么缺点呢？<ol>
+<li>空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。如果CMS运行过程中预留的空间不够用了，会报错（Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长。</li>
+<li>内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片。由于碎片太多，又可能会导致内存空间不足所触发full GC，CMS一般会在触发full GC这个过程对碎片进行整理。</li>
+<li>要处理内存碎片的问题（整理），整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会Stop The World的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
+</ol>
+</li>
+</ul>
 </li>
 <li><p>G1垃圾收集器 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26352521/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26352521/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
 </li>
@@ -1400,28 +1417,30 @@
 </li>
 <li><p>ThreadLocal的底层原理<br>1，Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据<br>2、Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（注意不是Threadloca对象）中都存在ThreadlocalMap，Map的key为Thredloca对象，Map的value为需要授存的值<br>？？3，如果在线程池中使用Threadloal会造成内存泄漏，因为当Threadloca对象使用完之后，应该要把设置的key,value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线理对象是通过观引用指向ThreadlocaMap，ThreadlocaMap也是通过用强引用指向entry对象，线理不被回收，entry对象也就不会被回收，从而出现内存泄露，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象<br>4，Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</p>
 </li>
-<li><p>线程池？？</p>
+<li><p><strong>线程池</strong></p>
 <ul>
-<li>线程池是管理一系列线程的资源池，用到了池化技术，像数据库连接池、HTTP 连接池都是池化技术的体现，主要目的是为了提高资源的利用率。</li>
+<li>为什么需要线程池？<br>  JVM在HotSpot的线程模型下，Java线程会一对一映射为内核线程。这意味着，在Java中每次创建以及回收线程都会去内核创建以及回收，这就有可能导致：创建和销毁线程所花费的时间和资源可能比处理的任务花费的时间和资源要更多。<br>  线程池的出现是为了提高线程的复用性以及固定线程的数量！！</li>
+<li>线程池是什么：<br>  管理一系列线程的资源池，用到了池化技术，像数据库连接池、HTTP 连接池都是池化技术的体现，主要目的是为了提高资源的利用率。</li>
 <li>使用线程池的好处<ul>
 <li>降低资源消耗，通过重复利用已创建的线程来降低创建和销毁线程的消耗。</li>
 <li>提高响应速度，因为当有任务到达时，线程已经被创建完毕，立刻能执行任务。</li>
 <li>提高线程的可管理性，线程池可以批量管理线程，并且可以监控和调优，根据实际情况修改参数能将线程池效率发挥最大化。使用线程池可以让多个不相关的任务同时执行。</li>
 </ul>
 </li>
-<li>Executor 框架：在 JDK 1.5 之后引入，相比于直接用 Thread 的 Start 方法更好，方便管理，效率更高。<br>  Executor 框架包括线程池管理，还提供线程工厂、任务队列和拒绝策略。</li>
-<li>ThreadPoolExecutor 类<ul>
-<li>参数介绍：<br>  corePoolSize：核心线程数<br>  maximumPoolSize：最大线程数<br>  workQueue：任务队列<br>  keepAliveTime：空闲存活时间<br>  unit：keepAliveTime 参数的时间单位<br>  threadFactory：线程工厂<br>  handler：拒绝策略（核心线程满，任务队列满，最大线程数满，再有任务就会执行拒绝策略）</li>
-<li>流程图：<img src="https://leo710aka.github.io/bk/job16.png" width="450" height="300" alt=""></li>
-<li>线程池的拒绝策略默认有以下 4 种:<br>  1、AbortPolicy（中止策略）功能: 直接抛出拒绝执行的异常，中止策略的意思也就是打断当前执行流程。<br>  2、CallerRunsPolicy（调用者运行策略）功能：只要线程池没有关闭，就由提交任务的当前线程处理。<br>  3、DiscardPolicy（丢弃策略）功能：直接静悄悄的丢弃这个任务，不触发任何动作。<br>  4、DiscardOldestPolicy（弃老策略）功能：如果线程池未关闭，就弹出队列头部的元素，然后尝试执行。</li>
-</ul>
-</li>
-<li>线程池创建两种方式<ol>
+<li>线程池两种创建方式<ol>
 <li>通过 ThreadPoolExecutor 构造函数。（推荐）</li>
-<li>通过 Executor 框架的工具类 Executors 创建。</li>
+<li>通过 Executor 框架的工具类 Executors 创建。JDK 1.5 之后引入，相比于直接用 Thread 的 Start 方法更好，方便管理，效率更高。包括线程池管理，还提供线程工厂、任务队列和拒绝策略。</li>
 </ol>
 </li>
+</ul>
+</li>
+<li><p>ThreadPoolExecutor 类</p>
+<ul>
+<li>7？大参数：<br>  corePoolSize（核心线程数量）、maximumPoolSize（最大线程数量）、keepAliveTime（线程空余时间：若当前运行的线程数大于核心线程数，达到空闲时间后就会对线程进行回收）、workQueue（阻塞(任务)队列）、handler（任务拒绝策略：核心线程满，任务队列满，最大线程数满，再有任务就会执行拒绝策略）， threadFactory：线程工厂</li>
+<li>任务提交的流程，分别对应着几个参数的作用吧。<br>  1 首先会判断运行线程数是否小于corePoolSize，如果小于，则直接创建新的线程执行任务<br>  2 如果大于corePoolSize，判断workQueue阻塞队列是否已满，如果还没满，则将任务放到阻塞队列中<br>  3 如果workQueue阻塞队列已经满了，则判断当前线程数是否大于maximumPoolSize，如果没大于则创建新的线程执行任务<br>  4 如果大于maximumPoolSize，则执行任务拒绝策略（具体就是你自己实现的handler）  <img src="https://leo710aka.github.io/bk/job16.png" width="450" height="300" alt=""></li>
+<li>线程池的拒绝策略默认有以下 4 种:<br>  1、AbortPolicy（中止策略）功能: 直接抛出拒绝执行的异常，中止策略的意思也就是打断当前执行流程。<br>  2、CallerRunsPolicy（调用者运行策略）功能：只要线程池没有关闭，就由提交任务的当前线程处理。<br>  3、DiscardPolicy（丢弃策略）功能：直接静悄悄的丢弃这个任务，不触发任何动作。<br>  4、DiscardOldestPolicy（弃老策略）功能：如果线程池未关闭，就弹出队列头部的元素，然后尝试执行。</li>
 <li>ThreadPoolExecutor 的类型<br>  <strong>FixedThreadPool</strong>：该方法返回一个固定线程数量的线程池。<br>  SingleThreadExecutor： 该方法返回一个只有一个线程的线程池。<br>  CachedThreadPool： 该方法返回一个可根据实际情况调整线程数量的线程池。<br>  <strong>ScheduledThreadPool</strong>：该返回一个用来在给定的延迟后运行任务或者定期执行任务的线程池。</li>
+<li>如何指定线程数？<br>  线程池指定线程数这块，首先要考量自己的业务是什么样的，是cpu密集型的还是io密集型的。<br>  假设运行应用的机器CPU核心数是N，那cpu密集型的可以先给到N+1，io密集型的可以给到2N去试试；<br>  上面这个只是一个常见的经验做法，具体究竟开多少线程，需要压测才能比较准确地定下来；线程不是说越大越好，多线程是为了充分利用CPU的资源，线程过多的上下文切换也会带来系统的开销</li>
 </ul>
 </li>
 <li><p>Java<strong>死锁</strong>如何避免?</p>
@@ -2176,7 +2195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="cluzdrdjf000unkv5eaibd1s0" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clv0p1dcv000vwkv5hjtx8hii" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
