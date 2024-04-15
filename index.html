@@ -3037,7 +3037,7 @@
 <li>标记压缩算法:为了解决复制算法的缺陷，就提出了标记压缩算法。这种算在标记阶段跟标记清除算法是一样的，但是在完成标记之后，不是直接清理垃圾内存，而是将存活对象往一端移动，然后将边界以外的所有内存直接清除。</li>
 </ol>
 </li>
-<li><p>堆的分区、、<br>堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「survivor」区又分为「From Survivor」和「To Survivor」区 </p>
+<li><p>堆的分区、、<br>堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「survivor」区又分为「From Survivor」和「To Survivor」区<img src="https://github.com/leo710aka/bk/blob/main/job20.png?raw=true" width="500" height="300" alt=""></p>
 </li>
 <li><p>java的对象是怎么被回收的？</p>
 <ul>
@@ -3053,7 +3053,7 @@
 <li>Full GC：。。。</li>
 </ul>
 </li>
-<li><p>CMS垃圾收集器 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26111304/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<li><p>CMS垃圾收集器</p>
 <ul>
 <li>CMS的全称：Concurrent Mark Sweep，翻译过来是「并发标记清除」<br>  对比其他垃圾收集器(Seria和Parallel和parNew)，它最大的不同点就是“并发”：在GC线程工作的时候，用户线程不会完全停止，用户线程在“部分场景下”与GC线程一起并发执行，避免老年代 GC出现长时间的卡顿（Stop The World）</li>
 <li>CMS可简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记及并发清除，即<strong>CMS主要是实现了「标记清除」GC</strong><ol>
@@ -3073,6 +3073,23 @@
 </ul>
 </li>
 <li><p>G1垃圾收集器 <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv26352521/?spm_id_from=333.999.0.0&jump_opus=1">https://www.bilibili.com/read/cv26352521/?spm_id_from=333.999.0.0&amp;jump_opus=1</a></p>
+<ul>
+<li>在G1垃圾收集器的世界中，堆的划分不再是物理形式，而是以”逻辑”的形式进行划分；<br>  使用CSet来存储可回收Region的集合，使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）<br>  G1垃圾收集器世界的「堆」空间分布：<img src="https://github.com/leo710aka/bk/blob/main/job19.png?raw=true" width="300" height="300" alt=""><br>  从图上就可以发现，堆被划分了多个同等份的区域 Region<br>  不过像之前的「分代」概念在G1的世界还是一样奏效的，比如说：新对象一般会分配到Eden区、经过默认15次的Minor GC新生代的对象如果还存活，会移交到老年代等等…老年代、新生代、Survivor这些规则是跟CMS一样的，此外，G1中还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于Region内存的一半），一旦发现没有引用指向大对象，就可直接在年轻代的Minor GC中被回收掉</li>
+<li>为什么要将堆空间进行细分多个小的区域？<br>  像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的。而划分多个小区域之后，那对这些「小区域」回收就容易控制「收集时间」了</li>
+<li>GC过程：在G1收集器中可以主要分为有Minor GC(Young GC) 和 Mixed GC，Full GC<ul>
+<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
+<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
+<li>【也有些特殊场景可能会发生】Full GC</li>
+</ul>
+</li>
+<li>Minor GC：<ul>
+<li>触发时机跟前面提到过的垃圾收集器都是一样的<br>  等到Eden区满了之后，会触发Minor GC。Minor GC同样也是会发生Stop The World的<br>  要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）<br>  这块要知道会给我们提供参数进行配置就好了<br>  所以，动态地改变年轻代Region的个数可以「控制」Minor GC的开销</li>
+<li>回收过程，可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理 RSet、复制对象<br>  第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程<br>  第二步涉及到「Rset」的概念<br>  从上一次我们聊CMS回收过程的时候，同样讲到了Minor GC，它是通过「卡表」(cart table)来避免全表扫描老年代的对象<br>  因为Minor GC 是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉<br>  同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet<br>  只要记住，RSet这种存储在每个Region都会有，它记录着「其他Region引用了当前Region的对象关系」<br>  对于年轻代的Region，它的RSet 只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做Minor GC了）<br>  而对于老年代的 Region 来说，它的 RSet 也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）<br>  那第二步看完RSet的概念，应该也好理解了吧？<br>  无非就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到GC Roots下，避免被回收掉<br>  第三步也挺好理解的：把扫描之后存活的对象往「空的Survivor区」或者「老年代」存放，其他的Eden区进行清除</li>
+</ul>
+</li>
+<li>Mixed GC：会选定所有的年轻代Region，部分「回收价值高」的老年代Region（回收价值高其实就是垃圾多）进行采集</li>
+<li>Full GC</li>
+</ul>
 </li>
 <li><p>JVM调优到底是干啥的？</p>
 <ul>
@@ -4527,7 +4544,7 @@
 </li>
 <li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以 MySQL 默认不支持事务。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
-<li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool，LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+<li><p>？？？Innodb是如何实现事务的<br>Innodb通过BufferPool，LogBuffer，Redo Log，undoLog来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改BufferPool中的数据，也就是内存中的数据<br>3.针对update语句生成一个Redo Log对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把Redo Log对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
 </li>
@@ -4639,11 +4656,13 @@
 </li>
 <li><p>Mysql日志。？？</p>
 <ul>
-<li>binlog (归档⽇志) 是Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog。。</li>
+<li>binlog(归档⽇志) 是 Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog</li>
 <li>redolog 是 Innodb 存储引擎层 ？？物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。</li>
 <li>undolog 是 Innodb 存储引擎层⽣成的⽇志，实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。</li>
 <li>relaylog 中继⽇志，⽤于主从复制场景下， slave 通过io线程拷⻉master的 binlog 后本地⽣成的⽇志</li>
 </ul>
+</li>
+<li><p>undo log和redo log的区别<br>redolog日志记录的是数据页的物理变化，服务宕机可用来同步数据；而undolog主要记录的是逻辑日志，当事务回滚时，通过逆操作恢复原来的数据，比如我们删除一条数据的时候，就会在undolog日志文件中新增一条delete语句，如果发生回滚就执行逆操作；<br>redo log保证了事务的持久性，undolog保证了事务的原子性和一致性</p>
 </li>
 <li><p>当MySQL的日志空间不足时，可能会导致以下影响：</p>
 <ol>

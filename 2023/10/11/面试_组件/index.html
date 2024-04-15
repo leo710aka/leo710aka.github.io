@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-15T05:33:36.654Z">
+<meta property="article:modified_time" content="2024-04-15T15:43:34.831Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -444,7 +444,7 @@
 </li>
 <li><p>MySQL 支持事务吗？<br>在缺省模式下，MySQL 是 autocommit 模式的，所有的数据库更新操作都会即时提交，所以 MySQL 默认不支持事务。<br>但是如果你的 MySQL 表类型是使用 InnoDB TaTables 或 BDB tables 的话，你的MySQL 就可以使用事务处理,在非autocommit 模式下，你必须使用 COMMIT 来提交你的更改，或者用 ROLLBACK来回滚你的更改。</p>
 </li>
-<li><p>？？？Innodb是如何实现事务的<br>Innodb通过Buffer Pool，LogBuffer，Redo Log，Undo Log来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改Buffer Pool中的数据，也就是内存中的数据<br>3.针对update语句生成一个RedoLog对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
+<li><p>？？？Innodb是如何实现事务的<br>Innodb通过BufferPool，LogBuffer，Redo Log，undoLog来实现事务，以一个update语句为例:<br>1.Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在BufferPool中<br>2.执行update语句，修改BufferPool中的数据，也就是内存中的数据<br>3.针对update语句生成一个Redo Log对象，并存入LogBuffer中<br>4.针对update语句生成undolog日志，用于事务回滚<br>5.如果事务提交，那么则把Redo Log对象进行持久化，后续还有其他机制将BufferPool中所修改的数据页持久化到磁盘中<br>6.如果事务回滚，则利用undolog日志进行回滚</p>
 </li>
 <li><p>innoDB 如何解决幻读？<br>1、Mysql 有四种事务隔离级别，其中 InnoDB 在 RR（可重复读）的隔离级别下，解决了幻读的问题（在特定的情况下会出现幻读的问题。具体什么情况下会出现幻读呢？？？<br>2、幻读是指在同一个事务中，前后两次查询相同的范围时，得到的结果不一致<br>3、InnoDB 引入了间隙锁和 next-key Lock 机制来解决幻读问题？？</p>
 </li>
@@ -556,11 +556,13 @@
 </li>
 <li><p>Mysql日志。？？</p>
 <ul>
-<li>binlog (归档⽇志) 是Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog。。</li>
+<li>binlog(归档⽇志) 是 Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog</li>
 <li>redolog 是 Innodb 存储引擎层 ？？物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。</li>
 <li>undolog 是 Innodb 存储引擎层⽣成的⽇志，实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。</li>
 <li>relaylog 中继⽇志，⽤于主从复制场景下， slave 通过io线程拷⻉master的 binlog 后本地⽣成的⽇志</li>
 </ul>
+</li>
+<li><p>undo log和redo log的区别<br>redolog日志记录的是数据页的物理变化，服务宕机可用来同步数据；而undolog主要记录的是逻辑日志，当事务回滚时，通过逆操作恢复原来的数据，比如我们删除一条数据的时候，就会在undolog日志文件中新增一条delete语句，如果发生回滚就执行逆操作；<br>redo log保证了事务的持久性，undolog保证了事务的原子性和一致性</p>
 </li>
 <li><p>当MySQL的日志空间不足时，可能会导致以下影响：</p>
 <ol>
