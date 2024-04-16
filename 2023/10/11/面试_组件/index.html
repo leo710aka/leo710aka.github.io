@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-15T15:43:34.831Z">
+<meta property="article:modified_time" content="2024-04-16T14:07:32.515Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -963,58 +963,32 @@
 </li>
 <li><p>如何进行消息队列选型?</p>
 <ul>
-<li>Kafka：日志分析、大数据采集<br>  优点: 各吐量非常大，性能非常好，集群高可用。<br>  缺点:会丢数据，功能比较单一</li>
-<li>RabbitMQ：小规模场景<br>  优点: 消息可靠性高，功能全面。<br>  缺点:吞吐量比较低，消息积累会严重影响性能。erlang语言不好定制.</li>
-<li>RocketMQ：几乎是全场景<br>  优点:高吞吐、高性能、高可用，功能非常全面。<br>  缺点:开源版功能不如云上商业版。官方文档和周边生态还不够成熟。客户端只支持java。</li>
+<li>Kafka：日志分析、大数据采集<ul>
+<li>一种高吞吐量、分布式、基于发布&#x2F;订阅的消息系统，最初由 LinkedIn 公司开发，使用Scala 语言编写，目前是 Apache 的开源项目。</li>
+<li>优点: 各吐量非常大，性能非常好，集群高可用。</li>
+<li>缺点:会丢数据，功能比较单一</li>
 </ul>
 </li>
-</ul>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><ul>
-<li><p>RabbitMQ 是什么？<br>采用 AMQP 高级消息队列协议的一种消息队列技术,最大的特点就是消费并不需要确保提供方存在,实现了服务之间的高度解耦</p>
-</li>
-<li><p>为什么要使用 rabbitmq<br>1、在分布式系统下具备异步,削峰,负载均衡等一系列高级功能;<br>2、拥有持久化的机制，进程消息，队列中的信息也可以保存下来。<br>3、实现消费者和生产者之间的解耦。<br>4、对于高并发场景下，利用消息队列可以使得同步访问变为串行访问达到一定量的限流，利于数据库的操作。<br>5、可以使用消息队列达到异步下单的效果，排队中，后台进行逻辑下单。</p>
-</li>
-<li><p>消息基于什么传输？<br>由于 TCP 连接的创建和销毁开销较大，且并发数受系统资源限制，会造成性能瓶颈。RabbitMQ 使用信道的方式来传输数据。<br>信道是建立在真实的 TCP 连接内的虚拟连接，且每条 TCP 连接上的信道数量没有限制 </p>
-</li>
-<li><p>如何确保消息正确地发送至 RabbitMQ？ 如何确保消息接收方消费了消息？</p>
-<ul>
-<li>发送方确认模式<br>  将信道设置成 confirm 模式（发送方确认模式），则所有在信道上发布的消息都会被指派一个唯一的 ID。一旦消息被投递到目的队列后，或者消息被写入磁盘后（可持久化的消息），信道会发送一个确认给生产者（包含消息唯一 ID）。如果 RabbitMQ 发生内部错误从而导致消息丢失，会发送一条 nack（notacknowledged，未确认）消息。发送方确认模式是异步的，生产者应用程序在等待确认的同时，可以继续发送消息。当确认消息到达生产者应用程序，生产者应用程序的回调方法就会被触发来处理确认消息。</li>
-<li>接收方确认机制<br>  消费者接收每一条消息后都必须进行确认（消息接收和消息确认是两个不同操作）。只有消费者确认了消息，RabbitMQ 才能安全地把消息从队列中删除。这里并没有用到超时机制，RabbitMQ 仅通过 Consumer 的连接中断来确认是否需要重新发送消息。也就是说，只要连接不中断，RabbitMQ 给了 Consumer 足够长的时间来处理消息。保证数据的最终一致性； </li>
-<li>几种特殊情况<br>  如果消费者接收到消息，在确认之前断开了连接或取消订阅，RabbitMQ 会认为消息没有被分发，然后重新分发给下一个订阅的消费者。（可能存在消息重复消费的隐患，需要去重）如果消费者接收到消息却没有确认消息，连接也未断开，则 RabbitMQ 认为该消费者繁忙，将不会给该消费者分发更多的消息。</li>
+<li>RabbitMQ：小规模场景<ul>
+<li>是什么：采用 AMQP 高级消息队列协议的一种消息队列技术,最大的特点就是消费并不需要确保提供方存在,实现了服务之间的高度解耦</li>
+<li>优点: 消息可靠性高，功能全面。</li>
+<li>缺点:吞吐量比较低，消息积累会严重影响性能。erlang语言不好定制.</li>
 </ul>
 </li>
-<li><p>消息如何分发？<br>若该队列至少有一个消费者订阅，消息将以循环（round-robin）的方式发送给消费者。每条消息只会分发给一个订阅的消费者（前提是消费者能够正常处理消息并进行确认）。通过路由可实现多消费的功能</p>
+<li>RocketMQ：几乎是全场景<ul>
+<li>优点:高吞吐、高性能、高可用，功能非常全面。</li>
+<li>缺点:开源版功能不如云上商业版。官方文档和周边生态还不够成熟。客户端只支持java。</li>
+</ul>
 </li>
-<li><p>消息怎么路由？<br>消息提供方 -&gt; 路由 -&gt; 一至多个队列。<br>消息发布到交换器时，消息将拥有一个路由键（routing key），在消息创建时设定。通过队列路由键，可以把队列绑定到交换器上。消息到达交换器后，RabbitMQ 会将消息的路由键与队列的路由键进行匹配（针对不同的交换器有不同的路由规则）；常用的交换器主要分为一下三种<br>fanout：如果交换器收到消息，将会广播到所有绑定的队列上<br>direct：如果路由键完全匹配，消息就被投递到相应的队列<br>topic：可以使来自不同源头的消息能够到达同一个队列。 使用 topic 交换器时，可以使用通配符</p>
-</li>
-<li><p>如何保证消息的顺序性？<br>拆分多个 queue，每个 queue 一个consumer，就是多一些 queue 而已，确实是麻烦点;<br>或者就一个 queue 但是对应一个 consumer，然后这个 consumer 内部用内存队列做排队，然后分发给底层不同的 worker 来处理。</p>
-</li>
-<li><p>如何避免消息重复投递或重复消费？<br>在消息生产时，MQ 内部针对每条生产者发送的消息生成一个 inner-msg-id，作为去重的依据（消息投递失败并重传），避免重复的消息进入队列；在消息消费时，要求消息体中必须要有一个 bizId（对于同一业务全局唯一，如支付 ID、订单 ID、帖子 ID 等）作为去重的依据，避免同一条消息被重复消费。</p>
-</li>
-<li><p>如何确保消息不丢失？<br>消息持久化，当然前提是队列必须持久化<br>RabbitMQ 确保持久性消息能从服务器重启中恢复的方式是，将它们写入磁盘上的一个持久化日志文件，当发布一条持久性消息到持久交换器上时，Rabbit 会在消息提交到日志文件后才发送响应。<br>一旦消费者从持久队列中消费了一条持久化消息，RabbitMQ 会在持久化日志中把这条消息标记为等待垃圾收集。如果持久化消息在被消费之前 RabbitMQ 重启，那么 Rabbit 会自动重建交换器和队列（以及绑定），并重新发布持久化日志文件中的消息到合适的队列。</p>
-</li>
-<li><p>如何解决消息队列的消息积压？<br>临时紧急扩容：先修复 consumer 的问题，确保其恢复消费速度，然后将现有 cnosumer 都停掉。新建一个 topic，partition 是原来的 10 倍，临时建立好原先 10 倍的 queue 数量。然后写一个临时的分发数据的 consumer 程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的 10 倍数量的 queue。<br>接着临时征用 10 倍的机器来部署 consumer，每一批 consumer 消费一个临时 queue 的数据。这种做法相当于是临时将 queue 资源和consumer 资源扩大 10 倍，以正常的 10 倍速度来消费数据。等快速消费完积压数据之后，得恢复原先部署的架构，重新用原先的consumer 机器来消费消息。MQ中消息失效：假设你用的是 RabbitMQ，RabbtiMQ 是可以设置过期时间的，也就是 TTL。如果消息在queue 中积压超过一定的时间就会被 RabbitMQ 给清理掉，这个数据就没了。那这就是第二个坑了。这就不是说数据会大量积压在 mq里，而是大量的数据会直接搞丢。我们可以采取一个方案，就是批量重导，这个我们之前线上也有类似的场景干过。就是大量积压的时候，我们当时就直接丢弃数据了，然后等过了高峰期以后，比如大家一起喝咖啡熬夜到晚上12点以后，用户都睡觉了。这个时候我们就开始写程序，将丢失的那批数据，写个临时程序，一点一点的查出来，然后重新灌入 mq 里面去，把白天丢的数据给他补回来。也只能是这样了。假设 1 万个订单积压在 mq 里面，没有处理，其中 1000个订单都丢了，你只能手动写程序把那 1000 个订单给查出来，手动发到 mq 里去再补一次</p>
-</li>
-<li><p>RabbitMQ 的集群<br>镜像集群模式：你创建的 queue，无论元数据还是 queue 里的消息都会存在于多个实例上，然后每次你写消息到 queue 的时候，都会自动把消息到多个实例的 queue 里进行消息同步。好处在于，你任何一个机器宕机了，没事儿，别的机器都可以用。坏处在于，第一，这个性能开销也太大了吧，消息同步所有机器，导致网络带宽压力和消耗很重！第二，这么玩儿，就没有扩展性可言了，如果某个 queue 负载很重，你加机器，新增的机器也包含了这个 queue的所有数据，并没有办法线性扩展你的 queue</p>
-</li>
-<li><p>如何保证高可用的？<br>RabbitMQ 是比较有代表性的，因为是基于主从（非分布式）做高可用性的，我们就以 RabbitMQ 为例子讲解第一种 MQ 的高可用性怎么实现。<br>RabbitMQ 有三种模式：单机模式、普通集群模式、镜像集群模式。单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的?，没人生产用单机模式普通集群模式，意思就是在多台机器上启动多个RabbitMQ 实例，每个机器启动一个。你创建的queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是queue 的一些配置信息，通过元数据，可以找到 queue 所在实例）。你消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从 queue 所在实例上拉取数据过来。这方案主要是提高吞吐量的，就是说让集群中多个节点来服务某个 queue 的读写操作。<br>镜像集群模式：这种模式，才是所谓的 RabbitMQ 的高可用模式。跟普通集群模式不一样的是，在镜像集群模式下，你创建的 queue，无论元数据还是 queue 里的消息都会存在于多个实例上，就是说，每个 RabbitMQ 节点都有这个 queue 的一个完整镜像，包含 queue 的全部数据的意思。然后每次你写消息到 queue 的时候，都会自动把消息同步到多个实例的 queue 上。RabbitMQ 有很好的管理控制台，就是在后台新增一个策略，这个策略是镜像集群模式的策略，指定的时候是可以要求数据同步到所有节点的，也可以要求同步到指定数量的节点，再次创建 queue 的时候，应用这个策略，就会自动将数据同步到其他的节点上去了。这样的话，好处在于，你任何一个机器宕机了，没事儿，其它机器（节点）还包含了这个 queue 的完整数据，别的 consumer 都可以到其它节点上去消费数据。坏处在于，第一，这个性能开销也太大了吧，消息需要同步到所有机器上，导致网络带宽压力和消耗很重！RabbitMQ 一个 queue 的数据都是放在一个节点里的，镜像集群下，也是每个节点都放这个 queue 的完整数据</p>
-</li>
-<li><p>如何保证消息的可靠传输？</p>
-<ul>
-<li>数据的丢失问题，可能出现在生产者、MQ、消费者中</li>
-<li>生产者丢失：生产者将数据发送到 RabbitMQ 的时候，可能数据就在半路给搞丢了，因为网络问题啥的，都有可能。此时可以选择用RabbitMQ 提供的事务功能，就是生产者发送数据之前开启 RabbitMQ事务channel.txSelect，然后发送消息，如果消息没有成功被RabbitMQ 接收到，那么生产者会收到异常报错，此时就可以回滚事务channel.txRollback，然后重试发送消息；如果收到了消息，那么可以提交事务channel.txCommit。吞吐量会下来，因为太耗性能。所以一般来说，如果你要确保说写RabbitMQ 的消息别丢，可以开启confirm模式，在生产者那里设置开启confirm模式之后，你每次写的消息都会分配一个唯一的 id，然后如果写入了 RabbitMQ 中，RabbitMQ 会给你回传一个ack消息，告诉你说这个消息 ok 了。如果 RabbitMQ 没能处理这个消息，会回调你一个nack接口，告诉你这个消息接收失败，你可以重试。而且你可以结合这个机制自己在内存里维护每个消息 id 的状态，如果超过一定时间还没接收到这个消息的回调，那么你可以重发。事务机制和cnofirm机制最大的不同在于，事务机制是同步的，你提交一个事务之后会阻塞在那儿，但是confirm机制是异步的，你发送个消息之后就可以发送下一个消息，然后那个消息RabbitMQ 接收了之后会异步回调你一个接口通知你这个消息接收到了。所以一般在生产者这块避免数据丢失，都是用confirm机制的</li>
-<li>MQ中丢失：就是 RabbitMQ 自己弄丢了数据，这个你必须开启 RabbitMQ 的持久化，就是消息写入之后会持久化到磁盘，哪怕是RabbitMQ 自己挂了，恢复之后会自动读取之前存储的数据，一般数据不会丢。<br>  设置持久化有两个步骤：创建 queue 的时候将其设置为持久化，这样就可以保证 RabbitMQ 持久化 queue 的元数据，但是不会持久化 queue 里的数据。第二个是发送消息的时候将消息的deliveryMode 设置为 2，就是将消息设置为持久化的，此时 RabbitMQ 就会将消息持久化到磁盘上去。必须要同时设置这两个持久化才行，RabbitMQ 哪怕是挂了，再次重启，也会从磁盘上重启恢复queue，恢复这个 queue 里的数据。持久化可以跟生产者那边的confirm机制配合起来，只有消息被持久化到磁盘之后，才会通知生产者ack了，所以哪怕是在持久化到磁盘之前，RabbitMQ 挂了，数据丢了，生产者收不到ack，你也是可以自己重发的。注意，哪怕是你给 RabbitMQ 开启了持久化机制，也有一种可能，就是这个消息写到了 RabbitMQ中，但是还没来得及持久化到磁盘上，结果不巧，此时RabbitMQ 挂了，就会导致内存里的一点点数据丢失 </li>
-<li>消费端丢失：你消费的时候，刚消费到，还没处理，结果进程挂了，比如重启了，那么就尴尬了，RabbitMQ 认为你都消费了，这数据就丢了。这个时候得用 RabbitMQ 提供的ack机制，简单来说，就是你关闭 RabbitMQ 的自动ack，可以通过一个 api 来调用就行，然后每次你自己代码里确保处理完的时候，再在程序里ack一把。这样的话，如果你还没处理完，不就没有ack？那 RabbitMQ 就认为你还没处理完，这个时候 RabbitMQ 会把这个消费分配给别的 consumer 去处理，消息是不会丢的</li>
 </ul>
 </li>
 </ul>
 <h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
 <li><p>kafka <a target="_blank" rel="noopener" href="https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g">https://www.yuque.com/itwanger/gykdzg/ngd5g3glaxii4h6g</a> udd1</p>
 </li>
-<li><p>Kafka 是什么？优缺点？</p>
+<li><p>Kafka 优缺点？</p>
 <ul>
-<li>Kafka 是一种高吞吐量、分布式、基于发布&#x2F;订阅的消息系统，最初由 LinkedIn 公司开发，使用Scala 语言编写，目前是 Apache 的开源项目。</li>
-<li>优点<br>  高性能、高吞吐量、低延迟:Kafka 生产和消费消息的速度都达到每秒10万级高可用:所有消息持久化存储到磁盘，并支持数据备份防止数据丢失<br>  高并发:支持数千个客户端同时读写<br>  容错性:允许集群中节点失败(若副本数量为n，则允许 n-1 个节点失败)高扩展性:Kafka 集群支持热伸缩，无须停机</li>
+<li>优点<br>  高性能、高吞吐量、低延迟:Kafka 生产和消费消息的速度都达到每秒10万级高可用:所有消息持久化存储到磁盘，并支持数据备份防止数据丢失<br>  高并发:支持数千个客户端同时读写<br>  容错性:允许集群中节点失败(若副本数量为n，则允许 n-1 个节点失败)<br>  高扩展性:Kafka 集群支持热伸缩，无须停机</li>
 <li>缺点<br>  没有完整的监控工具集<br>  不支持通配符主题选择</li>
 </ul>
 </li>
@@ -1022,13 +996,13 @@
 <ul>
 <li>Kafka 将消息以 topic 为单位进行归纳，发布消息的程序称为 Producer，消费消息的程序称为 Consumer。它是以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个 Broker，Producer 通过网络将消息发送到 kafka 集群，集群向消费者提供消息，broker 在中间起到一个代理保存消息的中转站。</li>
 <li>kafka 组成：<ol>
-<li>Producer:消息生产者，发布消息到Kafka集群的终端或服务</li>
-<li>Broker:<strong>一个 Kafka 节点就是一个 Broker，多个Broker可组成一个Kafka 集群</strong><br>  如果某个 Topic 下有n个Partition 且集群有n个Broker，那么每个 Broker会存储该 Topic 下的一个 Partition<br>  如果某个 Topic 下有n个Partition 且集群中有 m+n个Broker，那么只有n个Broker会存储该Topic下的一个Partition<br>  如果某个 Topic 下有n个Partition 且集群中的Broker数量小于 n，那么一个 Broker 会存储该 Topic 下的一或多个 Partition，这种情况尽量避免，会导致集群数据不均衡</li>
-<li>Topic:消息主题，每条发布到Kafka集群的消息都会归集于此，<strong>Kafka是面向Topic 的</strong></li>
-<li>Partition: Partition 是Topic在物理上的分区，一个Topic可以分为多个Partition，每个Partition是一个有序的不可变的记录序列。单一主题中的分区有序，但无法保证主题中所有分区的消息有序。</li>
-<li>Consumer: 从Kafka集群中消费消息的终端或服务</li>
-<li>Consumer Group:每个Consumer都属于一个Consumer Group，每条消息只能被Consumer Group中的-个Consumer消费，但可以被多个Consumer Group消费。</li>
-<li>Zookeeper: Kafka 通过Zookeeper来存储集群中的 meta 消息  <img src="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true" width="550" height="300" alt=""></li>
+<li>Producer：消息生产者，发布消息到Kafka集群的终端或服务</li>
+<li>Broker：<strong>一个 Kafka 节点就是一个 Broker，多个Broker可组成一个Kafka 集群</strong><br>  如果某个 Topic 下有n个Partition 且集群有n个Broker，那么每个 Broker会存储该 Topic 下的一个 Partition<br>  如果某个 Topic 下有n个Partition 且集群中有 m+n个Broker，那么只有n个Broker会存储该Topic下的一个Partition<br>  如果某个 Topic 下有n个Partition 且集群中的Broker数量小于 n，那么一个 Broker 会存储该 Topic 下的一或多个 Partition，这种情况尽量避免，会导致集群数据不均衡</li>
+<li>Topic：逻辑概念，消息主题，每条发布到Kafka集群的消息都会归集于此，<strong>Kafka是面向Topic 的</strong></li>
+<li>Partition：是Topic在物理上的分区，从Partition消费信息。一个Topic可以分为多个Partition，每个Partition是一个有序的不可变的记录序列。单一主题中的分区有序，但无法保证主题中所有分区的消息有序。</li>
+<li>Consumer：从Kafka集群中消费消息的终端或服务</li>
+<li>Consumer Group：每个Consumer都属于一个Consumer Group，每条消息只能被Consumer Group中的一个Consumer消费，但可以被多个Consumer Group消费。</li>
+<li>Zookeeper：Kafka 通过Zookeeper来存储集群中的 meta 消息（0.9版本后，将消息偏移量offset存储本地）  <img src="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true" width="550" height="300" alt=""></li>
 </ol>
 </li>
 </ul>

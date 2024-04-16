@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-15T15:49:50.053Z">
+<meta property="article:modified_time" content="2024-04-15T16:18:15.464Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -603,12 +603,19 @@
 <li><p><strong>你了解动态代理吗？??</strong></p>
 <ul>
 <li>代理模式是设计模式之一。代理模型有静态代理和动态代理。<ul>
-<li>静态代理需要自己写代理类，实现对应的接口，比较麻烦。</li>
-<li>动态代理这一技术在实际或者框架原理中是非常常见的。像 Mybatis 不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等技术实际上用的就是动态代理；有两种实现方式：<ul>
-<li>JDK动态代理其实就是运用了反射的机制，会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强；</li>
-<li>CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。JDK动态代理</li>
+<li>静态代理需要自己写代理类，实现对应的接口，比较麻烦，在【编译期间】就确定好代理关系。</li>
+<li>动态代理这一技术在实际或者框架原理中是非常常见的，在【运行期间】确定好代理关系。像 Mybatis 不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等技术实际上用的就是动态代理；</li>
 </ul>
 </li>
+<li>动态代理有什么用：它是一种设计模式，用于在不修改原始对象的情况下，通过代理对象来间接访问原始对象，并在访问前后执行额外的操作。</li>
+<li>动态代理中的对象：<ul>
+<li>目标对象：待增强的对象</li>
+<li>代理对象：增强过后的对象，也就是我们使用的对象</li>
+</ul>
+</li>
+<li>？？？两种实现方式：<ul>
+<li>JDK动态代理（反射）其实就是运用了反射的机制，会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强；</li>
+<li>CGLIB代理（继承）则用的是利用ASM框架，通过修改其字节码生成子类来处理。</li>
 </ul>
 </li>
 </ul>
