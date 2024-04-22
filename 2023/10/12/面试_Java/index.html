@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job3.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job2.png">
 <meta property="article:published_time" content="2023-10-12T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-17T13:39:13.947Z">
+<meta property="article:modified_time" content="2024-04-22T05:58:59.015Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pdai.tech/images/java_collections_overview.png">
@@ -228,6 +228,8 @@
 <li>重写 Override：在子类中把父类本身有的方法重新写一遍。子类继承了父类原有的方法，但有时子类并不想原封不动的继承父类中的某个方法，所以在方法名，参数列表，返回类型(除过子类中方法的返回值是父类中方法返回值的子类时)都相同的情况下， 对方法体进行修改或重写，这就是重写。被重写方法比父类更好访问（即子类函数的访问修饰权限不能少于父类的），不能比父类被重写方法声明更多的异常（里氏代换原则）。<br>  1、发生在父类与子类之间<br>  2、<strong>方法名，参数列表，返回类型（除过子类中方法的返回类型是父类中返回类型的子类）必须相同</strong><br>  3、<strong>访问修饰符的限制一定要大于被重写方法的访问修饰符（public&gt;protected&gt;default&gt;private）</strong>，子类重写方法应该要比父类方法具有相同或更广泛的可见性，子类对外暴露的接口比父类更多，这符合面向对象编程中的开闭原则（对扩展开放，对修改关闭），提供了更多的灵活性。<br>  4、重写方法一定不能抛出新的检查异常或者比被重写方法申明更加宽泛的检查型异常</li>
 <li>重载（Overload）在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同甚至是参数顺序不同）则视为重载。同时，重载对返回类型没有要求，可以相同也可以不同，但不能通过返回类型是否相同来判断重载。<br>  1、重载Overload是一个类中多态性的一种表现<br>  2、<strong>重载要求同名方法的参数列表不同(参数类型，参数个数甚至是参数顺序)</strong><br>  3、<strong>重载的时候，返回值类型可以相同也可以不相同。无法以返回型别作为重载函数的区分标准</strong></li>
 </ul>
+</li>
+<li><p>动态绑定？<br>是指在运行时确定方法调用的具体实现。它是 Java 中的一种多态性表现，通过动态绑定，程序可以根据对象的实际类型来决定调用哪个方法实现。<br>动态绑定的实现依赖于 Java 中的继承和重写机制。当子类重写父类的方法时，如果父类引用指向子类对象，并且调用被重写的方法时，将根据实际对象类型决定调用哪个版本的方法，这就是动态绑定。使得 Java 具有更强大的多态性，可以根据对象的实际类型来调用不同的方法实现，增强了程序的灵活性和可扩展性。</p>
 </li>
 <li><p>public，private，protected，以及不写（默认）时的区别？<br>  在Java中，访问修饰符用于指定类、变量、方法和构造函数的访问权限。它们有四种级别：public、private、protected和默认（无修饰符）。这些修饰符决定了哪些其他类可以访问特定的成员。Java 中，外部类的修饰符只能是 public 或默认，类的成员（包括内部类）的 修饰符可以是以上四种。</p>
 <ul>
@@ -559,7 +561,7 @@
 <li>Bean 的自动装配： Spring 的自动装配机制依赖于反射，它能够根据一定的规则自动将 Bean 与其他 Bean 进行关联。通过反射，Spring 可以动态地识别和连接相应的 Bean。</li>
 <li>AOP（面向切面编程）： 在 Spring 中，AOP 是通过动态代理和反射来实现的。通过反射，Spring 能够在运行时动态地创建代理对象，并在方法执行前后执行额外的逻辑。</li>
 <li>Bean 的生命周期管理： Spring 容器可以通过反射来实现对 Bean 的生命周期的管理，包括实例化、初始化、销毁等。</li>
-<li>动态代理：Spring 使用动态代理和反射来实现一些特定的功能，比如事务管理。通过动态代理，Spring 能够在运行时创建代理对象，将横切逻辑织入到目标对象中。</li>
+<li>动态代理：Spring 使用动态代理和反射来实现一些特定的功能，如事务管理。通过动态代理，Spring 能够在运行时创建代理对象，将横切逻辑织入到目标对象中。</li>
 <li>处理注解：Spring 使用反射来处理注解，包括扫描类路径上的注解、解析注解的属性值等。通过反射，Spring 能够在运行时获取和处理注解信息。</li>
 </ol>
 </li>
@@ -607,7 +609,7 @@
 <ul>
 <li>代理模式是设计模式之一。代理模型有静态代理和动态代理。<ul>
 <li>静态代理需要自己写代理类，实现对应的接口，比较麻烦，在【编译期间】就确定好代理关系。</li>
-<li>动态代理这一技术在实际或者框架原理中是非常常见的，在【运行期间】确定好代理关系。像 Mybatis 不用写实现类，只写接口就可以执行SQL，又或是SpringAOP 等技术实际上用的就是动态代理；</li>
+<li>动态代理这一技术在实际或者框架原理中是非常常见的，在【运行期间】确定好代理关系。</li>
 </ul>
 </li>
 <li>动态代理有什么用：它是一种设计模式，用于在不修改原始对象的情况下，通过代理对象来间接访问原始对象，并在访问前后执行额外的操作。</li>
@@ -616,20 +618,34 @@
 <li>代理对象：增强过后的对象，也就是我们使用的对象</li>
 </ul>
 </li>
-<li>？？？两种实现方式：<ul>
-<li>JDK动态代理（反射）其实就是运用了反射的机制，会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强；</li>
-<li>CGLIB代理（继承）则用的是利用ASM框架，通过修改其字节码生成子类来处理。</li>
+<li>两种实现方式：<ul>
+<li>JDK动态代理（反射）其实就是运用了反射的机制，会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强；<ul>
+<li>目标对象 implement 目标接口</li>
+<li>代理对象 implement 目标接口</li>
+<li>目标对象和代理对象是平级关系</li>
+</ul>
+</li>
+<li>CGLIB代理（继承）则用的是利用ASM框架，通过修改其字节码生成子类来处理。            <ul>
+<li>代理对象 extend 目标对象</li>
+<li>目标对象和代理对象是父子关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态代理的应用：功能增强、控制访问。<ul>
+<li>SpringAOP</li>
+<li>Spring整合Mybaits管理Mapper接口，不用写实现类，只写接口就可以执行SQL</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>面向对象设计中五大设计原则 SOLID、、</p>
 <ol>
-<li><strong>单一职责原则（SRP）</strong>：    每个类或模块应该有且仅有一个引起它变化的原因，即一个类或模块应该只负责一种类型的任务或功能。这样可以提高代码的内聚性和可维护性，减少代码的复杂度。</li>
-<li><strong>开放封闭原则（OCP）</strong>：    软件实体（类、模块、函数等）应该对扩展开放，对修改关闭。即通过扩展现有的代码来实现新的功能，而不是修改已有的代码。这样可以降低修改已有代码带来的风险，并提高系统的稳定性。</li>
-<li><strong>里氏替换原则（LSP）</strong>：    子类必须能够替换掉父类并出现在父类能够出现的任何地方，而不影响程序的正确性。即子类应该完全实现父类的方法，并且遵循父类的约定和契约。</li>
-<li><strong>接口隔离原则（ISP）</strong>：    不应该强迫客户端依赖它们不需要的接口。接口应该小而专一，应该根据实际需要定义多个接口，而不是一个臃肿的接口。这样可以降低类之间的耦合度，提高系统的灵活性和可维护性。</li>
-<li><strong>依赖倒置原则（DIP）</strong>：    高层模块不应该依赖于低层模块，它们都应该依赖于抽象。抽象不应该依赖于具体实现细节，具体实现细节应该依赖于抽象。这样可以降低模块之间的耦合度，提高系统的灵活性和可扩展性。</li>
+<li>单一职责原则（SRP）： 每个类或模块应该有且仅有一个引起它变化的原因，即一个类或模块应该只负责一种类型的任务或功能。这样可以提高代码的内聚性和可维护性，减少代码的复杂度。</li>
+<li>开放封闭原则（OCP）： 软件实体（类、模块、函数等）应该对扩展开放，对修改关闭。即通过扩展现有的代码来实现新的功能，而不是修改已有的代码。这样可以降低修改已有代码带来的风险，并提高系统的稳定性。</li>
+<li>里氏替换原则（LSP）：子类必须能替换父类并出现在父类能够出现的任何地方，而不影响程序的正确性。即子类应该完全实现父类的方法，并且遵循父类的约定和契约。</li>
+<li>接口隔离原则（ISP）： 不应该强迫客户端依赖它们不需要的接口。接口应该小而专一，应该根据实际需要定义多个接口，而不是一个臃肿的接口。这样可以降低类之间的耦合度，提高系统的灵活性和可维护性。</li>
+<li>依赖倒置原则（DIP）：高层模块不应该依赖于低层模块，它们都应该依赖于抽象。抽象不应该依赖于具体实现细节，具体实现细节应该依赖于抽象。这样可以降低模块之间的耦合度，提高系统的灵活性和可扩展性。</li>
 </ol>
 </li>
 <li><p>常用的<strong>设计模式、、</strong></p>
@@ -665,7 +681,10 @@
 <li>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。</li>
 </ul>
 </li>
-<li>单例模式、、</li>
+<li>单例模式：确保一个类只有一个实例，并提供一个全局访问点<ul>
+<li>懒汉模式、饿汉模式</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>工厂模式和抽象工厂的区别</p>
@@ -684,6 +703,12 @@
 </li>
 <li>综上所述，简单工厂模式主要用于创建<strong>单一类型的对象</strong>，工厂类负责根据用户的请求返回相应的产品对象；而抽象工厂模式主要用于创建<strong>一组相关或者相互依赖的产品对象</strong>，通过抽象工厂接口和具体工厂类来实现对象的创建，并且对产品的具体类型和实现进行解耦，适用于产品类型频繁变化的情况。</li>
 </ol>
+</li>
+<li><p>手写单例模式</p>
+<ul>
+<li>懒汉式单例模式：只有在需要时才会创建实例  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance; <span class="comment">// 私有静态变量，用于保存唯一实例</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123; &#125;  <span class="comment">// 私有构造函数，防止外部实例化       </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123; <span class="comment">// 公共静态方法，用于获取实例</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;  <span class="comment">// 使用双重检查锁定（double-checked locking）来确保线程安全</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>饿汉式单例模式：如果需要在类加载时就创建实例，可以直接在静态变量中初始化  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 可以在这里进行一些初始化操作</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li><p>对序列化和反序列化的理解？</p>
 <ul>
@@ -734,8 +759,6 @@
 
 
 <h2 id="Java-集合"><a href="#Java-集合" class="headerlink" title="Java 集合"></a>Java 集合</h2><ul>
-<li><p>java集合：<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2021/09/03/Java%E9%9B%86%E5%90%88/">https://leo710aka.github.io/2021/09/03/Java集合/</a></p>
-</li>
 <li><p>集合有什么。<br>Java 集合 主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。<br><img src="https://pdai.tech/images/java_collections_overview.png"></p>
 </li>
 <li><p>Collection包结构，与Collections的区别<br>Collection是集合类的上级接口，子接口有 Set、List、LinkedList、ArrayList、Vector、Stack、Set；<br>Collections是集合类的一个帮助类， 它包含有各种有关集合操作的静态多态方法，用于实现对各种集合的搜索、排序、线程安全化等操作。此类不能实例化，就像一个工具类，服务于Java的Collection框架。</p>
@@ -772,7 +795,7 @@
 <li><p>ArrayList如何实现线程安全？</p>
 <ol>
 <li>使用<code>Collections.synchronizedList</code>方法：这将返回一个线程安全的 List 包装器。通过这种方式，对 <code>synchronizedList</code> 的所有操作都会在内部被同步，从而确保线程安全。如果写入操作较为频繁，可能需要权衡使用 synchronizedList 或者其他并发集合类，具体根据业务需求来决定。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Type&gt; synchronizedList = Collections.synchronizedList(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Type&gt;());</span><br></pre></td></tr></table></figure></li>
-<li><strong>使用<code>CopyOnWriteArrayList</code>类：</strong><code>CopyOnWriteArrayList</code> 是 <code>java.util.concurrent</code> 包下的类，它通过在修改操作时复制整个数组来实现线程安全。这意味着在写入操作时，它会创建一个新的数组，从而不影响正在进行的读取操作。如果读取操作频繁而写入操作较少，<code>CopyOnWriteArrayList</code> 可能是更好的选择，因为它对于并发读取操作而言性能较好。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Type&gt; threadSafeList = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;Type&gt;();</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>CopyOnWriteArrayList</code>类：<code>java.util.concurrent</code> 包下的类，它通过在修改操作时复制整个数组来实现<strong>线程安全</strong>。这意味着在写入操作时，它会创建一个新的数组，从而不影响正在进行的读取操作。如果读取操作频繁而写入操作较少，<code>CopyOnWriteArrayList</code> 可能是更好的选择，因为它对于并发读取操作而言性能较好。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Type&gt; threadSafeList = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;Type&gt;();</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
 <li><p>CopyOnWriteArrayList的底层原理是怎样的</p>
@@ -901,11 +924,12 @@
 </li>
 </ul>
 </li>
-<li><p>？？ConcurrentHashMap？</p>
+<li><p>ConcurrentHashMap？</p>
 <ul>
-<li>ConcurrentHashMap是线程安全的Map实现类，它在juc包下的。线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。当然了，也可以使用Collections来包装出一个线程安全的Map。但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以一般都使用ConcurrentHashMap<br>  HashMap不是线程安全的，多线程环境下有可能会有数据丢失和获取不了最新数据的问题</li>
+<li>ConcurrentHashMap是线程安全的Map实现类，它在juc包下的。线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。当然了，也可以使用Collections来包装出一个线程安全的Map，但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize）；<br>  HashMap不是线程安全的，多线程环境下有可能会有数据丢失和获取不了最新数据的问题</li>
 <li>ConcurrentHashMap 本质上是一个 HashMap，因此功能和 HashMap 一样，但是ConcurrentHashMap 在 HashMap 的基础上，提供了并发安全的实现。并发安全的主要实现是通过对指定的 Node 节点加锁，来保证数据更新的安全性</li>
-<li>通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁。</li>
+<li>底层数据结构<br>  JDK1.7底层采用分段的数组+链表实现<br>  JDK1.8 采用的数据结构跟HashMap1.8的结构一样，数组+链表&#x2F;红黑二叉树</li>
+<li>加锁的方式<br>  JDK1.7采用Segment分段锁，底层使用的是ReentrantLock<br>  JDK1.8采用CAS添加新节点，（如果已存在节点）采用synchronized锁定链表或红黑二叉树的首节点，相对Segment分段锁粒度更细，性能更好</li>
 </ul>
 </li>
 <li><p>红黑树</p>
@@ -1083,6 +1107,20 @@
 </li>
 <li><p>程序员可以根据需要控制JVM在特定时间进行垃圾回收吗？<br>在大多数情况下，不能直接控制 JVM 在特定时间进行垃圾回收。垃圾回收是 JVM 的自动内存管理系统的一部分，其目标是在运行时自动回收不再使用的内存，而不需要程序员显式干预。但是,可以通过一些 JVM 参数和 API 间接地影响垃圾回收的行为。</p>
 </li>
+<li><p>java的对象是怎么被回收的？</p>
+<ul>
+<li>什么是垃圾：只要对象不再被使用，那即是垃圾。GC就是对堆中的对象回收。</li>
+<li>如何判断为垃圾：常用的算法有两个「引用计数法」和「可达性分析法」；</li>
+<li>JVM使用的是可达性分析算法「GC Roots」：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</li>
+<li>常见的垃圾回收算法：标记清除、标记复制、标记整理。整理算法是前两者的折中：未必要有一块「大的完整空间」才能解决内存碎片的问题，我只要能在「当前区域」内进行移动，把存活的对象移到一边，把垃圾移到一边，那再将垃圾一起删除掉，不就没有内存碎片了嘛 </li>
+<li>分代：堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「Survivor」区又分为「From Survivor」和「To Survivor」区<br>  堆内存占比：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10）</li>
+<li>为什么需要分代：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the world」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</li>
+<li>垃圾回收器：实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）<br>  「年轻代」的垃圾收集器有：Seria、Parallel Scavenge、ParNew<br>  「老年代」的垃圾收集器有：Serial Old、Parallel Old、CMS</li>
+<li>Minor GC：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</li>
+<li>什么是card table【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对应进而顺利进行Minor GC案例：老年代对象持有年轻代对象引用）</li>
+<li>Full GC：。。。</li>
+</ul>
+</li>
 <li><p>如何判断对象可以被回收判断？</p>
 <ol>
 <li>引用计数：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</li>
@@ -1096,20 +1134,29 @@
 <li>标记压缩算法:为了解决复制算法的缺陷，就提出了标记压缩算法。这种算在标记阶段跟标记清除算法是一样的，但是在完成标记之后，不是直接清理垃圾内存，而是将存活对象往一端移动，然后将边界以外的所有内存直接清除。</li>
 </ol>
 </li>
-<li><p>堆的分区、、<br>堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「survivor」区又分为「From Survivor」和「To Survivor」区<img src="https://github.com/leo710aka/bk/blob/main/job20.png?raw=true" width="500" height="300" alt=""></p>
-</li>
-<li><p>java的对象是怎么被回收的？</p>
+<li><p>JVM 分代回收、、</p>
 <ul>
-<li>什么是垃圾：只要对象不再被使用，那即是垃圾。GC就是对堆中的对象回收。</li>
-<li>如何判断为垃圾：常用的算法有两个「引用计数法」和「可达性分析法」；</li>
-<li>JVM使用的是可达性分析算法「GC Roots」：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</li>
-<li>常见的垃圾回收算法：标记清除、标记复制、标记整理。整理算法是前两者的折中：未必要有一块「大的完整空间」才能解决内存碎片的问题，我只要能在「当前区域」内进行移动，把存活的对象移到一边，把垃圾移到一边，那再将垃圾一起删除掉，不就没有内存碎片了嘛 </li>
-<li>分代：堆分了「新生代」和「老年代」，「新生代」又分为「Eden」和「Survivor」区，「Survivor」区又分为「From Survivor」和「To Survivor」区<br>  堆内存占比：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10）</li>
-<li>为什么需要分代：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the world」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</li>
-<li>垃圾回收器：实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）<br>  「年轻代」的垃圾收集器有：Seria、Parallel Scavenge、ParNew<br>  「老年代」的垃圾收集器有：Serial Old、Parallel Old、CMS</li>
-<li>Minor GC：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</li>
-<li>什么是card table【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对应进而顺利进行Minor GC案例：老年代对象持有年轻代对象引用）</li>
-<li>Full GC：。。。</li>
+<li>堆的区域划分<br>  1、堆被分为了两份：「新生代」和「老年代」【1:2】<br>  2、对于新生代，内部又被分为了「Eden」和「Survivor」区，「survivor」区又分为「From」和「To」区【8:1:1】<img src="https://github.com/leo710aka/bk/blob/main/job20.png?raw=true" width="500" height="300" alt=""></li>
+<li>对象回收分代回收策略<ol>
+<li>新创建的对象，都会先分配到eden区</li>
+<li>当伊甸园内存不足，标记伊甸园与from(现阶段没有)的存活对象</li>
+<li>将存活对象采用复制算法复制到to中，复制完毕后，伊甸园和from 内存都得到释放</li>
+<li>经过一段时间后伊甸园的内存又出现不足，标记eden区域to区存活的对象，将其复制到from区</li>
+<li>当幸存区对象熬过几次回收(最多15次)，晋升到老年代(幸存区内存不足或大对象会提前晋升)</li>
+</ol>
+</li>
+<li>MinorGC、Mixed Gc、FullGC的区别是什么<ul>
+<li>MinorGC【young GC】（新生代垃圾回收）：发生在新生代的垃圾回收，暂停时间短(STW)</li>
+<li>Mixed GC（混合回收）：新生代+老年代部分区域的垃圾回收，G1收集器特有</li>
+<li>FullGC（老年代垃圾回收）：新生代+老年代完整垃圾回收，暂停时间长(STW)，应尽力避免</li>
+</ul>
+</li>
+<li>Minor GC、Mixed GC 和 Full GC 的触发条件如下：<ul>
+<li><strong>Minor GC</strong>：在新对象创建时，当 Eden 区满时触发 Minor GC。通常情况下，Minor GC 会回收年轻代的 Eden 区和 Survivor 区中的垃圾对象。</li>
+<li><strong>Mixed GC</strong>：在 G1 垃圾回收器中，Mixed GC 是指同时执行部分 Young GC 和部分 Old GC 的过程；在一次 Full GC 后，可能会触发 Mixed GC 来对部分老年代和年轻代进行回收。</li>
+<li><strong>Full GC</strong>：在老年代空间不足、永久代空间不足（如果使用永久代）、老年代连续多次触发 Minor GC 无法回收足够的空间时，或者明确调用 System.gc() 方法时，可能会触发 Full GC。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>CMS垃圾收集器</p>
@@ -1283,7 +1330,7 @@
 </ul>
 </li>
 <li>线程同步<ul>
-<li>wait() ：wait()，wait(long) 都是 Object 的成员方法，每个对象都有；wait(long)和 wait() 还可以被 notify 唤醒，wait() 如果不唤醒就一直等下去<ul>
+<li>wait()：<code>Object</code> 的成员方法，每个对象都有；wait(long)和 wait() 可以被 notify 唤醒，wait() 如果不唤醒就一直等下去<ul>
 <li>wait 方法的调用必须先获取 wait 对象的锁，而 sleep 则无此限制</li>
 <li>wait 方法执行后会释放对象锁，允许其它线程获得该对象锁(我放弃cpu，但你们还可以用)</li>
 </ul>
@@ -1292,9 +1339,9 @@
 <li>sleep 如果在 synchronized 代码块中执行，并不会释放对象锁(我放弃 cpu，你们也用不了)</li>
 </ul>
 </li>
-<li>yield() ：<code>Thread</code> 类的静态方法，用于让当前线程让出 CPU 时间片，使得其他具有相同优先级的线程有机会执行。不会停止线程，而是让线程重新进入就绪状态，等待调度器重新分配 CPU 时间片。</li>
-<li>join</li>
-<li>notify() ：是用于线程间通信的方法，它用于唤醒一个正在等待对象监视器的线程。不会停止线程，而是唤醒等待的线程，使其继续执行。<br>  ？？<br>  ？？</li>
+<li>yield() ：Thread 类的静态方法，用于让当前线程让出 CPU 时间片，使得其他具有相同优先级的线程有机会执行。不会停止线程，而是让线程重新进入就绪状态，等待调度器重新分配 CPU 时间片。</li>
+<li>join()：设置当前线程，等待另一线程结束后运行</li>
+<li>notify() ：是用于线程间通信的方法，它用于唤醒一个正在等待对象监视器的线程。不会停止线程，而是唤醒wait()线程，使其继续执行。</li>
 </ul>
 </li>
 </ul>
@@ -1333,7 +1380,7 @@
 </li>
 <li><p>synchronized（同步锁）</p>
 <ul>
-<li>Synchronized采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获取这个锁时就会阻塞住</li>
+<li>Synchronized采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获取这个锁时就会阻塞住；只能实现为非公平锁。</li>
 <li>底层实现：monitor是jvm级别的对象(C++实现)，线程获得锁需要使用对象(锁)关联monitor；其内部有三个属性，分别是owner、entrylist、waitset<ul>
 <li>owner是关联的获得锁的线程，并且只能关联一个线程;</li>
 <li>entrylist关联的是处于阻塞状态的线程，在owner为空后线程竞争锁;</li>
@@ -1346,6 +1393,14 @@
 <li>偏向锁：一段很长的时间内都只被一个线程使用锁，可以使用了偏向锁，在第一次获得锁时会有一个CAS操作，之后该线程再获取锁只需要判断mark word中是否是自己的线程id即可，而不是开销相对较大的CAS命令  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizedExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">syncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 同步方法体</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">syncBlock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            <span class="comment">// 同步代码块</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
+</ul>
+</li>
+<li><p>具体来说，Synchronized 锁住的是什么？</p>
+<ul>
+<li>当 <code>Synchronized</code> 关键字应用在实例方法上时，它锁住的是调用该方法的对象实例，也就是该实例的对象锁。不同实例对象之间的方法调用不会互斥，只有同一个实例对象的方法调用才会互斥，即同一个对象实例的多个线程之间会竞争对象锁。</li>
+<li>当 <code>Synchronized</code> 关键字应用在静态方法上时，它锁住的是该类的 Class 对象，也就是类的静态锁。这意味着不同实例对象之间的静态方法调用也会互斥，同一个类的不同实例对象的静态方法调用也会互斥，因为它们共享同一个类的 Class 对象。</li>
+<li>当 <code>Synchronized</code> 关键字应用在代码块中时，它锁住的是指定的对象实例或者类的 Class 对象。例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    <span class="comment">// synchronized code block</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  这里的 <code>obj</code> 可以是任意一个对象实例，如果多个线程使用相同的 <code>obj</code> 对象进行同步，那么它们之间就会互斥执行代码块内的代码，因为它们共享同一个对象锁。如果将 <code>synchronized</code> 关键字应用在 <code>static</code> 代码块中，那么它将锁住类的 Class 对象，同样会导致同一个类的不同实例对象之间互斥执行。</li>
 </ul>
 </li>
 <li><p>JMM(Java内存模型)</p>
@@ -1416,7 +1471,7 @@
 </li>
 <li><p>公平锁和非公平锁</p>
 <ul>
-<li>公平锁：是指多个线程按照请求锁的顺序来获取锁，遵循先来先得的原则。如果锁已被其他线程占用，新来的线程就会进入等待队列。只有当队列中的前面所有线程都获取到锁并释放后，该线程才能获得锁。这种机制虽然保证了锁分配的绝对公平性，但是会导致更大的线程切换开销和整体吞吐量的降低，因为频繁的线程调度会消耗大量的系统资源。<ul>
+<li>公平锁：是指多个线程按照请求锁的顺序来获取锁，遵循先来先得的原则。如果锁已被其他线程占用，新来的线程就会进入等待队列。只有当队列中的前面所有线程都获取到锁并释放后，该线程才能获得锁。这种机制虽然保证了锁分配的绝对公平性，但会导致更大的线程切换开销和降低整体吞吐量，频繁的线程调度会消耗大量的系统资源。<ul>
 <li>优点：<br>  1）确保无饥饿发生，每个线程最终都可以获取到锁。<br>  2）适用于事务处理等对执行顺序敏感的场景。</li>
 <li>缺点：<br>  1）效率较低，因为要保证按照请求顺序获得锁，可能导致线程切换和等待的增加。<br>  2）可能会造成锁的平均获取时间延长。</li>
 </ul>
@@ -1426,16 +1481,8 @@
 <li>缺点：<br>  1）可能会导致线程饥饿，即某些线程可能会很长时间获取不到锁。<br>  2）在高度竞争的环境下，线程可能会不断地尝试获取锁，从而增加CPU的负担。</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>ReentrantLock是如何实现锁公平和非公平性的？synchronized可以实现公平锁和非公平锁吗？</p>
-<ul>
-<li>ReentrantLock：实现公平性的方式是通过维护一个线程队列，按照线程的请求顺序来获取锁。<ul>
-<li><strong>公平锁</strong>：如果在创建 ReentrantLock 对象时传入了 <code>true</code> 参数，则这个锁是公平的。在公平锁中，线程按照请求的顺序获取锁，即先到先得的原则。</li>
-<li><strong>非公平锁</strong>：如果在创建 ReentrantLock 对象时传入了 <code>false</code> 参数（默认为非公平锁），则这个锁是非公平的。在非公平锁中，线程有可能在锁释放时直接获取到锁，而不需要排队等待。</li>
-</ul>
-</li>
-<li>synchronized：它默认是非公平锁，无法直接指定为公平锁。在 synchronized 中，线程在尝试获取锁时会直接去竞争锁，而不考虑其他等待线程的顺序。</li>
+<li>ReentrantLock是如何实现锁公平和非公平性的？<br>  通过维护一个线程队列，按照线程的请求顺序来获取锁。在创建 ReentrantLock 对象时传入了 <code>true</code> 参数，则这个锁是公平的；传入了 <code>false</code> 参数（默认为非公平锁）是非公平锁。</li>
+<li>synchronized可以实现公平锁和非公平锁吗？<br>  默认非公平锁，无法直接指定为公平锁。在 synchronized 中，线程在尝试获取锁时会直接去竞争锁，而不考虑其他等待线程的顺序。</li>
 </ul>
 </li>
 <li><p>ConcurrentHashMap、、</p>
@@ -1444,7 +1491,13 @@
 <li>加锁的方式<br>  JDK1.7采用Segment分段锁，底层使用的是ReentrantLock<br>  JDK1.8采用CAS添加新节点，（如果已存在节点）采用synchronized锁定链表或红黑二叉树的首节点，相对Segment分段锁粒度更细，性能更好</li>
 </ol>
 </li>
-<li><p>ThreadLocal的底层原理<br>1，Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据<br>2、Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（注意不是Threadloca对象）中都存在ThreadlocalMap，Map的key为Thredloca对象，Map的value为需要授存的值<br>？？3，如果在线程池中使用Threadloal会造成内存泄漏，因为当Threadloca对象使用完之后，应该要把设置的key,value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线理对象是通过观引用指向ThreadlocaMap，ThreadlocaMap也是通过用强引用指向entry对象，线理不被回收，entry对象也就不会被回收，从而出现内存泄露，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象<br>4，Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</p>
+<li><p>ThreadLocal的底层原理</p>
+<ol>
+<li>Threadlocal是java中所提供的线程本地存储机制，可以利用该机制将【资源对象】数据存在某个线程内部，该线程可以在任意时刻、任意方法中获取领存的数据</li>
+<li>Threadlocal底层通过ThreadlocaMap来实现的，每个Thread对象（线程）中都存在ThreadlocalMap，保存多个Threadlocal对象<br>  a)调用 set 方法，就是以 ThreadLocal 自己作为 key，资源对象作为 value，放入当前线程的 ThreadLocalMap 集合中<br>  b)调用 get 方法，就是以 ThreadLocal自己作为 key，到当前线程中查找关联的资源值<br>  c)调用 remove 方法，就是以 ThreadLocal 自己作为 key，移除当前线程关联的资源值</li>
+<li>ThreadLocal内存泄漏问题<br>  ThreadLocalMap 中的 key是弱引用，值为强引用;key会被GC释放内存，关联 value的内存并不会释放。建议主动 remove 释放 key，value</li>
+<li>Threadlocal经典的应用场就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之进行传递，线程之间不共享同一个连接）</li>
+</ol>
 </li>
 <li><p><strong>线程池</strong></p>
 <ul>
@@ -1489,7 +1542,8 @@
 </ol>
 </li>
 <li>这是造成死锁必须要达到的4个条件，如果要避免死锁，只需不满足其中某一个即可，而其中前3个是作为锁要符合的条件，所以要避免死锁就要打破第4个条件，不出现循环等待锁的关系。在开发过程中:<ol>
-<li>要注意加锁顺序，保证每个线程按同样的顺序进行加锁</li>
+<li>要注意加锁顺序，保证每个线程按同样的顺序进行加锁，比如我们可以使用Hash值的大小来确定加锁的先后</li>
+<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
 <li>要注意加锁时限，可以针对所设置一个超时时间</li>
 <li>要注意死铁检查，这是一种预防机制，确保在第一时间发现死锁并进行解决</li>
 </ol>

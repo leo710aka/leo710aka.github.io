@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job14.png">
 <meta property="og:image" content="https://leo710aka.github.io/bk/job1.png">
 <meta property="article:published_time" content="2023-10-13T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-17T14:01:26.482Z">
+<meta property="article:modified_time" content="2024-04-19T09:11:46.890Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/job18.png?raw=true">
@@ -190,7 +190,12 @@
 <li>【削峰】接口接收2000qps的请求，以 200kbs 消费 mq中的数据，解决系统前后处理能力不一致的问题</li>
 </ul>
 </li>
-<li><p>kafka 架构？kafka 如何实现高性能，高吞吐量？kafka 如何不消费重复数据？</p>
+<li><p>不使用kafka，如何优化消息前后处理速度不一致的问题？<br>异步处理：将部分处理操作改为异步执行，例如将IO操作、数据库操作等放入异步队列中进行处理，减少对请求响应时间的影响。几种常见的实现方式：<br>1、使用线程池：可以通过创建线程池来实现异步执行操作。在Java中，可以使用<code>ThreadPoolExecutor</code>或者<code>ExecutorService</code>来创建线程池，然后将需要异步执行的任务提交到线程池中。线程池会自动管理线程的创建、执行和销毁，可以有效地减少线程的创建和销毁开销。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">10</span>); <span class="comment">// 创建固定大小的线程池</span></span><br><span class="line">executor.submit(() -&gt; &#123;</span><br><span class="line">    <span class="comment">// 异步执行的操作，例如IO操作、数据库操作等</span></span><br><span class="line">&#125;);</span><br><span class="line">executor.shutdown(); <span class="comment">// 关闭线程池</span></span><br></pre></td></tr></table></figure>
+<p>2、使用异步框架：有些框架提供了异步执行的支持，例如Spring框架的<code>@Async</code>注解。通过在方法上添加<code>@Async</code>注解，可以将方法变成异步执行的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Async</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">asyncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 异步执行的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>kafka 架构？kafka 如何实现高性能，高吞吐量？kafka 消费模式？如何不消费重复数据？如何不丢失数据？<br>、、</p>
 </li>
 <li><p>mq 事务，回滚？</p>
 <ul>
@@ -207,8 +212,8 @@
 <li>白名单使用逻辑：在消息转发过程中：1、先查看是否在白名单中 2、如果不在白名单中，再调用用户提供的接口进行RTA拦截</li>
 <li>如何查看白名单：1、先查本地缓存caffeine 2、未命中再调用相关api从Redis里面查出set是否contain该设备号，再更新本地缓存（所以Redis新增后要10min才能同步caffeine）</li>
 <li>白名单在Redis中的保存形式：一个 Set<String></li>
-<li>白名单如何维护：需要新增时(上线前)手动Postman调接口，使用 SADD 命令向 Set 中添加一个或多个成员：SADD key member [member …]；删减时、、</li>
-<li>Redis 数据何时过期？目前没有设置过期时间，可以调用 Redis 的 EXPIRE 命令为单个键（Key）或整个 Set 设置过期时间，也可以通过 SETEX 命令一次性设置键的值和过期时间以确保设置值和过期时间的原子性。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SADD myset value1</span><br><span class="line">EXPIRE myset 60         <span class="comment"># 设置 myset 整个 Set 结构的过期时间为 60 秒</span></span><br><span class="line">EXPIRE myset:value1 60  <span class="comment"># 设置 myset 中的 value1 元素的过期时间为 60 秒</span></span><br></pre></td></tr></table></figure></li>
+<li>白名单如何维护：需要新增时(上线前)手动Postman调接口，使用 SADD 命令向 Set 中添加一个或多个成员；删减时、、  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SADD whitelist member1 member2 member3  <span class="comment"># 白名单的 key-value</span></span><br></pre></td></tr></table></figure></li>
+<li>Redis 数据何时过期？目前没有设置过期时间，可以调用 Redis 的 EXPIRE 命令为单个键（Key）或整个 Set 设置过期时间，也可以通过 SETEX 命令一次性设置键的值和过期时间以确保设置值和过期时间的原子性。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE myset 60         <span class="comment"># 设置 myset 整个 Set 结构的过期时间为 60 秒</span></span><br><span class="line">EXPIRE myset:value1 60  <span class="comment"># 设置 myset 中的 value1 元素的过期时间为 60 秒</span></span><br></pre></td></tr></table></figure></li>
 <li>白名单优化：可以设置过期时长为20分钟，到期后，会触发数据库查询，同时会将数据加载到缓存中，用于接下来一个20分钟<br>  Redis 提供了键过期时的通知功能，可以通过配置 Redis 的 notify-keyspace-events 参数来开启过期事件通知。在 Redis 配置文件中设置 notify-keyspace-events Ex，表示开启键过期事件通知。</li>
 </ul>
 </li>
@@ -351,23 +356,33 @@
 </li>
 </ul>
 </li>
-<li><p>乐观锁与悲观锁的区别？</p>
+<li><p>乐观锁与悲观锁的区别？怎么用？</p>
 <ul>
-<li>悲观锁：认为资源一定存在竞争，加悲观锁具备阻塞特性，以保证多事务对统一数据的访问的安全性；如select * for update加行锁，别的事务无法修改这一行，会在一段时间后报错“等待时间过长”</li>
-<li>乐观锁：认为大部分情况不存在竞争，不加锁（不阻塞），使用版本号version判断是否修改（数据修改的同时修改version）；CAS，MVCC是乐观锁的实现</li>
-</ul>
-</li>
-<li><p>抢单情况下的订单超卖问题？</p>
-<ol>
-<li><strong>查询订单信息并加锁</strong>：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。读和写是在同一步，可以使用 <code>SELECT ... FOR UPDATE</code> 语句来查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
-<li><strong>更新订单状态</strong>：如果查询到符合条件的订单，就可以更新订单状态并完成抢单操作，示例代码如下：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> orders <span class="keyword">SET</span> status <span class="operator">=</span> <span class="number">2</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure></li>
-<li><strong>提交事务</strong>：完成操作后，需要<code>COMMIT;</code>提交事务来释放锁并保证数据的一致性</li>
-<li><strong>处理超时情况</strong>：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
+<li>悲观锁：认为资源一定存在竞争，加悲观锁具备阻塞特性，以保证多事务对统一数据的访问的安全性；如select * for update加行锁，别的事务无法修改这一行，会在一段时间后报错“等待时间过长”；悲观锁的方式在并发量不大且冲突频率较低的情况下是有效的，但是如果并发量很高或者冲突频率很高，则可能会导致性能问题和系统的阻塞。<ol>
+<li>查询订单信息并加锁：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。读和写是在同一步，可以使用 <code>SELECT ... FOR UPDATE</code> 语句来查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
+<li>更新订单状态：如果查询到符合条件的订单，就可以更新订单状态并完成抢单操作，示例代码如下：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> orders <span class="keyword">SET</span> status <span class="operator">=</span> <span class="number">2</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure></li>
+<li>提交事务：完成操作后，需要<code>COMMIT;</code>提交事务来释放锁并保证数据的一致性</li>
+<li>处理超时情况：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
 </ol>
 </li>
-<li><p>跑腿抢单的请求是直达数据库吗？<br>是的。我们项目是第一版，目标也只是在南航一所学校先试点运营，用户量很小，每一个订单的抢单并发 评估过 1s不过超过5人。所以直接使用数据库锁方案。所以我们测试人员只给业务case,完全不做压力测试。</p>
+<li>乐观锁：认为大部分情况不存在竞争，不加锁（不阻塞），使用版本号version判断是否修改（数据修改的同时修改version）CAS，MVCC是乐观锁的实现；相比于悲观锁，乐观锁在并发量较小且冲突频率不高的情况下具有一定的优势，因为它不需要加锁等待，而是通过版本号或者时间戳等方式进行数据版本的比对。下面是使用乐观锁的基本步骤和注意事项：<ol>
+<li>版本号字段实现乐观锁：在数据库表中增加一个版本号（version）字段，数据类型通常选择整数。每次更新数据时，将版本号加一。在更新数据时，通过比较当前查询到的版本号与更新时的版本号来判断是否更新成功。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orders (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    order_id <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">    version <span class="type">INT</span>,</span><br><span class="line">    <span class="comment">-- Other columns</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更新订单方法，使用乐观锁</span></span><br><span class="line"><span class="keyword">UPDATE</span> orders </span><br><span class="line"><span class="keyword">SET</span> version <span class="operator">=</span> version <span class="operator">+</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">WHERE</span> order_id <span class="operator">=</span> <span class="string">&#x27;xxx&#x27;</span> <span class="keyword">AND</span> version <span class="operator">=</span> current_version;</span><br></pre></td></tr></table></figure></li>
+<li>时间戳字段实现乐观锁：类似</li>
+<li>注意事项：<ul>
+<li>在使用乐观锁时，需要保证更新操作的原子性，通常可以使用数据库事务来确保。</li>
+<li>在比较版本号或者时间戳时，可以通过数据库的原子性操作来实现，例如使用 <code>WHERE</code> 子句中的条件来比较版本号或者时间戳。</li>
+<li>当更新操作失败时，可以根据具体业务需求选择重试更新操作或者抛出乐观锁异常供上层处理。</li>
+</ul>
 </li>
-<li><p>假如数据库中有十万条数据，如何查第100页的数据？<br>数据比较大的分页的性能考虑，考点部分自己解决。<br>？？？<br>、、</p>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>跑腿抢单的请求是直达数据库吗？可以优化吗？</p>
+<ul>
+<li>是的。我们项目是第一版，目标也只是在南航一所学校先试点运营，用户量很小，每一个订单的抢单并发 评估过 1s不过超过5人。所以直接使用数据库锁方案。所以我们测试人员只给业务case,完全不做压力测试。</li>
+<li>可以通过引入缓存层（Redis缓存热门数据？？）、限流（使用令牌桶算法或漏桶算法对抢单接口限流操作&#x2F;使用消息队列削峰）、代码层面加互斥锁</li>
+</ul>
 </li>
 <li><p>三、跑腿双方状态与安全保障</p>
 <ul>
@@ -405,6 +420,23 @@
 <li><p>？？？押金退款的事务？ </p>
 <ul>
 <li>押金的原路退回可能会破坏退款流水和押金流水的原子性，两个步骤必须一起进行，属于最常见的事务场景 1 退款流水状态变成“已退款” 2 押金退款接口返回成功<br>  接口肯定得有返回值  正常逻辑不要总想着加异常 就算有可能出现异常 在service方法级别 一般都是内部处理 不抛出？？<br>  能不能理解为退款是调接口实现，押金流水是数据库操作？？？事务逻辑如下：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">            crudService.changeFlow(); <span class="comment">// 这里调用流水变更的业务逻辑</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>升级成分布式、、</p>
+<ul>
+<li>实现：把单体架构中的service调用变成了微服务的rpc调用，代码层面区别不大</li>
+<li>难点：就是要解决网络的不可靠性。分布式架构无非就是把进程内调用变成进程间调用，跨网络、跨节点的网络调用在时间足够长、流量足够大的情况下，就要考虑网络超时的问题，设置超时时间，避免整个系统被拖挂。<ul>
+<li>读请求，超时重试</li>
+<li>写请求，分布式事务</li>
+</ul>
+</li>
+<li>其他挑战：服务治理（服务发现，服务集群，负载均衡，优雅启停，熔断降级），<strong>数据一致性问题</strong>（对于开发更重要）</li>
+</ul>
+</li>
+<li><p>数据一致性</p>
+<ul>
+<li>缓存与数据库：异步化</li>
+<li>分布式事务</li>
 </ul>
 </li>
 </ul>
@@ -586,11 +618,11 @@
 </li>
 <li><p><strong>你的优点和缺点。</strong></p>
 <ul>
-<li>我是一个诚实，比较勤奋和乐观的人。我的适应能力比较强，喜欢向他人学习，也愿意帮助他人。我相信在经过一段时间的培训及项目实战后，能够在这份工作中取得成功。</li>
-<li>我缺乏工作经验（之前实习过程中没有深度参与。。<ul>
-<li>工作简单（只是介绍leader分配的工作），没有跨部门合作、与不同岗位的同事深度交流</li>
+<li>我是一个诚实，比较勤奋和乐观的人。我的适应能力比较强，喜欢向他人学习，也愿意帮助他人。在以往的实习、项目中，能够很快适应团队开发流程。我相信在经过一段时间的培训及项目实战后，能够在这份工作中取得成功。</li>
+<li>我缺乏工作经验。。<ul>
+<li>在之前的实习过程中只是参与了开发这一环节，没有跨部门合作、与不同岗位的同事深度交流的经验。</li>
 <li>有点强迫症，会对任务的细节核对多遍，比如发邮件，填资料的时候必须要重复检查，把信息正着反着过一遍，这样虽然有点浪费时间，但就基本不会出什么差错了；</li>
-<li>另外就是有点钻牛角尖，在学习新的知识时有个点花了很长时间都没弄懂，会比较泄气。后来发现可以把不懂的先放着，等学了别的知识，再返回来看这个知识点就触类旁通了；我目前也很习惯使用chatgpt进行学习，通过提问快速发散知识点，简历联系。</li>
+<li>另外就是有点钻牛角尖，在学习新的知识时有个点花了很长时间都没弄懂，会比较泄气。后来发现可以把不懂的先放着，等学了别的知识，再返回来看这个知识点就触类旁通了；我目前也很习惯使用chatgpt进行学习，通过提问快速发散知识点，建立联系。</li>
 </ul>
 </li>
 </ul>

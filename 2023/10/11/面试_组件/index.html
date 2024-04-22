@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-17T13:29:11.999Z">
+<meta property="article:modified_time" content="2024-04-21T16:35:30.855Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -554,15 +554,13 @@
 </li>
 </ul>
 </li>
-<li><p>Mysql日志。？？</p>
+<li><p>Mysql日志</p>
 <ul>
 <li>binlog(归档⽇志) 是 Server 层⽣成的⽇志，主要⽤于数据备份（宕机后的恢复工作）和主从复制, 解决数据库和缓存之间一致性可以用canal？？组件去监听binlog</li>
-<li>redolog 是 Innodb 存储引擎层 ？？物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。</li>
-<li>undolog 是 Innodb 存储引擎层⽣成的⽇志，实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。</li>
+<li>redolog 是 Innodb 物理⽇志，记录了某个数据⻚做了什么修改，每当执⾏⼀个事务就会产⽣⼀条或者多条物理⽇志。<br>  如果发送宕机，对读取到内存中的bufferpool中的数据没有同步到硬盘mysql中，使用redolog来同步，保证事务的一致性。</li>
+<li>undolog 是 Innodb 逻辑⽇志，用于记录数据修改前的信息（记录对数据库操作的逆操作，事务回滚时逆操作恢复原数据）比如我们删除一条数据的时候，就会在undolog日志文件中新增一条delete语句； 实现了事务中的原⼦性，主要⽤于事务回滚和MVCC。</li>
 <li>relaylog 中继⽇志，⽤于主从复制场景下， slave 通过io线程拷⻉master的 binlog 后本地⽣成的⽇志</li>
 </ul>
-</li>
-<li><p>undo log和redo log的区别<br>redolog日志记录的是数据页的物理变化，服务宕机可用来同步数据；而undolog主要记录的是逻辑日志，当事务回滚时，通过逆操作恢复原来的数据，比如我们删除一条数据的时候，就会在undolog日志文件中新增一条delete语句，如果发生回滚就执行逆操作；<br>redo log保证了事务的持久性，undolog保证了事务的原子性和一致性</p>
 </li>
 <li><p>当MySQL的日志空间不足时，可能会导致以下影响：</p>
 <ol>
@@ -690,7 +688,7 @@
 </li>
 </ul>
 </li>
-<li><p>千万级数据量，分页查询优化、、</p>
+<li><p>千万级数据量，分页查询优化、、<br>不要 select * from Table limit 90000, 10<br>而先 select id from Table limit 90000, 10，再根据 select * from Table where id &#x3D; id</p>
 </li>
 </ul>
 <hr>
@@ -706,16 +704,17 @@
 </li>
 <li><p>为什么要用Redis？<br>无论Redis、MySQL、HDFS、HBase都是存储数据的地方，因为设计理念的不同，我们会根据不同的应用场景使用不同的存储。像Redis一般我们会把它用作于缓存（当然，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了<br>1、高性能：首先，它是纯内存操作，内存本身就很快。其次，它是单线程的，Redis服务器核心是基于非阻塞的IO多路复用机制，单线程避免了多线程的频繁上下文切换问题<br>2、高可靠：主从复制，哨兵机制<br>3、高拓展：数据发片，负载均衡</p>
 </li>
-<li><p>Redis 为什么这么快？</p>
-<ul>
+<li><p><strong>Redis 为什么这么快？</strong></p>
+<ol>
 <li>Redis 的大部分操作都在内存中完成，并且采用了高效的数据结构(压缩表、跳跃表等方式降低了时间复杂读，同时还提供了不同时间复杂度的数据类型)，因此 Redis 瓶颈可能是机器的内存或者网络带宽，而并非 CPU，既然 CPU 不是瓶颈，那么自然就采用单线程的解决方案了;</li>
 <li>Redis 采用单线程模型可以避免了多线程之间的竞争，省去了多线程切换的时间和性能上的开销，而且也不会导致死锁问题；</li>
 <li>Redis 采用了 I&#x2F;0 多路复用机制处理大量的客户端 Socket 请求，I0 多路复用机制是指一个线程处理多个I0流，就是我们经常听到的 select&#x2F;epoll 机制。简单来说，在 Redis 只运行单线程的情况下，该机制允许内核中，同时存在多个监听 Socket 和已连接 Socket.内核会一直监听这些 Socket 上的连接请求或数据请求。一旦有请求到达，就会交给 Redis线程处理，这就实现了一个 Redis 线程处理多个 IO 流的效果。</li>
-</ul>
+<li>Redis支持丰富的数据结构，包括字符串、哈希、列表、集合、有序集合等，每种数据结构都针对不同的应用场景进行了优化，能够更高效地处理各种数据操作。</li>
+</ol>
 </li>
 <li><p>Redis 是单进程单线程的？<br>Redis 是单进程单线程的，redis 利用队列技术将并发访问变为串行访问，消除了传统数据库串行控制的开销。 </p>
 </li>
-<li><p><strong>Redis网络多路I&#x2F;O复用</strong></p>
+<li><p>Redis网络多路I&#x2F;O复用？？</p>
 <ul>
 <li>多路复用是一种提高 I&#x2F;O 效率的技术，它可以同时监听多个文件描述符的 I&#x2F;O 事件，并且在有事件发生时立即通知应用程序，从而避免了轮询的开销。在 Redis 中，网络 I&#x2F;O 多路复用主要涉及到客户端与服务端之间的通信，使用类似 epoll 的事件驱动机制来处理网络 I&#x2F;O 多路复用，通过监听套接字上的事件并采用非阻塞 I&#x2F;O 模式，实现了高效的网络通信和并发处理能力。</li>
 </ul>
@@ -1019,13 +1018,6 @@
 </li>
 <li><p>如何判断一个 Broker 是否还有效<br>1.Broker必须可以维护和ZooKeeper的连接，Zookeeper通过心跳机制检查每个结点的连接<br>2.如果Broker是个Follower，它必须能及时同步Leader的写操作，延时不能太久。</p>
 </li>
-<li><p>kafka 如何实现高性能，高吞吐量？</p>
-<ul>
-<li>Kafka在「存储」和「读取」这个过程中又做了很多的优化，比如说：<br>  我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在处理【并行】<br>  在存储消息时，Kafka内部是顺序写磁盘的，并且利用了操作系统的缓冲区来提高性能【append+cache】<br>  在读写数据中也减少CPU拷贝文件的次数【零拷贝】</li>
-<li>pull拉？？？<br>  如果采用 Push 模式，则Consumer难以处理不同速率的上游推送消息。采用 Pull 模式的好处是Consumer可以自主决定是否批量的从Broker拉取数据。Pull模式有个缺点是，如果Broker没有可供消费的消息，将导致Consumer不断在循环中轮询，直到新消息到达。为了避免这点，Kafka有个参数可以让Consumer阻赛直到新消息到达。</li>
-<li>零拷贝？？？</li>
-</ul>
-</li>
 <li><p>kafka 分区、、partition？？</p>
 <ul>
 <li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。offset 是消息在分区中的唯一标识，kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。<br>  在分区中又引入了多副本(replica)的概念，通过增加副本数量可以提高容灾能力。同一分区的不同副本中保存的是相同的消息。副本之间是一主多从的关系，其中主副本负责读写，从副本只负责消息同步。副本处于不同的broker中，当主副本出现异常，便会在从副本中提升一个为主副本。</li>
@@ -1033,19 +1025,65 @@
 <li>Kafka 为什么要把消息分区<br>  1.方便在集群中扩展，每个 Partition 可用通过调整以适应它所在的机器，而一个Topic又可以有多个Partition组成，因此整个集群就可以适应任意大小的数据了<br>  2.可以提高并发，因为可以以Partition为单位进行读写</li>
 </ul>
 </li>
+<li><p>kafka 消费模式</p>
+<ol>
+<li><strong>发布-订阅模式</strong>：<ul>
+<li>在发布-订阅模式中，消息被发送到一个主题（Topic），而每个消费者都可以独立地订阅这个主题并接收消息。</li>
+<li>Push 模式：一种主动推送的方式，即消息生产者（Publisher）将消息直接推送给感兴趣的订阅者（Subscriber）。<br> 这种模式下，订阅者无需主动拉取消息，而是等待消息被推送过来。因此，消息的发送和接收是异步的。</li>
+<li>Pull 模式：一种被动获取的方式，即订阅者需要主动向消息服务器请求消息，然后消息服务器才会将消息发送给订阅者。<br> 在这种模式下，订阅者需要周期性地或者根据需要发起拉取消息的请求，消息的发送和接收是同步的。</li>
+</ul>
+</li>
+<li><strong>消费者组模式</strong>：<ul>
+<li>在消费者组模式中，多个消费者被组织成一个消费者组（Consumer Group），并且每个分区（Partition）只能被同一个消费者组中的一个消费者处理。</li>
+<li>当一个新的消费者加入消费者组时，它会负责消费未被分配的分区。</li>
+<li>这种模式可以实现消息的负载均衡和水平扩展，适合于处理大量消息的情况。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Kafka是如何保证消息不丢失</p>
+<ul>
+<li>需要从三个层面去解决这个问题</li>
+<li>生产者发送消息到Brocker丢失<br>  设置异步发送，发送失败使用回调进行记录或重发<br>  失败重试，参数配置，可以设置重试次数</li>
+<li>消息在Brocker中存储丢失<br>  发送确认acks，选择all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
+<li>消费者从Brocker接收消息丢失<br>  关闭自动提交偏移量，开启手动提交偏移量<br>  提交方式，最好是同步+异步提交</li>
+</ul>
+</li>
 <li><p>kafka 消费重复数据？</p>
 <ul>
-<li>原因：<br>  1、服务宕机，5秒钟内没有提交offerset<br>  2、5分钟内没消费完partition数据，触发reblance</li>
-<li>解决（提升消费端性能）：<br>  1、异步消费<br>  2、调整超时时间<br>  3、减少一次性拉取的数据<br>  4、每一条消费的消息生成md5存到redis</li>
+<li>原因：1、服务宕机，5秒钟内没有提交offerset; 2、5分钟内没消费完partition数据，触发reblance</li>
+<li>解决（提升消费端性能）：关闭自动提交偏移量，开启手动提交偏移量提交方式，最好是同步+异步提交，幂等方案、</li>
 </ul>
 </li>
-<li><p>Kafka 中什么情况下会出现消息丢失&#x2F;不一致的问题</p>
+<li><p>Kafa 中如何保证顺序消费</p>
 <ul>
-<li>消息发送时<br>  消息发送有两种方式:同步-sync 和异步-async。默认是同步的方式，可以通过 producer.type 厘性进行配置，kafka 也可以通过配置 acks 属性来确认消息的生产<br>  0 :表示不进行消息接收是否成功的确认<br>  1:表示当leader 接收成功时的确认<br>  -1:表示leader和 follower 都接收成功的确认<br>  当 acks &#x3D;0时，不和 Kafka 进行消息接收确认，可能会因为网络异常，缓冲中区满的问题，导致消息丢失<br>  当 acks &#x3D;1时，只有 leader 同步成功而 follower 尚未完成同步，如果leader 挂了，就会造成数据丢失</li>
-<li>消息消费时<br>  Kafka有两个消息消费的consumer接口，分别是 1ow-level和 hign-level<br>  low-level :消费者自己维护 offset 等值，可以实现对 kafka 的完全控制1.2.high-level:封装了对 partition 和 offset，使用简单<br>  如果使用高级接口，可能存在一个消费者提取了一个消息后便提交了 offset，那么还没来得及消费就已经挂了下次消费时的数据就是 offset+1的位置，那么原先 offset 的数据就丢失了</li>
+<li>问题原因：一个topic的数据可能存储在不同的分区Partition 中，Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性。但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，如果消费者关联了多个分区，不能保证顺序性。</li>
+<li>解决方法：如果你想要顺序的处理Topic的所有消息，那就只提供一个分区<ul>
+<li>发送消息时指定分区号</li>
+<li>发送消息时按照相同的业务设置相同的key</li>
 </ul>
 </li>
-<li><p>Kafa 中如何保证顺序消费<br>Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性，但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，因此我们需要将所有消息发往统一 Partition 才能保证消息顺序消费，那么可以在发送的时候指定 MessageKey，同一个 key 的消息会发到同一个 Partition 中。</p>
+</ul>
+</li>
+<li><p>kafka高可用？</p>
+<ul>
+<li>可以从两个层面回答，第一个是集群，第二个是复制机制集群:<ul>
+<li>一个kafka集群由多个broker实例组成，即使某一台宕机，也不耽误其他broker继续对外提供服务复制机制:</li>
+<li>一个topic有多个分区，每个分区有多个副本，有一个leader，其余的是follower，副本存储在不同的broker中所有的分区副本的内容是都是相同的，如果leader发生故障时，会自动将其中一个follower提升为leader，保证了系统的容错性、高可用性</li>
+</ul>
+</li>
+<li>ISR(in-syncreplica)机制：需要同步复制保存的folower<br>  分区副本分为了两类，一个是ISR，与leader副本同步保存数据，另外一个普通的副本，是异步同步数据，当leader挂掉之后，会优先从ISR副本列表中选取一个作为leader</li>
+</ul>
+</li>
+<li><p>kafka 如何实现高性能？</p>
+<ul>
+<li>消息分区:不受单台服务器的限制，可以不受限的处理更多的数据；我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在并行处理</li>
+<li>顺序读写:磁盘顺序读写，提升读写效率</li>
+<li>页缓存:把磁盘中的数据缓存到内存中，把对磁盘的访问变为对内存的访问</li>
+<li>零拷贝:减少上下文切换及数据拷贝？？在读写数据中也减少CPU拷贝文件的次数</li>
+<li>消息压缩:减少磁盘I0和网络I0</li>
+<li>分批发送:将消息打包批量发送，减少网络开销</li>
+</ul>
 </li>
 </ul>
 <hr>
