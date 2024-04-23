@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-21T16:35:30.855Z">
+<meta property="article:modified_time" content="2024-04-23T10:48:20.943Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -1020,8 +1020,10 @@
 </li>
 <li><p>kafka 分区、、partition？？</p>
 <ul>
-<li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。offset 是消息在分区中的唯一标识，kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。<br>  在分区中又引入了多副本(replica)的概念，通过增加副本数量可以提高容灾能力。同一分区的不同副本中保存的是相同的消息。副本之间是一主多从的关系，其中主副本负责读写，从副本只负责消息同步。副本处于不同的broker中，当主副本出现异常，便会在从副本中提升一个为主副本。</li>
-<li>？？？Kafka 中分区的原则<br>  1.指明Partition的情况下，直接将指明的值作为Partition值<br>  2.没有指明Partition值但有 key 的情况下，将 key 的 Hash 值与 topic的Partition值进行取余得到Partition值<br>  3.既没有Partition值又没有 key 值的情况下，第一次调用时随机生成一个整数(后面每次调用在这个整数上自增)，将这个值与Topic可用的Partition总数取余得到Parittion值，也就是常说的round-robin 算法</li>
+<li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。</li>
+<li>offset：是消息在分区中的唯一标识，表示在分区中消费到消息的位置；<br>  kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。</li>
+<li>在分区中又引入了多副本(replica)的概念，通过增加副本数量可以提高容灾能力。同一分区的不同副本中保存的是相同的消息。副本之间是一主多从的关系，其中主副本负责读写，从副本只负责消息同步。副本处于不同的broker中，当主副本出现异常，便会在从副本中提升一个为主副本。</li>
+<li>Kafka 中分区的原则？？？<br>  1.指明Partition的情况下，直接将指明的值作为Partition值<br>  2.没有指明Partition值但有 key 的情况下，将 key 的 Hash 值与 topic的Partition值进行取余得到Partition值<br>  3.既没有Partition值又没有 key 值的情况下，第一次调用时随机生成一个整数(后面每次调用在这个整数上自增)，将这个值与Topic可用的Partition总数取余得到Parittion值，也就是常说的round-robin 算法</li>
 <li>Kafka 为什么要把消息分区<br>  1.方便在集群中扩展，每个 Partition 可用通过调整以适应它所在的机器，而一个Topic又可以有多个Partition组成，因此整个集群就可以适应任意大小的数据了<br>  2.可以提高并发，因为可以以Partition为单位进行读写</li>
 </ul>
 </li>
@@ -1043,16 +1045,15 @@
 </li>
 <li><p>Kafka是如何保证消息不丢失</p>
 <ul>
-<li>需要从三个层面去解决这个问题</li>
-<li>生产者发送消息到Brocker丢失<br>  设置异步发送，发送失败使用回调进行记录或重发<br>  失败重试，参数配置，可以设置重试次数</li>
+<li>生产者发送消息到Brocker丢失<br>  设置异步发送，发送失败使用回调进行记录或重发；失败重试，参数配置，可以设置重试次数</li>
 <li>消息在Brocker中存储丢失<br>  发送确认acks，选择all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
-<li>消费者从Brocker接收消息丢失<br>  关闭自动提交偏移量，开启手动提交偏移量<br>  提交方式，最好是同步+异步提交</li>
+<li>消费者从Brocker接收消息丢失<br>  关闭自动提交偏移量，开启手动提交偏移量；提交方式，最好是同步+异步提交</li>
 </ul>
 </li>
 <li><p>kafka 消费重复数据？</p>
 <ul>
-<li>原因：1、服务宕机，5秒钟内没有提交offerset; 2、5分钟内没消费完partition数据，触发reblance</li>
-<li>解决（提升消费端性能）：关闭自动提交偏移量，开启手动提交偏移量提交方式，最好是同步+异步提交，幂等方案、</li>
+<li>原因：<br>  1、服务宕机，5秒钟内没有提交offerset;<br>  2、5分钟内没消费完partition数据，触发reblance</li>
+<li>解决：<br>  1、关闭自动提交偏移量，开启手动提交偏移量提交方式，最好是同步+异步提交，<br>  2、提升消费端性能避免触发balance：异步消费、挑战消费时长、减少一次性从broker拉取的消息条数<br>  3、幂等方案：对消费的消息生成md5存到redis，再存入时比对</li>
 </ul>
 </li>
 <li><p>Kafa 中如何保证顺序消费</p>
@@ -1083,6 +1084,20 @@
 <li>零拷贝:减少上下文切换及数据拷贝？？在读写数据中也减少CPU拷贝文件的次数</li>
 <li>消息压缩:减少磁盘I0和网络I0</li>
 <li>分批发送:将消息打包批量发送，减少网络开销</li>
+</ul>
+</li>
+<li><p>kafka消息积压问题</p>
+<ul>
+<li>消息积压根本原因是：生产者的生产速度，大于消费者的消费速度。consumer还来不及从PageCache中消费消息，producer就已经生产消息把容量占完了，只能把PageCache中的消息保存到硬盘中，consumer要到硬盘中取出未消费的消息、、</li>
+<li>遇到消息积压问题时，我们需要先排查，是不是有bug产生了。如果不是bug，我们可以优化一下消费的逻辑，比如之前是一条一条消息消费处理的话，我们可以确认是不是可以优为批量处理消息。如果还是慢，我们可以考虑水平扩容，增加Topic的队列数，和消费组机器的数量，提升整体消费能力。</li>
+<li>如果是bug导致几百万消息持续积压几小时，需要解决bug，临时紧急扩容，大概思路如下:<ol>
+<li>先修复consumer消费者的问题，以确保其恢复消费速度，然后将现有consumer 都停掉。</li>
+<li>新建一个 topic:partition 是原来的 10 倍，临时建立好原先10倍的queue 数量。</li>
+<li>然后写一个临时的分发数据的 consumer 程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的10倍数量的queue。</li>
+<li>接着临时征用 10倍的机器来部署 consumer，每一批 consumer 消费一个临时 queue 的数据。这种做法相当于是临时将 queke 资源和 consumer 资源扩大 10倍，以正常的 10倍速度来消费数据。</li>
+<li>等快速消费完积压数据之后，得恢复原先部署的架构，重新用原先的 consumer 机器来消费消息。</li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
