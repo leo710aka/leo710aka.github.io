@@ -3353,7 +3353,7 @@
 <li><p>线程状态之间是如何变化的？</p>
 <ul>
 <li>创建线程对象是新建状态</li>
-<li>调用了start()方法转变为可执行状态</li>
+<li>调用了start()方法转变为可执行状态（还要获取到CPU执行权才能运行）</li>
 <li>线程获取到了CPU的执行权，执行结束是终止状态</li>
 <li>在可执行状态的过程中，如果没有获取CPU的执行权，可能会切换其他状态<ul>
 <li>如果没有获取锁(synchronized或lock)进入阻塞状态，获得锁再切换为可执行状态</li>
@@ -3387,7 +3387,8 @@
 <li>wait 方法执行后会释放对象锁，允许其它线程获得该对象锁(我放弃cpu，但你们还可以用)</li>
 </ul>
 </li>
-<li>sleep() ：<code>Thread</code> 类的静态方法，用于让当前线程暂停执行一段时间（以毫秒为单位），等待指定时间后重新进入就绪状态，不会停止线程。sleep(long)和 wait(long) 的线程都会在等待相应毫秒后醒来。<ul>
+<li>sleep() ：<code>Thread</code> 类的静态方法，用于让当前线程暂停执行一段时间（以毫秒为单位），等待指定时间后重新进入就绪状态，不会停止线程。<ul>
+<li>sleep() 会使当前线程进入阻塞状态，让出 CPU 资源给其他线程使用，到时间后该线程会重新变为可运行状态，等待 CPU 调度器的调度来执行。</li>
 <li>sleep 如果在 synchronized 代码块中执行，并不会释放对象锁(我放弃 cpu，你们也用不了)</li>
 </ul>
 </li>
@@ -3430,9 +3431,9 @@
 </li>
 </ul>
 </li>
-<li><p>synchronized（同步锁）</p>
+<li><p><strong>synchronized（同步锁）</strong></p>
 <ul>
-<li>Synchronized采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获取这个锁时就会阻塞住；只能实现为非公平锁；而且由于Java中的线程和操作系统原生线程是一一对应的，线程被阻塞或者唤醒时时会从用户态切换到内核态，这种转换非常消耗性能。</li>
+<li>Synchronized采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获取这个锁时就会阻塞住；只能实现为非公平锁；而且由于Java中的线程和操作系统原生线程是一一对应的，线程被阻塞或者唤醒时时会从用户态切换到内核态，这种转换非常消耗性能。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizedExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">syncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 同步方法体</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">syncBlock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            <span class="comment">// 同步代码块</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>底层实现：synchronized是java提供的原子性内置锁，会在编译之后在同步的代码块前后加上monitorenter和monitorexit字节码指令，依赖操作系统底层互斥锁实现。他的作用主要就是实现原子性操作和解决共享变量的内存可见性问题。<ul>
 <li>执行monitorenter指令时会尝试获取对象锁，如果对象没有被锁定或者已经获得了锁，锁的计数器+1。此时其他竞争锁的线程则会进入等待队列中。</li>
 <li>执行monitorexit指令时则会把计数器-1，当计数器值为0时，则锁释放，处于等待队列中的线程再继续竞争锁。</li>
@@ -3447,9 +3448,10 @@
 <li>Java中的synchronized有偏向锁、轻量级锁、重量级锁三种形式，分别对应了锁只被一个线程持有、不同线程交替持有锁、多线程竞争锁三种情况。<ol>
 <li>重量级锁：底层使用的Monitor实现，里面涉及到了用户态和内核态的切换、进程的上下文切换，成本较高，性能比较低。一旦锁发生了竞争，就会升级为重量级锁。</li>
 <li>轻量级锁：线程加锁的时间是错开的(也就是没有竞争)，可以使用轻量级锁来优化。轻量级修改了对象头的锁标志，相对重量级锁性能提升很多。每次修改都是CAS操作，保证原子性</li>
-<li>偏向锁：一段很长的时间内都只被一个线程使用锁，可以使用了偏向锁，在第一次获得锁时会有一个CAS操作，之后该线程再获取锁只需要判断mark word中是否是自己的线程id即可，而不是开销相对较大的CAS命令  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SynchronizedExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">syncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 同步方法体</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">syncBlock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            <span class="comment">// 同步代码块</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>偏向锁：一段很长的时间内都只被一个线程使用锁，可以使用了偏向锁，在第一次获得锁时会有一个CAS操作，之后该线程再获取锁只需要判断mark word中是否是自己的线程id即可，而不是开销相对较大的CAS命令</li>
 </ol>
 </li>
+<li>完整执行流程：<br>  ？？先考虑偏向锁，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了；CAS失败则升级为轻量级锁，实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程），抢占成功到锁就归属给该线程了，但自旋失败一定次数后（竞争激烈？？）升级重量级锁；重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
 </ul>
 </li>
 <li><p>具体来说，Synchronized 锁住的是什么？</p>
@@ -3496,19 +3498,20 @@
 <li>AQS可以实现为公平锁和非公平锁。</li>
 </ul>
 </li>
-<li><p>Reentrantlock（可重入锁）</p>
+<li><p><strong>Reentrantlock（可重入锁）</strong></p>
 <ul>
-<li>ReentrantLock表示支持重新进入的锁，调用lock方法获取了锁之后，（同一个线程）再次调用 lock，是不会再阻塞；<br>  支持公平锁和非公平锁，在提供的构造器的中无参默认是非公平锁，也可以传参设置为公平锁</li>
+<li>ReentrantLock表示支持重新进入的锁，调用lock方法获取了锁之后，（同一个线程）再次调用 lock，是不会再阻塞；<br>  支持公平锁和非公平锁，在提供的构造器的中无参默认是非公平锁，也可以传参设置为公平锁  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReentrantLockExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">// 默认非公平锁，true 启用公平锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lockMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 受保护的代码区</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>底层实现：ReentrantLock主要利用CAS+AQS队列来实现<ol>
 <li>线程来抢锁后使用cas的方式修改state状态，修改状态成功为1，则让exclusiveOwnerThread属性指向当前线程，获取锁成功</li>
 <li>假如修改状态失败，则会进入双向队列中等待，head指向双向队列头部，tail指向双向队列尾部当</li>
 <li>exclusiveOwnerThread为null的时候，则会唤醒在双向队列中等待的线程</li>
-<li>公平锁则体现在按照先后顺序获取锁，非公平体现在不在排队的线程也可以抢锁  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReentrantLockExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">// 默认非公平锁，true 启用公平锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lockMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 受保护的代码区</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>公平锁则体现在按照先后顺序获取锁，非公平体现在不在排队的线程也可以抢锁</li>
 </ol>
 </li>
+<li>完整过程：  <img src="https://github.com/leo710aka/bk/blob/main/job21.png?raw=true" width="400" height="300" alt=""></li>
 </ul>
 </li>
-<li><p><strong>synchronized 和 ReentrantLock 的区别</strong></p>
+<li><p><strong>synchronized 和 ReentrantLock 的区别？</strong> <a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/788136901432311825?spm_id_from=333.999.0.0">https://www.bilibili.com/opus/788136901432311825?spm_id_from=333.999.0.0</a></p>
 <ol>
 <li>实现方式：<br>  <code>synchronized</code> 是 Java 语言级别的关键字，用于实现线程同步。可以修饰代码块或方法，自动获取和释放锁。<br>  <code>ReentrantLock</code> 是 Java API 提供的锁实现，需要显式地使用 <code>lock()</code> 和 <code>unlock()</code>获取锁和释放锁。</li>
 <li>锁粒度：<br>  <code>synchronized</code> 的锁粒度比较粗，它可以对整个方法或代码块进行同步，不能灵活控制锁的粒度。<br>  <code>ReentrantLock</code> 的锁粒度比较细，可以根据需要在代码中灵活地获取和释放锁，可以实现更细粒度的同步。</li>
@@ -3538,7 +3541,12 @@
 <li>缺点：<br>  1）可能会导致线程饥饿，即某些线程可能会很长时间获取不到锁。<br>  2）在高度竞争的环境下，线程可能会不断地尝试获取锁，从而增加CPU的负担。</li>
 </ul>
 </li>
-<li>ReentrantLock是如何实现锁公平和非公平性的？<br>  通过维护一个线程队列，按照线程的请求顺序来获取锁。在创建 ReentrantLock 对象时传入了 <code>true</code> 参数，则这个锁是公平的；传入了 <code>false</code> 参数（默认为非公平锁）是非公平锁。</li>
+<li>如果让你实现的话，你怎么实现公平和非公平锁？<ul>
+<li>公平锁：可以把竞争的线程放在一个先进先出的队列上。只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
+<li>非公平锁：线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
+</ul>
+</li>
+<li>ReentrantLock是如何实现锁公平和非公平性的？<br>  通过维护一个线程队列，按照线程的请求顺序来获取锁。在创建 ReentrantLock 对象时传入了 <code>true</code> 参数，则这个锁是公平的；传入了 <code>false</code> 参数是非公平锁（默认）。</li>
 <li>synchronized可以实现公平锁和非公平锁吗？<br>  默认非公平锁，无法直接指定为公平锁。在 synchronized 中，线程在尝试获取锁时会直接去竞争锁，而不考虑其他等待线程的顺序。</li>
 </ul>
 </li>
@@ -3804,10 +3812,10 @@
 </li>
 <li><p>使用 Spring 有哪些方式？</p>
 <ol>
-<li><strong>作为一个成熟的 Spring Web 应用程序：</strong>Spring 提供了 Spring MVC 框架，用于构建 Web 层，同时支持通过 Spring Boot 等工具轻松配置和启动整个应用。这种方式下，Spring 负责管理应用程序的各个层次，包括表现层、业务逻辑层和数据访问层。</li>
-<li><strong>作为第三方 Web 框架，使用 Spring Frameworks 中间层：</strong>可以将 Spring 作为第三方框架集成到现有的 Web 应用程序中，而不必完全采用 Spring Web 应用程序的方式。在这种情况下，可能只使用 Spring 的某些模块，例如 Spring IOC 容器、AOP、事务管理等，以提升现有 Web 应用程序的功能和效率。</li>
-<li><strong>用于远程使用：</strong>这可能指的是将 Spring 作为远程服务的一部分，例如通过 Spring 的远程调用支持（如 Spring Remoting 或 Spring Cloud）在分布式系统中进行远程通信。在这种场景下，Spring 的特性可以用于实现远程服务的注册、调用和管理。</li>
-<li><strong>作为企业级 Java Bean，它可以包装现有的 POJO（Plain Old Java Objects）：</strong>通过 Spring 的依赖注入和其他特性，可以更方便地管理和组装这些对象，使其更易于测试、扩展和维护。这种方式下，Spring 赋予了这些普通对象更多的企业级特性。</li>
+<li>作为一个成熟的 Spring Web 应用程序：Spring 提供了 Spring MVC 框架，用于构建 Web 层，同时支持通过 Spring Boot 等工具轻松配置和启动整个应用。这种方式下，Spring 负责管理应用程序的各个层次，包括表现层、业务逻辑层和数据访问层。</li>
+<li>作为第三方 Web 框架，使用 Spring Frameworks 中间层：可以将 Spring 作为第三方框架集成到现有的 Web 应用程序中，而不必完全采用 Spring Web 应用程序的方式。在这种情况下，可能只使用 Spring 的某些模块，例如 Spring IOC 容器、AOP、事务管理等，以提升现有 Web 应用程序的功能和效率。</li>
+<li>用于远程使用：这可能指的是将 Spring 作为远程服务的一部分，例如通过 Spring 的远程调用支持（如 Spring Remoting 或 Spring Cloud）在分布式系统中进行远程通信。在这种场景下，Spring 的特性可以用于实现远程服务的注册、调用和管理。</li>
+<li>作为企业级 Java Bean，它可以包装现有的 POJO（Plain Old Java Objects）：通过 Spring 的依赖注入和其他特性，可以更方便地管理和组装这些对象，使其更易于测试、扩展和维护。这种方式下，Spring 赋予了这些普通对象更多的企业级特性。</li>
 </ol>
 </li>
 <li><p>Spring 配置文件？（”Spring bean配置文件”是其中的一个子集）</p>
@@ -3835,8 +3843,9 @@
 </li>
 </ul>
 </li>
-<li><p>“三层架构”：表现层 + 业务层 + 数据访问层<br>  三层架构（Presentation Layer、Business Logic Layer、Data Access Layer）是一种常见的软件架构模式，用于将一个软件系统划分为三个主要的逻辑层，以提高系统的可维护性、可扩展性和可重用性。Spring 框架提供了广泛的支持，使得开发者能够更轻松地实现和管理三层架构。</p>
-<ol>
+<li><p>“三层架构”：表现层 + 业务层 + 数据访问层</p>
+<ol start="0">
+<li>三层架构（Presentation Layer、Business Logic Layer、Data Access Layer）是一种常见的软件架构模式，用于将一个软件系统划分为三个主要的逻辑层，以提高系统的可维护性、可扩展性和可重用性。Spring 框架提供了广泛的支持，使得开发者能够更轻松地实现和管理三层架构。</li>
 <li>表现层（Presentation Layer）：<br>  定义： 主要负责用户界面和用户交互，通常包括 Web 页面、UI 组件等。<br>  Spring 支持： Spring 提供了 Spring MVC 模块，用于实现 Web 应用的表现层。Spring MVC 提供了强大的控制器（Controller）机制，支持基于注解的映射、视图解析、数据绑定等功能，使得开发者能够轻松地构建和管理 Web 层。</li>
 <li>业务层（Business Logic Layer）：<br>  定义： 包含了应用程序的业务逻辑，处理用户请求、调用数据访问层进行数据操作，并进行业务规则的处理。<br>  Spring 支持： Spring 提供了 IoC（Inversion of Control）容器和 AOP（Aspect-Oriented Programming）功能，这两者共同构成了 Spring 的核心。开发者可以使用 Spring IoC 容器来管理业务层的对象，而 Spring AOP 可以用于处理横切关注点，如事务管理、日志记录等。</li>
 <li>数据访问层（Data Access Layer）：<br>  定义： 主要用于与数据存储交互，进行数据库访问、数据持久化等操作。<br>  Spring 支持： Spring 提供了对数据访问的支持，其中最重要的是 Spring 的 JDBC 模块和 Spring 的 ORM 模块。Spring JDBC 简化了 JDBC 操作，而 Spring ORM 支持集成多种 ORM 框架，如 Hibernate、MyBatis 等，使得数据访问层的开发更加便捷。</li>
@@ -3862,35 +3871,31 @@
 </li>
 <li><p>@Component, @Controller, @Repository，@Service 有何区别？<br>@Component ：这将  java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。<br>@Controller ：这将一个类标记为 Spring Web MVC 控制器。标有它的Bean 会自动导入到 IoC 容器中。<br>@Service：此注解是组件注解的特化。不对 @Component 提供任何其他行为。在服务层类中使用@Service 而不是@Component，因为它以更好的方式指定了意图。<br>@Repository ：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。</p>
 </li>
-<li><p>@Autowired 注解有什么用？@Required 注解有什么用？</p>
-<ul>
-<li>@Autowired 可以更准确地控制应该在何处以及如何进行自动装配。此注解用于在 setter 方法，构造函数，具有任意名称或多个参数的属性或方法上自动装配bean。默认情况下，它是类型驱动的注入。<br>  @Autowired为Spring提供的注解，需要导入包org.springframework.beans.factory.annotation.Autowired;只按照byType注入。默认情况下，它要求依赖对象必须存在，如果允许nul值，可以设置它的required属性为false。如果我们想使用按照名称(byName)来装配，可以结合@Qualifier注解一起使用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier(&quot;nameDao&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String nameDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>@Required 应用于 bean 属性 setter 方法。此注解仅指示必须在配置时使用bean 定义中的显式属性值或使用自动装配填充受影响的 bean属性。如果尚未填充受影响的 bean 属性，则容器将抛出 eanInitializationException。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Employee</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Required</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
 <li><p>@Autowired 为什么不推荐使用了，而是使用构造函数？</p>
-<ul>
-<li><code>@Autowired</code> 仍然是 Spring 框架中用于进行依赖注入的一种方式，它可以用于字段、构造函数和方法上。然而，一些开发者倾向于使用构造函数注入，而不是字段注入或方法注入，这是因为构造函数注入有一些优势：<ol>
-<li><strong>显式性和明确性：</strong> 构造函数注入更加显式和明确。通过在构造函数参数上使用 <code>@Autowired</code> 注解，你可以清晰地看到依赖关系，而不用深入查看类的其他部分。</li>
-<li><strong>不可变性：</strong> 通过构造函数注入，你可以将依赖关系声明为不可变的，即一旦对象被创建，它的依赖关系就不能再被修改。这有助于确保对象在使用过程中保持一致性。</li>
-<li><strong>避免循环依赖问题：</strong> 使用构造函数注入可以有效地避免循环依赖的问题。如果两个类相互依赖，通过构造函数注入，它们将无法创建循环依赖。</li>
-<li><strong>测试方便：</strong> 构造函数注入使得在单元测试中更容易进行模拟和注入测试数据。</li>
+<ol start="0">
+<li><code>@Autowired</code> 仍然是 Spring 框架中用于进行依赖注入的一种方式，它可以用于字段、构造函数和方法上。然而，一些开发者倾向于使用构造函数注入，而不是字段注入或方法注入，这是因为构造函数注入有一些优势：</li>
+<li>显式性和明确性： 构造函数注入更加显式和明确。通过在构造函数参数上使用 <code>@Autowired</code> 注解，你可以清晰地看到依赖关系，而不用深入查看类的其他部分。</li>
+<li>不可变性：通过构造函数注入，你可以将依赖关系声明为不可变的，即一旦对象被创建，它的依赖关系就不能再被修改。这有助于确保对象在使用过程中保持一致性。</li>
+<li>避免循环依赖问题：使用构造函数注入可以有效地避免循环依赖的问题。如果两个类相互依赖，通过构造函数注入，它们将无法创建循环依赖。</li>
+<li>测试方便：构造函数注入使得在单元测试中更容易进行模拟和注入测试数据。</li>
 </ol>
-</li>
-</ul>
 </li>
 <li><p>@Autowired 与 @Resource的区别。</p>
 <ul>
-<li>相同点：都是做bean的注入时使用，都可以写在字段和setter方法上。两者如果都写在字段上，就不需再写setter。(注:最好是放在setter方法上，因为这样更符合面向对象的思想，通过set、get去操作属性，而不是直接去操作属性。)</li>
+<li>相同点：都是做bean的注入时使用，都可以写在字段和setter方法上。两者如果都写在字段上，就不需再写setter。(注:最好是放在setter方法上，因为这样更符合面向对象的思想，通过set、get去操作属性，而不是直接去操作属性。)<ul>
+<li>@Autowired 可以更准确地控制应该在何处以及如何进行自动装配。此注解用于在 setter 方法，构造函数，具有任意名称或多个参数的属性或方法上自动装配bean。默认情况下，它是类型驱动的注入。</li>
+<li>@Required 应用于 bean 属性 setter 方法。此注解仅指示必须在配置时使用bean 定义中的显式属性值或使用自动装配填充受影响的 bean属性。如果尚未填充受影响的 bean 属性，则容器将抛出 eanInitializationException。</li>
+</ul>
+</li>
 <li>不同点<ol>
 <li>源头不同：<ul>
-<li><code>@Autowired</code> 是 Spring 框架自带的注解，属于 Spring 核心。</li>
+<li><code>@Autowired</code> 是 Spring 框架自带的注解，属于 Spring 核心;</li>
 <li><code>@Resource</code> 是 Java EE提供的注解，不仅被 Spring 支持，也可以在其他 Java EE 容器中使用。</li>
 </ul>
 </li>
 <li>注入类型不同：<ul>
-<li><code>@Autowired</code>： 主要通过 byType 的方式进行注入，即按照属性的数据类型从 Spring 容器中匹配并注入。如果存在多个匹配的 Bean，则可以通过 <code>@Qualifier</code> 进行进一步指定。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure></li>
-<li><code>@Resource</code>： 主要通过 byName 的方式进行注入，即按照属性的名称从 Spring 容器中匹配并注入。也可以通过 <code>name</code> 属性指定要注入的 Bean 名称。作用相当于@Autowired，只不过@Autowired按照byType自动注入。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource(name = &quot;myService&quot;)</span></span><br><span class="line"><span class="keyword">private</span> MyService myService;</span><br></pre></td></tr></table></figure>
+<li><code>@Autowired</code>： 主要通过 byType 的方式进行注入，即按照属性的数据类型从 Spring 容器中匹配并注入。如果存在多个匹配的 Bean，则可以通过 <code>@Qualifier</code> 进行进一步指定。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(&quot;nameDao&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String nameDao;</span><br></pre></td></tr></table></figure></li>
+<li><code>@Resource</code>： 主要通过 byName 的方式进行注入，即按照属性的名称从 Spring 容器中匹配并注入。也可以通过 <code>name</code> 属性指定要注入的 Bean 名称。作用相当于@Autowired，只不过@Autowired按照byType自动注入。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Required</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name=name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  @Resource装配顺序:<br> ①如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则掀出异常。<br> ②如果指定了name，则从上下文中查找名称(id)匹配的bean进行装配，找不到则抛出异常。<br> ③如果指定了type，则从上下文中找到类似匹配的唯一bean进行装配，找不到或是找到多个，都会抛出异常。<br> ④如果既没有指定name，又没有指定type，则自动按照byName方式进行装配;如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配。</li>
 </ul>
 </li>
@@ -3942,7 +3947,8 @@
 </li>
 <li><p>依赖注入的方法有几种？<code>@Autowired</code>是如何工作的？</p>
 <ol>
-<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长，不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">&#125;</span><br><span class="line">```    </span><br><span class="line"><span class="number">2.</span> setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类</span><br><span class="line">优点: 灵活，可以选择性地注入需要的对象。用的最多。</span><br><span class="line">缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。</span><br><span class="line">```java</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li>构造器注入：将被依赖对象通过构造函数的参数注入给依赖对象，并且在初始化对象的时候注入。<br>  优点:对象初始化完成后便可获得可使用的对象。<br>  缺点: 当需要注入的对象很多时，构造器参数列表将会很长，不够灵活。若有多种注入方式，每种方式只需注入指定几个依赖，那么就需要提供多个重载的构造函数，麻烦。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>setter方法注入：IOC Service Provider通过调用成员变量提供的setter函数将被依赖对象注入给依赖类<br>  优点: 灵活，可以选择性地注入需要的对象。用的最多。<br>  缺点: 依赖对象初始化完成后，由于尚未注入被依赖对象，因此还不能使用。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>接口注入：依赖类必须要实现指定的接口，然后实现该接口中的一个函数，该函数就是用于依赖注入。该函数的参数就是要注入的对象。<br>  优点: 接口注入中，接口的名字、函数的名字都不重要，只要保证函数的参数是要注入的对象类型即可。<br>  缺点：侵入性太强，不建议使用。PS:什么是侵入?如果类A要使用别人提供的一个功能，若为了使用这功能，需要在自己的类中增加额外的代码，这就是侵入性。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MyDependency myDependency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">injectDependency</span><span class="params">(MyDependency myDependency)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.myDependency = myDependency;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>使用建议：用构造器参数实现强制依赖，setter 方法实现可选依赖。</li>
 <li>使用 @Autowired 注解可以对字段进行依赖注入。具体注入方式取决于被注入的字段的类型，可以是构造器注入、setter 方法注入、接口注入等。</li>
@@ -4083,6 +4089,8 @@
 <li>总: aop概念，应用场景，<strong>动态代理</strong></li>
 <li>分: bean的创建过程中有一个步骤可以对bean进行扩展实现，aop本身就是IOC 的一个扩展功能，所以在BeanPostProcessor的后置处理方法中来进行实现<br>  1、代理对象的创建过程(advice，切面，切点)<br>  2、通过jdk或者cglib的方式来生成代理对象<br>  3、在执行方法调用的时候，会调用到生成的字节码文件中，直接回找到DynamicAdvisoredlnterceptor类中的intercept方法，从此方法开始执行<br>  4、根据之前定义好的通知来生成拦截器链<br>  5、从拦截器链中依次获取每一个通知开始进行执行，在执行过程中，为了方便找到下一个通知是哪个，会有一个CglibMethodlnvocation的对象，找的时候是从-1的位置一次开始查找并且执行的。</li>
 </ul>
+</li>
+<li><p>在工作中实际用到过AOP优化代码吗？？？<br>有的。当时我用AOP来对我们公司现有的监控客户端进行封装<br>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等。对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起），于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解；方法被调用时，就会上报AQS、RT等信息<br>实现了非业务代码与业务代码分离的效果（：</p>
 </li>
 <li><p>Spring DAO<br>Spring DAO 使得  JDBC，Hibernate 或 JDO 这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。</p>
 </li>
@@ -5302,7 +5310,7 @@
 </li>
 <li><p>如何判断一个 Broker 是否还有效<br>1.Broker必须可以维护和ZooKeeper的连接，Zookeeper通过心跳机制检查每个结点的连接<br>2.如果Broker是个Follower，它必须能及时同步Leader的写操作，延时不能太久。</p>
 </li>
-<li><p>kafka 分区、、partition？？</p>
+<li><p>kafka分区，partition</p>
 <ul>
 <li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。</li>
 <li>offset：是消息在分区中的唯一标识，表示在分区中消费到消息的位置；<br>  kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。</li>
@@ -5330,7 +5338,8 @@
 <li><p>Kafka是如何保证消息不丢失</p>
 <ul>
 <li>生产者发送消息到Brocker丢失<br>  设置异步发送，发送失败使用回调进行记录或重发；失败重试，参数配置，可以设置重试次数</li>
-<li>消息在Brocker中存储丢失<br>  发送确认acks，选择all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
+<li>消息在Brocker中存储丢失<br>  发送确认设置acks&#x3D;all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
+<li>（发送到Broker之后，走的是操作系统缓存，在异步刷盘（保存到硬盘）这个过程还有可能丢失）</li>
 <li>消费者从Brocker接收消息丢失<br>  关闭自动提交偏移量，开启手动提交偏移量；提交方式，最好是同步+异步提交</li>
 </ul>
 </li>
@@ -5342,8 +5351,8 @@
 </li>
 <li><p>Kafa 中如何保证顺序消费</p>
 <ul>
-<li>问题原因：一个topic的数据可能存储在不同的分区Partition 中，Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性。但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，如果消费者关联了多个分区，不能保证顺序性。</li>
-<li>解决方法：如果你想要顺序的处理Topic的所有消息，那就只提供一个分区<ul>
+<li>问题原因：<br>  一个topic的数据可能存储在不同的分区Partition 中，Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性。但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，如果消费者关联了多个分区，不能保证顺序性。</li>
+<li>解决方法：（普通情况下）只需要把相同userld&#x2F;orderld发送到相同的partition，因为一个partition由（一个消费者组的）一个Consumer消费<ul>
 <li>发送消息时指定分区号</li>
 <li>发送消息时按照相同的业务设置相同的key</li>
 </ul>

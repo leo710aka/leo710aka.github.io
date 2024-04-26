@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/job13.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/job14.png?raw=true">
 <meta property="article:published_time" content="2023-10-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-04-25T17:24:03.837Z">
+<meta property="article:modified_time" content="2024-04-26T07:56:47.332Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/job5.png">
@@ -1018,7 +1018,7 @@
 </li>
 <li><p>如何判断一个 Broker 是否还有效<br>1.Broker必须可以维护和ZooKeeper的连接，Zookeeper通过心跳机制检查每个结点的连接<br>2.如果Broker是个Follower，它必须能及时同步Leader的写操作，延时不能太久。</p>
 </li>
-<li><p>kafka 分区、、partition？？</p>
+<li><p>kafka分区，partition</p>
 <ul>
 <li>分区的概念<br>  主题是一个逻辑上的概念，还可以细分为多个分区，一个分区只属于单个主题，很多时候也会把分区称为主题分区(Topic-Partition)。同一主题下的不同分区包含的消息是不同的，分区在存储层面可以看做一个可追加的 日志文件 ，消息在被追加到分区日志文件的时候都会分配一个特定的偏移量(offset)。</li>
 <li>offset：是消息在分区中的唯一标识，表示在分区中消费到消息的位置；<br>  kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，kafka保证的是分区有序而不是主题有序。</li>
@@ -1046,7 +1046,8 @@
 <li><p>Kafka是如何保证消息不丢失</p>
 <ul>
 <li>生产者发送消息到Brocker丢失<br>  设置异步发送，发送失败使用回调进行记录或重发；失败重试，参数配置，可以设置重试次数</li>
-<li>消息在Brocker中存储丢失<br>  发送确认acks，选择all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
+<li>消息在Brocker中存储丢失<br>  发送确认设置acks&#x3D;all，让所有的副本都参与保存数据后确认（设置acks&#x3D;1时，只要leader节点收到消息，生产者就会收到一个来自服务器的成功响应）</li>
+<li>（发送到Broker之后，走的是操作系统缓存，在异步刷盘（保存到硬盘）这个过程还有可能丢失）</li>
 <li>消费者从Brocker接收消息丢失<br>  关闭自动提交偏移量，开启手动提交偏移量；提交方式，最好是同步+异步提交</li>
 </ul>
 </li>
@@ -1058,8 +1059,8 @@
 </li>
 <li><p>Kafa 中如何保证顺序消费</p>
 <ul>
-<li>问题原因：一个topic的数据可能存储在不同的分区Partition 中，Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性。但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，如果消费者关联了多个分区，不能保证顺序性。</li>
-<li>解决方法：如果你想要顺序的处理Topic的所有消息，那就只提供一个分区<ul>
+<li>问题原因：<br>  一个topic的数据可能存储在不同的分区Partition 中，Kafka 的消费单元是 Partition，同一个 Partition 使用 offset 作为唯一标识保证顺序性。但这只是保证了在Partition 内部的顺序性而不是 Topic 中的顺序，如果消费者关联了多个分区，不能保证顺序性。</li>
+<li>解决方法：（普通情况下）只需要把相同userld&#x2F;orderld发送到相同的partition，因为一个partition由（一个消费者组的）一个Consumer消费<ul>
 <li>发送消息时指定分区号</li>
 <li>发送消息时按照相同的业务设置相同的key</li>
 </ul>
