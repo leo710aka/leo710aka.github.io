@@ -6,18 +6,18 @@
   
   <title>Django / 毕 设 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="DjangoDjango是一个基于Python的开源Web应用框架，它遵循 MTV（Model-Template-View）框架，与传统的 MVC（Model-View-Controller）有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。 MTV 架构 Model（模型）：负责处理数据逻辑，定义数据库模型（ORM），进行数据的增删改">
+  <meta name="description" content="DjangoDjango是一个基于Python的开源Web应用框架，它遵循 MTV 框架，与传统的 MVC 有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。 MTV 架构 Model（模型）：负责处理数据逻辑，定义数据库模型（ORM），进行数据的增删改查操作。 Template（模板）：负责呈现用户界面，包含 HTML、CSS、Jav">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django &#x2F; 毕 设">
 <meta property="og:url" content="http://example.com/2022/09/02/Django_%E6%AF%95%E8%AE%BE/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="DjangoDjango是一个基于Python的开源Web应用框架，它遵循 MTV（Model-Template-View）框架，与传统的 MVC（Model-View-Controller）有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。 MTV 架构 Model（模型）：负责处理数据逻辑，定义数据库模型（ORM），进行数据的增删改">
+<meta property="og:description" content="DjangoDjango是一个基于Python的开源Web应用框架，它遵循 MTV 框架，与传统的 MVC 有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。 MTV 架构 Model（模型）：负责处理数据逻辑，定义数据库模型（ORM），进行数据的增删改查操作。 Template（模板）：负责呈现用户界面，包含 HTML、CSS、Jav">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg1.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg2.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg3.png?raw=true">
 <meta property="article:published_time" content="2022-09-02T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-05-01T06:01:03.091Z">
+<meta property="article:modified_time" content="2024-05-01T17:23:31.965Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/djg1.png?raw=true">
@@ -97,7 +97,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h1><p>Django是一个基于Python的开源Web应用框架，它遵循 MTV（Model-Template-View）框架，与传统的 MVC（Model-View-Controller）有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。</p>
+        <h1 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h1><p>Django是一个基于Python的开源Web应用框架，它遵循 MTV 框架，与传统的 MVC 有一些区别，但是其基本思想和流程是类似的，旨在简化Web开发过程，提高开发效率，同时保持代码的可读性和可维护性。</p>
 <h3 id="MTV-架构"><a href="#MTV-架构" class="headerlink" title="MTV 架构"></a>MTV 架构</h3><ol>
 <li>Model（模型）：负责处理数据逻辑，定义数据库模型（ORM），进行数据的增删改查操作。</li>
 <li>Template（模板）：负责呈现用户界面，包含 HTML、CSS、JavaScript 等前端代码，展示数据给用户。</li>
@@ -144,8 +144,8 @@
 <li>运行迁移文件 同步数据库  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
-<li>Djungo shell操作<ul>
-<li>Djungo shell：继承Django项目环境，用于交互的Python编程，方便快捷</li>
+<li>Django shell操作<ul>
+<li>Django shell：继承Django项目环境，用于交互的Python编程，方便快捷</li>
 <li>新建文章：IDE console操作  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py shell  <span class="comment"># 进入 Djungo shell</span></span><br></pre></td></tr></table></figure>
   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from blog.models import Article  <span class="comment"># 导入模型</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a = Article()                    <span class="comment"># 创建文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.title = <span class="string">&#x27;Test Django Shell&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.brief = <span class="string">&#x27;...&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; a.save()                         <span class="comment"># 保存文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; articles = Article.objects.all() <span class="comment"># 获取文章</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; <span class="built_in">print</span>(articles[0].title)</span></span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -157,7 +157,7 @@
   登录页面进行管理：<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/login/?next=/admin/">http://127.0.0.1:8000/admin/login/?next=/admin/</a><br>  选择模型，进行创建、修改、删除对象操作</li>
 </ul>
 </li>
-<li>model数据返回页面<ol>
+<li>Model数据返回页面<ol>
 <li>编写应用请求 project&#x2F;blog&#x2F;views.py  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> Article</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">article_content</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="comment"># 就是返回处理过的model数据</span></span><br><span class="line">    article = Article.<span class="built_in">object</span>.<span class="built_in">all</span>()[<span class="number">0</span>]</span><br><span class="line">    ans_str = article.title + ...</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(ans_str)</span><br></pre></td></tr></table></figure></li>
 <li>配置应用路由 project&#x2F;blog&#x2F;urls.py</li>
 <li>配置项目路由 project&#x2F;project&#x2F;urls.py</li>
@@ -178,20 +178,16 @@
 </ul>
 </li>
 </ul>
+<h2 id="ECharts"><a href="#ECharts" class="headerlink" title="ECharts"></a>ECharts</h2><p>ECharts，一个使用 JavaScript 实现的开源可视化库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE9&#x2F;10&#x2F;11，Chrome，Firefox，Safari等），底层依赖矢量图形库 ZRender，提供直观，交互丰富，可高度个性化定制的数据可视化图表。<br><a target="_blank" rel="noopener" href="https://echarts.apache.org/">https://echarts.apache.org</a></p>
 <hr>
 
-<h1 id="毕业设计"><a href="#毕业设计" class="headerlink" title="毕业设计"></a>毕业设计</h1><h3 id="选题"><a href="#选题" class="headerlink" title="选题"></a><strong>选题</strong></h3><p><em>基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发</em></p>
+<h1 id="毕业设计"><a href="#毕业设计" class="headerlink" title="毕业设计"></a>毕业设计</h1><h3 id="选题"><a href="#选题" class="headerlink" title="选题"></a><strong>选题</strong></h3><p><em>基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发_</em>_</p>
 <h3 id="论文结构"><a href="#论文结构" class="headerlink" title="论文结构"></a>论文结构</h3><p>摘 要 II<br>Abstract III<br>目 录 V<br>第一章 绪论<br>1.1 引言<br>1.2 研究背景<br>1.3 研究现状<br>1.4 课题来源及意义<br>1.5 论文结构<br>第二章 数据原型系统开发环境和工具<br>2.1 Python爬虫<br>2.2 Django框架<br>2.3 设计模式<br>2.4 前端开发框架<br>2.5 开源图形库 ECharts<br>2.6 本章小结<br>第三章 数据原型系统架构设计<br>3.1 综合性金融系统架构设计<br>3.2 数据原型系统架构设计<br>3.3 功能接口设计<br>3.4 数据库设计<br>第四章 数据原型系统的实现<br>4.1从金融平台获取数据实现<br>4.2 数据库查询实现<br>4.3 数据可视化实现<br>4.4 Echarts 图形库渲染生成统计图表<br>4.5 数据下载接口实现<br>4.6 数据维护接口实现<br>第五章 数据原型系统的测试及结果<br>5.1 数据更新模块测试<br>5.2 数据下载模块测试<br>5.3 数据分析模块测试<br>5.4 数据维护模块测试<br>5.5 本章小结<br>第六章 结论<br>1.论文工作总结<br>2.工作展望<br>参考文献<br>致谢</p>
 <h3 id="数据库建设"><a href="#数据库建设" class="headerlink" title="数据库建设"></a>数据库建设</h3><ul>
 <li>香港市场股票数据库的构建<ul>
 <li>MySql数据库：股票、基金、期货</li>
 <li>数据库表结构：参考旧论文&#x2F;直接用东方财富网表头</li>
-<li>用python程序爬取数据<ul>
-<li>python爬虫</li>
-<li>数据清洗</li>
-<li>数据需要爬取相关历史数据，如果不能获取历史数据，就要从现在开始爬取每日的交易数据写入到数据库中；</li>
-</ul>
-</li>
+<li>用python爬虫爬取数据, 数据清洗, 爬取历史数据</li>
 </ul>
 </li>
 <li>获取香港期货代码 \spider\Get_Future_Info.py<ul>
@@ -202,10 +198,10 @@
 </ul>
 </li>
 </ul>
-<h3 id="系统开发"><a href="#系统开发" class="headerlink" title="系统开发"></a>系统开发</h3><ul>
+<h2 id="系统开发"><a href="#系统开发" class="headerlink" title="系统开发"></a>系统开发</h2><ul>
 <li>系统架构<ul>
-<li>前端：Template，Echarts</li>
-<li>后端：Django，定时任务</li>
+<li>前端：Django+Template，Echarts</li>
+<li>后端：Django，MySQL，定时任务</li>
 </ul>
 </li>
 <li>主要工作（原）<ul>
@@ -214,7 +210,7 @@
 <li>数据实时更新 （1.1 数据列表(香港股票，香港基金，香港指数，香港期货，香港交易所),1.2 基本信息数据（股票、基金、期货），1.3 基本信息， 1.4 财务报表， 1.5 香港历史交易数据（香港股票，香港基金，香港指数，香港期货）， 1.6 当日交易数据（香港股票，香港基金，香港指数，香港期货）） </li>
 <li>数据下载 （2.1 列表数据下载(香港股票，香港基金，香港指数，香港期货，香港交易所)，2.2 基本信息数据下载（股票、基金、期货），2.3 基本信息下载， 2.4 财务报表数据下载， 2.5 香港历史交易数据下载（大陆股票，大陆基金，大陆指数，大陆期货）， 2.6 当日交易数据下载（香港股票，香港基金，香港指数，香港期货））</li>
 <li>数据分析 （3.1 列表数据分析(香港股票，香港基金，香港指数，香港期货，香港交易所)，3.2 基本信息数据分析（股票、基金、期货），3.3 基本信息分析， 3.4 财务报表数据分析， 3.5 大陆历史交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货）， 3.6 当日交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货））</li>
-<li>数据维护 （<br>  4.1 数据导出 4.1.1 数据列表导出(香港股票，香港基金，香港指数，香港期货，香港交易所),4.1.2 基本信息数据导出（股票、基金、期货），4.1.3 基本信息数据导出， 4.1.4 财务报表导出， 4.1.5 香港历史交易数据导出（香港陆股票，香港基金，香港指数，香港期货）， 4.1.6 当日交易数据导出（香港股票，香港基金，香港指数，香港期货），<br>  4.2 数据导入 4.2.1 数据列表导入(香港股票，香港基金，香港指数，香港期货，香港交易所),4.2.2 基本信息数据导入（股票、基金、期货），4.2.3 基本信息数据导入， 4.2.4 财务报表导入， 4.2.5 香港历史交易数据导入（香港股票，香港基金，香港指数，香港期货）， 4.2.6 当日交易数据导入（香港股票，香港基金，香港指数，香港期货））】</li>
+<li>数据维护 （4.1 数据导出 4.1.1 数据列表导出(香港股票，香港基金，香港指数，香港期货，香港交易所),4.1.2 基本信息数据导出（股票、基金、期货），4.1.3 基本信息数据导出， 4.1.4 财务报表导出， 4.1.5 香港历史交易数据导出（香港陆股票，香港基金，香港指数，香港期货）， 4.1.6 当日交易数据导出（香港股票，香港基金，香港指数，香港期货）， 4.2 数据导入 4.2.1 数据列表导入(香港股票，香港基金，香港指数，香港期货，香港交易所),4.2.2 基本信息数据导入（股票、基金、期货），4.2.3 基本信息数据导入， 4.2.4 财务报表导入， 4.2.5 香港历史交易数据导入（香港股票，香港基金，香港指数，香港期货）， 4.2.6 当日交易数据导入（香港股票，香港基金，香港指数，香港期货））】</li>
 </ol>
 </li>
 <li>二、香港相关数据还要包括 【1 深港通、沪港通数据；2. 在港上市的大陆股票；3. 在港国企股；4. 港股的科创板】</li>
@@ -222,16 +218,27 @@
 </li>
 </ul>
 </li>
-<li>主要工作（真）<ul>
-<li><strong>主要是要多完成港股中相关数据内容：</strong><a target="_blank" rel="noopener" href="https://quote.eastmoney.com/center/ggsc.html">港股主板、港股创业板、知名港服、蓝筹股、红筹股、红筹成分股、国企股、国企成分股、港股通成份股、人民币交易港股、AH股比价ADR、香港指数</a> </li>
-<li>突出两地股市的差别：对这几个港股数据，提供数据展示（调用其他同学的接口同时展现大陆数据），数据更新、维护、下载的功能；最好论文还要有一些分析的结果，需要自己做一些结果和图表出来，系统上时间不够可以不加</li>
+<li><strong>主要工作（真）</strong><ul>
+<li><strong>主要是要多完成港股中相关数据内容：</strong><a target="_blank" rel="noopener" href="https://quote.eastmoney.com/center/ggsc.html">港股主板、港股创业板、知名港股、蓝筹股、红筹股、红筹成分股、国企股、国企成分股、港股通成份股、人民币交易港股、AH股比价、香港指数</a> </li>
+<li><strong>突出两地股市的差别：对这几个港股数据，提供数据展示（调用其他同学的接口同时展现大陆数据），数据更新、维护、下载的功能；最好论文还要有一些分析的结果，需要自己做一些结果和图表出来，系统上时间不够可以不加</strong></li>
 </ul>
 </li>
-<li>数据库建设<ul>
-<li>创建数据库表<table>
+<li>流程设计<ul>
+<li>创建各类港股基本信息表：获取“港股市场”“xx股”（在今日？）的信息列表，将股票代码、股票名称保存在数据库对应的基本信息表中，同时保存创建时间和更新时间</li>
+<li>更新各类港股基本信息表：获取“港股市场”“xx股”（在今日？）的信息列表，将数据库的对应表中不存在的股票代码、股票名称、创建时间和更新时间存入对应的基本信息表，将原本存在的股票信息更新？？</li>
+<li>创建各类港股历史数据表：根据“港股市场”“xx股”的基本信息表中的股票代码，获取至今的历史数据，将股票代码、股票名称、k线数据、时间存入对应的历史数据表中</li>
+<li>更新各类港股历史数据表：根据“港股市场”“xx股”的基本信息表中的股票代码和更新时间，获取从更新时间至今的历史数据，存入对应的历史数据表中（无序？？）</li>
+<li>港股基本数据展示：展示各类港股基本信息表？？</li>
+<li>港股历史数据展示：根据股票代码？？展示各类港股历史数据，按时间排序？？</li>
+<li>数据下载：？？</li>
+<li>数据维护：导入导出</li>
+</ul>
+</li>
+<li>数据库建设<ol>
+<li>创建数据库表 \spider\DB_Fund.py<ul>
+<li>基本信息表 xxinfo<table>
 <thead>
 <tr>
-<th>序号</th>
 <th>代码</th>
 <th>名称</th>
 <th>相关链接</th>
@@ -244,16 +251,74 @@
 <th>昨收</th>
 <th>成交量(股)</th>
 <th>成交额</th>
-<th>加自选</th>
+<th>创建日期</th>
+<th>更新日期</th>
 </tr>
 </thead>
 </table>
 </li>
-<li>爬取港股信息<br>  url_base &#x3D; ‘<a target="_blank" rel="noopener" href="https://futsseapi.eastmoney.com/list/HKSTOCKF?callback=aaa_callback&orderBy=name&sort=asc&pageSize=%7Bsize%7D&pageIndex=%7Bpage%7D&callbackName=aaa_callback&token=58b2fa8f54638b60b87d69b31969089c&field=dm,sc,name,p,zsjd,zdf,f152,zde,mrj,mcj,mrl,mcl,vol,xs,ccl,rz,zjsj&blockName=callback&_=1710858777947">https://futsseapi.eastmoney.com/list/HKSTOCKF?callback=aaa_callback&amp;orderBy=name&amp;sort=asc&amp;pageSize={size}&amp;pageIndex={page}&amp;callbackName=aaa_callback&amp;token=58b2fa8f54638b60b87d69b31969089c&amp;field=dm%2Csc%2Cname%2Cp%2Czsjd%2Czdf%2Cf152%2Czde%2Cmrj%2Cmcj%2Cmrl%2Cmcl%2Cvol%2Cxs%2Cccl%2Crz%2Czjsj&amp;blockName=callback&amp;_=1710858777947</a>‘</li>
-<li>爬取港股历史数据<br>  url_base &#x3D; ‘<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=130.%7Bsecid%7D&fields1=f1,f2,f3,f4,f5&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&lmt=1000&klt=101&fqt=1&end=30000101&ut=4f1862fc3b5e77c150a2b985b12db0fd">https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=130.{secid}&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;lmt=1000&amp;klt=101&amp;fqt=1&amp;end=30000101&amp;ut=4f1862fc3b5e77c150a2b985b12db0fd</a>‘</li>
+<li>历史数据表 xxhistory<table>
+<thead>
+<tr>
+<th>code</th>
+<th>date</th>
+<th>open</th>
+<th>now</th>
+<th>high</th>
+<th>low</th>
+<th>volumn</th>
+<th>amount</th>
+<th>rate</th>
+<th>changerate</th>
+<th>per</th>
+<th>zero</th>
+</tr>
+</thead>
+</table>
+</li>
+<li>港股市场术语英文表示：<ol>
+<li>港股主板（Main Board of Hong Kong Stock Exchange）：HKEX_Main_Board</li>
+<li>港股创业板（Growth Enterprise Market of Hong Kong Stock Exchange）：GEM_of_HKEX</li>
+<li>知名港股（Well-known Hong Kong Stocks）：Famous_HongKong_Stocks</li>
+<li>蓝筹股（Blue-chip Stocks）：Blue-chip_Stocks</li>
+<li>红筹股（Red-chip Stocks）：Red-chip_Stocks</li>
+<li>红筹成分股（Red-chip Constituent Stocks）：Red-chip_Constituent_Stocks</li>
+<li>国企股（State-owned Enterprise Stocks）：SOE_Stocks</li>
+<li>国企成分股（State-owned Enterprise Constituent Stocks）：SOE_Constituent_Stocks</li>
+<li>港股通成份股（Stock Connect Constituent Stocks）：Stock_Connect_Constituent_Stocks</li>
+<li>人民币交易港股（RMB-denominated Hong Kong Stocks）：RMB-denominated_HongKong_Stocks</li>
+<li>AH股比价（A-share and H-share Price Comparison）：A-share_and_H-share_Price_Comparison</li>
+<li>ADR（American Depositary Receipt）：ADR</li>
+<li>香港指数（Hong Kong Stock Index）：HongKong_Stock_Index</li>
+</ol>
+</li>
 </ul>
 </li>
-<li>数据展示</li>
+<li>爬取港股信息 \spider\Get_Hk_Stock.py<ul>
+<li>使用F12抓包，点击如“港股主板”按钮查询出对应的股票数据，刷新页面，过滤出js文件，找到对应的股票数据的get请求api（默认pn&#x3D;1，pz&#x3D;20，表示获取第一页大小为20的股票数据列表）；从中获取总数据行数”data”&#x2F;“total”，再次发送get请求（设置pn&#x3D;1，pz&#x3D;total）获取完整的该股票数据列表    </li>
+<li>港股主板：’<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:3&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583816">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:3&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583816</a>‘</li>
+<li>港股创业板：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:4&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583886">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:4&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583886</a></li>
+<li>知名港股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0106&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583906">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0106&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583906</a></li>
+<li>蓝筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0105&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944470">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0105&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944470</a></li>
+<li>红筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0102&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944490">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0102&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944490</a></li>
+<li>红筹成分：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0111&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944499">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0111&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944499</a></li>
+<li>国企股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0103&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583915">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0103&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583915</a></li>
+<li>国企成分股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0112&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583919">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0112&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583919</a></li>
+<li>股港股通成份股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0146,b:MK0144&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944503">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0146,b:MK0144&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944503</a></li>
+<li>人民币交易港股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+s:64&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944509">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+s:64&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944509</a></li>
+<li>AH股比价：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0101&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&_=1714570944513">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0101&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&amp;_=1714570944513</a></li>
+<li>香港指数：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:124,m:125,m:305&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583922">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:124,m:125,m:305&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583922</a></li>
+</ul>
+</li>
+<li>爬取港股历史数据<ul>
+<li>从各类港股基本信息表中获取股票代码，替换secid，查询其历史k线数据</li>
+<li>港股日线数据(除港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
+<li>港股指数日线数据：  ？？</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>数据展示<br>展示什么？？基本信息，历史数据？？</li>
 <li>数据更新</li>
 <li>数据下载</li>
 <li>数据维护</li>
