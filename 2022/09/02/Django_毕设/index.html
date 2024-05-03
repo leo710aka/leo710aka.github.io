@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg2.png?raw=true">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/djg3.png?raw=true">
 <meta property="article:published_time" content="2022-09-02T03:11:00.000Z">
-<meta property="article:modified_time" content="2024-05-03T04:20:17.414Z">
+<meta property="article:modified_time" content="2024-05-03T12:37:09.704Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/djg1.png?raw=true">
@@ -243,7 +243,7 @@
 </ul>
 </li>
 <li>数据库建设<ol>
-<li>创建数据库表 \spider\DB_Fund.py<ul>
+<li>创建数据库和表（\spider\DB_Fund.py）<ul>
 <li>基本信息表 xxinfo<table>
 <thead>
 <tr>
@@ -261,7 +261,35 @@
 <th>更新日期</th>
 </tr>
 </thead>
-</table>
+<tbody><tr>
+<td>code</td>
+<td>name</td>
+<td>now</td>
+<td>change</td>
+<td>changerate</td>
+<td>open</td>
+<td>high</td>
+<td>low</td>
+<td>yesterday_close</td>
+<td>volume</td>
+<td>amount</td>
+<td>date_updated</td>
+</tr>
+<tr>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+<td>——-</td>
+</tr>
+</tbody></table>
 </li>
 <li>历史数据表 xxhistory<table>
 <thead>
@@ -272,7 +300,7 @@
 <th>now</th>
 <th>high</th>
 <th>low</th>
-<th>volumn</th>
+<th>volume</th>
 <th>amount</th>
 <th>rate</th>
 <th>changerate</th>
@@ -300,7 +328,7 @@
 </li>
 </ul>
 </li>
-<li>爬取港股信息 \spider\Get_Hk_Stock.py<ul>
+<li>爬取港股信息（\spider\Get_HKStock\HKStockSpider().getxxInfo()）<ul>
 <li>使用F12抓包，点击如“港股主板”按钮查询出对应的股票数据，刷新页面，过滤出js文件，找到对应的股票数据的get请求api（默认pn&#x3D;1，pz&#x3D;20，表示获取第一页大小为20的股票数据列表）；从中获取总数据行数”data”&#x2F;“total”，再次发送get请求（设置pn&#x3D;1，pz&#x3D;total）获取完整的该股票数据列表    </li>
 <li>港股主板：’<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:3&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583816">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:3&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583816</a>‘</li>
 <li>港股创业板：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:4&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583886">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:4&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583886</a></li>
@@ -316,8 +344,9 @@
 <li>香港指数：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:124,m:125,m:305&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583922">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:124,m:125,m:305&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583922</a></li>
 </ul>
 </li>
-<li>爬取港股历史数据<ul>
-<li>从各类港股基本信息表中获取股票代码，替换secid，查询其历史k线数据</li>
+<li>爬取港股历史数据（\spider\Get_HKStock\HKStockSpider().getxxHistory()）<ul>
+<li>从各类港股基本信息表中获取股票代码替换secid，date为今日，查询其历史k线数据</li>
+<li>一般情况，MySQL每张表最好不要超过2000万条数据，阿里的Java开发手册上也提出：单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。或者说，要根据实际场景分析。</li>
 <li>港股日线数据(除港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
 <li>港股指数日线数据：  ？？</li>
 </ul>
@@ -325,7 +354,7 @@
 </ol>
 </li>
 <li>数据展示<br>展示什么？？基本信息，历史数据？？</li>
-<li>数据更新</li>
+<li>数据更新  \spider\Update_HKStock.py</li>
 <li>数据下载</li>
 <li>数据维护</li>
 </ul>
