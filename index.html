@@ -115,7 +115,249 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clvne5esd000po4v5ht1650q6" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clvsbqec5000mjov57pyweakw" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-毕设" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/05/01/%E6%AF%95%E8%AE%BE/" class="article-date">
+  <time class="dt-published" datetime="2024-05-01T03:11:00.000Z" itemprop="datePublished">2024-05-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/05/01/%E6%AF%95%E8%AE%BE/">毕 设</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="选-题"><a href="#选-题" class="headerlink" title="选 题"></a><strong>选 题</strong></h2><p><em>基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发_</em>_</p>
+<h3 id="论文结构"><a href="#论文结构" class="headerlink" title="论文结构"></a>论文结构</h3><p>摘 要 II<br>Abstract III<br>目 录 V<br>第一章 绪论<br>1.1 引言<br>1.2 研究背景<br>1.3 研究现状<br>1.4 课题来源及意义<br>1.5 论文结构<br>第二章 数据原型系统开发环境和工具<br>2.1 Python爬虫<br>2.2 Django框架<br>2.3 设计模式<br>2.4 前端开发框架<br>2.5 开源图形库 ECharts<br>2.6 本章小结<br>第三章 数据原型系统架构设计<br>3.1 综合性金融系统架构设计<br>3.2 数据原型系统架构设计<br>3.3 功能接口设计<br>3.4 数据库设计<br>第四章 数据原型系统的实现<br>4.1从金融平台获取数据实现<br>4.2 数据库查询实现<br>4.3 数据可视化实现<br>4.4 Echarts 图形库渲染生成统计图表<br>4.5 数据下载接口实现<br>4.6 数据维护接口实现<br>第五章 数据原型系统的测试及结果<br>5.1 数据更新模块测试<br>5.2 数据下载模块测试<br>5.3 数据分析模块测试<br>5.4 数据维护模块测试<br>5.5 本章小结<br>第六章 结论<br>1.论文工作总结<br>2.工作展望<br>参考文献<br>致谢</p>
+<h3 id="数据库建设"><a href="#数据库建设" class="headerlink" title="数据库建设"></a>数据库建设</h3><ul>
+<li>香港市场股票数据库的构建<ul>
+<li>MySql数据库：股票、基金、期货</li>
+<li>数据库表结构：参考旧论文&#x2F;直接用东方财富网表头</li>
+<li>用python爬虫爬取数据, 数据清洗, 爬取历史数据</li>
+</ul>
+</li>
+<li>获取香港期货代码 \spider\Get_Future_Info.py<ul>
+<li>数据库创建  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CreateDatabase</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, new_database</span>):</span><br><span class="line">        self.new_database = new_database</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_new_database</span>(<span class="params">self</span>):</span><br><span class="line">        connection = pymysql.connect(host=<span class="string">&#x27;127.0.0.1&#x27;</span>, user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;078114&#x27;</span>, cursorclass=pymysql.cursors.DictCursor)</span><br><span class="line">        new_database_name = self.new_database</span><br><span class="line">        cursor = connection.cursor()</span><br><span class="line">        cursor.execute(<span class="string">f&quot;CREATE DATABASE <span class="subst">&#123;new_database_name&#125;</span>&quot;</span>)</span><br><span class="line">        cursor.close()</span><br><span class="line">        connection.close()</span><br></pre></td></tr></table></figure></li>
+<li>数据库操作  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Database</span>:          </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">InsertFutureInfo</span>(<span class="params">self, item</span>):  <span class="comment"># 插入数据</span></span><br><span class="line">        mydb = pymysql.connect(host=<span class="string">&#x27;127.0.0.1&#x27;</span>, port=<span class="number">3306</span>, user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;078114&#x27;</span>, database=<span class="string">&#x27;finance&#x27;</span>, charset=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">        cursor = mydb.cursor()</span><br><span class="line">        sql = <span class="string">&quot;insert into futureinfo values(%s, %s)&quot;</span></span><br><span class="line">        cursor.executemany(sql, item) <span class="comment"># 要传入一个二维列表或元组的列表作为参数 item，每个子列表或元组应包含两个元素，对应着 SQL 语句中的两个 %s，用于插入数据库表中的两个字段的值</span></span><br><span class="line">        mydb.commit()</span><br><span class="line">        cursor.close()</span><br><span class="line">        mydb.close()</span><br></pre></td></tr></table></figure></li>
+<li>爬虫操作  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取期货列表：东方财富网今天期货市场中港交所的期货列表信息（??不确定是不是完整期货信息）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getInfo</span>(<span class="params">self</span>): </span><br><span class="line">    url_base = <span class="string">&#x27;https://futsseapi.eastmoney.com/list/HKSTOCKF?callback=aaa_callback&amp;orderBy=name&amp;sort=asc&amp;pageSize=&#123;size&#125;&amp;pageIndex=&#123;page&#125;&amp;callbackName=aaa_callback&amp;token=58b2fa8f54638b60b87d69b31969089c&amp;field=dm%2Csc%2Cname%2Cp%2Czsjd%2Czdf%2Cf152%2Czde%2Cmrj%2Cmcj%2Cmrl%2Cmcl%2Cvol%2Cxs%2Cccl%2Crz%2Czjsj&amp;blockName=callback&amp;_=1710858777947&#x27;</span></span><br><span class="line">    all_data = <span class="built_in">list</span>()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>): <span class="comment"># 默认30页？</span></span><br><span class="line">        url = url_base.<span class="built_in">format</span>(size=<span class="number">20</span>, page=i)</span><br><span class="line">        data_str = requests.get(url).text</span><br><span class="line">        json_str = data_str[data_str.index(<span class="string">&#x27;(&#x27;</span>) + <span class="number">1</span>:-<span class="number">1</span>] <span class="comment"># 去除 JSON 数据中的回调函数</span></span><br><span class="line">        data_list = json.loads(json_str)[<span class="string">&quot;list&quot;</span>]</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> data_list:</span><br><span class="line">            tmp = [item[<span class="string">&#x27;dm&#x27;</span>], item[<span class="string">&#x27;name&#x27;</span>]] <span class="comment"># 期货代码，期货名称</span></span><br><span class="line">            all_data.append(tmp)</span><br><span class="line">    Database().InsertFutureInfo(all_data) <span class="comment"># 能不能考虑：更新info表，插入数据时判断不存在表中的才insert??</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取历史期货数据：通过之前获取的期货列表信息，根据期货代码获取其历史（日线）数据（??不确定完整）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getHistory</span>(<span class="params">self</span>): </span><br><span class="line">    url_base = <span class="string">&#x27;https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=130.&#123;secid&#125;&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;lmt=1000&amp;klt=101&amp;fqt=1&amp;end=30000101&amp;ut=4f1862fc3b5e77c150a2b985b12db0fd&#x27;</span></span><br><span class="line">    all_data = <span class="built_in">list</span>()</span><br><span class="line">    code_list = Database().GetCodeList() <span class="comment"># 获取期货列表信息</span></span><br><span class="line">    <span class="keyword">for</span> dm <span class="keyword">in</span> tqdm(code_list):</span><br><span class="line">        url = url_base.<span class="built_in">format</span>(secid=dm) <span class="comment"># 日线数据</span></span><br><span class="line">        response = requests.get(url=url, timeout=<span class="number">15</span>)</span><br><span class="line">        klines_data = json.loads(response.text)[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;klines&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> klines_data:</span><br><span class="line">            res_data = data.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            res_data = [dm] + res_data <span class="comment"># 元组首位加上期货代码</span></span><br><span class="line">            all_data.append(res_data)</span><br><span class="line">    Database().InsertFutureHistory(all_data)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>: (</p>
+<h2 id="系统开发"><a href="#系统开发" class="headerlink" title="系统开发"></a>系统开发</h2><ul>
+<li>系统架构<ul>
+<li>前端：Django+Template，Echarts</li>
+<li>后端：Django，MySQL，定时任务</li>
+</ul>
+</li>
+<li>主要工作（原）<ul>
+<li>四大模块：数据更新、数据下载、数据分析、数据维护<ul>
+<li>一、香港数据<ol>
+<li>数据实时更新 （1.1 数据列表(香港股票，香港基金，香港指数，香港期货，香港交易所),1.2 基本信息数据（股票、基金、期货），1.3 基本信息， 1.4 财务报表， 1.5 香港历史交易数据（香港股票，香港基金，香港指数，香港期货）， 1.6 当日交易数据（香港股票，香港基金，香港指数，香港期货）） </li>
+<li>数据下载 （2.1 列表数据下载(香港股票，香港基金，香港指数，香港期货，香港交易所)，2.2 基本信息数据下载（股票、基金、期货），2.3 基本信息下载， 2.4 财务报表数据下载， 2.5 香港历史交易数据下载（大陆股票，大陆基金，大陆指数，大陆期货）， 2.6 当日交易数据下载（香港股票，香港基金，香港指数，香港期货））</li>
+<li>数据分析 （3.1 列表数据分析(香港股票，香港基金，香港指数，香港期货，香港交易所)，3.2 基本信息数据分析（股票、基金、期货），3.3 基本信息分析， 3.4 财务报表数据分析， 3.5 大陆历史交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货）， 3.6 当日交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货））</li>
+<li>数据维护 （4.1 数据导出 4.1.1 数据列表导出(香港股票，香港基金，香港指数，香港期货，香港交易所),4.1.2 基本信息数据导出（股票、基金、期货），4.1.3 基本信息数据导出， 4.1.4 财务报表导出， 4.1.5 香港历史交易数据导出（香港陆股票，香港基金，香港指数，香港期货）， 4.1.6 当日交易数据导出（香港股票，香港基金，香港指数，香港期货）， 4.2 数据导入 4.2.1 数据列表导入(香港股票，香港基金，香港指数，香港期货，香港交易所),4.2.2 基本信息数据导入（股票、基金、期货），4.2.3 基本信息数据导入， 4.2.4 财务报表导入， 4.2.5 香港历史交易数据导入（香港股票，香港基金，香港指数，香港期货）， 4.2.6 当日交易数据导入（香港股票，香港基金，香港指数，香港期货））】</li>
+</ol>
+</li>
+<li>二、香港相关数据还要包括 【1 深港通、沪港通数据；2. 在港上市的大陆股票；3. 在港国企股；4. 港股的科创板】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>主要工作（真）</strong><ul>
+<li><strong>主要是要多完成港股中相关数据内容：</strong><a target="_blank" rel="noopener" href="https://quote.eastmoney.com/center/ggsc.html">港股主板、港股创业板、知名港股、蓝筹股、红筹股、红筹成分股、国企股、国企成分股、港股通成份股、人民币交易港股、AH股比价、香港指数</a> </li>
+<li><strong>突出两地股市的差别：对这几个港股数据，提供数据展示（调用其他同学的接口同时展现大陆数据），数据更新、维护、下载的功能；最好论文还要有一些分析的结果，需要自己做一些结果和图表出来，系统上时间不够可以不加</strong></li>
+<li>yxycary:<br>  可以显示按价格区间，按每日成交量，按时间区间涨跌幅等<br>  基本信息也可以显示，按业绩，按股本，按上市日期等等<br>  然后，显示港股通股票，A+H股股票，在港上市的内地科技股<br>  等等，那就很多了<br>  这些数据分析出来放到论文里，这些数据都是量化投资最基本的数据<br>  把港股特色的数据显示出来<br>  还有在港上市的国企股<br>  展示港股的主要指数<br>  很多都是可以展示的<br>  这样内容就会很丰富<br>  凡是在量化投资中可能用到的数据，都可以展示出来<br>  越多越全面越好</li>
+</ul>
+</li>
+<li>开发流程<ul>
+<li>港股数据爬取<ul>
+<li>创建各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日</li>
+<li>创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
+</ul>
+</li>
+<li>港股数据维护<ul>
+<li>更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新</li>
+<li>更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
+</ul>
+</li>
+<li>提供数据接口供其他的模块使用</li>
+<li>港股基本数据展示：展示各类港股基本信息表？？</li>
+<li>港股历史数据展示：根据股票代码？？展示各类港股历史数据，按时间排序？？</li>
+<li>数据下载：？？</li>
+<li>数据维护：导入导出</li>
+</ul>
+</li>
+<li>数据库建设<ol>
+<li>创建数据库和表（\spider\DB_Fund.py）<ul>
+<li>xx股基本信息表 xxinfo<table>
+<thead>
+<tr>
+<th>股票代码</th>
+<th>股票名称</th>
+<th>最新价</th>
+<th>涨跌额</th>
+<th>涨跌幅</th>
+<th>今开</th>
+<th>最高</th>
+<th>最低</th>
+<th>昨收</th>
+<th>成交量(股)</th>
+<th>成交额</th>
+<th>更新日期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>code</td>
+<td>name</td>
+<td>now</td>
+<td>change</td>
+<td>changerate</td>
+<td>open</td>
+<td>high</td>
+<td>low</td>
+<td>yesterday_close</td>
+<td>volume</td>
+<td>amount</td>
+<td>date_updated</td>
+</tr>
+</tbody></table>
+</li>
+<li>xx股历史数据表 xxhistory<table>
+<thead>
+<tr>
+<th>code</th>
+<th>date</th>
+<th>open</th>
+<th>now</th>
+<th>high</th>
+<th>low</th>
+<th>volume</th>
+<th>amount</th>
+<th>rate</th>
+<th>changerate</th>
+<th>per</th>
+<th>zero</th>
+</tr>
+</thead>
+</table>
+</li>
+<li>A-H股基本信息表 AHStockComparisoninfo<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>H股代码</th>
+<th>最新价(HKD)</th>
+<th>涨跌幅</th>
+<th>港股吧</th>
+<th>A股代码</th>
+<th>最新价(RMB)</th>
+<th>涨跌幅</th>
+<th>A股吧</th>
+<th>比价（A&#x2F;H）</th>
+<th>溢价（A&#x2F;H）%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>code_hkd</td>
+<td>now_hkd</td>
+<td>changerate_hkd</td>
+<td>code_rmb</td>
+<td>now_rmb</td>
+<td>changerate_rmb</td>
+<td>AHcomparison</td>
+<td>AHcomparisonrate</td>
+<td>date_updated</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li>港股市场术语英文表示：<ol>
+<li>港股主板（Main Board of Hong Kong Stock Exchange）：HKEX_Main_Board</li>
+<li>港股创业板（Growth Enterprise Market of Hong Kong Stock Exchange）：GEM_of_HKEX</li>
+<li>知名港股（Well-known Hong Kong Stocks）：Famous_HongKong_Stocks</li>
+<li>蓝筹股（Blue-chip Stocks）：Blue-chip_Stocks</li>
+<li>红筹股（Red-chip Stocks）：Red-chip_Stocks</li>
+<li>红筹成分股（Red-chip Constituent Stocks）：Red-chip_Constituent_Stocks</li>
+<li>国企股（State-owned Enterprise Stocks）：SOE_Stocks</li>
+<li>国企成分股（State-owned Enterprise Constituent Stocks）：SOE_Constituent_Stocks</li>
+<li>港股通成份股（Stock Connect Constituent Stocks）：Stock_Connect_Constituent_Stocks</li>
+<li>人民币交易港股（RMB-denominated Hong Kong Stocks）：RMB-denominated_HongKong_Stocks</li>
+<li>AH股比价（A-share and H-share Price Comparison）：A-share_and_H-share_Price_Comparison</li>
+<li>ADR（American Depositary Receipt）：ADR</li>
+<li>香港指数（Hong Kong Stock Index）：HongKong_Stock_Index</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>爬取港股基本信息（\spider\Get_HKStock\HKStockSpider().getxxInfo()）<ul>
+<li>使用F12抓包，点击如“港股主板”按钮查询出对应的股票数据，刷新页面，过滤出js文件，找到对应的股票数据的get请求api（默认pn&#x3D;1，pz&#x3D;20，表示获取第一页大小为20的股票数据列表）；从中获取总数据行数”data”&#x2F;“total”，再次发送get请求（设置pn&#x3D;1，pz&#x3D;total）获取完整的该股票数据列表    </li>
+<li>港股主板：’<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:3&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583816">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:3&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583816</a>‘</li>
+<li>港股创业板：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:4&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583886">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:4&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583886</a></li>
+<li>知名港股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0106&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583906">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0106&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583906</a></li>
+<li>蓝筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0105&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944470">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0105&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944470</a></li>
+<li>红筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0102&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944490">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0102&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944490</a></li>
+<li>红筹成分：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0111&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944499">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0111&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944499</a></li>
+<li>国企股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0103&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583915">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0103&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583915</a></li>
+<li>国企成分股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0112&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583919">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0112&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583919</a></li>
+<li>股港股通成份股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0146,b:MK0144&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944503">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0146,b:MK0144&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944503</a></li>
+<li>人民币交易港股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+s:64&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944509">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+s:64&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944509</a></li>
+<li>AH股比价：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0101&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&_=1714570944513">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0101&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&amp;_=1714570944513</a></li>
+<li>香港指数：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:124,m:125,m:305&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583922">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:124,m:125,m:305&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583922</a></li>
+</ul>
+</li>
+<li>爬取港股历史数据（\spider\Get_HKStock\HKStockSpider().getxxHistory()）<ul>
+<li>从各类港股基本信息表中获取股票代码替换secid，date为今日，查询其历史k线数据</li>
+<li>一般情况，MySQL每张表最好不要超过2000万条数据，阿里的Java开发手册上也提出：单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。或者说，要根据实际场景分析。</li>
+<li>港股日线数据(除A-H股价比，港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
+<li>A-H股价比，港股指数日线数据先不弄。。</li>
+</ul>
+</li>
+<li>数据接口供其他的模块使用<br>  查询历史数据：输入股票代码，时间区间，，返回json数据？？</li>
+</ol>
+</li>
+<li>数据展示<br>展示什么？？基本信息，历史数据？？</li>
+<li>数据更新  \spider\Update_HKStock.py<ol>
+<li>更新港股基本信息</li>
+<li>更新港股历史数据</li>
+</ol>
+</li>
+<li>数据下载</li>
+<li>数据维护<ul>
+<li>导入</li>
+<li>导出</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E8%AE%BE/" data-id="clvsbqec6000pjov55m5yewvl" data-title="毕 设" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -374,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clvne5esa000do4v5585advs6" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clvsbqec4000fjov529tn7c1j" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -896,7 +1138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clvne5esc000ko4v527l4g5o7" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clvsbqec5000njov5fo7l6kc5" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1178,7 +1420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clvne5esf000uo4v54hl07rid" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clvsbqec7000tjov5dd5t5g84" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1212,7 +1454,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.07</em>  <a href="mailto:&#x32;&#48;&#x32;&#48;&#51;&#x30;&#52;&#x34;&#x30;&#x30;&#49;&#48;&#x40;&#109;&#97;&#105;&#108;&#x2e;&#115;&#99;&#x75;&#x74;&#46;&#x65;&#100;&#117;&#46;&#x63;&#110;">&#x32;&#48;&#x32;&#48;&#51;&#x30;&#52;&#x34;&#x30;&#x30;&#49;&#48;&#x40;&#109;&#97;&#105;&#108;&#x2e;&#115;&#99;&#x75;&#x74;&#46;&#x65;&#100;&#117;&#46;&#x63;&#110;</a><br><strong>主修课程：</strong>数据结构(90), 计算机网络(84), 数据库(87), 操作系统, C++(94), Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong><br>[1] Feng Cai, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, <strong>2024.02.14</strong>, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)<br>近年来，图像恢复技术中CNN和GAN应用广泛。DnCNN模型通过残差和批量归一化有效去噪地震图像。SRGAN使用GAN和感知损失函数提高图像质量。Constrained-DnCNN模型进一步优化地震数据解读。CR-SRGAN专注于文物超分辨率和颜色恢复，采用特殊的训练数据集。DCGAN结合CNN和GAN特点，展现出在特征提取和适应数据分布方面的优势，是图像恢复领域的有前景研究方向。 <a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a> </p>
+        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.07</em>  <a href="mailto:&#x32;&#x30;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#x31;&#48;&#64;&#109;&#97;&#105;&#108;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#117;&#46;&#99;&#110;">&#x32;&#x30;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#x31;&#48;&#64;&#109;&#97;&#105;&#108;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#117;&#46;&#99;&#110;</a><br><strong>主修课程：</strong>数据结构(90), 计算机网络(84), 数据库(87), 操作系统, C++(94), Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong><br>[1] Feng Cai, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, <strong>2024.02.14</strong>, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)<br>近年来，图像恢复技术中CNN和GAN应用广泛。DnCNN模型通过残差和批量归一化有效去噪地震图像。SRGAN使用GAN和感知损失函数提高图像质量。Constrained-DnCNN模型进一步优化地震数据解读。CR-SRGAN专注于文物超分辨率和颜色恢复，采用特殊的训练数据集。DCGAN结合CNN和GAN特点，展现出在特征提取和适应数据分布方面的优势，是图像恢复领域的有前景研究方向。 <a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a> </p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -1538,7 +1780,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD/" data-id="clvne5esd000qo4v51485arqx" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD/" data-id="clvsbqec6000qjov5dfc8bd5z" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2219,7 +2461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clvne5ese000so4v5f2xkgx6k" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clvsbqec7000ujov5aiah32rl" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -4458,7 +4700,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clvne5esg000wo4v5bxec6ftb" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clvsbqec7000wjov58zwz0xam" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -5991,7 +6233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clvne5esg000vo4v55x4u1fgx" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clvsbqec7000vjov57szvcwf1" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -6043,58 +6285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clvne5es20000o4v571pa0hmy" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Pytorch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/14/Pytorch/" class="article-date">
-  <time class="dt-published" datetime="2023-07-14T03:58:39.000Z" itemprop="datePublished">2023-07-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/14/Pytorch/">Pytorch</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h3><p>打开localhost:6006，访问TensorBoard，查看TensorFlow模型的图形、损失函数、精度等信息。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;xxx&quot;</span>)               <span class="comment"># 在文件夹里新建一个abc文件夹</span></span><br><span class="line">writer.add_scalar(<span class="string">&quot;y=2i&quot;</span>, <span class="number">2</span>*i, i)           <span class="comment"># 加坐标</span></span><br><span class="line">writer.add_images(<span class="string">&quot;test_data&quot;</span>, imgs, step)  <span class="comment"># 加图</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pycharm -&gt; Terminal</span></span><br><span class="line">PS C:\Users\cf\Documents\Visual Studio Code\Python\learn_pytorch&gt; tensorboard --logdir=<span class="string">&quot;xxx&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="nn-Module"><a href="#nn-Module" class="headerlink" title="nn.Module"></a>nn.Module</h3><p>基本神经网络</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">cf</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__int__</span>(<span class="params">self</span>):   <span class="built_in">super</span>().__init__()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):      <span class="comment"># 必须重写forword()</span></span><br><span class="line">        output = <span class="built_in">input</span> + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
-<p><strong>输入层（Input Layer）：</strong>接受原始图像或数据作为输入。<br><strong>卷积层（Convolutional Layer）：</strong>进行特征提取。通过卷积操作，利用卷积核（或过滤器）从输入图像中提取特定的特征，如边缘、纹理等。卷积核会在整个图像上滑动，产生特征图。<br>卷积核的输入通道数与输入数据的通道数对应，卷积核的输出通道数与卷积核的数量对应。<br>卷积操作在神经网络中扮演着关键的角色，它通过特征提取、参数共享、空间局部性和参数数量控制等方面，使得卷积神经网络成为图像处理和计算机视觉任务中非常有效的工具。<br><strong>池化层（Pooling Layer）</strong>【最大ceil, 最小floor】：降采样和减少参数，避免过拟合。池化操作对特征图进行降采样，减少特征图的尺寸，并保留重要的特征信息。常用的池化方式为最大池化（Max Pooling）和平均池化（Average Pooling）。<br><strong>非线性激活：</strong>线性变换（如全连接层）在神经网络中只能实现线性映射，而现实世界中的数据和任务通常都是非线性的。为了解决这个问题，需要在网络中引入非线性激活函数，以增加网络的表达能力和灵活性。 给网络中引入非线性特征，以训练出符合各种曲线的模型。<br>·ReLU（Rectified Linear Unit）：f(x) &#x3D; max(0, x)，它在x大于0时是线性的，小于等于0时为0，能够有效地解决梯度消失问题。<br>·Sigmoid：f(x) &#x3D; 1 &#x2F; (1 + exp(-x))，它将输入映射到[0, 1]区间，用于二分类问题。<br>·Tanh：f(x) &#x3D; (exp(x) - exp(-x)) &#x2F; (exp(x) + exp(-x))，它将输入映射到[-1, 1]区间，也用于解决梯度消失问题。<br><strong>正则化层（Regularization Layer）：</strong>正则化层用于防止过拟合。过拟合是指模型在训练数据上表现良好，但在未见过的测试数据上表现较差的现象。正则化层通过添加一些额外的约束或惩罚项来控制模型的复杂度，以避免过度拟合。<br>·L1正则化：将参数的绝对值加入到损失函数中，使得模型倾向于产生稀疏的权重矩阵。<br>·L2正则化：将参数的平方加入到损失函数中，限制权重的大小，防止权重过大造成过拟合。<br>·Dropout正则化：随机在训练过程中丢弃一部分神经元，减少神经元之间的共适应性，提高泛化能力。<br><strong>全连接层（Fully Connected Layer）：</strong>将特征矩阵集合向量化。与卷积层不同，全连接层的神经元排成一列，这些神经元与前一层神经元通过权值互连，呈全连接结构。全连接层的层数以及每层神经元数并不固定。通常层数越高，神经元数目越少。<br>功能：进行分类。在卷积和池化层之后，通过全连接层将得到的特征映射转换为一维向量，并通过一系列的全连接神经元进行分类操作，将输入映射到对应的类别概率。<br><strong>输出层（Output Layer）：</strong>经过多层特征提取后，最后一层输出层可视为分类器，预测输入样本的类别。通常使用Softmax函数将全连接层的输出转换为类别概率分布，确定输入图像最可能属于哪个类别。<br><img src="https://leo710aka.github.io/bk/nn.png"></p>
-<p>Sequential</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=<span class="number">3</span>, out_channels=<span class="number">32</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(kernel_size=<span class="number">2</span>, ceil_mode=<span class="literal">True</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),     <span class="comment"># 二维卷积层</span></span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(<span class="number">1024</span>, <span class="number">64</span>),</span><br><span class="line">            Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
-
-<p>一次训练+验证：准备数据 - 加载数据 - 准备模型 - 设置损失函数 - 设置优化器 - 开始训练 - 验证 - 聚合展示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):  <span class="comment"># 共20轮训练</span></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> dataloader:  <span class="comment"># 对数据进行一轮学习</span></span><br><span class="line">        imgs, targets = data</span><br><span class="line">        output = fc(imgs)</span><br><span class="line">        result_loss = loss(output, targets)  <span class="comment"># 计算损失</span></span><br><span class="line">        optim.zero_grad()  <span class="comment"># 优化器中，梯度置0</span></span><br><span class="line">        result_loss.backward()  <span class="comment"># 损失函数求梯度，反向传播</span></span><br><span class="line">        optim.step()  <span class="comment"># 优化器，优化卷积核参数</span></span><br><span class="line">        running_loss = running_loss + result_loss</span><br><span class="line">    <span class="built_in">print</span>(running_loss)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/14/Pytorch/" data-id="clvne5esb000go4v56biv0xy8" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clvsbqeby0001jov567qo0i3t" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -6129,7 +6320,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -6143,6 +6334,10 @@
         
           <li>
             <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/01/%E6%AF%95%E8%AE%BE/">毕 设</a>
           </li>
         
           <li>
@@ -6175,10 +6370,6 @@
         
           <li>
             <a href="/2023/07/31/Colab/">Colab</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/14/Pytorch/">Pytorch</a>
           </li>
         
       </ul>
