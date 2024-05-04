@@ -658,6 +658,7 @@
 <li>配置 Python 环境：<ul>
 <li>官方Python（CPython）：通过官方网站下载并安装，使用官方的 pip 包管理器进行包的安装。不具备虚拟环境管理工具，但可使用 venv 或 virtualenv 创建虚拟环境。<br> 使用：添加解释器 -&gt; Virtualenv -&gt; 基础解释器 -&gt; C:\Users\caife\AppData\Local\Programs\Python\Python312\python.exe</li>
 <li>Anaconda Python：通过 Anaconda 官方网站下载并安装。使用 conda 包管理器进行包的安装和环境的管理。具备强大的虚拟环境管理工具，可以轻松创建、导出、列出和删除环境。 <!-- 使用方法：添加解释器 -> Conda环境 -> ??? --></li>
+<li>项目中自带的环境：如xxproject\env\Scripts\python.exe，使项目中使用的 Python 环境与系统中的 Python 环境独立。</li>
 </ul>
 </li>
 <li>Python环境通常包括了解释器、标准库、开发工具和其他一些组件。以下是一些常见的Python环境相关的工具和概念：<ul>
@@ -667,7 +668,7 @@
 <li>Jupyter Notebook： 交互式计算环境，支持在浏览器中编写和运行Python代码，并包含文本、图像和公式等。</li>
 </ul>
 </li>
-<li><strong>PyCharm 终端的 Python 环境不一定与当前加载的项目使用的编辑器环境一致！！</strong><br>用  Pycharm 打开 Python 项目时，<font color= "#87CEFA"> <strong>点击添加解释器 —&gt; 添加本地解释器，选择将要运行该项目的虚拟环境下的 Python 解释器。</strong> </font><br><strong>选择使用这个虚拟环境对应的编辑器，就是选择了使用这个环境运行项目，使用这个环境中配好的包等等。</strong><br>所以要注意终端使用的是哪个编辑器，是否与当前项目使用的编辑器匹配。否则在终端 pip install 把包装到 Pycharm 终端的环境下，而当前项目运行在另一个虚拟环境中，便无法 import 已从终端安装的包。</li>
+<li><strong>PyCharm 终端的 Python 环境不一定与当前加载的项目使用的编辑器环境一致！！</strong><br>用  Pycharm 打开 Python 项目时，<font color= "#0873BA"> <strong>点击添加解释器 —&gt; 添加本地解释器，选择将要运行该项目的虚拟环境下的 Python 解释器。</strong> </font><br><strong>选择使用这个虚拟环境对应的编辑器，就是选择了使用这个环境运行项目，使用这个环境中配好的包，版本和依赖库等等。</strong><br>所以要注意终端使用的是哪个编辑器，是否与当前项目使用的编辑器匹配。否则在终端 pip install 把包装到 Pycharm 终端的环境下，而当前项目运行在另一个虚拟环境中，便无法 import 已从终端安装的包。</li>
 </ol>
 <h3 id="模块和包"><a href="#模块和包" class="headerlink" title="模块和包"></a>模块和包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开终端，在终端的 Python 环境中安装 xx 包；可指定安装位置</span></span><br><span class="line">pip install efinance --target C:\Users\caif\AppData\Local\Programs\Python\Python310\Lib</span><br></pre></td></tr></table></figure>
 
