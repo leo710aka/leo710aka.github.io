@@ -457,15 +457,16 @@
 </li>
 <li>开发流程<ul>
 <li>港股数据爬取<ul>
-<li>创建各类港股基本信息表：获取“港股市场”“xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日</li>
-<li>创建各类港股历史数据表：根据“港股市场”“xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将股票代码、股票名称、k线数据、时间存入对应的历史数据表中</li>
+<li>创建各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日</li>
+<li>创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
 </ul>
 </li>
 <li>港股数据维护<ul>
-<li>更新各类港股基本信息表：获取“港股市场”“xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新</li>
-<li>更新各类港股历史数据表：根据“港股市场”“xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
+<li>更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新</li>
+<li>更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
 </ul>
 </li>
+<li>提供数据接口供其他的模块使用</li>
 <li>港股基本数据展示：展示各类港股基本信息表？？</li>
 <li>港股历史数据展示：根据股票代码？？展示各类港股历史数据，按时间排序？？</li>
 <li>数据下载：？？</li>
@@ -474,7 +475,7 @@
 </li>
 <li>数据库建设<ol>
 <li>创建数据库和表（\spider\DB_Fund.py）<ul>
-<li>基本信息表 xxinfo<table>
+<li>xx股基本信息表 xxinfo<table>
 <thead>
 <tr>
 <th>股票代码</th>
@@ -505,23 +506,9 @@
 <td>amount</td>
 <td>date_updated</td>
 </tr>
-<tr>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-<td>——-</td>
-</tr>
 </tbody></table>
 </li>
-<li>历史数据表 xxhistory<table>
+<li>xx股历史数据表 xxhistory<table>
 <thead>
 <tr>
 <th>code</th>
@@ -539,6 +526,37 @@
 </tr>
 </thead>
 </table>
+</li>
+<li>A-H股基本信息表 AHStockComparisoninfo<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>H股代码</th>
+<th>最新价(HKD)</th>
+<th>涨跌幅</th>
+<th>港股吧</th>
+<th>A股代码</th>
+<th>最新价(RMB)</th>
+<th>涨跌幅</th>
+<th>A股吧</th>
+<th>比价（A&#x2F;H）</th>
+<th>溢价（A&#x2F;H）%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>code_hkd</td>
+<td>now_hkd</td>
+<td>changerate_hkd</td>
+<td>code_rmb</td>
+<td>now_rmb</td>
+<td>changerate_rmb</td>
+<td>AHcomparison</td>
+<td>AHcomparisonrate</td>
+<td>date_updated</td>
+<td></td>
+</tr>
+</tbody></table>
 </li>
 <li>港股市场术语英文表示：<ol>
 <li>港股主板（Main Board of Hong Kong Stock Exchange）：HKEX_Main_Board</li>
@@ -558,7 +576,7 @@
 </li>
 </ul>
 </li>
-<li>爬取港股信息（\spider\Get_HKStock\HKStockSpider().getxxInfo()）<ul>
+<li>爬取港股基本信息（\spider\Get_HKStock\HKStockSpider().getxxInfo()）<ul>
 <li>使用F12抓包，点击如“港股主板”按钮查询出对应的股票数据，刷新页面，过滤出js文件，找到对应的股票数据的get请求api（默认pn&#x3D;1，pz&#x3D;20，表示获取第一页大小为20的股票数据列表）；从中获取总数据行数”data”&#x2F;“total”，再次发送get请求（设置pn&#x3D;1，pz&#x3D;total）获取完整的该股票数据列表    </li>
 <li>港股主板：’<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:3&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583816">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:3&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583816</a>‘</li>
 <li>港股创业板：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:4&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583886">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:4&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583886</a></li>
@@ -577,16 +595,25 @@
 <li>爬取港股历史数据（\spider\Get_HKStock\HKStockSpider().getxxHistory()）<ul>
 <li>从各类港股基本信息表中获取股票代码替换secid，date为今日，查询其历史k线数据</li>
 <li>一般情况，MySQL每张表最好不要超过2000万条数据，阿里的Java开发手册上也提出：单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。或者说，要根据实际场景分析。</li>
-<li>港股日线数据(除港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
-<li>港股指数日线数据：  ？？</li>
+<li>港股日线数据(除A-H股价比，港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
+<li>A-H股价比，港股指数日线数据先不弄。。</li>
 </ul>
 </li>
+<li>数据接口供其他的模块使用<br>  查询历史数据：输入股票代码，时间区间，，返回json数据？？</li>
 </ol>
 </li>
 <li>数据展示<br>展示什么？？基本信息，历史数据？？</li>
-<li>数据更新  \spider\Update_HKStock.py</li>
+<li>数据更新  \spider\Update_HKStock.py<ol>
+<li>更新港股基本信息</li>
+<li>更新港股历史数据</li>
+</ol>
+</li>
 <li>数据下载</li>
-<li>数据维护</li>
+<li>数据维护<ul>
+<li>导入</li>
+<li>导出</li>
+</ul>
+</li>
 </ul>
 
       
