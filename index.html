@@ -193,21 +193,13 @@
 </ul>
 </li>
 <li>开发流程<ul>
-<li>港股数据爬取<ul>
-<li>创建各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日</li>
-<li>创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
-</ul>
-</li>
-<li>港股数据更新<ul>
-<li>更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新</li>
-<li>更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
-</ul>
-</li>
-<li>提供数据接口供其他的模块使用</li>
-<li>港股基本数据展示：展示各类港股基本信息表？？</li>
-<li>港股历史数据展示：根据股票代码？？展示各类港股历史数据，按时间排序？？</li>
-<li>数据下载：？？</li>
-<li>数据维护：导入导出？？</li>
+<li>港股数据爬取（spider）：<br>  创建各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日<br>  创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
+<li>港股数据更新（spider）：<br>  更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新<br>  更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
+<li>港股基本数据展示（Django）：展示各类港股基本信息表</li>
+<li>港股K线图展示（Django）：根据股票代码，结合Echarts展示各类港股历史数据的K线图</li>
+<li>提供数据接口供其他的模块使用（Django）：以JSON形式返回各类港股历史数据到页面上</li>
+<li>数据下载（Django）：以JSON形式返回各类港股历史数据到页面上，右键“另存为”下载</li>
+<li>数据维护：导入，导出</li>
 </ul>
 </li>
 </ul>
@@ -337,18 +329,15 @@
 <li>A-H股价比，港股指数日线数据先不弄。。</li>
 </ul>
 </li>
-<li>数据接口供其他的模块使用（在Django中实现）</li>
 <li>数据更新（\spider\Update_HKStock.py）<ul>
 <li>更新港股基本信息</li>
 <li>更新港股历史数据</li>
+<li>定时任务</li>
 </ul>
 </li>
-<li>数据下载（在Django中实现）</li>
-<li>数据维护 ？？<ul>
-<li>导入</li>
-<li>导出</li>
-</ul>
-</li>
+<li>数据接口（Django实现）：以JSON形式返回各类港股历史数据到页面上，供其他的模块使用</li>
+<li>数据下载（Django实现）：以JSON形式返回各类港股历史数据到页面上，右键“另存为”保存</li>
+<li>数据维护</li>
 </ol>
 <h3 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h3><ul>
 <li>项目结构 <img src="https://leo710aka.github.io/bk/datasite.png" width="550" height="300" alt=""></li>
@@ -370,8 +359,11 @@
 <li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;historyklines&#x27;</span>, views.historyklines),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
 <li>启动Django项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="示例3：提供数据接口供其他模块调用"><a href="#示例3：提供数据接口供其他模块调用" class="headerlink" title="示例3：提供数据接口供其他模块调用"></a><strong>示例3：提供数据接口供其他模块调用</strong></h3><p>、、返回json数据？？</p>
-<h3 id="示例4：下载港股主板历史数据"><a href="#示例4：下载港股主板历史数据" class="headerlink" title="示例4：下载港股主板历史数据"></a><strong>示例4：下载港股主板历史数据</strong></h3><p>、、</p>
+<h3 id="示例3：提供数据接口供其他模块调用，下载历史数据"><a href="#示例3：提供数据接口供其他模块调用，下载历史数据" class="headerlink" title="示例3：提供数据接口供其他模块调用，下载历史数据"></a><strong>示例3：提供数据接口供其他模块调用，下载历史数据</strong></h3><ol>
+<li>指的是xx股历史数据</li>
+<li>编写Model、View，配置urls<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hkexmainboarddata</span>(<span class="params">request</span>):</span><br><span class="line">    code = request.GET.get(<span class="string">&#x27;code&#x27;</span>)</span><br><span class="line">    data = HKEXMainBoardhistory.objects.<span class="built_in">filter</span>(code=code)</span><br><span class="line">    data_dict_list = [&#123;<span class="string">&quot;code&quot;</span>: item.code, <span class="string">&quot;date&quot;</span>: item.date, <span class="string">&quot;open&quot;</span>: item.<span class="built_in">open</span>, <span class="string">&quot;now&quot;</span>: item.now,</span><br><span class="line">                       <span class="string">&quot;high&quot;</span>: item.high, <span class="string">&quot;low&quot;</span>: item.low, <span class="string">&quot;volume&quot;</span>: item.volume, <span class="string">&quot;amount&quot;</span>: item.amount,</span><br><span class="line">                       <span class="string">&quot;rate&quot;</span>: item.rate, <span class="string">&quot;changerate&quot;</span>: item.changerate, <span class="string">&quot;per&quot;</span>: item.per, <span class="string">&quot;zero&quot;</span>: item.zero&#125;</span><br><span class="line">                      <span class="keyword">for</span> item <span class="keyword">in</span> data]</span><br><span class="line">    <span class="comment"># 转换为 JSON 格式</span></span><br><span class="line">    data_json = json.dumps(data_dict_list)</span><br><span class="line">    <span class="comment"># 返回 JSON 响应</span></span><br><span class="line">    <span class="keyword">return</span> JsonResponse(data_json, safe=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure></li>
+<li>查询页面：输入港股代码，点击“生成K线图”按钮发送xxklines请求&#x2F;点击“下载历史数据”展示历史数据（右键“另存为”下载）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card &quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-header&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>港股历史数据<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;myForm&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 150px;&quot;</span>&gt;</span>请输入港股主板代码：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">name</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">id</span>=<span class="string">&quot;submitButton&quot;</span>&gt;</span>生成K线图<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">id</span>=<span class="string">&quot;submitButton0&quot;</span>&gt;</span>下载历史数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myForm&#x27;</span>).<span class="title function_">addEventListener</span>(<span class="string">&#x27;submit&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  event.<span class="title function_">preventDefault</span>(); <span class="comment">// 阻止表单默认提交行为</span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 获取输入框中的内容</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> code = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;codeInput&#x27;</span>).<span class="property">value</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (event.<span class="property">submitter</span>.<span class="property">id</span> === <span class="string">&#x27;submitButton&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 构造生成K线图的请求URL</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> url = <span class="string">`http://127.0.0.1:8000/hkexmainboardklines?code=<span class="subst">$&#123;code&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 在新标签页中打开链接</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="title function_">open</span>(url, <span class="string">&#x27;_blank&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">submitter</span>.<span class="property">id</span> === <span class="string">&#x27;submitButton0&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 构造下载历史数据的请求URL</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> url = <span class="string">`http://127.0.0.1:8000/hkexmainboarddata?code=<span class="subst">$&#123;code&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 在新标签页中打开链接</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="title function_">open</span>(url, <span class="string">&#x27;_blank&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
