@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clvsbqec5000mjov57pyweakw" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="clvwf4c7j000misv54sbo6get" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -127,9 +127,9 @@
 
 
   
-    <article id="post-毕设" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-毕业设计" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/05/01/%E6%AF%95%E8%AE%BE/" class="article-date">
+    <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" class="article-date">
   <time class="dt-published" datetime="2024-05-01T03:11:00.000Z" itemprop="datePublished">2024-05-01</time>
 </a>
     
@@ -141,7 +141,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/01/%E6%AF%95%E8%AE%BE/">毕 设</a>
+      <a class="p-name article-title" href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 设</a>
     </h1>
   
 
@@ -198,7 +198,7 @@
 <li>创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
 </ul>
 </li>
-<li>港股数据维护<ul>
+<li>港股数据更新<ul>
 <li>更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新</li>
 <li>更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
 </ul>
@@ -207,7 +207,7 @@
 <li>港股基本数据展示：展示各类港股基本信息表？？</li>
 <li>港股历史数据展示：根据股票代码？？展示各类港股历史数据，按时间排序？？</li>
 <li>数据下载：？？</li>
-<li>数据维护：导入导出</li>
+<li>数据维护：导入导出？？</li>
 </ul>
 </li>
 </ul>
@@ -337,39 +337,46 @@
 <li>A-H股价比，港股指数日线数据先不弄。。</li>
 </ul>
 </li>
-<li>数据接口供其他的模块使用<br>查询历史数据：输入股票代码，时间区间，，返回json数据？？</li>
+<li>数据接口供其他的模块使用（在Django中实现）</li>
 <li>数据更新（\spider\Update_HKStock.py）<ul>
 <li>更新港股基本信息</li>
 <li>更新港股历史数据</li>
 </ul>
 </li>
-<li>数据下载</li>
-<li>数据维护<ul>
+<li>数据下载（在Django中实现）</li>
+<li>数据维护 ？？<ul>
 <li>导入</li>
 <li>导出</li>
 </ul>
 </li>
 </ol>
 <h3 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h3><ul>
-<li>展示什么？？基本信息，历史数据？？</li>
 <li>项目结构 <img src="https://leo710aka.github.io/bk/datasite.png" width="550" height="300" alt=""></li>
-<li>示例：展示香港指数基本信息表 HKStockIndexinfo<ol>
-<li>编写model（datasite&#x2F;mainapp&#x2F;models.py）  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HKStockIndexinfo</span>(models.Model):</span><br><span class="line">    code = models.CharField(max_length=<span class="number">12</span>, primary_key=<span class="literal">True</span>)  <span class="comment"># 假设code是主键</span></span><br><span class="line">    name = models.FloatField(max_length=<span class="number">20</span>, db_column=<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">    now = models.FloatField(db_column=<span class="string">&#x27;now&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        db_table = <span class="string">&#x27;HKStockIndexinfo&#x27;</span></span><br><span class="line">        managed = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
-<li>迁移，将 model与 MySQL中的表映射  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
-<li>编写html（datasite&#x2F;mainapp&#x2F;templates&#x2F;hkstockindexinfo.html）  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>香港指数<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 表格样式 */</span></span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>代码<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>最新价<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">            &#123;% for hkstockindexinfo in hkstockindexinfos %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; hkstockindexinfo.code &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; hkstockindexinfo.name &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: red;&quot;</span>&gt;</span>&#123;&#123; hkstockindexinfo.now &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>编写应用请求（datasite&#x2F;mainapp&#x2F;views.py）  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hkstockindexinfo</span>(<span class="params">request</span>):</span><br><span class="line">    hkstockindexinfos = HKStockIndexinfo.objects.<span class="built_in">all</span>()  <span class="comment"># 从MySQL中获取对应表的数据</span></span><br><span class="line">    context = &#123;<span class="string">&#x27;hkstockindexinfos&#x27;</span>: hkstockindexinfos&#125;  <span class="comment"># 创建上下文字典</span></span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;hkstockindexinfo.html&#x27;</span>, context)  <span class="comment"># 渲染模板</span></span><br></pre></td></tr></table></figure></li>
-<li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;hkstockindexinfo&#x27;</span>, views.hkstockindexinfo),  <span class="comment"># 不需要配置项目-应用两级url</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li>启动Django项目  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
-<li>发送请求 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/hkstockindexinfo%EF%BC%8C%E5%B1%95%E7%A4%BA%E9%A6%99%E6%B8%AF%E6%8C%87%E6%95%B0%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E8%A1%A8">http://127.0.0.1:8000/hkstockindexinfo，展示香港指数基本信息表</a></li>
-</ol>
-</li>
-<li>示例：使用echart展示香港主板k线图<br>、、</li>
 </ul>
+<h3 id="示例1：展示香港指数基本信息表-HKStockIndexinfo"><a href="#示例1：展示香港指数基本信息表-HKStockIndexinfo" class="headerlink" title="示例1：展示香港指数基本信息表 HKStockIndexinfo"></a><strong>示例1：展示香港指数基本信息表 HKStockIndexinfo</strong></h3><ol>
+<li>编写model（datasite&#x2F;mainapp&#x2F;models.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HKStockIndexinfo</span>(models.Model):</span><br><span class="line">    code = models.CharField(max_length=<span class="number">12</span>, primary_key=<span class="literal">True</span>)  <span class="comment"># 假设code是主键</span></span><br><span class="line">    name = models.FloatField(max_length=<span class="number">20</span>, db_column=<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">    now = models.FloatField(db_column=<span class="string">&#x27;now&#x27;</span>)</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        db_table = <span class="string">&#x27;HKStockIndexinfo&#x27;</span></span><br><span class="line">        managed = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
+<li>迁移，将 model与 MySQL中的表映射<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
+<li>编写html（datasite&#x2F;mainapp&#x2F;templates&#x2F;hkstockindexinfo.html）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>代码<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>最新价<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">            &#123;% for info in infos %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; info.code &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; info.name &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: red;&quot;</span>&gt;</span>&#123;&#123; info.now &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>编写应用请求（datasite&#x2F;mainapp&#x2F;views.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hkstockindexinfo</span>(<span class="params">request</span>):</span><br><span class="line">    infos = HKStockIndexinfo.objects.<span class="built_in">all</span>()                    <span class="comment"># 从MySQL中获取对应表的数据</span></span><br><span class="line">    context = &#123;<span class="string">&#x27;infos&#x27;</span>: infos&#125;                                <span class="comment"># 创建上下文字典</span></span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;hkstockindexinfo.html&#x27;</span>, context)  <span class="comment"># 渲染模板</span></span><br></pre></td></tr></table></figure></li>
+<li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;hkstockindexinfo&#x27;</span>, views.hkstockindexinfo),  <span class="comment"># 不需要配置项目-应用两级url</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li>启动Django项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
+<li>发送请求 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/hkstockindexinfo%EF%BC%8C">http://127.0.0.1:8000/hkstockindexinfo，</a> 展示香港指数基本信息表</li>
+</ol>
+<h3 id="示例2：使用Echart展示港股主板历史数据k线图"><a href="#示例2：使用Echart展示港股主板历史数据k线图" class="headerlink" title="示例2：使用Echart展示港股主板历史数据k线图"></a><strong>示例2：使用Echart展示港股主板历史数据k线图</strong></h3><ol>
+<li>编写model（datasite&#x2F;mainapp&#x2F;models.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HKEXMainBoardhistory</span>(models.Model):</span><br><span class="line">    code = models.CharField(max_length=<span class="number">12</span>, primary_key=<span class="literal">True</span>)  <span class="comment"># 假设code是主键</span></span><br><span class="line">    date = models.CharField(max_length=<span class="number">10</span>, db_column=<span class="string">&#x27;date&#x27;</span>)</span><br><span class="line">    <span class="built_in">open</span> = models.FloatField(db_column=<span class="string">&#x27;open&#x27;</span>)</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        db_table = <span class="string">&#x27;HKEXMainBoardhistory&#x27;</span></span><br><span class="line">        managed = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
+<li>迁移，将 model与 MySQL中的表映射<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
+<li>编写html（datasite&#x2F;mainapp&#x2F;templates&#x2F;historyklines.html）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load static %&#125;  <span class="comment">&lt;!-- 在项目setting.py配置：STATIC_URL = &#x27;/static/&#x27; --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>港股主板历史数据k线图<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入已经下载到本地/static/assets/js下的Echarts文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;&#123;% static &#x27;assets/js/echarts.js&#x27; %&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 1600px;height:800px;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 从Echarts官网上复制K线图示例代码</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> chartDom = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;main&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> myChart = echarts.<span class="title function_">init</span>(chartDom);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> option;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 使用模板语言获取传递的 JSON 数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> jsonData = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&#x27;&#123;&#123; jsonData | escapejs &#125;&#125;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">splitData</span>(<span class="params">rawData</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderItem</span>(<span class="params">params, api</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        </span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 使用后端查询的数据，代替模版代码中原本外部引入的json文件</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> data = <span class="title function_">splitData</span>(jsonData);</span></span><br><span class="line"><span class="language-javascript">        myChart.<span class="title function_">setOption</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>编写应用请求（datasite&#x2F;mainapp&#x2F;views.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">historyklines</span>(<span class="params">request</span>):</span><br><span class="line">    code = request.GET.get(<span class="string">&#x27;code&#x27;</span>)  <span class="comment"># 获取请求中携带的code参数值</span></span><br><span class="line">    queryset = HKEXMainBoardhistory.objects.<span class="built_in">filter</span>(code=code)  <span class="comment"># 查询所有代码为 code 的数据</span></span><br><span class="line">    jsonData = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> queryset:  <span class="comment"># 构造二维数组</span></span><br><span class="line">        data_row = [</span><br><span class="line">            item.date, item.<span class="built_in">open</span>, item.now, item.low, item.high, item.volume</span><br><span class="line">        ]</span><br><span class="line">        jsonData.append(data_row)</span><br><span class="line">    jsonData_str = json.dumps(jsonData)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;historyklines.html&#x27;</span>, &#123;<span class="string">&#x27;jsonData&#x27;</span>: jsonData_str&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;historyklines&#x27;</span>, views.historyklines),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li>启动Django项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="示例3：提供数据接口供其他模块调用"><a href="#示例3：提供数据接口供其他模块调用" class="headerlink" title="示例3：提供数据接口供其他模块调用"></a><strong>示例3：提供数据接口供其他模块调用</strong></h3><p>、、返回json数据？？</p>
+<h3 id="示例4：下载港股主板历史数据"><a href="#示例4：下载港股主板历史数据" class="headerlink" title="示例4：下载港股主板历史数据"></a><strong>示例4：下载港股主板历史数据</strong></h3><p>、、</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E8%AE%BE/" data-id="clvsbqec6000pjov55m5yewvl" data-title="毕 设" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="clvwf4c7k000qisv5h2651pu9" data-title="毕 设" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -628,7 +635,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clvsbqec4000fjov529tn7c1j" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="clvwf4c7i000iisv52sxh6ahq" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1150,7 +1157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clvsbqec5000njov5fo7l6kc5" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="clvwf4c7i000hisv5g0k5gx2u" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1432,7 +1439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clvsbqec7000tjov5dd5t5g84" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clvwf4c7l000tisv54j135dbo" data-title="骏 伯" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1466,7 +1473,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.07</em>  <a href="mailto:&#x32;&#x30;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#x31;&#48;&#64;&#109;&#97;&#105;&#108;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#117;&#46;&#99;&#110;">&#x32;&#x30;&#50;&#x30;&#51;&#48;&#x34;&#52;&#x30;&#48;&#x31;&#48;&#64;&#109;&#97;&#105;&#108;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#x65;&#x64;&#117;&#46;&#99;&#110;</a><br><strong>主修课程：</strong>数据结构(90), 计算机网络(84), 数据库(87), 操作系统, C++(94), Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong><br>[1] Feng Cai, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, <strong>2024.02.14</strong>, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)<br>近年来，图像恢复技术中CNN和GAN应用广泛。DnCNN模型通过残差和批量归一化有效去噪地震图像。SRGAN使用GAN和感知损失函数提高图像质量。Constrained-DnCNN模型进一步优化地震数据解读。CR-SRGAN专注于文物超分辨率和颜色恢复，采用特殊的训练数据集。DCGAN结合CNN和GAN特点，展现出在特征提取和适应数据分布方面的优势，是图像恢复领域的有前景研究方向。 <a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a> </p>
+        <h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong> <em>2020.09 - 2024.07</em>  <a href="mailto:&#x32;&#48;&#x32;&#48;&#x33;&#x30;&#52;&#x34;&#48;&#x30;&#49;&#48;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#101;&#100;&#x75;&#x2e;&#x63;&#x6e;">&#x32;&#48;&#x32;&#48;&#x33;&#x30;&#52;&#x34;&#48;&#x30;&#49;&#48;&#64;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#115;&#x63;&#x75;&#116;&#x2e;&#101;&#100;&#x75;&#x2e;&#x63;&#x6e;</a><br><strong>主修课程：</strong>数据结构(90), 计算机网络(84), 数据库(87), 操作系统, C++(94), Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong><br>[1] Feng Cai, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, <strong>2024.02.14</strong>, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)<br>近年来，图像恢复技术中CNN和GAN应用广泛。DnCNN模型通过残差和批量归一化有效去噪地震图像。SRGAN使用GAN和感知损失函数提高图像质量。Constrained-DnCNN模型进一步优化地震数据解读。CR-SRGAN专注于文物超分辨率和颜色恢复，采用特殊的训练数据集。DCGAN结合CNN和GAN特点，展现出在特征提取和适应数据分布方面的优势，是图像恢复领域的有前景研究方向。 <a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a> </p>
 <h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
 <li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
 <li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
@@ -1707,6 +1714,14 @@
 <li>面试 4.30<br>  最左索引底层原理（聚集索引？？），b+索引与哈希索引，原子类？？，https，对称加密<br>  感觉你面试经验挺多的？？</li>
 </ul>
 </li>
+<li>realme真我<ul>
+<li>面试 5.7<br>  重载与重写，http头内容，缓存类型和理解<br>  redis数据类型，集群部署，数据一致性，场景：查一个字符串类型数据为什么花了5s？<br>  数据库索引失效情况<br>  毕设做的什么。。</li>
+</ul>
+</li>
+<li>交通银行<ul>
+<li>面试 5.9</li>
+</ul>
+</li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
 <li>投递：官网（内推码），Boss直聘（快速筛选），宣讲</li>
@@ -1792,7 +1807,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD/" data-id="clvsbqec6000qjov5dfc8bd5z" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/20/%E6%8A%80%E8%83%BD/" data-id="clvwf4c7k000oisv55g9113il" data-title="寄 能" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2473,7 +2488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clvsbqec7000ujov5aiah32rl" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="clvwf4c7l000uisv5eeqjhdsn" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -4712,7 +4727,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clvsbqec7000wjov58zwz0xam" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/12/%E9%9D%A2%E8%AF%95_Java/" data-id="clvwf4c7m000visv5c8jpcdqq" data-title="面 逝 | Java" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -6245,7 +6260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clvsbqec7000vjov57szvcwf1" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/" data-id="clvwf4c7n000wisv52g127rn1" data-title="面 逝 | 组件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -6297,7 +6312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clvsbqeby0001jov567qo0i3t" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clvwf4c7c0001isv5houvfmta" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -6349,7 +6364,7 @@
           </li>
         
           <li>
-            <a href="/2024/05/01/%E6%AF%95%E8%AE%BE/">毕 设</a>
+            <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 设</a>
           </li>
         
           <li>
