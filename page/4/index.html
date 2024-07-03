@@ -69,6 +69,231 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Java后端开发" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="article-date">
+  <time class="dt-published" datetime="2021-08-31T03:49:42.000Z" itemprop="datePublished">2021-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">java 后端开发 工程师</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h2><ul>
+<li>Spring Boot： 进一步简化Spring</li>
+<li>Spring：轻量级框架，用于构建企业级 Java 应用程序。<br>Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题<br>MyBatis： 处理访问数据库</li>
+<li>Redis<strong>【6379】</strong>： 操作内存的数据库<br>Kafka<strong>【9092】</strong>： 消息队列服务器<br>Elasticsearch<strong>【9200】</strong>： 搜索引擎</li>
+<li>Spring Security，Spring Actuator</li>
+</ul>
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>构建工具：Apache Maven</li>
+<li>集成开发工具：IntelliJ IDEA</li>
+<li>数据库：MySQL、Redis</li>
+<li>应用服务器：Apache Tomcat<strong>【8080】</strong>（Spring Boot 默认集成了 Tomcat 作为内嵌的 Servlet 容器）</li>
+<li>版本控制工具：Git</li>
+</ul>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>常用 Java8 即 jdk1.8，安装jdk-8u202-windows-x64，配环境：把主目录配到 JAVA_HOME，bin 目录配到 PATH</p>
+<h2 id="Apache-Maven"><a href="#Apache-Maven" class="headerlink" title="Apache Maven"></a>Apache Maven</h2><ul>
+<li>可以帮助我们构建项目、管理项目中的jar包</li>
+<li>系统环境：安装路径配到 MAVEN_HOME，bin 目录配到 PATH</li>
+<li><strong>本地仓库 默认位置 ~&#x2F;.m2&#x2F;repository</strong>，存放从远程仓库获取的 jar 包；<strong>本机上的Maven主路径 D:&#x2F;apache-maven-3.6.1</strong>，对应的<strong>用户配置文件为 D:\apache-maven-3.6.1\conf\settings.xml</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 不适用Apache中央仓库，配置阿里云镜像仓库 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="tag">&lt;/<span class="name">url</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>中央仓库：是 Maven 的默认仓库，包含了大量的开源 Java 类库、框架和插件，许多常用的第三方库，供开发者使用。<br>镜像仓库：中央仓库的镜像，如阿里云、华为云，从中央仓库同步数据，用来加速依赖的下载速度，减轻中央仓库的负担。<br>私服仓库：在本地或者组织内部搭建的仓库，用于存储内部开发所需的依赖和构建产物。</li>
+<li>在 IntelliJ IDEA 中配置 maven仓库：”File” &gt; “Settings” &gt; “Build, Execution, Deployment” &gt; “Build Tools” &gt; “Maven”，配置maven主路径、用户设置文件和本地仓库。</li>
+<li>在 https:\mavenrepository.com 查找需要的jar包。</li>
+<li>Maven 是一个强大的构建工具，它可以执行各种命令来管理项目的构建、依赖、测试等方面的任务。<br>以下是一些常用的Maven指令，进入项目根目录命令行终端执行：(当然也可以直接在idea点击按钮执行)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mvn clean            <span class="comment"># 清除项目的目标目录，删除编译生成的文件。</span></span><br><span class="line">mvn compile          <span class="comment"># 编译项目中的Java源代码文件，并将编译结果放置在项目的目标目录(通常是target目录)中</span></span><br><span class="line">mvn <span class="built_in">test</span>             <span class="comment"># 运行项目的单元测试。</span></span><br><span class="line">mvn package          <span class="comment"># 将项目打包为可执行的JAR或WAR文件，通常用于构建最终的可部署应用程序。</span></span><br><span class="line">mvn install          <span class="comment"># 将项目构建输出的JAR或WAR文件安装到本地Maven仓库，以便其他项目可以引用它作为依赖。</span></span><br><span class="line">mvn deploy           <span class="comment"># 将项目构建输出的JAR或WAR文件部署到远程仓库，通常用于共享依赖。</span></span><br><span class="line">mvn clean install    <span class="comment"># 用于先清除项目目录，然后执行安装操作。（引入pom中新加的dependence）</span></span><br><span class="line">mvn clean package    <span class="comment"># 用于先清除项目目录，然后执行打包操作。</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>JAR</strong>（Java Archive）是Java平台中用于打包和分发Java类和相关资源的文件格式。它是一种压缩格式，通常包含Java类文件（.class文件），资源文件，清单文件（Manifest），以及其他可以用于Java应用程序的元数据。<br><strong>WAR</strong>（Web Application Archive）文件是一种Java Web应用程序的打包格式，通常用于部署Web应用程序到Java EE应用服务器，如Tomcat、WebSphere、或JBoss等。是一种压缩文件，通常以.war扩展名结尾，它包含了用于部署和运行Web应用程序的各种资源。</li>
+</ul>
+<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><ul>
+<li>Java作为一门世界级主流编程语言，有一款高效易用的项目管理工具是java开发者共同追求的心原和目标。<br>2012年基于 Ant 和Maven产生的Gradle，弥补了不足，带来了一些更高效的特点。它使用种基于Groovy的特定领域语言(DSL)来声明项目设置，抛弃了基于XML的各种繁琐配置。面向Java应用为主。</li>
+<li>系统环境：安装路径配到 GRADLE_HOME，bin 目录配到 PATH<br>集成 IDEA：创建项目时，”Build System” 直接使用 Gradle 插件即可，选择本地安装的 Gradle 目录。</li>
+<li>Gradle 目录结构与 Maven 完全一样：src&#x2F;main&#x2F;java 放置正式代码目录，src&#x2F;main&#x2F;resources 放置正式配置文件，src&#x2F;test&#x2F;java 放置单元测试代码，src&#x2F;test&#x2F;resources 放置测试配置文件，src&#x2F;main&#x2F;webapp 放置页面元素。</li>
+<li>借助 spring 脚手架创建 Gradle 项目：<a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a></li>
+<li>Gradle 配置文件 build.gradle，使用 Groovy 编写（一种脚本语言）<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Gradle会首先搜索本地仓库（默认C:\Users\admin\.gradle）以查找依赖项</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    <span class="comment">// 如果未在本地仓库找到，Gradle将会去 mavenCentral() 仓库中查找</span></span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// gradle工程所有的jar包在 dependencies 属性中，每一个jar包坐标有三个元素组成：group、name、version</span></span><br><span class="line"><span class="comment">// testCompile 表示该 jar包在测试的时候起作用，该属性为包的作用域</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    testImplementation <span class="string">&#x27;org.junit.jupiter:junit-jupiter-api:5.8.1&#x27;</span></span><br><span class="line">    testRuntimeOnly <span class="string">&#x27;org.junit.jupiter:junit-jupiter-engine:5.8.1&#x27;</span></span><br><span class="line">    <span class="comment">// 到 https://mvnrepository.com/ 查到 Spring Context 的 Gradle 依赖</span></span><br><span class="line">    implementation <span class="attr">group:</span> <span class="string">&#x27;org.springframework&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;spring-context&#x27;</span>, <span class="attr">version:</span> <span class="string">&#x27;5.0.2.RELEASE&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>也可以直接把 Gradle 本地仓库 配置成 Mavne 本地仓库，合二为一。具体做法是新建环境变量 GRADLE_USER_HOME 为 Mavne本地仓库目录，这样 Gradle工程会从 Mavne本地仓库目录寻找 jar包。</li>
+</ul>
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><ul>
+<li>核心作用：起步依赖、自动配置、端点监控</li>
+<li>在 <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io</a> 创建一个springboot项目</li>
+<li><strong>Spring</strong>（Spring Framework）是一个开源的轻量级Java企业应用程序开发框架，旨在简化Java应用程序的开发。Spring本身并不直接管理Maven依赖，而是依赖Maven作为构建工具来管理项目中的依赖关系</li>
+<li><strong>Spring Boot</strong> 是 Spring 框架的一个扩展，旨在简化 Spring 应用程序的开发和部署。引入了 Starter 依赖的概念，这些 Starter是预配置的依赖项集合，用于快速启动特定类型的应用程序（例如，spring-boot-starter-web 是用于构建 Web 应用程序的 Starter 依赖，它包含了 Spring MVC、Tomcat 等依赖）;可以根据项目需求选择性地引入 Starter 依赖，而不必手动添加一堆依赖项。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;    <span class="comment">// 在 pom.xml 中配置需要的各种 spring-boot-starter 包</span></span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
+<li>以jar包内置tomcat</li>
+</ul>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><ul>
+<li>Spring全家桶：Spring Framework, Spring Boot, Spring Cloud 微服务, Spring Cloud Data Flow 客户端</li>
+<li>Spring Framework：<br>Spring Core - IoC, AOP 管理一切<br>Spring Data Access - Transactions, Spring MyBatis<br>Web Servlet - Spring MVC<br>Integration - Email, Scheduling, AMQP, Security</li>
+<li><strong>for more -&gt;</strong> <a target="_blank" rel="noopener" href="https://leo710aka.github.io/2021/09/11/Spring/">https://leo710aka.github.io/2021/09/11/Spring/</a></li>
+</ul>
+<h2 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h2><ul>
+<li>三层架构：表现层、业务层、数据访问层</li>
+<li>MVC：解决表现层的问题（Model：模型层 - View：视图层 - Controller：控制层）</li>
+<li>HTTP：用于传输HTML等内容的应用层协议，规定了浏览器和服务器(或本地tomcat)之间如何通信以及通信时的数据格式。</li>
+<li>核心组件 - 前端控制器：DispatcherServlet，控制整个MVC</li>
+<li>Thymeleaf（View层）：模板文件 + Model -&gt; 模板引擎（Thymeleaf） -&gt; Html （但现在更多是前后端分离，会使用HTML+AJAX(<strong>异步请求</strong>)，采用前端框架进行渲染会更好的解耦）<br>在controller中写一个函数，获取数据，用model封装返回给html，在html文件中链接Thymeleaf模板，将数据动态展现。</li>
+</ul>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><ul>
+<li>社区版 下载zip文件：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a><br>mysql及navicat配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/taiyang3285/article/details/130115829">https://blog.csdn.net/taiyang3285/article/details/130115829</a><br>注意管理员运行cmd，然后把bin配到PATH、配置本机 <strong>username: root，password: “0xxxxx”</strong></li>
+<li>在application.properties文件配置 java(spring)项目连接 mysql，然后通过 Mybatis这样的持久层框架对数据库操作<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/reggie?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&quot;078114&quot;</span></span><br><span class="line"><span class="attr">mybatis-plus:</span> <span class="string">...</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h2><ul>
+<li>在pom.xml中导包后，在application.properties文件配置 mybatis</li>
+<li>SqlSessionFactory: 用于创建SqlSession的工厂类。</li>
+<li>SqlSession：MyBatis的核心组件，用于向数据库执行SQL。</li>
+<li>主配置文件：XML配置文件，可以对MyBatis的底层行为做出详细的配置</li>
+<li>Mapper接口：就是DAO接口，在MyBatis中习惯性的称之为Mapper。<br><strong>Mapper映射器</strong>: 用于编写SQL，并将SQL和实体类映射的组件。采用XML、注解均可实现。<br><strong>方法1：</strong>在 &#x2F;java&#x2F;..&#x2F;dao 下创建xxMapper.java（mapper接口）后，在 &#x2F;resource&#x2F;mapper 下创建对应的 xx-mapper.xml（映射器）；<br><strong>方法2：</strong>直接在mapper中加@Select等注解里写sql（复杂sql还得方法1）</li>
+</ul>
+<h2 id="Mybatis-Plus"><a href="#Mybatis-Plus" class="headerlink" title="Mybatis-Plus"></a>Mybatis-Plus</h2><ul>
+<li>是在MyBatis基础上的扩展。只做增强不做改变，为简化开发、提高效率而生。</li>
+<li>MyBatisPlus官方提供了starter，其中集成了 Mybatis和 MybatisPlus的所有功能，并且实现了自动装配效果。因此可以用 MybatisPlus的starter直接代替 Mybatis的starter；<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="项目调试技巧"><a href="#项目调试技巧" class="headerlink" title="项目调试技巧"></a>项目调试技巧</h2><ul>
+<li>相应<strong>状态码</strong>：200 - 成功，302 - 重定向（让浏览器再发一个请求），404 - 找不到路径，500 - 服务器遇到问题（服务端有bug）</li>
+<li>服务端断点调试：方法中一行代码前打断点，以debug形式启动类。启动服务后，停止在断点处，F8向下执行一步&#x2F;F7进入方法内部&#x2F;F9直接执行到下一个断点，观察参数如何变化。</li>
+<li>客户端断点调试：在浏览器打开开发者工具，对js文件打断点</li>
+<li>设置日志级别，并将日志输出到不同的终端<br>trace-debug-log-warn-error，按照级别记录日志，动态地启用级别。可以在<code>application.properties</code>配置 logger<br>或在&#x2F;resource下放置一个名为logback-spring.xml的文件，自动配置logger（日志存放文件大小、日志类型、存放位置、名字…）</li>
+<li><strong>在&#x2F;test下创建带@Test注解的测试类，直接对某一个mapper&#x2F;service&#x2F;..类进行测试。</strong><br>通过以下注解结合在一起，可以在测试中创建一个与实际应用程序相似的Spring容器，并运行测试。这样可以确保测试能够在实际的Spring环境中运行，并且可以访问和测试应用程序中的各种组件。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span>  <span class="comment">// 此注解用于指定运行测试的运行器，通常与JUnit一起使用。`SpringRunner`是Spring提供的一个JUnit运行器，用于在测试中启用Spring支持。</span></span><br><span class="line"><span class="meta">@SpringBootTest</span>  <span class="comment">// 这个注解告诉Spring Boot测试框架要加载整个Spring应用程序上下文，包括所有的bean。它是一个高级版本的`@ContextConfiguration`，它会尝试自动配置Spring应用程序上下文，通常用于集成测试。</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = CommunityApplication.class)</span>  <span class="comment">// 这个注解用于指定要加载的Spring配置类。在这里，`CommunityApplication.class`是Spring Boot应用程序的主配置类，它包含了应用程序的配置信息。</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h2><ul>
+<li>异步的JavaScript与XML <code>(Asynchronous JavaScript and XML)</code>，网页能够将增量更新呈现在页面上，而不需要刷新整个页面。虽然X代表XML，但目前JSON的使用比XML更加普遍。<br><strong>（在当前页面改一点东西用ajax（返回json字符串记得带@ResponseBody），展现新的页面用template）</strong></li>
+<li>使用jQuery（框架）发送AJAX请求</li>
+<li>判断是否为异步请求<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">xRequestedWith</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;x-requested-with&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;XMLHttpRequest&quot;</span>.equals(xRequestedWith)) &#123;...&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
+<li>Redis是一款<strong>基于键值对</strong>的 <strong>NoSQL 数据库</strong>，它的值支持多种数据结构：字符串(strings)、哈希(hashes)、列表(lists)、集合(sets)、有序集合(sorted sets)等。 Redis将所有的数据都存放在<strong>内存</strong>中，所以它的读写性能十分惊人。同时，Redis还可以将内存中的数据以快照或日的形式保存到硬盘上，以保证数据的安全性。</li>
+<li>Redis典型的应用场景包括: 缓存、排行榜、计器、社交网络、消息队列等.</li>
+<li>Spring整合Redis：<ul>
+<li>引入依赖：在pom.xml中导包spring-boot-starter-data-redis</li>
+<li>配置数据库参数：propert中 spring.redis.database&#x3D;11 spring.redis.host&#x3D;localhost spring.redis.port&#x3D;6379</li>
+<li>编写配置类，构造RedisTemplate（spring本身对redis的配置使其key为object类型，但string用起来更方便<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);                  </span><br><span class="line">        template.setKeySerializer(RedisSerializer.string());     <span class="comment">// 设置key的序列化方式</span></span><br><span class="line">        template.setValueSerializer(RedisSerializer.json());     <span class="comment">// 设置value的序列化方式</span></span><br><span class="line">        template.setHashKeySerializer(RedisSerializer.string()); <span class="comment">// 设置hash的key的序列化方式</span></span><br><span class="line">        template.setHashValueSerializer(RedisSerializer.json()); <span class="comment">// 设置hash的value的序列化方式</span></span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> template;      &#125;  &#125;</span><br></pre></td></tr></table></figure></li>
+<li>访问Redis：redisTemplate.opsForValue()， redisTemplate.opsForHash， redisTemplate.opsForList()，redisTemplate.opsForSet()，redisTemplate.opsForZSet()</li>
+</ul>
+</li>
+<li><strong>for more -&gt;</strong> <a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/12/Redis/">https://leo710aka.github.io/2022/03/12/Redis/</a></li>
+</ul>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ul>
+<li>本地缓存<br>将数据缓存在应用服务器上，性能最好。如热帖、、<br>常用缓存工具: Ehcache、Guava、Caffeine等</li>
+<li>分布式缓存<br>将数据缓存在NoSQL数据库上，跨服务器。如登录信息（不管在哪台服务器上都要查得到）<br>常用缓存工具: MemCache、Redis等.</li>
+<li>多级缓存<br>一级缓存(本地缓存) &gt; 二级缓存(分布式缓存) &gt; DB(避免访问数据库)，每级缓存的内存大小、存储时间都不一样<br>服务器受到请求，先查看本地缓存，再查redis（分布式缓存），都没有才查DB，同时同步到本地和分布式缓存上<br>避免<strong>缓存雪崩</strong>(缓存失效，大量请求直达DB)，提高系统的可用性<br><img src="https://github.com/leo710aka/bk/blob/main/cache.png?raw=true"></li>
+</ul>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
+<li>阻塞队列（消息系统的底层）:<ul>
+<li>BlockingQueue：处理并发和线程间的通信，帮助避免竞态条件、死锁等问题，并提高了系统的可维护性和性能。主要用于多线程编程中，以协调多个线程之间的数据传递、任务调度和同步操作。阻塞方法: put、take。</li>
+<li>生产者消费者模式 - 生产者:产生数据的线程  - 消费者:使用数据的线程。</li>
+<li>实现类 - ArrayBlockingQueue - LinkedBlockingQueue - PriorityBlockingQueue、SSynchronousQueue、DelayQueue等</li>
+</ul>
+</li>
+<li>Kafka是一个分布式的流媒体平台应用<ul>
+<li>应用：消息系统（消息队列）、日志收集、用户行为追踪、流式处理</li>
+<li>特点：高吞吐量、消息持久化（硬盘）、高可靠性（顺序读写）、高扩展性（集群部署）</li>
+<li>术语：- Broker（服务器）、Zookeeper  - Topic（存放空间）、Partition（分区）、Offset（索引）<br>   Leader Replica（主副本）、Follower Replica</li>
+</ul>
+</li>
+<li>配置：在 <code>\config\zookeeper.properties</code> 配置数据存放位置 <code>dataDir=d:/work/data/zookeeper</code>，在 <code>server.properties</code> 配置日志存放位置 <code>log.dirs=d:/work/data/kafka-logs</code></li>
+<li>启动：命令行方式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在根目录 D:\kafka_2.12-2.3.0 打开cmd【1】，启动Apache Kafka的ZooKeeper服务器</span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\zookeeper-server-start.bat config\zookeeper.properties</span><br><span class="line"><span class="comment"># 在根目录 再打开一个cmd【2】，启动Kafka服务器 </span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\kafka-server-start.bat config\server.properties</span><br><span class="line"><span class="comment"># 在命令目录 D:\kafka_2.12-2.3.0\bin\windows 打开一个cmd【3】</span></span><br><span class="line"><span class="comment"># 创建topic，partition，replication，，， 开启 生产者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic <span class="built_in">test</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-producer.bat --broker-list localhost:9092 --topic <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 在命令目录 再打开一个cmd【4】，， 开启 消费者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning </span><br></pre></td></tr></table></figure></li>
+<li>Spring整合Kafka<ul>
+<li>引入依赖: spring-kafka</li>
+<li>配置Kafka: spring.kafka.bootstrap-servers&#x3D;localhost:9092，spring.kafka.consumer.group-id&#x3D;community-consumer-group，spring.kafka.consumer.enable-auto-commit&#x3D;true，spring.kafka.consumer.auto-commit-interval&#x3D;3000</li>
+<li>通过<code>KafkaTemplate</code>进行操作：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生产者（主动调用）</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> KafkaTemplate kafkaTemplate;</span><br><span class="line">kafkaTemplate.send(topic， data);</span><br><span class="line"><span class="comment">// 消费者（被动调用）</span></span><br><span class="line"><span class="meta">@KafkaListener(topics = &#123;&quot;test&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleMessage</span><span class="params">(ConsumerRecord record)</span> &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Kafka使用<br>把kafka发送系统通知的行为当做“事件”，操作不同topic就是处理不同种类的事件。<ul>
+<li>触发事件：评论后发布通知，点赞后发布通知，关注后发布通知</li>
+<li>处理事件：封装事件对象（entity），开发事件的生产者，开发事件的消费者</li>
+<li><strong>在需要使用消息队列的controller中调用生产者（评论后发通知，点赞后发通知，关注后发通知），消费者（用户收到系统通知）将被动调用</strong>；一个消费者可以消费多种事件</li>
+</ul>
+</li>
+</ul>
+<h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><ul>
+<li>Elasticsearch简介 <strong>（Es可以看成是一个特殊的数据库，是在这个“数据库”中进行搜索）</strong><ul>
+<li>一个分布式的、Restful风格的搜索引擎。支持对各种类型的数据的检索</li>
+<li>搜索速度快，可以提供实时的搜索服务</li>
+<li>便于水平扩展，每秒可以处理PB级海量数据</li>
+</ul>
+</li>
+<li>Elasticsearch术语<ul>
+<li>索引、类型、文档、字段。（相当于MySQL中的数据库、表、行、列）（6.0后类型被废弃，则索引直接对应mysql的表）</li>
+<li>集群（分布式集群部署）、节点（集群中的一台服务器）、分片（进一步划分索引并发存储）、副本（对分片备份）。</li>
+</ul>
+</li>
+<li>配置：目录D:\elasticsearch-6.4.3\config，文件<code>elasticsearch.yml</code>，修改 cluster.name: nowcoder、path.data: D:\work\data\elasticsearch-6.4.3\data、path.logs: D:\work\data\elasticsearch-6.4.3\logs；把bin目录配到环境变量<ul>
+<li>中文分词插件 elasticsearch-analysis-ik，解压到 D:\elasticsearch-6.4.3\plugin\ik</li>
+</ul>
+</li>
+<li>启动：（windows系统）双击 D:\elasticsearch-6.4.3\bin 下的 <code>elasticsearch.bat</code> 批处理文件即可。<ul>
+<li>命令行操作（另开一个cmd）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\蔡枫&gt;curl -X GET <span class="string">&quot;localhost:9200/_cat/health?v&quot;</span>    <span class="comment"># 查看集群的健康状态</span></span><br><span class="line">C:\Users\蔡枫&gt;curl -X GET <span class="string">&quot;localhost:9200/_cat/nodes?v&quot;</span>     <span class="comment"># 查看节点</span></span><br><span class="line">C:\Users\蔡枫&gt;curl -X GET <span class="string">&quot;localhost:9200/_cat/indices?v&quot;</span>   <span class="comment"># 查看索引</span></span><br><span class="line">C:\Users\蔡枫&gt;curl -X GET <span class="string">&quot;localhost:9200/_cat/indices?v&quot;</span></span><br><span class="line">C:\Users\蔡枫&gt;curl -X PUT <span class="string">&quot;localhost:9200/test&quot;</span>             <span class="comment"># 以put创建索引</span></span><br><span class="line">&#123;<span class="string">&quot;acknowledged&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;shards_acknowledged&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;index&quot;</span>:<span class="string">&quot;test&quot;</span>&#125;</span><br><span class="line">C:\Users\蔡枫&gt;curl -X DELETE <span class="string">&quot;localhost:9200/test&quot;</span>          <span class="comment"># 用http协议中的delete，删除索引</span></span><br><span class="line">&#123;<span class="string">&quot;acknowledged&quot;</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>Postman</strong> 操作<ul>
+<li>GET，发送指令 localhost:9200&#x2F;test&#x2F;_doc&#x2F;1 的<code>request</code>，查询test中的数据</li>
+<li>PUT，发送指令 localhost:9200&#x2F;test&#x2F;_doc&#x2F;2 的<code>request</code>，向test中存数据，可以在Body中携带raw类型的json数据</li>
+<li>搜索，GET，发送指令 localhost:9200&#x2F;test&#x2F;_search?q&#x3D;xx:yy，搜索test索引下xx中带有yy的数据</li>
+<li>复杂搜索：要在Body中带raw的json查询条件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Spring 整合 Es<ul>
+<li>引入依赖: spring-boot-starter-data-elasticsearch</li>
+<li>配置Es：spring.data.elasticsearch.cluster-name&#x3D;nowcoder，spring.data.elasticsearch.cluster-nodes&#x3D;127.0.0.1:9300（<strong>9200是http端口，9300是tcp端口</strong>）</li>
+<li>elasticsearch和redis同时依赖于netty，运行冲突，需要在 <code>CommunityApplication.java</code> 加上注解<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostConstruct</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;		   <span class="comment">// 解决netty启动冲突问题</span></span><br><span class="line">    System.setProperty(<span class="string">&quot;es.set.netty.runtime.available.processors&quot;</span>, <span class="string">&quot;false&quot;</span>);	&#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过<code>ElasticsearchTemplate</code>(底层)，<code>ElasticsearchRwpository</code>(简易) 操作 Es<ul>
+<li>对实体类加注解，与Es索引、类型、文档、字段映射：@Document(indexName &#x3D; “”, type &#x3D; “”, shards &#x3D; , replicas &#x3D; )；</li>
+<li>配置实体类中的属性：@Id，@Field(type &#x3D; FieldType.Text, analyzer &#x3D; “ik_max_word”, searchAnalyzer &#x3D; “ik_smart”)，，</li>
+<li><strong>一种repository对一种实体类做Es操作</strong>（区别于@Mapper，mybatis专属的）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DiscussPostRepository 是对 DiscussPost 做 Es 操作</span></span><br><span class="line"><span class="meta">@Repository</span>                 </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DiscussPostRepository</span> </span><br><span class="line">          <span class="keyword">extends</span> <span class="title class_">ElasticsearchRepository</span>&lt;DiscussPost, Integer&gt; &#123;</span><br><span class="line">&#125;            <span class="comment">// 只要继承 ElasticsearchRepository，自带save(),delete()等方法</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>搜索<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> DiscussPostRepository discussRepository;</span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ElasticsearchTemplate elasticTemplate;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveDiscussPost</span><span class="params">(DiscussPost post)</span> &#123;</span><br><span class="line">    discussRepository.save(post);             <span class="comment">// 先要把（加了注解的）实体类存入 Es</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Page&lt;DiscussPost&gt; <span class="title function_">searchDiscussPost</span><span class="params">(String keyword, <span class="type">int</span> current, <span class="type">int</span> limit)</span> &#123;</span><br><span class="line">    <span class="type">SearchQuery</span> <span class="variable">searchQuery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NativeSearchQueryBuilder</span>()</span><br><span class="line">            .withQuery(QueryBuilders.multiMatchQuery(keyword, <span class="string">&quot;title&quot;</span>, <span class="string">&quot;content&quot;</span>)) <span class="comment">// 搜索规则</span></span><br><span class="line">            .withSort(SortBuilders.fieldSort(<span class="string">&quot;type&quot;</span>).order(SortOrder.DESC))        <span class="comment">// 排序规则</span></span><br><span class="line">            .withPageable(PageRequest.of(current, limit))                          <span class="comment">// 分页</span></span><br><span class="line">            .withHighlightFields(                                                  <span class="comment">// 设置高亮</span></span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">HighlightBuilder</span>.Field(<span class="string">&quot;title&quot;</span>).preTags(<span class="string">&quot;&lt;em&gt;&quot;</span>).postTags(<span class="string">&quot;&lt;/em&gt;&quot;</span>),</span><br><span class="line">            ).build();</span><br><span class="line">    <span class="keyword">return</span> elasticTemplate.queryForPage(searchQuery, DiscussPost.class, <span class="keyword">new</span> <span class="title class_">SearchResultMapper</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; AggregatedPage&lt;T&gt; <span class="title function_">mapResults</span><span class="params">(SearchResponse response, Class&lt;T&gt; aClass, Pageable pageable)</span> &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AggregatedPageImpl</span>(...);          &#125;      &#125;);  &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>账号：<code>1908454905@qq.com</code><br>Postman 是一个流行的 API测试工具和开发环境，它为开发人员提供了一种方便的方式来创建、测试、文档化和共享API。<br><strong>API 测试：</strong> Postman 的主要功能之一是允许用户发送 HTTP 请求以测试 API 端点。您可以创建 GET、POST、PUT、DELETE 等不同类型的请求，并附加参数、标头和正文数据以模拟与 API 交互。<br><strong>集合和环境：</strong> Postman 允许您组织测试请求到集合中。集合是一组相关的请求，可以方便地进行批量执行和管理。您还可以使用环境变量来动态地管理请求中的数据，以便在不同环境中轻松切换。<br><strong>自动化测试：</strong> Postman 提供了测试脚本功能，您可以使用 JavaScript 编写测试脚本，以验证 API 响应是否符合预期。这使得您可以创建自动化测试套件，确保 API 的稳定性和正确性。<br><strong>协作和共享：</strong> Postman 允许用户创建工作空间，多个团队成员可以在同一个工作空间中协作。您还可以共享 Postman 集合和环境，以便其他人可以重复您的测试或使用您的 API。</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li>Spring Boot Testing<ul>
+<li>依赖：spring-boot-starter-test</li>
+<li>包括：Junit、Spring Test、AssertJ、、、</li>
+</ul>
+</li>
+<li>Test Case 测试用例<ul>
+<li>要求：保证测试方法的独立性。</li>
+<li>步骤：初始化数据、执行测试代码、验证测试结果、清理测试数据。</li>
+<li>常用注解：@BeforeClass、@AfterClass、@Before、@After。</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目监控"><a href="#项目监控" class="headerlink" title="项目监控"></a>项目监控</h2><ul>
+<li>Spring Boot Actuator<ul>
+<li>Endpoints：监控应用的入口，Spring Boot内置了很多端点，也支持自定义端点。</li>
+<li>监控方式：HTTP 或 JMX。</li>
+<li>访问路径：例如“&#x2F;actuator&#x2F;health”</li>
+<li>注意事项：按需配置暴露的端点，并对所有端点进行权限控制。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" data-id="cly5w32px000550v58axidzvn" data-title="java 后端开发 工程师" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/09/08/%E7%AE%97%E6%B3%95%E9%A2%98/" class="article-date">
@@ -241,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/08/%E7%AE%97%E6%B3%95%E9%A2%98/" data-id="clx3av6x4000rbcv5hdh1g331" data-title="算法 | 数组 / 链表 / 哈希表 / 字符串 / 栈 / 队列 / 二叉树 / 图 / 贪心 / 回溯 / 动态规划" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/08/%E7%AE%97%E6%B3%95%E9%A2%98/" data-id="cly5w32q5000s50v5dpzvc724" data-title="算法 | 数组 / 链表 / 哈希表 / 字符串 / 栈 / 队列 / 二叉树 / 图 / 贪心 / 回溯 / 动态规划" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -483,7 +708,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="clx3av6wu0002bcv59x5y5ibn" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/06/Cpp%E5%9F%BA%E7%A1%80/" data-id="cly5w32pw000250v5d4967t9k" data-title="C++ 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -530,41 +755,22 @@
 <li>距离感 （全身和特写 表达不同的情感<br>手是人的第二张脸（外在美，情感，信息</li>
 </ol>
 <h2 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h2><ol>
-<li>大多数照片较为平稳，同时有一些张力<br>物体的数量、大小、色彩、位置、方向、质感、吸引力会影响其视觉重力，画面中多个物体的视觉重力构成了平衡与张力。<table>
-<thead>
-<tr>
-<th>平衡来源</th>
-<th>张力来源</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>静态，对称，稳定，横平竖直，客观</td>
-<td>动态，不对称，边角，斜线，情感</td>
-</tr>
-</tbody></table>
-</li>
+<li>大多数照片较为平稳，同时有一些张力<br>物体的数量、大小、色彩、位置、方向、质感、吸引力会影响其视觉重力，画面中多个物体的视觉重力构成了平衡与张力。<br>平衡来源：静态，对称，稳定，横平竖直，客观<br>张力来源：动态，不对称，边角，斜线，情感</li>
 <li>平面秩序: 事物变图形 抽象<br>照相不是出于构思作画，而是出于选择构图。三维世界在二维照片中有了原来不存在的关系（远近透视）</li>
 <li>决定性瞬间:照片只叙述当下，恰好一个瞬间所有事情(人,地,物,所有细微之处)均各得其所，并同时展现出特定内涵和意义<br>布列松:“如果照片是为了最大程度上让人理解其被摄对象 那么形式关系必须被严格地建立起来 摄影的目的是在真实事物所构成的世界中甄别出韵律 在一张照片中 构图是同时发生的综合结果 是对于眼之所见的各元素的有机协作。”<br>形式即内容 但形式也离不开内容（不要只会拍老头环卫外卖小哥）</li>
 </ol>
 <h2 id="曝光"><a href="#曝光" class="headerlink" title="曝光"></a>曝光</h2><ol>
-<li>曝光三要素：<strong>光圈，快门速度，感光度</strong>iso，与图像亮度有关<br>另外，光圈与景深相关，快门与凝固程度有关，感光度与图像细腻程度有关；</li>
-<li>档位：M档手动挡（手动调节三要素），A档光圈优先（调节光圈和iso自动设置快门），S档快门优先（调节快门和iso自动光圈）</li>
-<li>光圈：控制镜头进光量(通过镜头前面看得到光圈大小)，其数值等于 <code>焦距/通光直径</code><br>光圈越大数值越小，进光量越大，背景虚化越强，1.4 - 2 - 2.8 - …表示光圈半径差根号2倍光圈面积差2倍进光量差一倍曝光差一档<br>景深指的是画面中清晰的一段(否则就被虚化)，光源与镜头（光圈）形成的角度越大，景深越小，所以，景深与被摄物体距离平方成正比，与光圈数值成正比，与镜头焦距平方成反比</li>
+<li>曝光三要素：<strong>光圈，快门速度，感光度</strong>iso，与图像亮度有关<br>另外，光圈与景深相关，快门与凝固程度有关，感光度与图像细腻程度有关；<br><strong>M档</strong>手动挡（手动调节三要素），A档光圈优先（调节光圈和iso自动设置快门），S档快门优先（调节快门和iso自动光圈）</li>
+<li>光圈：控制镜头进光量(通过镜头前面看得到光圈大小)，其数值等于 <code>焦距/通光直径</code><br>光圈越大数值越小，进光量越大，背景虚化越强，1.4 - 2 - 2.8 - …表示光圈半径差根号2倍光圈面积差2倍进光量差一倍曝光差一档<br><strong>景深</strong>指的是画面中清晰的一段(否则就被虚化)，光源与镜头（光圈）形成的角度越大，景深越小，所以，景深与被摄物体距离平方成正比，与光圈数值成正比，与镜头焦距平方成反比</li>
 <li>安全快门：在光圈开到最大，快门尽量慢时，拉高iso（后期去除噪点）做到正常曝光，拍出来不糊（因为手抖）的快门。<br>安全快门的经验值是 <code>1/焦距</code>（远距离的狙击枪对瞄准的要求高），这里前提默认被摄对象是静止的。<br>快门速度应该考虑被摄体的移动速度，动态人像快门通常不能低于1&#x2F;200，还需考虑其与相机的距离（影响其在画面中的比例）<br>拍摄“背景清晰，行人模糊”：打开相机防抖，保持手的稳定，快门设置在1&#x2F;30或1&#x2F;50<br>拍摄“背行人清晰，背景模糊”：关闭防抖，相机跟随物体，移动的同时按下快门</li>
 <li>iso：感光度指传感器对于光线的敏感程度，相当内置光源，数值越大噪点越大（牺牲图像细腻程度）事实上，是由于低进光量带来的噪点，只是iso提高亮度后使噪点更加清晰<br>iso只是一个配合的角色，90%的情况下应该自动（由曝光补偿控制）即可</li>
 <li>曝光补偿：事实上还是通过支配三要素来控制曝光。<br>当m档时，曝光补偿是三要素的调整后的画面整体曝光偏向，做信息提示用。<br>当三要素自动&#x2F;半自动时，曝光补偿就是一个总控开关，我设置这个开关为-1，其他三要素就根据这个指令自动计算结果。</li>
 <li>最起码的是亮度正常，看直方图（牢理论：暗处不死黑，高光不过曝）</li>
 <li>测光功能：平均测光模式下，如果相机计算图像中所有像素的平均亮度为18度灰，则认为曝光补偿为0（前提是相机认为所有物体的平均反射率都是18%，自然界中物体的平均值确实如此，但对于具体物体不一定准确，需要调整曝光补偿，白加黑减）<br>不同的测光模式，区别只在采样范围(整体，中心，点)，使得曝光补偿为0时采样范围内平均亮度为18度灰<br>一般来说，无需改变测光模式，在多重测光（索尼，富士）下调整曝光补偿即可。</li>
 </ol>
-<h2 id="用光"><a href="#用光" class="headerlink" title="用光"></a>用光</h2><ol>
-<li>硬光：太阳&#x2F;小光源LED等离物体距离远，可以认为是平行光，能让物体产生清晰阴影的光，称为硬光。硬光会使画面显得精神、干脆，也会凸显脸上的沟壑、痘痘的高光。</li>
-<li>柔光：随机的阴影模糊的光线。柔光会使脸部的光影过度更加柔和。硫酸纸、塑料袋等介质都能够冲散光线，在太阳前加柔光布，跳闪也是一种做法（打向天花板再均匀反射下来）原理都是让光线从规律变成随机。</li>
-<li>光源距离主体越近，光线越柔和（发光面积越大？），光影的反差越大（平方反比定律，后期拉回来即可）<br>光柔与硬指的是光线的杂乱程度，体现在阴影的锐利程度上；反差的大小是指光面与阴影之间的亮度差异，体现在阴影的深浅。</li>
-<li>直闪，热靴等，，</li>
-<li>光比：背光面亮度&#x2F;受光面亮度<br>“逆光时人脸是黑的”“演唱会时艺人的脸过曝”“窗外过曝”“背景太亮&amp;太暗”等问题基本上都是由于主体受光和背景受光相差过大所导致的，无法通过曝光三要素调整，因为相机的宽容度优先，只能展现一段的亮度。<br>解决方法：拍摄raw后期拉回来，拍摄两张不同曝光的图像合成，人像摄影给暗处补光，亮部和暗部放弃其一</li>
-</ol>
 <h2 id="透视"><a href="#透视" class="headerlink" title="透视"></a>透视</h2><ol>
 <li>焦段越大，拍得远，画面窄（相同画面下，人靠近背景（事实上大焦段需要在距离主体更远处拍摄出相同画面））<br>焦段越小越广角人越胖。 c画幅的35mm等效全画幅50mm</li>
+<li>85mm-人像焦段。 35mm-人文扫街呼吸感。 50mm-两者折中</li>
 <li>透视关系：与焦段没直接关系，和镜头离物体远近有关。<table>
 <thead>
 <tr>
@@ -594,22 +800,34 @@
 </tr>
 </tbody></table>
 </li>
-<li>85mm-人像焦段。 35mm-人文扫街呼吸感。 50mm-两者折中</li>
-</ol>
-<h2 id="对焦"><a href="#对焦" class="headerlink" title="对焦"></a>对焦</h2><ol start="3">
-<li>对焦: 对焦的过程就是把对焦点锁定在主体的过程<br>对焦点，对焦性能，，</li>
+<li>定焦镜头的画质一般比变焦镜头好，光圈可以更大</li>
+<li>对焦: 对焦的过程就是把对焦点锁定在主体的过程。定焦镜头<br>对焦点，对焦性能，，对焦距离</li>
+<li>手动对焦。。</li>
 </ol>
 <h2 id="器材"><a href="#器材" class="headerlink" title="器材"></a>器材</h2><ol>
-<li>画质 ？？</li>
-<li>传感器: 手机&lt;卡片机&lt;半画幅&lt;全画幅&lt;中画幅&lt;大画幅，大传感器成像更细腻噪点更少<br>相同距离下，取景范围：全画幅焦距 &#x3D; 半画幅焦距 * 1.5(1.6)（半画幅50mm的取景范围相当于全画幅75mm的取景范围）</li>
-<li>动态范围，宽容度</li>
-<li>相机白平衡等于光源色温时展现为白光，越低越黄（暖色），越高越蓝（冷光）</li>
+<li>画质：相同传感器下，像素越大画质越差。。</li>
+<li>传感器cmos: 手机&lt;卡片机&lt;半画幅&lt;全画幅&lt;中画幅&lt;大画幅，大传感器成像更细腻噪点更少<br>相同距离下，取景范围：全画幅焦距 &#x3D; 半画幅焦距 * 1.5(1.6)（半画幅50mm的取景范围相当于全画幅75mm的取景范围）</li>
+<li>档位：<strong>M档</strong>手动挡（手动调节三要素），<strong>A档</strong>光圈优先（调节光圈和iso自动设置快门），<strong>S档</strong>快门优先（调节快门和iso自动光圈）</li>
+<li>图像质量：FINE(直出jpeg)+RAW(无损照片)</li>
+<li>动态范围，宽容度<br>宽容度一般指的是RAW原始数据，能记录最暗和最亮信息的范围。<br>动态范围则是指照片或视频，能保留最暗和最亮有效信息的范围。<br>你可以解一张高宽容度的RAW格式照片，用它调出一张高动态范围的照片，大致就是这个意思。</li>
+<li>白平衡：相机白平衡等于光源色温时展现为白光，越低越黄（暖色），越高越蓝（冷光）</li>
+</ol>
+<h2 id="用光"><a href="#用光" class="headerlink" title="用光"></a>用光</h2><ol>
+<li>硬光：太阳&#x2F;小光源LED等离物体距离远，可以认为是平行光，能让物体产生清晰阴影的光，称为硬光。硬光会使画面显得精神、干脆，也会凸显脸上的沟壑、痘痘的高光。</li>
+<li>柔光：随机的阴影模糊的光线。柔光会使脸部的光影过度更加柔和。硫酸纸、塑料袋等介质都能够冲散光线，在太阳前加柔光布，跳闪也是一种做法（打向天花板再均匀反射下来）原理都是让光线从规律变成随机。</li>
+<li>光源距离主体越近，光线越柔和（发光面积越大？），光影的反差越大（平方反比定律，后期拉回来即可）<br>光柔与硬指的是光线的杂乱程度，体现在阴影的锐利程度上；反差的大小是指光面与阴影之间的亮度差异，体现在阴影的深浅。</li>
+<li>直闪，热靴等，，</li>
+<li>光比：背光面亮度&#x2F;受光面亮度。“逆光时人脸是黑的”“演唱会时艺人的脸过曝”“窗外过曝”“背景太亮&amp;太暗”等问题基本上都是由于主体受光和背景受光相差过大所导致的，无法通过曝光三要素调整，因为相机的宽容度优先，只能展现一段的亮度。<br>解决方法：拍摄raw后期拉回来，拍摄两张不同曝光的图像合成，人像摄影给暗处补光，亮部和暗部放弃其一</li>
 </ol>
 <h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ol>
 <li>人的精力是有限的，拍摄中应该注重拍摄本身而不是相机的设置，需要适当放权由相机决定参数。<br>拍摄时，需要思考和权衡的只有：<strong>档位选择，曝光补偿，快门速度设定，保证安全快门，光圈设置</strong><br>其他可以在拍摄现场外设置好的参数：照片格式的选择，白平衡的设置，防抖开启与否，测光模式的选择，对焦模式的选择，对焦区域的选择，连拍模式的选择，长时间曝光降噪与高iso降噪，色彩空间的选择，滤镜&#x2F;创意外观</li>
 <li>风光参数<br>光圈: 白天建议光圈优先此时快门速度不必担心，一定够快；如果近处有景物时，要缩小光圈(一般取f7.1以上)；近处无景物而对焦点较远时，光圈可大可小。<br>快门: 夜晚建议快门优先。光线不足且手持时首先保证富裕的安全快门上三脚架时，可选慢快门，使得水、云等呈现丝绸状。<br>其他: RAW格式、ISO自动、白平衡自动、单次对焦、单点对焦如果没有快门线，设置2秒的延迟快门</li>
 <li>扫街参数<br>光线不稳定时，快门优先:1&#x2F;200以上，保证移动的主体也清晰。<br>在光照很强时，可用光圈优先，设置大光圈，快门速度自然会很高<br>对焦: 区域选广域，来不及调整对焦点；模式选AFC连续对焦，锁住移动主体;<br>其他:光圈与ISO自动、曝光补偿控制亮度、白平衡自动。篮球赛、活动、会议类似。。</li>
 <li>参数设定整体思路<br>白天光线充足时，安全快门不必担心，可光圈优先:风光f8左右，人像开到最大。<br>光线不足时。安全快门压力大，可选快门优先，根据不同情况，设置不同的安全快门。<br>一般，快门速度越快越安全，但需要拍摄丝绸状流水时，须设置慢快门，用三脚架固定，别忘记套上ND镜。<br>拍摄移动、随机主体时，对焦选择广域+AFC连续对焦，把对焦交给相机;拍摄风光、产品时，可选单点+单次对焦，精确把控。<br>测光模式保持默认不必调来调去，白平衡可前期设置好，也设置自动后期调整。</li>
+</ol>
+<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><ol>
+<li>RAW：无损照片，保留最多信息</li>
+<li>Ligthroom</li>
 </ol>
 <hr>
 
@@ -621,7 +839,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/01/Shots/" data-id="clx3av6x0000hbcv57hh798a9" data-title="Shots" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2020/09/01/Shots/" data-id="cly5w32q1000h50v52xhp7a54" data-title="Shots" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -656,7 +874,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -670,6 +888,10 @@
         
           <li>
             <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84/">美 的 Midea</a>
           </li>
         
           <li>
@@ -702,10 +924,6 @@
         
           <li>
             <a href="/2023/10/11/%E9%9D%A2%E8%AF%95_%E7%BB%84%E4%BB%B6/">面 逝 | 组件</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/31/Colab/">Colab</a>
           </li>
         
       </ul>
