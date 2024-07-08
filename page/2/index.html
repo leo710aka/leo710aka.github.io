@@ -109,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/31/Colab/" data-id="cly5w32pu000150v523a4bv7l" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/31/Colab/" data-id="clyd4uh3b0000awv5bkow0zd7" data-title="Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -121,10 +121,10 @@
 
 
   
-    <article id="post-Pytorch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Pytorch_Anaconda" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/07/14/Pytorch/" class="article-date">
-  <time class="dt-published" datetime="2023-07-14T03:58:39.000Z" itemprop="datePublished">2023-07-14</time>
+    <a href="/2023/07/10/Pytorch_Anaconda/" class="article-date">
+  <time class="dt-published" datetime="2023-07-10T03:58:39.000Z" itemprop="datePublished">2023-07-10</time>
 </a>
     
   </div>
@@ -135,7 +135,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/14/Pytorch/">Pytorch</a>
+      <a class="p-name article-title" href="/2023/07/10/Pytorch_Anaconda/">Pytorch / Anaconda</a>
     </h1>
   
 
@@ -143,7 +143,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h3 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h3><p>打开localhost:6006，访问TensorBoard，查看TensorFlow模型的图形、损失函数、精度等信息。</p>
+        <p>PyTorch是一个开源的Python机器学习库，基于Torch库，底层由C++实现，应用于人工智能领域，如计算机视觉和自然语言处理。它最初由Meta Platforms的人工智能研究团队开发，现在属于Linux基金会的一部分。它是在修改后的BSD许可证下发布的自由及开放源代码软件。</p>
+<p>许多深度学习软件都是基于 PyTorch 构建的，包括特斯拉自动驾驶、Uber的Pyro、Hugging Face的Transformers、 PyTorch Lightning。</p>
+<h3 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h3><p>打开localhost:6006，访问TensorBoard，查看TensorFlow模型的图形、损失函数、精度等信息。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;xxx&quot;</span>)               <span class="comment"># 在文件夹里新建一个abc文件夹</span></span><br><span class="line">writer.add_scalar(<span class="string">&quot;y=2i&quot;</span>, <span class="number">2</span>*i, i)           <span class="comment"># 加坐标</span></span><br><span class="line">writer.add_images(<span class="string">&quot;test_data&quot;</span>, imgs, step)  <span class="comment"># 加图</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pycharm -&gt; Terminal</span></span><br><span class="line">PS C:\Users\cf\Documents\Visual Studio Code\Python\learn_pytorch&gt; tensorboard --logdir=<span class="string">&quot;xxx&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -157,44 +159,9 @@
 <p>一次训练+验证：准备数据 - 加载数据 - 准备模型 - 设置损失函数 - 设置优化器 - 开始训练 - 验证 - 聚合展示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):  <span class="comment"># 共20轮训练</span></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> dataloader:  <span class="comment"># 对数据进行一轮学习</span></span><br><span class="line">        imgs, targets = data</span><br><span class="line">        output = fc(imgs)</span><br><span class="line">        result_loss = loss(output, targets)  <span class="comment"># 计算损失</span></span><br><span class="line">        optim.zero_grad()  <span class="comment"># 优化器中，梯度置0</span></span><br><span class="line">        result_loss.backward()  <span class="comment"># 损失函数求梯度，反向传播</span></span><br><span class="line">        optim.step()  <span class="comment"># 优化器，优化卷积核参数</span></span><br><span class="line">        running_loss = running_loss + result_loss</span><br><span class="line">    <span class="built_in">print</span>(running_loss)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/14/Pytorch/" data-id="cly5w32q0000d50v5ch6x8xas" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+<hr>
 
-
-
-  
-    <article id="post-Anaconda" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/10/Anaconda/" class="article-date">
-  <time class="dt-published" datetime="2023-07-10T06:15:42.000Z" itemprop="datePublished">2023-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/10/Anaconda/">Anaconda</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ol>
+<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><ol>
 <li>利用 Anaconda，创建不同版本的虚拟环境，配置不同的包（如不同版本的 Pytorch），以管理不同的项目。</li>
 <li>用 Pycharm 打开项目时，点击添加解释器 —&gt; 添加本地解释器，选择该项目对应的 conda 虚拟环境下，该虚拟环境的 python 解释器。选择使用这个虚拟环境对应的编辑器，就是选择了使用这个环境运行项目，使用这个环境中配好的包等等。</li>
 <li>所以要注意终端使用的是哪个编辑器，是否与当前项目使用的编辑器匹配。否则 pip install 把包装到一个虚拟环境，而当前项目运行在另一个虚拟环境中，便无法 import 已安装的包。</li>
@@ -214,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/10/Anaconda/" data-id="cly5w32ps000050v5chiyhkou" data-title="Anaconda" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/10/Pytorch_Anaconda/" data-id="clyd4uh3j000dawv5drmrei7a" data-title="Pytorch / Anaconda" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -264,7 +231,7 @@
 <li>配置 Git 的全局用户信息，这些信息在你提交代码到 Git 仓库时会被记录下来，用于标识提交代码的作者信息。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;xx&quot;</span>        <span class="comment"># 配置 user.name_caifeng</span></span><br><span class="line">git config --global user.email <span class="string">&quot;xx&quot;</span>       <span class="comment"># user.email_1908454905@qq.com</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><ul>
-<li>leo710aka <a href="mailto:&#49;&#57;&#x30;&#56;&#x78;&#x78;&#120;&#120;&#120;&#120;&#x40;&#x71;&#113;&#x2e;&#x63;&#x6f;&#109;">&#49;&#57;&#x30;&#56;&#x78;&#x78;&#120;&#120;&#120;&#120;&#x40;&#x71;&#113;&#x2e;&#x63;&#x6f;&#109;</a> cxxxxxx</li>
+<li>leo710aka <a href="mailto:&#49;&#x39;&#x30;&#56;&#120;&#120;&#120;&#120;&#x78;&#120;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#109;">&#49;&#x39;&#x30;&#56;&#120;&#120;&#120;&#120;&#x78;&#120;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#109;</a> cxxxxxx</li>
 <li>使用 SSH 密钥连接 GitHub：如果没有的话，使用？？？以下命令在本地<strong>生成 SSH 密钥</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
 生成 SSH 密钥后，将 <code>~/.ssh/id_rsa.pub</code>（公钥）的内容添加到 GitHub 账号的 SSH 密钥设置中。</li>
 <li>使用 HTTPS 认证连接 GitHub：在 GitHub 上克隆仓库时，使用 HTTPS 链接，然后在推送更改时，会提示输入 GitHub 账号的用户名和密码，或者使用个人访问令牌（Personal Access Token）代替账号密码。</li>
@@ -340,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/12/Git_Docker/" data-id="cly5w32pw000350v50ybt9ft1" data-title="Git / Docker" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/12/Git_Docker/" data-id="clyd4uh3f0002awv52kv01lwg" data-title="Git / Docker" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -393,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="cly5w32q2000n50v56hwh922a" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="clyd4uh3l000lawv55yzi14vp" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -644,7 +611,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/01/Python_Django/" data-id="cly5w32q0000f50v5a6gg09ud" data-title="Python / Django" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/09/01/Python_Django/" data-id="clyd4uh3i000cawv5184xai8f" data-title="Python / Django" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -831,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/10/Redis/" data-id="cly5w32q0000e50v5fwac3s2j" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/06/10/Redis/" data-id="clyd4uh3j000fawv5d6p2b1pb" data-title="Redis" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -948,7 +915,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="cly5w32pz000a50v5h5nz3mbc" data-title="Mybatis / Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/12/Mybatis/" data-id="clyd4uh3i000aawv5dedigd31" data-title="Mybatis / Mybatis-Plus" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1175,7 +1142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="cly5w32pz000c50v564w5hgq1" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/11/Mysql/" data-id="clyd4uh3i000bawv561ad1sm8" data-title="MySQL" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1253,7 +1220,135 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/05/VMware_SSH/" data-id="cly5w32q2000l50v5a1o1dnrt" data-title="VMware / SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/05/VMware_SSH/" data-id="clyd4uh3k000kawv5fhov20cb" data-title="VMware / SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/02/Linux/" class="article-date">
+  <time class="dt-published" datetime="2022-03-02T09:02:15.000Z" itemprop="datePublished">2022-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/02/Linux/">Linux</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux 是一种免费、开源的类Unix<strong>操作系统内核</strong>。它最初由芬兰的Linus Torvalds在1991年创建，并迅速发展成为一个庞大且活跃的开源社区项目。Linux内核是操作系统的核心部分，但通常与 GNU 工具和其他软件一起使用，形成完整的（GNU&#x2F;Linux）操作系统，通常被称为 Linux发行版（如 Ubuntu、Red Hat、CentOS）</p>
+<h3 id="GNU"><a href="#GNU" class="headerlink" title="GNU"></a>GNU</h3><p>GNU 计划，译为革奴计划，它的目标是创建一套完全自由的操作系统，称为 GNU，其内容软件完全以 GPL 方式发布。其中 GPL 全称为 GNU 通用公共许可协议，包含了以下内容:<br>1、以任何目的运行此程序的自由；2、再复制的自由；3、改进此程序，并公开发布改进的自由。</p>
+<h2 id="发行版"><a href="#发行版" class="headerlink" title="发行版"></a>发行版</h2><p>Linux 发行版是 Linux 内核及各种应用软件的集成版本。</p>
+<table>
+<thead>
+<tr>
+<th>基于的包管理工具</th>
+<th>商业发行版</th>
+<th>社区发行版</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RPM</td>
+<td>Red Hat</td>
+<td>Fedora &#x2F; CentOS</td>
+</tr>
+<tr>
+<td>DPKG</td>
+<td>Ubuntu</td>
+<td>Debian</td>
+</tr>
+</tbody></table>
+<h2 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h2><p>是一种Unix和Linux操作系统中常用的<strong>命令行解释器和脚本语言</strong>。它是许多Linux发行版和Unix系统默认的命令行shell，使用户能够以文本方式与系统进行交互，用于与操作系统进行交互、管理文件、执行命令和编写脚本。<br><strong>命令行shell</strong>是一种计算机程序，它允许用户通过文本界面与计算机操作系统进行交互，以执行各种命令和操作。用户可以在命令行shell中输入文本命令，然后系统会解释和执行这些命令。这种方式通常与<strong>图形用户界面 GUI</strong>相对。<br>Bash支持许多功能，包括：</p>
+<ul>
+<li>执行命令和程序：Bash允许用户执行各种命令和程序，可以通过命令行或脚本文件来执行。</li>
+<li>变量和环境设置：Bash支持变量，用户可以定义和使用环境变量，这些变量可用于存储数据和配置。</li>
+<li>文件操作：用户可以使用Bash执行文件和目录的操作，如创建、复制、移动、删除文件等。</li>
+<li>管道和重定向：Bash允许将命令的输出连接到其他命令的输入，还支持文件重定向，使用户能够将命令的输出保存到文件或从文件中读取输入。</li>
+<li>条件语句和循环：Bash支持条件语句（如if语句）和循环结构（如for循环和while循环），以实现更复杂的控制流程。</li>
+<li>脚本编写：用户可以编写Bash脚本，这是一系列命令和操作的集合，用于执行自动化任务、自定义系统配置和处理数据等。</li>
+</ul>
+<p>而在 Windows 系统上，PowerShell 是一个更现代、功能更强大的命令行工具，特别适用于系统管理和自动化任务。尽管命令行程序cmd 仍然存在并且仍然可以使用，但PowerShell已成为Windows系统管理和开发的首选工具。</p>
+<h2 id="Linux-命令"><a href="#Linux-命令" class="headerlink" title="Linux 命令"></a>Linux 命令</h2><p>Linux 操作系统拥有丰富的命令行工具。可以使用<code>--help</code>获取指令的基本用法与选项介绍；在终端中使用<code>man</code>命令查看每个命令的手册页以获取更多信息，例如 <code>man ls</code>；<code>doc</code>：&#x2F;usr&#x2F;share&#x2F;doc 存放着软件的一整套说明文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># **管理员：** 允许一般用户使用 root 可执行的命令，不过只有在 /etc/sudoers 配置文件中添加的用户才能使用该指令。</span></span><br><span class="line">sudo + 命令</span><br><span class="line"><span class="built_in">which</span>              <span class="comment"># 指令搜索。-a : 将所有指令列出，而不是只列第一个</span></span><br><span class="line"><span class="comment"># **文件和目录管理：**</span></span><br><span class="line"><span class="built_in">ls</span>                 <span class="comment"># 列出目录中的文件和子目录，是 list 的缩写（dir 命令通常不是默认可用的）</span></span><br><span class="line"><span class="built_in">cd</span>                 <span class="comment"># 切换当前工作目录。</span></span><br><span class="line"><span class="built_in">pwd</span>                <span class="comment"># 显示当前工作目录的路径。</span></span><br><span class="line"><span class="built_in">mkdir</span>              <span class="comment"># 创建新目录。</span></span><br><span class="line"><span class="built_in">rmdir</span> / <span class="built_in">rm</span> -r      <span class="comment"># 删除目录。</span></span><br><span class="line"><span class="built_in">touch</span>              <span class="comment"># 创建新文件或更新文件的访问时间戳。</span></span><br><span class="line">vim + 文件名        <span class="comment"># 编辑文件</span></span><br><span class="line"><span class="built_in">cp</span>                 <span class="comment"># 复制文件或目录。</span></span><br><span class="line"><span class="built_in">mv</span>                 <span class="comment"># 移动文件或目录，也可用于重命名文件。</span></span><br><span class="line"><span class="built_in">rm</span>                 <span class="comment"># 删除文件。</span></span><br><span class="line"><span class="built_in">cat</span>                <span class="comment"># 查看文件内容。</span></span><br><span class="line"><span class="built_in">tac</span>                <span class="comment"># 是 cat 的反向操作，从最后一行开始打印。</span></span><br><span class="line">more               <span class="comment"># 和 cat 不同的是它可以一页一页查看文件内容，比较适合大文件的查看。</span></span><br><span class="line"><span class="built_in">head</span>               <span class="comment"># 取得文件前几行，-n指定n行</span></span><br><span class="line"><span class="built_in">tail</span>               <span class="comment"># 是 head 的反向操作，只是取得是后几行。</span></span><br><span class="line"><span class="built_in">od</span>                 <span class="comment"># 以字符或者十六进制的形式显示二进制文件。</span></span><br><span class="line">whereis            <span class="comment"># 文件搜索。速度比较快，因为它只搜索几个特定的目录。</span></span><br><span class="line">locate             <span class="comment"># 文件搜索。可以用关键字或者正则表达式进行搜索</span></span><br><span class="line">find               <span class="comment"># 文件搜索。可以使用文件的属性和权限进行搜索。example: find . -name &quot;shadow*&quot;</span></span><br><span class="line"><span class="comment">## **压缩，打包：**</span></span><br><span class="line">gzipg              <span class="comment"># zip 是 Linux 使用最广的压缩指令，可以解开 compress、zip 与 gzip 所压缩的文件。</span></span><br><span class="line">tar                <span class="comment"># 打包。tar 不仅可以用于打包，也可以使用 gip、bzip2、xz 将打包文件进行压缩。</span></span><br><span class="line"><span class="comment">## **系统管理：**</span></span><br><span class="line">ps                 <span class="comment"># 查看运行中的进程。</span></span><br><span class="line">top                <span class="comment"># 实时显示进程信息。示例: 两秒钟刷新一次 ## top -d 2</span></span><br><span class="line">netstat            <span class="comment"># 查看占用端口的进程</span></span><br><span class="line"><span class="built_in">kill</span>               <span class="comment"># 终止进程。</span></span><br><span class="line">shutdown / reboot  <span class="comment"># 关机或重启系统。</span></span><br><span class="line"><span class="built_in">uname</span>              <span class="comment"># 显示系统信息。</span></span><br><span class="line"><span class="built_in">date</span>               <span class="comment"># 显示或设置系统时间。</span></span><br><span class="line">useradd / userdel  <span class="comment"># 添加或删除用户。</span></span><br><span class="line">passwd             <span class="comment"># 更改用户密码。</span></span><br><span class="line"><span class="comment">## **包管理：** RPM 和 DPKG 为最常见的两类软件包管理工具；YUM 基于 RPM，具有依赖管理功能，并具有软件升级的功能</span></span><br><span class="line">apt-get            <span class="comment"># 安装、更新和删除软件包。(Debian/Ubuntu)</span></span><br><span class="line">yum                <span class="comment"># 安装、更新和删除软件包。(Red Hat/CentOS)</span></span><br><span class="line">snap install       <span class="comment"># 下载最新 </span></span><br><span class="line">dpkg               <span class="comment"># 直接管理软件包。(Debian/Ubuntu) </span></span><br><span class="line">rpm                <span class="comment"># 直接管理软件包。(Red Hat/CentOS)</span></span><br><span class="line">pip                <span class="comment"># Python包管理器。</span></span><br><span class="line"><span class="comment">## **网络工具：**</span></span><br><span class="line">ping               <span class="comment"># 测试网络连接。</span></span><br><span class="line">curl / wget        <span class="comment"># 下载文件或内容。</span></span><br><span class="line">ssh                <span class="comment"># 远程登录到其他计算机。</span></span><br><span class="line">scp                <span class="comment"># 安全拷贝文件到远程主机。</span></span><br><span class="line">ifconfig           <span class="comment"># 显示网络接口的配置信息，包括IP地址、子网掩码等。（Windows系统上是 ipconfig）</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="二、磁盘"><a href="#二、磁盘" class="headerlink" title="二、磁盘"></a>二、磁盘</h1><p>Linux 中每个硬件都被当做一个文件，包括磁盘。磁盘以磁盘接口类型进行命名，常见磁盘的文件名如下:</p>
+<ul>
+<li>IDE 磁盘: &#x2F;dev&#x2F;hd[a-d]</li>
+<li>SATA&#x2F;SCSI&#x2F;SAS 磁盘: &#x2F;dev&#x2F;sd[a-p]<br>其中文件名后面的序号的确定与系统检测到磁盘的顺序有关，而与磁盘所插入的插槽位置无关。</li>
+</ul>
+<h1 id="三、分区"><a href="#三、分区" class="headerlink" title="三、分区"></a>三、分区</h1><p>磁盘分区表主要有两种格式，一种是限制较多的 MBR 分区表，一种是较新且限制较少的 GPT 分区表。</p>
+<h1 id="四、文件系统"><a href="#四、文件系统" class="headerlink" title="四、文件系统"></a>四、文件系统</h1><p>Linux 文件系统是一种层次化的组织结构，用于存储和管理文件。这个文件系统通常由一个根目录和一系列子目录、文件以及链接组成。<br>Linux 系统是以文件目录系统为根基的，<strong>一切东西都是文件</strong>，包括硬件、进程、命令、系统设置等等。</p>
+<ol>
+<li><strong>树状结构：</strong> Linux文件系统采用树状结构，以根目录（&#x2F;）作为顶层目录。树状结构允许文件和目录以层次结构进行组织，方便用户和应用程序定位和访问文件。（Windows 中的目录斜杠与之相反，是右斜杠 \）</li>
+<li><strong>根目录（&#x2F;）:</strong> 根目录是文件系统的最顶层目录，包含整个文件系统的目录和文件。所有的文件和目录都位于根目录下或其子目录中。</li>
+<li><strong>目录（文件夹）：</strong> 目录是用于组织和存储文件的容器。它类似于Windows中的文件夹。目录中可以包含文件和其他子目录。</li>
+<li><strong>文件：</strong> 文件是数据的容器。在Linux中，一切都是文件，包括文本文件、二进制文件、设备文件等。</li>
+<li><strong>路径：</strong> 路径是指定文件或目录位置的方式。绝对路径从根目录开始，而相对路径从当前工作目录开始。例如，<code>/home/user/documents</code> 是一个绝对路径，表示文档目录在用户主目录下。<!-- 6. **挂载：** Linux支持将不同的文件系统挂载到文件系统树的不同部分。这使得用户可以访问其他分区或设备上的文件和目录，就像它们是本地文件系统一样。 -->
+<!-- 7. **文件权限：** Linux文件系统使用权限位来控制对文件和目录的访问权限。每个文件和目录都有一个所有者、一个用户组，以及一个“其他人”组，每个组都有读、写和执行的权限。 -->
+<!-- 8. **链接：** 在Linux中，有两种主要类型的链接：硬链接和符号链接（软链接）。链接是将一个文件关联到另一个位置的方法，有助于在文件系统中创建别名或共享资源。 -->
+<!-- 9. **文件系统类型：** Linux支持多种文件系统类型，包括常见的ext4、ext3、ext2、XFS等。每种文件系统类型都有其特定的特性和优点，适用于不同的用途。 -->
+<!-- 10. **特殊文件：** Linux中有一些特殊的文件类型，如设备文件。设备文件允许用户与硬件设备进行交互，例如磁盘驱动器、打印机等。 --></li>
+</ol>
+<hr>
+
+<h1 id="十、进程管理"><a href="#十、进程管理" class="headerlink" title="十、进程管理"></a>十、进程管理</h1><hr>
+
+<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p>Vim（Vi Improved）是一款强大的文本编辑器，广泛用于Linux和Unix系统。它是Vi编辑器的改进版本，提供了许多额外的功能和改进。</p>
+<h2 id="启动和退出"><a href="#启动和退出" class="headerlink" title="启动和退出"></a>启动和退出</h2><p><strong>启动Vim：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim</span><br></pre></td></tr></table></figure>
+<p><strong>打开文件：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim filename</span><br></pre></td></tr></table></figure>
+<p><strong>退出Vim：</strong></p>
+<ul>
+<li>进入命令模式（按 <code>Esc</code> 键），然后输入 <code>:q</code>，按 <code>Enter</code>。</li>
+<li>如果有未保存的更改，使用 <code>:q!</code> 来强制退出，或者 <code>:wq</code> 保存并退出。</li>
+</ul>
+<h2 id="模式驱动"><a href="#模式驱动" class="headerlink" title="模式驱动"></a>模式驱动</h2><ol>
+<li><strong>普通模式：</strong>在这个模式下，键盘输入被解释为命令。你可以使用这些命令来移动光标、删除文本、复制粘贴等。</li>
+<li><strong>插入模式：</strong>在这个模式下，你可以输入文本。按下 “i” 进入插入模式，按 “Esc” 退出插入模式并返回到普通模式。</li>
+<li><strong>可视模式：</strong>这模式下，你可以选择文本块以进行复制、剪切或其他操作。按下 “v” 进入可视模式，然后使用移动命令来选择文本。</li>
+<li><strong>命令行模式：</strong>在这个模式下，你可以输入各种命令，例如保存文件、退出 Vim、搜索等。按下 “:” 进入命令行模式。</li>
+<li><strong>选择模式：</strong>与可视模式有些类似，但是在选择后直接进入插入模式。按下 “v” 进入可视模式，然后按 “Shift” 和 “v” 进入选择模式。</li>
+</ol>
+<h2 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h2><ul>
+<li><p><strong>移动光标：</strong>   <code>h</code>：左移   - <code>j</code>：下移   - <code>k</code>：上移   - <code>l</code>：右移</p>
+</li>
+<li><p><strong>移动到行首或行尾：</strong>   <code>0</code>：移动到行首   - <code>$</code>：移动到行尾</p>
+</li>
+</ul>
+<h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><ul>
+<li><p><strong>搜索：</strong> 在命令模式下，按 <code>/</code>，然后输入要搜索的文本，按 <code>Enter</code>。</p>
+</li>
+<li><p><strong>替换：</strong> 在命令模式下，输入 <code>:%s/old/new/g</code> 来将所有匹配的 <code>old</code> 替换为 <code>new</code>。</p>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p><strong>保存：</strong><br>    - 在命令模式下，输入 <code>:w</code> 保存更改。</p>
+<p><strong>撤销：</strong><br>    - 在命令模式下，按 <code>u</code> 来撤销上一步操作。</p>
+<p><strong>重做：</strong><br>    - 在命令模式下，按 <code>Ctrl + r</code> 来重做。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clyd4uh3h0009awv53x5d9zxf" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
