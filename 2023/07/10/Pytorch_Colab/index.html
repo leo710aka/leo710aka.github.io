@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   
-  <title>Pytorch / Anaconda | Qué miras Bobo</title>
+  <title>Pytorch / Colab | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="PyTorch是一个开源的Python机器学习库，基于Torch库，底层由C++实现，应用于人工智能领域，如计算机视觉和自然语言处理。它最初由Meta Platforms的人工智能研究团队开发，现在属于Linux基金会的一部分。它是在修改后的BSD许可证下发布的自由及开放源代码软件。 许多深度学习软件都是基于 PyTorch 构建的，包括特斯拉自动驾驶、Uber的Pyro、Hugging Face">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch &#x2F; Anaconda">
-<meta property="og:url" content="http://example.com/2023/07/10/Pytorch_Anaconda/index.html">
+<meta property="og:title" content="Pytorch &#x2F; Colab">
+<meta property="og:url" content="http://example.com/2023/07/10/Pytorch_Colab/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
 <meta property="og:description" content="PyTorch是一个开源的Python机器学习库，基于Torch库，底层由C++实现，应用于人工智能领域，如计算机视觉和自然语言处理。它最初由Meta Platforms的人工智能研究团队开发，现在属于Linux基金会的一部分。它是在修改后的BSD许可证下发布的自由及开放源代码软件。 许多深度学习软件都是基于 PyTorch 构建的，包括特斯拉自动驾驶、Uber的Pyro、Hugging Face">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://leo710aka.github.io/bk/nn.png">
 <meta property="article:published_time" content="2023-07-10T03:58:39.000Z">
-<meta property="article:modified_time" content="2024-07-08T15:16:51.293Z">
+<meta property="article:modified_time" content="2024-07-09T15:12:45.582Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/nn.png">
@@ -73,9 +73,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Pytorch_Anaconda" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Pytorch_Colab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/07/10/Pytorch_Anaconda/" class="article-date">
+    <a href="/2023/07/10/Pytorch_Colab/" class="article-date">
   <time class="dt-published" datetime="2023-07-10T03:58:39.000Z" itemprop="datePublished">2023-07-10</time>
 </a>
     
@@ -87,7 +87,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Pytorch / Anaconda
+      Pytorch / Colab
     </h1>
   
 
@@ -111,29 +111,25 @@
 <p>一次训练+验证：准备数据 - 加载数据 - 准备模型 - 设置损失函数 - 设置优化器 - 开始训练 - 验证 - 聚合展示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):  <span class="comment"># 共20轮训练</span></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> dataloader:  <span class="comment"># 对数据进行一轮学习</span></span><br><span class="line">        imgs, targets = data</span><br><span class="line">        output = fc(imgs)</span><br><span class="line">        result_loss = loss(output, targets)  <span class="comment"># 计算损失</span></span><br><span class="line">        optim.zero_grad()  <span class="comment"># 优化器中，梯度置0</span></span><br><span class="line">        result_loss.backward()  <span class="comment"># 损失函数求梯度，反向传播</span></span><br><span class="line">        optim.step()  <span class="comment"># 优化器，优化卷积核参数</span></span><br><span class="line">        running_loss = running_loss + result_loss</span><br><span class="line">    <span class="built_in">print</span>(running_loss)</span><br></pre></td></tr></table></figure>
 
-<hr>
+<h1 id="Colab"><a href="#Colab" class="headerlink" title="Colab"></a>Colab</h1><p><strong>Google Colab</strong>是谷歌提供的免费<strong>Jupyter</strong>笔记本环境，不需要配置环境（本质是<strong>Linux虚拟机</strong>），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍。Colab Pro+ 订阅者还可获享更高的稳定性。</p>
+<p>使用Colab训练比较重要的是处理好路径的关系，找到哪个文件在哪里，文件夹的执行目录在哪里，就可以比较简单的运行起程序了，不过Colab确实存在断线问题，我们需要时刻保存好文件，因此我将权值直接保存在云盘上，这样也不会丢失。<br><strong>12h</strong>的限额比较难受，有时候没到时间就限额了。因此需要及时保存训练的模型，长时间不用gpu的情况下也会被限额（Pro版也一样），因此训练完建议及时改成gpu或停止。</p>
+<h3 id="Google-Drive"><a href="#Google-Drive" class="headerlink" title="Google Drive"></a>Google Drive</h3><p>谷歌云盘，谷歌云端硬盘。免费用户可以获取15G的空间，付费用户根据套餐可以选择最大20TB的储存空间。<br><strong>虚拟机根目录为 &#x2F;content，谷歌云盘地址为 &#x2F;content&#x2F;Drive&#x2F;MyDrive</strong></p>
+<h3 id="深度学习库的下载"><a href="#深度学习库的下载" class="headerlink" title="深度学习库的下载"></a>深度学习库的下载</h3><p>使用git clone指令进行下载，然后通过cd指令将根目录转移到了xx文件夹。<strong>此时根目录为 &#x2F;content&#x2F;xx</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!git <span class="built_in">clone</span> https://github.com/xx/xx.git</span><br><span class="line">%<span class="built_in">cd</span> xx/</span><br></pre></td></tr></table></figure>
 
-<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><ol>
-<li>利用 Anaconda，创建不同版本的虚拟环境，配置不同的包（如不同版本的 Pytorch），以管理不同的项目。</li>
-<li>用 Pycharm 打开项目时，点击添加解释器 —&gt; 添加本地解释器，选择该项目对应的 conda 虚拟环境下，该虚拟环境的 python 解释器。选择使用这个虚拟环境对应的编辑器，就是选择了使用这个环境运行项目，使用这个环境中配好的包等等。</li>
-<li>所以要注意终端使用的是哪个编辑器，是否与当前项目使用的编辑器匹配。否则 pip install 把包装到一个虚拟环境，而当前项目运行在另一个虚拟环境中，便无法 import 已安装的包。</li>
-</ol>
-<h3 id="新建虚拟环境"><a href="#新建虚拟环境" class="headerlink" title="新建虚拟环境"></a>新建虚拟环境</h3><p>打开Anaconda Prompt，创建一个名字为py36的python版本为3.6的虚拟环境（默认地址已改成D:\anaconda3\envs），并查看已有环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users\cf&gt;conda create -n py36 python=3.6</span><br><span class="line">Proceed ([y]/n)? y</span><br><span class="line">(base) C:\Users\cf&gt;conda <span class="built_in">env</span> list</span><br><span class="line"><span class="comment"># conda environments:</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">  base                  *  D:\anaconda3</span><br><span class="line">  py36                     D:\anaconda3\envs\py36</span><br></pre></td></tr></table></figure>
+<h3 id="数据集与预训练权重的上传"><a href="#数据集与预训练权重的上传" class="headerlink" title="数据集与预训练权重的上传"></a>数据集与预训练权重的上传</h3><p>数据集压缩，上传Google Drive，在colab中打开的jupyter文件（等于打开了一个Linux<strong>虚拟机本地</strong>）中挂载Google Drive；将数据集从Drive中复制到当前根目录，解压。<strong>直接将数据集布置在谷歌云盘会导致大量的云盘数据传输，且谷歌云盘和虚拟机之间存在通信带宽，速度远不及本地(虚拟机)文件，因此需要将数据集复制解压到本地(虚拟机)里进行处理。</strong> (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501</a>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">cp</span> /content/Drive/MyDrive/xx.zip ./</span><br><span class="line">!unzip ./xx.zip -d ./</span><br></pre></td></tr></table></figure>
+<p>预训练权重存放在 &#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx，然后创建logs和model_data。model_data放置的是预训练文件,logs放置的是网络训练过程中产生的权值。</p>
+<h3 id="保存路径设置"><a href="#保存路径设置" class="headerlink" title="保存路径设置"></a>保存路径设置</h3><p>如果将权值保存在当前根目录下的logs文件夹（&#x2F;content&#x2F;xx&#x2F;logs），发生断线网络就白训练了，浪费大量的时间。<br>可以将google云盘软连接到根目录下，那么即使断线，权值也保留在云盘中。<br>本文之前在云盘中创建了logs文件夹（&#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx&#x2F;logs），将该文件夹链接到当前根目录下的logs文件夹中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">ln</span> -s /content/Drive/MyDrive/Models/xx/logs logs   <span class="comment"># 即/content/xx/logs</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>1、标注文件的处理<br>2、训练文件的处理<br>1）预训练文件的使用。<br>2）保存周期的设置，这个设置是因为云盘的存储空间有限，每代都保存会导致存储空间满出。<br>3、开始训练：!python train.py</p>
+<h3 id="常用-colab-命令"><a href="#常用-colab-命令" class="headerlink" title="常用 colab 命令"></a>常用 colab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import shutil</span><br><span class="line">shutil.copytree(<span class="string">&quot;复制的文件夹&quot;</span>,<span class="string">&quot;目标路径+目标路径下的文件夹&quot;</span>)  <span class="comment"># 复制路径下的文件夹</span></span><br><span class="line">shutil.copytree(<span class="string">&quot;/content/drive/My Drive/channel&quot;</span>,<span class="string">&quot;/content/drive/My Drive/channel10&quot;</span>) <span class="comment"># ex</span></span><br><span class="line">shutil.rmtree(<span class="string">&quot;移除路径下的文件夹&quot;</span>) <span class="comment"># 移除路径下的文件夹</span></span><br><span class="line">shutil.copy(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>) <span class="comment"># 复制单个文件的命令  同上</span></span><br><span class="line"><span class="comment"># 删除单个文件可以右键删除</span></span><br><span class="line">!<span class="built_in">pwd</span> <span class="comment"># 显示当前目录, /content 为根目录</span></span><br><span class="line">import os </span><br><span class="line">os.chdir(<span class="string">&quot;/content/federated-learning&quot;</span>) <span class="comment"># 变更根目录操作</span></span><br><span class="line">!python <span class="string">&quot;/content/federated-learning/main_nn.py&quot;</span> <span class="comment"># 运行python 文件</span></span><br></pre></td></tr></table></figure>
 
-<p>激活（切换）环境，并查看该环境下已有包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users\cf&gt;conda activate py36</span><br><span class="line">(py36) C:\Users\cf&gt;pip list</span><br></pre></td></tr></table></figure>
-<h3 id="装包"><a href="#装包" class="headerlink" title="装包"></a>装包</h3><p>方法1：在 Anaconda Prompt 中进入该环境后，执行 conda install … 或 pip install …(需要关闭代理)<br>方法2：在 Pycharm的terminal（终端），执行安装指令（此时所处的是 Pycharm终端 的环境（不一定是此时加载的项目的环境））</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其他pip指令</span></span><br><span class="line">pip list                                     <span class="comment"># 列出所有已安装的pip包</span></span><br><span class="line">pip install package_name==desired_version    <span class="comment"># 安装指定版本的Python包</span></span><br><span class="line">pip install --target=... package_name        <span class="comment"># 指定pip install包的路径</span></span><br><span class="line">pip show package_name                        <span class="comment"># 查看安装好的包的信息</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Jupyter-Notebook"><a href="#Jupyter-Notebook" class="headerlink" title="Jupyter Notebook"></a>Jupyter Notebook</h3><p><font color= "#87CEFA  "><strong>以任意行为块，便于代码阅读和测试修改。</strong></font> 在一个环境中安装 jupyter notebook 后，运行:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(py36) C:\Users\cf&gt;jupyter notebook        </span><br></pre></td></tr></table></figure>
-<p>在浏览器打开8888端口使用 <a target="_blank" rel="noopener" href="http://localhost:8888/?token=7e39781c1e364fa7a5ee95ef290ffa92eb0caef0c19aaad8">http://localhost:8888/?token=7e39781c1e364fa7a5ee95ef290ffa92eb0caef0c19aaad8</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/10/Pytorch_Anaconda/" data-id="clyd4ywiy000wngv52b8pbzf9" data-title="Pytorch / Anaconda" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/07/10/Pytorch_Colab/" data-id="clyekqmio000bhkv558hgfsg5" data-title="Pytorch / Colab" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -143,19 +139,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/07/31/Colab/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/07/31/Docker/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Colab
+          Docker
         
       </div>
     </a>
   
   
-    <a href="/2023/04/12/Git_Docker/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/04/12/Git/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Git / Docker</div>
+      <div class="article-nav-title">Git</div>
     </a>
   
 </nav>
@@ -197,7 +193,7 @@
           </li>
         
           <li>
-            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84/">美 的 Midea</a>
+            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
           </li>
         
           <li>
@@ -213,7 +209,7 @@
           </li>
         
           <li>
-            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏 伯 网 络</a>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/">骏 伯 Junbo</a>
           </li>
         
           <li>

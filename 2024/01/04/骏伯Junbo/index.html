@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>骏 伯 网 络 | Qué miras Bobo</title>
+  <title>骏 伯 Junbo | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="使命：让移动互联网营销简单高效 价值观：创造价值，分享价值 愿景：做最受信赖的移动互联网营销服务商    系统开发指南：http:&#x2F;&#x2F;doc.junbo.top&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;5168806  配置 Gradle 的环境变量： MySQL使用、Redis使用、RabbitMQ使用：在application-xxx.yml配置连接信息； 服务请求流程：Se">
+  <meta name="description" content="使命：让移动互联网营销简单高效 价值观：创造价值，分享价值 愿景：做最受信赖的移动互联网营销服务商    系统开发指南：http:&#x2F;&#x2F;doc.junbo.top&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;5168806  配置 Gradle 的环境变量 MySQL使用、Redis使用、RabbitMQ使用 服务请求流程   系统开发流程：http:&#x2F;&#x2F;doc.junbo.top&#x2F;p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="骏 伯 网 络">
-<meta property="og:url" content="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/index.html">
+<meta property="og:title" content="骏 伯 Junbo">
+<meta property="og:url" content="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="使命：让移动互联网营销简单高效 价值观：创造价值，分享价值 愿景：做最受信赖的移动互联网营销服务商    系统开发指南：http:&#x2F;&#x2F;doc.junbo.top&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;5168806  配置 Gradle 的环境变量： MySQL使用、Redis使用、RabbitMQ使用：在application-xxx.yml配置连接信息； 服务请求流程：Se">
+<meta property="og:description" content="使命：让移动互联网营销简单高效 价值观：创造价值，分享价值 愿景：做最受信赖的移动互联网营销服务商    系统开发指南：http:&#x2F;&#x2F;doc.junbo.top&#x2F;pages&#x2F;viewpage.action?pageId&#x3D;5168806  配置 Gradle 的环境变量 MySQL使用、Redis使用、RabbitMQ使用 服务请求流程   系统开发流程：http:&#x2F;&#x2F;doc.junbo.top&#x2F;p">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-04T02:58:11.000Z">
-<meta property="article:modified_time" content="2024-07-08T15:09:41.975Z">
+<meta property="article:modified_time" content="2024-07-09T15:35:55.529Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -71,9 +71,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-骏伯" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-骏伯Junbo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/" class="article-date">
+    <a href="/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" class="article-date">
   <time class="dt-published" datetime="2024-01-04T02:58:11.000Z" itemprop="datePublished">2024-01-04</time>
 </a>
     
@@ -85,7 +85,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      骏 伯 网 络
+      骏 伯 Junbo
     </h1>
   
 
@@ -101,31 +101,19 @@
 <ul>
 <li><p>系统开发指南：<a target="_blank" rel="noopener" href="http://doc.junbo.top/pages/viewpage.action?pageId=5168806">http://doc.junbo.top/pages/viewpage.action?pageId=5168806</a></p>
 <ul>
-<li>配置 Gradle 的环境变量：</li>
-<li>MySQL使用、Redis使用、RabbitMQ使用：在application-xxx.yml配置连接信息；</li>
-<li>服务请求流程：Service层直接返回BO，不允许返回DO和Response对象。如果有失败信息需要返回，通过异常往上抛，由调用方捕获异常进行处理。</li>
+<li>配置 Gradle 的环境变量</li>
+<li>MySQL使用、Redis使用、RabbitMQ使用</li>
+<li>服务请求流程</li>
 </ul>
 </li>
 <li><p>系统开发流程：<a target="_blank" rel="noopener" href="http://doc.junbo.top/pages/viewpage.action?pageId=5158235">http://doc.junbo.top/pages/viewpage.action?pageId=5158235</a></p>
 <ul>
-<li>项目结构 junbo-xxx<br>  xxx-soa：注册中心提供api接口服务，供其他服务调用<br>  –xxx-api：接口命名，参数定义。<br>  –xxx-service：核心实现与数据库交互，业务流程逻辑处理。<br>  xxx-web：用于web端提供http接口。<br>  xxx-frontend：前端工程。</li>
-<li>区分环境配置：项目中除了基础公共配置外，按不同的环境，区分不同的配置。不同环境的代码与配置无需做调整，只需要在服务启动时增加Dspring.profiles.active &#x3D; {域标识}配置项，通过调整启动参数来适配不同环境。<br>  开发环境 dev，测试环境 test，生产环境 prod</li>
-<li>接口定义：通常系统开发中，我们需要接口定义写到接口管理系统 <a target="_blank" rel="noopener" href="http://rap.gzjunbo.net/">http://rap.gzjunbo.net/</a> 中。</li>
+<li>项目结构 </li>
+<li>区分环境配置</li>
+<li>接口定义</li>
 </ul>
 </li>
 <li><p>后端开发规范：<a target="_blank" rel="noopener" href="http://doc.junbo.top/pages/viewpage.action?pageId=28431534">http://doc.junbo.top/pages/viewpage.action?pageId=28431534</a></p>
-<ul>
-<li>JAVA 开发规范的要点总结:<ol>
-<li>命名规范:采用驼峰命名法(例如:userName)和“下划线命名法”(例如:user_name)。类名使用大驼峰命名法(例如:UserName),方法名、变量名使用小驼峰命名法(例如:getUserName)。常量全部大写,单词间下划线隔开(例如:MAX_COUNT)。</li>
-<li>代码格式规范:左大括号前不换行,左大括号后换行。右大括号前换行,若后有else等则不换行。使用4个空格进行缩进。单行字符数限120,方法限200行,类限1000行。</li>
-<li>分层规范:分为展现层、接口层、业务层、通用层、数据层。上层可依赖下层,下层不能依赖上层。对外提供接口的服务必为接口,内部实现用Impl结尾。</li>
-<li>异常规范:自定义分层异常,继承基础异常。每层只抛本层异常,不直接抛下层异常。异常信息包含错误码和消息。禁止使用普通Exception。</li>
-<li>日志规范:使用SLF4J门面日志,禁用println。方法入口和出口加日志。日志内容包括现场信息和异常栈。生产禁debug日志,有选择info日志。按天滚动,单文件100M,最多保留10个。</li>
-<li>缓存规范:推荐Redis。键名小写:[应用名]:[模块名]:[内容名]。缓存操作失败不能影响业务流程。</li>
-<li>消息队列规范:队列名小写:[应用名].[模块名].[队列名]。应用名在开发部门唯一,防止冲突。</li>
-</ol>
-</li>
-</ul>
 </li>
 <li><p>敏捷实践指南：<a target="_blank" rel="noopener" href="http://doc.junbo.top/pages/viewpage.action?pageId=12830307">http://doc.junbo.top/pages/viewpage.action?pageId=12830307</a><br>敏捷开发：一种应对快速变化需求的一种软件开发能力。相对于”非敏捷”，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通（认为比书面的文档更有效）、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法，也更注重做为软件开发中人的作用。</p>
 </li>
@@ -133,19 +121,7 @@
 <hr>
 
 <h2 id="学习-junbo-demo"><a href="#学习-junbo-demo" class="headerlink" title="学习 junbo-demo"></a>学习 junbo-demo</h2><ul>
-<li>开发工具：IDEA 2022.3.3<br>常用插件：阿里巴巴编码规约（Alibaba Java Coding Guidelines），File-&gt;Settings-&gt;Plugins-&gt;Browse repositories-&gt;输入插件的英文名称-&gt;点击该插件-&gt;install<br>开发环境：jdk1.8.0_202，Gradle 6.0，Nexus仓库 <a target="_blank" rel="noopener" href="http://nexus.jetmobo.com/">http://nexus.jetmobo.com</a><br>项目结构：<br>junbo-demo&#x2F;<br>├── demo-frontend&#x2F;                    # 前端工程<br>│   ├── demo-admin&#x2F;                   # 后台管理前端工程<br>│   └── …<br>├── demo-soa&#x2F;                         # 服务化工程<br>│   ├── demo-api&#x2F;                     # 接口服务<br>│   ├── demo-service&#x2F;                 # 业务服务<br>│   └── build.gradle                  # Gradle编译配置<br>├── demo-web&#x2F;<br>│   ├── demo-admin&#x2F;                   # 后台管理后端工程<br>│   ├── demo-h5&#x2F;                      # 业务网关服务工程<br>│   └── build.gradle                  # Gradle编译配置<br>├── build.gradle                      # Gradle编译配置<br>├── dependency.gradle                 # Gradle常量配置<br>├── settings.gradle                   # Gradle工程结构配置<br>└── …</li>
-<li>Gradle配置：设置-&gt;构建工具-&gt;Gradle-&gt;指定位置-&gt;D:&#x2F;gradle-6.0<br>配置Gradle环境变量：在D:&#x2F;gradle-6.0&#x2F;init.d目录下新建一个文件名为：init.gradle，配置文件内容编辑为（固定写法）<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ext &#123;</span><br><span class="line">    nexus = <span class="string">&#x27;http://nexus.jetmobo.com&#x27;</span></span><br><span class="line">    username = <span class="string">&#x27;这是下载包权限用户：找运维提供&#x27;</span></span><br><span class="line">    password = <span class="string">&#x27;这是下载包权限密码：找运维提供&#x27;</span></span><br><span class="line">    upload_username = <span class="string">&#x27;这是上传包权限用户：找运维提供&#x27;</span></span><br><span class="line">    upload_password = <span class="string">&#x27;这是上传包权限密码：找运维提供&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>应用配置<ul>
-<li>一般配置  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8080</span> <span class="comment"># 应用端口</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="comment"># dataSource druid configuration</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">druid:</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.218.194/TestDB?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;rewriteBatchedStatements=true</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="number">90</span><span class="string">-iopjklnm,</span></span><br><span class="line">        <span class="comment"># ...   </span></span><br><span class="line">    <span class="comment"># redis配置</span></span><br><span class="line">    <span class="attr">redis:</span></span><br><span class="line">        <span class="attr">database:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">timeout:</span> <span class="string">3s</span></span><br><span class="line">        <span class="attr">sentinel:</span></span><br><span class="line">        <span class="attr">master:</span> <span class="string">mymaster</span></span><br><span class="line">        <span class="attr">nodes:</span> <span class="number">192.168</span><span class="number">.218</span><span class="number">.222</span><span class="string">:26379,192.168.218.222:26389,192.168.218.222:26399</span></span><br><span class="line">        <span class="comment"># ...  </span></span><br><span class="line">    <span class="attr">other-redis:</span></span><br><span class="line">        <span class="comment"># ...  </span></span><br><span class="line">    <span class="comment"># rabbitmq配置</span></span><br><span class="line">    <span class="attr">rabbitmq:</span></span><br><span class="line">        <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.218</span><span class="number">.245</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">gzjunbo</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">junbo@888</span></span><br><span class="line">        <span class="attr">publisher-confirms:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">virtual-host:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></li>
-<li>junbo 自定义配置  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">junbo:</span></span><br><span class="line">    <span class="comment"># actuator-filter: false # 是否需要配置监控端点权限拦截</span></span><br><span class="line">    <span class="attr">use-error:</span> <span class="literal">false</span> <span class="comment"># 是否使用统一错误页面输出，默认为false，soa项目配置为false，web项目如果没有自定义配置，配置为true。</span></span><br><span class="line">    <span class="attr">use-status:</span> <span class="literal">true</span> <span class="comment"># 是否使用统一可用性检查入口/status.html，默认为true，项目如果没有自定义配置，需要设置为true。</span></span><br><span class="line">    <span class="attr">use-rest-response:</span> <span class="literal">false</span> <span class="comment"># 是否使用RESTful响应，默认为true，soa项目配置为false，web项目如果没有自定义配置，配置为true。</span></span><br><span class="line">    <span class="attr">use-business-error-encoder:</span> <span class="literal">true</span> <span class="comment"># 是否使用异常转换rest对象，默认为false，web项目配置为false，soa项目如果没有自定义配置，配置为true。</span></span><br><span class="line">    <span class="attr">use-business-error-decoder:</span> <span class="literal">true</span> <span class="comment"># 是否使用rest转换异常对象，默认为true，项目如果没有自定义配置，需要配置为true。</span></span><br></pre></td></tr></table></figure></li>
-<li>配置Prometheues监控端点  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暴露当前系统actuator明细信息，用于SpringBootAdmin监控</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">    <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line"><span class="attr">endpoint:</span></span><br><span class="line">    <span class="attr">health:</span></span><br><span class="line">    <span class="attr">show-details:</span> <span class="string">ALWAYS</span></span><br><span class="line"><span class="comment"># 此监控端点配置用于Prometheues监控。</span></span><br><span class="line"><span class="attr">metrics:</span></span><br><span class="line">    <span class="attr">distribution:</span></span><br><span class="line">    <span class="string">percentiles-histogram[http.server.requests]:</span> <span class="literal">true</span></span><br><span class="line">    <span class="string">maximum-expected-value[http.server.requests]:</span> <span class="number">10000</span> <span class="comment">#预期最大值</span></span><br><span class="line">    <span class="string">minimum-expected-value[http.server.requests]:</span> <span class="number">1</span> <span class="comment">#预期最小值</span></span><br></pre></td></tr></table></figure></li>
-<li>配置注册中心：application-xxx.yml配置eureka注册信息，通过hostname注册服务。  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">instance:</span></span><br><span class="line">    <span class="attr">instance-id:</span> <span class="string">$&#123;spring.cloud.client.ip-address&#125;:$&#123;server.port&#125;</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">$&#123;spring.application.name&#125;.$&#123;spring.profiles.active&#125;.svc</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>测试环境域名须加上“test-”前缀。规范持续集成方案,采用Jenkins。</li>
-<li>发布时严格实施多机部署。给出Tomcat、JVM等部署参数的建议配置。</li>
-<li>要求提供Dockerfile以实现容器化。包括配置监控端点、应用端口、服务注册、部署脚本等内容。</li>
-<li>通过junbo-demo可以学习到<br>1、springboot微服务架构<br>2、熟悉api、model、service、dao、mapper层的调用关系<br>3、掌握junboGenerator的生成代码步骤，mybatis的增删改查的实现<br>4、掌握springboot中mysql、redis、MQ的操作方法<br>5、掌握单元测试的编写</li>
+<li>开发工具：IDEA 2022.3.3<br>常用插件：阿里巴巴编码规约（Alibaba Java Coding Guidelines），File-&gt;Settings-&gt;Plugins-&gt;Browse repositories-&gt;输入插件的英文名称-&gt;点击该插件-&gt;install<br>开发环境：jdk1.8.0_202，Gradle 6.0</li>
 </ul>
 <hr>
 
@@ -244,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AF/" data-id="clyd4ywix000tngv52nri7kvc" data-title="骏 伯 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="clyekqmis000rhkv58vkd7n3w" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -308,7 +284,7 @@
           </li>
         
           <li>
-            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84/">美 的 Midea</a>
+            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
           </li>
         
           <li>
@@ -324,7 +300,7 @@
           </li>
         
           <li>
-            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AF/">骏 伯 网 络</a>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/">骏 伯 Junbo</a>
           </li>
         
           <li>
