@@ -152,8 +152,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="2024-07-08"><a href="#2024-07-08" class="headerlink" title="2024.07.08"></a>2024.07.08</h2><p>入职第一天，熟悉运维平台（公司内部各系统使用），目标实现其自动化，后续参与到美的云平台。。</p>
-<h2 id="2024-07-09"><a href="#2024-07-09" class="headerlink" title="2024.07.09"></a>2024.07.09</h2><p>第一个需求，公有云开关机，，</p>
+        <h2 id="2024-07-08"><a href="#2024-07-08" class="headerlink" title="2024.07.08"></a>2024.07.08</h2><p>入职第一天，熟悉运维平台，目标实现其自动化，后续参与到美的云。。</p>
+<h2 id="7-09-7-12"><a href="#7-09-7-12" class="headerlink" title="7.09 - 7.12"></a>7.09 - 7.12</h2><p>第一个需求：熟悉新旧平台的功能和调用关系，拆分业务需求开发步骤，编写文档，每日汇报进展；调试第三方公有云api，同步开发其他流程；熟悉表、接口调试，对接前端<br>第一周：软工院作为非互联网公司的非核心业务的底层平台建设部门。。结果导向。。缺少校招生培养</p>
 
       
     </div>
@@ -1245,12 +1245,9 @@
         <p><strong>使命</strong>：让移动互联网营销简单高效</p>
 <p><strong>价值观</strong>：创造价值，分享价值</p>
 <p><strong>愿景</strong>：做最受信赖的移动互联网营销服务商</p>
-<p>敏捷开发：一种应对快速变化需求的一种软件开发能力。相对于”非敏捷”，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通(认为比书面的文档更有效)、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法，也更注重做为软件开发中人的作用。</p>
 <hr>
 
-<h2 id="学习-junbo-demo"><a href="#学习-junbo-demo" class="headerlink" title="学习 junbo-demo"></a>学习 junbo-demo</h2><ul>
-<li>开发工具：IDEA 2022.3.3<br>常用插件：阿里巴巴编码规约（Alibaba Java Coding Guidelines），File-&gt;Settings-&gt;Plugins-&gt;Browse repositories-&gt;输入插件的英文名称-&gt;点击该插件-&gt;install<br>开发环境：jdk1.8.0_202，Gradle 6.0</li>
-</ul>
+<h2 id="学习-junbo-demo"><a href="#学习-junbo-demo" class="headerlink" title="学习 junbo-demo"></a>学习 junbo-demo</h2><p>开发工具：IDEA 2022.3.3<br>常用插件：阿里巴巴编码规约（Alibaba Java Coding Guidelines）, File-&gt;Settings-&gt;Plugins-&gt;Browse repositories-&gt;输入英文名称-&gt;install<br>开发环境：jdk1.8.0_202，Gradle 6.0</p>
 <hr>
 
 <h2 id="蔡枫-的2023年终总结"><a href="#蔡枫-的2023年终总结" class="headerlink" title="蔡枫 的2023年终总结"></a>蔡枫 的2023年终总结</h2><ul>
@@ -1280,7 +1277,12 @@
 </ul>
 <hr>
 
-<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><p><strong>模块 服务</strong>？一个服务占用一个端口， 在 .gradle 配置<br>{<br>    demo-api: 服务化接口定义项目<br>    demo-service: 服务化实现项目<br>}<br>api 接口与实现 分离，<br>UserApi接口上加 @FeignClient， 请求均分发送到多台服务器上<br>spring注入 与 单例模式。。</p>
+<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><ul>
+<li><p><strong>模块 服务</strong>？一个服务占用一个端口， 在 .gradle 配置<br>{<br>  demo-api: 服务化接口定义项目<br>  demo-service: 服务化实现项目<br>}<br>api 接口与实现 分离，<br>UserApi接口上加 @FeignClient， 请求均分发送到多台服务器上<br>spring注入 与 单例模式。。</p>
+</li>
+<li><p>敏捷开发：一种应对快速变化需求的一种软件开发能力。相对于”非敏捷”，更强调程序员团队与业务专家之间的紧密协作、面对面的沟通(认为比书面的文档更有效)、频繁交付新的软件版本、紧凑而自我组织型的团队、能够很好地适应需求变化的代码编写和团队组织方法，也更注重做为软件开发中人的作用。</p>
+</li>
+</ul>
 <h2 id="01-18"><a href="#01-18" class="headerlink" title="01.18"></a>01.18</h2><ul>
 <li><p>使用不同的窗口打开一个项目下的不同服务、、</p>
 </li>
@@ -1301,38 +1303,64 @@
 </ol>
 </li>
 </ul>
-<h2 id="01-30"><a href="#01-30" class="headerlink" title="01.30"></a>01.30</h2><ol>
-<li>App拉新业务，增加白名单功能<ul>
-<li>业务：当新接入一个客户或者媒体时，需要对整条链路进行验证，确保数据是能够正常传递的。媒体广告投放后台有一个联调功能，通过联调功能，能够指定媒体给特定一台手机发送测试广告，用户再点击广告可以触发一条广告点击数据，并发送到我方拉新业务系统，我方可以通过页面功能查到该广告点击数据的状态。如果该点击数据成功发给客户，说明链路一（媒体到客户）是通的，则可以使用我方业务系统页面功能手动触发一条转化数据，发给媒体，如果能发送成功，则说明整条链路是通的，则验证通过。</li>
-<li>问题：使用联调功能，媒体给我方发送的广告点击数据，我们会做一些拦截处理，有时候不会将它们发给客户，这就使得没法进行下一步转化回传的动作，从而无法完成媒体的联调。一个典型的拦截处理的案例是，对于某些客户，我方在发送点击数据给对方时，需要调用客户的接口进行确认，判断当前用户是否是客户的目标用户，如果不是，则不发送点击数据给客户，这样的拦截称之为RTA拦截。拦截率由客户决定的，并且可能会很高，业务方用来联调的手机基本都被拦截了，从而无法完成联调。<br> handle 拦截，其实就是修改某些字段的状态，以在之后判定为某种情况而进行某种行为</li>
-<li>解决：添加白名单，如果业务方用来测试的手机设备号在白名单内，则不进行拦截。</li>
-<li>代码介绍<br> 仓库地址：<a target="_blank" rel="noopener" href="http://git.gzjunbo.net/junbo/junbo-newenergy.git%EF%BC%8C%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E5%90%8E%EF%BC%8C%E5%9F%BA%E4%BA%8Emaster%E5%88%86%E6%94%AF%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BC%80%E5%8F%91%E5%88%86%E6%94%AFdevelop-caif%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E8%BF%99%E4%B8%AA%E5%88%86%E6%94%AF%E4%B8%8A%E6%94%B9%E4%BB%A3%E7%A0%81">http://git.gzjunbo.net/junbo/junbo-newenergy.git，拉取代码后，基于master分支创建一个自己的开发分支develop-caif，然后在这个分支上改代码</a><br> 两个服务：newenergy-web-admin、newenergybg-service，前者提供了一个接收点击数据的接口，在收到点击数据以后，会将其通过feign转发给newenergybg-service服务进行处理（注册中心为eureka）。<br> 接口对应的方法是：ConvTraceWebApi.send（newenergy-web-admin），它会调用newenergybg-service服务的ConvTraceApiImpl.upload方法，再通过MediaDataForwardProducer.produce方法，将其发送到Kafka消息队列，再由MediaDataForwardServiceImpl.consumeKafka方法进行消费，最终进入核心的业务处理逻辑方法，即MediaDataForwardServiceImpl.upload方法，我们需要修改的RTA拦截部分的代码就在这里面。</li>
-<li>upload方法的内部处理逻辑如下：<br> 参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。<br> 参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。<br> 参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。<br> 将校验通过的点击数据发给客户（transferToCustomer）。<br> 保存数据到数据库&#x2F;缓存（save）。<br> 我们需要修改的RTA拦截部分的代码在参数后置处理部分，具体方法是YoudaoMediaActionDataHandler.handle。</li>
-<li>YoudaoMediaActionDataHandler.handle类内部处理逻辑<br> 媒体发给我方的数据可能不止用户点击数据，还包括了广告曝光数据（即用户只要看了广告，媒体就会通知我们），这类数据我们是不需要发给客户的，因此需要设置状态为NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。<br> 走RTA拦截，有一些前置条件，包括①业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）②如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）<br> 对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用<br> 如果客户不接受当前用户，则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。（添加白名单后，如果客户不接受当前用户，不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户）</li>
-</ul>
-</li>
-<li>更多了解业务（年后我跟你再将一些代码，然后在上面做一些修改）<br>监测系统，，单元测试，，<br>，，</li>
-</ol>
-<h2 id="02-20"><a href="#02-20" class="headerlink" title="02.20"></a>02.20</h2><ul>
-<li>需求：开发媒体上报规则报表的分页查询接口<ul>
-<li>需求原型：<a target="_blank" rel="noopener" href="https://axhub.im/pro/62d03dd7790d2dd4/#g=1&p=%E5%AA%92%E4%BD%93%E4%B8%8A%E6%8A%A5%E8%A7%84%E5%88%99%E6%8A%A5%E8%A1%A8">https://axhub.im/pro/62d03dd7790d2dd4/#g=1&amp;p=%E5%AA%92%E4%BD%93%E4%B8%8A%E6%8A%A5%E8%A7%84%E5%88%99%E6%8A%A5%E8%A1%A8</a></li>
-<li>拉一个develop-caif分支，后续代码开发在此分支上进行，分支对应整个项目，其中包括了后面涉及到的所有微服务</li>
-<li>数据库建表</li>
-<li>使用junboGenerator插件生成表结构对应的MyBatis代码（DO, BO, Mapper文件），用于操作数据库。修改 &#x2F;resources&#x2F;generator&#x2F;generatorConfig.xml 文件，运行插件： Gradle -&gt; newenerge-soa -&gt; Tasks -&gt; junbo -&gt; junboGenerater，配置新表（注意，此时需要将其他表的配置项注释掉），后续插件执行时会根据数据库表结构生成相应的Java代码（DO、Mapper等等），将代码文件放到特定的文件目录下。<br>  config.xml 中有两类列属性需要特殊标记，一类是id，一类是枚举字段（在数据库里可能是int，而在java中是enum，此时插件默认无法将这两个类型对应，需要覆盖掉插件的默认行为，手动进行转换）</li>
-<li>实现分页功能，大致步骤包括：<br>  ①【newenergy-api】定义XXXApi接口及page方法<br>  ②【newenergybg-service】定义XXXService接口及page方法<br>  ③【newenergybg-service】定义XXXApiImpl类（Controller），实现XXXApi接口及page方法，通过调用XXXService完成分页查询数据的操作<br>  ④【newenergybg-service】定义XXXServiceImpl类，实现XXXService接口及page方法，通过MyBatis分页插件及XXXMapper的查询方法，完成数据的分页查询。<br>  ⑤【newenergy-api】发布XXXApi：修改版本号（xx.snapshot），发布新的jar包（包含新的XXXApi接口）到 Maven 仓库；Gradle -&gt; newenergy-api -&gt; Tasks -&gt; publishing -&gt; publish<br>  ⑥【newenergy-web-admin】引入最新的XXXApi：更新maven，依赖新版本jar包，以使用新的XXXApi接口<br>  ⑦【newenergy-web-admin】定义XXXWebApi类及page方法（Controller），通过XXXApi的page方法，完成数据的分页查询。</li>
-<li>服务关系：<br>  【newenergy-api】：定义接口信息，同时被【newenergybg-service】和【newenergy-web-admin】依赖<br>  【newenergybg-service】是【newenergy-api】的实现，实际的服务端；<br>  【newenergy-web-admin】接收前端请求（防止暴露实际服务端），从 maven 获取 jar 包反射获取接口和实体类信息。</li>
-<li>参数信息：<br>  Api方法中：XXXRequest、XXXResponse<br>  业务层：XXXBO<br>  持久层：直接与数据库交互 XXXDO<br>  实际上，由于需要返回的数据是由多表查询而来，任一 BO 或 DO 都没法涵盖所有属性字段。所以新增一个 分页查询entity类 ConvCallbackRuleDailyReportPageItem，要在 mapper.xml 里修改 resultMap 中查询数据与返回值的对应关系，在后续数据转换的过程中主要前后类的字段的对应。</li>
-<li>【集成测试】本地启动newenergybg-service服务和newenergy-web-admin服务，通过postman调用接口进行测试，期望结果是，查出来的结果与数据库中的数据一致。<br>  实际请求发送流程为：前端客户端程序发起请求 -&gt;【newenergy-web-admin】XXXWebApi.page -&gt; 【newenergybg-service】XXXApiImpl.page -&gt; 【newenergybg-service】XXXServiceImpl.page -&gt; 【newenergybg-service】 XXXMapper.selectByExample<br>  测试方法：打断点，观察获取和处理的数据从 mapper-&gt;serviceImpl-&gt;apiImpl 中的变化，注意数据转换过程<br>  使用 postman 给本地服务发送请求，如 localhost:1087&#x2F;service&#x2F;conv-callback-rule-daily-report&#x2F;page，在 Body 携带 raw 的 json 数据  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;beginDate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2024-02-11&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;productCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;pageIndex&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;pageSize&quot;</span><span class="punctuation">:</span> <span class="number">10</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li>提交代码到远程仓库develop-caif分支</li>
-<li>在 Yapi 编写接口文档</li>
-</ul>
-</li>
-</ul>
+<h2 id="01-30"><a href="#01-30" class="headerlink" title="01.30"></a>01.30</h2><p>App拉新业务，增加白名单功能</p>
+<!-- - 业务：当新接入一个客户或者媒体时，需要对整条链路进行验证，确保数据是能够正常传递的。媒体广告投放后台有一个联调功能，通过联调功能，能够指定媒体给特定一台手机发送测试广告，用户再点击广告可以触发一条广告点击数据，并发送到我方拉新业务系统，我方可以通过页面功能查到该广告点击数据的状态。如果该点击数据成功发给客户，说明链路一（媒体到客户）是通的，则可以使用我方业务系统页面功能手动触发一条转化数据，发给媒体，如果能发送成功，则说明整条链路是通的，则验证通过。
+- 问题：使用联调功能，媒体给我方发送的广告点击数据，我们会做一些拦截处理，有时候不会将它们发给客户，这就使得没法进行下一步转化回传的动作，从而无法完成媒体的联调。一个典型的拦截处理的案例是，对于某些客户，我方在发送点击数据给对方时，需要调用客户的接口进行确认，判断当前用户是否是客户的目标用户，如果不是，则不发送点击数据给客户，这样的拦截称之为RTA拦截。拦截率由客户决定的，并且可能会很高，业务方用来联调的手机基本都被拦截了，从而无法完成联调。
+handle 拦截，其实就是修改某些字段的状态，以在之后判定为某种情况而进行某种行为
+- 解决：添加白名单，如果业务方用来测试的手机设备号在白名单内，则不进行拦截。
+- 代码介绍
+仓库地址：http://git.gzjunbo.net/junbo/junbo-newenergy.git， 基于master分支创建一个自己的开发分支develop-caif
+两个服务：newenergy-web-admin、newenergybg-service，前者提供了一个接收点击数据的接口，在收到点击数据以后，会将其通过feign转发给newenergybg-service服务进行处理（注册中心为eureka）。
+接口对应的方法是：ConvTraceWebApi.send（newenergy-web-admin），它会调用newenergybg-service服务的ConvTraceApiImpl.upload方法，再通过MediaDataForwardProducer.produce方法，将其发送到Kafka消息队列，再由MediaDataForwardServiceImpl.consumeKafka方法进行消费，最终进入核心的业务处理逻辑方法，即MediaDataForwardServiceImpl.upload方法，我们需要修改的RTA拦截部分的代码就在这里面。
+- upload方法的内部处理逻辑如下：
+参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。
+参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。
+参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。
+将校验通过的点击数据发给客户（transferToCustomer）。
+保存数据到数据库/缓存（save）。
+我们需要修改的RTA拦截部分的代码在参数后置处理部分，具体方法是YoudaoMediaActionDataHandler.handle。
+- YoudaoMediaActionDataHandler.handle类内部处理逻辑
+媒体发给我方的数据可能不止用户点击数据，还包括了广告曝光数据（即用户只要看了广告，媒体就会通知我们），这类数据我们是不需要发给客户的，因此需要设置状态为NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。
+走RTA拦截，有一些前置条件，包括①业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）②如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）
+对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用
+如果客户不接受当前用户，则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。（添加白名单后，如果客户不接受当前用户，不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户） -->
+
+
+<h2 id="02-20"><a href="#02-20" class="headerlink" title="02.20"></a>02.20</h2><p>需求：开发媒体上报规则报表的分页查询接口</p>
+<!-- * 需求原型：https://axhub.im/pro/62d03dd7790d2dd4/#g=1&p=%E5%AA%92%E4%BD%93%E4%B8%8A%E6%8A%A5%E8%A7%84%E5%88%99%E6%8A%A5%E8%A1%A8
+* 拉一个develop-caif分支，后续代码开发在此分支上进行，分支对应整个项目，其中包括了后面涉及到的所有微服务
+* 数据库建表
+* 使用junboGenerator插件生成表结构对应的MyBatis代码（DO, BO, Mapper文件），用于操作数据库。修改 /resources/generator/generatorConfig.xml 文件，运行插件： Gradle -> newenerge-soa -> Tasks -> junbo -> junboGenerater，配置新表（注意，此时需要将其他表的配置项注释掉），后续插件执行时会根据数据库表结构生成相应的Java代码（DO、Mapper等等），将代码文件放到特定的文件目录下。
+config.xml 中有两类列属性需要特殊标记，一类是id，一类是枚举字段（在数据库里可能是int，而在java中是enum，此时插件默认无法将这两个类型对应，需要覆盖掉插件的默认行为，手动进行转换）
+* 实现分页功能，大致步骤包括：
+①【newenergy-api】定义XXXApi接口及page方法
+②【newenergybg-service】定义XXXService接口及page方法
+③【newenergybg-service】定义XXXApiImpl类（Controller），实现XXXApi接口及page方法，通过调用XXXService完成分页查询数据的操作
+④【newenergybg-service】定义XXXServiceImpl类，实现XXXService接口及page方法，通过MyBatis分页插件及XXXMapper的查询方法，完成数据的分页查询。
+⑤【newenergy-api】发布XXXApi：修改版本号（xx.snapshot），发布新的jar包（包含新的XXXApi接口）到 Maven 仓库；Gradle -> newenergy-api -> Tasks -> publishing -> publish 
+⑥【newenergy-web-admin】引入最新的XXXApi：更新maven，依赖新版本jar包，以使用新的XXXApi接口
+⑦【newenergy-web-admin】定义XXXWebApi类及page方法（Controller），通过XXXApi的page方法，完成数据的分页查询。
+* 服务关系：
+【newenergy-api】：定义接口信息，同时被【newenergybg-service】和【newenergy-web-admin】依赖
+【newenergybg-service】是【newenergy-api】的实现，实际的服务端；
+【newenergy-web-admin】接收前端请求（防止暴露实际服务端），从 maven 获取 jar 包反射获取接口和实体类信息。
+* 参数信息：
+Api方法中：XXXRequest、XXXResponse
+业务层：XXXBO
+持久层：直接与数据库交互 XXXDO
+实际上，由于需要返回的数据是由多表查询而来，任一 BO 或 DO 都没法涵盖所有属性字段。所以新增一个 分页查询entity类 ConvCallbackRuleDailyReportPageItem，要在 mapper.xml 里修改 resultMap 中查询数据与返回值的对应关系，在后续数据转换的过程中主要前后类的字段的对应。
+* 【集成测试】本地启动newenergybg-service服务和newenergy-web-admin服务，通过postman调用接口进行测试，期望结果是，查出来的结果与数据库中的数据一致。
+实际请求发送流程为：前端客户端程序发起请求 ->【newenergy-web-admin】XXXWebApi.page -> 【newenergybg-service】XXXApiImpl.page -> 【newenergybg-service】XXXServiceImpl.page -> 【newenergybg-service】 XXXMapper.selectByExample
+测试方法：打断点，观察获取和处理的数据从 mapper->serviceImpl->apiImpl 中的变化，注意数据转换过程
+使用 postman 给本地服务发送请求，如 localhost:1087/service/conv-callback-rule-daily-report/page，在 Body 携带 raw 的 json 数据
+* 提交代码到远程仓库develop-caif分支
+* 在 Yapi 编写接口文档 -->
+
 <h2 id="02-22"><a href="#02-22" class="headerlink" title="02.22"></a>02.22</h2><ul>
 <li>YY yy &#x3D; BeanMapperUtil.map(xx, YY.class); 从xx复制属性值而来生成YY类型的实例yy</li>
 <li>List<ConvCallbackRuleDailyReportResponse> list &#x3D; page.getList().stream().map(this::toResponse).collect(Collectors.toList());<br>  Java中的Stream API 是一种用于处理集合数据的强大工具，在 Java 8 中引入，它允许我们以声明性方式处理数据集合（即你可以描述你想要做什么，而不是描述如何去做）,它使得集合操作更加简洁、易读和高效。<ul>
 <li>创建 Stream：你可以从集合（如 List、Set 等）创建 Stream，或者从数组创建。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line">Stream&lt;String&gt; stream = list.stream();  </span><br><span class="line"><span class="comment">// 或者直接从数组创建  </span></span><br><span class="line">Stream&lt;String&gt; arrayStream = Arrays.stream(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>&#125;);</span><br></pre></td></tr></table></figure></li>
-<li>中间操作：中间操作是返回新 Stream 的操作，它们可以链接起来形成一个处理链。常见的中间操作有 filter、map、sorted 等。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line">    List&lt;String&gt; result = list.stream()  </span><br><span class="line">                        .filter(s -&gt; s.matches(<span class="string">&quot;[a-c]+&quot;</span>))  <span class="comment">// 过滤出以 a-c 开头的字符串  </span></span><br><span class="line">                        .map(String::toUpperCase)         <span class="comment">// 将字符串转换为大写  </span></span><br><span class="line">                        .sorted()                          <span class="comment">// 对字符串进行排序  </span></span><br><span class="line">                        .collect(Collectors.toList());     <span class="comment">// 收集到新的 List 中  </span></span><br></pre></td></tr></table></figure></li>
+<li>中间操作：是返回新 Stream 的操作，它们可以链接起来形成一个处理链。常见的中间操作有 filter、map、sorted 等。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line">    List&lt;String&gt; result = list.stream()  </span><br><span class="line">                        .filter(s -&gt; s.matches(<span class="string">&quot;[a-c]+&quot;</span>))  <span class="comment">// 过滤出以 a-c 开头的字符串  </span></span><br><span class="line">                        .map(String::toUpperCase)         <span class="comment">// 将字符串转换为大写  </span></span><br><span class="line">                        .sorted()                          <span class="comment">// 对字符串进行排序  </span></span><br><span class="line">                        .collect(Collectors.toList());     <span class="comment">// 收集到新的 List 中  </span></span><br></pre></td></tr></table></figure></li>
 <li>终端操作：结束 Stream 处理并返回结果。常见的终端操作有 forEach、reduce、collect 等。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line"><span class="comment">// 使用 forEach 遍历 Stream  </span></span><br><span class="line">list.stream().forEach(System.out::println);  </span><br><span class="line"><span class="comment">// 使用 reduce 对 Stream 中的元素进行归约操作，例如求和  </span></span><br><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> list.stream().mapToInt(Integer::parseInt).sum();  </span><br><span class="line">System.out.println(sum);  <span class="comment">// 输出：6（&#x27;a&#x27;、&#x27;b&#x27;、&#x27;c&#x27;、&#x27;d&#x27; 的 ASCII 码之和）  </span></span><br><span class="line"><span class="comment">// 使用 collect 将 Stream 中的元素收集到新的集合中  </span></span><br><span class="line">List&lt;String&gt; collectedList = list.stream().collect(Collectors.toList());  </span><br><span class="line">System.out.println(collectedList);  <span class="comment">// 输出：[a, b, c, d]</span></span><br></pre></td></tr></table></figure></li>
 <li>并行 Stream：Java Stream API 还支持并行处理，这可以充分利用多核处理器的优势，提高处理速度。要创建一个并行 Stream，你可以使用 parallelStream() 方法。  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);  </span><br><span class="line"><span class="comment">// 使用 parallelStream 创建并行 Stream  </span></span><br><span class="line">List&lt;String&gt; collectedList = list.parallelStream().collect(Collectors.toList());  </span><br><span class="line">System.out.println(collectedList);  <span class="comment">// 输出：[a, b, c, d]</span></span><br></pre></td></tr></table></figure></li>
 </ul>
