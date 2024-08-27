@@ -69,6 +69,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-VMware_SSH" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/03/05/VMware_SSH/" class="article-date">
+  <time class="dt-published" datetime="2022-03-05T09:02:15.000Z" itemprop="datePublished">2022-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/03/05/VMware_SSH/">VMware / SSH</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="虚拟机-VM"><a href="#虚拟机-VM" class="headerlink" title="虚拟机 (VM)"></a><strong>虚拟机 (VM)</strong></h2><ul>
+<li>虚拟机（Virtual Machine）是一种利用软件模拟硬件的技术，使得一台物理计算机可以同时运行多个虚拟的操作系统或应用程序实例。虚拟机技术提供了更好的资源利用率、隔离性和灵活性，常见的虚拟机有硬件虚拟机和软件虚拟机两种。</li>
+<li>它包括虚拟的 CPU、内存、硬盘、网络接口等组件。</li>
+<li>可以在虚拟机上安装操作系统和应用程序，就像在物理计算机上一样。</li>
+<li>虚拟机和容器的区别：虚拟机模拟整个操作系统，资源占用相对较多；容器共享主机的操作系统内核，更轻量级，启动速度快。</li>
+</ul>
+<h2 id="VMware-Workstation"><a href="#VMware-Workstation" class="headerlink" title="VMware Workstation"></a>VMware Workstation</h2><ul>
+<li>VMware Workstation 是一款用于虚拟化的桌面软件，它允许用户在单个物理计算机上运行多个虚拟操作系统。</li>
+<li>创建虚拟机：启动 VMware Workstation，<br>1、创建新虚拟机，选择ISO文件，填写虚拟机的名称以及将来保存的位置；<br>2、虚拟机配置：按照向导的指示配置虚拟机，包括选择操作系统、分配内存、创建虚拟硬盘等；安装操作系统：<br>3、启动虚拟机，按照正常流程安装选定的操作系统。</li>
+<li>虚拟机克隆： VMware Workstation 允许你克隆虚拟机，以便快速创建相似的虚拟机。</li>
+<li>虚拟机导入：(除了创建虚拟机外) 你可以导入其他虚拟化平台的虚拟机。导入虚拟机时，通常使用的是虚拟机的配置文件和虚拟硬盘文件。（存放于 <code>C:\Users\蔡枫\Documents\Virtual Machines</code> 或 <code>D:\Virtual Machines</code>）<ul>
+<li>虚拟机配置文件： 这个文件包含了虚拟机的设置、硬件配置、网络配置等信息。在 VMware 中，这个文件通常有一个扩展名为 <code>.vmx</code>。当你导入虚拟机时，你需要选择这个配置文件。</li>
+<li>虚拟硬盘文件： 这个文件包含了虚拟机的硬盘数据，即操作系统和应用程序的安装等信息。在 VMware 中，虚拟硬盘文件的格式通常是 <code>.vmdk</code>。你也需要选择这个文件来导入虚拟机。</li>
+</ul>
+</li>
+<li>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/06/SSH/"><strong>SSH客户端</strong></a>。市面上常见有：Xshell，Finshell，<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/06/SSH/">MobarXterm</a></li>
+</ul>
+<h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p>一个基于Red Hat Enterprise Linux（RHEL）源代码构建的开源操作系统。默认账号：root，，账号2：<strong>leo</strong>，密码：<strong>cx078xxx</strong>。</p>
+<ul>
+<li>虚拟机目录：D:\VMCentOS-7，(网络适配器)名称：ens33；默认路由(网关)：192.168.111.2，DNS：192.168.111.2<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[leo@localhost ~]$ ifconfig</span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">      inet 192.168.111.128  netmask 255.255.255.0  broadcast 192.168.111.255 <span class="comment"># IPv4 子网掩码 广播地址</span></span><br><span class="line">      inet6 fe80::2304:6b2e:1716:b51  prefixlen 64  scopeid 0x20&lt;<span class="built_in">link</span>&gt;       <span class="comment"># IPv6地址</span></span><br><span class="line">      ether 00:0c:29:1a:cb:1a  txqueuelen 1000  (Ethernet)                   <span class="comment"># MAC 地址</span></span><br><span class="line">      RX packets 1704  bytes 1628741 (1.5 MiB)</span><br><span class="line">      RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">      TX packets 850  bytes 71942 (70.2 KiB)</span><br><span class="line">      TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+设置 ipv4 method为手动（网卡地址改为静态IP，这样可以避免每次启动虚拟机IP都变化）</li>
+</ul>
+<h2 id="Kali-Linux"><a href="#Kali-Linux" class="headerlink" title="Kali Linux"></a>Kali Linux</h2><p>Kali Linux（简称Kali）是一个基于Debian Linux的专业渗透测试和网络安全评估发行版。它提供了大量的安全工具，方便安全专业人员进行渗透测试、网络扫描、恢复密码等操作。默认账号：<strong>kali</strong>，默认密码：<strong>kali</strong><br>专业工具集：预装了大量的渗透测试和安全评估工具，包括 Metasploit、Wireshark、Nmap、Aircrack-ng 等。</p>
+<hr>
+
+<h1 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h1><ol>
+<li>SSH（Secure Shell）是一种用于在网络上进行加密通信的协议。它通常用于通过不安全的网络（例如互联网）安全地访问远程计算机上的终端。SSH 协议的主要目的是提供加密和身份验证，确保在客户端和服务器之间传输的数据是安全的。</li>
+<li>SSH 协议有两个主要组件：<strong>SSH客户端</strong>：用于发起远程连接的计算机上的程序。通过 SSH 客户端，用户可以连接到远程计算机并执行命令； <strong>SSH服务器</strong>：运行在远程计算机上的程序，接受来自客户端的连接并提供终端访问或执行其他操作。</li>
+<li>SSH 还可以用于文件传输和端口转发等用途，使其成为管理和维护远程服务器的强大工具。在日常工作中，开发人员、系统管理员和网络管理员经常使用 SSH 来远程管理和维护服务器。</li>
+</ol>
+<h3 id="SSH命令行工具"><a href="#SSH命令行工具" class="headerlink" title="SSH命令行工具"></a>SSH命令行工具</h3><p>Windows命令提示符和PowerShell都支持SSH命令。你可以使用ssh命令来连接到远程服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh username@hostname  <span class="comment"># 用户名 @ 公网IP</span></span><br><span class="line">ssh -i 密钥文件 username@hostname  <span class="comment"># 密钥登录</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="SSH客户端：MobarXterm"><a href="#SSH客户端：MobarXterm" class="headerlink" title="SSH客户端：MobarXterm"></a>SSH客户端：MobarXterm</h2><p>如果远程服务器上的操作系统的界面使用起来不方便，可以使用ssh客户端连接并操控远程服务器，<strong>包括本机上的虚拟机；</strong><br>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的SSH客户端，常见有 Xshell，Finshell，MobarXterm</p>
+<h3 id="连接虚拟机"><a href="#连接虚拟机" class="headerlink" title="连接虚拟机"></a><strong>连接虚拟机</strong></h3><p>1、打开MobarXterm，点击session按钮，进入会话管理：<br>2、在弹出的session管理页面中，填写信息：Remote Host(虚拟机的ipv4地址)，Specify name(root)<br>3、输入密码：(与虚拟机的一样？)cx0xx1xx，连接本机上 VMware中的 CentOS7系统的虚拟机<br>4、连接(虚拟机)成功后，进入操作界面了，通过 MobarXterm界面 对 VMware中的虚拟机 进行操作。</p>
+<h3 id="使用-MobarXterm-操作-Docker"><a href="#使用-MobarXterm-操作-Docker" class="headerlink" title="使用 MobarXterm 操作 Docker"></a>使用 MobarXterm 操作 Docker</h3><ol>
+<li><strong>启动虚拟机</strong>，使用 MobarXterm 连接虚拟机成功后，进入操作界面。<strong>在 MobarXterm界面上 对 VMware中的虚拟机 进行操作。</strong></li>
+<li>安装配置 Docker<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先要安装一个yum工具，并配置Docker的yum源</span></span><br><span class="line">yum install -y yum-utils</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 安装Docker</span></span><br><span class="line">yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line">systemctl start docker    <span class="comment"># 启动Docker</span></span><br><span class="line">systemctl stop docker     <span class="comment"># 停止Docker</span></span><br><span class="line">systemctl restart docker  <span class="comment"># 重启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> docker   <span class="comment"># 设置开机自启</span></span><br><span class="line">docker ps                 <span class="comment"># 执行docker ps命令，如果不报错，说明安装启动成功</span></span><br></pre></td></tr></table></figure></li>
+<li>配置阿里云镜像加速，重启docker</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/03/05/VMware_SSH/" data-id="cm0cja96o000lm4v5csy931mc" data-title="VMware / SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/02/Linux/" class="article-date">
@@ -185,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/02/Linux/" data-id="clzzl7c2a0008u0v51y21c3b3" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/02/Linux/" data-id="cm0cja96g000am4v53oos04oy" data-title="Linux" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -287,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="clzzl7c2e000ou0v51ay9e226" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-id="cm0cja96q000pm4v5fykebyj3" data-title="操 作 系 统" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -628,7 +706,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="clzzl7c2g000tu0v53c5a5ux9" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/02/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" data-id="cm0cja96r000um4v51z61fmrm" data-title="计 算 机 网 络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -701,7 +779,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="clzzl7c2d000hu0v54iep0zyg" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/12/SpringBoot/" data-id="cm0cja96k000im4v5h4njdsza" data-title="SpringBoot" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -916,7 +994,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/11/Spring/" data-id="clzzl7c2c000gu0v53bavgkr2" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/11/Spring/" data-id="cm0cja96l000jm4v532276xtl" data-title="Spring" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1174,7 +1252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="clzzl7c290006u0v5ec7bhd66" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/05/Java%E5%B9%B6%E5%8F%91/" data-id="cm0cja96g0008m4v5ahl4ai9p" data-title="Java 并发" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1623,7 +1701,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/04/JVM/" data-id="clzzl7c280002u0v51m58fzcx" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/04/JVM/" data-id="cm0cja96e0004m4v51gt943es" data-title="JVM" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1710,7 +1788,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/03/Java%E5%AE%B9%E5%99%A8/" data-id="clzzl7c2a0007u0v5fsml3w26" data-title="Java 容器" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/03/Java%E5%AE%B9%E5%99%A8/" data-id="cm0cja96f0007m4v56il48esi" data-title="Java 容器" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2082,380 +2160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="clzzl7c2a0009u0v50lae923c" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Java基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/09/01/Java%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time class="dt-published" datetime="2021-09-01T03:49:42.000Z" itemprop="datePublished">2021-09-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/09/01/Java%E5%9F%BA%E7%A1%80/">Java 基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>Java 是一种高级编程语言和计算平台。它最初由Sun（后被Oracle收购）于1995年发布，旨在实现“一次编写，到处运行”的理念。</li>
-<li><strong>Java SE（标准版）</strong>：是 Java 平台的基本版本，也是最基本的 Java 编程平台。提供了 Java 编程语言的核心功能，包括基本的语言结构、标准库、输入&#x2F;输出、多线程支持等。Java SE 适用于通用的桌面应用程序、命令行工具、小型服务、移动应用程序等各种领域。</li>
-<li><strong>Java EE（企业版）</strong>：是在 Java SE 的基础上构建的，专门用于开发和运行企业级应用程序的平台。它提供了一组扩展和 API，用于构建大型、分布式、可伸缩、高性能的应用程序，如企业级 Web 应用、电子商务系统等。Java EE 包括了 Servlet、JSP、EJB、JPA等各种技术和规范，以支持不同类型的企业级应用。</li>
-</ol>
-<h2 id="面向对象-三大特性"><a href="#面向对象-三大特性" class="headerlink" title="面向对象 三大特性"></a>面向对象 三大特性</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体。数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，只保留一些对外接口使之与外部发生联系。用户无需知道对象内部的细节，但可以通过对象对外提供的接口来访问该对象。</p>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承实现了 IS-A 关系，例如 Cat 和 Animal 就是一种 IS-A 关系，因此 Cat 可以继承自 Animal，从而获得 Animal 非 private 的属性和方法。继承应该遵循里氏替换原则，子类对象必须能够替换掉所有父类对象。Cat 可以当做 Animal 来使用，也就是说可以使用 Animal 引用 Cat 对象。父类引用指向子类对象称为 向上转型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 向上继承是面向对象编程中的一个关键概念，它通过创建一个统一的接口和通用的父类，支持多态性，减少代码重复，提高</span></span><br><span class="line"><span class="type">Animal</span> <span class="variable">animal</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();  <span class="comment">// 代码的可维护性和可扩展性。使代码更灵活、通用和易于理解，有助于构建更高质量的程序</span></span><br></pre></td></tr></table></figure>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>编译时多态主要指方法的重载（一个类中的多个同名方法）<br>运行时多态指程序中定义的对象引用所指向的具体类型在运行期间才确定（父,子类之间）；有三个条件:继承、覆盖(重写)、向上转型</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Animal</span> &#123;                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span> &#123;  System.out.println(<span class="string">&quot;aoaoao..&quot;</span>); &#125;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span> &#123;  System.out.println(<span class="string">&quot;旺旺旺&quot;</span>);    &#125;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Cat</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">play</span><span class="params">()</span> &#123;  System.out.println(<span class="string">&quot;喵喵喵&quot;</span>);    &#125;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Music</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;Animal&gt; animals = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        animals.add(<span class="keyword">new</span> <span class="title class_">Cat</span>());  </span><br><span class="line">        animals.add(<span class="keyword">new</span> <span class="title class_">Dog</span>());    <span class="comment">// animals.add(new ..()).....</span></span><br><span class="line">        <span class="keyword">for</span>(Animal animal : animals) &#123;            </span><br><span class="line">            animal.play();        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>数据类型定义了数据的种类和取值范围，以及对这些数据执行的操作。在Java中，数据类型主要分为两类：</p>
-<h3 id="1-基本数据类型"><a href="#1-基本数据类型" class="headerlink" title="1. 基本数据类型"></a>1. 基本数据类型</h3><ul>
-<li><strong>基本数据类型</strong>：这些数据类型是Java语言的一部分，用于表示基本的数据值。有以下几种：<br>整数类型：byte、short、int、long; 浮点数类型：float、double; 字符类型：char; 布尔类型：boolean<br><code>Integer.MAX_VALUE</code>常量表示int类型的最大值，值为2147483647。<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>byte</th>
-<th>short</th>
-<th>int</th>
-<th>long</th>
-<th>float</th>
-<th>double</th>
-<th>char</th>
-<th>boolean</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>大小(Byte)</td>
-<td>1</td>
-<td>2</td>
-<td>4</td>
-<td>8</td>
-<td>4</td>
-<td>8</td>
-<td>2</td>
-<td>1</td>
-</tr>
-</tbody></table>
-</li>
-<li><strong>包装类型</strong>：包装是指将基本数据类型包装在对象中的过程。这是因为 Java 是面向对象的编程语言，需要将基本数据类型封装在对象中，从而在面向对象的上下文中使用它们，在处理集合、泛型、反射等Java编程中的许多场景中非常有用。例如，你可以将一个 int 存储在一个 List&lt;Integer&gt; 中，而不是 List&lt;int&gt;<br>类型对应：byte - Byte, short - Short, int - Integer, long - Long, float - Float, double - Double, char - Character, boolean - Boolean<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">2</span>;  <span class="comment">// 装箱，基本类型与其对应的包装类型之间的赋值使用自动装箱与拆箱完成。</span></span><br><span class="line"><span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> x;      <span class="comment">// 拆箱</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>类型转换</strong>（char、String、int和double之间）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// int 转 double: int i = 123;</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> (<span class="type">double</span>)i; <span class="comment">// 或者直接 d = i;</span></span><br><span class="line"><span class="comment">// double 转 int: double d = 123.45;</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (<span class="type">int</span>)d; <span class="comment">// 使用类型转换，但请注意这会截断小数部分。结果是 123</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// int 转 char：int i = 97;</span></span><br><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> (<span class="type">char</span>)i;    <span class="comment">// 通过 ASCII值转换。97 对应的字符是 &#x27;a&#x27;</span></span><br><span class="line">c = (<span class="type">char</span>)(c + <span class="number">32</span>);  <span class="comment">// 大小写字母差值32，与cpp中的一样</span></span><br><span class="line"><span class="comment">// char 转 int：char c = &#x27;a&#x27;;</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (<span class="type">int</span>)c; <span class="comment">// 通过ASCII值转换。&#x27;a&#x27; 的ASCII值是 97</span></span><br><span class="line"><span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="string">&#x27;9&#x27;</span> - <span class="string">&#x27;0&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// int 转 String</span></span><br><span class="line"><span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">strNumber1</span> <span class="operator">=</span> String.valueOf(number);  </span><br><span class="line"><span class="type">String</span> <span class="variable">strNumber2</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span> + number;            </span><br><span class="line"><span class="type">String</span> <span class="variable">strNumber3</span> <span class="operator">=</span> Integer.toString(number); </span><br><span class="line"><span class="comment">// String 转 int</span></span><br><span class="line"><span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> Integer.parseInt(str); <span class="comment">// 默认十进制</span></span><br><span class="line"><span class="type">int</span> <span class="variable">numBinary</span> <span class="operator">=</span> Integer.parseInt(binaryStr, <span class="number">2</span>); <span class="comment">// 二进制</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String 转 double: String doubleStr = &quot;123.45&quot;;</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> Double.parseDouble(doubleStr);</span><br><span class="line"><span class="comment">// double 转 String: double d = 123.45;</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.valueOf(d); <span class="comment">// 或者 &quot;str = d +;&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// char 转 String：char c = &#x27;a&#x27;;</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> Character.toString(c);</span><br><span class="line">str += c; <span class="comment">// 将 `char` 直接与字符串连接（`char` 会自动被转换成 `String`）。</span></span><br><span class="line"><span class="comment">// String 转 char：String str = &quot;hello&quot;;</span></span><br><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> Character.charAt(str, <span class="number">0</span>); <span class="comment">// 获取字符串的第一个字符</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="2-引用数据类型"><a href="#2-引用数据类型" class="headerlink" title="2. 引用数据类型"></a>2. 引用数据类型</h3><p>引用数据类型用于引用对象，而不是直接存储数据值。引用数据类型包括类、接口、数组、枚举等。</p>
-<ul>
-<li>引用：引用是一个变量，用于存储对象的内存地址。它指向对象在堆内存中的位置，而不是对象本身。通过引用，可以访问和操作对象的数据和方法。</li>
-<li>引用类型：引用类型是Java中的数据类型之一，用于声明引用变量。Java的引用类型包括类、接口、数组、枚举和注解。引用类型的变量可以用来引用相应类型的对象。</li>
-<li><strong>堆内存：在Java中，所有的对象都存储在堆内存中。引用变量存储的是对象在堆内存中的地址。当创建一个新对象时，它被分配到堆内存中，然后引用变量被赋予该对象的地址。</strong></li>
-<li><strong>栈内存：Java中的引用变量本身存储在栈内存中。栈内存用于存储局部变量，包括引用变量。引用变量在栈上分配内存，但它们指向的对象存储在堆内存中。</strong></li>
-<li>强引用：强引用是最常见的引用类型。当一个对象被强引用变量引用时，它不会被垃圾回收器回收，直到引用变量不再引用该对象。如果没有任何强引用指向一个对象，该对象就会成为垃圾，可以被垃圾回收。</li>
-<li>软引用：软引用用于描述一些还有用但并非必需的对象。当内存不足时，垃圾回收器可能会回收被软引用引用的对象，释放内存。这可以防止内存溢出，但不会保证垃圾回收器什么时候回收这些对象。</li>
-<li>弱引用：弱引用用于描述非必需对象的引用。弱引用的对象会在垃圾回收器下次运行时被回收，不论内存是否足够。这使得弱引用适用于临时对象和缓存。</li>
-<li>虚引用：虚引用是最弱的引用类型。虚引用的对象没有直接访问的权限，它主要用于跟踪对象是否被回收。虚引用必须和引用队列（ReferenceQueue）一起使用，以便在对象被回收时收到通知。</li>
-</ul>
-<h3 id="主要引用类型"><a href="#主要引用类型" class="headerlink" title="主要引用类型:"></a><strong>主要引用类型:</strong></h3><ul>
-<li>类引用类型：类引用类型用于引用类的实例，即对象。这是Java中最常见的引用类型。例如，如果有一个类 <code>Person</code>，您可以创建 <code>Person</code> 类型的引用来引用不同的 <code>Person</code> 对象：<code>Person person = new Person();</code></li>
-<li>接口引用类型：接口引用类型用于引用实现了特定接口的对象。例如，如果有一个接口 <code>Drawable</code>，您可以创建 <code>Drawable</code> 类型的引用来引用实现了 <code>Drawable</code> 接口的对象：<code>Drawable drawable = new Circle();</code></li>
-<li>数组引用类型：数组引用类型用于引用数组对象。数组可以包含基本数据类型或引用类型的元素。例如，<code>int[] numbers</code> 是一个引用类型，用于引用整数数组。</li>
-<li>枚举引用类型</li>
-<li>泛型引用类型</li>
-<li>父类引用类型：父类引用类型用于引用子类对象。这可以用于实现多态。例如，如果有一个父类 <code>Animal</code> 和一个子类 <code>Dog</code>，您可以创建 <code>Animal</code> 类型的引用来引用 <code>Dog</code> 对象：<code>Animal animal = new Dog();</code></li>
-</ul>
-<h3 id="Java中的引用不是直接的内存地址，而是对实际对象的间接引用。这使得Java程序员不需要关心内存管理，因为Java虚拟机（JVM）会自动管理对象的创建和销毁。"><a href="#Java中的引用不是直接的内存地址，而是对实际对象的间接引用。这使得Java程序员不需要关心内存管理，因为Java虚拟机（JVM）会自动管理对象的创建和销毁。" class="headerlink" title="Java中的引用不是直接的内存地址，而是对实际对象的间接引用。这使得Java程序员不需要关心内存管理，因为Java虚拟机（JVM）会自动管理对象的创建和销毁。"></a><code>Java中的引用</code>不是直接的内存地址，而是对实际对象的间接引用。这使得Java程序员不需要关心内存管理，因为Java虚拟机（JVM）会自动管理对象的创建和销毁。</h3><p>与C++中的指针不同。Java中的引用是一种高级抽象，它隐藏了对象的底层内存地址和操作，使得程序员不需要关心内存管理。<br>Java中的引用本质上是一个抽象的句柄（handle），它不直接指向对象的内存地址，而是指向Java虚拟机（JVM）内部的数据结构，该数据结构包含了对象的信息以及对象在堆内存中的位置。这种抽象层级使Java更安全，因为程序员无法直接操纵内存地址，从而避免了许多常见的内存错误，如指针溢出和内存泄漏。</p>
-<h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><p>Java中的枚举类是一种特殊的类，用于定义一组常量。枚举类可以包含字段、方法和构造函数。</p>
-<ol>
-<li>定义简单的枚举类：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个简单的枚举类</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Day</span> &#123;</span><br><span class="line">    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 使用枚举常量</span></span><br><span class="line">        <span class="type">Day</span> <span class="variable">today</span> <span class="operator">=</span> Day.MONDAY;</span><br><span class="line">        System.out.println(<span class="string">&quot;Today is: &quot;</span> + today);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>枚举类包含字段和方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义包含字段和方法的枚举类</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Color</span> &#123;</span><br><span class="line">    RED(<span class="string">&quot;#FF0000&quot;</span>), GREEN(<span class="string">&quot;#00FF00&quot;</span>), BLUE(<span class="string">&quot;#0000FF&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> String hexCode;</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Color</span><span class="params">(String hexCode)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.hexCode = hexCode;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取颜色的十六进制代码</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getHexCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> hexCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumWithFieldsAndMethods</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 使用枚举常量和方法</span></span><br><span class="line">        <span class="type">Color</span> <span class="variable">color</span> <span class="operator">=</span> Color.BLUE;</span><br><span class="line">        System.out.println(<span class="string">&quot;Color is &quot;</span> + color + <span class="string">&quot; with hex code &quot;</span> + color.getHexCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>Java中的枚举类可以包含抽象方法。在这种情况下，每个枚举常量都必须实现抽象方法。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义带有抽象方法的枚举类</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Operation</span> &#123;</span><br><span class="line">    ADD &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">apply</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> x + y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    SUBTRACT &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">apply</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> x - y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 定义抽象方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">apply</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EnumWithAbstractMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 使用带有抽象方法的枚举</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> Operation.ADD.apply(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Result: &quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String 被声明为 final，因此它不可被继承。内部使用 char 数组存储数据，该数组被声明为 final，这意味着 value 数组初始化之后就不能再引用其它数组。并且 String 内部没有改变 value 数组的方法，因此可以保证 String类 不可变。</p>
-<ul>
-<li>String Pool ：如果一个 String 对象已经被创建过了，那么就会从 String Pool 中取得引用。</li>
-<li>String 不可变，StringBuffer 和 StringBuilder 可变。<br>String 不可变，因此是线程安全的，StringBuilder 不是线程安全的，StringBuffer 是线程安全的，内部使用 synchronized 进行同步<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">System.out.println(s1 == s2);           <span class="comment">// false; s1 和 s2 采用 new String() 的方式新建了两个不同对象</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s1.intern();</span><br><span class="line">System.out.println(s1.intern() == s3);  <span class="comment">// true; s3 是通过 s1.intern() 方法 首先把 s1 引用的对象放到 String Pool(字符串常量池)中，然后返回这个对象引用。因此 s3 和 s1 引用的是同一个字符串常量池的对象</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> <span class="string">&quot;bbb&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="string">&quot;bbb&quot;</span>;</span><br><span class="line">System.out.println(s4 == s5);           <span class="comment">// true; 采用 &quot;bbb&quot; 这种使用双引号的形式创建字符串实例，会自动地将新建的对象放入 String Pool 中</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-
-
-<h1 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h1><p>在Java中，数据的存储方式涉及到内存的不同区域，主要包括堆内存和栈内存。</p>
-<ol>
-<li><strong>栈内存（Stack Memory）</strong>：<ul>
-<li>存储特点：栈内存用于存储局部变量（方法内部定义的变量）和方法调用的执行上下文（包括方法的参数、返回地址等信息）。每个线程都有自己的栈内存，用于管理方法调用和局部变量的生命周期。</li>
-<li>生命周期：局部变量的生命周期与方法的执行周期相关联。当方法被调用时，会在栈内存中为局部变量分配内存，当方法执行完毕时，栈内存会自动释放局部变量的内存。</li>
-<li>线程安全：栈内存是线程私有的，因此它是线程安全的。不同线程的栈内存互相独立，不会发生竞态条件。</li>
-</ul>
-</li>
-<li><strong>堆内存（Heap Memory）</strong>：<ul>
-<li>存储特点：堆内存用于存储对象和数组等引用数据类型。是所有线程共享的内存区域，用于管理动态分配的对象的生命周期。</li>
-<li>生命周期：对象在堆内存中的生命周期不受方法调用的限制。对象在被创建时分配内存，在不再被引用时会被垃圾回收器自动回收。</li>
-<li>线程安全：由于堆内存是共享的，需要特别注意多线程访问的同步问题。Java提供了一些机制来确保堆内存中的数据安全，如 synchronized关键字和 java.util.concurrent 包中的工具类。</li>
-</ul>
-</li>
-<li><strong>数据存储示例</strong>：<ul>
-<li>当创建一个对象时，对象的引用存储在栈内存中，而对象的实际数据存储在堆内存中。例如，Person person &#x3D; new Person(); <ol>
-<li>在堆内存中，会为Person对象分配内存空间，这个对象包含了Person类中定义的所有成员变量（属性）。例如，如果Person类有一个名为name的成员变量，那么堆内存中的Person对象将包含一个用于存储name属性值的内存位置。堆内存中的对象是独立的，每个new Person()创建一个新的对象，其数据在堆内存中不会重叠。</li>
-<li>在栈内存中，会创建一个名为person的引用变量，这个引用变量存储了指向堆内存中Person对象的地址。也就是说，栈内存中的person变量实际上存储了对堆内存中Person对象的引用。当你访问person时，实际上是通过栈内存中的引用找到堆内存中的对象，然后可以操作对象的属性和方法。</li>
-</ol>
-</li>
-<li>局部变量（例如方法中的局部变量）的值和引用都存储在栈内存中。</li>
-<li>数组的引用存储在栈内存中，而数组的元素（对象引用或基本数据类型）存储在堆内存中。</li>
-<li>静态变量（<code>static</code>关键字修饰的变量）存储在方法区（在JVM规范中称为永久代）。</li>
-</ul>
-</li>
-<li>缓存池<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">x</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">123</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">y</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">123</span>);</span><br><span class="line">System.out.println(x == y);    <span class="comment">// false; new Integer() 每次都会新建一个对象</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">z</span> <span class="operator">=</span> Integer.valueOf(<span class="number">123</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">k</span> <span class="operator">=</span> Integer.valueOf(<span class="number">123</span>);</span><br><span class="line">System.out.println(z == k);    <span class="comment">// true; valueOf()会使用缓存池中的对象，多次调用会取得同一个对象的引用</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line">System.out.println(m == n);    <span class="comment">// true; 编译器会在缓冲池范围内的基本类型自动装箱过程调用 valueOf() </span></span><br><span class="line"><span class="comment">// 因此多个 Integer 实例使用自动装箱来创建并且值相同，那么就会引用相同的对象。</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><p>在Java中，方法参数的传递方式是<strong>按值传递</strong>，而不是引用传递。这意味着当你将参数传递给方法时，实际上是将参数的值传递给了方法，而不是参数本身。这包括基本数据类型和对象引用。<br><strong>1、基本数据类型：</strong> 作为参数传递的是该数据的副本。任何在方法内部对参数值的修改都不会影响到原始数据。<br><strong>2、对象引用：</strong> 对象引用也是按值传递的，但需要理解的是对象引用指的是对象在内存中的地址（间接引用，非直接地址）。当你将一个对象作为参数传递给方法时，传递的是对象引用的副本，而不是对象本身。这意味着在方法内部可以修改对象的状态，但不能改变对象引用指向的内存地址。</p>
-<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><ul>
-<li>“2.5” 字面量属于 double 类型，不能直接将 2.5 直接赋值给 float 变量，因为Java 不能隐式执行向下转型，这会使得精度降低。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">2.5f</span>;  <span class="comment">// 错误写法：float f = 2.5;  </span></span><br></pre></td></tr></table></figure></li>
-<li>字面量 1 是 int 类型，它比 short 类型精度要高，因此不能隐式地 下转型 。但是使用 +&#x3D; 运算符可以执行隐式类型转换。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">short</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="number">1</span>;  <span class="comment">// 不能 s1 = s1 + 1;</span></span><br><span class="line">s1 += <span class="number">1</span>;       <span class="comment">// 相当于 s1 = (short) (s1 + 1);</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="有-无符号数，原-反-补码"><a href="#有-无符号数，原-反-补码" class="headerlink" title="有&#x2F;无符号数，原&#x2F;反&#x2F;补码"></a>有&#x2F;无符号数，原&#x2F;反&#x2F;补码</h3><p>在 Java 中，所有的整数类型都是有符号的。Java中并没有内置的无符号整数类型；如果真的需要，可以使用大整数类 <code>BigInteger</code>。<br>无符号整数通常用于表示大范围正整数值，以及位运算和处理原始数据。它们可以扩展表示的范围，因为不需要一位来表示符号。<br><strong>原码</strong>是最简单的表示形式，其中最高位表示符号（0正数，1负数），其余位表示数值的大小。例如，+3原码为0011，-3原码为1011。<br><strong>反码</strong>是对原码的符号位以外的位取反得到的结果。正数的反码与其原码相同，负数的反码是其原码除符号位外取反。<br><strong>补码</strong>是计算机中最常用的表示方式。补码的计算方法是对反码加1。正数的补码与其原码相同，负数的补码是其反码加1。<br><strong>在Java中，整数类型（如byte、short、int、long）使用补码来表示有符号整数</strong>。这种表示方式使得负数的加法和减法运算可以与正数的运算使用同一套算法来执行，简化了计算机中的运算。</p>
-<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><ul>
-<li>在 Java 中，位运算是操作二进制位的一种操作，它们可以用来执行诸如位移、与、或、非等操作。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">5</span>, b = <span class="number">3</span>;  <span class="comment">// 二进制表示：0101, 0011</span></span><br><span class="line"><span class="type">int</span> <span class="variable">andResult</span> <span class="operator">=</span> a &amp; b;  <span class="comment">// 0101 &amp; 0011 = 0001，结果为 1</span></span><br><span class="line"><span class="type">int</span> <span class="variable">orResult</span> <span class="operator">=</span> a | b;   <span class="comment">// 0101 | 0011 = 0111，结果为 7</span></span><br><span class="line"><span class="type">int</span> <span class="variable">xorResult</span> <span class="operator">=</span> a ^ b;  <span class="comment">// 0101 ^ 0011 = 0110，结果为 6</span></span><br><span class="line"><span class="type">int</span> <span class="variable">complementA</span> <span class="operator">=</span> ~a;   <span class="comment">// ~0101 = 1010（补码表示），结果为 -6（-6的八位补码就是1111 1010）</span></span><br><span class="line"><span class="type">int</span> <span class="variable">leftShift</span> <span class="operator">=</span> a &lt;&lt; <span class="number">1</span>;            <span class="comment">// 0101 左移 1 位 = 1010，结果为 10</span></span><br><span class="line"><span class="type">int</span> <span class="variable">rightShift</span> <span class="operator">=</span> a &gt;&gt; <span class="number">1</span>;           <span class="comment">// 0101 右移 1 位 = 0010，结果为 2（使用符号位填充空位）</span></span><br><span class="line"><span class="type">int</span> <span class="variable">unsignedRightShift</span> <span class="operator">=</span> a &gt;&gt;&gt; <span class="number">1</span>;  <span class="comment">// 0101 无符号右移 1 位 = 0010，结果为 2（使用 0 填充空位）</span></span><br></pre></td></tr></table></figure></li>
-<li>在 Java 中，十六进制表示使用前缀 <code>0x</code> 或者 <code>0X</code> 来标识一个十六进制数。<br>使用位运算符时：Java 内部会将这些十六进制数转换为对应的二进制形式，然后执行位运算操作，最后转换回十六进制的结果。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">hex1</span> <span class="operator">=</span> <span class="number">0xA</span>, hex2 = <span class="number">0x7</span>;          <span class="comment">// 十六进制数 A 对应十进制数 10, 十六进制数 7 对应十进制数 7</span></span><br><span class="line"><span class="type">int</span> <span class="variable">andResult</span> <span class="operator">=</span> hex1 &amp; hex2;         <span class="comment">// 十六进制数 A &amp; 7 = 1010 &amp; 0111 = 0010，结果为 2</span></span><br><span class="line"><span class="type">int</span> <span class="variable">complementHex1</span> <span class="operator">=</span> ~hex1;          <span class="comment">// ~1010 = 0101（补码表示），结果为 -11</span></span><br><span class="line"><span class="type">int</span> <span class="variable">rightShift</span> <span class="operator">=</span> hex1 &gt;&gt; <span class="number">1</span>;          <span class="comment">// 十六进制数 A 右移 1 位 = 1010 右移 1 位 = 0101，结果为 5</span></span><br><span class="line"><span class="type">int</span> <span class="variable">unsignedRightShift</span> <span class="operator">=</span> hex1 &gt;&gt;&gt; <span class="number">1</span>; <span class="comment">// A 无符号右移 1 位 = 1010 无符号右移 1 位 = 0101，结果为 5</span></span><br></pre></td></tr></table></figure></li>
-<li><code>n &amp; (n−1)</code>，把 n 的二进制位中的最低位的 1 变为 0。</li>
-<li><strong>颠倒</strong>给定的 32 位无符号整数 n 的二进制位<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">32</span> &amp;&amp; n != <span class="number">0</span>; i++) &#123;</span><br><span class="line">    ans = ans | (n &amp; <span class="number">1</span>) &lt;&lt; (<span class="number">31</span> - i);</span><br><span class="line">    n &gt;&gt;&gt;= <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-
-<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><ol>
-<li><strong>类（Class）：</strong> 类是对象的模板，它定义了对象的属性（成员变量）和行为（方法）。类是一种抽象的概念，描述了一类事物的共同特征。在Java中，类是一种引用数据类型。</li>
-<li><strong>对象（Object）：</strong> 对象是类的实例，是具体的、实际存在的数据。每个对象都有自己的状态（成员变量的值）和行为（方法的调用)</li>
-</ol>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
-<li><strong>创建对象实例：</strong> 使用关键字 <code>new</code> 可以创建一个类的对象。例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyClass</span> <span class="variable">myObject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyClass</span>();</span><br></pre></td></tr></table></figure></li>
-<li><strong>通过反射：</strong> 使用 Java 的反射机制可以在运行时获取类的信息，创建对象实例。例如：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; clazz = Class.forName(<span class="string">&quot;com.example.MyClass&quot;</span>);</span><br><span class="line"><span class="type">MyClass</span> <span class="variable">myObject</span> <span class="operator">=</span> (MyClass) clazz.newInstance();</span><br></pre></td></tr></table></figure></li>
-<li><strong>通过工厂方法：</strong> 有时候，对象的创建可能通过工厂方法，例如静态方法等来实现。</li>
-<li>通过new创建<strong>实例对象</strong>demo，放在堆内存上；然后再main方法的栈帧中存放一个局部变量，存放了demo对象在堆上的地址，即建立起一个<strong>引用</strong>关系。将局部变量置null后，引用就不存在了，堆上的实例对象demo就可以回收了。<img src="https://github.com/leo710aka/bk/blob/main/java.png?raw=true" width="700" height="300" alt=""></li>
-</ul>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一旦对象被创建，可以通过其引用调用其属性和方法</span></span><br><span class="line">myObject.setSomeProperty(<span class="string">&quot;value&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">propertyValue</span> <span class="operator">=</span> myObject.getSomeProperty();</span><br></pre></td></tr></table></figure>
-
-<h3 id="回收"><a href="#回收" class="headerlink" title="回收"></a>回收</h3><ol>
-<li><p><strong>对象的回收：</strong> Java虚拟机通过垃圾回收器（Garbage Collector）来自动回收不再被引用的对象。垃圾回收器会定期检查程序中的对象，识别哪些对象没有被任何引用指向，然后释放它们占用的内存。这个过程是自动的，开发者无需手动管理大部分对象的内存。<br>在某些情况下，可以通过手动设置对象引用为<code>null</code>来提示垃圾回收器回收对象。但这通常不是必要的，因为现代的垃圾回收器在大多数情况下能够很好地管理内存。<br>对象的生命周期从创建开始，直到没有任何引用指向它时结束。垃圾回收器负责在对象不再被引用时将其销毁。</p>
-</li>
-<li><p><strong>类的回收：</strong> 在Java中，类的回收通常不是显式的操作。类加载和卸载是由类加载器（ClassLoader）来管理的。当一个类不再被任何对象引用，并且ClassLoader不再需要这个类时，该类可能会被卸载。在标准的Java应用程序中，类的卸载通常不是很常见，因为大多数类在整个应用程序的生命周期内都是可见的。<br>需要注意的是，类的卸载是Java虚拟机实现的一个可选特性，不是所有的Java虚拟机都支持类的卸载。类的卸载通常发生在特定的环境中，比如一些动态生成和卸载类的场景。<br>总体而言，Java虚拟机通过垃圾回收器自动管理对象的内存，而类的加载和卸载通常由类加载器来处理。这种自动化的内存管理减轻了开发者的负担，使得Java程序更容易编写和维护。</p>
-</li>
-</ol>
-<h1 id="继承-1"><a href="#继承-1" class="headerlink" title="继承"></a>继承</h1><h3 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h3><p>Java 中有三个访问权限修饰符: private、protected 以及 public。可以对类或类中的成员(字段以及方法)加上访问修饰符，如果不加访问修饰符，表示包级可见（<code>default</code>，介于private和protected之间）。<br><code>private</code>：私有访问修饰符。被 private 修饰的成员（字段、方法、内部类等）仅对定义它们的类可见。这意味着这些成员只能在同一个类内部访问，对于类的外部（其他类）是不可见的。<br><code>protected</code>：受保护的访问修饰符。被 protected 修饰的成员对于定义它们的类、同一包内的其他类以及子类可见。在不同包中的类无法访问受保护成员。<br><code>public</code>：公共访问修饰符。被 public 修饰的成员对于所有类都是可见的，无论是同一包内还是不同包中的类，都可以访问 public 成员。</p>
-<h3 id="extend-与-implement"><a href="#extend-与-implement" class="headerlink" title="extend 与 implement"></a>extend 与 implement</h3><p><strong><code>extend</code>（扩展）</strong>：使用于类之间的关系。用于创建类的子类（子类继承父类）。子类可以继承父类的属性和方法。 一个类只能<code>extend</code>一个类，即Java是单继承的，但是可以通过接口实现来弥补这一不足。<br><strong><code>implement</code>（实现）</strong>：使用于接口与类之间的关系。 用于让类实现一个或多个接口，<code>implement</code>多个接口，实现多继承的效果。 <strong>类实现接口时，需要提供接口中定义的所有方法的具体实现。</strong></p>
-<h3 id="抽象类与接口"><a href="#抽象类与接口" class="headerlink" title="抽象类与接口"></a>抽象类与接口</h3><p>抽象类和抽象方法都使用 abstract 关键字进行声明。抽象类一般会包含抽象方法，抽象方法一定位于抽象类中。<br>抽象类和普通类最大的区别是，抽象类不能被实例化，需要继承抽象类才能实例化其子类。<br><strong>接口是抽象类的延伸</strong>，在 Java 8 之前，它可以看成是一个完全抽象的类，也就是说它不能有任何的方法实现。从 Java 8 开始，接口也可以拥有默认的方法实现，这是因为不支持默认方法的接口的维护成本太高了。在 Java 8 之前，如果一个接口想要添加新的方法，那么要修改所有实现了该接口的类。接口的成员(字段 + 方法)默认都是 public 的，并且不允许定义为 private 或者 protected。接口的字段默认都是 static 和 final 的。</p>
-<h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><ul>
-<li>访问父类的构造函数: 可以使用 super() 函数访问父类的构造函数，从而委托父类完成一些初始化的工作。</li>
-<li>访问父类的成员: 如果子类重写了父类的中某个方法的实现，可以通过使用 super 关键字来引用父类的方法实现。</li>
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperExample</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> x, y;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SuperExample</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;                <span class="built_in">this</span>.x = x;     <span class="built_in">this</span>.y = y;     &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">func</span><span class="params">()</span> &#123;                  System.out.println(<span class="string">&quot;SuperExample.func()&quot;</span>);       &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperExtendExample</span> <span class="keyword">extends</span> <span class="title class_">SuperExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> z;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SuperExtendExample</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;   <span class="built_in">super</span>(x, y);    <span class="built_in">this</span>.z = z;     &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">func</span><span class="params">()</span> &#123;  <span class="built_in">super</span>.func();  System.out.println(<span class="string">&quot;SuperExtendExample.func()&quot;</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">SuperExample</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SuperExtendExample</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">e.func();  <span class="comment">// 结果：SuperExample.func() SuperExtendExample.func()</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="重载与重写"><a href="#重载与重写" class="headerlink" title="重载与重写"></a>重载与重写</h3><ol>
-<li>重载(Overload)存在于同一个类中，指一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。应该注意的是，返回值不同，其它都相同不算是重载。</li>
-<li>重写(Override)存在于继承体系中，指子类实现了一个与父类在方法声明上完全相同的一个方法。为了满足里式替换原则，重写有以下两个限制:子类方法的访问权限必须大于等于父类方法；子类方法的返回类型必须是父类方法返回类型或为其子类型。使用 @Override 注解，可以让编译器帮忙检查是否满足上面的两个限制条件。</li>
-</ol>
-<hr>
-
-<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><p>Java标准库包含多个类和函数，提供了许多基本的工具和功能，包括但不限于：<br>1、<code>java.lang</code> - 包含Java的基础类，例如<code>String</code>、<code>Object</code>、<code>System</code>等。这个包是默认导入的，不需要手动引入。<br>2、<code>java.util</code> - 提供集合框架、日期时间工具、随机数生成器等。<br>3、<code>java.io</code> - 包含用于进行输入和输出的类和接口，例如<code>File</code>、<code>InputStream</code>、<code>OutputStream</code>等。<br>4、<code>java.net</code> - 提供了网络相关的类，比如<code>URL</code>、<code>URLConnection</code>等。<br>5、<code>java.math</code> - 包含用于数学计算的类，例如<code>BigInteger</code>、<code>BigDecimal</code>等。<br>6、<code>java.nio</code> - 提供了新的I&#x2F;O类，支持非阻塞I&#x2F;O、内存映射文件等。<br>7、<code>java.util.concurrent</code> - 包含用于并发编程的实用工具和框架。<br>8、<code>java.awt</code> 和 <code>javax.swing</code> - 提供了GUI开发相关的类。<br>大部分情况下，这些库中的类和函数默认可用，无需手动引入。然而，有一些更特定或较为不常用的类可能需要显式地引入相应的包。</p>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 保存两位小数；import java.text.DecimalFormat;（text在标准库中，通常不需要手动引入）</span></span><br><span class="line"><span class="type">double</span> <span class="variable">number</span> <span class="operator">=</span> <span class="number">123.45678</span>;</span><br><span class="line"><span class="type">DecimalFormat</span> <span class="variable">decimalFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DecimalFormat</span>(<span class="string">&quot;#.##&quot;</span>); <span class="comment">// 创建 DecimalFormat 对象并指定格式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">formattedNumber</span> <span class="operator">=</span> decimalFormat.format(number);   <span class="comment">// 将浮点数格式化为指定格式的字符串</span></span><br><span class="line"><span class="comment">// 2. 比大小：方法 java.lang.Math 中；小 Math.min()</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> Math.max(<span class="number">647</span>, <span class="number">582</span>);</span><br><span class="line"><span class="comment">// 3. 随机数：生成范围介于 0（包括）和指定边界（不包括）之间的随机整数</span></span><br><span class="line"><span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();                       <span class="comment">// 创建 Random 对象</span></span><br><span class="line"><span class="type">int</span> <span class="variable">randomNumber</span> <span class="operator">=</span> random.nextInt();                <span class="comment">// 生成整数范围在 int 类型的取值范围内</span></span><br><span class="line"><span class="type">int</span> <span class="variable">randomInRange</span> <span class="operator">=</span> random.nextInt(<span class="number">10</span> - <span class="number">5</span> + <span class="number">1</span>) + <span class="number">5</span>; <span class="comment">// 生成整数范围 5 - 10</span></span><br><span class="line"><span class="type">double</span> <span class="variable">randomDouble</span> <span class="operator">=</span> random.nextDouble();          <span class="comment">// 生成范围在 [0, 1) 之间的随机小数</span></span><br><span class="line"><span class="comment">// 4. 二进制，十六进制</span></span><br><span class="line"><span class="type">String</span> <span class="variable">binaryString</span> <span class="operator">=</span> Integer.toBinaryString(<span class="number">10</span>);      <span class="comment">// 整数表示为二进制字符串：1010</span></span><br><span class="line"><span class="type">String</span> <span class="variable">hexString</span> <span class="operator">=</span> Integer.toHexString(<span class="number">20</span>);            <span class="comment">// 整数表示为十六进制字符串：14</span></span><br><span class="line"><span class="type">int</span> <span class="variable">decimalNumber</span> <span class="operator">=</span> Integer.parseInt(binaryString, <span class="number">2</span>); <span class="comment">// 二进制字符串转整数：10</span></span><br><span class="line"><span class="type">int</span> <span class="variable">decimalNumber</span> <span class="operator">=</span> Integer.parseInt(hexString, <span class="number">16</span>);   <span class="comment">// 十六进制字符串转整数：20</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Object-通用方法"><a href="#Object-通用方法" class="headerlink" title="Object 通用方法"></a>Object 通用方法</h2><p>在Java中，<code>Object</code>是所有类的基类。它是Java类继承层次结构的根，因此每个Java类都直接或间接地继承自<code>Object</code>类。<code>Object</code>类位于<code>java.lang</code>包中，这意味着它不需要显式导入就可以在Java程序中使用。</p>
-<ul>
-<li><code>java.lang</code>包是java语言的核心，提供基础类，包括基本Object类、Class类、String类、基本类型的包装类、基本的数学类等。</li>
-<li><code>Object</code>类定义了一些基本的方法，这些方法可以被所有的Java对象继承和使用。其中一些重要的方法包括： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass()     <span class="comment">// 返回对象的运行时类（`Class`对象）。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span>                <span class="comment">// 返回对象的哈希码值。它通常与`equals`方法一起使用，以便在使用哈希表等数据结构时能够快速查找对象。</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object obj)</span>           <span class="comment">// 用于比较两个对象是否相等。默认情况下，它比较的是对象的内存地址，但可以在子类中重写以实现自定义的相等性比较。</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException    <span class="comment">// 用于创建对象的浅拷贝。需要注意的是，为了使对象可克隆，子类需要实现`Cloneable`接口并重写`clone`方法。</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span>                    <span class="comment">// 返回对象的字符串表示。默认下，它返回一个由类名和对象的哈希码组成的字符串，但可以在子类中重写以提供更有意义的字符串表示。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">notify</span><span class="params">()</span>           <span class="comment">// 用于多线程同步的方法。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">wait</span><span class="params">(<span class="type">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException   <span class="comment">// 使线程等待直到被通知。</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable &#123;&#125;     <span class="comment">// 在对象被垃圾回收之前调用的方法。</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h3><p>equals() 与 &#x3D;&#x3D; 对于基本类型，&#x3D;&#x3D; 判断两个值是否相等，基本类型没有 equals() 方法。<br>对于引用类型，&#x3D;&#x3D; 判断两个变量是否引用同一个对象，而 equals() 判断引用的对象是否等价。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">x</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">1</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">y</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">1</span>);</span><br><span class="line">System.out.println(x.equals(y)); <span class="comment">// true</span></span><br><span class="line">System.out.println(x == y);      <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode()"></a>hashCode()</h3><p>返回对象的哈希码。默认实现是基于对象的内存地址生成哈希码。<br>在实际应用中，一般需要在类中重写该方法，以便相等的对象具有相同的哈希码，以提高哈希表等集合的性能。</p>
-<h3 id="clone"><a href="#clone" class="headerlink" title="clone()"></a>clone()</h3><ol>
-<li>cloneable：clone() 是 Object 的 protected 方法而非 public，一个类不显式去重写，其它类就不能直接调用该类实例的 clone()。</li>
-<li>浅拷贝：拷贝对象和原始对象的引用类型引用同一个对象。</li>
-<li>深拷贝：拷贝对象和原始对象的引用类型引用不同对象。</li>
-<li>clone() 的替代方案：使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换。Effective Java 书上讲到，最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象。</li>
-</ol>
-<hr>
-
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
-<li>Throwable 可以用来表示任何可以作为异常抛出的类，分为两种: <strong>Error</strong> 和 <strong>Exception</strong>。<br>  其中 Error 用来表示 JVM 无法处理的错误，Exception 分为两种:<ul>
-<li>受检异常 : 需要用 try…catch… 语句捕获并进行处理，并且可以从异常中恢复；</li>
-<li>非受检异常 : 是程序运行时错误，例如除 0 会引发 Arithmetic Exception，此时程序崩溃并且无法恢复<br><img src="https://pdai.tech/images/pics/PPjwP.png"></li>
-</ul>
-</li>
-</ul>
-<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>Java反射是一种强大的编程技术，允许在运行时检查、探索和操作类、对象、字段、方法以及其他成员。反射使你可以动态地创建对象、调用方法、获取和设置字段值，以及执行其他与类和对象相关的操作。</p>
-<ul>
-<li>每个类都有一个 Class 对象，包含与类有关的信息。当编译一个新类时会产生一个同名的<code>.class文件</code>，其内容保存着 Class 对象。</li>
-<li>类加载相当于 Class 对象的加载。类在第一次使用时才动态加载到 JVM 中，可以使用 <code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;)</code> 这种方式来控制类的加载，该方法会返回一个 Class 对象。</li>
-<li>反射可以提供运行时的类信息，并且这个类可以在运行时才加载进来，甚至编译时期该类的 .class 不存在也可以加载进来。</li>
-<li>Class 和 java.lang.reflect 一起对反射提供了支持，java.lang.reflect 类库主要包含了以下三个类:<ul>
-<li>Field : 可以使用 get() 和 set() 方法读取和修改 Field 对象关联的字段；</li>
-<li>Method : 可以使用 invoke() 方法调用与 Method 对象关联的方法；</li>
-<li>Constructor : 可以用 Constructor 创建新的对象。</li>
-</ul>
-</li>
-<li><strong>Class类</strong>：Java反射的核心类是<code>java.lang.Class</code>。每个类都有一个与之相关的<code>Class</code>对象，你可以使用这个<code>Class</code>对象来获取关于类的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取类的`Class`对象</span></span><br><span class="line">Class&lt;?&gt; myClass = MyClass.class; <span class="comment">// 通过类名</span></span><br><span class="line">Class&lt;?&gt; myClass = obj.getClass();  <span class="comment">// 通过对象</span></span><br><span class="line">Class&lt;?&gt; myClass = Class.forName(<span class="string">&quot;com.example.MyClass&quot;</span>); <span class="comment">// 通过类的全名</span></span><br><span class="line"><span class="comment">// 获取有关类的信息</span></span><br><span class="line"><span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> myClass.getName(); <span class="comment">// 获取类名</span></span><br><span class="line"><span class="type">String</span> <span class="variable">packageName</span> <span class="operator">=</span> myClass.getPackage().getName(); <span class="comment">// 获取包名</span></span><br><span class="line">Class&lt;?&gt; superClass = myClass.getSuperclass(); <span class="comment">// 获取父类</span></span><br><span class="line">Class&lt;?&gt;[] interfaces = myClass.getInterfaces(); <span class="comment">// 获取实现的接口</span></span><br><span class="line">Field[] fields = myClass.getDeclaredFields(); <span class="comment">// 获取所有字段</span></span><br><span class="line">Method[] methods = myClass.getDeclaredMethods(); <span class="comment">// 获取所有方法</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>实例化对象</strong>：通过反射，你可以动态地创建对象。例如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; myClass = Class.forName(<span class="string">&quot;com.example.MyClass&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> myClass.newInstance(); <span class="comment">// 创建对象，需要无参构造函数</span></span><br><span class="line"><span class="comment">// 使用反射来获取、设置对象的字段值</span></span><br><span class="line"><span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> myClass.getDeclaredField(<span class="string">&quot;fieldName&quot;</span>);</span><br><span class="line">field.setAccessible(<span class="literal">true</span>); <span class="comment">// 设置字段可访问</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span> field.get(obj); <span class="comment">// 获取字段值</span></span><br><span class="line">field.set(obj, newValue); <span class="comment">// 设置字段值</span></span><br><span class="line"><span class="comment">// 反射允许你调用对象的方法。例如：</span></span><br><span class="line"><span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> myClass.getDeclaredMethod(<span class="string">&quot;methodName&quot;</span>, param1Type, param2Type);</span><br><span class="line">method.setAccessible(<span class="literal">true</span>); <span class="comment">// 设置方法可访问</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> method.invoke(obj, arg1, arg2); <span class="comment">// 调用方法</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>数组与泛型</strong>：通过反射，你可以创建数组、获取数组元素的类型信息，以及处理泛型信息。</li>
-<li><strong>代理</strong>：Java反射还可用于创建动态代理，这是一种强大的技术，允许你创建实现特定接口的代理类以在运行时拦截和处理方法调用。</li>
-<li><strong>限制</strong>：尽管反射提供了强大的能力，但也有一些限制和性能开销。使用时需要小心处理异常、性能、访问控制等方面的问题。</li>
-</ul>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><ul>
-<li>泛型是 Java 中的一个核心特性，有助于提高代码的可重用性和类型安全性。</li>
-<li>泛型的主要目的是参数化类型，允许你在类、接口、方法中使用类型参数。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Box</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> T t;  <span class="comment">// T stands for &quot;Type&quot;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T t)</span> &#123; <span class="built_in">this</span>.t = t; &#125;</span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> &#123; <span class="keyword">return</span> t; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChildBox</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">Box</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 子类继承父类的泛型类型参数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>泛型通配符：Java中有通配符类型，允许你在不知道具体类型的情况下使用泛型。通配符包括?符号。<br>当你使用通配符作为方法参数时，可能需要捕获通配符以使用它。这可以通过在方法参数中使用?来实现。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processList</span><span class="params">(List&lt;?&gt; list)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;        <span class="comment">// 处理每个元素    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>泛型上下界：你可以使用通配符来定义类型的上下界。例如，&lt;? extends Number&gt;表示类型必须是Number或其子类。&lt;? super Integer&gt;表示类型必须是Integer或其父类。</li>
-<li>类型擦除：Java泛型通过类型擦除来实现。这意味着在编译时，泛型类型信息会被擦除，而在运行时，Java虚拟机将使用原始类型。这可能会导致一些限制，例如无法创建泛型数组。</li>
-</ul>
-<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><ul>
-<li>Java 注解是附加在代码中的一些元信息，用于一些工具在编译、运行时进行解析和使用，起到说明、配置的功能。注解不会也不能影响代码的实际逻辑，仅仅起到辅助性的作用。<a target="_blank" rel="noopener" href="https://pdai.tech/md/java/basic/java-basic-x-annotation.html">https://pdai.tech/md/java/basic/java-basic-x-annotation.html</a></li>
-<li><strong>Spring框架中的注解</strong> 本质上是一种元数据，用于为应用程序的组件（例如类、方法、字段等）提供附加的信息，以指导Spring容器在应用程序运行时如何处理这些组件。这些注解告诉Spring容器如何创建、初始化、配置和管理这些组件，以及它们之间的关系。</li>
-</ul>
-<h3 id="Stream-流"><a href="#Stream-流" class="headerlink" title="Stream 流"></a>Stream 流</h3><p>在Java中，流（Stream）是用于处理集合数据的一种新的抽象。Java的流操作主要分为两种：中间操作和终端操作。流的处理操作通常应用于集合类（如List、Set、Map等）。<br>Java的流操作利用了函数式编程的思想，提供了一种更简洁、灵活、可读性更强的处理方式。通过合理使用中间操作和终端操作，可以实现丰富的数据处理功能。流操作也广泛应用于Java集合、文件IO、网络编程等场景。</p>
-<ol>
-<li><strong>中间操作：</strong><ul>
-<li>中间操作主要用于对数据进行处理和转换，产生一个新的流。中间操作不会触发实际的处理，只是在流上进行各种操作。</li>
-<li>常见的中间操作包括 <code>filter</code>（过滤）、<code>map</code>（映射）、<code>distinct</code>（去重）、<code>sorted</code>（排序）、<code>limit</code>（限制结果数量）等。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Charlie&quot;</span>, <span class="string">&quot;David&quot;</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"></span><br><span class="line">names.stream()</span><br><span class="line">     .filter(name -&gt; name.length() &gt; <span class="number">3</span>)</span><br><span class="line">     .distinct()</span><br><span class="line">     .sorted()</span><br><span class="line">     .map(String::toUpperCase)</span><br><span class="line">     .forEach(System.out::println);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><strong>终端操作：</strong><ul>
-<li>终端操作是流的最终处理步骤，触发流的遍历和数据处理。终端操作会返回一个非流的结果，例如集合、数组、某个值等。</li>
-<li>常见的终端操作包括 <code>collect</code>（将流元素收集到集合中）、<code>reduce</code>（对元素进行归约操作）等。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Charlie&quot;</span>, <span class="string">&quot;David&quot;</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; filteredNames = names.stream()</span><br><span class="line">                                  .filter(name -&gt; name.length() &gt; <span class="number">3</span>)</span><br><span class="line">                                  .distinct()</span><br><span class="line">                                  .sorted()</span><br><span class="line">                                  .map(String::toUpperCase)</span><br><span class="line">                                  .collect(Collectors.toList());</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h2 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="??Lambda 表达式"></a>??Lambda 表达式</h2><p>学习 <a target="_blank" rel="noopener" href="http://doc.junbo.top/pages/viewpage.action?pageId=10798971">http://doc.junbo.top/pages/viewpage.action?pageId=10798971</a><br>Lambda 表达式提供了一种简洁、清晰的语法，允许以更为函数式的方式编写代码。<br>Lambda 的引入使得代码变得更加简洁，尤其在使用函数式接口（只有一个抽象方法的接口）时，可以直接传递 Lambda 表达式，而不再需要传递匿名内部类的实例。Lambda 表达式在处理集合、并发编程、事件处理等场景中广泛应用，它是 Java 8 引入的一个重要特性，使得 Java 语言更好地支持函数式编程风格。</p>
-<ul>
-<li>Lambda 表达式主要用于定义内联的、匿名的函数。它是一个函数式接口的实例，即只有一个抽象方法的接口。基本语法如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// `parameters` 指定了 Lambda 表达式的参数，`-&gt;` 是 Lambda 操作符，</span></span><br><span class="line"><span class="comment">// `expression` 或 `&#123; statements; &#125;` 指定了 Lambda 表达式的主体。</span></span><br><span class="line">(parameters) -&gt; expression</span><br><span class="line">(parameters) -&gt; &#123; statements; &#125;</span><br><span class="line"><span class="comment">// 1. 一个简单的例子，计算两个数的和：</span></span><br><span class="line">(<span class="type">int</span> a, <span class="type">int</span> b) -&gt; a + b</span><br><span class="line"><span class="comment">// 2. 遍历列表并打印每个元素：</span></span><br><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;orange&quot;</span>);</span><br><span class="line">list.forEach(s -&gt; System.out.println(s));</span><br><span class="line"><span class="comment">// 3. 使用 `Runnable` 接口创建一个线程：</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; System.out.println(<span class="string">&quot;Hello, Lambda!&quot;</span>)).start();</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="Java-动态代理机制"><a href="#Java-动态代理机制" class="headerlink" title="Java 动态代理机制 ??"></a>Java 动态代理机制 ??</h2><p>代理可以分为 “静态代理” 和 “动态代理”，动态代理又分为 “JDK动态代理” 和 “CGLIB动态代理” 实现。</p>
-<ul>
-<li>静态代理<br>代理对象和实际对象都继承了同一个接口，在代理对象中指向的是实际对象的实例，这样对外暴露的是代理对象而真正调用的是实际对象。<br>优点：可以很好的保护实际对象的业务逻辑对外暴露，从而提高安全性。<br>缺点：不同的接口要有不同的代理类实现，会很冗余</li>
-<li>JDK 动态代理<br>为了解决静态代理中，生成大量的代理类造成的冗余；JDK 动态代理只需要实现 InvocationHandler 接口，重写 invoke 方法便可以完成代理的实现，jdk的代理是利用反射生成代理类 Proxyxx.class 代理类字节码，并生成对象 jdk动态代理之所以只能代理接口是因为代理类本身已经extends了Proxy，而java是不允许多重继承的，但是允许实现多个接口。<br>优点：解决了静态代理中冗余的代理实现类问题。<br>缺点：JDK 动态代理是基于接口设计实现的，如果没有接口，会抛异常。</li>
-<li>CGLIB 代理<br>由于 JDK 动态代理限制了只能基于接口设计，而对于没有接口的情况，JDK方式解决不了；CGLib 采用了非常底层的字节码技术，其原理是通过字节码技术为一个类创建子类，并在子类中采用方法拦截的技术拦截所有父类方法的调用，顺势织入横切逻辑，来完成动态代理的实现。实现方式实现 MethodInterceptor 接口，重写 intercept 方法，通过 Enhancer 类的回调方法来实现。但是CGLib在创建代理对象时所花费的时间却比JDK多得多，所以对于单例的对象，因为无需频繁创建对象，用CGLib合适，反之，使用JDK方式要更为合适一些。 同时，由于CGLib由于是采用动态创建子类的方法，对于final方法，无法进行代理。<br>优点：没有接口也能实现动态代理，而且采用字节码增强技术，性能也不错。<br>缺点：技术实现相对难理解些。</li>
-</ul>
-<h2 id="BIO、NIO-和-AIO-的区别"><a href="#BIO、NIO-和-AIO-的区别" class="headerlink" title="BIO、NIO 和 AIO 的区别"></a>BIO、NIO 和 AIO 的区别</h2><p>??</p>
-<hr>
-
-<h1 id="Java-设计模式"><a href="#Java-设计模式" class="headerlink" title="Java 设计模式"></a>Java 设计模式</h1><ul>
-<li><p>设计模式是为了解决软件开发过程中常见的问题而提出的一种解决方案，它们是从实际应用中总结出来的一些经验和方法论。设计模式可以帮助开发人员更加容易地解决复杂问题，提高代码的可重用性、可扩展性、可维护性等，从而提高软件开发效率和代码质量。<br>具体来说，设计模式主要是为了解决以下几类问题：<br>（1）代码复杂度问题：在软件开发中，代码往往会变得越来越复杂，难以理解和维护。设计模式提供了一些组织代码的方式，让代码结构更加清晰，易于理解和维护。<br>（2）重用问题：在开发过程中，我们希望能够尽可能地复用代码，减少重复开发的工作量。设计模式提供了一些通用的解决方案，可以让我们更加容易地复用代码。<br>（3）扩展性问题：软件开发过程中，我们需要不断地对系统进行扩展和改进。设计模式提供了一些可扩展的解决方案，可以让系统更加容易地扩展和改进，同时保持代码的高可读性和可维护性。<br>（4）协作问题：在多人协作的开发过程中，代码的组织和沟通变得非常重要。设计模式提供了一些标准化的组织方式，可以让开发者更加容易地沟通和协作。</p>
-</li>
-<li><p>设计原则<br>软件设计原则是指在软件开发过程中遵循的一些通用的、经过验证的规则和指导原则。这些原则旨在提高软件的可维护性、可扩展性、可重用性和可靠性等方面的质量。<br>以下是一些常见的软件设计原则：<br>（1）单一职责原则（SRP）：一个类应该只有一个职责或只有一个引起变化的原因。<br>（2）开放-封闭原则（OCP）：软件实体（类、模块、函数等）应该是可扩展的，但是不可修改的。<br>（3）里氏替换原则（LSP）：任何基类可以出现的地方，子类一定可以出现，而且不会导致任何错误或异常。<br>（4）依赖倒置原则（DIP）：高层模块不应该依赖于底层模块，二者都应该依赖于抽象。抽象不应该依赖于具体实现，具体实现应该依赖于抽象。<br>（5）接口隔离原则（ISP）：客户端不应该依赖于它不需要的接口。一个类对另一个类的依赖应该建立在最小的接口上。<br>（6）迪米特法则（LoD）：一个对象应该对其他对象有最少的了解。通俗地讲，就是一个类对自己依赖的类知道得越少越好。<br>（7）合成复用原则（CRP）：尽量使用对象组合，而不是继承来达到复用的目的。</p>
-</li>
-<li><p>高内聚，低耦合<br>高内聚低耦合是软件设计中的一个原则，它强调模块内部的联系应该紧密而模块之间的联系应该尽量松散。具体来说，高内聚指的是一个模块内部的各个组成部分之间的联系应该紧密，组成部分之间的关系应该尽量简单。低耦合指的是一个模块与其他模块之间的依赖关系应该尽量松散，即模块之间的耦合度应该尽量低。<br>高内聚的好处在于，一个模块内部的联系紧密，表示这个模块是一个独立的整体，对外部的干扰最小。同时，当需要对一个模块进行修改时，只需要修改该模块内部的某些部分，不会对其他部分造成影响，从而提高了系统的可维护性和可扩展性。<br>低耦合的好处在于，模块之间的联系松散，意味着这些模块之间的依赖性较小，当一个模块需要进行修改时，不会对其他模块产生影响，从而提高了系统的可维护性和可扩展性。</p>
-</li>
-<li><p>23种设计模式<br>  <img src="https://pdai.tech/images/design-pattern.png"></p>
-<ul>
-<li>创造型模式<ul>
-<li>单例模式：确保一个类只有一个实例，并提供该实例的全局访问点</li>
-<li>工厂方法模式：它定义了一个创建对象的接口，但由子类决定要实例化哪个类。工厂方法把实例化操作推迟到子类</li>
-<li>抽象工厂模式：创建的是对象家族，也就是很多对象而不是一个对象，并且这些对象是相关的，也就是说必须一起创建出来。而工厂方法模式只是用于创建一个对象，这和抽象工厂模式有很大不同</li>
-<li>建造者模式：生成器(Builder)？模式，封装一个对象的构造过程，并允许按步骤构造</li>
-<li>原型模式：使用原型实例指定要创建对象的类型，通过复制这个原型来创建新对象</li>
-</ul>
-</li>
-<li>结构型模式<ul>
-<li>适配器模式：将一个类的接口, 转换成客户期望的另一个接口。 适配器让原本接口不兼容的类可以合作无间。 对象适配器使用组合, 类适配器使用多重继承</li>
-<li>代理模式：为另一个对象提供一个替身或占位符以控制对这个对象的访问</li>
-<li>桥接模式：使用桥接模式通过将实现和抽象放在两个不同的类层次中而使它们可以独立改变</li>
-<li>装饰器模式：动态地将责任附加到对象上, 若要扩展功能, 装饰者提供了比继承更有弹性的替代方案</li>
-<li>外观模式：它提供了一个统一的接口，用来访问子系统中的一群接口，从而让子系统更容易使用</li>
-<li>组合模式：允许你将对象组合成树形结构来表现”整体&#x2F;部分”层次结构. 组合能让客户以一致的方式处理个别对象以及对象组合</li>
-<li>享元模式：利用共享的方式来支持大量细粒度的对象，这些对象一部分内部状态是相同的。 它让某个类的一个实例能用来提供许多”虚拟实例”</li>
-</ul>
-</li>
-<li>行为型模式<ul>
-<li>观察者模式：在对象之间定义一对多的依赖, 这样一来, 当一个对象改变状态, 依赖它的对象都会收到通知, 并自动更新</li>
-<li>策略模式：定义了算法族, 分别封闭起来, 让它们之间可以互相替换, 此模式让算法的变化独立于使用算法的客户</li>
-<li>命令模式：将”请求”封闭成对象, 以便使用不同的请求,队列或者日志来参数化其他对象. 命令模式也支持可撤销的操作</li>
-<li>中介者模式：使用中介者模式来集中相关对象之间复杂的沟通和控制方式</li>
-<li>备忘录模式：当你需要让对象返回之前的状态时(例如, 你的用户请求”撤销”), 你使用备忘录模式</li>
-<li>模版方式模式：在一个方法中定义一个算法的骨架, 而将一些步骤延迟到子类中. 模板方法使得子类可以在不改变算法结构的情况下, 重新定义算法中的某些步骤</li>
-<li>迭代器模式：提供一种方法顺序访问一个聚合对象中的各个元素, 而又不暴露其内部的表示</li>
-<li>状态模式：允许对象在内部状态改变时改变它的行为, 对象看起来好象改了它的类</li>
-<li>责任链模式：通过责任链模式, 你可以为某个请求创建一个对象链. 每个对象依序检查此请求并对其进行处理或者将它传给链中的下一个对象</li>
-<li>解释器模式：使用解释器模式为语言创建解释器，通常由语言的语法和语法分析来定义</li>
-<li>访问者模式：当你想要为一个对象的组合增加新的能力, 且封装并不重要时, 就使用访问者模式</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><ul>
-<li><p>什么是单例设计模式？<br>单例模式是⼀种创建型设计模式， 它的核⼼思想是保证⼀个类只有⼀个实例，并提供⼀个全局访问点来访问这个实例。<br>只有⼀个实例的意思是，在整个应⽤程序中，只存在该类的⼀个实例对象，⽽不是创建多个相同类型的对象。<br>全局访问点的意思是，为了让其他类能够获取到这个唯⼀实例，该类提供了⼀个全局访问点（通常是⼀个静态⽅法），通过这个⽅法就能获得实例。</p>
-</li>
-<li><p>为什么要使⽤单例设计模式呢？</p>
-<ol>
-<li>全局控制：保证只有⼀个实例，这样就可以严格的控制客户怎样访问它以及何时访问它，简单的说就是对唯⼀实例的受控访问（引⽤⾃《⼤话设计模式》第21章）</li>
-<li>节省资源：也正是因为只有⼀个实例存在，就避免多次创建了相同的对象，从⽽节省了系统资源，⽽且多个模块还可以通过单例实例共享数据。</li>
-<li>懒加载：单例模式可以实现懒加载，只有在需要时才进⾏实例化，这⽆疑会提⾼程序的性能。</li>
-</ol>
-</li>
-<li><p>单例设计模式的基本要求</p>
-<ol>
-<li>私有的构造函数：防⽌外部代码直接创建类的实例</li>
-<li>私有的静态实例变量：保存该类的唯⼀实例</li>
-<li>公有的静态⽅法：通过公有的静态⽅法来获取类的实例</li>
-</ol>
-</li>
-<li><p>单例模式的实现⽅式有多种，包括懒汉式、饿汉式等。<br>饿汉式指的是在类加载时就已经完成了实例的创建，不管后⾯创建的实例有没有使⽤，先创建再说，所以叫做“饿汉”。<br>懒汉式指的是只有在请求实例时才会创建，如果在⾸次请求时还没有创建，就创建⼀个新的实例，如果已经创建，就返回已有的实例，意思就是需要使⽤了再创建，所以称为“懒汉”</p>
-</li>
-</ul>
-<h3 id="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"><a href="#饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。" class="headerlink" title="饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。"></a>饿汉模式（线程安全）：类⼀加载就创建对象，这种⽅式⽐较常⽤。</h3><p>优点：线程安全，没有加锁，执⾏效率较⾼。<br>缺点：不是懒加载，类加载时就初始化，浪费内存空间。<br>如何保证线程安全：基于类加载机制避免了多线程的同步问题，但是如果类被不同的类加载器加载就会创建不同的实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法，防⽌外部实例化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="懒汉模式（线程安全）"><a href="#懒汉模式（线程安全）" class="headerlink" title="懒汉模式（线程安全）"></a>懒汉模式（线程安全）</h3><p>懒汉模式在单线程下使⽤没有问题，对于多线程是⽆法保证单例的。<br>通过 synchronized 关键字加锁保证线程安全，synchronized 可以添加在⽅法上⾯，也可以添加在代码块上⾯，这⾥演示添加在⽅法上⾯，存在的问题是 每⼀次调⽤ getInstance 获取实例时都需要加锁和释放锁，这样是⾮常影响性能的。<br>优点：懒加载，线程安全。<br>缺点：效率较低。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>  &#123;</span><br><span class="line">    <span class="comment">// 1、私有化构造⽅法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123; &#125;</span><br><span class="line">    <span class="comment">// 2、定义⼀个静态变量指向⾃⼰类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="comment">// 3、对外提供⼀个公共的⽅法获取实例</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="什么时候使⽤单例设计模式？"><a href="#什么时候使⽤单例设计模式？" class="headerlink" title="什么时候使⽤单例设计模式？"></a>什么时候使⽤单例设计模式？</h3><p>说了这么多，那在什么场景下应该考虑使⽤单例设计模式呢？可以结合单例设计模式的优点来看。</p>
-<ol>
-<li>资源共享<br>多个模块共享某个资源的时候，可以使⽤单例模式，⽐如说应⽤程序需要⼀个全局的配置管理器来存储和管理配置信息、亦或是使⽤单例模式管理数据库连接池。</li>
-<li>只有⼀个实例<br>当系统中某个类只需要⼀个实例来协调⾏为的时候，可以考虑使⽤单例模式， ⽐如说管理应⽤程序中的缓存，确保只有⼀个缓存实例，避免重复的缓存创建和管理，或者使⽤单例模式来创建和管理线程池。</li>
-<li>懒加载<br>如果对象创建本身就⽐较消耗资源，⽽且可能在整个程序中都不⼀定会使⽤，可以使⽤单例模式实现懒加载。<br>在许多流⾏的⼯具和库中，也都使⽤到了单例设计模式，⽐如Java中的 Runtime 类就是⼀个经典的单例，表示程序的运⾏时环境。此外 Spring 框架中的应⽤上下⽂ ( ApplicationContext ) 也被设计为单例，以提供对应⽤程序中所有 bean 的集中式访问点</li>
-</ol>
-<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><ul>
-<li><p>什么是⼯⼚⽅法模式？<br>⼯⼚⽅法模式也是⼀种创建型设计模式，简单⼯⼚模式只有⼀个⼯⼚类，负责创建所有产品，如果要添加新的产品，通常需要修改⼯⼚类的代码。<br>⽽⼯⼚⽅法模式引⼊了抽象⼯⼚和具体⼯⼚的概念，每个具体⼯⼚只负责创建⼀个具体产品，添加新的产品只需要添加新的⼯⼚类⽽⽆需修改原来的代码，这样就使得产品的⽣产更加灵活，⽀持扩展，符合开闭原则。</p>
-</li>
-<li><p>⼯⼚⽅法模式分为以下⼏个⻆⾊：<br>抽象⼯⼚：⼀个接⼝，包含⼀个抽象的⼯⼚⽅法（⽤于创建产品对象）。<br>具体⼯⼚：实现抽象⼯⼚接⼝，创建具体的产品。<br>抽象产品：定义产品的接⼝。<br>具体产品：实现抽象产品接⼝，是⼯⼚创建的对象。</p>
-</li>
-<li><p>应⽤场景<br>⼯⼚⽅法模式使得每个⼯⼚类的职责单⼀，每个⼯⼚只负责创建⼀种产品，当创建对象涉及⼀系列复杂的初始化逻辑，⽽这些逻辑在不同的⼦类中可能有所不同时，可以使⽤⼯⼚⽅法模式将这些初始化逻辑封装在⼦类的⼯⼚中。在现有的⼯具、库中，⼯⼚⽅法模式也有⼴泛的应⽤，⽐如：<br>Spring 框架中的 Bean ⼯⼚：通过配置⽂件或注解，Spring 可以根据配置信息动态地创建和管理对象。<br>JDBC 中的 Connection ⼯⼚：在 Java 数据库连接中， DriverManager 使⽤⼯⼚⽅法模式来创建数据库连接。不同的数据库驱动（如 MySQL、PostgreSQL 等）都有对应的⼯⼚来创建连接</p>
-</li>
-</ul>
-<h2 id="配适器模式"><a href="#配适器模式" class="headerlink" title="配适器模式"></a>配适器模式</h2><p>概念：适配器模式就是将⼀个类的接⼝，转换成客户期望的另⼀个接⼝。<br>作用：可以让原本两个不兼容的接⼝能够⽆缝完成对接。<br>原理 or 实现：适配器实现了其中一个对象的接口， 并对另一个对象进行封装。</p>
-<hr>
-
-<h2 id="Java-各版本的新特性"><a href="#Java-各版本的新特性" class="headerlink" title="Java 各版本的新特性"></a>Java 各版本的新特性</h2><p>New highlights in Java SE 8<br>Lambda Expressions，Pipelines and Streams，Date and Time API，Default Methods，Type Annotations，Nashhorn JavaScript Engine，Concurrent Accumulators，Parallel operations，PermGen Error Removed<br>New highlights in Java SE 7<br>Strings in Switch Statement，Type Inference for Generic Instance Creation，Multiple Exception Handling，Support for Dynamic Languages，Try with Resources，Java nio Package，Binary Literals,Underscore in literals，Diamond Syntax</p>
-<h2 id="Java-与-C-的区别"><a href="#Java-与-C-的区别" class="headerlink" title="Java 与 C++ 的区别"></a>Java 与 C++ 的区别</h2><ul>
-<li>Java 是纯粹的面向对象语言，所有的对象都继承自 java.lang.Object，C++ 为了兼容 C 即支持面向对象也支持面向过程。</li>
-<li>Java 通过虚拟机从而实现跨平台特性，但是 C++ 依赖于特定的平台。</li>
-<li>Java 没有指针，它的引用可以理解为安全指针，而 C++ 具有和 C 一样的指针。</li>
-<li>Java 支持自动垃圾回收，而 C++ 需要手动回收。</li>
-<li>Java 不支持多重继承，只能通过实现多个接口来达到相同目的，而 C++ 支持多重继承。</li>
-<li>Java 不支持操作符重载，而 C++ 可以。虽然可以对两个 String 对象支持加法运算，但是这是语言内置支持的操作，非操作符重载</li>
-<li>Java 的 goto 是保留字，但是不可用，C++ 可以使用 goto。</li>
-<li>Java 不支持条件编译，C++ 通过 #ifdef #ifndef 等预处理命令从而实现条件编译。</li>
-</ul>
-<h2 id="知识体系"><a href="#知识体系" class="headerlink" title="知识体系"></a>知识体系</h2><p>Java全栈知识体系：<a target="_blank" rel="noopener" href="https://pdai.tech/">https://pdai.tech/</a><br><img src="https://pdai.tech/images/java_basic.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/01/Java%E5%9F%BA%E7%A1%80/" data-id="clzzl7c290005u0v5b72f1d18" data-title="Java 基础" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2021/09/02/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" data-id="cm0cja96g0009m4v53nkl7b69" data-title="Java 数据结构" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2507,6 +2212,10 @@
           </li>
         
           <li>
+            <a href="/2024/08/27/Guitar/">guitar 🎸</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/18/%E4%BF%9D%E9%99%A9/">保 险</a>
           </li>
         
@@ -2536,10 +2245,6 @@
         
           <li>
             <a href="/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/">面 逝 | 个人</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/12/%E9%9D%A2%E8%AF%95_Java/">面 逝 | Java</a>
           </li>
         
       </ul>
