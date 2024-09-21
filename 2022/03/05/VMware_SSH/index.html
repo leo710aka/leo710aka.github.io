@@ -14,7 +14,7 @@
 <meta property="og:description" content="虚拟机 (VM) 虚拟机（Virtual Machine）是一种利用软件模拟硬件的技术，使得一台物理计算机可以同时运行多个虚拟的操作系统或应用程序实例。虚拟机技术提供了更好的资源利用率、隔离性和灵活性，常见的虚拟机有硬件虚拟机和软件虚拟机两种。 它包括虚拟的 CPU、内存、硬盘、网络接口等组件。 可以在虚拟机上安装操作系统和应用程序，就像在物理计算机上一样。 虚拟机和容器的区别：虚拟机模拟整个操作">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-05T09:02:15.000Z">
-<meta property="article:modified_time" content="2024-03-18T13:09:08.640Z">
+<meta property="article:modified_time" content="2024-09-21T11:08:03.583Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -108,10 +108,10 @@
 <li>虚拟硬盘文件： 这个文件包含了虚拟机的硬盘数据，即操作系统和应用程序的安装等信息。在 VMware 中，虚拟硬盘文件的格式通常是 <code>.vmdk</code>。你也需要选择这个文件来导入虚拟机。</li>
 </ul>
 </li>
-<li>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/06/SSH/"><strong>SSH客户端</strong></a>。市面上常见有：Xshell，Finshell，<a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/06/SSH/">MobarXterm</a></li>
+<li>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的<strong>SSH客户端</strong>。<br>市面上常见有：Xshell，Finshell，<strong>MobarXterm</strong></li>
 </ul>
-<h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p>一个基于Red Hat Enterprise Linux（RHEL）源代码构建的开源操作系统。默认账号：root，，账号2：<strong>leo</strong>，密码：<strong>cx078xxx</strong>。</p>
-<ul>
+<h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><ul>
+<li>一个基于Red Hat Enterprise Linux（RHEL）源代码构建的开源操作系统。默认账号：root，，账号2：<strong>leo</strong>，密码：<strong>cx0xxxxx</strong>。</li>
 <li>虚拟机目录：D:\VMCentOS-7，(网络适配器)名称：ens33；默认路由(网关)：192.168.111.2，DNS：192.168.111.2<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[leo@localhost ~]$ ifconfig</span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">      inet 192.168.111.128  netmask 255.255.255.0  broadcast 192.168.111.255 <span class="comment"># IPv4 子网掩码 广播地址</span></span><br><span class="line">      inet6 fe80::2304:6b2e:1716:b51  prefixlen 64  scopeid 0x20&lt;<span class="built_in">link</span>&gt;       <span class="comment"># IPv6地址</span></span><br><span class="line">      ether 00:0c:29:1a:cb:1a  txqueuelen 1000  (Ethernet)                   <span class="comment"># MAC 地址</span></span><br><span class="line">      RX packets 1704  bytes 1628741 (1.5 MiB)</span><br><span class="line">      RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">      TX packets 850  bytes 71942 (70.2 KiB)</span><br><span class="line">      TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
 设置 ipv4 method为手动（网卡地址改为静态IP，这样可以避免每次启动虚拟机IP都变化）</li>
 </ul>
@@ -128,16 +128,14 @@
 
 <h2 id="SSH客户端：MobarXterm"><a href="#SSH客户端：MobarXterm" class="headerlink" title="SSH客户端：MobarXterm"></a>SSH客户端：MobarXterm</h2><p>如果远程服务器上的操作系统的界面使用起来不方便，可以使用ssh客户端连接并操控远程服务器，<strong>包括本机上的虚拟机；</strong><br>在VMware界面中操作虚拟机非常不友好，一般推荐使用专门的SSH客户端，常见有 Xshell，Finshell，MobarXterm</p>
 <h3 id="连接虚拟机"><a href="#连接虚拟机" class="headerlink" title="连接虚拟机"></a><strong>连接虚拟机</strong></h3><p>1、打开MobarXterm，点击session按钮，进入会话管理：<br>2、在弹出的session管理页面中，填写信息：Remote Host(虚拟机的ipv4地址)，Specify name(root)<br>3、输入密码：(与虚拟机的一样？)cx0xx1xx，连接本机上 VMware中的 CentOS7系统的虚拟机<br>4、连接(虚拟机)成功后，进入操作界面了，通过 MobarXterm界面 对 VMware中的虚拟机 进行操作。</p>
-<h3 id="使用-MobarXterm-操作-Docker"><a href="#使用-MobarXterm-操作-Docker" class="headerlink" title="使用 MobarXterm 操作 Docker"></a>使用 MobarXterm 操作 Docker</h3><ol>
-<li><strong>启动虚拟机</strong>，使用 MobarXterm 连接虚拟机成功后，进入操作界面。<strong>在 MobarXterm界面上 对 VMware中的虚拟机 进行操作。</strong></li>
-<li>安装配置 Docker<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先要安装一个yum工具，并配置Docker的yum源</span></span><br><span class="line">yum install -y yum-utils</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 安装Docker</span></span><br><span class="line">yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line">systemctl start docker    <span class="comment"># 启动Docker</span></span><br><span class="line">systemctl stop docker     <span class="comment"># 停止Docker</span></span><br><span class="line">systemctl restart docker  <span class="comment"># 重启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> docker   <span class="comment"># 设置开机自启</span></span><br><span class="line">docker ps                 <span class="comment"># 执行docker ps命令，如果不报错，说明安装启动成功</span></span><br></pre></td></tr></table></figure></li>
-<li>配置阿里云镜像加速，重启docker</li>
-</ol>
+<h3 id="使用-MobarXterm-操作-Docker"><a href="#使用-MobarXterm-操作-Docker" class="headerlink" title="使用 MobarXterm 操作 Docker"></a>使用 MobarXterm 操作 Docker</h3><p>1、<strong>启动虚拟机</strong>，使用 MobarXterm 连接虚拟机成功后，进入操作界面。<strong>在 MobarXterm界面上 对 VMware中的虚拟机 进行操作。</strong><br>2、安装配置 Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先要安装一个yum工具，并配置Docker的yum源</span></span><br><span class="line">yum install -y yum-utils</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 安装Docker</span></span><br><span class="line">yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line">systemctl start docker    <span class="comment"># 启动Docker</span></span><br><span class="line">systemctl stop docker     <span class="comment"># 停止Docker</span></span><br><span class="line">systemctl restart docker  <span class="comment"># 重启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> docker   <span class="comment"># 设置开机自启</span></span><br><span class="line">docker ps                 <span class="comment"># 执行docker ps命令，如果不报错，说明安装启动成功</span></span><br></pre></td></tr></table></figure>
+<p>3、配置阿里云镜像加速，重启docker</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/05/VMware_SSH/" data-id="cm0zhcdcx000kecv5bkh42qi3" data-title="VMware / SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2022/03/05/VMware_SSH/" data-id="cm1c3mj8n000lxkv52cjv0ess" data-title="VMware / SSH" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -201,7 +199,7 @@
           </li>
         
           <li>
-            <a href="/2024/08/27/Guitar/">guitar 🎸</a>
+            <a href="/2024/08/27/Guitar/">Guitar 🎸</a>
           </li>
         
           <li>
