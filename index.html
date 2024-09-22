@@ -152,12 +152,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><strong>InfluxDB</strong> 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。它特别适合处理以下类型的数据：</p>
-<ul>
-<li><strong>物联网 (IoT) 数据</strong>：如传感器采集的温度、湿度等。</li>
-<li><strong>监控和日志数据</strong>：服务器、网络设备、应用程序性能指标等。</li>
-<li><strong>实时分析</strong>：金融数据、运营数据、系统监控等领域的数据。</li>
-</ul>
+        <p><a target="_blank" rel="noopener" href="https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html">https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html</a></p>
+<p><strong>InfluxDB</strong> 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。</p>
 <h3 id="主要特点："><a href="#主要特点：" class="headerlink" title="主要特点："></a>主要特点：</h3><ol>
 <li><p><strong>时序数据存储</strong>：</p>
 <ul>
@@ -201,8 +197,6 @@
 <li><strong>金融市场分析</strong>：记录股票市场的交易量和价格变化，分析趋势。</li>
 <li><strong>DevOps 监控</strong>：通过捕获应用程序日志和系统日志，帮助运维团队分析系统健康状态。</li>
 </ul>
-<p>InfluxDB 作为时序数据库的代表之一，在处理时间相关的数据时具有显著优势，是物联网、监控、分析等领域的理想选择。</p>
-<p>在 <strong>InfluxDB</strong> 中，备份与恢复是关键的运维任务，确保数据的安全性和可靠性。下面是 InfluxDB 备份和恢复的基本操作：</p>
 <h3 id="InfluxDB-备份"><a href="#InfluxDB-备份" class="headerlink" title="InfluxDB 备份"></a>InfluxDB 备份</h3><p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
 <h4 id="1-备份整个实例"><a href="#1-备份整个实例" class="headerlink" title="1. 备份整个实例"></a>1. 备份整个实例</h4><p>在 InfluxDB 中，你可以备份所有数据库（全量备份）。命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure>
