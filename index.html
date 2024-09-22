@@ -118,7 +118,202 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm1c3mj8o000nxkv502ah4zne" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm1d5o5oq000pvcv50utx9t0k" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-InfluxDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/22/InfluxDB/" class="article-date">
+  <time class="dt-published" datetime="2024-09-22T05:34:33.000Z" itemprop="datePublished">2024-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/22/InfluxDB/">InfluxDB</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>InfluxDB</strong> 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。它特别适合处理以下类型的数据：</p>
+<ul>
+<li><strong>物联网 (IoT) 数据</strong>：如传感器采集的温度、湿度等。</li>
+<li><strong>监控和日志数据</strong>：服务器、网络设备、应用程序性能指标等。</li>
+<li><strong>实时分析</strong>：金融数据、运营数据、系统监控等领域的数据。</li>
+</ul>
+<h3 id="主要特点："><a href="#主要特点：" class="headerlink" title="主要特点："></a>主要特点：</h3><ol>
+<li><p><strong>时序数据存储</strong>：</p>
+<ul>
+<li>InfluxDB 设计为能够高效地存储大量按时间排序的数据。每个数据点都有一个时间戳，方便记录变化趋势。</li>
+</ul>
+</li>
+<li><p><strong>无模式（Schema-less）设计</strong>：</p>
+<ul>
+<li>InfluxDB 允许用户自由插入具有不同标签和字段的数据点，无需预先定义表结构。这使得它非常灵活，能够处理各种数据格式。</li>
+</ul>
+</li>
+<li><p><strong>高性能写入和查询</strong>：</p>
+<ul>
+<li>InfluxDB 具备非常高的写入性能，能够以百万条数据点的速率持续写入。同时它的查询引擎非常高效，支持按时间范围过滤和聚合数据。</li>
+</ul>
+</li>
+<li><p><strong>数据压缩和自动降采样</strong>：</p>
+<ul>
+<li>为了减少存储空间，InfluxDB 提供了内置的数据压缩功能。此外，自动降采样可以帮助用户将历史数据按需简化，保留关键数据点。</li>
+</ul>
+</li>
+<li><p>**支持 SQL 类似的查询语言 (InfluxQL)**：</p>
+<ul>
+<li>虽然是时序数据库，但 InfluxDB 提供了一种类似 SQL 的查询语言，叫做 InfluxQL，用户可以使用熟悉的 SQL 风格来查询数据。</li>
+</ul>
+</li>
+<li><p><strong>时间聚合和函数支持</strong>：</p>
+<ul>
+<li>InfluxDB 提供了多种聚合函数，如 <code>mean()</code>、<code>sum()</code>、<code>min()</code>、<code>max()</code> 等，方便用户对数据进行统计分析。</li>
+</ul>
+</li>
+<li><p><strong>集成与扩展性</strong>：</p>
+<ul>
+<li>InfluxDB 可以通过插件和其他工具与监控系统（如 Telegraf）、仪表盘工具（如 Grafana）以及其他数据库进行集成。它也可以与 Kubernetes、Docker 等现代微服务架构无缝配合。</li>
+</ul>
+</li>
+</ol>
+<h3 id="典型应用场景："><a href="#典型应用场景：" class="headerlink" title="典型应用场景："></a>典型应用场景：</h3><ul>
+<li><strong>服务器和应用程序监控</strong>：采集 CPU、内存、磁盘、网络流量等性能数据，并进行实时监控。</li>
+<li><strong>物联网数据处理</strong>：物联网设备发送的大量时序数据，如传感器数据、GPS 数据等。</li>
+<li><strong>金融市场分析</strong>：记录股票市场的交易量和价格变化，分析趋势。</li>
+<li><strong>DevOps 监控</strong>：通过捕获应用程序日志和系统日志，帮助运维团队分析系统健康状态。</li>
+</ul>
+<p>InfluxDB 作为时序数据库的代表之一，在处理时间相关的数据时具有显著优势，是物联网、监控、分析等领域的理想选择。</p>
+<p>在 <strong>InfluxDB</strong> 中，备份与恢复是关键的运维任务，确保数据的安全性和可靠性。下面是 InfluxDB 备份和恢复的基本操作：</p>
+<h3 id="InfluxDB-备份"><a href="#InfluxDB-备份" class="headerlink" title="InfluxDB 备份"></a>InfluxDB 备份</h3><p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
+<h4 id="1-备份整个实例"><a href="#1-备份整个实例" class="headerlink" title="1. 备份整个实例"></a>1. 备份整个实例</h4><p>在 InfluxDB 中，你可以备份所有数据库（全量备份）。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/path/to/backup</code> 是你保存备份文件的路径。</li>
+<li><code>-portable</code> 选项会生成便携式备份格式，这在不同版本间的兼容性更好。</li>
+</ul>
+<h4 id="2-备份单个数据库"><a href="#2-备份单个数据库" class="headerlink" title="2. 备份单个数据库"></a>2. 备份单个数据库</h4><p>如果只想备份某个特定的数据库，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -database &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;database_name&gt;</code> 是你需要备份的数据库名称。</li>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="3-增量备份"><a href="#3-增量备份" class="headerlink" title="3. 增量备份"></a>3. 增量备份</h4><p>对于较大的数据集，可以进行增量备份，只备份自上次全量或增量备份以来的数据：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -start &lt;timestamp&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;timestamp&gt;</code> 是备份开始的时间，格式是 RFC3339 格式（例如：<code>2023-09-21T23:30:00Z</code>）。</li>
+</ul>
+<h3 id="InfluxDB-恢复"><a href="#InfluxDB-恢复" class="headerlink" title="InfluxDB 恢复"></a>InfluxDB 恢复</h3><p>备份的数据可以恢复到新实例或现有实例中。</p>
+<h4 id="1-恢复整个实例"><a href="#1-恢复整个实例" class="headerlink" title="1. 恢复整个实例"></a>1. 恢复整个实例</h4><p>恢复整个实例包括所有的数据库。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="2-恢复单个数据库"><a href="#2-恢复单个数据库" class="headerlink" title="2. 恢复单个数据库"></a>2. 恢复单个数据库</h4><p>如果只想恢复某个数据库，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;database_name&gt;</code> 是你需要恢复的数据库。</li>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="3-恢复到不同的数据库"><a href="#3-恢复到不同的数据库" class="headerlink" title="3. 恢复到不同的数据库"></a>3. 恢复到不同的数据库</h4><p>有时你可能希望将备份的数据恢复到另一个数据库，可以使用 <code>-newdb</code> 选项来实现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;old_database_name&gt; -newdb &lt;new_database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;old_database_name&gt;</code> 是原来备份的数据库名。</li>
+<li><code>&lt;new_database_name&gt;</code> 是恢复到的新数据库名。</li>
+</ul>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li><p><strong>备份期间</strong>：InfluxDB 实例可以保持在线状态，你不需要停止数据库服务，备份可以在运行时执行。</p>
+</li>
+<li><p><strong>数据压缩</strong>：备份文件可以手动压缩，以节省存储空间。例如，使用 <code>tar</code> 命令打包备份目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -czvf backup.tar.gz /path/to/backup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>权限问题</strong>：确保进行备份和恢复操作的用户有对备份目录的读写权限。</p>
+</li>
+<li><p><strong>恢复时的版本问题</strong>：备份与恢复需要确保 InfluxDB 版本的兼容性。使用 <code>-portable</code> 格式的备份工具可以跨版本兼容，但最好在同一主版本内进行操作。</p>
+</li>
+<li><p><strong>增量备份的恢复</strong>：如果你使用增量备份，恢复时需要先恢复全量备份，然后按顺序恢复每个增量备份。</p>
+</li>
+</ol>
+<p>备份与恢复是 InfluxDB 数据管理的重要部分，确保定期备份以避免数据丢失风险，并在必要时能够快速恢复数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/09/22/InfluxDB/" data-id="cm1d5o5ok0006vcv5ej6z72y3" data-title="InfluxDB" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Golang" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/22/Golang/" class="article-date">
+  <time class="dt-published" datetime="2024-09-22T05:17:33.000Z" itemprop="datePublished">2024-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/22/Golang/">Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 0 0 30%;">
+    <img src="https://www.runoob.com/wp-content/uploads/2015/06/go128.png" alt="" style="max-width: 100%;">
+  </div>
+  <div style="flex: 1; padding-left: 10px;">
+    <p><em>Go 是一个开源的编程语言，它能让构造简单、可靠且高效的软件变得容易。<br>Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。 对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</em></p>
+
+  </div>
+</div>
+
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm1d5o5oj0004vcv594z87it1" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -162,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/27/Guitar/" data-id="cm1c3mj8i0003xkv53ao85a4q" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/08/27/Guitar/" data-id="cm1d5o5oj0003vcv5guxvbwsx" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -237,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm1c3mj8o000oxkv5aofl0ucd" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm1d5o5oq000qvcv5b7k8cla1" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -366,7 +561,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm1c3mj8p000sxkv57bbnay51" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm1d5o5or000uvcv5cer1h03t" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -635,7 +830,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm1c3mj8p000rxkv50plzaien" data-title="毕 业 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm1d5o5or000tvcv50r6e6tr4" data-title="毕 业 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -894,7 +1089,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm1c3mj8m000fxkv5croxhrx1" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm1d5o5on000evcv5h71ags3b" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1416,7 +1611,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm1c3mj8m000ixkv5haii6r7u" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm1d5o5op000nvcv5ddj1hvn1" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1584,1095 +1779,7 @@ Api方法中：XXXRequest、XXXResponse
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm1c3mj8r000yxkv5bpog4beg" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-春招2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/20/%E6%98%A5%E6%8B%9B2024/" class="article-date">
-  <time class="dt-published" datetime="2023-10-20T03:11:00.000Z" itemprop="datePublished">2023-10-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/20/%E6%98%A5%E6%8B%9B2024/">春 招 2024</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <img src="https://github.com/leo710aka/bk/blob/main/CV2024.png?raw=true" width="550" height="300" alt="">
-
-<h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><p><strong>GPA: 3.31</strong>(<em>3.34</em>)<sup>2020.09 - 2024.07</sup>  <a href="mailto:&#50;&#48;&#50;&#x30;&#x33;&#x30;&#x34;&#52;&#48;&#x30;&#x31;&#x30;&#x40;&#x6d;&#97;&#x69;&#108;&#46;&#115;&#x63;&#117;&#x74;&#x2e;&#x65;&#100;&#117;&#46;&#99;&#110;">&#50;&#48;&#50;&#x30;&#x33;&#x30;&#x34;&#52;&#48;&#x30;&#x31;&#x30;&#x40;&#x6d;&#97;&#x69;&#108;&#46;&#115;&#x63;&#117;&#x74;&#x2e;&#x65;&#100;&#117;&#46;&#99;&#110;</a><br><strong>主修课程：</strong>数据结构(90), 计算机网络(84), 数据库(87), 操作系统, C++(94), Java<br><strong>在校经历：</strong>曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。<br><strong>语言技能：</strong>CET-6 <em><strong>486</strong></em> (2022.06) CET4：530(2021.06)<br><strong>荣誉奖项：</strong>五粮液优秀学生奖学金 (2023.10)，华南理工大学三等奖学金 (2022.09)，广东省第十一届大运会“优秀志愿者” (2022.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”<br><strong>Publications：</strong><br>[1] Feng Cai, Jingxu Peng, Peng Zhou, “Current Study on Image Restoration Leveraging CNNs and GANs”, <strong>2024.02.14</strong>, 2023 International Conference on Data Science, Advanced Algorithm and Intelligent Computing (DAI 2023)<br>近年来，图像恢复技术中CNN和GAN应用广泛。DnCNN模型通过残差和批量归一化有效去噪地震图像。SRGAN使用GAN和感知损失函数提高图像质量。Constrained-DnCNN模型进一步优化地震数据解读。CR-SRGAN专注于文物超分辨率和颜色恢复，采用特殊的训练数据集。DCGAN结合CNN和GAN特点，展现出在特征提取和适应数据分布方面的优势，是图像恢复领域的有前景研究方向。 <a target="_blank" rel="noopener" href="https://www.atlantis-press.com/proceedings/dai-23/125998064">https://www.atlantis-press.com/proceedings/dai-23/125998064</a> </p>
-<h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><h4 id="Java-后端方向："><a href="#Java-后端方向：" class="headerlink" title="Java 后端方向："></a>Java 后端方向：</h4><ul>
-<li>熟练掌握 Java 基础，集合等相关知识，了解常见的设计模式。</li>
-<li>熟悉 JVM 的垃圾回收机制、类加载机制及 Java 的内存区域。</li>
-<li>熟悉 Java 并发编程，掌握JUC中常用的工具类，如 ConcurrentHashMap 等，熟悉多线程，线程池，Java 内存模型。</li>
-<li>熟悉 OSI 七层模型和 TCP&#x2F; IP 四层体系分层结构，掌握常见网络协议，如 HTTP&#x2F; HTTPS、TCP、UDP、DNS等。</li>
-<li>熟练使用 MySQL 数据库，熟悉 MySQL 索引、事务、存储引擎、锁机制。</li>
-<li>熟悉操作系统的进程通信、死锁、内存管理等知识。了解Linux 常用命令。</li>
-<li>熟悉 Redis 数据类型使用场景和内部实现，熟悉持久化和过期淘汰策略，熟悉缓存高并发场景。</li>
-<li>熟悉 RabbitMq 的使用，了解消息可靠性的保证、死信队列、延时队列等，了解 Kafka 的基本使用</li>
-<li>熟练使用 Spring Boot、Spring、MybatisPlus 等常用框架，熟悉 Spring IOC 、AOP 原理，了解 Nacos 、Zookeeper 等常见组件。</li>
-<li>了解 SpringCloud 常用的微服务组件及其使用;如NacosRibbonFeign、HystrixGateway等</li>
-<li>数据结构：了解常见数据结构如数组、链表、栈、队列、二叉树等;熟悉常用算法如双指针、递归、排序算法等</li>
-</ul>
-<h2 id="实习经历"><a href="#实习经历" class="headerlink" title="实习经历"></a>实习经历</h2><ul>
-<li><p><strong>广州骏伯网络科技有限公司</strong>_Java开发实习生_2024年01月~至今_广州</p>
-<ul>
-<li>主要工作：<ul>
-<li>参与用户拉新系统的开发。当用户点击我方投放的广告后，将消息推送到拉新系统的 mq 队列中，我方作为消息的消费者进行消息拦截和转发。通过 Kafka 进行削峰处理，避免 QPS 过高导致的系统负担。</li>
-<li>开发白名单功能。在消息转发的过程中，先从本地缓存及 Redis 中查看白名单数据，未命中则调用相关接口拦截非目标用户。在白名单中添加我发的测试手机设备号，从而在投放新的广告后进行联调测试。</li>
-<li>参与内部报表平台的开发。根据产品原型图设计数据库表，开发报表数据的分页查询接口。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>广东创世科技有限公司</strong>__Java开发实习生__2023.03-2023.05__广州<br>牙医星球小程序：负责”个人中心”部分接口以及相关数据库字段的设计，实现了在线视频的弹幕功能。<br>广东省青少年科技创客大赛系统：参与了该在线编程竞赛平台的学生端功能开发。在已有项目的基础上，编写完善了学生登录、编程题判题等方面的代码。熟悉了团队开发流程以及 git 的日常开发使用。</p>
-</li>
-<li><p><strong>中国电信股份有限公司东莞分公司</strong>__IT开发工程师__2023.07-2023.08__东莞<br>参与电信AI知识库的建设，打造电信业务专家水平的对话机器人。负责测试本地知识库，完善知识云文档，以及收集资料供大语言模型进行训练。此外，接触了开源项目，学习了深度学习框架。</p>
-</li>
-</ul>
-<h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><h4 id="“校跑跑”校园代拿平台"><a href="#“校跑跑”校园代拿平台" class="headerlink" title="“校跑跑”校园代拿平台"></a>“校跑跑”校园代拿平台</h4><ul>
-<li>项目描述：”校跑跑”平台是一款致力于解决大学校园内代拿服务需求的创新型应用，提供方便快捷的外卖、快递、文件等代拿业务，同时确保支付双方的信用和流程的可跟踪。</li>
-<li>主要工作：<ul>
-<li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
-<li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
-<li>使用数据库悲观锁，解决同一跑腿任务的超卖订单问题，实现抢单唯一。 </li>
-<li>为代拿双方的陌生人服务安全性，对每个状态进行流水记录。流程状态切换中实现了照片上传的可靠性，为了节省服务器带宽，使用腾讯云 COS 直传方案，提供预签名给前端，保障了 COS 的安全性。</li>
-<li>在接单前，需要接单人支付押金，实现跑腿人押金的支付、押金退还的事务处理。</li>
-</ul>
-</li>
-</ul>
-<h4 id="高校闲置资源交易系统"><a href="#高校闲置资源交易系统" class="headerlink" title="高校闲置资源交易系统"></a>高校闲置资源交易系统</h4><ul>
-<li>系统架构：SpringCloud + SpringBoot + Nacos + Redis + MySQL</li>
-<li>项目描述：系统采用微服务架构，旨在为消费者提供一站式商品交易平台。通过细致的业务划分，系统分为用户模块、商品模块、购物车模块与支付模块，确保每个模块服务的高效、可维护、可扩展。</li>
-<li>主要工作：<ul>
-<li>使用 Nacos 实现服务注册，消费者服务通过 Nacos 拉取和订阅服务。</li>
-<li>引入 Redis 数据库，优化项目中登录验证码的使用，对需要频繁访问的数据进行缓存。</li>
-<li>使用 Gateway 及拦截器实现了登录信息校验，避免各微服务中的代码重复。</li>
-<li>通过 Sentinel 完成系统限流熔断功能，防止服务故障后影响整个系统运行。</li>
-</ul>
-</li>
-</ul>
-<!-- #### 尚医疗、、、
-
-* 项目架构：SpringBoot、SpringCloud、Nacos、Gateway、Feign、MyBatis-Plus、Redis、RabbitMQ、Nginx、微信三方登录、EasyExcel、阿里云SMS
-* 项目简介：尚医疗平台是一款互联网在线预约挂号平台，以互联网手段连接医院、医生和患者,为用户实现网上就能轻松的预约挂号，缓解看病难、挂号难的就医难题。
-* 项目主要由后台管理系统和前台用户系统2大部分组成。
-1.后台管理部分核心模块: 医院设置管理、数据字典、用户管理、订单管理、统计管理以及权限控制等功能。
-2.用户前台使用部分的核心模块： 医院列表展示、医院科室详情展示、用户手机号或微信登录、用户实名认证、就诊人管理、预约挂号以及就医提醒等功能。
-
-
-#### 手写Spring、、、
-项目名称：手写 Spring
-项目架构：Spring Framework
-项目描述：Spring 是 Java 应用编程开发中，非常常用的技术框架。在 Spring 框架下，其他的组件都需要进行扩展依赖注入到 Spring 容器进行统一管理。同时日常的开发中，80%的问题场景，都需要调试到 Spring 的源码才能更好的解决，为此深度学习 Spring 源码非常有必要。
-个人收获：
-首先对 Spring 源码的学习，是 Spring 对整个 Bean 对象声明周期所需节点的拆解，把一个对象细化到这样的一个程度，才能让我们在使用 Spring 的时候，基于对外暴露的接口和类，更好的扩展各个功能节点。
-掌握了最重要的模板模式，Spring Bean 周期容器的使用，就是流程复杂的大模板，通过模板定义了全系的调用结构。这样的设计也为我以后在开发业务代码时候提供了参考建议，为我们自身复杂的业务定义出模板结构。
-分治、抽象、知识，Spring 源码中，有非常多的接口的实现、抽象类的定义、功能类的继承，这是非常重要的设计手段，因为它可以让我们的代码具有立体化，分层化，把各个职责放到不同的类维护可以让以后的迭代成本更低。
-细节的学习，Spring 源码中有非常多的技术细节，尤其是像Event事件设计、Aware依赖倒置、AOP切面实现、Bean循环依赖等，都是在特定复杂场景中优秀的设计方案。这些设计模式、设计原则，都可以指导业务代码开发。 -->
-
-
-<h4 id="牛客论坛（-高校就业信息分享平台）"><a href="#牛客论坛（-高校就业信息分享平台）" class="headerlink" title="牛客论坛（-&gt; 高校就业信息分享平台）"></a>牛客论坛（-&gt; 高校就业信息分享平台）</h4><ul>
-<li>项目描述：一个基本功能完整的论坛项目。主要功能有: 基于邮件激活的注册方式，区别登陆状态为游客或已登录用户展示不同界面与功能。支持用户上传头像，实现了发布帖子、评论帖子、发送私信与过滤敏感词等功能，以及点赞，关注与系统通知功能。<br>项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理。<br>（项目是一个以就业信息分享为基点的信息分享平台，在平台上学生可进行就业信息或者学习资源的分享，增加学习就业信息的获取渠道，例如，发布帖子，发布招聘信息，学生间可以互相关注，私信来互相分享资源。）</li>
-<li>核心功能:<br>1、用户模块：使用 Spring Email 辅助发送注册激活邮件，并且使用 Interceptor 拦截器赋予不同类型的用户权限，解决http无状态带来的缺陷问题，保护需登录才能查看的资源。<br>2、内容模块：使用 Spring AOP 面向切面编程思想统一记录日志；数据库连接使用 Mybatis 框架来完成，实现SQL语句和代码的分离，解除了SQL语句与代码的耦合。<br>3、通知模块：使用 Kafka 消息队列构建异步消息系统，实现点赞关注与通知（系统）间削峰。</li>
-<li>项目优化:<br>1、引入 Redis 数据库，优化项目中 Session 的使用并利用 Redis 实现点赞和关注功能。<br>2、使用 Caffeine + Redis 实现两级缓存，优化了热门帖子的访问。（借用 Jmeter 工具测试吞提升20倍）<br>(使用 Spring Security 提高系统的安全性，防CSRF攻击；使用拦截器解决登录状态剧新及频繁刷新问题)</li>
-<li>组价描述：<ul>
-<li>项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理；</li>
-<li>利⽤ Redis 实现了点赞和关注功能，单机可达5000TPS；（对频繁需要访问的数据，如用户基本信息使用Redis作为本地缓存，提高服务器性能。采用事务管理保证数据的正确，采用“先更新数据库，再删除缓存”策略保证数据库与缓存数据的一致性；）</li>
-<li>利⽤ Kafka 实现了异步的站内通知，单机可达7000TPS；（在用户被点赞、评论、关注后，放入异步队列，以系统通知的方式推送给用户）</li>
-<li>利⽤ ElasticSearch 实现了全⽂搜索功能，可准确匹配搜索结果，并⾼亮显示关键词；</li>
-<li>利⽤ Caffeine + Redis 实现了两级缓存，并优化了热⻔帖⼦的访问，单机可达8000QPS。</li>
-<li>利⽤ Spring Security 实现了权限控制，实现了多重⻆⾊、URL级别的权限管理；</li>
-<li>利⽤ HyperLogLog、Bitmap 分别实现了 UV、 DAU 的统计功能，100万⽤户数据只需*M内存空间；</li>
-<li>利⽤ Quartz 实现了任务调度功能，并实现了定时计算帖⼦分数、定时清理垃圾⽂件等功n能；</li>
-<li>利⽤ Actuator 对应⽤的 Bean 、缓存、⽇志、路径等多个维度进⾏了监控，并通过⾃定义的端点对数据库连接进⾏了监控。</li>
-</ul>
-</li>
-</ul>
-<h2 id="社团-组织经历"><a href="#社团-组织经历" class="headerlink" title="社团&#x2F;组织经历"></a>社团&#x2F;组织经历</h2><ul>
-<li><strong>华南理工大学青年志愿者指导中心</strong>  <em>宣传部 副部长</em> 2022.04-2023.04<br>1.承接中心的摄影任务，组织志愿活动的现场拍摄，负责培养部门成员的基本摄影能力；<br>2.协助完成中心公众号推文制作，宣传大运会、广州马拉松、志愿一条街等活动中的志愿服务工作；<br>3.负责部门的内建工作，营造良好氛围。</li>
-</ul>
-<h2 id="个人陈述-个人优势"><a href="#个人陈述-个人优势" class="headerlink" title="个人陈述&#x2F;个人优势"></a>个人陈述&#x2F;个人优势</h2><ol>
-<li>本科就读于华南理工大学网络工程专业，曾获学校与企业奖学金，三好学生等荣誉，以共同第一作者发表 EI 会议论文一篇；（曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历；）</li>
-<li>熟悉 Java 开发，能够熟练使用 Spring Boot、Spring、Mybatis 等常用框架，有着坚实的专业知识和实践经验；大学期间，我参与了多个项目或实习，不仅深入了解了软件开发流程，还培养了问题解决的能力和团队协作技巧； </li>
-<li>我对信息科技领域充满热情，对新技术和趋势保持关注，有较强的自我学习能力。希望能在企业数字化转型中，应用技术来推动创新和提高效率。</li>
-</ol>
-<h2 id="应聘理由"><a href="#应聘理由" class="headerlink" title="应聘理由"></a>应聘理由</h2><p>我对Java后端和软件开发有着坚实的专业知识和实践经验。在大学期间，我参与了多个项目或实习，不仅深入了解了软件开发流程，还培养了问题解决的能力和团队协作技巧。<br>东莞银行一直以来都在金融科技方面取得了卓越的成就，我渴望加入这个充满活力和创新的团队，共同推动银行业务的数字化转型。我相信自己的技术背景和对金融领域的热情将使我成为东莞银行信息科技团队的有力资产。</p>
-<ol>
-<li>个人优势：<br>作为一个经验丰富的Java软件开发者，我在面向对象编程、分布式系统设计以及大规模数据处理方面具备深厚的技术功底。我在之前的项目中，成功地设计和实施了高性能的、可扩展的Java应用程序，这使我对云核心网线Java软件开发的挑战充满信心。我的解决问题的能力以及对新技术的快速学习适应能力，将使我能够在贵公司的项目中迅速融入并取得成绩。</li>
-<li>选择行业：<br>我一直对云计算和核心网络领域保持浓厚的兴趣，深知这是当今数字化时代的基础。贵公司在云核心网线方面的领先地位以及对新技术的持续投资，使我对能够参与并推动这个领域的发展充满憧憬。我渴望加入贵公司，通过亲身参与和贡献，不断提升自身技术水平，同时为公司在行业内的创新发展贡献力量。</li>
-<li>商业价值：<br>我深刻理解软件开发不仅仅是技术问题，更是在商业环境中为客户提供切实解决方案的过程。我注重将技术与商业需求相结合，通过深入了解客户需求，迅速响应市场变化，为公司创造有价值的产品。我相信我的经验和技能将有助于提高贵公司的竞争力，实现商业和技术的双赢。</li>
-</ol>
-<h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><p>入学以来，我始终保持着积极向上的态度，希望在各方面都能够取得进步。在这段充实的时光里，我探索了知识的广度和深度，结识了众多志同道合的朋友，培养了坚韧的意志力，以及树立了对未来充满信心的决心。<br>未来的日子里，我将继续发扬个人优点，脚踏实地，真诚做人，潜心做事，不断地提高自己，为社会作出更大的贡献！</p>
-<ol>
-<li>思想上：我热爱祖国，积极学习党的理论，加入了学院青马工程班学习，努力成为一名合格的入党积极分子。我热心公益服务，在校青志宣传部担任副部长，为志愿精神在校园中的传递而努力。也在各项活动中积极参与志愿者工作，帮助有需要的人。</li>
-<li>学习上：我能够比较自觉和广泛地学习专业知识，勤奋刻苦，在各科目中都取得了不错的成绩，获得校级奖学金两次。我参与到前沿的科研项目中，以共同第一作者发表一篇国际会议论文。</li>
-<li>课余生活中，我也积极参与了各种文体活动。我乐于与人沟通，把握团队合作的机会，在学习与人协作的过程中，我的沟通和协调能力得到了不断加强。我也积极参与到课外实践中，完成了三段企业实习。这不仅锻炼了我的专业技能，更在团队协作的过程中，培养了实际解决问题的能力。同时，我也在不断思考未来的职业发展和目标，努力打下一个好的基础。</li>
-</ol>
-<hr>
-
-<h2 id="2024春招"><a href="#2024春招" class="headerlink" title="2024春招"></a>2024春招</h2><ul>
-<li>乐刻运动<ul>
-<li>一面 3.17<br>  java锁，，rentanlock<br>  HashMap如何处理10w条插入？为什么大小是2的指数？一开始就要创建大容量；方便在计算插入下标时与数组大小或运算<br>  jvm组成？？老年代，GC，回收期？？<br>  new一个对象的过程、、<br>  mq消息确认？事务本地回滚？？channel<br>  redis多路查询为什么这么快？？过期了怎么办？手动设置一个迭代中不过期？？<br>  mysql查询优化<br>  面试官：把基础搞好，在实践中运用</li>
-</ul>
-</li>
-<li>卓望数码<ul>
-<li>一面 3.18<br>  多态、、线程创建方法，区别，，工厂模式&#x2F;抽象工厂模式？？<br>  ACID、、<strong>D是永久性！！</strong>索引，最左匹配？<br>  IO，如何读取一个不知道类型的文件A数据到文件B中？buffer，inputstream？？<br>  sentinel流控，，<br>  远程debug？？IntelliJ IDEA 中”Run” 菜单”Edit Configurations”配置远程调试，填写调试服务器的主机名&#x2F;IP 和端口号，然后启动远程调试会话，设置断点和调试；<br>  面试官：动手能力不太行，基础知识不深入</li>
-</ul>
-</li>
-<li>小鹏汽车<ul>
-<li>一面 3.20<br>  最有收获的项目、、项目几个模块、、<br>  抢单悲观锁实现、、<br>  支付怎么做的、、微信支付？？<br>  实习做了什么？拉新具体做了啥？<br>  kafka消息顺序？<br>  mysql隔离等级，，<br>  jvm内存区域几个部分？<br>  springboot特点？<br>  spring bean依赖项目还能启动吗？<br>  OSI七层、、<strong>5.会话层、、6. 表示层</strong></li>
-</ul>
-</li>
-<li>新凯来<ul>
-<li>技术面 3.21（通过）<br>  实习工作、、没讲清楚<br>  收获了什么、、mq的使用，kafka技术选型<br>  项目复杂度、、创业项目，量级小<br>  lc1023</li>
-<li>性格测评重测：<strong>不够积极</strong></li>
-</ul>
-</li>
-<li>4399游戏<ul>
-<li>一面 3.21<br>  具体怎么熟悉了团队开发流程、、<br>  实习工作、、消息拦截逻辑，消息参数与枚举值比对，equals？？<br>  非法字检查？微信小程序接口、前缀树？？    BST、、<br>  网络知识学习：实现弹幕功能用了websocket，还可以用什么别的方法？TCP，Redis？？<br>  TCP编程？socket聊天室？？<br>  对这份工作有什么期待、、</li>
-</ul>
-</li>
-<li>TPlink联洲<ul>
-<li>机考算法：1、最长回文子串 java11?? 2、lc1114按序打印</li>
-<li>一面 3.21<br>  TCP&#x2F;UDP，MySQL索引，synorized与lock，实现hashmap、、尾插法的好处，spring设计模式，<strong>动态代理</strong>、、jdk，cglib<br>  实习：如何拦截<br>  项目：本地缓存与Redis不同步<br>  有没有offer！？</li>
-<li>二面 3.26<br>  实习、、拦截，可以用spring的设计模式或者技术吗？？策略模式，aop非业务，，<br>  白名单过期时间，量很大用布隆过滤器的缺点、、<br>  kafak架构，如何实现高吞吐量，前后吞吐量2000qps-&gt;200kbs<br>  项目、、不感兴趣，要说设计还是亮点？<br>  retranlock，可重入锁，，<br>  mysql、、隔离等级，索引优化，查看索引的使用 explain？？ mvcc？？ </li>
-<li>终面 3.27<br>  论文、考研、父母工作、数学挂科、实习、、<br>  项目：腾讯云 COS 部署，校内创业团队人数（产品经理 2、前端1~2、后端核心2迭代有空来、、），使用springcloud框架为什么还用nacos，sentinel？？</li>
-<li>终面-已进入人才库 4.25</li>
-</ul>
-</li>
-<li>广州农商银行（英才计划）<ul>
-<li>面试 3.27 放弃</li>
-</ul>
-</li>
-<li>经纬恒润<ul>
-<li>面试 3.29<br>  实习、、kafka选型、其他mq了解吗、白名单缓存一致性<br>  反射、泛型、mysql索引失效，in？？设计模式<br>  事务的使用、事务传播、、spring拦截器，过滤器、、gateway路由，断言<br>  智力：八个球，其中一个比较重，其余质量相同，如何用天平秤两次找出较重的球？</li>
-</ul>
-</li>
-<li>多益网络（-&gt; CPP游戏引擎研发）<ul>
-<li>面试 4.3<br>  最有挑战的项目？？难点？？<br>  团队有几个人，工作流程，如何协调（接口文档？）和前端沟通？？<br>  java的优缺点，垃圾回收算法，链表与数组，浅拷贝与深拷贝<br>  线程安全，如何保证（乐观锁，悲观锁），线程与进程<br>  静态绑定，动态绑定，编译时多态，运行时多态<br>  面向对象的三个特点、、<strong>为什么需要继承和多态？？</strong><br>  Redis作缓存的缺点与解决方法<br>  介绍框架：spring、springboot、mybatis<br>  如何学习的？看视频+chatgpt发文、、有没有使用搜索引擎？google、stackflow？？<br>  玩什么游戏？我的世界，根据三维坐标保存每一个格子的类型，那么要用三维数组表示整个空间，如何优化存储方式？？百度实景地图的原理？？</li>
-<li>hr面 4.10<br>  薪资？20k，18k，如何得出这个薪资的？<br>  什么时候来实习？实习-&gt;试用-&gt;正式<br>  秋招，春招offer情况，考研，每段实习时间都不长<br>  了解岗位要求，转cpp吗？入门语言<br>  了解公司业务吗？玩网页游戏少<br>  工作时长996+周末半天，学习时间<br>  籍贯，家庭，接受广东外工作地点，对象<br>  父母怎么看待你找工作？如何评价父亲？</li>
-<li>未录用</li>
-</ul>
-</li>
-<li>招商银行·招银网络科技<ul>
-<li>测评 北森测评<ol>
-<li>语言理解：直接看题，提炼几条关键逻辑，再看题目</li>
-<li>图表分析：先看题目，再看图</li>
-<li>图形推理：找规律、、叠加，合并消除，各类图形总数、、</li>
-<li>性格测评：最符合&#x2F;最不符合</li>
-</ol>
-</li>
-<li>机考 4.1</li>
-<li>一面 4.7<br>  String比较可以用 &#x3D;&#x3D; 吗？Arraylist.remove() 报什么错？HashMap键可以null？<br>  jvm内存区域、如何写一个程序让方法区oom<br>  线程安全问题、<strong>synorized和reentrantlock的本质区别，底层实现？？</strong>cas存在什么问题？？<br>  数据库acid，索引是什么<br>  tcp三次握手的本质、http的组成，http头有什么部分<br>  十万个数取最大10个、二分排序</li>
-<li>综面 4.16<br>  技术：项目，商城redis的使用，redis客户端？？<br>  hr：挂科原因，，最大的缺点？？实习长短、项目时间重合，实习目的（项目缺人&#x2F;应届生招聘），如何评审，上线时间紧张怎么办？<br>  <strong>考研！！</strong>没考，找工作确实比较晚，技术栈：七月份开始学，秋招技术不足，春招积累面试经验后通过<br>  反问：招聘流程，工作时长</li>
-<li>未通过</li>
-</ul>
-</li>
-<li>中国平安·平安寿险<ul>
-<li>面试 4.8<br>  项目介绍很烂。。同一时间代拿任务发布量级很大的情况下怎么动态分页查询？？<br>  实习：拦截具体工作是什么？媒体-&gt;拉新，调接口？？拉新-&gt;APP后台，发http请求，rpc？？整个拦截流程，流stream？？kafka重复消费，redis标识符，消息量很大？？报表具体有什么字段，如何设置的？？</li>
-</ul>
-</li>
-<li>深圳农商银行（信息技术岗）<ul>
-<li>面试 4.8<br>  实习：kafka如何知道通道、、git怎么用分支的<br>  项目：如何过滤非法字？乐观、悲观锁，锁升级，MySQL事务，@transaction失效？为什么用nacos？限流和熔断？？项目部署，linux文件中查找？？<br>  hr：为什么放弃考研？家庭情况？为什么匹配银行岗位？女朋友？</li>
-<li><strong>offer 4.23</strong></li>
-</ul>
-</li>
-<li>万得wind<ul>
-<li>面试 4.9<br>  kafka怎么实现限流的<br>  任务发布到发布客户端，重复刷新查mysql？？一百个人抢单，请求直接到数据库吗？？nacos如何实现服务注册，<br>  多态，<strong>接口与抽象类</strong>，有用过吗？？设计模式，哪里体现了多态，单例模式，，</li>
-</ul>
-</li>
-<li>TPlink普联<ul>
-<li>面试 4.10<br>  校跑跑：与实习时间重叠（非全职，有需求就去），redis非重复支付，抢单为什么不用缓存层？商城redis使用<br>  实习：kafka怎么限流，，考虑不使用kafka优化？？延时双删？？<br>  synchronized的底层实现，<strong>jvm堆结构、gc、类加载机制</strong>，mysql的b+树索引结构+查询优化，mysql优化（数据库结构+具体使用中的sql优化）</li>
-<li>二面 4.18<br>  秋招情况，offer情况，实习，项目</li>
-<li>座谈 5.14</li>
-<li>offer 5.15</li>
-</ul>
-</li>
-<li>58同城<ul>
-<li>面试 4.11<br>  动态代理，线程状态、生命周期，<strong>线程池</strong>，Reentrantlock底层，信号?<br>  redis数据类型，zset有什么应用<br>  GC算法，<strong>G1和CMS</strong>的区别，内存泄露和内存溢出<br>  springboot特点，自己写一个starter， MyBatis中#和$的区别<br>  ConcurrentHashMap1.7，ArrayList扩容<br>  MySQL日志，二阶段提交<br>  面试官一直试图找到亮点、、</li>
-</ul>
-</li>
-<li>Shopee虾皮<ul>
-<li>面试 4.13<br>  拉新系统框架，难点，广告重复点击<br>  kafka架构，消息重复消费，redis删除策略<br>  lc239</li>
-</ul>
-</li>
-<li>北森云计算（-&gt; C# 北京&#x2F;成都）<ul>
-<li>面试 4.17<br>  白名单作用，key-value怎么设置？？<br>  kafka消费模式？？使用场景<br>  redis基本类型，使用场景<br>  CPU 飙高系统反应慢怎么排查？<br>  互斥锁，线程池、删除策略？<br>  接口与抽象类，值和引用，Array和ArrayList<br>  <strong>Ioc容器</strong>及使用，设计模式，工厂模式的使用<br>  学习路线，职业规划</li>
-</ul>
-</li>
-<li>Boss直聘<ul>
-<li>面试 4.18<br>  拉新系统解决痛点，<strong>拦截逻辑</strong>？？kafka重复消费，同时重复消费？？本地缓存caffeine<br>  跑腿抢单悲观锁，为什么不用乐观锁？如何优化，加缓存层？？<br>  互斥锁选型、reentranlock底层原理？怎么实现公平锁？？<br>  平时如何学习？博客，技术论坛？<br>  微服务调用，轮询？？</li>
-</ul>
-</li>
-<li>阿里-银泰<ul>
-<li>面试 4.19<br>  kafka组成，选型，消息丢失？redis为什么这么快？<br>  <strong>sentinel</strong>服务治理，使用场景，自己设计一个组件统计各个微服务的qps<br>  mysql索引建立与使用，关系型与非关系型，索引中的节点上是什么？？</li>
-</ul>
-</li>
-<li>美团·优选<ul>
-<li>面试 4.22<br>  kafka消息堆积？？白名单二级缓存解决了什么问题？本地、redis、数据库同步？？<br>  报表是在查出a表后分页再联合查b表，还是a,b表联合查询后再分页？<br>  抢单乐观锁实现，reentrantlock底层，<strong>可重入？？</strong>集群部署下分布式事务？？退款事务，先退款先流水？？<br>  hashset的value存了什么？线程池加入线程使用空闲线程？联合索引怎么创建的？浏览器输入url的流程用到什么协议？操作系统与java线程的联系？</li>
-</ul>
-</li>
-<li>比亚迪<ul>
-<li>面试 4.24 放弃</li>
-</ul>
-</li>
-<li>途牛旅游网<ul>
-<li>面试 4.24<br>  jvm类加载过程，双亲加载机制<br>  hashmap原理，大小为2^n：hash值与数组大小与运算<br>  redis<strong>缓存击穿，缓存穿透</strong>，分布式锁<br>  SpringAOP、spring循环依赖、事务传播，sql优化</li>
-</ul>
-</li>
-<li>宇量晟<ul>
-<li>背景：华为＋国资？？半导体</li>
-<li>面试 4.26<br>  岗位：在线系统用c&#x2F;cpp，离线系统用python，需要转语言<br>  c指针，智能指针，内存管理，多线程与多进程，二叉树&#x2F;红黑树<br>  算法：判断点在三角形内，句子翻转单词不翻转</li>
-<li>测评 4.29<br>  <em>要前后一致，然后要表现的乐观积极，团队合作，不能选带领导意愿的选项？不一定要讨好型，也可以硬气一点？？</em></li>
-<li>综面 5.18 放弃</li>
-</ul>
-</li>
-<li>灵动科技<ul>
-<li>AI赛道创业公司？<ul>
-<li>初创公司：与大厂精细化的分工相比，初创公司开发岗位需要承担的工作可能更加复杂，缺少完善的培养机制和技术积累；需要更多的自我学习和解决问题的能力，锻炼的机会多，发展更灵活，有创新的机会，与公司共同成长。。</li>
-<li>AI思考：外部（未来趋势，AI一方面在各行业普及，一方面使用门槛降低。。虽然算法研究岗位少，但是也存在很多AI应用岗位），内部（大学期间对AI热情很高，到老师实验室学习（自学经典AI课程），在东莞电信实习也参与了对话机器人项目（了解开源对话大模型），参加夏令营研究项目。。）</li>
-<li>岗位认识：这是一家AISaaS公司，专注于打造全球商业市场的通用人工智能应用软件平台，我们正在深圳寻求一位热情目具有技术潜力的应届毕业生后端工程师，作为后端工程师，您将使用大模型和先进技术，开发和实施可扩展和稳健的软件解决方案。一方面，我对AI算法和大模型有基本了解，一方面我掌握Java开发、、</li>
-<li>产品了解：GPT-4驱动的翻译软件？？出海业务？利用人工智能进行翻译、本地化和全球扩张</li>
-<li>反问：作为创业公司，为什么不请经验丰富的工程师，而是应届生？我的情况：六月才能实习，已签三方</li>
-</ul>
-</li>
-<li>初面 4.30<br>  美团毛利润计算：支出，收入？？<br>  明确：对您公司的岗位有强烈的倾向，收到offer可以立刻入职（非实习），对薪资要求不高（15k）</li>
-</ul>
-</li>
-<li>中国平安·平安金服<ul>
-<li>初面 4.30<br>  最左索引底层原理（聚集索引？？），b+索引与哈希索引，原子类？？，https，对称加密<br>  感觉你面试经验挺多的？？</li>
-</ul>
-</li>
-<li>realme真我<ul>
-<li>面试 5.7<br>  重载与重写，http头内容，死锁，缓存类型和理解<br>  redis数据类型，集群部署，数据一致性，场景：查一个字符串类型数据为什么花了5s？<br>  数据库索引失效情况<br>  毕设做的什么。。</li>
-</ul>
-</li>
-<li>交通银行<ul>
-<li>面试 5.9<br>  项目，spring，依赖注入，单例，手撕：链表中是否有环？</li>
-</ul>
-</li>
-<li>美的·软件工程院<ul>
-<li>一面 5.10<br>  logn曲线，快速排序为什么不稳定<br>  可重复读底层原理，mvcc，Redis分布式锁</li>
-<li>二面 5.10<br>  三个优点，举例勤奋</li>
-<li>hr面 5.11<br>  部门（软件工程院办公系统）业务（办公系统）双休（保证？？）<br>  基本工资（12^12+12^3^绩效）五险一金（比例？？）餐补（每日20）房补（租房900&#x2F;月）</li>
-<li><strong>offer 5.14</strong></li>
-<li>入职 7.8</li>
-</ul>
-</li>
-<li>东方财富<ul>
-<li>一面 5.13<br>  缓存与数据库的一致性，微服务架构，服务治理</li>
-</ul>
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>投递：官网（使用内推码），Boss直聘（快速筛选简历），宣讲（甚至直通面试）</li>
-<li>前期：中厂刷经验，了解面试流程以及各部分常考题，掌握八股，熟悉个人实习和项目描述</li>
-<li>后期：大厂过不去，小厂捡漏，虽然八股基本覆盖还需深挖项目和实习中的每一个步骤，了解场景解决方法和项目优化方案</li>
-<li>改进：前期浪费了很多中小厂机会，白给厂没把握住（挂科+终面出错），大厂能力不足，最好一定要参加秋招。。。</li>
-</ul>
-<hr>
-
-<h1 id="签约"><a href="#签约" class="headerlink" title="签约"></a>签约</h1><ul>
-<li>流程：签三方（- 毁约）- 入职报道 - 签劳动协议（三方失效）- 试用期 - 转正</li>
-<li>文件<ul>
-<li>毕业生推荐表：一份原件，毁约后要取回</li>
-<li>毕业生就业协议：即三方，一次毁约机会</li>
-<li>两方协议：约束小</li>
-</ul>
-</li>
-<li>违约（一次机会）<ul>
-<li>提交违约申请书：本人签字，无需提供原单位解约函，每月的10号、20号、30号之前交给辅导员</li>
-<li>违约申请通过：名单见“就业在线”<a target="_blank" rel="noopener" href="https://jyzx.scut.edu.cn/">https://jyzx.scut.edu.cn/</a></li>
-<li>原单位解约流程：1、手写并签名书面违约申请。2、违约金。获得原单位解约函。</li>
-<li>提交“新单位盖章的违约申请表”和“原单位解约函”给学校，审核通过后生成新就业协议书，与新单位签订三方。</li>
-</ul>
-</li>
-<li>应届毕业生<ul>
-<li>择业期：应届生身份通常可以保留两年。</li>
-<li>失效：一旦就业或缴纳社保，应届毕业生身份即失效。</li>
-<li>好处：银行、国企校园招聘优先，落户政策好.</li>
-</ul>
-</li>
-<li>户口<ul>
-<li>户口未迁来学校的毕业生，如户口需迁往工作单位的按户籍所在地公安机关的管理规定办理。</li>
-<li>不同的城市和地区有不同的落户政策，对于高校研究生毕业后的落户条件、流程和所需材料都可能有不同的规定。一些城市可能会对应届毕业生提供更为宽松的落户政策。</li>
-<li>户口保留：如果暂时没有找到合适的工作或者希望继续深造，可以选择将户口保留在原学校或原籍。在保留期间，需要注意保管好自己的户口页和相关证明材料，以备将来使用。</li>
-</ul>
-</li>
-<li>毕业去向登记与档案信息填报<ul>
-<li>档案整理：家庭情况、学习成绩、政治思想表现、身体状况等</li>
-<li>档案转递：按“广东大学生就业创业”小程序填写地址转递，一般于2024年7月中下旬开始寄送</li>
-<li>通过“广东大学生就业创业”小程序签订就业协议书且回传审核完成的，就业信息同步至“毕业去向登记”和“初始档案信息”模块</li>
-</ul>
-</li>
-<li>社保公积金<ul>
-<li>五险：即社保，养老、医疗、生育、工伤、失业保险，每月缴，公司缴大头个人缴小头，通常按国家及当地标准缴纳</li>
-<li>一金：即住房公积金，按 “个人月薪&#x2F;当地平均居民收入” 为缴纳基数</li>
-<li>到手工资 &#x3D; 税前年包 - 税款 - 五险一金（个人缴纳部分）<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>个人缴纳比例</th>
-<th>单位缴纳比例</th>
-<th>作用</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>养老保险</td>
-<td>8%</td>
-<td>20%</td>
-<td>累计交满15年，退休后终身享受养老金</td>
-<td>能中断没有影响</td>
-</tr>
-<tr>
-<td>医疗保险</td>
-<td>2%</td>
-<td>10%</td>
-<td>医疗报销50%以上退休后享受医保待遇特点</td>
-<td>中断3个月以上失效</td>
-</tr>
-<tr>
-<td>生育保险</td>
-<td>0%</td>
-<td>0.8%</td>
-<td>生育后资料给单位，报销相关费用</td>
-<td>生育津贴个人不能微纳</td>
-</tr>
-<tr>
-<td>工伤保险</td>
-<td>0%</td>
-<td>0.2~1.4%</td>
-<td>工伤时获得医疗费用，保工作期间和下班途中</td>
-<td>工伤保险个人不能缴纳</td>
-</tr>
-<tr>
-<td>失业保险</td>
-<td>1%</td>
-<td>2%</td>
-<td>缴费满1年，失业后按照缴费年限领取失业保险金，主动辞职的不可以领取</td>
-<td>失业保险个人不能缴纳</td>
-</tr>
-<tr>
-<td>住房公积金</td>
-<td>5~12%</td>
-<td>5~12%</td>
-<td>租房、买房、装修房都可使用，特别是贷款买房利率低</td>
-<td>可断缴(影响贷款)，可提取&#x2F;异地转移</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/20/%E6%98%A5%E6%8B%9B2024/" data-id="cm1c3mj8o000qxkv54a832f8k" data-title="春 招 2024" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-面试_个人" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" class="article-date">
-  <time class="dt-published" datetime="2023-10-13T03:11:00.000Z" itemprop="datePublished">2023-10-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/">面 逝 | 个人</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h2><ul>
-<li><p><strong>自我介绍</strong><br>1、面试官您好，我是蔡枫，本科就读于华南理工大学计算机学院<br>2、在校期间，我学习 Java 开发技术与相关组件，也跟着学校的创业团队的开发了一些项目<br>3、有几段实习经历，让我对团队中的开发流程有了一定的了解，并且也参与到了实际业务代码的编写<br>4、我与您公司岗位比较匹配：中台数据转发、、银行数字化转型、、<br>5、我的求职动机：挑战性，成长，机会，，自己清晰的职业规划，表示愿意长期从事这个岗位，，</p>
-</li>
-<li><p>自我推荐。<br>我觉得我对所从事的每一个项目都很努力、负责、勤勉。我在努力成为一个能够不惧解决困难和能够持续学习的人。</p>
-</li>
-<li><p>校园经历？</p>
-<ul>
-<li>大学里最大的收获：在母校的关怀中茁壮成长，敢于尝试，从课内学习、科研、项目经验都积累了，，（因为学校鼓励我们敢于尝试，又会包容我们犯错，激励我们成长）</li>
-<li>重来一次哪方面可以做的更好：多融入社会，多尝试新东西，把技能学的更加深入、、</li>
-<li>挂科：确实挂了数学，主要原因是刚入学没有适应大学的这种学习模式（上课没学进去，课后也没补上来，或者说不知道如何自学）后面的课程我虽然有的在课上没学到什么，但是课后会主动地通过网络课程、技术网站等方式增进了解，也是增强了信息查找和自我学习的能力、、</li>
-<li>参加了什么比赛，实验室项目？<br>  参加过学院的acm竞赛，，到老师的实验室学习过，参与过一些科研学习的项目，发布过一篇论文。我积极参与实践，有一些项目开发经验，有三段实习经历。。。</li>
-<li>你的论文？<br>  我参加了一个“深度学习-图像处理”项目。五周的时间里，通过导师的授课讲解与指导，我拓展了该领域的专业知识，接着着手阅读文献和动手做实验。之后，我便与小组成员紧密合作，从主题确定，到文献的深入研读，完成论文写作，最终也发表了一篇论文。主要是希望接触学习人工智能这一块的知识（在学校没有机会和资源，，，）</li>
-<li>说一下你的社团活动？<br>  我在华工青年志愿者指导中心宣传部担任了为期一年的（副）部长，这将我的摄影能力和对志愿服务的热情结合起来。我多次承担志愿活动现场的拍摄任务，用相机展现志愿者们的奉献精神，通过青志公众号推文等形式在校园中传播志愿精神。</li>
-</ul>
-</li>
-<li><p><strong>你对本公司的情况了解吗？为什么选择我们公司？</strong><br>1、对公司的了解：、、（行业的前景+公司的规模+公司在行业中的地位+特色产品）<br>2、自己跟岗位的匹配：、、（结合岗位要求+自我经历）<br>3、符合自己的职业规划：、、</p>
-</li>
-<li><p>了解 Java 后端开发这个行业岗位吗？是否符合期许？<br>我认为 Java 后端开发是一个非常有挑战性的领域，开发能够为人们的生活带来便利的软件，对我来说是有趣的。在互联网企业应用广泛，有活力，发展前景好？？<br>Java 作为一门强大而灵活的编程语言，具有广泛的应用领域，尤其在企业级应用开发中表现出色。<br>我在大学期间学习和做项目的过程中接触到了Java编程，并且在后来的时间加强了对相关技术的学习。我期望能够在一个具有挑战性、创新性和学习机会的团队中工作，我也希望自己能成为一个能够解决困难和不断学习的人。Java开发是一个不错的领域。</p>
-</li>
-<li><p>“想到一个什么样的平台发展？”<br>我希望能够在一个具有挑战性的环境中工作，可以让我不断学习和提升自己。<br>我注意到贵公司在（行业&#x2F;领域）取得了显著的成就，我相信我的Java开发技能可以在这里发挥出色的作用，我认为通过在这样一个领先的平台上工作，我将有机会为公司的发展和创新做出贡献，与公司一起成长。</p>
-</li>
-<li><p>“对于第一份工作，你更看重什么？”</p>
-<ol>
-<li><strong>技术挑战和学习机会：</strong> 对技术挑战有热情，渴望学习新技术。希望这份工作能够提供丰富的项目经验，快速成长、、</li>
-<li><strong>导师与团队：</strong> 当然我希望积累团队协作、项目开发的经历，与不同的人合作，分享知识并共同解决问题。对我的职业生涯进行规划、、</li>
-<li><strong>公司文化和价值观：</strong> 强调你对公司文化和价值观的认同。你可以说你更看重一份工作能够与你的价值观相符，让你在一个积极、支持性的工作环境中工作。</li>
-</ol>
-</li>
-<li><p>认为怎样是好的开发工程师？<br>1.技术深度和广度：了解Java语言的方方面面，包括基础语法、多线程、IO等，熟悉常用的框架和工具。以及其他相关技术<br>2.问题解决能力：具有良好的问题解决能力。能够独立分析问题、理解需求、提出解决方案，并快速有效地实现。<br>3.代码质量：写出高质量的、可维护的代码。注重代码规范、模块化和可测试性。<br>4.团队协作：良好的团队协作能力是软件开发中至关重要的一环。有效沟通、分享知识，并能够与团队成员协作解决问题。<br>5.持续学习：技术日新月异，一个好的开发者应该保持持续学习的习惯，关注新技术的发展，随时准备适应行业的变化。<br>6.创新思维：善于提出新的、创造性的解决方案，对于提升产品和团队的效率具有积极的作用。<br>7.用户导向：理解产品和项目的业务需求，站在用户的角度思考问题，以用户体验为中心。</p>
-</li>
-</ul>
-<hr>
-
-<h2 id="实习（骏伯）"><a href="#实习（骏伯）" class="headerlink" title="实习（骏伯）"></a>实习（骏伯）</h2><ul>
-<li><p>广州骏伯网络？<br>使命：让移动互联网营销简单高效; 价值观：创造价值，分享价值; 愿景：做最受信赖的移动互联网营销服务商;<br>产品研发中心 - 应用开发部-基础建设组 - Java开发实习生 - 2024.1.8 ~ 4.12</p>
-</li>
-<li><p><strong>介绍一下实习经历、、</strong></p>
-<ul>
-<li>岗位职责：互联网营销行业公司，主要接触了公司核心的拉新系统的迭代开发，另外独立开发了公司内部的报表平台的接口</li>
-<li>一个项目：其中拉新系统让我印象深刻、、<ul>
-<li>项目是什么：拉新指的是给例如 APP 拉取新的用户，实现方法是 我发根据 APP 的要求投放广告到如 抖音 等媒体平台，那么就会产生广告的曝光、用户点击等数据消息，需要转发给 APP 端。我方的拉新系统就在消息转发过程中，进行一个消息拦截的工作。具体来说，消息会先发送到我方拉新系统的mq，一方面进行了kbs的削峰，然后根据需求和策略进行拦截处理，最后才转发给 APP，，</li>
-<li>简化版（非技术介绍）：我方投放广告，接收“上游”的数据，感觉业务逻辑拦截以及一系列处理后，转发到“下游”；一方面进行了前后行为解耦，一方面削峰处理，为客户提供合适的数据；</li>
-<li>为何这样做：这样，就给企业提供了符合要求的消息数据，我方获得收益</li>
-<li>负责的工作：就是参与拉新系统的迭代开发，我负责数据拦截这一部分，具体来说实现了白名单功能，，</li>
-<li>有什么成果：，，实现联调，，节约成本</li>
-<li>最大的收获：</li>
-<li>最大的成果：</li>
-<li>重来会改变：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>拦截到底做了什么？？</p>
-<ul>
-<li>通过 stream() 调用一系列方法：<ul>
-<li>参数前置处理（initPreValidate）（一些通用逻辑，比如点击数据ID、时间字段的初始化）。</li>
-<li>参数校验（isValid）（校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户）。</li>
-<li>参数后置处理（initPostValidate）（一些带有复杂业务逻辑的处理，比如RTA拦截）。</li>
-<li>将校验通过的点击数据发给客户（transferToCustomer），http请求。</li>
-<li>保存数据到数据库&#x2F;缓存（save）。  <img src="https://github.com/leo710aka/bk/blob/main/job18.png?raw=true" width="550" height="300" alt=""></li>
-</ul>
-</li>
-<li>内部处理逻辑（在initPostValidate部分，进行RTA拦截）<ul>
-<li>拦截指什么：设置状态为 NON_CLICK_NOT_TRANSFER_TO_CUSTOMER，后续代码流程识别出此状态后，不会将该数据发给客户。</li>
-<li>拦截逻辑：<ul>
-<li>校验点击数据是否有效，如果无效则不发给客户，比如媒体可能会将用户曝光数据发过来，此时不需要发给客户</li>
-<li>RTA拦截：对于某些客户，我方在发送点击数据给对方时，需要调用客户的接口进行确认，判断当前用户是否是客户的目标用户，如果不是，则不发送点击数据给客户。则设置状态RTA_EXCLUDED，后续代码流程识别出此状态后，不会将该数据发给客户。</li>
-<li>走RTA拦截，有一些前置条件，包括：<br>  1、业务方指定了客户点击监测链接ID为RTA链接（客户的点击监测链接是客户提供过来用于接收我方点击数据的接口）（RTA链接是一个标记，标识当前点击数据发给客户前，要先调用客户的RTA接口过滤一道，最终只发送客户需要的用户）<br>  2、如果当前数据类型为曝光，且曝光总数与点击总数的比例小于requestRate（默认为4:1）<br>  对于满足前置条件的数据，则发起RTA请求，将结果记录下来（结果指的是客户是否接受当前用户，即是否参竞-isParticipated），用于业务方后续使用</li>
-<li>白名单：为实现整个转发过程的联调，不拦截内部测试设备号（可能遭到rta拦截），即使客户不接受当前用户（内部测试手机），不设置状态RTA_EXCLUDED，此时后续流程会正常将该数据发给客户</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>可以用spring的设计模式或者技术吗？？？<ul>
-<li>策略模式，</li>
-<li>aop非业务，，暴露接口给监控系统</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>kafka 架构？kafka 如何实现高性能，高吞吐量？kafka 消费模式？如何不消费重复数据，顺序消费数据？如何不丢失数据？kafka内部是怎么实现限流的？、、、</p>
-</li>
-<li><p>你们项目中为什么要用消息队列？ MQ 的作用是什么？</p>
-<ul>
-<li>【异步】拉新系统接收媒体数据存放于 kafka，再消费即拦截处理后才转发，涉及io、阻断、调用客户接口、数据库、、</li>
-<li>【削峰】接口接收2000qps的请求，以 200kbs 消费 mq中的数据，解决系统前后处理能力不一致的问题</li>
-</ul>
-</li>
-<li><p>不使用kafka，如何优化消息前后处理速度不一致的问题？</p>
-<ol>
-<li>异步处理：将消息的后续处理逻辑设计成异步执行，可以使用 Java 中的线程池或者异步任务（CompletableFuture）来实现。<ul>
-<li>使用线程池：用<code>ThreadPoolExecutor</code>或者<code>ExecutorService</code>来创建线程池，然后将需要异步执行的任务提交到线程池中。线程池会自动管理线程的创建、执行和销毁，可以有效地减少线程的创建和销毁开销。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">10</span>); <span class="comment">// 创建固定大小的线程池</span></span><br><span class="line">executor.submit(() -&gt; &#123;</span><br><span class="line">    <span class="comment">// 异步执行的操作，例如IO操作、数据库操作等</span></span><br><span class="line">&#125;);</span><br><span class="line">executor.shutdown(); <span class="comment">// 关闭线程池</span></span><br></pre></td></tr></table></figure></li>
-<li>使用异步框架：有些框架提供了异步执行的支持，例如Spring框架的<code>@Async</code>注解。通过在方法上添加<code>@Async</code>注解，可以将方法变成异步执行的方法。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> &#123;</span><br><span class="line">    <span class="meta">@Async</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">asyncMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 异步执行的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>批量处理：将一批消息聚合在一起批量处理，而不是单个消息逐一处理。这样可以减少处理的次数和开销。</li>
-<li>并发处理：考虑使用多线程或者并发框架来提高处理效率。注意处理任务的并发性要合理控制，避免因并发导致的资源竞争和数据一致性问题。</li>
-</ol>
-</li>
-<li><p>白名单功能如何实现？</p>
-<ul>
-<li>白名单使用逻辑：1、先查看是否在白名单中（认为是目标用户）2、若不在白名单中，再调用户提供的接口进行RTA拦截（目标用户判断）</li>
-<li>如何使用：直接查本地缓存caffeine的白名单，<strong>因此，必须保证本地缓存与Redis数据的一致性！！（事实上有20min延误）</strong></li>
-<li>白名单在Redis中的保存形式：一个 Set<String></li>
-<li>白名单如何维护：需要新增时(上线前)手动Postman调接口，使用 SADD 命令向 Set 中添加一个或多个成员（事实上在数据库中保存了完整的精准的数据，需要时从数据库中同步）  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SADD whitelist member1 member2 member3  <span class="comment"># 白名单的 key-value</span></span><br></pre></td></tr></table></figure></li>
-<li>Redis 数据何时过期？可以调用 Redis 的 EXPIRE 命令为单个键（Key）或整个 Set 设置过期时间，也可以通过 SETEX 命令一次性设置键的值和过期时间以确保设置值和过期时间的原子性。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE myset 60         <span class="comment"># 设置 myset 整个 Set 结构的过期时间为 60 秒</span></span><br><span class="line">EXPIRE myset:value1 60  <span class="comment"># 设置 myset 中的 value1 元素的过期时间为 60 秒</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>Redis-MySQL-caffeine数据一致</strong>：Redis 提供了键过期时的通知功能，可以通过配置 Redis 的 notify-keyspace-events 参数来开启过期事件通知。在 Redis 配置文件中设置 notify-keyspace-events Ex，表示开启键过期事件通知。<br>  <em><strong>设置redis数据过期时长为20分钟，到期后，会触发数据库查询，同时会将数据加载到本地缓存中，用于接下来一个20分钟；</strong></em></li>
-</ul>
-</li>
-<li><p>为什么需要Redis+caffeine二级缓存？</p>
-<ol>
-<li>关系数据库(Mysql)数据最终存储在磁盘上，每次读取会因为磁盘本身的IO影响读取速度，所以考虑Redis这种内存缓存。</li>
-<li>内存缓存(Redis)确实能够很大程度的提高查询速度，但也许避免同一查询大量的并发查询，也会有明显的网络IO上的消耗。</li>
-<li>那我们针对这种查询非常频繁的数据(热点key)，可以考虑存到应用内缓存如caffeine，当应用内缓存有符合条件的数据时，就可以直接使用而不用通过网络到redis中去获取；另外我个人认为，可能对于一些“常规业务无关”的数据，也可以放在本地缓存，避免对Redis查询、、</li>
-</ol>
-</li>
-<li><p>本地缓存与Redis不同步、、</p>
-<ol>
-<li>延时双删：参考redis与mysql缓存一直方法，先删除 Redis存数，再更新 MySql，延迟几百毫秒除 Redis存数据，这样就算在更新 MySql时，有其他线程读了Mysql，把老数据读到了 Redis中，那么也会被制除掉，从而把数据保持一致 </li>
-<li><strong>定时刷新</strong>：设置redis数据过期时长为20分钟，到期后，会触发数据库查询，同时会将数据加载到本地缓存中，用于接下来一个20分钟</li>
-<li><strong>异步更新</strong>：在应用中实现异步更新机制，当 Redis 中的数据发生变化时，异步地更新 Caffeine 本地缓存中的数据。可以使用消息队列或者异步任务来处理更新操作，确保更新操作不影响应用的正常运行。</li>
-<li>手动更新：更新 Redis 缓存后，由业务代码手动触发本地缓存的更新操作。</li>
-</ol>
-</li>
-<li><p>如何保持Redis与数据库一致？</p>
-<ul>
-<li>延时双删：对于读数据，我会选择旁路缓存策略，如果 cache 不命中，会从 db 加载数据到 cache。对于写数据，我会选择更新 db 后，再删除缓存。</li>
-<li>针对删除缓存异常的情况，我还会对 key 设置过期时间兜底，只要过期时间一到，过期的 key 就会被删除了。</li>
-<li>除此之外，还有两种方式应对删除缓存失败的情况，都是异步操作：<ul>
-<li>消息队列：重试缓存的删除<br>  我们可以引入消息队列，将第二个操作（删除缓存）要操作的数据加入到消息队列，由消费者来操作数据。<br>  如果应用删除缓存失败，可以从消息队列中重新读取数据，然后再次删除缓存，这个就是重试机制。当然，如果重试超过的一定次数，还是没有成功，我们就需要向业务层发送报错信息了。如果删除缓存成功，就要把数据从消息队列中移除，避免重复操作，否则就继续重试。</li>
-<li>Canal+MQ：订阅 MySQL binlog再操作缓存<br>  订阅 MySQL binlog，再操作缓存「先更新数据库，再删缓存」的策略的第一步是更新数据库，那么更新数据库成功，就会产生一条变更日志，记录在 binlog 里。<br>  于是我们就可以通过订阅 binlog 日志，拿到具体要操作的数据，然后再执行缓存删除，阿里巴巴开源的 Canal 中间件就是基于这个实现的。<br>  Canal 模拟 MySQL 主从复制的交互协议，把自己伪装成一个 MySQL 的从节点，向 MySQL 主节点发送 dump 请求，MySQL 收到请求后，就会开始推送 Binlog 给 Canal，Canal 解析 Binlog 字节流之后，转换为便于读取的结构化数据，供下游程序订阅使用。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>报表平台的开发流程？</p>
-<ul>
-<li>根据产品原型图设计数据库表，主键自增，，</li>
-<li>使用junboGenerator插件生成表结构对应的MyBatis代码（DO, BO, Mapper文件），用于操作数据库。</li>
-<li>实现分页功能，大致步骤包括：<br>  ①【newenergy-api】定义XXXApi接口及page方法<br>  ②【newenergybg-service】定义XXXService接口及page方法<br>  ③【newenergybg-service】定义XXXApiImpl类（Controller），实现XXXApi接口及page方法，通过调用XXXService完成分页查询数据的操作<br>  ④【newenergybg-service】定义XXXServiceImpl类，实现XXXService接口及page方法，通过MyBatis分页插件及XXXMapper的查询方法，完成分页查询。<br>  ⑤【newenergy-api】发布XXXApi：修改版本号（xx.snapshot），发布新的jar包（包含新的XXXApi接口）到 Maven 仓库；<br>  ⑥【newenergy-web-admin】引入最新的XXXApi：更新maven，依赖新版本jar包，以使用新的XXXApi接口<br>  ⑦【newenergy-web-admin】定义XXXWebApi类及page方法（Controller），通过XXXApi的page方法，完成分页查询。</li>
-<li>SOA架构，服务关系：<br>  【newenergy-api】：定义接口信息，同时被【newenergybg-service】和【newenergy-web-admin】依赖<br>  【newenergybg-service】是【newenergy-api】的实现，实际的服务端；<br>  【newenergy-web-admin】接收前端请求（防止暴露实际服务端），从 maven 获取 jar 包反射获取接口和实体类信息。<br>  实际请求发送流程为：前端客户端程序发起请求 -&gt;【newenergy-web-admin】XXXWebApi.page -&gt; 【newenergybg-service】XXXApiImpl.page -&gt; 【newenergybg-service】XXXServiceImpl.page -&gt; 【newenergybg-service】 XXXMapper.selectByExample</li>
-<li>参数信息：<br>  Api方法中：XXXRequest、XXXResponse，在【newenergy-web-admin】XXXWebApi.page方法上加了 @JunboResponse，，，<br>  分页查询entity类：由于需要返回的数据是由多表查询而来，任一 BO 或 DO 都没法涵盖所有属性字段。所以新增一个 类 ConvCallbackRuleDailyReportPageItem，要在 mapper.xml 里修改 resultMap 中查询数据与返回值的对应关系，在后续数据转换的过程中主要前后类的字段的对应。</li>
-<li>集成测试：本地启动newenergybg-service服务和newenergy-web-admin服务，通过postman调用接口进行测试，期望结果是，查出来的结果与数据库中的数据一致。</li>
-<li>协同开发：git</li>
-</ul>
-</li>
-<li><p>分页查询细节、、</p>
-<ul>
-<li>先到 “a表” 获取第i到第i+size行的“广告报表数据”（广告id，报表数据类型，时间，，），再根据“广告id”到 “b表” 关联查询该广告的详细信息（客户方，创建时间，，）</li>
-<li>SQL：<code>select * from a left join b on a.id = b.id limit 9, 10 where a.id &lt; 10</code><ol>
-<li>执行 FROM 和 LEFT JOIN 操作，将表 a 和表 b 进行关联查询。</li>
-<li>然后根据 WHERE 条件进行过滤，筛选出 a 表中 id 小于 10 的数据。</li>
-<li>最后应用 LIMIT 9, 10，表示从第 9 行开始，获取 10 行数据，即获取 id 小于 10 的数据中的第 10 ~ 19 行数据。</li>
-</ol>
-</li>
-<li>优化：在查出表 a 的数据后先进行分页（使用子查询或者临时表来实现）再对表 b 进行关联查询。好处在于：减少不必要的数据传输和处理，提高查询效率和性能。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.<span class="operator">*</span>, b.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> a <span class="keyword">WHERE</span> id <span class="operator">&lt;</span> <span class="number">10</span> LIMIT <span class="number">9</span>, <span class="number">10</span>) <span class="keyword">AS</span> a</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> b <span class="keyword">ON</span> a.id <span class="operator">=</span> b.id;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>为什么不考虑转正？</strong><br>应届生自然想去大平台，渴望挑战性和创新性的项目，，骏伯是一个比较小的公司，业务是互联网营销行业的，可能就会缺少一些技术积累，，，</p>
-</li>
-<li><p>遇到了什么困难？<br>环境架构都已经配好并且部署在在线环境中，对组件的使用也封装好了，难的难在对实际业务的理解<br>我个人开发中遇到的crud不难。比较麻烦的是理解公司的开发模式？？使用插件生成BO, DO, Mapper,, </p>
-</li>
-<li><p>工作中学习到了些什么？和同事沟通了什么？<br>工作方面：熟悉团队开发流程（敏捷开发，需求澄清和故事点评估）, k8s，掌握git的开发使用，单元测试？？<br>技术方面：mq的选型与使用、枚举类型直接对应数据库的INTEGER??配置、SOA架构、、（高版本Java的特性（虚拟线程、模式匹配、lambda、ZGC、GraalVM-aot），高并发-&gt;NIO、协程、虚拟线程，单元测试）</p>
-</li>
-<li><p>如何保证代码质量？<br>单元测试？？+测试</p>
-</li>
-<li><p>在项目开发中，什么时候让你感到获得了成就感？<br>1.<strong>项目完成阶段：</strong> 成功地完成一个项目的不同阶段或整个项目时，会带来成就感。2.<strong>解决难题：</strong> 遇到复杂的技术难题，经过努力和钻研后成功解决，这种时刻会让你感到非常有成就感，特别是那些曾经让你感到困扰的问题。3.<strong>用户满意。</strong> 4.<strong>团队协作：</strong> 项目中的团队合作是一个重要的方面。当你与团队成员协同工作，成功地推动项目的进展，共同克服了困难，整个团队的成功会带来强烈的成就感。5.<strong>学到新知识：</strong> 在项目中学到新技术、工具或方法，应用这些知识解决实际问题，这种学习和应用的过程本身就是一种成就感。6.<strong>项目的成功实施：</strong> 当项目成功实施，交付给用户并产生了积极的影响时，你会感到自己的努力和贡献是有意义的。7.<strong>持续改进：</strong> 成功地推动了项目的持续改进，通过引入新的工程实践、工具或流程，使项目更加高效和可维护。</p>
-</li>
-</ul>
-<h2 id="实习（创世）"><a href="#实习（创世）" class="headerlink" title="实习（创世）"></a>实习（创世）</h2><ul>
-<li><p>“牙医星球”小程序，做了什么？</p>
-<ol>
-<li>接口设计？<br>  根据用户提供的功能清单和产品原型图，结合已有的数据库表字段，尝试设计了小程序“个人中心”部分的接口以及相关的数据库字段设计。<br>  例如，根据用户id查询和修改用户信息，分页查询用户在这个小程序上报名的课程列表，查询用户学习在线课程的记录。<br>  同时，也设计了在线课程学习记录表，按照用户id分区创建不同的线上课学习记录表，避免把所有用户的学习记录放到一张表中。其中“连续学习天数”这个字段，放到了user_info表中作为用户属性字段；同时在user_info表中增加了一个“最近学习日期”，在更新“连续学习天数”时可根据“最近学习日期”判断是否连续，同时将“最近学习日期”更新。</li>
-<li>视频弹幕功能？<br>  使用 WebSocket 协议，在一个持久连接上进行全双工通信，实现客户端和服务器之间的实时通信。与传统的HTTP通信相比，减少了网络开销和延迟。<br>  使用 ws 实现实时弹幕的功能：客户端与服务端建立 ws 连接后，使用 WebSocket包中的Session类保存与这个客户端的连接会话，根据ws 连接中携带的用户的connectionId，将这个session保存在静态的线程安全的ConcurrentHashMap中，同时在redis中创建&#x2F;刷新该用户信息；当服务端收到客户端通过ws连接发送的消息时，从reids中找到所有 最近70s内创建&#x2F;刷新的 用户连接的connectionId，在Map中找到对应的session，给用户端发送这条新弹幕，同时刷新redis中的用户信息。<br>  第一次接触http以外的协议，websocket协议是http的升级，服务端接口使用的是@ServerEndpoint(“&#x2F;“)获取连接信息。对于获取connectionId这个请求，应该在ws连接之前发生，所以使用一个controller实现获取connectionId请求，随后客户端使用js代码调用ws接口，建立ws连接。在开发过程中，发现有关弹幕的service类无法在ws接口中正确注入，所以建议把（通过mybatis）保存弹幕信息到数据库这个行为也分开在controller中实现，点击“发送弹幕”后，先调用controller保存弹幕信息，然后调用ws接口实现实时弹幕。</li>
-</ol>
-</li>
-<li><p>编程平台项目，做了什么？</p>
-<ol>
-<li>项目整体情况：一个在线少儿编程竞赛平台，学生登录平台，在竞赛时间内获取试题，答题和提交。构建在SSM + SpringBoot上，有统一的返回结果格式 JsonResult，统一的成功&#x2F;失败返回码。</li>
-<li>学生登录：<ul>
-<li>生成图像验证码uuid：UUID生成验证码唯一标识 uuid，Hutool 库生成一个圆形验证码。将 uuid 和 验证码的base64编码 返还前端。将验证码标识和验证码内容以键值对的形式（uuid，code）存储到 Redis中，有效期为60秒。</li>
-<li>发生短信验证码sendsms：同时以 JsonResult给前端返回该手机号下的所有学生账号（以label、value形式，返回数组 List&lt;Map&lt;String, Object&gt;&gt; stu）因为一个家长的手机号可对应多个孩子的学生账号</li>
-<li>登录：使用手机号+学生姓名+密码登录。验证密码是否正确（base64编码+md5加密【不可逆】后，与数据库中存的密码去除头四个尾两个字符后比较），验证码uuid是否存在（返还给前端的标识）且正确（用户输入的验证码），</li>
-<li>修改密码：一系列的判断，提交是否为null或空、账号是否存在、新密码是否满足给定的正则格式，接着要与数据库中的原密码（可）和同一登录账号下其他学生密码（不可）判断是否重复。用户输入的密码存入数据库，要经过：base64加密，和项目密钥连接后进行 MD5哈希加密，再通过randomTest.getRandomStr()随机增加到前4个字符和后2个字符。</li>
-</ul>
-</li>
-<li>编程题判题：<ul>
-<li>@Transactional(rollbackFor &#x3D; Exception.class) 声明事务，将提交编译题方法 <code>getCompileAnswer</code>包裹在一个数据库事务中，抛异常后回滚。</li>
-<li>判断学生id存在，是否在比赛时间，是否已提前交卷（有scoreRecord记录）</li>
-<li>使用 restTemplate给布置在服务器上的”判题机”发生编程题判题请求，返回判题结果</li>
-<li>如果没有提交记录，新增compileAnswer，判断剩余提交次数；如果此次提交编程题成绩大于原纪录中的，更新记录</li>
-<li>返回前端：（success: ; resultCode: ; resultMsg: ; data:通过样例数，平均时间，平均内存）</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<ul>
-<li><p>与产品经理，前端沟通？<br>原来使用coding代码协同和项目管理，在蓝湖放了原型设计，通过微信沟通。后面统一改用飞书。<br>先开一个项目启动会，确定如静态页面，接口开放，前后端连接调试的进度，时间管理。。？？<br>开发过程里，我通过看产品原型进行理解，结合项目代码和文档理解，开发接口时与前端对接。。。</p>
-</li>
-<li><p>你遇到的最大的挑战是什么？怎么解决的？<br>一开始的时候，我虽然有ssm，mybatis基础，但是等于一些注解，方法还是一知半解，而且没有看过项目代码，不会看接口文档，没用过git等，，一整个就是非常无从下手。后来就是硬着把需求相关的代码看完，每个小细节都自己查方法或者问同事，从最简单的一个需求开始一个个解决，测试，提交，逐渐上手。当然后面也把缺的技术补上了。<br>（技术上遇到的困难，应该就是复杂的业务逻辑吧，如编程题判题）</p>
-</li>
-</ul>
-<hr>
-
-<h2 id="项目1（跑个腿）"><a href="#项目1（跑个腿）" class="headerlink" title="项目1（跑个腿）"></a>项目1（跑个腿）</h2><ul>
-<li><p>“校跑跑”校园代拿平台 <a target="_blank" rel="noopener" href="https://www.naoffer.com/course/class/302">https://www.naoffer.com/course/class/302</a></p>
-<ul>
-<li>项目描述：”校跑跑”平台是一款致力于解决大学校园内代拿服务需求的创新型应用，提供方便快捷的外卖、快递、文件等代拿业务，同时确保支付双方的信用和流程的可跟踪</li>
-<li>主要工作：<ul>
-<li>在任务发布模块，通过产品原型总结出代拿服务任务模型，并使用双值枚举的方式对类型、数量、状态等进行存储。</li>
-<li>在任务列表模块，实现了多筛选和多排序条件下的动态分页列表查询。</li>
-<li>使用数据库悲观锁，解决同一跑腿任务的超卖订单问题，实现抢单唯一。</li>
-<li>为代拿双方的陌生人服务安全性，对每个状态进行流水记录。流程状态切换中实现了照片上传的可靠性，为了节省服务器带宽，使用腾讯云 COS 直传方案，提供预签名给前端，保障了 COS 的安全性。</li>
-<li>在接单前，需要接单人支付押金，实现押金支付、押金退还的事务处理。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>介绍一下跑腿项目！！</strong></p>
-<ul>
-<li>“校跑跑”是我们学校创业团队做的一个项目，后续会上线运营。它是根据校园中的真实的外卖、文件等物品代拿需求而设计的，另外同学看到送货路线与自己顺路可以顺手接单跑腿。同学们在平台上发布订单，接单，支付，同时能够确保支付双方的信用和流程的可跟踪、、</li>
-<li>我参与了项目中几个模块的后端开发。（考虑到校园内用户量和流量量级不大，使用的是单体架构，对于存在的订单超卖等一些场景问题，参考了一些别的项目中的做法）；我做的模块里面难点比较多的：<ul>
-<li>一个是跑腿任务的发布模块，这个模块一是要对信息进行非法过滤，另一个也要基于redis实现非重复支付的方案</li>
-<li>然后在详情模块，针对学生代拿需求比较聚集如午饭的情况，会导致多个人同时抢列表的第一个，导致出现并发问题，我这里使用了悲观锁来解决</li>
-<li>另外，要在配送过程中，如何去保证双方陌生人的信用安全？比如说在取货的时候，怎么能够知道是跑腿人去拿的货？而不是别人拿着这个验证码去拿到货，或者是说物品送到了，但是说没送到，或者、、<br>  我们采用的是基于拍照确定地点的方式，比如他到现场，拍照上传，我们才给他公开取货码，他必须在五分钟之内取货，再拍照片，进行验证、、那这个地方就会产生很多的图片，传统的直传方案，会对服务器带宽造成很大的影响，所以项目采用了阿里云或者腾讯云的直传方案，解决了有效性和跨域的签名</li>
-<li>第四个押金模块就可以不说了。事务。。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>你做过最有挑战的项目？难点是、、</p>
-<ul>
-<li>S：背景    - T：任务    - A：举措    - R：结果</li>
-</ul>
-</li>
-<li><p>项目背景</p>
-<ul>
-<li>我参与学校创业团队（非全职，有需求就去）的商业项目，目前还未（准备在南航）上线运营，产品需求真实，产品业务做的都是核心的（而一般的实习都是打杂）</li>
-<li>需求分析：发单人懒的动弹，需要校内代拿服务；接单人查看送达地点与宿舍很近，回宿舍路上顺便接个单</li>
-<li>竞品差别：美团跑腿是根据点到点距离计算费用，我们是根据校内距离不重要，是点到面或者是点到线，也就是这个学生的终点附近的也可以顺手去送，所以可以实现单价比较便宜，一单正常是两块钱</li>
-<li>项目架构：单体项目 SpringBoot + Maven</li>
-<li>四大模块：跑腿需求发布、跑腿抢单和列表、双方状态和安全、押金和微信支付</li>
-<li>产品规划：1、目前是第一版，极小版本上线，核心发布功能、接单功能、押金功能；2、双方信用和评价体系上线；3、集中引用第三方方案(即货物送达方+已经智能货柜)、盗窃监控</li>
-<li>团队成员：产品经理*2，后端^3，前端^2</li>
-</ul>
-</li>
-<li><p>一、跑腿需求发布模块</p>
-<ul>
-<li>产品原型（图）</li>
-<li>数据库设计<br>  订单id、发布人id、取货地点、收货地点、货物种类、货物重量、期望送达时间（datetime）、费用、订单状态、创建时间、修改时间  <img src="https://leo710aka.github.io/bk/job17.png" width="550" height="300" alt=""></li>
-<li>亮点难点<ol>
-<li>(小亮点): 物品信息非法关键字过滤<br>  提交时，使用小程序的过滤接口，对发起人的物品信息要素进行非法关键字过滤，并对手机号和“微信”“vx”等字眼进行正则查验，防止后序跑腿双方私下沟通，</li>
-<li>(小亮点): 分类等信息使用双重枚举<br>  对送货的类型、重量等固定有限项要素，要用多值举的方式实现，方便在前端接口和数据库里以字典id类型进行插入，前端传过来的url中携带的是id值（如1：食品、2：文件、、）而不是易错的字符串类型</li>
-<li>(大亮点): 后端防止重复提交(一个用户下了多次单)<br>  (1) 目前是单机项目：在提交接口，使用并发方法(sychronized方法)，使用redis随机Key来进行验证(前端生成随机key)<br>  在下单页面加载时，在后端生成一个唯一的标识符（例如 UUID）作为订单提交的唯一标识符，将这个一次性的标识符存到 Redis。当用户点击提交订单时，在后端根据用户提交的标识符从 Redis 中获取对应的标识符。如果获取到了，则是首次提交，处理后返回提交成功，并且删除redis中的标识符；如果未获取到，则表示是重复提交。<br>  (2) 后序推广到更多高校，变成分布式环境时，考虑升级到redis分布式锁</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>防止重复提交的逻辑：<br>在下单页面加载时，后端生成一个UUID作为订单提交的唯一标识符，将这个一次性的标识符存到 Redis。当用户点击提交订单时，根据用户提交的标识符从 Redis 中获取对应的标识符。如果获取到了，则是首次提交，处理后返回提交成功，并且从Redis中删除；如果未获取到，则表示是重复提交。</p>
-</li>
-<li><p>二、跑腿抢单和动态列表模块</p>
-<ul>
-<li>产品原型<br>  查看跑腿订单详细信息后点击“立即接单”，抢单后才可查看发布人信息（电话，取货码（在安全模块处理），备注）<br>  跑腿动态列表通过排序、筛选，展现跑腿订单（接单人可以将自己宿舍作为收货地址进行筛选）</li>
-<li>业务逻辑<ol>
-<li>跑腿任务详情模块目前只做展示和下单，接单过程不在本模块。需要提供任务详情展示接口和抢单接口</li>
-<li>列表模块需要考虑多条件动态排序、筛选，实现分页接口</li>
-<li>抢单跑腿详情和订单支付的逻辑<br>  跑腿详情状态有：1 等待抢单； 2 已被抢； 3 已确认(抢单后需要手动确定或取消，如果1分钟内不取消，自动变成确认)；4 超时费单<br>  (1) 某一用户点击抢单时，需要判断是否是1和2的状态，这两个状态都可以触发排队60s流程<br>  (2) 如果是1，则用户抢单成功，这个时间详情状态变为2，其它用户只能等待60s(60S退出的时候，再做一次(1)r的逻辑)<br>  (3) 如果(2)用户取消订单，则状态变成1<br>  (4) 如果支付成功，则其它用户不能进入流程，已在流程中的依然等待<br>  (5) 20分钟未支付的逻辑需要定时任务触发，详情变成1</li>
-</ol>
-</li>
-<li>亮点难点<ol>
-<li>在抢单模块，因为学生代拿时间集中，会造成同一任务的超卖订单，项目使用悲观锁解决（小规模并发）问题<br>  并使用60s倒计时的方案，实现并发抢、已抢但放弃的场景</li>
-<li>本模块多处使用定时任务(quartz schedule)更改订单状态，比如1分钟内自动确认和超时废单等</li>
-<li>在列表模块，因为校内多地点的选择场景，实现多筛选、多排序下的动态分页接口<br>  3.1排序项:最新(默认)、按金额从大到小<br>  3.2筛选项:多地点、重量、送达时间、类型、数量</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>乐观锁与悲观锁的区别？怎么用？</p>
-<ul>
-<li>悲观锁：认为资源一定存在竞争，加悲观锁，具备阻塞特性，以保证多事务对统一数据的访问的安全性；<ul>
-<li>在并发量不大且冲突频率较低的情况下是有效的，悲观锁可以提供更加稳定和可靠的数据操作保护，提供较为简单和直接的控制方式；尽管乐观锁在并发量较小且冲突频率不高的情况下具有优势，但在数据修改频率较高、竞争激烈的情况下，悲观锁通常更加高效；</li>
-<li>但是如果并发量很高或者冲突频率很高，则可能会导致性能问题和系统的阻塞。</li>
-<li>使用方法：<ol>
-<li>查询订单信息并加锁：在抢单逻辑中，首先要查询订单信息并加锁，防止其他用户同时抢单。读和写是在同一步，查询并加排他锁，确保其他事务无法修改这些数据，直到当前事务提交或回滚。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> id <span class="operator">=</span> ? <span class="keyword">AND</span> status <span class="keyword">IN</span> (<span class="number">1</span>, <span class="number">2</span>) <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure></li>
-<li>更新订单状态：如果查询到符合条件的订单，就可以更新订单状态并完成抢单操作，示例代码如下：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> orders <span class="keyword">SET</span> status <span class="operator">=</span> <span class="number">2</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> ?;</span><br></pre></td></tr></table></figure></li>
-<li>提交事务：完成操作后，需要<code>COMMIT;</code>提交事务来释放锁并保证数据的一致性</li>
-<li>？？处理超时情况：针对20分钟未支付的逻辑，可以使用定时任务来触发查询并加锁，然后更新订单状态为1（等待抢单状态）。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>乐观锁：认为大部分情况不存在竞争，不加锁（不阻塞），使用版本号version判断是否修改（修改数据同时修改version）<ul>
-<li>在并发量大的时候，悲观锁用不了，可以考虑用乐观锁；CAS，MVCC是乐观锁的实现</li>
-<li>实现方法：<ol>
-<li>版本号字段实现乐观锁：在数据库表中增加一个版本号（version）字段，数据类型通常选择整数。每次更新数据时，将版本号加一。在更新数据时，通过比较当前查询到的版本号与更新时的版本号来判断是否更新成功。  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orders (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    order_id <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">UNIQUE</span>,</span><br><span class="line">    version <span class="type">INT</span>,</span><br><span class="line">    <span class="comment">-- Other columns</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更新订单方法，使用乐观锁</span></span><br><span class="line"><span class="keyword">UPDATE</span> orders </span><br><span class="line"><span class="keyword">SET</span> version <span class="operator">=</span> version <span class="operator">+</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">WHERE</span> order_id <span class="operator">=</span> <span class="string">&#x27;xxx&#x27;</span> <span class="keyword">AND</span> version <span class="operator">=</span> current_version;</span><br></pre></td></tr></table></figure></li>
-<li>时间戳字段实现乐观锁：与之类似</li>
-<li>注意事项：<ul>
-<li>在使用乐观锁时，需要保证更新操作的原子性，通常可以使用数据库事务来确保。</li>
-<li>在比较版本号或者时间戳时，可以通过数据库的原子性操作来实现，例如使用 <code>WHERE</code> 子句中的条件来比较版本号或者时间戳。</li>
-<li>当更新操作失败时，可以根据具体业务需求选择重试更新操作或者抛出乐观锁异常供上层处理。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>跑腿抢单的请求是直达数据库吗？可以优化吗？</p>
-<ul>
-<li>是的。我们项目是第一版，目标也只是在南航一所学校先试点运营，用户量很小，每一个订单的抢单并发 评估过 1s不过超过5人。所以直接使用数据库锁方案。所以我们测试人员只给业务case,完全不做压力测试。</li>
-<li>在量级很大的情况下，使用数据库的悲观锁来实现抢单唯一可能会导致性能问题和系统瓶颈。优化方案：<ol>
-<li>锁优化：尽量缩短悲观锁的持有时间，只在必要的操作时使用锁，然后尽快释放锁，可以使用事务管理来确保在合适的时候释放锁。尽量减少锁的粒度，比如只针对需要保护的数据进行锁定，而不是整个表或整个数据库。使用乐观锁。</li>
-<li>使用缓存：对于频繁读取的数据，可以考虑使用缓存来减轻数据库压力，提高响应速度。</li>
-<li>异步处理：对于一些非实时性要求较低的操作，可以考虑使用异步处理方式，将任务放入消息队列或异步任务队列中处理，减少对数据库的直接访问。</li>
-<li>分布式架构：如果系统规模非常大并且需要处理大量并发请求，可以考虑使用分布式架构；1、微服务架构：将系统拆分出抢单微服务； 2、负载均衡：将请求分散到多个节点上处理，从而减轻单个节点的压力；3、分布式数据库：分担数据库的读写压力，提高数据库的处理能力和容量；4、分布式锁：确保在分布式环境下，同时只有一个节点（或者说一个进程）能够获取到锁，从而保证对共享资源的操作是互斥的，避免出现数据不一致或者并发冲突的情况。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>三、跑腿双方状态与安全保障</p>
-<ul>
-<li>模块说明：本模块是指在跑腿人接单后整体送货流程的状态变化，即针对任务详情状态的”进行中”，进一步扩展细化。包括发布人和接单人双方。</li>
-<li>发布人和跑腿人的状态：其中234属于一个阶段，567属于一个阶段<ol>
-<li>任务已被接单</li>
-<li>物品已被取到</li>
-<li>物品未正常取到(物品损坏、没有该商品、取货人故意没取)</li>
-<li>物品已损坏(取货和过程中，结束)</li>
-<li>物品已通知送达(跑腿人状态)</li>
-<li>物品确认收到</li>
-<li>物品未确认收到</li>
-<li>物品确认有问题(破损等)</li>
-<li>任务正常结束<br>  另外，本模块进行最基本的流程安全保障，即在送货人在取货和收货环节拍照确认;发布人在收货环节当面确认(后序加入可选收货码)。</li>
-</ol>
-</li>
-<li>确保跑腿人到达取货位置，才能显示取货码，防止每三方恶意盗窃，通过”拍照上传” + “5分钟之内上传取货拍照”的双重验证 (实际上，产品角度还有两个后期更可靠的方案，1是所有地点接入地图，以位置距离确认 2是商家可变二维码)</li>
-<li>亮点难点<ol>
-<li>在用户跑单时，通过拍照上传（获取取货码） + 5分钟之内上传取货拍照 的双重验证，保证取货码不被第三方获取。<br>  同时该方案造成大量图片的上传，为缓解服务器带宽压力，使用腾讯云C0S直传来代替传统的后端上传的流程</li>
-<li>用户跑单会在双方产生将近10种状态，以送单人的角度设计状态的分类</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>腾讯云COS的参数是怎么配置的？<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/practice/436/9067">https://cloud.tencent.com/document/practice/436/9067</a></p>
-</li>
-<li><p>图片直传那一块具体做了什么？<br>就是后端，使用的官方SDK，针对前端指定的cos文件夹 和指定的文件名，进行临时权限签名的生成， 同时也保证其它人和文件没有权限直传 保证cos安全性。</p>
-</li>
-<li><p>四、押金和钱包事务模块</p>
-<ul>
-<li>模块说明：因为业务上与钱的流水关系很大，需要单独分离是钱包模块，可以是记录流水、以及押金和收入的提现、发起人的退款记录等</li>
-<li>亮点难点<br>  1 押金的退还属于原路退回，主要接入对应支付渠道的退款接口，但是核心是退款流程分为两部分，一是退款成功，二是押金流水变更，两个阶段存在原子性，因为这部分业务，属于较低频型业务，所以使用事务方案，而不是补偿方案。<br>  2 提现需要使用另外的支付宝公对私打款接口，在收取10%的平台费用后(不做个税扣除)，进行批量打款。打款不做强可靠性，用户对提现和退款 不像支付要求那么高</li>
-</ul>
-</li>
-<li><p>？？？押金退款的事务？ </p>
-<ul>
-<li>押金的原路退回可能会破坏退款流水和押金流水的原子性，两个步骤必须一起进行，属于最常见的事务场景 1 退款流水状态变成“已退款” 2 押金退款接口返回成功<br>  接口肯定得有返回值  正常逻辑不要总想着加异常 就算有可能出现异常 在service方法级别 一般都是内部处理 不抛出？？<br>  能不能理解为退款是调接口实现，押金流水是数据库操作？？？事务逻辑如下：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefundService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CrudService crudService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = &#123;RefundException.class, CrudException.class&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refundAndChangeFlow</span><span class="params">()</span> <span class="keyword">throws</span> RefundException, CrudException &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            crudService.changeFlow(); <span class="comment">// ！！先调用流水变更的业务逻辑</span></span><br><span class="line">            退款(); <span class="comment">// 这里是退款的业务逻辑，需要根据具体情况实现</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (RefundException e) &#123;</span><br><span class="line">            退款撤销();</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CrudException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>升级成分布式、、</p>
-<ul>
-<li>实现：把单体架构中的service调用变成了微服务的rpc调用，代码层面区别不大</li>
-<li>难点：就是要解决网络的不可靠性。分布式架构无非就是把进程内调用变成进程间调用，跨网络、跨节点的网络调用在时间足够长、流量足够大的情况下，就要考虑网络超时的问题，设置超时时间，避免整个系统被拖挂。<ul>
-<li>读请求，超时重试</li>
-<li>写请求，分布式事务</li>
-</ul>
-</li>
-<li>其他挑战：服务治理（服务发现，服务集群，负载均衡，优雅启停，熔断降级），<strong>数据一致性问题</strong>（对于开发更重要）</li>
-</ul>
-</li>
-<li><p>数据一致性</p>
-<ul>
-<li>缓存与数据库：异步化</li>
-<li>分布式事务</li>
-</ul>
-</li>
-</ul>
-<h2 id="项目2（黑马商城-牛客论坛）"><a href="#项目2（黑马商城-牛客论坛）" class="headerlink" title="项目2（黑马商城+牛客论坛）"></a>项目2（黑马商城+牛客论坛）</h2><ul>
-<li><p><strong>高校闲置资源交易系统</strong></p>
-<ul>
-<li>系统架构：SpringCloud + SpringBoot + Nacos + Redis + MySQL</li>
-<li>项目描述：系统采用微服务架构，旨在为消费者提供一站式商品交易平台。通过细致的业务划分，系统分为用户模块、商品模块、购物车模块与支付模块，确保每个模块服务的高效、可维护、可扩展。</li>
-<li>主要工作：<ul>
-<li>使用 Nacos 实现服务注册，消费者服务通过 Nacos 拉取和订阅服务。</li>
-<li>引入 Redis 数据库，优化项目中登录验证码的使用，对需要频繁访问的数据进行缓存。</li>
-<li>使用 Gateway 及拦截器实现了登录信息校验，避免各微服务中的代码重复。</li>
-<li>通过 Sentinel 完成系统限流熔断功能，防止服务故障后影响整个系统运行。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>单体架构改为微服务架构（分布式架构的一种实现）<br>微服务架构，是服务化思想指导下的一套最佳实践架构方案。服务化，就是把单体架构中的功能模块拆分为多个独立项目。<br>优点：粒度低、团队自治、服务自治</p>
-</li>
-<li><p>登录的流程，登录状态的检验？？<br>提交登录表单，登录请求 controller —&gt; sevice —&gt; Dao，查询、校验用户信息，生成jwt（用jwtTool生成token），返回登录信息和jwt（或登录失败信息），提示登录成功（失败）。登录成功后，用户在发送请求时（如购物车），在请求头中携带 Authorization（即jwt）</p>
-</li>
-<li><p>用户登录。。redis怎么用的？</p>
-<ol>
-<li>？？？Redis 结合 Gateway 完成登录校验（直接拦截后调用 jwtTool 验证不就行了）</li>
-<li>使用Redis缓存用户信息：将user缓存到Redis中，获取user时，先从Redis获取。取不到时，则从数据库中查询，再缓存到Redis中。因为很多界面都要用到user信息，并发时，频繁的访问数据库，会导致数据库崩溃。变更数据库时，先更新数据库，再清空缓存；</li>
-<li>？？？使用Redis缓存验证码：原本添加到session中，减轻服务器压力。将验证码存到Redis中，方便查询检验；<br>  当⽤户点击刷新验证码时，服务端⾸先给当前需要登陆的游客，设置⼀个随机字符串(kaptchaOwner)，⽤于标识当前这个游客，然后将随机字符串存⼊到cookie中，返回给浏览器，然后服务端的redis保存 “key:随机字符串,value:验证码”。接着⽤户输⼊⽤户名，密码，验证码，再次点击登陆时，服务端会从cookie中拿到kaptchaOwner,通过它，可以从Redis中得到正确的验证码，然后与⽤户输⼊的验证码做⽐较，看是否⼀致。<br>  验证码需要频繁的访问与刷新，对性能要求很高；验证码不需要永久存储，通常在很短的时间内就会失效；分布式部署时，存在session共享问题；</li>
-</ol>
-</li>
-<li><p>Nacos 服务发现</p>
-<ul>
-<li>消费者需要连接nacos以拉取和订阅服务，因此服务发现的前两步与服务注册是一样（引入nacos-discovery依赖和配置nacos地址），后面再加上服务调用即可  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> DiscoveryClient discoveryclient;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handlecartItems</span><span class="params">(List&lt;CartVO&gt; vos)</span> &#123;</span><br><span class="line"><span class="comment">// 根据服务名称拉取实例列表，负藏均衡挑选一个实例</span></span><br><span class="line">List&lt;ServiceInstance&gt; instances = discoveryclient.getInstances(<span class="string">&quot;item-service&quot;</span>);</span><br><span class="line"><span class="type">ServiceInstance</span> <span class="variable">instance</span> <span class="operator">=</span> instances.get(RandomUtil.randomInt(instances.size()));</span><br><span class="line"><span class="comment">// 获取实例的TP和端口</span></span><br><span class="line">URI uri= instance.getUri();</span><br><span class="line"><span class="comment">// ...发送请求</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Nacos 配置管理。<br>当微服务部署的实例越来越多，业务配置如 JDBC、日志、openfeign 时常变动，逐个修改微服务配置就会让人抓狂。<br>Nacos实现配置共享，配置热更新，动态路由<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/list/watchlater?oid=961238101&bvid=BV1kH4y1S7wz&spm_id_from=333.1007.top_right_bar_window_view_later.content.click&p=34">https://www.bilibili.com/list/watchlater?oid=961238101&amp;bvid=BV1kH4y1S7wz&amp;spm_id_from=333.1007.top_right_bar_window_view_later.content.click&amp;p=34</a></p>
-</li>
-<li><p>OpenFeign </p>
-<ul>
-<li>？？</li>
-<li>最佳实践</li>
-</ul>
-</li>
-<li><p>网关 Gateway</p>
-<ul>
-<li>application.yml 配置；  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">routes:</span> <span class="comment"># 网关路由配置</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span>    <span class="comment"># 1. 路由id，自定义，只要唯一即可</span></span><br><span class="line">        <span class="comment"># uri: http://127.0.. # 2. 路由的目标地址 http 就是固定地址</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">lb://userservice</span> <span class="comment">#    lb(loadbalance) 就是负载均衡，后面跟服务名称</span></span><br><span class="line">        <span class="attr">predicates:</span>           <span class="comment"># 3. 路由断言(可多条)，判断请求是否符合路由规则的条件</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/**</span>   <span class="comment">#    按照路径匹配，只要以/user/开头就符合要求</span></span><br><span class="line">        <span class="attr">filters:</span>              <span class="comment"># 4. 路由过滤器，，</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">order-service</span>   <span class="comment"># ...</span></span><br><span class="line">        <span class="comment"># ...                        </span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>网关登录校验。</p>
-<ul>
-<li>基于jwt实现登录校验<ul>
-<li>hmall.jks：密钥文件，加密存储</li>
-<li>application.yml：配置文件，配置密钥文件目录、别名、解析密钥文件的密码、、excludePath（不用登录校验的路径）</li>
-<li>JwtPropertities：加载 jw t属性配置的类</li>
-<li>AuthPropertities：加载 excludePath 属性配置的类</li>
-<li>SecurityConfig：加载jwt配置后，真正读取文件生成密钥的类，类本身声明为一个 @Bean；过程为注入配置，获取密钥工厂，读取密钥对</li>
-<li>JwtTool：jwt工具类，接收用户id与时间生成jwt密钥、解析token</li>
-</ul>
-</li>
-<li>各模块校验：登录在user模块，验证成功后得到token，后续使用每个微服务（购物车、下单，，）时，如果都要都要进行检验，会造成重复代码以及重复发送jwt秘钥造成泄露风险，，所以，在网关中，转发请求给微服务之前，进行jwt登录校验  <img src="https://leo710aka.github.io/bk/job10.png" width="550" height="300" alt=""></li>
-</ul>
-</li>
-</ul>
-<ol>
-<li><p>如何登录校验？<br> 具体来说，要定义一个（自定义）过滤器，放在pre阶段；在过滤器中实现校验业务逻辑，校验通过后才会向下执行（下面的过滤器），最后由 Netty 路由过滤器转发给微服务</p>
- <img src="https://leo710aka.github.io/bk/job11.png" width="650" height="300" alt="">
- 全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与路由过滤器GatewayFilter的作用一样。
- 区别在于GatewayFilter通过配置定义，可以自由的指定作用的范围，配置自定义参数，使用灵活，但处理逻辑是固定的，难以自定义GatewayFilter；
- 而GlobalFilter可以自己写代码实现，实现需要的业务逻辑，需要自定义过滤器时大多会选择 GlobalFilter。<img src="https://leo710aka.github.io/bk/job12.png" width="550" height="300" alt="">
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthGlobalFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 @RequiredArgsConstructor 后自动使用构造器注入下面成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthProperties authProperties;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> JwtTool jwtTool;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="comment">// 1.获取请求</span></span><br><span class="line">        <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();</span><br><span class="line">        <span class="comment">// 2.判断是否需要做登录拦截（使用 AntPathMatcher 匹配 authProperties 中的路径）</span></span><br><span class="line">        <span class="keyword">if</span>(isExclude(request.getPath().tostring()))&#123;</span><br><span class="line">            <span class="comment">// 放行（如 /user/login）</span></span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.获取token</span></span><br><span class="line">        <span class="type">string</span> <span class="variable">token</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        List&lt;string&gt; headers = request.getHeaders().get(<span class="string">&quot;authorization&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(headers != <span class="literal">null</span> &amp;&amp; !headers.isEmpty())&#123;</span><br><span class="line">            token= headers.get(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4.校验并解新token</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">userId</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            userId = jwtTool.parseToken(token);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(UnauthorizedException e) &#123;</span><br><span class="line">            <span class="comment">// 拦裁，设置响应状态码为401（只是抛异常的话响应500，看不出具体错误）</span></span><br><span class="line">            <span class="type">ServerHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> exchange.getResponse();</span><br><span class="line">            response.setstatusCode(Httpstatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> response.setcomplete(); <span class="comment">// 结束</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO 5.传递用户信息</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 6.放行</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isExclude</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//过滤器执行领序，信越小，优先级越高</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- </li>
-<li><p>如何将用户信息传递给微服务？<br> 对于单体架构系统，所有功能在部署在一个tomcat上，一个tomcat内部不同线程之间共享ThreadLocal；对于微服务架构，网关本身就是一个微服务，和其他微服务要通过 HTTP请求传递信息，把用户信息放在请求头中不会对业务造成影响，后续从请求头中取出用户信息、、<br> 修改gateway模块中的登录校验拦截器，在校验成功后保存用户到下游请求的请求头中，使用ServerWebExchange类提供的API：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 5.传递用户信息</span></span><br><span class="line"><span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> userId.tostring();</span><br><span class="line"><span class="type">ServerWebExchange</span> <span class="variable">swe</span> <span class="operator">=</span> exchange.mutate().</span><br><span class="line">    request(builder -&gt; builder.header(<span class="string">&quot;user-info&quot;</span>, userInfo))</span><br><span class="line">    .build();</span><br><span class="line"><span class="comment">// 6.放行修改后的请求头(到下面过滤器链)</span></span><br><span class="line"><span class="keyword">return</span> chain.filter(swe);</span><br></pre></td></tr></table></figure>
-<p> 在后续的微服务中，通过拦截器，从请求头中获取登录凭证，进行登录校验，并保存在 ThreadLocal；<br> 由于每个微服务都可能有获取登录用户的需求，因此我们直接在hm-common模块定义拦截器，这样微服务只需要引入依赖即可生效，无需重复编写。</p>
- <img src="https://leo710aka.github.io/bk/job13.png" width="550" height="300" alt="">
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 springmvc 拦截器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpservletRequest request, HttpservletResponse response, obiect handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.获取登录用户信息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">userInfo</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;user-info&quot;</span>);</span><br><span class="line">        <span class="comment">// 2.判断是否获取了用户，如果有，存入ThreadLocal</span></span><br><span class="line">        <span class="keyword">if</span>(Strutil.isNotBlank(userInfo)) &#123;</span><br><span class="line">            UserContext.setUser(Long.ValueOf(userInfo));   </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpservletRequest request, HttpservletResponse response, 0bject handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 清理用户</span></span><br><span class="line">        UserContext.removeUser();</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编写 springmvc 配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">// 防止网关微服务加载此配置</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(DispatcherServlet.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    @0verride</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123; </span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">UserInfoInterceptor</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- 最后，修改每个微服务的配置扫描文件，使其能够扫描到 hm-common模块中定义的 UserInfoInterceptor 拦截器；
- 注意：网关微服务不能引用 hm-common模块中的 拦截器，因为网关的底层不是 SpringMVC 实现的，无法加载SpringMVC拦截器的功能，会报错；    
- </li>
-<li><p>如何在微服务间传递信息？<br> 微服务项目中的很多业务要多个微服务共同合作完成，而这个过程中也需要传递登录用户信息；<br> 方法同样是把用户信息保存到请求头，发送 Http请求。不同的是微服务之间发送请求通过 Openfeign，而网关发送请求是通过其内部的 http 请求方式（netty过滤器路由分发），，</p>
- <img src="https://leo710aka.github.io/bk/job14.png" width="650" height="300" alt=""></li>
-</ol>
-<ul>
-<li><p>拦截器（Interceptor），，<br>？？<br>目的：让未登录用户不能访问某些页面<br>原理：在方法前标注自定义注解，拦截所有的请求，只处理带有该注解的方法。<br>拦截器：1.自定义拦截器 2.配置拦截器<br>首先验证用户（preHandle方法），如果用户存在，则在本次请求中持有用户，放进hostHolder里<br>经过controller后，返回到拦截器，拦截器再将用户信息存入model。<br>自定义拦截器需要实现HandlerInterceptor，然后重写preHandle（controller前执行）,postHandle（controller后执行）,以及afterCompletion（模板解析后执行）<br>配置拦截器：需要实现WebMvcConfigurer接口，然后重写addInterceptors方法，排除拦截静态页面。</p>
-</li>
-<li><p>ThreadLocal（线程安全）<br>从上面的代码可以看出，ThreadLocal  set赋值的时候首先会获取当前线程thread,并获取thread线程中的ThreadLocalMap属性。如果map属性不为空，则直接更新value值，如果map为空，则实例化threadLocalMap,并将value值初始化<br>ThreadLocalMap是ThreadLocal的内部静态类，而它的构成主要是用Entry来保存数据 ，而且还是继承的弱引用。在Entry内部使用ThreadLocal作为key，使用我们设置的value作为value。<br>通过当前线程对象的getMap()方法获取ThreadMap对象 然后将当前ThreadLocal对象作为key值存入map 这能保证线程内的资源共享而不同线程之间独立</p>
-</li>
-</ul>
-<ul>
-<li>Sentinel</li>
-</ul>
-<p>，，</p>
-<h2 id="项目系统（牛客论坛）"><a href="#项目系统（牛客论坛）" class="headerlink" title="项目系统（牛客论坛）"></a>项目系统（牛客论坛）</h2><ul>
-<li><strong>论坛系统项目</strong>（高校信息平台。。。）<ul>
-<li>项目描述：一个基本功能完整的论坛项目。主要功能有：基于邮件激活的注册方式，区别登陆状态为游客或已登录用户展示不同界面与功能。支持用户上传头像，实现了发布、评论帖子，发送私信等功能，以及点赞，关注与系统通知功能。<br>  项⽬构建在 Spring Boot + SSM 框架之上，并统⼀的进⾏了状态管理、事务管理、异常处理。</li>
-<li>核心功能与项目优化：<ul>
-<li>使用 Spring Email 辅助发送注册激活邮件，并且使用 Interceptor 拦截器赋予不同类型的用户权限，解决 http 无状态带来的缺陷问题，保护需登录才能查看的资源。</li>
-<li>使用 Spring AOP 面向切面编程思想统一记录日志；</li>
-<li>引入 Redis 数据库，优化项目中 Session 的使用并利用 Redis 实现点赞和关注功能。</li>
-<li>使用 Kafka 消息队列构建异步消息系统，实现点赞关注与通知间削峰。</li>
-<li>使用 Caffeine + Redis 实现两级缓存，优化了热门帖子的访问。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="https://leo710aka.github.io/bk/job1.png" width="750" height="300" alt="">
-
-<ul>
-<li>介绍项目<ol>
-<li>梳理系统的项目背景以及整个系统架构设计与运转流程</li>
-<li>技术上的亮点:”我在处理数据的过程中，实现了数据的一致性和可靠性，做到了数据零丢失”、“项目引入了规则引擎，其中解决了xxx的业务问题，使得工作效率极大提升”… 等等</li>
-<li>业务上的亮点:”实现了业务隔离，不同类型之间的业务互不干扰，从原来的xxx提升到了、”参考自某平台的xx功XXx”能，从零开始实现了业务，使得平台收益增加了xxx”.. 等等</li>
-<li>梳理项目还可提升的地方：无论是提高性能，还是提高工作效率，总会有的。这时候如果能吹下自己对比过某某公司的同类型系统，借鉴了某某某优点，基于目前自身的业务觉得还有哪里可以继续优化</li>
-</ol>
-</li>
-</ul>
-<hr>
-
-
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
-<li><p>排列组合（C上n下m，A上n下m）</p>
-<ul>
-<li><code>A上n下m</code>是排列，有顺序，表示m是起点（逐个减1，n是个数），从m中按顺序取n个数<br>  Amn &#x3D; m x(m-1)x(m-2)x(m-3)x … x(m-n+1)；例如：A74&#x3D; 8x7x6x5</li>
-<li><code>C上n下m</code>是组合，无顺序，表示从m中选出n个<br>  Cmn &#x3D; Amn &#x2F; Ann； 例如： C84 &#x3D; A84 &#x2F; A44 &#x3D; （8x7x6x5）&#x2F;(4x3x2x1)</li>
-</ul>
-</li>
-<li><p>5万人进行年龄排序<br>“使用快速排序算法来进行年龄排序，它的时间复杂度通常为O(n log n)。<br>我会首先将人口数据存储在一个数组中，然后根据每个人的年龄进行排序。在排序的过程中，我会使用递归来不断地划分数组，并交换元素的位置，直到整个数组按照年龄有序。如果数据量较大，我也可以考虑一些优化策略，比如随机化快速排序来避免最坏情况的发生，或者利用多线程来加速排序过程。最后，我会对排序后的结果进行验证，确保排序是准确的。”</p>
-</li>
-<li><p>智力题：25匹马选前3名，有5条赛道<br>将25匹马分成 A、B、C、D、E 5组，每组进行组内比赛，假设每组的排名就是A1&gt;A2&gt;A3&gt;A4&gt;A5（以A组为例），这里比赛5次<br>第6次，每组的第一名进行比赛，可以找出最快的马，这里假设A1&gt;B1&gt;C1&gt;D1&gt;E1，D1，E1肯定进不了前3，直接排除掉 D、E 两组<br>第7次，A2 A3 B1 B2 C1 比赛，可以找出第二、第三名。所以最少比赛需要7次</p>
-</li>
-<li><p>？？？智力题：1000瓶酒，其中只有1瓶毒酒，10只小白鼠，如何1轮测试出来毒酒是哪一瓶？<br>用小白鼠喝这瓶酒or不喝这评酒分别用1、0表示。可以凑出1024种组合，大于1000种，所以可以给1000瓶酒按照这种方式编号。<br>需要十只老鼠，如果按顺序编号，ABCDEFGHIJ分别代表从低位到高位每一个位。 每只老鼠对应一个二进制位，如果该位上的数字为1，则给老鼠喝瓶里的药。<br>然后用对应的2进制码的方式给10只小白鼠喝酒，过一段时间之后。通过观察小白鼠是哪些编号死亡，哪些编号存活，可以分别用1和0表示，然后凑出来的2进制转10进制就是答案。</p>
-</li>
-<li><p>智力题：绳子两头烧<br>现有若干不均匀的绳子，烧完这根绳子需要一个小时，问如何准确计时15分钟，30分钟，45分钟，75分钟。。。<br>15：对折之后两头烧(要求对折之后绑的够紧，否则看45分钟解法)<br>30：两头烧<br>45：两根，一根两头烧一根一头烧，两头烧完过了30分钟，立即将第二根另一头点燃，到烧完又过15分钟，加起来45分钟<br>75：&#x3D;30+45</p>
-</li>
-</ul>
-<hr>
-
-<h2 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h2><ul>
-<li><p>一面最后的时候，面试官一般会问：你有什么要问我的吗？这个时候不要乱问，你可以问以下几个问题：</p>
-<ol>
-<li>你们部门在做些什么？主要业务是什么？如果自己很荣幸的能够进入贵部门会负责些什么？<br>  因为面试者就是这个部门的，通过他的回答，你也能够了解到这个部门正在做的产品和使用的技术。</li>
-<li>岗位的发展情况、、如果我有幸应聘成功，公司对我会有哪些期望呢，</li>
-<li>您认为我在哪些方面还存在着不足？<br>  这是一个很巧妙的问题，因为它可以从侧面反映出你这次面试的结果。如果面试官带有指导性的回答出了你的不足，你需要补充的知识点，这样就代表你这次面试差不多了，应该是能好好准备二面了；如果面试官直言不讳的说你很差或者基础太弱这样的话，你也就知道凉凉了。</li>
-<li>请问面试官对自己职业规划的建议？<br>  面试官大概率是技术大佬或者工作过几年的前辈了，在社会上摸爬滚打了几年，知道的肯定比在校生多。这个问题既表达了对面试官身份的认可，也表现出求职者对当前这份工作得在意程度，并且还能得到技术大佬的分享，怎么看都不是亏本的买卖。</li>
-<li>这个岗位所在的的团队是什么氛围？我这个比较外向（千万要说自己外向，不要说自己内向，原因不必多说了吧）</li>
-</ol>
-</li>
-<li><p>关于公司，岗位有什么想问的？<br>1.<strong>关于公司：</strong>“公司的核心价值观是什么？” “能否分享一下公司的发展战略和未来规划？” “公司的文化是怎样的？”<br>2.<strong>关于团队和领导：</strong> “我将会与哪些团队成员合作？” “对于这个岗位，我将直接报告给谁？””团队的工作氛围是怎样的？”<br>3.<strong>关于岗位：</strong> “这个岗位的主要职责是什么？绩效评估标准？”  “在这个岗位上，有没有机会进行培训和专业发展？”<br>4.<strong>关于工作环境：</strong>“公司对于员工的工作生活平衡看法？公司的灵活工作政策？” “关于工作场所和设施有什么特别的安排？”<br>5.<strong>关于发展机会：</strong> “公司是否鼓励内部晋升和职业发展？”  “可以谈谈员工在公司成长的例子吗？”<br>6.<strong>关于期望：</strong>“对于这个职位，你们期望新员工在短期和长期内能够做到什么？” “公司对于创新和改进有怎样的期望？”<br>7.<strong>关于团队协作：</strong>“在团队中如何促进协作和团队精神？”  “有没有定期的团队活动或培训？”<br>8.<strong>关于招聘流程：</strong>“对于这个岗位的招聘流程是怎样的？”  “预计多久会有关于我的招聘决定？”</p>
-</li>
-<li><p>？？你如何评价我们的面试过程？<br>1、<strong>积极、建设性的角度</strong>：强调你对面试过程的积极印象，比如面试官的专业性、问题的多样性和挑战性等。表达感激之情，感谢他们给予的机会并展现出你对公司或团队的兴趣。<br>2、<strong>注意事项和改进建议</strong>：提及你认为面试过程中可能的改进点，但要以建设性的方式提出，不要过于批评或负面。例如，可以提议增加某些技术领域的深入问题，或者更多关于公司文化和团队合作的问题，以更好地了解公司的工作环境。</p>
-</li>
-<li><p>？？有什么要分享给面试官的？<br>1.、<strong>展示你的准备和兴趣</strong>：提到你在公司产品、服务、项目方面的研究和了解，表现出你对公司的热情和积极性。说明你对该公司的价值观、愿景或在该领域的兴趣，并解释为什么你认为你的技能和经验与公司的需求相匹配。<br>2、<strong>自我评价和亮点</strong>：强调你认为自己最突出的技能、经验或个人特质，并解释为什么这些对公司或团队会有价值。提供具体的案例或经验，展示你的领导能力、团队合作精神、解决问题的能力等方面的优势。<br>3、<strong>职业发展展望</strong>：谈论你对未来职业发展的期望，并说明你希望在该公司或类似领域发展自己的职业生涯。表现出你对个人成长和对公司做出贡献的愿望。</p>
-</li>
-</ul>
-<hr>
-
-
-<h2 id="HR-面"><a href="#HR-面" class="headerlink" title="HR 面"></a>HR 面</h2><ul>
-<li><p><strong>对公司文化的理解和价值观的认同</strong></p>
-<ul>
-<li>先去了解一下公司的文化和公司的优势之处，这样在被问到为什么选择本公司的时候能够把自己对公司的了解和优势说出来，体现自己的诚意</li>
-<li>华为：”我对华为的文化印象深刻，特别是关于坚持自主创新、追求卓越和不断学习的价值观。我接受的教育，使我深刻理解和认同华为一贯的追求卓越的精神。我认为，华为强调的团队协作和开放式沟通也非常符合我的工作风格。我期待能够在这样一个注重技术创新和全球合作的公司中发展自己的职业生涯。”</li>
-<li>腾讯：”我对腾讯的文化深感兴奋，尤其是关于用户至上、创新驱动和团队合作的价值观。在我之前的项目中，我注重倾听用户反馈，并通过创新的方式解决问题，这与腾讯强调用户体验和创新的文化非常契合。我也非常欣赏腾讯在团队协作方面的努力，我认为一个团结协作的团队是实现伟大目标的关键。因此，我相信我的工作风格和价值观与腾讯的文化非常匹配，我渴望能够为腾讯的发展贡献力量。”</li>
-<li>感觉您这边平台大，技术积累多，项目挑战多，能力提升多</li>
-</ul>
-</li>
-<li><p>你对加班的看法？<br>如果是工作需要我会义不容辞加班。我现在单身，没有任何家庭负担，可以全身心的投入工作。但同时，我也会提高工作效率，减少不必要的加班</p>
-</li>
-<li><p>你对薪资的要求？<br>①：“我对工资没有硬性要求。我相信贵公司在处理我的问题上会友善合理。我注重的是找对工作机会，所以只要条件公平，我则不会计较太多<br>②：我作为一个科班出身，具备比较完备的工作技能的人，我相信自己能为公司带来价值。。因此，我希望公司能根据我的情况和市场标准的水平，给我合理的薪水。<br>③：如果你必须自己说出具体数目，请不要说一个宽泛的范围，那样你将只能得到最低限度的数字。最好给出一个具体的数字，这样表明你已经对当今的人才市场作了调查，知道像自己这样学历的雇员有什么样的价值。</p>
-</li>
-<li><p><strong>眼下你生活中最重要的是什么？未来几年的规划是什么？</strong><br>对我来说，能在这个领域找到工作是最重要的。<br>规划好职业生涯，与同事们很好地合作。我希望能充分展示我在这个行业的能力和智慧。</p>
-</li>
-<li><p>说说你对行业、技术发展趋势的看法？<br>？？？<br>回答提示：企业对这个问题很感兴趣，只有有备而来的求职者能够过关。求职者可以直接在网上查找对你所申请的行业部门的信息，只有深入了解才能产生独特的见解。企业认为最聪明的求职者是对所面试的公司预先了解很多，包括公司各个部门，发展情况，在面试回答问题的时候可以提到所了解的情况，企业欢迎进入企业的人是“知己”，而不是“盲人”。</p>
-</li>
-<li><p><strong>职业发展规划？</strong><br>T型人才，一方面在技术领域深挖，一方面对整个产品的端到端有一个了解、、</p>
-</li>
-<li><p>请用三个词描述您的性格特点<br><strong>诚实，勤奋，谦虚。</strong>在学习知识和与人交往的过程中，我始终保持坦诚和真实，对自己和他人负责。面对生活中的挑战，我积极看待并勤奋努力，相信努力终会有所回报。谦虚让我保持谦逊和虚心，愿意倾听他人意见并不断学习成长。</p>
-</li>
-<li><p>举例说明你的勤奋。。<br>我详细安排毕业设计开发进度，一周内每天熬夜到3点。。<br>我想说的是很多时候即使早已做好安排，到头来还是因为各种情况不得不赶进度，重要的是能够在需要时赶好进度的能力。。</p>
-</li>
-<li><p>你身边的人如何评价你？<br>他们说我是一个诚实、学习和工作努力、负责任的人。我一旦答应别人的事情，就一定会负责到底，否则我不会轻易许诺。<br>以及我是一个比较随和的人，与不同的人都可以友好相处，在与人相处时，我总是能站在别人的角度考虑问题。</p>
-</li>
-<li><p><strong>你的优点和缺点。</strong></p>
-<ul>
-<li>我是一个诚实，比较勤奋和乐观的人。我的适应能力比较强，喜欢向他人学习，也愿意帮助他人。在以往的实习、项目中，能够很快适应团队开发流程。我相信在经过一段时间的培训及项目实战后，能够在这份工作中取得成功。</li>
-<li>我缺乏工作经验。。<ul>
-<li>在之前的实习过程中只是参与了开发这一环节，没有跨部门合作、与不同岗位的同事深度交流的经验。</li>
-<li>有点强迫症，会对任务的细节核对多遍，比如发邮件，填资料的时候必须要重复检查，把信息正着反着过一遍，这样虽然有点浪费时间，但就基本不会出什么差错了；</li>
-<li>另外就是有点钻牛角尖，在学习新的知识时有个点花了很长时间都没弄懂，会比较泄气。后来发现可以把不懂的先放着，等学了别的知识，再返回来看这个知识点就触类旁通了；我目前也很习惯使用chatgpt进行学习，通过提问快速发散知识点，建立联系。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>高中到大学以来，最大的挫折。<br>高中以来一直遭到失败，学业、社团、人际交往，，一度让我十分沮丧，但也是我思考了很多的一段时间，，我渐渐了解：失败是人生的常态。<br>我很庆幸一次次经历失败的过程中，我都还是选择了再努力一下，也许就有改变呢，往往最后问题都能够解决了，，<br>最重要的，我学会在任何情况下保持冷静，，在未来，在大学面对各种压力时，都可以比较体面地应对了，并且思考如何做得更好、、</p>
-</li>
-<li><p>学习方法。<br>某一个点：根据需求针对性的官方文档，，查技术论坛、、<br>某一领域：(看B站视频 ×) 在有了大致了解后，使用chatgpt，不断提问、发散，把知识点都连接起来</p>
-</li>
-<li><p>最近看了什么书？读了什么开源库？<br>？？？没看。</p>
-</li>
-<li><p><strong>考研弃考？秋招0 offer？空白期？</strong><br>没考研！！找工作比较晚（因为有java基础和项目经验、、）并且夏令营，毕业实习占用了很多时间，，<br>秋招期间，我一直学习java技术栈，（没把握所以）没怎么投简历，，后面我为了丰富自己对开发的了解，也在12月底找了一份实习做到现在了。。目前不考虑考研<br>春招期间，，，</p>
-</li>
-<li><p>表现<strong>抗压能力以及处理意外情况的能力</strong>。</p>
-<ol>
-<li>分享一件你觉得压力比较大的事？你的压力从何来？你是如何克服他的？<br>  ？？1.适应压力，有压力动力更足。2.会合理安排时间，取得工作效率很好的平衡</li>
-<li>你长这么大以来遭受过的最大挫折是什么？你是如何克服它的？<br>  ？？</li>
-<li>二十多年来，你取得的最大成就是什么？<br>  ？？</li>
-<li>你通过多年努力获得的一项技能是什么？你是如何学习从而获得这项技能的，做了哪些工作去改善、精进这项技能？<br>  ？？<br>  学会面对任何困难保持冷静。从上学时突然被点名发言、突然被委任参加一个比赛，到现在做项目时面对需求从头开始学习新的技术，我发现在面对困难时，有效的方法就是冷静分析局势，以及最重要的是尽早的着手做。这样即使最后无法完成，也有所收获。</li>
-</ol>
-</li>
-<li><p>你能使组里气氛活跃，并且易于<strong>沟通</strong>吗？<br>我会尽力，和团队中的成员沟通，向他们发问、学习。因为在团队里工作最重要的一件事就是集思广益，而不要只是一个人闷头单干。沟通是很重要的，不仅可以提高工作质量和效率，也可以产生活力。</p>
-</li>
-<li><p>如何处理与同事在工作中意见的不和？与上级意见冲突？<br>我要以更清楚和文明的方式提出我的看法，使对方了解我的观点。<br>我会尊重上级，上级一般更有经验，思考更全面，要通过积极沟通找到一个更合适的解决方法。</p>
-</li>
-<li><p>在完成某项工作时，你认为领导要求的方式不是最好的，自己还有更好的方法，你应该怎么做？<br>原则上我会尊重和服从领导的工作安排；同时私底下找机会以请教的口吻，婉转地表达自己的想法，看看领导是否能改变想法；<br>如果领导没有采纳我的建议，我也同样会按领导的要求认真地去完成这项工作；<br>还有一种情况，假如领导要求的方式违背原则，我会坚决提出反对意见；如领导仍固执己见，我会毫不犹豫地再向上级领导反映。</p>
-</li>
-<li><p>工作中你难以和同事、上司相处，你该怎么办？<br>我会服从领导的指挥，配合同事的工作。<br>我会从自身找原因，仔细分析是不是自己工作做得不好让领导不满意，同事看不惯。还要看看是不是为人处世方面做得不好。如果是这样的话 我会努力改正。<br>如果我找不到原因，我会找机会跟他们沟通，请他们指出我的不足。有问题就及时改正。<br>作为优秀的员工，应该时刻以大局为重，即使在一段时间内，领导和同事对我不理解，我也会做好本职工作，虚心向他们学习，我相信，他们会看见我在努力，总有一天会对我微笑的！</p>
-</li>
-<li><p>偶像？企业家？<br>梅西？除了足球方面的，他有着世界上最宝贵的天赋，谦逊。他沉默地担下所有责任，用实际行动回复质疑和诋毁，以及他个人和职业生涯中的种种挫折，共同让他成长为了这个世界上最坚强的人。<br>任正非？？一位民族企业家，经历了苦难的人，实干家，尊重教师和科学家。。他的企业即使在最艰难的时刻，也坚持研发投入，有着向上的风气。</p>
-</li>
-<li><p>如果通过这次面试我们单位录用了你，但工作一段时间却发现你根本不适合这个职位，你怎么办？<br>？？<br>如果你确实热爱这个职业，那你就要不断学习，虚心向领导和同事学习业务知识和处事经验，了解这个职业的精神内涵和职业要求，力争减少差距；<br>你觉得这个职业可有可无，那还是趁早换个职业，去发现适合你的，你热爱的职业，那样你的发展前途也会大点，对单位和个人都有好处。</p>
-</li>
-<li><p>如果你的工作出现失误，给本公司造成经济损失，你认为该怎么办？<br>我本意是为公司努力工作，如果造成经济损失，我认为首要的问题是想方设法去弥补或挽回经济损失。<br>如果我无能力负责，希望单位帮助解决；<br>分清责任，各负其责，如果是我的责任，我甘愿受罚；如果是一个我负责的团队中别人的失误，作为一个团队，需要互相提携共同完成工作，安慰同事并帮助同事查找原因总结经验。<br>总结经验教训，一个人的一生不可能不犯错误，重要的是能从自己的或者是别人的错误中吸取经验教训，并在今后的工作中避免发生同类的错误。检讨自己的工作方法、分析问题的深度和力度是否不够，以致出现了本可以避免的错误。</p>
-</li>
-<li><p>如果你在这次考试中没有被录用，你怎么打算？<br>第一：要敢于面对,面对这次失败不气馁,接受已经失去了这次机会就不会回头这个现实,从心理意志和精神上体现出对这次失败的抵抗力。要有自信,相信自己经历了这次之后经过努力一定能行.能够超越自我；<br>第二：善于反思,对于这次面试经验要认真总结,思考剖析,能够从自身的角度找差距。正确对待自己,实事求是地评价自己,辩证的看待自己的长短得失,做一个明白人；<br>第三：走出阴影,要克服这一次失败带给自己的心理压力,时刻牢记自己弱点,防患于未然,加强学习,提高自身素质；<br>第四：认真工作,回到原单位岗位上后,要实实在在、踏踏实实地工作,三十六行,行行出状元,争取在本岗位上做出一定的成绩；<br>第五：再接再厉,成为一名架构师一直是我的梦想,以后如果有机会我仍然后再次参加竞争。</p>
-</li>
-<li><p>谈谈你对跳槽的看法？<br>正常的”跳槽”能促进人才合理流动，应该支持；<br>频繁的跳槽对单位和个人双方都不利，应该反对。</p>
-</li>
-<li><p>你能为我们公司带来什么呢？<br>假如你可以的话，试着告诉他们你可以减低他们的费用——“我已经接受过惠普公司一段时间的培训，立刻就可以上岗工作”。<br>企业很想知道未来的员工能为企业做什么，求职者应再次重复自己的优势，然后说：“就我的能力，我可以做一个优秀的员工在组织中发挥能力，给组织带来高效率和更多的收益”。企业喜欢求职者就申请的职位表明自己的能力，比如申请营销之类的职位，可以说：“我可以开发大量的新客户，同时，对老客户做更全面周到的服务，开发老客户的新需求和消费。”等等。</p>
-</li>
-<li><p>你的业余爱好是什么？<br>我喜欢足球，我享受和我的队友一起拼尽全力，互相信任，无论输赢一起共进退。在足球比赛中，一个团队的成功不仅仅取决于个别球员的技术水平，更重要的是整个团队的协同合作、沟通和相互理解。（回答提示：找一些富于团体合作精神的）</p>
-</li>
-<li><p>最喜欢的十本书？</p>
-<ol>
-<li>《三体》- 刘慈欣</li>
-<li>《活着》- 余华</li>
-<li>《围城》- 钱钟书</li>
-<li>《1984》- 乔治·奥威尔</li>
-<li>《动物农场》- 乔治·奥威尔</li>
-<li>《白夜行》- 东野圭吾</li>
-<li>《窗边的小豆豆》- 黑柳彻子</li>
-<li>《苏菲的世界》- 乔斯坦·贾德</li>
-<li>《水浒传》- 施耐庵</li>
-<li>《红楼梦》- 曹雪芹</li>
-</ol>
-</li>
-<li><p>作为被面试者给我打一下分<br>“我认为在这次面试中，我有机会深入了解公司，并且很高兴能够分享我的经验和能力。<br>面试官提出的问题涉及到我的专业领域和与公司文化相关的方面，这让我感到这次面试非常有价值。我觉得这是一个很好的机会，展示了我与公司的匹配度，同时也让我更深入地了解了贵公司的期望和文化。<br>我期待着有机会为公司做出积极的贡献，如果有进一步的机会，我将非常愿意深入探讨我如何能够在公司中蓬勃发展。”<br>（回答提示：试着列出四个优点和一个非常非常非常小的缺点，，可以抱怨一下设施，没有明确责任人的缺点是不会有人介意的）</p>
-</li>
-<li><p>喜欢这份工作的哪一点？<br>？？？<br>在回答面试官这个问题时可不能太直接就把自己心理的话说出来，尤其是薪资方面的问题，不过一些无伤大雅的回答是不错的考虑，如交通方便，工作性质及内容颇能符合自己的兴趣等等都是不错的答案，不过如果这时自己能仔细思考出这份工作的与众不同之处，相信在面试上会大大加分。</p>
-</li>
-<li><p>说说你的家庭。<br>（企业不喜欢探究个人隐私，而是要了解家庭背景对求职者的塑造和影响。企业希望听到的重点也在于家庭对求职者的积极影响。企业最喜欢听到的是：）<br>我的家庭一向很和睦，虽然我的父亲和母亲都是普通人，但是从小，我就看到父母为了家庭起早贪黑，每天勤劳工作，他的行动无形中培养了我认真负责的态度和勤劳的精神。他们也教育我对人诚实、友善，要乐于助人。</p>
-</li>
-<li><p>就你申请的这个职位，你认为你还欠缺什么？<br>回答建议（仅供参考）：企业喜欢问求职者弱点，但精明的求职者一般不直接回答。他们希望看到这样的求职者：继续重复自己的优势，然后说：“对于这个职位和我的能力来说，我相信自己是可以胜任的，只是缺乏经验，这个问题我想我可以进入公司以后以最短的时间来解决，我的学习能力很强，我相信可以很快融入公司的企业文化，进入工作状态。”<br>企业喜欢能够巧妙地躲过难题的求职者。</p>
-</li>
-<li><p>你欣赏哪种性格的人？<br>诚实、不死板而且容易相处的人、有”实际行动”的人。</p>
-</li>
-<li><p>你通常如何处理別人的批评？<br>沈默是金。不必说什么，否则情况更糟，不过我会接受建设性的批评； 我会等大家冷靜下来再讨论。</p>
-</li>
-<li><p>你怎样对待自己的失敗？<br>我们大家生来都不是十全十美的，我相信我有第二个机会改正我的错误。</p>
-</li>
-<li><p>你和别人发生过争执吗？你是怎样解决的？<br>（千万不要说任何人的过错。应知成功解决矛盾是一个协作团体中成员所必备的能力。考官希望看到你是成熟且乐于奉献的。他们通过这个问题了解你的成熟度和处世能力。）<br>在没有外界干涉的情况下，通过妥协的方式解决。</p>
-</li>
-<li><p>为了做好你工作份外之事，你该怎样获得他人的支持和帮助？<br>？？？</p>
-</li>
-<li><p>项目中遇到困难，你怎么办？怎么回答<br>？？？<br>第一种这个要找项目负责人商量、甚至要找产品&#x2F;运行或其他甲方沟通、<br>第二种普遍技术难点的话、参考资料或者和项目负责人商量看看怎么办、<br>第三种的话、先自己查资料试着解决、不行就找人其他资讯、、</p>
-</li>
-<li><p>意向城市，人生发展（以提高自己为主，强化学习，找到一个好的环境）</p>
-</li>
-<li><p><strong>压薪</strong>：如果工资达不到您的预期，还来吗？<br>1、感谢hr在面试这几轮的工作和时间<br>2、我感觉其实很适合这个岗位了（我就是公司需要的人，不要压我工资完成你的kpi<br>3、不管结果如何，希望您能够再帮我争取一下（我也和，，打打招呼，表达诚意，不让您这边为难？<br>不直接回答，只表达希望hr能帮我争取，不保证接不接offer？？</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/" data-id="cm1c3mj8p000vxkv5eiuoepod" data-title="面 逝 | 个人" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm1d5o5ot000yvcv5c1k5hs01" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -2707,7 +1814,7 @@ Api方法中：XXXRequest、XXXResponse
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -2721,6 +1828,14 @@ Api方法中：XXXRequest、XXXResponse
         
           <li>
             <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/Golang/">Golang</a>
           </li>
         
           <li>
@@ -2749,14 +1864,6 @@ Api方法中：XXXRequest、XXXResponse
         
           <li>
             <a href="/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/">骏 伯 Junbo</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/20/%E6%98%A5%E6%8B%9B2024/">春 招 2024</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/13/%E9%9D%A2%E8%AF%95_%E4%B8%AA%E4%BA%BA/">面 逝 | 个人</a>
           </li>
         
       </ul>

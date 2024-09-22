@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>InfluxDB | Qué miras Bobo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="InfluxDB 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。它特别适合处理以下类型的数据：  物联网 (IoT) 数据：如传感器采集的温度、湿度等。 监控和日志数据：服务器、网络设备、应用程序性能指标等。 实时分析：金融数据、运营数据、系统监控等领域的数据。  主要特点： 时序数据存储：  InfluxDB 设计为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InfluxDB">
+<meta property="og:url" content="http://example.com/2024/09/22/InfluxDB/index.html">
+<meta property="og:site_name" content="Qué miras Bobo">
+<meta property="og:description" content="InfluxDB 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。它特别适合处理以下类型的数据：  物联网 (IoT) 数据：如传感器采集的温度、湿度等。 监控和日志数据：服务器、网络设备、应用程序性能指标等。 实时分析：金融数据、运营数据、系统监控等领域的数据。  主要特点： 时序数据存储：  InfluxDB 设计为">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-09-22T05:34:33.000Z">
+<meta property="article:modified_time" content="2024-09-22T05:45:34.288Z">
+<meta property="article:author" content="fengcai">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Qué miras Bobo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://github.com/leo710aka/bk/blob/main/DT1.jpg?raw=true">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Qué miras Bobo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-InfluxDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/22/InfluxDB/" class="article-date">
+  <time class="dt-published" datetime="2024-09-22T05:34:33.000Z" itemprop="datePublished">2024-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      InfluxDB
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>InfluxDB</strong> 是一个开源的时序数据库（Time Series Database, TSDB），专门用于存储和查询以时间为索引的大规模数据集。它特别适合处理以下类型的数据：</p>
+<ul>
+<li><strong>物联网 (IoT) 数据</strong>：如传感器采集的温度、湿度等。</li>
+<li><strong>监控和日志数据</strong>：服务器、网络设备、应用程序性能指标等。</li>
+<li><strong>实时分析</strong>：金融数据、运营数据、系统监控等领域的数据。</li>
+</ul>
+<h3 id="主要特点："><a href="#主要特点：" class="headerlink" title="主要特点："></a>主要特点：</h3><ol>
+<li><p><strong>时序数据存储</strong>：</p>
+<ul>
+<li>InfluxDB 设计为能够高效地存储大量按时间排序的数据。每个数据点都有一个时间戳，方便记录变化趋势。</li>
+</ul>
+</li>
+<li><p><strong>无模式（Schema-less）设计</strong>：</p>
+<ul>
+<li>InfluxDB 允许用户自由插入具有不同标签和字段的数据点，无需预先定义表结构。这使得它非常灵活，能够处理各种数据格式。</li>
+</ul>
+</li>
+<li><p><strong>高性能写入和查询</strong>：</p>
+<ul>
+<li>InfluxDB 具备非常高的写入性能，能够以百万条数据点的速率持续写入。同时它的查询引擎非常高效，支持按时间范围过滤和聚合数据。</li>
+</ul>
+</li>
+<li><p><strong>数据压缩和自动降采样</strong>：</p>
+<ul>
+<li>为了减少存储空间，InfluxDB 提供了内置的数据压缩功能。此外，自动降采样可以帮助用户将历史数据按需简化，保留关键数据点。</li>
+</ul>
+</li>
+<li><p>**支持 SQL 类似的查询语言 (InfluxQL)**：</p>
+<ul>
+<li>虽然是时序数据库，但 InfluxDB 提供了一种类似 SQL 的查询语言，叫做 InfluxQL，用户可以使用熟悉的 SQL 风格来查询数据。</li>
+</ul>
+</li>
+<li><p><strong>时间聚合和函数支持</strong>：</p>
+<ul>
+<li>InfluxDB 提供了多种聚合函数，如 <code>mean()</code>、<code>sum()</code>、<code>min()</code>、<code>max()</code> 等，方便用户对数据进行统计分析。</li>
+</ul>
+</li>
+<li><p><strong>集成与扩展性</strong>：</p>
+<ul>
+<li>InfluxDB 可以通过插件和其他工具与监控系统（如 Telegraf）、仪表盘工具（如 Grafana）以及其他数据库进行集成。它也可以与 Kubernetes、Docker 等现代微服务架构无缝配合。</li>
+</ul>
+</li>
+</ol>
+<h3 id="典型应用场景："><a href="#典型应用场景：" class="headerlink" title="典型应用场景："></a>典型应用场景：</h3><ul>
+<li><strong>服务器和应用程序监控</strong>：采集 CPU、内存、磁盘、网络流量等性能数据，并进行实时监控。</li>
+<li><strong>物联网数据处理</strong>：物联网设备发送的大量时序数据，如传感器数据、GPS 数据等。</li>
+<li><strong>金融市场分析</strong>：记录股票市场的交易量和价格变化，分析趋势。</li>
+<li><strong>DevOps 监控</strong>：通过捕获应用程序日志和系统日志，帮助运维团队分析系统健康状态。</li>
+</ul>
+<p>InfluxDB 作为时序数据库的代表之一，在处理时间相关的数据时具有显著优势，是物联网、监控、分析等领域的理想选择。</p>
+<p>在 <strong>InfluxDB</strong> 中，备份与恢复是关键的运维任务，确保数据的安全性和可靠性。下面是 InfluxDB 备份和恢复的基本操作：</p>
+<h3 id="InfluxDB-备份"><a href="#InfluxDB-备份" class="headerlink" title="InfluxDB 备份"></a>InfluxDB 备份</h3><p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
+<h4 id="1-备份整个实例"><a href="#1-备份整个实例" class="headerlink" title="1. 备份整个实例"></a>1. 备份整个实例</h4><p>在 InfluxDB 中，你可以备份所有数据库（全量备份）。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/path/to/backup</code> 是你保存备份文件的路径。</li>
+<li><code>-portable</code> 选项会生成便携式备份格式，这在不同版本间的兼容性更好。</li>
+</ul>
+<h4 id="2-备份单个数据库"><a href="#2-备份单个数据库" class="headerlink" title="2. 备份单个数据库"></a>2. 备份单个数据库</h4><p>如果只想备份某个特定的数据库，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -database &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;database_name&gt;</code> 是你需要备份的数据库名称。</li>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="3-增量备份"><a href="#3-增量备份" class="headerlink" title="3. 增量备份"></a>3. 增量备份</h4><p>对于较大的数据集，可以进行增量备份，只备份自上次全量或增量备份以来的数据：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -start &lt;timestamp&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;timestamp&gt;</code> 是备份开始的时间，格式是 RFC3339 格式（例如：<code>2023-09-21T23:30:00Z</code>）。</li>
+</ul>
+<h3 id="InfluxDB-恢复"><a href="#InfluxDB-恢复" class="headerlink" title="InfluxDB 恢复"></a>InfluxDB 恢复</h3><p>备份的数据可以恢复到新实例或现有实例中。</p>
+<h4 id="1-恢复整个实例"><a href="#1-恢复整个实例" class="headerlink" title="1. 恢复整个实例"></a>1. 恢复整个实例</h4><p>恢复整个实例包括所有的数据库。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="2-恢复单个数据库"><a href="#2-恢复单个数据库" class="headerlink" title="2. 恢复单个数据库"></a>2. 恢复单个数据库</h4><p>如果只想恢复某个数据库，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;database_name&gt;</code> 是你需要恢复的数据库。</li>
+<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+</ul>
+<h4 id="3-恢复到不同的数据库"><a href="#3-恢复到不同的数据库" class="headerlink" title="3. 恢复到不同的数据库"></a>3. 恢复到不同的数据库</h4><p>有时你可能希望将备份的数据恢复到另一个数据库，可以使用 <code>-newdb</code> 选项来实现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;old_database_name&gt; -newdb &lt;new_database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&lt;old_database_name&gt;</code> 是原来备份的数据库名。</li>
+<li><code>&lt;new_database_name&gt;</code> 是恢复到的新数据库名。</li>
+</ul>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li><p><strong>备份期间</strong>：InfluxDB 实例可以保持在线状态，你不需要停止数据库服务，备份可以在运行时执行。</p>
+</li>
+<li><p><strong>数据压缩</strong>：备份文件可以手动压缩，以节省存储空间。例如，使用 <code>tar</code> 命令打包备份目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -czvf backup.tar.gz /path/to/backup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>权限问题</strong>：确保进行备份和恢复操作的用户有对备份目录的读写权限。</p>
+</li>
+<li><p><strong>恢复时的版本问题</strong>：备份与恢复需要确保 InfluxDB 版本的兼容性。使用 <code>-portable</code> 格式的备份工具可以跨版本兼容，但最好在同一主版本内进行操作。</p>
+</li>
+<li><p><strong>增量备份的恢复</strong>：如果你使用增量备份，恢复时需要先恢复全量备份，然后按顺序恢复每个增量备份。</p>
+</li>
+</ol>
+<p>备份与恢复是 InfluxDB 数据管理的重要部分，确保定期备份以避免数据丢失风险，并在必要时能够快速恢复数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/09/22/InfluxDB/" data-id="cm1d5o5ok0006vcv5ej6z72y3" data-title="InfluxDB" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2046/12/30/nice-photo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Nice Photo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/09/22/Golang/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Golang</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/Golang/">Golang</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/18/%E4%BF%9D%E9%99%A9/">保 险</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 业 设 计</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/07/SpringCloud/">SpringCloud</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/">骏 伯 Junbo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 fengcai<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
