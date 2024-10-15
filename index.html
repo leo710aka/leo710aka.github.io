@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm27mo7cx000mh0v5dr1qhhk5" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm2aewux7000m5ov56mugdap9" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -173,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm27mo7cd0001h0v551xq8nfi" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm2aewux100025ov54d7m8a2u" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -199,7 +199,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">数据库advanced | InfluxDB</a>
+      <a class="p-name article-title" href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
     </h1>
   
 
@@ -207,47 +207,69 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="快速了解MySQL"><a href="#快速了解MySQL" class="headerlink" title="快速了解MySQL"></a>快速了解MySQL</h2><p>1.MySQL45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>  特点中文、有音频、快速了解相关背景<br>2.高性能MySQL <a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a><br>3.MySQL技术内幕（InnoDB存储引擎）<a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">https://book.douban.com/subject/24708143/</a><br>4.官方MySQL Internals Manual： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/internals/en/guided-tour.html">https://dev.mysql.com/doc/internals/en/guided-tour.html</a><br>5.阿里云mysql内核月报：<a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a><br>6.Polardb-X知乎专栏：<a target="_blank" rel="noopener" href="https://www.zhihu.com/org/polardb-x">https://www.zhihu.com/org/polardb-x</a></p>
-<h2 id="数据库架构"><a href="#数据库架构" class="headerlink" title="数据库架构"></a>数据库架构</h2><p>1.Architecture of a Database System 网上有中文翻译： <a target="_blank" rel="noopener" href="http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf">http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf</a><br>2.红宝书：<a target="_blank" rel="noopener" href="http://www.redbook.io/">http://www.redbook.io/</a><br>3.数据库系统实现：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/4838430/">https://book.douban.com/subject/4838430/</a><br>4.Database Internals 有中文书籍：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35078474/">https://book.douban.com/subject/35078474/</a></p>
-<p>通过以上书籍可以了解整体架构，数据库整体可以分为共识算法、存储引擎、事务处理（单机、分布式事务）、数据分析（执行引擎、分析引擎）<br>共识算法：<br>1)Paxos协议(basic paxos、multi paxos等） 蚂蚁金服Oceanbase实现了Paxos<br>paxos-simple.pdf  <a target="_blank" rel="noopener" href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a><br>paxos made live.pdf <a target="_blank" rel="noopener" href="https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf">https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf</a><br>2)Raft协议，本质上是Paxos的简化   开源版本ETCD使用的是raft共识算法、TiKV使用的复制算法最开始是改写的etcd的raft库<br>raft.pdf <a target="_blank" rel="noopener" href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf</a><br>存储引擎：<br>LSM Tree（LevelDB、RocksDB)<br>InnoDB引擎<br>单机事务（MySQL InnoDB事务可见性实现原理）<br>分布式事务<br>Percolator.pdf <a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf">https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf</a></p>
-<p>实战<br>1.从0到1数据库内核实战教程 <a target="_blank" rel="noopener" href="https://open.oceanbase.com/activities/4921877">https://open.oceanbase.com/activities/4921877</a><br>2.MariaDB原理与实现  <a target="_blank" rel="noopener" href="https://book.douban.com/subject/26340413/">https://book.douban.com/subject/26340413/</a><br>3.字节云数据库架构设计与实战 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942">https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942</a><br>4.MySQL 原理与实践 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752">https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752</a></p>
-<p>论文<br>Polardb计算存储分离论文<br>TiDB: a Raft-based HTAP database： TiDB 2020 VLDB上的文章，介绍TiDB的架构<br>Polardb-X分布式数据库论文<br>Spanner: Google’s Globally-Distributed Database: Google的tp数据库<a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf%E2%80%8Bwww.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf">https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf​www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf</a><br>F1: A Distributed SQL Database That Scales 大G的F1系列<a target="_blank" rel="noopener" href="http://www.vldb.org/pvldb/vol6/p1068-shute.pdf%E2%80%8Bwww.vldb.org/pvldb/vol6/p1068-shute.pdf">http://www.vldb.org/pvldb/vol6/p1068-shute.pdf​www.vldb.org/pvldb/vol6/p1068-shute.pdf</a><br>Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases; 亚马逊的Aurora</p>
-<h2 id="快速了解kubernetes"><a href="#快速了解kubernetes" class="headerlink" title="快速了解kubernetes"></a>快速了解kubernetes</h2><ol>
-<li>深入剖析kubernetes(geek)：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></li>
-<li>kubernetes operator：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">https://kubernetes.io/docs/concepts/extend-kubernetes/operator/</a></li>
-<li>kubernetes 入门资料：kubernetes概述、kubernetes-operator机制、k8s scheduler framework</li>
-<li>容器网络插件：kube-ovn 、calico、Flannel、Weave、CNI</li>
-<li>社区开源经典容器管理项目：tidb-operator、flink-operator</li>
-<li>社区开源多k8s集群管理项目：kamada、clusternet</li>
-<li>kubernetes 集群管理平台：kubesphere</li>
-</ol>
-<h2 id="快速了解中间件、基础技术"><a href="#快速了解中间件、基础技术" class="headerlink" title="快速了解中间件、基础技术"></a>快速了解中间件、基础技术</h2><ol>
-<li>Spring cloud技术<ol>
-<li>spring-cloud 中文文档：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-greenwich.html">https://www.springcloud.cc/spring-cloud-greenwich.html</a></li>
-<li>spring-cloud API网关（gateway）：<a target="_blank" rel="noopener" href="http://c.biancheng.net/springcloud/gateway.html">http://c.biancheng.net/springcloud/gateway.html</a></li>
-<li>spring-cloud 配置中心（Consul）：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-consul.html">https://www.springcloud.cc/spring-cloud-consul.html</a></li>
-<li>spring-cloud 统一配置、服务注册和发现（Nacos）：社区git、what is nacos</li>
-</ol>
-</li>
-<li>API网关<ol>
-<li>APISIX：社区git、快速指南、插件开发</li>
-<li>Kong：社区git、入门blog</li>
-<li>nginx-ingress：nginx官网 ingress手册</li>
-</ol>
-</li>
-<li>Spring <ol>
-<li>官方手册</li>
-<li>spring framework手册 <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api">https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api</a></li>
-</ol>
-</li>
-<li>Springboot <a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-boot.html">https://www.springcloud.cc/spring-boot.html</a></li>
-<li>Reids 推荐书籍：《Redis入门指南 （第2版）》、《Redis设计与实现》</li>
-<li>Nginx <a target="_blank" rel="noopener" href="https://www.cnblogs.com/54chensongxia/p/12938929.html">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></li>
-</ol>
-<hr>
-
-<h1 id="InfluxDB"><a href="#InfluxDB" class="headerlink" title="InfluxDB"></a>InfluxDB</h1><p><strong>InfluxDB</strong> 是一个由InfluxData开发的开源时序型数据库，专注于海量时序数据的高性能读、高性能写、高效存储与实时分析等；<br>在DB-Engines Ranking时序型数据库排行榜上排名第一，广泛应用于DevOps监控、IoT监控、实时分析等场景。<br><a target="_blank" rel="noopener" href="https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html">https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html</a></p>
+        <h1 id="InfluxDB"><a href="#InfluxDB" class="headerlink" title="InfluxDB"></a>InfluxDB</h1><p><strong>InfluxDB</strong> 是一个由InfluxData开发的开源时序型数据库，专注于海量时序数据的高性能读、高性能写、高效存储与实时分析等；<br>在DB-Engines Ranking时序型数据库排行榜上排名第一，广泛应用于DevOps监控、IoT监控、实时分析等场景。<br><a target="_blank" rel="noopener" href="https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html">https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html</a></p>
 <p><em>influxdb-cluster</em> 是InfluxDB的集群版本，设计用于大规模数据存储和高可用性需求。<br>可以实现数据的分片和复制，从而提高系统的可用性和扩展性。数据安全。<br>一个开源分布式时间序列数据库，InfluxDB Enterprise 的开源替代方案；operator缺失<br><a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki">https://github.com/chengshiwen/influxdb-cluster/wiki</a></p>
+<h3 id="集群体系结构"><a href="#集群体系结构" class="headerlink" title="集群体系结构"></a>集群体系结构</h3><p>InfluxDB企业版由两组软件进程组成：data nodes and meta nodes，数据节点和元节点。集群内的通信是这样的：<br><img src="https://pic3.zhimg.com/80/v2-6685cdf3df810ad3e5ae44d4e1a9df22_720w.webp" width="450" height="300" alt=""><br><img src="https://pic4.zhimg.com/80/v2-abb99833337f84b3850e0f6484f013ef_720w.webp" width="450" height="300" alt=""><br>Meta 节点通过 TCP 协议和 Raft 共识协议相互通信，默认都使用端口 8089，此端口必须在 Meta 节点之间是可访问的。默认 Meta 节点还将公开绑定到端口 8091 的 HTTP API，influxd-ctl 命令使用该 API。<br>Data 节点通过绑定到端口 8088 的 TCP 协议相互通信。Data 节点通过绑定到 8091 的 HTTP API 与 Meta 节点通信。这些端口必须在 Meta 节点和 Data 节点之间是可访问的。<br>在集群内，所有 Meta 节点都必须与所有其它 Meta 节点通信。所有 Data 节点必须与所有其它 Data 节点和所有 Meta 节点通信。<br><a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/</a></p>
+<h3 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h3><p>元节点保存以下所有元数据：</p>
+<ul>
+<li>集群中的所有节点及其角色</li>
+<li>集群中存在的所有数据库和保留策略</li>
+<li>所有分片和分片组，以及它们存在于哪些节点上</li>
+<li>集群用户及其权限</li>
+<li>所有连续查询</li>
+<li>元节点将这些数据保存在磁盘上的Raft数据库中，由BoltDB提供支持。默认情况下，Raft数据库是&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;meta&#x2F;raft.db。<br>注意：Meta节点需要&#x2F; Meta目录。</li>
+</ul>
+<p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
+<ul>
+<li>measurements</li>
+<li>tag keys and values</li>
+<li>field keys and values</li>
+<li>在磁盘上，数据总是按照<database>&#x2F;<retention_policy>&#x2F;<shard_id>组织。默认父目录为&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data注意：数据节点需要&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;的所有四个子目录，包括&#x2F;meta(specifically, the clients.json file)、&#x2F;data、&#x2F;wal和&#x2F;hh。</li>
+</ul>
+<h3 id="InfluxDB读写"><a href="#InfluxDB读写" class="headerlink" title="InfluxDB读写"></a>InfluxDB读写</h3><ol>
+<li>命令行工具<ul>
+<li>influx命令行连接本地InfluxDB <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ influx -precision rfc3339</span><br><span class="line">Connected to http://localhost:8086 version 1.2.x // </span><br><span class="line">InfluxDB shell 1.2.x</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地的8086端口。-precision参数表明了任何返回的时间戳的格式和精度，如 rfc3339是让InfluxDB返回RFC339格式(YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ)的时间戳。</li>
+<li>数据格式：将数据点写入InfluxDB，只需要遵守如下的行协议： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]</span><br></pre></td></tr></table></figure>
+ 首先对数据存储的格式来个入门介绍。InfluxDB里存储的数据被称为时间序列数据，其包含一个数值，就像CPU的load值或是温度值类似的。时序数据有零个或多个数据点，每一个都是一个指标值。数据点包括time(一个时间戳)，measurement(例如cpu_load)，至少一个k-v格式的field(也即指标的数值例如 “value&#x3D;0.64”或者“temperature&#x3D;21.2”)，零个或多个tag，其一般是对于这个指标值的元数据(例如“host&#x3D;server01”, “region&#x3D;EMEA”, “dc&#x3D;Frankfurt)。<br> 在概念上，你可以将measurement类比于SQL里面的table，其主键索引总是时间戳。tag和field是在table里的其他列，tag是被索引起来的，field没有。不同之处在于，在InfluxDB里，你可以有几百万的measurements，你不用事先定义数据的scheme，并且null值不会被存储。</li>
+<li>使用CLI插入单条的时间序列数据到InfluxDB中，用INSERT后跟数据点： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; INSERT cpu,host=serverA,region=us_west value=0.64</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+ 这样一个measurement为cpu，tag是host和region，value值为0.64的数据点被写入了InfluxDB中。</li>
+<li>现在我们查出写入的这笔数据： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; SELECT &quot;host&quot;, &quot;region&quot;, &quot;value&quot; FROM &quot;cpu&quot;</span><br><span class="line">name: cpu</span><br><span class="line">---------</span><br><span class="line">time                                     host         region   value</span><br><span class="line">2015-10-21T19:28:07.580664347Z  serverA      us_west     0.64</span><br><span class="line"></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+ 说明：我们在写入的时候没有包含时间戳，当没有带时间戳的时候，InfluxDB会自动添加本地的当前时间作为它的时间戳。</li>
+</ul>
+</li>
+<li>HTTP 请求<ul>
+<li>写数据 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -XPOST <span class="string">&#x27;http://localhost:8086/write?db=mydb&#x27;</span> --data-binary <span class="string">&#x27;cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>读数据 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -G <span class="string">&#x27;http://localhost:8086/query?pretty=true&#x27;</span> --data-urlencode <span class="string">&quot;db=mydb&quot;</span> --data-urlencode <span class="string">&quot;q=SELECT \&quot;value\&quot; FROM \&quot;cpu_load_short\&quot; WHERE \&quot;region\&quot;=&#x27;us-west&#x27;&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>客户端库，InfluxDB 提供了多种编程语言的客户端库，如Python、Go、Java等，可以方便地在应用程序中读写数据。</li>
+<li>在集群中写入 &#x2F; Writes in a cluster: <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#writes-in-a-cluster">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#writes-in-a-cluster</a><br>在集群中查询 &#x2F; Queries in a cluster: <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#queries-in-a-cluster">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#queries-in-a-cluster</a></li>
+</ol>
+<h3 id="influxdb-cluster部署"><a href="#influxdb-cluster部署" class="headerlink" title="influxdb-cluster部署"></a>influxdb-cluster部署</h3><p>InfluxDB部署需要的配置</p>
+<ul>
+<li>CPU：是指InfluxDB所部署的主机的CPU资源。具体需求取决于你的数据写入和查询负载。一般来说，至少需要2个vCPU，但对于高负载场景，可能需要更多的CPU资源。</li>
+<li>内存：InfluxDB对内存的需求也取决于数据量和查询复杂度。最低配置通常为2GB内存，但对于生产环境，建议至少8GB或更多。</li>
+<li>节点：在Kubernetes中，节点是运行容器的主机。多节点部署可以提高系统的高可用性和扩展性。</li>
+<li>IOPS：InfluxDB对磁盘I&#x2F;O性能有一定要求，特别是在高写入速率的场景下。建议使用SSD来提高I&#x2F;O性能。</li>
+</ul>
+<p>在使用容器多节点部署InfluxDB时，数据库、容器、Docker、主机和Kubernetes（k8s）之间的关系可以理解如下：</p>
+<ul>
+<li>数据库（InfluxDB）：InfluxDB是一个时序数据库，用于存储和查询时间序列数据。在多节点部署中，InfluxDB可以运行在多个容器中，以实现高可用性和负载均衡。</li>
+<li>容器：容器是一个轻量级、独立的运行环境，用于打包和运行应用程序及其依赖项。InfluxDB可以被打包成一个容器镜像，并在多个容器实例中运行。</li>
+<li>Docker：Docker是一个容器化平台，用于创建、部署和管理容器。Docker负责启动和管理运行InfluxDB的容器。</li>
+<li>主机：主机是运行Docker和容器的物理或虚拟机器。在多节点部署中，可能有多个主机，每个主机上运行一个或多个InfluxDB容器。</li>
+<li>Kubernetes（k8s）：一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。Kubernetes可以管理多个主机上的容器，提供服务发现、负载均衡、自动扩展和自愈能力。在多节点部署中，Kubernetes可以管理InfluxDB容器的部署，确保它们在多个节点上运行，并提供高可用性和扩展性。</li>
+<li>关系总结：InfluxDB 作为数据库运行在 容器 中。容器 由 Docker 创建和管理。Docker 运行在 主机 上。Kubernetes 管理多个 主机 上的 Docker 容器，提供编排和管理功能。通过这种方式，InfluxDB可以在一个分布式环境中高效运行，利用Kubernetes的编排能力实现自动化管理和扩展。</li>
+</ul>
+<p>数据保存在哪里：数据通常保存在主机的持久存储中。对于容器化部署，建议使用持久卷（Persistent Volume，PV）来存储数据，以确保数据在容器重启或迁移时不会丢失。</p>
+<p>数据保存的区别：在分布式部署中，不同节点可能保存不同的数据分片。每个节点保存的数据量和类型取决于分片策略和数据分布方式。通过这种方式，可以实现数据的高可用性和负载均衡。</p>
+<p>在多节点部署中，每个节点的作用可以有所不同，具体取决于你的部署架构：</p>
+<ul>
+<li>数据节点：负责存储和管理数据。每个数据节点都保存一部分数据，通常通过分片（sharding）机制来分布数据。</li>
+<li>查询节点：负责处理查询请求。查询节点可以从多个数据节点获取数据并进行聚合和计算。</li>
+<li>协调节点：在某些架构中，可能有专门的协调节点来管理数据节点和查询节点之间的通信和协调。</li>
+</ul>
 <h3 id="InfluxDB-备份"><a href="#InfluxDB-备份" class="headerlink" title="InfluxDB 备份"></a>InfluxDB 备份</h3><p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
 <ol>
 <li>备份整个实例<br>在 InfluxDB 中，你可以备份所有数据库（全量备份）。命令如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure></li>
@@ -290,11 +312,50 @@
 <li><code>&lt;old_database_name&gt;</code> 是原来备份的数据库名。</li>
 <li><code>&lt;new_database_name&gt;</code> 是恢复到的新数据库名。</li>
 </ul>
+<hr>
+
+<h2 id="快速了解MySQL"><a href="#快速了解MySQL" class="headerlink" title="快速了解MySQL"></a>快速了解MySQL</h2><p>1.MySQL45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>  特点中文、有音频、快速了解相关背景<br>2.高性能MySQL <a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a><br>3.MySQL技术内幕（InnoDB存储引擎）<a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">https://book.douban.com/subject/24708143/</a><br>4.官方MySQL Internals Manual： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/internals/en/guided-tour.html">https://dev.mysql.com/doc/internals/en/guided-tour.html</a><br>5.阿里云mysql内核月报：<a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a><br>6.Polardb-X知乎专栏：<a target="_blank" rel="noopener" href="https://www.zhihu.com/org/polardb-x">https://www.zhihu.com/org/polardb-x</a></p>
+<h2 id="数据库架构"><a href="#数据库架构" class="headerlink" title="数据库架构"></a>数据库架构</h2><p>1.Architecture of a Database System 网上有中文翻译： <a target="_blank" rel="noopener" href="http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf">http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf</a><br>2.红宝书：<a target="_blank" rel="noopener" href="http://www.redbook.io/">http://www.redbook.io/</a><br>3.数据库系统实现：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/4838430/">https://book.douban.com/subject/4838430/</a><br>4.Database Internals 有中文书籍：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35078474/">https://book.douban.com/subject/35078474/</a></p>
+<p>通过以上书籍可以了解整体架构，数据库整体可以分为共识算法、存储引擎、事务处理（单机、分布式事务）、数据分析（执行引擎、分析引擎）<br>共识算法：<br>1)Paxos协议(basic paxos、multi paxos等） 蚂蚁金服Oceanbase实现了Paxos<br>paxos-simple.pdf  <a target="_blank" rel="noopener" href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a><br>paxos made live.pdf <a target="_blank" rel="noopener" href="https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf">https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf</a><br>2)Raft协议，本质上是Paxos的简化   开源版本ETCD使用的是raft共识算法、TiKV使用的复制算法最开始是改写的etcd的raft库<br>raft.pdf <a target="_blank" rel="noopener" href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf</a><br>存储引擎：<br>LSM Tree（LevelDB、RocksDB)<br>InnoDB引擎<br>单机事务（MySQL InnoDB事务可见性实现原理）<br>分布式事务<br>Percolator.pdf <a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf">https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf</a></p>
+<p>实战<br>1.从0到1数据库内核实战教程 <a target="_blank" rel="noopener" href="https://open.oceanbase.com/activities/4921877">https://open.oceanbase.com/activities/4921877</a><br>2.MariaDB原理与实现  <a target="_blank" rel="noopener" href="https://book.douban.com/subject/26340413/">https://book.douban.com/subject/26340413/</a><br>3.字节云数据库架构设计与实战 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942">https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942</a><br>4.MySQL 原理与实践 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752">https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752</a></p>
+<p>论文<br>Polardb计算存储分离论文<br>TiDB: a Raft-based HTAP database： TiDB 2020 VLDB上的文章，介绍TiDB的架构<br>Polardb-X分布式数据库论文<br>Spanner: Google’s Globally-Distributed Database: Google的tp数据库<a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf%E2%80%8Bwww.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf">https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf​www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf</a><br>F1: A Distributed SQL Database That Scales 大G的F1系列<a target="_blank" rel="noopener" href="http://www.vldb.org/pvldb/vol6/p1068-shute.pdf%E2%80%8Bwww.vldb.org/pvldb/vol6/p1068-shute.pdf">http://www.vldb.org/pvldb/vol6/p1068-shute.pdf​www.vldb.org/pvldb/vol6/p1068-shute.pdf</a><br>Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases; 亚马逊的Aurora</p>
+<h2 id="快速了解kubernetes"><a href="#快速了解kubernetes" class="headerlink" title="快速了解kubernetes"></a>快速了解kubernetes</h2><ol>
+<li>深入剖析kubernetes(geek)：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></li>
+<li>kubernetes operator：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">https://kubernetes.io/docs/concepts/extend-kubernetes/operator/</a></li>
+<li>kubernetes 入门资料：kubernetes概述、kubernetes-operator机制、k8s scheduler framework</li>
+<li>容器网络插件：kube-ovn 、calico、Flannel、Weave、CNI</li>
+<li>社区开源经典容器管理项目：tidb-operator、flink-operator</li>
+<li>社区开源多k8s集群管理项目：kamada、clusternet</li>
+<li>kubernetes 集群管理平台：kubesphere</li>
+</ol>
+<h2 id="快速了解中间件、基础技术"><a href="#快速了解中间件、基础技术" class="headerlink" title="快速了解中间件、基础技术"></a>快速了解中间件、基础技术</h2><ol>
+<li>Spring cloud技术<ol>
+<li>spring-cloud 中文文档：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-greenwich.html">https://www.springcloud.cc/spring-cloud-greenwich.html</a></li>
+<li>spring-cloud API网关（gateway）：<a target="_blank" rel="noopener" href="http://c.biancheng.net/springcloud/gateway.html">http://c.biancheng.net/springcloud/gateway.html</a></li>
+<li>spring-cloud 配置中心（Consul）：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-consul.html">https://www.springcloud.cc/spring-cloud-consul.html</a></li>
+<li>spring-cloud 统一配置、服务注册和发现（Nacos）：社区git、what is nacos</li>
+</ol>
+</li>
+<li>API网关<ol>
+<li>APISIX：社区git、快速指南、插件开发</li>
+<li>Kong：社区git、入门blog</li>
+<li>nginx-ingress：nginx官网 ingress手册</li>
+</ol>
+</li>
+<li>Spring <ol>
+<li>官方手册</li>
+<li>spring framework手册 <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api">https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api</a></li>
+</ol>
+</li>
+<li>Springboot <a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-boot.html">https://www.springcloud.cc/spring-boot.html</a></li>
+<li>Reids 推荐书籍：《Redis入门指南 （第2版）》、《Redis设计与实现》</li>
+<li>Nginx <a target="_blank" rel="noopener" href="https://www.cnblogs.com/54chensongxia/p/12938929.html">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm27mo7cy000ph0v5btpuc6zx" data-title="数据库advanced | InfluxDB" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm2aewux8000p5ov5cvlm6fsu" data-title="InfluxDB | 数据库advanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -346,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm27mo7cg0005h0v5cqn6a1l3" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm2aewux200065ov581me96yw" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -416,7 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm27mo7cx000lh0v5du874uli" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm2aewux7000n5ov5d5qvg58r" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -503,7 +564,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm27mo7d0000uh0v59yrvd0ox" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm2aewux8000s5ov55s5u1xc3" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -772,7 +833,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm27mo7cz000sh0v5h2osfl5c" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm2aewux8000t5ov52ayccuzf" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1031,7 +1092,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm27mo7cu000dh0v59zyncd68" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm2aewux5000e5ov5hxuz2kp0" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1553,7 +1614,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm27mo7cx000kh0v5ai3k1kao" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm2aewux6000j5ov5fdy2al6j" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1723,7 +1784,7 @@ Api方法中：XXXRequest、XXXResponse
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm27mo7d1000zh0v5aibl0l8n" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm2aewux9000w5ov5hhkb0i8a" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1779,7 +1840,7 @@ Api方法中：XXXRequest、XXXResponse
           </li>
         
           <li>
-            <a href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">数据库advanced | InfluxDB</a>
+            <a href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
           </li>
         
           <li>
