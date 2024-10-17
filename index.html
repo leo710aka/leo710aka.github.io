@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm2aewux7000m5ov56mugdap9" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm2dfepbl000p7wv5ek471c6k" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -181,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm2aewux100025ov54d7m8a2u" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm2dfepbf00047wv5buguc90v" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -193,9 +193,9 @@
 
 
   
-    <article id="post-数据库advanced" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-InfluxDB_数据库advanced" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" class="article-date">
+    <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" class="article-date">
   <time class="dt-published" datetime="2024-09-22T05:34:33.000Z" itemprop="datePublished">2024-09-22</time>
 </a>
     
@@ -207,7 +207,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
+      <a class="p-name article-title" href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
     </h1>
   
 
@@ -229,24 +229,41 @@
 <li>Data 节点通过绑定到端口 8088 的 TCP 协议相互通信。Data 节点通过绑定到 8091 的 HTTP API 与 Meta 节点通信。这些端口必须在 Meta 节点和 Data 节点之间是可访问的。</li>
 <li>在集群内，所有 Meta 节点都必须与所有其它 Meta 节点通信。所有 Data 节点必须与所有其它 Data 节点和所有 Meta 节点通信。</li>
 </ul>
-<h3 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h3><p>元节点保存以下所有元数据：</p>
+<h3 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h3><p>InfluxDB 集群中，一个节点要么是专门用于存储和查询时间序列数据的数据节点，要么是专门用于存储集群元数据的元节点。数据节点负责存储实际的数据和处理查询请求，而元节点则负责管理集群的元数据，包括节点信息、数据库和保留策略等。通过这种方式，InfluxDB 集群能够实现高可用性和扩展性。</p>
+<p>元节点保存以下所有元数据：</p>
 <ul>
 <li>集群中的所有节点及其角色</li>
 <li>集群中存在的所有数据库和保留策略</li>
 <li>所有分片和分片组，以及它们存在于哪些节点上</li>
 <li>集群用户及其权限</li>
-<li>所有连续查询<br>元节点将这些数据保存在磁盘上的Raft数据库中，由BoltDB提供支持。默认情况下，Raft数据库是&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;meta&#x2F;raft.db。<br>注意：Meta节点需要&#x2F; Meta目录。</li>
+<li>所有连续查询</li>
 </ul>
+<p>元节点将这些数据保存在磁盘上的Raft数据库中，由BoltDB提供支持。默认情况下，Raft数据库是&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;meta&#x2F;raft.db。注意：Meta节点需要&#x2F; Meta目录。</p>
 <p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
 <ul>
 <li>measurements</li>
 <li>tag keys and values</li>
-<li>field keys and values<br>在磁盘上，数据总是按照<database>&#x2F;<retention_policy>&#x2F;<shard_id>组织。默认父目录为&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data<br>注意：数据节点需要&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;的所有四个子目录，包括&#x2F;meta(specifically, the clients.json file)、&#x2F;data、&#x2F;wal和&#x2F;hh。</li>
+<li>field keys and values</li>
 </ul>
-<p>在InfluxDB集群（influxdb-cluster）中，一个节点要么是专门用于存储和查询时间序列数据的数据节点，要么是专门用于存储集群元数据的元节点。数据节点负责存储实际的数据和处理查询请求，而元节点则负责管理集群的元数据，包括节点信息、数据库和保留策略等。通过这种方式，InfluxDB集群能够实现高可用性和扩展性。</p>
+<p>在磁盘上，数据总是按照<database>&#x2F;<retention_policy>&#x2F;<shard_id>组织。默认父目录为&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data。注意：数据节点需要&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;的所有四个子目录，包括&#x2F;meta(specifically, the clients.json file)、&#x2F;data、&#x2F;wal和&#x2F;hh。</p>
+<p>一个集群至少要有三个独立的元节点才能允许一个节点的丢失，如果要容忍n个节点的丢失则需要2n+1个元节点。集群的元节点的数目应该为奇数。不要是偶数元节点，因为这样在特定的配置下会导致故障。<br>一个集群运行只有一个数据节点，但这样数据就没有冗余了。这里的冗余通过写数据的RP中的副本个数来设置。一个集群在丢失n-1个数据节点后仍然能返回完整的数据，其中n是副本个数。为了在集群内实现最佳数据分配，我们建议数据节点的个数为偶数。</p>
+<h3 id="术语-Glossary"><a href="#术语-Glossary" class="headerlink" title="术语 &#x2F; Glossary"></a>术语 &#x2F; Glossary</h3><ul>
+<li>measurement：描述了存在关联field中的数据的意义，measurement是字符串。作为tag，fields和time列的容器。相当于MySQL的table，关系&#x2F;表的意思。单个measurement可以有不同的retention policy（即 一个measurement 中的不同 tag set 可以有不同的 retention policy，构成多组 series）</li>
+<li>Continuous Query (CQ)是在数据库内部自动周期性跑着的一个InfluxQL的查询，CQs需要在SELECT语句中使用一个函数，并且一定包括一个GROUP BY time()语句。</li>
+<li>Retention Policy (RP)是InfluxDB数据结构的一部分，描述了InfluxDB保存数据的长短，数据存在集群里面的副本数，以及shard group的时间范围。RPs在每个database里面是唯一的，？连同measurement和tag set定义一个series。当创建一个database时，InfluxDB会自动创建一个叫做autogen的retention policy，其duration为永远，replication factor为1，shard group的duration设为七天。<ul>
+<li>duration：决定InfluxDB中数据保留多长时间。在duration之前的数据会自动从database中删除掉。</li>
+<li>replication factor：决定在集群模式下数据的副本的个数。InfluxDB在N个数据节点上复制数据，其中N就是replication factor。</li>
+<li>shard group duration决定了每个shard group跨越多少时间。具体间隔由retention policy中的SHARD DURATION决定。例如，如果retention policy的SHARD DURATION设置为1w，则每个shard group将跨越一周，并包含时间戳在该周内的所有点。</li>
+</ul>
+</li>
+<li>series：InfluxDB数据结构的集合，一个特定的series由measurement，tag set和retention policy组成。！field set不是series的一部分</li>
+<li>schema：数据在InfluxDB里面怎么组织。InfluxDB的schema的基础是database，retention policy，series，measurement，tag key，tag value以及field keys。</li>
+<li>shard：包含实际的编码和压缩数据，并由磁盘上的TSM文件表示。 每个shard都属于唯一的一个shard group。多个shard可能存在于单个shard group中。每个shard包含一组特定的series。给定shard group中的给定series上的所有点将存储在磁盘上的相同shard（TSM文件）中。</li>
+<li>shard group：是shard的逻辑组合。shard group由时间和retention policy组织。包含数据的每个retention policy至少包含一个关联的shard group。给定的shard group包含shard group覆盖的间隔的数据的所有shard。每个shard group跨越的间隔是shard的持续时间。</li>
+</ul>
 <h3 id="InfluxDB读写"><a href="#InfluxDB读写" class="headerlink" title="InfluxDB读写"></a>InfluxDB读写</h3><ol>
 <li>命令行工具<ul>
-<li>influx命令行连接本地InfluxDB<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ influx -precision rfc3339</span><br><span class="line">Connected to http://localhost:8086 version 1.2.x // </span><br><span class="line">InfluxDB shell 1.2.x</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<li>influx命令行连接本地InfluxDB：直接通过InfluxDB的HTTP接口(如果没有修改，默认是8086)来和InfluxDB通信。（说明：也可以直接发送裸的HTTP请求来操作数据库，例如curl）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ influx -precision rfc3339</span><br><span class="line">Connected to http://localhost:8086 version 1.2.x // </span><br><span class="line">InfluxDB shell 1.2.x</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地的8086端口。-precision参数表明了任何返回的时间戳的格式和精度，如 rfc3339是让InfluxDB返回RFC339格式(YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ)的时间戳。</li>
 <li>数据格式：将数据点写入InfluxDB，只需要遵守如下的行协议：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]</span><br></pre></td></tr></table></figure>
 首先对数据存储的格式来个入门介绍。InfluxDB里存储的数据被称为时间序列数据，其包含一个数值，就像CPU的load值或是温度值类似的。时序数据有零个或多个数据点，每一个都是一个指标值。数据点包括time(一个时间戳)，measurement(例如cpu_load)，至少一个k-v格式的field(也即指标的数值例如 “value&#x3D;0.64”或者“temperature&#x3D;21.2”)，零个或多个tag，其一般是对于这个指标值的元数据(例如“host&#x3D;server01”, “region&#x3D;EMEA”, “dc&#x3D;Frankfurt)。<br>在概念上，你可以将measurement类比于SQL里面的table，其主键索引总是时间戳。tag和field是在table里的其他列，tag是被索引起来的，field没有。不同之处在于，在InfluxDB里，你可以有几百万的measurements，你不用事先定义数据的scheme，并且null值不会被存储。</li>
@@ -262,7 +279,12 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
 </ul>
 </li>
 <li>客户端库，InfluxDB 提供了多种编程语言的客户端库，如Python、Go、Java等，可以方便地在应用程序中读写数据。</li>
-<li>在集群中写入 &#x2F; Writes in a cluster: <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#writes-in-a-cluster">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#writes-in-a-cluster</a><br>在集群中查询 &#x2F; Queries in a cluster: <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#queries-in-a-cluster">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#queries-in-a-cluster</a></li>
+<li>采样和数据保留 <a target="_blank" rel="noopener" href="https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/downsampling_and_retention.html">https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/downsampling_and_retention.html</a></li>
+</ol>
+<h3 id="集群读写"><a href="#集群读写" class="headerlink" title="集群读写"></a>集群读写</h3><ol>
+<li>分片Shard：集群读写的基本单位？？复制因子为X，则在每个分片的数据同步到X个节点（部署influxdb的主机）上<br>分片组Shard groups：集群在一个分片组内创建分片，以最大限度地利用数据节点的数量。如果集群中有N个数据节点，复制因子为X，则在每个分片组中创建N&#x2F;X个分片，丢弃任何分数（？余数）<br>这意味着每天都会为写入的数据创建一个新的shard组。？在每个shard组中创建2个shard。由于复制因子为2，这两个分片中的每一个都在2个服务器上复制。例如，我们有一个2016年09月19日的shard组，它有两个shard 1和2。将Shard 1复制到服务器A和B，将Shard 2复制到服务器C和D。写入值时，集群必须首先确定shard组中的哪个shard应该接收写入，通过对测量+排序标记集（元序列）进行散列并将桶存储到正确的分片中来完成。</li>
+<li>集群写入：<br>假设一个HTTP写操作被发送到服务器D，数据属于分片1。写操作需要被复制到分片1的所有者：数据节点A和B。当写操作进入D时，该节点从其亚转移的本地缓存中确定需要将写操作复制到A和B，并立即尝试对两者进行写操作。（如何确定数据属于哪个分片？？<br>每个对HTTP API的请求都可以通过一致性查询参数指定一致性级别。 <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency</a></li>
+<li>集群中的查询：<br>根据查询的时间段和数据的复制因子进行分布的。例如，如果保留策略的复制因子为4，则接收查询的协调数据节点将随机选择存储该分片副本的4个数据节点中的任何一个来接收查询。如果我们假设系统的分片持续时间为一天，那么对于查询覆盖的每一天，协调节点都会选择一个数据节点来接收当天的查询。<br>协调节点尽可能在本地执行和完成查询。如果一个查询必须扫描多个shard组（在上面的例子中是多个天），协调节点将查询转发给其他节点，以查找本地没有的shard。查询与扫描自己的本地数据并行转发。查询被分发到尽可能多的节点，以查询每个分片组一次。当结果从每个数据节点返回时，协调数据节点将它们组合成返回给用户的最终结果。</li>
 </ol>
 <h3 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h3><p>Docker 快速开始 <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
 <p>InfluxDB部署需要的配置</p>
@@ -281,48 +303,25 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
 <li>Kubernetes（k8s）：一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。Kubernetes可以管理多个主机上的容器，提供服务发现、负载均衡、自动扩展和自愈能力。在多节点部署中，Kubernetes可以管理InfluxDB容器的部署，确保它们在多个节点上运行，并提供高可用性和扩展性。</li>
 <li>关系总结：InfluxDB 作为数据库运行在 容器 中。容器 由 Docker 创建和管理。Docker 运行在 主机 上。Kubernetes 管理多个 主机 上的 Docker 容器，提供编排和管理功能。通过这种方式，InfluxDB可以在一个分布式环境中高效运行，利用Kubernetes的编排能力实现自动化管理和扩展。</li>
 </ul>
-<h3 id="InfluxDB-备份"><a href="#InfluxDB-备份" class="headerlink" title="InfluxDB 备份"></a>InfluxDB 备份</h3><p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
+<h3 id="InfluxDB-备份与恢复"><a href="#InfluxDB-备份与恢复" class="headerlink" title="InfluxDB 备份与恢复"></a>InfluxDB 备份与恢复</h3><p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/administration/backup-and-restore/">https://docs.influxdata.com/enterprise_influxdb/v1/administration/backup-and-restore/</a></p>
+<p>InfluxDB 提供了命令行工具来进行备份操作，可以备份整个实例或单个数据库。</p>
 <ol>
-<li>备份整个实例<br>在 InfluxDB 中，你可以备份所有数据库（全量备份）。命令如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure></li>
+<li>备份整个实例，即所有数据库（全量备份）。命令如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>/path/to/backup</code> 是你保存备份文件的路径。<br><code>-portable</code> 选项会生成便携式备份格式，这在不同版本间的兼容性更好。</li>
+<li>备份单个数据库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -database &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>&lt;database_name&gt;</code> 是你需要备份的数据库名称。<br><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+<li>增量备份：对于较大的数据集，可以进行增量备份，只备份自上次全量或增量备份以来的数据<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -start &lt;timestamp&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>&lt;timestamp&gt;</code> 是备份开始的时间，格式是 RFC3339 格式（例如：<code>2023-09-21T23:30:00Z</code>）。</li>
 </ol>
-<ul>
-<li><code>/path/to/backup</code> 是你保存备份文件的路径。</li>
-<li><code>-portable</code> 选项会生成便携式备份格式，这在不同版本间的兼容性更好。</li>
-</ul>
-<ol start="2">
-<li>备份单个数据库<br>如果只想备份某个特定的数据库，可以使用以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -database &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>&lt;database_name&gt;</code> 是你需要备份的数据库名称。</li>
-<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
-</ul>
-<ol start="3">
-<li>增量备份<br>对于较大的数据集，可以进行增量备份，只备份自上次全量或增量备份以来的数据：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd backup -portable -start &lt;timestamp&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>&lt;timestamp&gt;</code> 是备份开始的时间，格式是 RFC3339 格式（例如：<code>2023-09-21T23:30:00Z</code>）。</li>
-</ul>
-<h3 id="InfluxDB-恢复"><a href="#InfluxDB-恢复" class="headerlink" title="InfluxDB 恢复"></a>InfluxDB 恢复</h3><p>备份的数据可以恢复到新实例或现有实例中。</p>
+<p>备份的数据可以恢复到新实例或现有实例中。</p>
 <ol>
-<li>恢复整个实例<br>恢复整个实例包括所有的数据库。命令如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable /path/to/backup</span><br></pre></td></tr></table></figure></li>
+<li>恢复整个实例，包括所有的数据库。命令如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>/path/to/backup</code> 是存储备份文件的路径。</li>
+<li>恢复单个数据库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>&lt;database_name&gt;</code> 是你需要恢复的数据库。<br><code>/path/to/backup</code> 是存储备份文件的路径。</li>
+<li>有时你可能希望将备份的数据恢复到另一个数据库，可以使用 <code>-newdb</code> 选项来实现：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;old_database_name&gt; -newdb &lt;new_database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure>
+<code>&lt;old_database_name&gt;</code> 是原来备份的数据库名。<br><code>&lt;new_database_name&gt;</code> 是恢复到的新数据库名。</li>
 </ol>
-<ul>
-<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
-</ul>
-<ol start="2">
-<li>恢复单个数据库<br>如果只想恢复某个数据库，可以使用以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>&lt;database_name&gt;</code> 是你需要恢复的数据库。</li>
-<li><code>/path/to/backup</code> 是存储备份文件的路径。</li>
-</ul>
-<ol start="3">
-<li>恢复到不同的数据库<br>有时你可能希望将备份的数据恢复到另一个数据库，可以使用 <code>-newdb</code> 选项来实现：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;old_database_name&gt; -newdb &lt;new_database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>&lt;old_database_name&gt;</code> 是原来备份的数据库名。</li>
-<li><code>&lt;new_database_name&gt;</code> 是恢复到的新数据库名。</li>
-</ul>
 <hr>
 
 <h2 id="快速了解MySQL"><a href="#快速了解MySQL" class="headerlink" title="快速了解MySQL"></a>快速了解MySQL</h2><p>1.MySQL45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>  特点中文、有音频、快速了解相关背景<br>2.高性能MySQL <a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a><br>3.MySQL技术内幕（InnoDB存储引擎）<a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">https://book.douban.com/subject/24708143/</a><br>4.官方MySQL Internals Manual： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/internals/en/guided-tour.html">https://dev.mysql.com/doc/internals/en/guided-tour.html</a><br>5.阿里云mysql内核月报：<a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a><br>6.Polardb-X知乎专栏：<a target="_blank" rel="noopener" href="https://www.zhihu.com/org/polardb-x">https://www.zhihu.com/org/polardb-x</a></p>
@@ -366,7 +365,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm2aewux8000p5ov5cvlm6fsu" data-title="InfluxDB | 数据库advanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm2dfepbe00037wv5azkz1egv" data-title="InfluxDB | 数据库advanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -418,7 +417,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm2aewux200065ov581me96yw" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm2dfepbe00027wv50u3cgek5" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -488,7 +487,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm2aewux7000n5ov5d5qvg58r" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm2dfepbl000s7wv5gv3xbwbf" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -575,7 +574,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm2aewux8000s5ov55s5u1xc3" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm2dfepbl000r7wv5d27s3zew" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -844,7 +843,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm2aewux8000t5ov52ayccuzf" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm2dfepbl000q7wv5bchq7nma" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1103,7 +1102,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm2aewux5000e5ov5hxuz2kp0" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm2dfepbi000e7wv53s1o9bxe" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1625,7 +1624,7 @@ InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm2aewux6000j5ov5fdy2al6j" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm2dfepbk000o7wv5b9n2dwjq" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1795,7 +1794,7 @@ Api方法中：XXXRequest、XXXResponse
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm2aewux9000w5ov5hhkb0i8a" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm2dfepbm000u7wv596wm76j8" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1851,7 +1850,7 @@ Api方法中：XXXRequest、XXXResponse
           </li>
         
           <li>
-            <a href="/2024/09/22/%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
+            <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
           </li>
         
           <li>
