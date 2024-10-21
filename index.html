@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm2g9yk43000m5sv5dweje0q9" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/12/30/nice-photo/" data-id="cm2j5pvsh000l9sv5g16h75pp" data-title="Nice Photo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -181,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm2g9yk3z00065sv5c0mg0l2w" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2046/08/27/Guitar/" data-id="cm2j5pvsc00049sv55a7r5mmu" data-title="Guitar 🎸" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -193,9 +193,9 @@
 
 
   
-    <article id="post-InfluxDB_数据库advanced" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-InfluxDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" class="article-date">
+    <a href="/2024/09/22/InfluxDB/" class="article-date">
   <time class="dt-published" datetime="2024-09-22T05:34:33.000Z" itemprop="datePublished">2024-09-22</time>
 </a>
     
@@ -207,7 +207,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
+      <a class="p-name article-title" href="/2024/09/22/InfluxDB/">InfluxDB | DBAdvanced</a>
     </h1>
   
 
@@ -292,7 +292,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>集群写入：<br>假设一个HTTP写操作被发送到服务器D，数据属于分片1。写操作需要被复制到分片1的所有者：数据节点A和B。当写操作进入D时，该节点从其亚转移的本地缓存中确定需要将写操作复制到A和B，并立即尝试对两者进行写操作。<br>每个对HTTP API的请求都可以通过一致性查询参数指定一致性级别。 <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency</a></li>
 <li>集群查询：<br>根据查询的时间段和数据的复制因子进行分布的。例如，如果保留策略的复制因子为4，则接收查询的协调数据节点将随机选择存储该分片副本的4个数据节点中的任何一个来接收查询。如果我们假设系统的分片持续时间为一天，那么对于查询覆盖的每一天，协调节点都会选择一个数据节点来接收当天的查询。<br>协调节点尽可能在本地执行和完成查询。如果一个查询必须扫描多个shard组（在上面的例子中是多个天），协调节点将查询转发给其他节点，以查找本地没有的shard。查询与扫描自己的本地数据并行转发。查询被分发到尽可能多的节点，以查询每个分片组一次。当结果从每个数据节点返回时，协调数据节点将它们组合成返回给用户的最终结果。</li>
 </ol>
-<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker 快速开始 <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker安装操作单例InfluxDB <a target="_blank" rel="noopener" href="https://www.cnblogs.com/nhdlb/p/16409849.html">https://www.cnblogs.com/nhdlb/p/16409849.html</a><br>Docker快速开始集群InfluxDB <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
 <p>InfluxDB部署需要的配置</p>
 <ul>
 <li>CPU：是指InfluxDB所部署的主机的CPU资源。具体需求取决于你的数据写入和查询负载。一般来说，至少需要2个vCPU，但对于高负载场景，可能需要更多的CPU资源。</li>
@@ -367,7 +367,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm2g9yk3y00055sv50xzm9yas" data-title="InfluxDB | 数据库advanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/InfluxDB/" data-id="cm2j5pvsc00059sv5393t0vcu" data-title="InfluxDB | DBAdvanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -419,7 +419,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm2g9yk3x00025sv5bvoc9bg4" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cm2j5pvsb00039sv54akyck5s" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -489,7 +489,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm2g9yk44000q5sv56372a1ve" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/08/18/%E4%BF%9D%E9%99%A9/" data-id="cm2j5pvsi000o9sv5ax2tfun4" data-title="保 险" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -576,7 +576,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm2g9yk45000t5sv57i5j3k3h" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cm2j5pvsj000t9sv53nqgca8a" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -845,7 +845,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm2g9yk45000r5sv5bzjq9gj8" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cm2j5pvsj000s9sv5hkg0cqqz" data-title="毕 业 🎓 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1104,7 +1104,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm2g9yk42000h5sv537eua9cq" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cm2j5pvsg000h9sv54b6b1ra0" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1626,7 +1626,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm2g9yk44000o5sv5br8s3bk3" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/07/SpringCloud/" data-id="cm2j5pvsi000q9sv5fpwkctck" data-title="SpringCloud" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1796,7 +1796,7 @@ Api方法中：XXXRequest、XXXResponse
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm2g9yk46000w5sv5dl853dgk" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/01/04/%E9%AA%8F%E4%BC%AFJunbo/" data-id="cm2j5pvsj000v9sv5e9qodye5" data-title="骏 伯 Junbo" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1852,7 +1852,7 @@ Api方法中：XXXRequest、XXXResponse
           </li>
         
           <li>
-            <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB | DBAdvanced</a>
           </li>
         
           <li>

@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>InfluxDB | 数据库advanced | Qué miras Bobo</title>
+  <title>InfluxDB | DBAdvanced | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="InfluxDB 是一个由InfluxData开发的开源时序型数据库，专注于海量时序数据的高性能读、高性能写、高效存储与实时分析等；在DB-Engines Ranking时序型数据库排行榜上排名第一，广泛应用于DevOps监控、IoT监控、实时分析等场景。https:&#x2F;&#x2F;jasper-zhang1.gitbooks.io&#x2F;influxdb&#x2F;content&#x2F;Introduction&#x2F;gettin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="InfluxDB | 数据库advanced">
-<meta property="og:url" content="http://example.com/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/index.html">
+<meta property="og:title" content="InfluxDB | DBAdvanced">
+<meta property="og:url" content="http://example.com/2024/09/22/InfluxDB/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
 <meta property="og:description" content="InfluxDB 是一个由InfluxData开发的开源时序型数据库，专注于海量时序数据的高性能读、高性能写、高效存储与实时分析等；在DB-Engines Ranking时序型数据库排行榜上排名第一，广泛应用于DevOps监控、IoT监控、实时分析等场景。https:&#x2F;&#x2F;jasper-zhang1.gitbooks.io&#x2F;influxdb&#x2F;content&#x2F;Introduction&#x2F;gettin">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-6685cdf3df810ad3e5ae44d4e1a9df22_720w.webp">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-abb99833337f84b3850e0f6484f013ef_720w.webp">
 <meta property="article:published_time" content="2024-09-22T05:34:33.000Z">
-<meta property="article:modified_time" content="2024-10-20T16:51:16.452Z">
+<meta property="article:modified_time" content="2024-10-21T15:06:10.156Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-6685cdf3df810ad3e5ae44d4e1a9df22_720w.webp">
@@ -74,9 +74,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-InfluxDB_数据库advanced" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-InfluxDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" class="article-date">
+    <a href="/2024/09/22/InfluxDB/" class="article-date">
   <time class="dt-published" datetime="2024-09-22T05:34:33.000Z" itemprop="datePublished">2024-09-22</time>
 </a>
     
@@ -88,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      InfluxDB | 数据库advanced
+      InfluxDB | DBAdvanced
     </h1>
   
 
@@ -173,7 +173,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>集群写入：<br>假设一个HTTP写操作被发送到服务器D，数据属于分片1。写操作需要被复制到分片1的所有者：数据节点A和B。当写操作进入D时，该节点从其亚转移的本地缓存中确定需要将写操作复制到A和B，并立即尝试对两者进行写操作。<br>每个对HTTP API的请求都可以通过一致性查询参数指定一致性级别。 <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency</a></li>
 <li>集群查询：<br>根据查询的时间段和数据的复制因子进行分布的。例如，如果保留策略的复制因子为4，则接收查询的协调数据节点将随机选择存储该分片副本的4个数据节点中的任何一个来接收查询。如果我们假设系统的分片持续时间为一天，那么对于查询覆盖的每一天，协调节点都会选择一个数据节点来接收当天的查询。<br>协调节点尽可能在本地执行和完成查询。如果一个查询必须扫描多个shard组（在上面的例子中是多个天），协调节点将查询转发给其他节点，以查找本地没有的shard。查询与扫描自己的本地数据并行转发。查询被分发到尽可能多的节点，以查询每个分片组一次。当结果从每个数据节点返回时，协调数据节点将它们组合成返回给用户的最终结果。</li>
 </ol>
-<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker 快速开始 <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker安装操作单例InfluxDB <a target="_blank" rel="noopener" href="https://www.cnblogs.com/nhdlb/p/16409849.html">https://www.cnblogs.com/nhdlb/p/16409849.html</a><br>Docker快速开始集群InfluxDB <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
 <p>InfluxDB部署需要的配置</p>
 <ul>
 <li>CPU：是指InfluxDB所部署的主机的CPU资源。具体需求取决于你的数据写入和查询负载。一般来说，至少需要2个vCPU，但对于高负载场景，可能需要更多的CPU资源。</li>
@@ -248,7 +248,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/" data-id="cm2g9yk3y00055sv50xzm9yas" data-title="InfluxDB | 数据库advanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/09/22/InfluxDB/" data-id="cm2j5pvsc00059sv5393t0vcu" data-title="InfluxDB | DBAdvanced" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -316,7 +316,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
           </li>
         
           <li>
-            <a href="/2024/09/22/InfluxDB_%E6%95%B0%E6%8D%AE%E5%BA%93advanced/">InfluxDB | 数据库advanced</a>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB | DBAdvanced</a>
           </li>
         
           <li>
