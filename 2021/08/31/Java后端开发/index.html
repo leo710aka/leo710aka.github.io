@@ -6,16 +6,16 @@
   
   <title>java 后端开发 工程师 | Qué miras Bobo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="技术架构 Spring Boot： 进一步简化Spring Spring：轻量级框架，用于构建企业级 Java 应用程序。Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题MyBatis： 处理访问数据库 Redis【6379】： 操作内存的数据库Kafka【9092】： 消息队列服务器Elasticsearch【9200】： 搜索引擎 Spring Sec">
+  <meta name="description" content="技术架构 Spring Boot：Java 生态首选框架之一，基于且进一步简化了Spring。 Spring：轻量级框架，用于构建企业级 Java 应用程序。Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题MyBatis： 处理访问数据库 Redis【6379】 操作内存的数据库，Kafka【9092】消息队列服务器，Elasticsearch【9200】">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java 后端开发 工程师">
 <meta property="og:url" content="http://example.com/2021/08/31/Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
-<meta property="og:description" content="技术架构 Spring Boot： 进一步简化Spring Spring：轻量级框架，用于构建企业级 Java 应用程序。Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题MyBatis： 处理访问数据库 Redis【6379】： 操作内存的数据库Kafka【9092】： 消息队列服务器Elasticsearch【9200】： 搜索引擎 Spring Sec">
+<meta property="og:description" content="技术架构 Spring Boot：Java 生态首选框架之一，基于且进一步简化了Spring。 Spring：轻量级框架，用于构建企业级 Java 应用程序。Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题MyBatis： 处理访问数据库 Redis【6379】 操作内存的数据库，Kafka【9092】消息队列服务器，Elasticsearch【9200】">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/cache.png?raw=true">
 <meta property="article:published_time" content="2021-08-31T03:49:42.000Z">
-<meta property="article:modified_time" content="2024-07-13T15:31:13.394Z">
+<meta property="article:modified_time" content="2024-10-26T12:14:47.215Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/cache.png?raw=true">
@@ -96,10 +96,10 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h2><ul>
-<li>Spring Boot： 进一步简化Spring</li>
+<li>Spring Boot：Java 生态首选框架之一，基于且进一步简化了Spring。</li>
 <li>Spring：轻量级框架，用于构建企业级 Java 应用程序。<br>Spring MVC： 处理浏览器请求， 三层架构， MVC模式三层 集体解决表现层的问题<br>MyBatis： 处理访问数据库</li>
-<li>Redis<strong>【6379】</strong>： 操作内存的数据库<br>Kafka<strong>【9092】</strong>： 消息队列服务器<br>Elasticsearch<strong>【9200】</strong>： 搜索引擎</li>
-<li>Spring Security，Spring Actuator</li>
+<li>Redis<strong>【6379】</strong> 操作内存的数据库，Kafka<strong>【9092】</strong>消息队列服务器，Elasticsearch<strong>【9200】</strong>搜索引擎</li>
+<li>Spring Cloud： 微服务，project，module？？</li>
 </ul>
 <h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
 <li>构建工具：Apache Maven</li>
@@ -107,12 +107,13 @@
 <li>数据库：MySQL、Redis</li>
 <li>应用服务器：Apache Tomcat<strong>【8080】</strong>（Spring Boot 默认以jar包集成了 Tomcat 作为内嵌的 Servlet 容器）</li>
 <li>版本控制工具：Git</li>
+<li>运维工具：Kubernetes 容器编排平台，FinalShell连接linux服务器</li>
 </ul>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>常用 Java8 即 jdk1.8，安装jdk-8u202-windows-x64，配环境：把主目录配到 JAVA_HOME，bin 目录配到 PATH<br>安装配置好<em>jdk，maven，git，idea</em>后，基本可以开始开发</p>
 <h2 id="Apache-Maven"><a href="#Apache-Maven" class="headerlink" title="Apache Maven"></a>Apache Maven</h2><ul>
-<li>帮助我们构建项目、管理项目中的jar包; 系统环境：安装路径配到 MAVEN_HOME，bin 目录配到 PATH</li>
-<li>在 <a target="_blank" rel="noopener" href="https://mavenrepository.com/">https://mavenrepository.com</a> 查找需要的jar包。</li>
-<li><strong>本地仓库 默认位置 ~&#x2F;.m2&#x2F;repository</strong>，存放从远程仓库获取的 jar 包；<strong>本机上的Maven主路径 D:&#x2F;apache-maven-3.6.1</strong>，对应的<strong>用户配置文件为 D:\apache-maven-3.6.1\conf\settings.xml</strong>（更换为公司的maven配置文件）<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 不适用Apache中央仓库，配置阿里云镜像仓库 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/central<span class="tag">&lt;/<span class="name">url</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Maven 帮助我们构建项目、管理项目中的jar包；系统环境：安装路径配到 MAVEN_HOME，bin 目录配到 PATH</li>
+<li><strong>本地仓库 默认位置 ~&#x2F;.m2&#x2F;repository</strong>，存放从远程仓库获取的 jar 包；<strong>本机上的Maven主路径 D:&#x2F;apache-maven-3.6.1</strong>，对应的<strong>用户配置文件为 D:\apache-maven-3.6.1\conf\settings.xml</strong>（更换为公司的maven配置文件） </li>
+<li>在 <a target="_blank" rel="noopener" href="https://mavenrepository.com/">https://mavenrepository.com</a> 查找需要的jar包。配置阿里云镜像仓库 <url><a target="_blank" rel="noopener" href="https://maven.aliyun.com/repository/central">https://maven.aliyun.com/repository/central</a></url></li>
 <li>中央仓库：是 Maven 的默认仓库，包含了大量的开源 Java 类库、框架和插件，许多常用的第三方库，供开发者使用。<br>镜像仓库：中央仓库的镜像，如阿里云、华为云，从中央仓库同步数据，用来加速依赖的下载速度，减轻中央仓库的负担。<br>私服仓库：在本地或者组织内部搭建的仓库，用于存储内部开发所需的依赖和构建产物。</li>
 <li>在 IntelliJ IDEA 中配置 maven仓库：”File” &gt; “Settings” &gt; “Build, Execution, Deployment” &gt; “Build Tools” &gt; “Maven”，配置maven主路径、用户设置文件和本地仓库。</li>
 <li>Maven 是一个强大的构建工具，它可以执行各种命令来管理项目的构建、依赖、测试等方面的任务。<br>以下是一些常用的Maven指令，进入项目根目录命令行终端执行：(当然也可以直接在idea点击按钮执行)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mvn clean            <span class="comment"># 清除项目的目标目录，删除编译生成的文件。</span></span><br><span class="line">mvn compile          <span class="comment"># 编译项目中的Java源代码文件，并将编译结果放置在项目的目标目录(通常是target目录)中</span></span><br><span class="line">mvn <span class="built_in">test</span>             <span class="comment"># 运行项目的单元测试。</span></span><br><span class="line">mvn package          <span class="comment"># 将项目打包为可执行的JAR或WAR文件，通常用于构建最终的可部署应用程序。</span></span><br><span class="line">mvn install          <span class="comment"># 将项目构建输出的JAR或WAR文件安装到本地Maven仓库，以便其他项目可以引用它作为依赖。</span></span><br><span class="line">mvn deploy           <span class="comment"># 将项目构建输出的JAR或WAR文件部署到远程仓库，通常用于共享依赖。</span></span><br><span class="line">mvn clean install    <span class="comment"># 用于先清除项目目录，然后执行安装操作。（引入pom中新加的dependence）</span></span><br><span class="line">mvn clean package    <span class="comment"># 用于先清除项目目录，然后执行打包操作。</span></span><br></pre></td></tr></table></figure></li>
@@ -160,18 +161,6 @@
 <li>是在MyBatis基础上的扩展。只做增强不做改变，为简化开发、提高效率而生。</li>
 <li>MyBatisPlus官方提供了starter，其中集成了 Mybatis和 MybatisPlus的所有功能，并且实现了自动装配效果。因此可以用 MybatisPlus的starter直接代替 Mybatis的starter；<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="项目调试技巧"><a href="#项目调试技巧" class="headerlink" title="项目调试技巧"></a>项目调试技巧</h2><ul>
-<li>相应<strong>状态码</strong>：200 - 成功，302 - 重定向（让浏览器再发一个请求），404 - 找不到路径，500 - 服务器遇到问题（服务端有bug）</li>
-<li>服务端断点调试：方法中一行代码前打断点，以debug形式启动类。启动服务后，停止在断点处，F8向下执行一步&#x2F;F7进入方法内部&#x2F;F9直接执行到下一个断点，观察参数如何变化。</li>
-<li>客户端断点调试：在浏览器打开开发者工具，对js文件打断点</li>
-<li>设置日志级别，并将日志输出到不同的终端<br>trace-debug-log-warn-error，按照级别记录日志，动态地启用级别。可以在<code>application.properties</code>配置 logger<br>或在&#x2F;resource下放置一个名为logback-spring.xml的文件，自动配置logger（日志存放文件大小、日志类型、存放位置、名字…）</li>
-<li><strong>在&#x2F;test下创建带@Test注解的测试类，直接对某一个mapper&#x2F;service&#x2F;..类进行测试。</strong><br>通过以下注解结合在一起，可以在测试中创建一个与实际应用程序相似的Spring容器，并运行测试。这样可以确保测试能够在实际的Spring环境中运行，并且可以访问和测试应用程序中的各种组件。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span>  <span class="comment">// 此注解用于指定运行测试的运行器，通常与JUnit一起使用。`SpringRunner`是Spring提供的一个JUnit运行器，用于在测试中启用Spring支持。</span></span><br><span class="line"><span class="meta">@SpringBootTest</span>  <span class="comment">// 这个注解告诉Spring Boot测试框架要加载整个Spring应用程序上下文，包括所有的bean。它是一个高级版本的`@ContextConfiguration`，它会尝试自动配置Spring应用程序上下文，通常用于集成测试。</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = CommunityApplication.class)</span>  <span class="comment">// 这个注解用于指定要加载的Spring配置类。在这里，`CommunityApplication.class`是Spring Boot应用程序的主配置类，它包含了应用程序的配置信息。</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h2><ul>
-<li>异步的JavaScript与XML <code>(Asynchronous JavaScript and XML)</code>，网页能够将增量更新呈现在页面上，而不需要刷新整个页面。虽然X代表XML，但目前JSON的使用比XML更加普遍。<br><strong>（在当前页面改一点东西用ajax（返回json字符串记得带@ResponseBody），展现新的页面用template）</strong></li>
-<li>使用jQuery（框架）发送AJAX请求</li>
-<li>判断是否为异步请求<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">xRequestedWith</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;x-requested-with&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;XMLHttpRequest&quot;</span>.equals(xRequestedWith)) &#123;...&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
 <li>Redis是一款<strong>基于键值对</strong>的 <strong>NoSQL 数据库</strong>，它的值支持多种数据结构：字符串(strings)、哈希(hashes)、列表(lists)、集合(sets)、有序集合(sorted sets)等。 Redis将所有的数据都存放在<strong>内存</strong>中，所以它的读写性能十分惊人。同时，Redis还可以将内存中的数据以快照或日的形式保存到硬盘上，以保证数据的安全性。</li>
 <li>Redis典型的应用场景包括: 缓存、排行榜、计器、社交网络、消息队列等.</li>
@@ -183,11 +172,6 @@
 </ul>
 </li>
 <li><strong>for more -&gt;</strong> <a target="_blank" rel="noopener" href="https://leo710aka.github.io/2022/03/12/Redis/">https://leo710aka.github.io/2022/03/12/Redis/</a></li>
-</ul>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ul>
-<li>本地缓存<br>将数据缓存在应用服务器上，性能最好。如热帖、、<br>常用缓存工具: Ehcache、Guava、Caffeine等</li>
-<li>分布式缓存<br>将数据缓存在NoSQL数据库上，跨服务器。如登录信息（不管在哪台服务器上都要查得到）<br>常用缓存工具: MemCache、Redis等.</li>
-<li>多级缓存<br>一级缓存(本地缓存) &gt; 二级缓存(分布式缓存) &gt; DB(避免访问数据库)，每级缓存的内存大小、存储时间都不一样<br>服务器受到请求，先查看本地缓存，再查redis（分布式缓存），都没有才查DB，同时同步到本地和分布式缓存上<br>避免<strong>缓存雪崩</strong>(缓存失效，大量请求直达DB)，提高系统的可用性<br><img src="https://github.com/leo710aka/bk/blob/main/cache.png?raw=true"></li>
 </ul>
 <h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
 <li>阻塞队列（消息系统的底层）:<ul>
@@ -202,8 +186,11 @@
 <li>术语：- Broker（服务器）、Zookeeper  - Topic（存放空间）、Partition（分区）、Offset（索引）<br>   Leader Replica（主副本）、Follower Replica</li>
 </ul>
 </li>
+<li>启动服务<ul>
 <li>配置：在 <code>\config\zookeeper.properties</code> 配置数据存放位置 <code>dataDir=d:/work/data/zookeeper</code>，在 <code>server.properties</code> 配置日志存放位置 <code>log.dirs=d:/work/data/kafka-logs</code></li>
-<li>启动：命令行方式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在根目录 D:\kafka_2.12-2.3.0 打开cmd【1】，启动Apache Kafka的ZooKeeper服务器</span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\zookeeper-server-start.bat config\zookeeper.properties</span><br><span class="line"><span class="comment"># 在根目录 再打开一个cmd【2】，启动Kafka服务器 </span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\kafka-server-start.bat config\server.properties</span><br><span class="line"><span class="comment"># 在命令目录 D:\kafka_2.12-2.3.0\bin\windows 打开一个cmd【3】</span></span><br><span class="line"><span class="comment"># 创建topic，partition，replication，，， 开启 生产者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic <span class="built_in">test</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-producer.bat --broker-list localhost:9092 --topic <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 在命令目录 再打开一个cmd【4】，， 开启 消费者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning </span><br></pre></td></tr></table></figure></li>
+<li>命令行启动<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在根目录 D:\kafka_2.12-2.3.0 打开cmd【1】，启动Apache Kafka的ZooKeeper服务器</span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\zookeeper-server-start.bat config\zookeeper.properties</span><br><span class="line"><span class="comment"># 在根目录 再打开一个cmd【2】，启动Kafka服务器 </span></span><br><span class="line">D:\kafka_2.12-2.3.0&gt;bin\windows\kafka-server-start.bat config\server.properties</span><br><span class="line"><span class="comment"># 在命令目录 D:\kafka_2.12-2.3.0\bin\windows 打开一个cmd【3】</span></span><br><span class="line"><span class="comment"># 创建topic，partition，replication，，， 开启 生产者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic <span class="built_in">test</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-producer.bat --broker-list localhost:9092 --topic <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 在命令目录 再打开一个cmd【4】，， 开启 消费者</span></span><br><span class="line">D:\kafka_2.12-2.3.0\bin\windows&gt;kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li>Spring整合Kafka<ul>
 <li>引入依赖: spring-kafka</li>
 <li>配置Kafka: spring.kafka.bootstrap-servers&#x3D;localhost:9092，spring.kafka.consumer.group-id&#x3D;community-consumer-group，spring.kafka.consumer.enable-auto-commit&#x3D;true，spring.kafka.consumer.auto-commit-interval&#x3D;3000</li>
@@ -248,17 +235,19 @@
 <li>引入依赖: spring-boot-starter-data-elasticsearch</li>
 <li>配置Es：spring.data.elasticsearch.cluster-name&#x3D;nowcoder，spring.data.elasticsearch.cluster-nodes&#x3D;127.0.0.1:9300（<strong>9200是http端口，9300是tcp端口</strong>）</li>
 <li>elasticsearch和redis同时依赖于netty，运行冲突，需要在 <code>CommunityApplication.java</code> 加上注解<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostConstruct</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;		   <span class="comment">// 解决netty启动冲突问题</span></span><br><span class="line">    System.setProperty(<span class="string">&quot;es.set.netty.runtime.available.processors&quot;</span>, <span class="string">&quot;false&quot;</span>);	&#125;</span><br></pre></td></tr></table></figure></li>
-<li>通过<code>ElasticsearchTemplate</code>(底层)，<code>ElasticsearchRwpository</code>(简易) 操作 Es<ul>
-<li>对实体类加注解，与Es索引、类型、文档、字段映射：@Document(indexName &#x3D; “”, type &#x3D; “”, shards &#x3D; , replicas &#x3D; )；</li>
-<li>配置实体类中的属性：@Id，@Field(type &#x3D; FieldType.Text, analyzer &#x3D; “ik_max_word”, searchAnalyzer &#x3D; “ik_smart”)，，</li>
-<li><strong>一种repository对一种实体类做Es操作</strong>（区别于@Mapper，mybatis专属的）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DiscussPostRepository 是对 DiscussPost 做 Es 操作</span></span><br><span class="line"><span class="meta">@Repository</span>                 </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DiscussPostRepository</span> </span><br><span class="line">          <span class="keyword">extends</span> <span class="title class_">ElasticsearchRepository</span>&lt;DiscussPost, Integer&gt; &#123;</span><br><span class="line">&#125;            <span class="comment">// 只要继承 ElasticsearchRepository，自带save(),delete()等方法</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
+<li>通过<code>ElasticsearchTemplate</code>(底层)，<code>ElasticsearchRwpository</code>(简易) 操作 Es<br>对实体类加注解，与Es索引、类型、文档、字段映射：@Document(indexName &#x3D; “”, type &#x3D; “”, shards &#x3D; , replicas &#x3D; )；<br>配置实体类中的属性：@Id，@Field(type &#x3D; FieldType.Text, analyzer &#x3D; “ik_max_word”, searchAnalyzer &#x3D; “ik_smart”)，，<br><strong>一种repository对一种实体类做Es操作</strong>（区别于@Mapper，mybatis专属的）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DiscussPostRepository 是对 DiscussPost 做 Es 操作</span></span><br><span class="line"><span class="meta">@Repository</span>                 </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DiscussPostRepository</span> </span><br><span class="line">          <span class="keyword">extends</span> <span class="title class_">ElasticsearchRepository</span>&lt;DiscussPost, Integer&gt; &#123;</span><br><span class="line">&#125;            <span class="comment">// 只要继承 ElasticsearchRepository，自带save(),delete()等方法</span></span><br></pre></td></tr></table></figure></li>
 <li>搜索<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> DiscussPostRepository discussRepository;</span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ElasticsearchTemplate elasticTemplate;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">saveDiscussPost</span><span class="params">(DiscussPost post)</span> &#123;</span><br><span class="line">    discussRepository.save(post);             <span class="comment">// 先要把（加了注解的）实体类存入 Es</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Page&lt;DiscussPost&gt; <span class="title function_">searchDiscussPost</span><span class="params">(String keyword, <span class="type">int</span> current, <span class="type">int</span> limit)</span> &#123;</span><br><span class="line">    <span class="type">SearchQuery</span> <span class="variable">searchQuery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NativeSearchQueryBuilder</span>()</span><br><span class="line">            .withQuery(QueryBuilders.multiMatchQuery(keyword, <span class="string">&quot;title&quot;</span>, <span class="string">&quot;content&quot;</span>)) <span class="comment">// 搜索规则</span></span><br><span class="line">            .withSort(SortBuilders.fieldSort(<span class="string">&quot;type&quot;</span>).order(SortOrder.DESC))        <span class="comment">// 排序规则</span></span><br><span class="line">            .withPageable(PageRequest.of(current, limit))                          <span class="comment">// 分页</span></span><br><span class="line">            .withHighlightFields(                                                  <span class="comment">// 设置高亮</span></span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">HighlightBuilder</span>.Field(<span class="string">&quot;title&quot;</span>).preTags(<span class="string">&quot;&lt;em&gt;&quot;</span>).postTags(<span class="string">&quot;&lt;/em&gt;&quot;</span>),</span><br><span class="line">            ).build();</span><br><span class="line">    <span class="keyword">return</span> elasticTemplate.queryForPage(searchQuery, DiscussPost.class, <span class="keyword">new</span> <span class="title class_">SearchResultMapper</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> &lt;T&gt; AggregatedPage&lt;T&gt; <span class="title function_">mapResults</span><span class="params">(SearchResponse response, Class&lt;T&gt; aClass, Pageable pageable)</span> &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AggregatedPageImpl</span>(...);          &#125;      &#125;);  &#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 <h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>账号：<code>1908454905@qq.com</code><br>Postman 是一个流行的 API测试工具和开发环境，它为开发人员提供了一种方便的方式来创建、测试、文档化和共享API。<br><strong>API 测试：</strong> Postman 的主要功能之一是允许用户发送 HTTP 请求以测试 API 端点。您可以创建 GET、POST、PUT、DELETE 等不同类型的请求，并附加参数、标头和正文数据以模拟与 API 交互。<br><strong>集合和环境：</strong> Postman 允许您组织测试请求到集合中。集合是一组相关的请求，可以方便地进行批量执行和管理。您还可以使用环境变量来动态地管理请求中的数据，以便在不同环境中轻松切换。<br><strong>自动化测试：</strong> Postman 提供了测试脚本功能，您可以使用 JavaScript 编写测试脚本，以验证 API 响应是否符合预期。这使得您可以创建自动化测试套件，确保 API 的稳定性和正确性。<br><strong>协作和共享：</strong> Postman 允许用户创建工作空间，多个团队成员可以在同一个工作空间中协作。您还可以共享 Postman 集合和环境，以便其他人可以重复您的测试或使用您的 API。</p>
+<h2 id="项目调试技巧"><a href="#项目调试技巧" class="headerlink" title="项目调试技巧"></a>项目调试技巧</h2><ul>
+<li>相应<strong>状态码</strong>：200 - 成功，302 - 重定向（让浏览器再发一个请求），404 - 找不到路径，500 - 服务器遇到问题（服务端有bug）</li>
+<li>服务端断点调试：方法中一行代码前打断点，以debug形式启动类。启动服务后，停止在断点处，F8向下执行一步&#x2F;F7进入方法内部&#x2F;F9直接执行到下一个断点，观察参数如何变化。</li>
+<li>客户端断点调试：在浏览器打开开发者工具，对js文件打断点</li>
+<li>设置日志级别，并将日志输出到不同的终端<br>trace-debug-log-warn-error，按照级别记录日志，动态地启用级别。可以在<code>application.properties</code>配置 logger<br>或在&#x2F;resource下放置一个名为logback-spring.xml的文件，自动配置logger（日志存放文件大小、日志类型、存放位置、名字…）</li>
+<li><strong>在&#x2F;test下创建带@Test注解的测试类，直接对某一个mapper&#x2F;service&#x2F;..类进行测试。</strong><br>通过以下注解结合在一起，可以在测试中创建一个与实际应用程序相似的Spring容器，并运行测试。这样可以确保测试能够在实际的Spring环境中运行，并且可以访问和测试应用程序中的各种组件。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span>  <span class="comment">// 此注解用于指定运行测试的运行器，通常与JUnit一起使用。`SpringRunner`是Spring提供的一个JUnit运行器，用于在测试中启用Spring支持。</span></span><br><span class="line"><span class="meta">@SpringBootTest</span>  <span class="comment">// 这个注解告诉Spring Boot测试框架要加载整个Spring应用程序上下文，包括所有的bean。它是一个高级版本的`@ContextConfiguration`，它会尝试自动配置Spring应用程序上下文，通常用于集成测试。</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = CommunityApplication.class)</span>  <span class="comment">// 这个注解用于指定要加载的Spring配置类。在这里，`CommunityApplication.class`是Spring Boot应用程序的主配置类，它包含了应用程序的配置信息。</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
 <li>Spring Boot Testing<ul>
 <li>依赖：spring-boot-starter-test</li>
@@ -278,6 +267,28 @@
 <li>监控方式：HTTP 或 JMX。</li>
 <li>访问路径：例如“&#x2F;actuator&#x2F;health”</li>
 <li>注意事项：按需配置暴露的端点，并对所有端点进行权限控制。</li>
+</ul>
+</li>
+</ul>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ul>
+<li>本地缓存<br>将数据缓存在应用服务器上，性能最好。如热帖、、<br>常用缓存工具: Ehcache、Guava、Caffeine等</li>
+<li>分布式缓存<br>将数据缓存在NoSQL数据库上，跨服务器。如登录信息（不管在哪台服务器上都要查得到）<br>常用缓存工具: MemCache、Redis等.</li>
+<li>多级缓存<br>一级缓存(本地缓存) &gt; 二级缓存(分布式缓存) &gt; DB(避免访问数据库)，每级缓存的内存大小、存储时间都不一样<br>服务器受到请求，先查看本地缓存，再查redis（分布式缓存），都没有才查DB，同时同步到本地和分布式缓存上<br>避免<strong>缓存雪崩</strong>(缓存失效，大量请求直达DB)，提高系统的可用性<br><img src="https://github.com/leo710aka/bk/blob/main/cache.png?raw=true"></li>
+</ul>
+<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><ul>
+<li>节点：K8s中最小的<strong>计算硬件单元</strong>。它是集群中单个机器的表示。节点可能是物理机器或者虚拟机，理论上可以是任何东西。</li>
+<li>集群：K8s中节点汇聚资源，形成更强大的机器。将程序部署到集群中时，它将智能地处理将工作分配给各个节点。如果添加或删除了任何节点，集群将根据需要在工作中进行转换。这对程序或程序员来说都不重要，因为机器实际上是在运行代码。</li>
+<li>Namespace(命名空间, 是一个逻辑隔离的环境,用于资源分组和隔离) -&gt; InfluxDB集群，Pod(Kubernetes的基本计算单元) -&gt; InfluxDB集群节点(逻辑上)，容器 -&gt; InfluxDB单例(物理上，部署在服务器上) <ul>
+<li>Pod 是 Kubernetes 中最小的部署单元，一个 Pod 可以包含一个或多个容器。（pod是逻辑概念；容器是物理概念？？存在于物理服务器上）<br>  K8s 使用控制器（如 Deployment、StatefulSet、DaemonSet 等）来管理 Pod 的生命周期，根据定义的期望状态（如副本数量、更新策略等）来创建、更新和删除 Pod。通过 <code>kubectl</code> 命令可以查看、管理和调试 Pod。</li>
+<li>容器是运行在 Pod 中的实际应用实例。K8s 使用容器运行时（如 Docker、containerd 等）来管理容器的生命周期。<br>  每个容器运行一个镜像，容器的配置（如环境变量、挂载卷、资源限制等）在 Pod 的定义中指定。</li>
+<li>镜像是容器的基础，包含了应用程序及其依赖环境。镜像通常存储在镜像仓库（如 Docker Hub、Google Container Registry 等）中。</li>
+</ul>
+</li>
+<li>虽然 Pod 是 K8s 的<strong>基本计算单元</strong>，但它们通常不是直接在集群上启动的。相反，Pod 通常由一个抽象层来管理：部署。不必手动处理 Pod，只需声明系统的期望状态，它将自动管理。可以创建一个节点集群，并将Pod部署到集群上。如果需要允许外部通信流进入你的应用程序，与运行在Pod中的服务通信，必须打开一个通信通道，称作入口(ingress)。</li>
+<li>关于 InfluxDB 集群的部署和通信：<ul>
+<li>部署方式：对于一个命名空间下的几个Pod，这些节点会通过 StatefulSet 或者 Deployment 来进行管理和部署。</li>
+<li>调度到主机：K8s 的调度器会根据资源需求、节点的可用资源以及调度策略（如反亲和性、亲和性等）来决定 Pod 部署到哪台主机上。你可以使用以下命令查看 Pod 所在的节点信息：<code>kubectl get pod -n influxdb -o wide</code></li>
+<li>通信调度：K8s 中，Pod 之间的通信通常通过 Service 来进行。Service 会为一组 Pod 提供一个稳定的 IP 地址和 DNS 名称。对于 InfluxDB 集群，可能会有一个或多个 Service 来管理数据节点和元数据节点之间的通信。你可以使用以下命令查看 InfluxDB 命名空间中的 Service：<code>kubectl get svc -n influxdb</code></li>
 </ul>
 </li>
 </ul>
