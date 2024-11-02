@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/06/go128.png">
 <meta property="article:published_time" content="2024-09-22T05:17:33.000Z">
-<meta property="article:modified_time" content="2024-11-02T03:42:24.964Z">
+<meta property="article:modified_time" content="2024-11-02T12:07:09.665Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2015/06/go128.png">
@@ -107,17 +107,7 @@
 
 
 <p>除了OOP外，近年出现了一些小众的编程哲学，Go语言对这些思想亦有所吸收。例如，Go语言接受了函数式编程的一些想法，支持匿名函数与闭包。再如，Go语言接受了以Erlang语言为代表的面向消息编程思想，支持goroutine和通道，并推荐使用消息而不是共享内存来进行并发编程。总体来说，Go语言是一个非常现代化的语言，精小但非常强大。</p>
-<h3 id="Go-语言最主要的特性"><a href="#Go-语言最主要的特性" class="headerlink" title="Go 语言最主要的特性"></a>Go 语言最主要的特性</h3><p>自动垃圾回收 更丰富的内置类型 函数多返回值 错误处理 匿名函数和闭包 类型和接口 并发编程 反射 语言交互性</p>
-<p>Go 语言（Golang）是一种编译型、静态类型的编程语言，由 Google 开发。</p>
-<h3 id="Go-程序的基本结构"><a href="#Go-程序的基本结构" class="headerlink" title="Go 程序的基本结构"></a>Go 程序的基本结构</h3><ol>
-<li><strong>包（Package）</strong>： 每个 Go 程序都是由包组成的。包是一组相关函数、类型、变量和常量的集合。 一个文件可以属于一个包，也可以包含多个属于同一包的声明。 包名通常是文件路径的一部分，例如 <code>package main</code> 表示程序的入口。</li>
-<li><strong>导入（Import）</strong>： 使用 <code>import</code> 来导入其他包中的代码。导入的可以是 Go 标准库中的包，也可以是第三方包或项目中的其他包。</li>
-<li><strong>函数（Function）</strong>： Go 程序由函数组成，包括用户定义的函数和内置函数。 <code>main</code> 函数是每个可执行程序的入口点。</li>
-<li><strong>变量（Variable）</strong>： 变量用于存储数据。在 Go 中，每个变量都需要先声明后使用。</li>
-<li><strong>类型（Type）</strong>：  Go 是静态类型语言，每个变量和常量都有一个明确的类型。</li>
-<li><strong>控制结构（Control Structures）</strong>： 包括 <code>if</code>、<code>switch</code>、<code>for</code>、<code>goto</code> 等控制流语句。</li>
-<li><strong>注释（Comments）</strong>： 单行注释以 <code>//</code> 开始，多行注释以 <code>/*</code> 开始，以 <code>*/</code> 结束。<br><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></li>
-</ol>
+<h3 id="Go-语言最主要的特性"><a href="#Go-语言最主要的特性" class="headerlink" title="Go 语言最主要的特性"></a>Go 语言最主要的特性</h3><p>自动垃圾回收 更丰富的内置类型 函数多返回值 错误处理 匿名函数和闭包 类型和接口 并发编程 反射 语言交互性<br><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></p>
 <h3 id="Go-项目的基本结构"><a href="#Go-项目的基本结构" class="headerlink" title="Go 项目的基本结构"></a>Go 项目的基本结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">myproject/</span><br><span class="line">│</span><br><span class="line">├── cmd/             # 存放程序的入口点，每个应用程序的变体都放在这里</span><br><span class="line">│   ├── main.go</span><br><span class="line">│   └── otherapp.go</span><br><span class="line">│</span><br><span class="line">├── internal/        # 私有的应用程序和库代码</span><br><span class="line">│   ├── config/      # 配置文件和配置逻辑</span><br><span class="line">│   ├── service/     # 业务逻辑</span><br><span class="line">│   └── repository/  # 数据访问对象</span><br><span class="line">│</span><br><span class="line">├── pkg/             # 存放可以被外部项目导入的库代码</span><br><span class="line">│   ├── helper/      # 辅助工具函数</span><br><span class="line">│   └── logger/      # 日志库</span><br><span class="line">│</span><br><span class="line">├── api/             # API相关代码，如 OpenAPI/Swagger 定义</span><br><span class="line">│   ├── v1/          # API版本控制</span><br><span class="line">│   └── v2/</span><br><span class="line">│</span><br><span class="line">├── config/          # 配置文件和脚本</span><br><span class="line">│</span><br><span class="line">├── scripts/         # 项目脚本，如安装依赖、构建、测试等</span><br><span class="line">│</span><br><span class="line">├── test/            # 测试代码</span><br><span class="line">│   ├── integration/ # 集成测试</span><br><span class="line">│   └── unit/        # 单元测试</span><br><span class="line">│</span><br><span class="line">├── vendor/          # 依赖管理，存放第三方依赖</span><br><span class="line">│</span><br><span class="line">├── .git/            # Git 版本控制元数据</span><br><span class="line">├── .gitignore       # 忽略文件列表</span><br><span class="line">├── go.mod           # Go 模块文件</span><br><span class="line">└── README.md        # 项目说明文件</span><br></pre></td></tr></table></figure>
 
       
