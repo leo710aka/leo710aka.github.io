@@ -430,8 +430,18 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 
 
 <p>除了OOP外，近年出现了一些小众的编程哲学，Go语言对这些思想亦有所吸收。例如，Go语言接受了函数式编程的一些想法，支持匿名函数与闭包。再如，Go语言接受了以Erlang语言为代表的面向消息编程思想，支持goroutine和通道，并推荐使用消息而不是共享内存来进行并发编程。总体来说，Go语言是一个非常现代化的语言，精小但非常强大。</p>
-<h3 id="Go-语言最主要的特性"><a href="#Go-语言最主要的特性" class="headerlink" title="Go 语言最主要的特性"></a>Go 语言最主要的特性</h3><p>自动垃圾回收<br>更丰富的内置类型<br>函数多返回值<br>错误处理<br>匿名函数和闭包<br>类型和接口<br>并发编程<br>反射<br>语言交互性</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></p>
+<h3 id="Go-语言最主要的特性"><a href="#Go-语言最主要的特性" class="headerlink" title="Go 语言最主要的特性"></a>Go 语言最主要的特性</h3><p>自动垃圾回收 更丰富的内置类型 函数多返回值 错误处理 匿名函数和闭包 类型和接口 并发编程 反射 语言交互性</p>
+<p>Go 语言（Golang）是一种编译型、静态类型的编程语言，由 Google 开发。</p>
+<h3 id="Go-程序的基本结构"><a href="#Go-程序的基本结构" class="headerlink" title="Go 程序的基本结构"></a>Go 程序的基本结构</h3><ol>
+<li><strong>包（Package）</strong>： 每个 Go 程序都是由包组成的。包是一组相关函数、类型、变量和常量的集合。 一个文件可以属于一个包，也可以包含多个属于同一包的声明。 包名通常是文件路径的一部分，例如 <code>package main</code> 表示程序的入口。</li>
+<li><strong>导入（Import）</strong>： 使用 <code>import</code> 来导入其他包中的代码。导入的可以是 Go 标准库中的包，也可以是第三方包或项目中的其他包。</li>
+<li><strong>函数（Function）</strong>： Go 程序由函数组成，包括用户定义的函数和内置函数。 <code>main</code> 函数是每个可执行程序的入口点。</li>
+<li><strong>变量（Variable）</strong>： 变量用于存储数据。在 Go 中，每个变量都需要先声明后使用。</li>
+<li><strong>类型（Type）</strong>：  Go 是静态类型语言，每个变量和常量都有一个明确的类型。</li>
+<li><strong>控制结构（Control Structures）</strong>： 包括 <code>if</code>、<code>switch</code>、<code>for</code>、<code>goto</code> 等控制流语句。</li>
+<li><strong>注释（Comments）</strong>： 单行注释以 <code>//</code> 开始，多行注释以 <code>/*</code> 开始，以 <code>*/</code> 结束。<br><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></li>
+</ol>
+<h3 id="Go-项目的基本结构"><a href="#Go-项目的基本结构" class="headerlink" title="Go 项目的基本结构"></a>Go 项目的基本结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">myproject/</span><br><span class="line">│</span><br><span class="line">├── cmd/             # 存放程序的入口点，每个应用程序的变体都放在这里</span><br><span class="line">│   ├── main.go</span><br><span class="line">│   └── otherapp.go</span><br><span class="line">│</span><br><span class="line">├── internal/        # 私有的应用程序和库代码</span><br><span class="line">│   ├── config/      # 配置文件和配置逻辑</span><br><span class="line">│   ├── service/     # 业务逻辑</span><br><span class="line">│   └── repository/  # 数据访问对象</span><br><span class="line">│</span><br><span class="line">├── pkg/             # 存放可以被外部项目导入的库代码</span><br><span class="line">│   ├── helper/      # 辅助工具函数</span><br><span class="line">│   └── logger/      # 日志库</span><br><span class="line">│</span><br><span class="line">├── api/             # API相关代码，如 OpenAPI/Swagger 定义</span><br><span class="line">│   ├── v1/          # API版本控制</span><br><span class="line">│   └── v2/</span><br><span class="line">│</span><br><span class="line">├── config/          # 配置文件和脚本</span><br><span class="line">│</span><br><span class="line">├── scripts/         # 项目脚本，如安装依赖、构建、测试等</span><br><span class="line">│</span><br><span class="line">├── test/            # 测试代码</span><br><span class="line">│   ├── integration/ # 集成测试</span><br><span class="line">│   └── unit/        # 单元测试</span><br><span class="line">│</span><br><span class="line">├── vendor/          # 依赖管理，存放第三方依赖</span><br><span class="line">│</span><br><span class="line">├── .git/            # Git 版本控制元数据</span><br><span class="line">├── .gitignore       # 忽略文件列表</span><br><span class="line">├── go.mod           # Go 模块文件</span><br><span class="line">└── README.md        # 项目说明文件</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -478,7 +488,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>工伤保险：用于保障因工作原因遭受意外伤害或职业病的劳动者，提供医疗费用和伤残补助，甚至提供生活保障金等。</li>
 <li>生育保险：主要为参保女性在生育期间提供一定的经济补助和医疗费用报销。</li>
 </ol>
-<h3 id="社保卡"><a href="#社保卡" class="headerlink" title="社保卡"></a>社保卡</h3><p>佛山社保卡如何申领？“一人一卡”清理又是个啥？ <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA">https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA</a></p>
+<h3 id="社保卡"><a href="#社保卡" class="headerlink" title="社保卡"></a>社保卡</h3><p>佛山社保卡如何申领？“一人一卡”清理又是个啥？ <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA">https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA</a><br>没领佛山社保卡可以使用医保报销吗？可以，微信支付时会显示报销数额。</p>
 <h3 id="医保"><a href="#医保" class="headerlink" title="医保"></a>医保</h3><ul>
 <li>医疗保险是一种社会保障制度。通常由个人和单位共同缴纳，参保人员在医疗机构就诊时可以通过医保报销部分或全部的医疗费用。<br>通过医保报销的费用是由医保基金支付的，而这个基金是由全体参保人员（包括你和你的单位）共同缴纳的资金组成的。<strong>个人缴纳的那部分医保费用只是整个基金的一部分，而报销的金额往往远超过个人单独缴纳的部分，这正是医保体系的优势所在</strong>。</li>
 <li><em>佛山医疗保险享受指引</em><ol>
@@ -489,16 +499,16 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 </li>
 </ul>
 <h3 id="住房公积金"><a href="#住房公积金" class="headerlink" title="住房公积金"></a>住房公积金</h3><ul>
-<li>住房公积金是一种社会福利制度，而不是严格意义上的社会保障。<br>住房公积金是国家为帮助职工解决住房问题而设立的一项长期住房储金。它由职工个人和单位共同缴纳，归职工个人所有，并在一定条件下用于购房、建房、房屋维修或者租房等住房相关支出。</li>
+<li>住房公积金是一种社会福利制度，而不是严格意义上的社会保障。住房公积金是国家为帮助职工解决住房问题而设立的一项长期住房储金。它由职工个人和单位共同缴纳，归职工个人所有，并在一定条件下用于购房、建房、房屋维修或者租房等住房相关支出。</li>
 <li>职工可以在以下情况下提取住房公积金：购买、建造、翻建、大修自住住房。偿还住房贷款本息（利率低）。支付房租。离职或退休后可以提取全部住房公积金。</li>
 <li>住房公积金可以断缴。如果有购房计划或其他需要公积金支持的需求，最好避免长时间断缴。<ul>
 <li>可以断缴：如果你换工作、辞职、或者暂时没有固定工作，住房公积金可以暂时断缴。没有法律强制要求必须连续缴纳。一旦找到新工作或稳定下来，你可以恢复缴纳住房公积金。新单位会重新为你开设账户或继续使用之前的账户。</li>
 <li>断缴的影响<br>  <strong>贷款购房影响</strong>：<strong>影响贷款资格</strong>，在申请住房公积金贷款时，很多地方要求申请人在最近的6个月或12个月内连续缴纳公积金。如果公积金断缴，可能会影响你申请住房公积金贷款的资格。<strong>贷款额度影响</strong>，公积金贷款额度通常与公积金的缴纳时间和余额挂钩。如果断缴时间较长，贷款额度可能会受到影响。<br>  <strong>影响提取条件</strong>：如果计划通过提取公积金支付房租或购房时，断缴可能会影响提取公积金的条件，因为很多地方要求提取前必须有一定的连续缴纳记录。</li>
-<li>如何减少断缴的影响：<br>  补缴：在新单位入职后，你可以尝试与单位协商，进行断缴期间的补缴。这可能会恢复你在断缴期间的公积金记录。<br>  灵活就业人员公积金：有些城市允许灵活就业人员或个体工商户自行缴纳公积金，可以考虑这一方式以避免断缴。</li>
+<li>如何减少断缴的影响：1、补缴：在新单位入职后，你可以尝试与单位协商，进行断缴期间的补缴。以恢复在断缴期间的公积金记录。2、灵活就业人员公积金：有些城市允许灵活就业人员或个体工商户自行缴纳公积金，以避免断缴。</li>
 </ul>
 </li>
-<li>住房公积金在中国是可以随着工作地点的变更而进行转移的。<br>通常的步骤是：在新城市的新工作单位会为你开设一个新的住房公积金账户。向新单位的公积金管理中心申请将旧账户的公积金余额转入新账户。新单位所在的公积金管理中心会联系原城市的公积金管理中心，办理资金转移。公积金转移通常需要一定时间，一旦转移完成，你的住房公积金余额将会合并到新城市的账户中。</li>
-<li><em>佛山公积金提取</em></li>
+<li>住房公积金在中国是可以随着工作地点的变更而进行转移的。通常的步骤是：在新城市的新工作单位会为你开设一个新的住房公积金账户。向新单位的公积金管理中心申请将旧账户的公积金余额转入新账户。新单位所在的公积金管理中心会联系原城市的公积金管理中心，办理资金转移。公积金转移通常需要一定时间，一旦转移完成，你的住房公积金余额将会合并到新城市的账户中。</li>
+<li><em>佛山公积金提取</em>：wx公众号办理租房提取业务，选择按年&#x2F;月提取，隔日到账。</li>
 </ul>
 <h2 id="商业保险"><a href="#商业保险" class="headerlink" title="商业保险"></a>商业保险</h2><p>【当代年轻人没了铁饭碗，还能负重奔跑多久？北京二胎家庭如何转移风险？】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16F4m1V7wv/?share_source=copy_web&vd_source=2cbe8cdd54a75d0c43fcdefa624d3fbe">https://www.bilibili.com/video/BV16F4m1V7wv/?share_source=copy_web&amp;vd_source=2cbe8cdd54a75d0c43fcdefa624d3fbe</a></p>
 <p>“年纪轻的一定要买百万医疗险和意外险，还有抗癌险，关键时候真的能救命的，有余裕买个重疾险，如果生病了确证了就能拿到几十万的保额，可以作为治疗和康复期的生活费开销，医疗费有医保和百万医疗险，到时候真生比较严重的病百分之九十能报销，年纪轻买了便宜加起来一年千把块，父母没生病可以给他们买众民保和中银全名保，还有当地的惠民保三个加起来六百块不到，不看健康告知年龄大可以报销，配合医保大概能报销八十花的多甚至能报销到九十，给家里老人多套保障，不会出现得了病只能放弃的人间惨剧，如果老人没医保可以买城乡医保一年几百块”</p>
@@ -618,7 +628,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 数据库导入：容器层面执行命令，使用admin账号，指定文件、数据库、时间戳精度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e73f149ff7192bd87d190-data-1:/<span class="comment"># influx -import -path=&#x27;influxdb_test01_dump_out&#x27; -precision=ns -username=&#x27;admin&#x27; -password=&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 实例导出：把influxdb集群实例中所有数据库的数据导出，不加 <code>-database</code>，加 <code>-compress</code><br>实例导入：加<code>-compressed</code> 导入压缩文件，本质上是先解压后倒入</li>
 </ol>
-<h4 id="10-31-调研与开发：InfluxDB备份与恢复"><a href="#10-31-调研与开发：InfluxDB备份与恢复" class="headerlink" title="10.31 调研与开发：InfluxDB备份与恢复"></a>10.31 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念（前期已经也在看了。。<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求，完成技术文档框架，开始将功能datamars系统，了解golang开发<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报</p>
+<h4 id="10-31-调研与开发：InfluxDB备份与恢复"><a href="#10-31-调研与开发：InfluxDB备份与恢复" class="headerlink" title="10.31 调研与开发：InfluxDB备份与恢复"></a>10.31 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念（前期已经也在看了。。<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求，完成技术文档框架，开始将功能datamars系统，了解golang开发<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√</p>
 
       
     </div>
