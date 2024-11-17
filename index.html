@@ -456,7 +456,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>构建新项目<ol>
 <li>对于一个带有 <code>go.mod</code> 文件的 Go 项目，项目所需的依赖<strong>不会</strong>自动下载到本地环境中。需要手动运行 <code>go mod download</code> 或 <code>go mod tidy</code> 来下载依赖，或者直接运行 <code>go build</code> 以触发依赖的下载。</li>
 <li>如果本地已有的依赖版本与 <code>go.mod</code> 文件中声明的版本不同，Go 工具链会优先使用 <code>go.mod</code> 文件中指定的版本。Go 会从远程仓库下载与 <code>go.mod</code> 兼容的依赖版本，并将其存储在本地缓存目录（通常是 <code>~/go/pkg/mod</code>）中。</li>
-<li>Go 项目使用的依赖是项目特定的，存储在项目的本地缓存中，而不是全局的 GOPATH 或者 GOROOT 目录。这意味着不同的项目可以依赖同一库的不同版本，而不会发生冲突。</li>
+<li>Go 项目使用的依赖是项目特定的，存储在项目的本地缓存中，而不是全局的 GOPATH 或者 GOROOT 目录。这意味着不同的项目可以依赖同一库的不同版本，而不会发生冲突。其实际工作目录<code>go env</code>中的配置（看上去是如果配置全局 PATH&#x3D;%GOPATH%\bin 就使用 GOPATH 中的go.exe和pkg）</li>
 </ol>
 </li>
 </ul>

@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/06/go128.png">
 <meta property="article:published_time" content="2024-09-22T05:17:33.000Z">
-<meta property="article:modified_time" content="2024-11-17T13:17:07.658Z">
+<meta property="article:modified_time" content="2024-11-17T15:32:33.403Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2015/06/go128.png">
@@ -120,7 +120,7 @@
 <li>构建新项目<ol>
 <li>对于一个带有 <code>go.mod</code> 文件的 Go 项目，项目所需的依赖<strong>不会</strong>自动下载到本地环境中。需要手动运行 <code>go mod download</code> 或 <code>go mod tidy</code> 来下载依赖，或者直接运行 <code>go build</code> 以触发依赖的下载。</li>
 <li>如果本地已有的依赖版本与 <code>go.mod</code> 文件中声明的版本不同，Go 工具链会优先使用 <code>go.mod</code> 文件中指定的版本。Go 会从远程仓库下载与 <code>go.mod</code> 兼容的依赖版本，并将其存储在本地缓存目录（通常是 <code>~/go/pkg/mod</code>）中。</li>
-<li>Go 项目使用的依赖是项目特定的，存储在项目的本地缓存中，而不是全局的 GOPATH 或者 GOROOT 目录。这意味着不同的项目可以依赖同一库的不同版本，而不会发生冲突。</li>
+<li>Go 项目使用的依赖是项目特定的，存储在项目的本地缓存中，而不是全局的 GOPATH 或者 GOROOT 目录。这意味着不同的项目可以依赖同一库的不同版本，而不会发生冲突。其实际工作目录<code>go env</code>中的配置（看上去是如果配置全局 PATH&#x3D;%GOPATH%\bin 就使用 GOPATH 中的go.exe和pkg）</li>
 </ol>
 </li>
 </ul>
