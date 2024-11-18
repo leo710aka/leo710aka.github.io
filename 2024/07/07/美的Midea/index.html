@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://leo710aka.github.io/bk/midea2.jpg">
 <meta property="og:image" content="https://leo710aka.github.io/bk/midea3.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2024-11-17T08:16:55.503Z">
+<meta property="article:modified_time" content="2024-11-18T16:10:24.018Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -187,10 +187,10 @@
 </ol>
 <h4 id="11-4-Datamars-Agent开发备份task"><a href="#11-4-Datamars-Agent开发备份task" class="headerlink" title="11.4 Datamars-Agent开发备份task"></a>11.4 Datamars-Agent开发备份task</h4><ol>
 <li>配置go开发环境<br>下载g，安装go版本，配置GOROOT&#x3D;go安装目录，GOPATH&#x3D;go工作目录(安装包的目录)，配置vscode(Go extension, code runner)</li>
-<li>构造Golang项目<br>安装protoc，添加到PATH；通过chocolatey安装 make 工具，运行 Makefile 文件中的目标，构造go项目<br>datamars-agent接入新engine：在proto&#x2F;common.proto 新增engine，根目录下执行 make pb 命令，调用 Makefile 中定义的 pb 目标，进而执行 scripts&#x2F;gen_proto.sh 脚本来编译 proto 文件，生成Go，grpc程序<br><strong>Protobuf</strong> 是一种由 Google 开发的用于序列化结构化数据的语言中立、平台中立的可扩展机制，Protoc 可以将 定义了数据结构和序列化规则的 .proto 文件编译生成包括 Go， Java的多种语言。</li>
+<li>构造Golang项目<br>安装protoc，添加到PATH；（（不要用）Windows系统：通过chocolatey安装 make 工具，构造项目）<br>datamars-agent接入新engine：在proto&#x2F;common.proto 新增engine，根目录下执行 make pb 命令，调用 Makefile 中定义的 pb 目标，进而执行 scripts&#x2F;gen_proto.sh 脚本来编译 proto 文件，生成Go，grpc程序<br><strong>Protobuf</strong> 是一种由 Google 开发的用于序列化结构化数据的语言中立、平台中立的可扩展机制，Protoc 可以将 定义了数据结构和序列化规则的 .proto 文件编译生成包括 Go， Java的多种语言。</li>
 <li>task对接<br>bakserver(Java系统)下发task到datamars-agent(Go系统)，事实上是将DaataBackupCfg包装成message，用grpc发送至指定pod，通过protoc同步配置</li>
 </ol>
-<h4 id="11-11-调研与开发：InfluxDB备份与恢复"><a href="#11-11-调研与开发：InfluxDB备份与恢复" class="headerlink" title="11.11 调研与开发：InfluxDB备份与恢复"></a>11.11 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√）<br>进度评估。。buffer<br>好心态😇不怕叼</p>
+<h4 id="11-11-调研与开发：InfluxDB备份与恢复"><a href="#11-11-调研与开发：InfluxDB备份与恢复" class="headerlink" title="11.11 调研与开发：InfluxDB备份与恢复"></a>11.11 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试；<br>11.12-11.15：研究pod添加container。。go项目构建。。<br>11.19：在本机wsl的ubuntu成功构建datamars-agent项目<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√）<br>进度评估。。buffer<br>好心态😇不怕叼</p>
 
       
     </div>
