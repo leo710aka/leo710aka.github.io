@@ -679,7 +679,23 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 或者，直接修改influxdb-data Statefulset的配置中，:wq 保存，成功后自动更新到Pod<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apps@(datamars)mhpl74337-10.20.248.65 ~$ kubectl edit sts -n influxdb influxdb-e73f149ff7192bd87d190-data</span><br><span class="line">statefulset.apps/influxdb-e73f149ff7192bd87d190-data edited</span><br><span class="line">apps@(datamars)mhpl74337-10.20.248.65 ~$ kubectl describe sts -n influxdb influxdb-e73f149ff7192bd87d190-data</span><br><span class="line"><span class="comment"># 最下面可以看到事件信息</span></span><br><span class="line">Events:</span><br><span class="line">  Type     Reason            Age                 From                    Message</span><br><span class="line">  ----     ------            ----                ----                    -------</span><br><span class="line">  Warning  FailedCreate      50m                 statefulset-controller  create Pod influxdb-e73f149ff7192bd87d190-data-0 <span class="keyword">in</span> StatefulSet influxdb-e73f149ff7192bd87d190-data failed error: Pod <span class="string">&quot;influxdb-e73f149ff7192bd87d190-data-0&quot;</span> is invalid: spec.containers[1].volumeMounts[0].name: Not found: <span class="string">&quot;conf&quot;</span></span><br><span class="line">  Normal   SuccessfulCreate  48m (x2 over 12d)   statefulset-controller  create Pod influxdb-e73f149ff7192bd87d190-data-0 <span class="keyword">in</span> StatefulSet influxdb-e73f149ff7192bd87d190-data successful</span><br><span class="line"><span class="comment"># 或者看日志</span></span><br><span class="line">apps@(datamars)mhpl74337-10.20.248.65 ~$ kubectl logs influxdb-e73f149ff7192bd87d190-data-0 -n influxdb -c datamars-agent</span><br></pre></td></tr></table></figure></li>
 <li>注意以上操作只是手动修改一个Pod，要想新建Pod中的配置更新，需要到helm配置。。</li>
 </ol>
-<h4 id="11-11-调研与开发：InfluxDB备份与恢复"><a href="#11-11-调研与开发：InfluxDB备份与恢复" class="headerlink" title="11.11 调研与开发：InfluxDB备份与恢复"></a>11.11 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试<br>11.12-11.15：研究pod添加container。。go项目构建。。<br>11.18-11.22：在本机wsl的ubuntu成功构建golang项目datamars-agent，边抄边做，不用理解？。及时请教专家<br>11.25-11.29：本地起agent调试task，打包image推送dockerhub，测试环境拉取验证功能，，bakserver联调<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√）<br>进度评估。。buffer。。好心态😇不怕叼<br>1&#x2F;2时间幻想（补齐能力，对齐上下游）1&#x2F;4等回复（线上下请教+准备）1&#x2F;4开发（不到）<br>与人沟通是重要的能力。。拉群请教。。软件开发还是很残酷的。。</p>
+<h4 id="11-11-调研与开发：InfluxDB备份与恢复"><a href="#11-11-调研与开发：InfluxDB备份与恢复" class="headerlink" title="11.11 调研与开发：InfluxDB备份与恢复"></a>11.11 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试<br>11.12-11.15：研究pod添加container。。go项目构建。。<br>11.18-11.22：在本机wsl的ubuntu成功构建golang项目datamars-agent，边抄边做，不用理解？。及时请教专家<br>11.25-11.29：大哥手改代码。。本地起agent调试task，打包image推送dockerhub，测试环境本地grpcurl到pod ip:port验证功能<br>12.02-12.06：bakserver流水线部署，测试环境联调<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√）<br>进度评估。。buffer。。好心态😇不怕叼<br>1&#x2F;2时间幻想（补齐能力，对齐上下游）1&#x2F;4等回复（线上下请教+准备）1&#x2F;4开发（不到）<br>与人沟通是重要的能力。。拉群请教。。软件开发还是很残酷的。。</p>
+<h4 id="12-10-年终述职"><a href="#12-10-年终述职" class="headerlink" title="12.10 年终述职"></a>12.10 年终述职</h4><ul>
+<li>个人贡献<br>MOPS开发任务：，<br>DBEngine开发任务：，<br>作为团队新人，确实得到了循序渐进的业务的熟悉以及能力的补充。</li>
+<li>赋能团队<br>更重要的是具备快速开发，产出，文档输出的能力；求助时不耽误对方的时间，总结经验复用，提高团队效率。</li>
+<li>服务客户<br>值班</li>
+</ul>
+<h4 id="成长对话"><a href="#成长对话" class="headerlink" title="成长对话"></a>成长对话</h4><ul>
+<li>本年度关键战役及成果产出</li>
+<li>面对未来1-2年的职业规划<br>补齐开发所需的各项能力，具备调研分析&#x2F;产品思考的能力</li>
+<li>希望提升的1-3项核心能力项，计划如何提升<ul>
+<li>快速学习的能力。通过自我学习&#x2F;请教他人&#x2F;迁移经验，辨别问题的关键，快速掌握解决问题所需的能力，不企图全面地构建知识体系。</li>
+<li>管理时间的能力。目前，开发时间很短，。。很长，还挤占了休息时间，如何提高效率？</li>
+<li>精确表达的能力。</li>
+</ul>
+</li>
+<li>个人思考<br>why midea？什么是核心能力？什么是危机？。。</li>
+</ul>
 
       
     </div>
