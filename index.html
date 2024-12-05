@@ -218,6 +218,15 @@
 <blockquote>
 <p>Canon in C <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1if4y1A7SZ/?spm_id_from=333.337.search-card.all.click&vd_source=ff210768dfaee27c0d74f9c8c50d7274">https://www.bilibili.com/video/BV1if4y1A7SZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ff210768dfaee27c0d74f9c8c50d7274</a></p>
 </blockquote>
+<div style="display: flex; justify-content: space-around;">
+    <img src="https://www.helloimg.com/i/2024/12/05/6751ba9e71f6e.png" width="550" height="300" alt="">
+    <img src="https://www.helloimg.com/i/2024/12/05/6751b9fe18946.png" width="550" height="300" alt="">
+    <img src="https://www.helloimg.com/i/2024/12/05/6751b9fb8e729.png" width="550" height="300" alt="">
+</div>
+
+<blockquote>
+<p>找自己 - 陶喆</p>
+</blockquote>
 
       
     </div>
@@ -680,22 +689,17 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>注意以上操作只是手动修改一个Pod，要想新建Pod中的配置更新，需要到helm配置。。</li>
 </ol>
 <h4 id="11-11-调研与开发：InfluxDB备份与恢复"><a href="#11-11-调研与开发：InfluxDB备份与恢复" class="headerlink" title="11.11 调研与开发：InfluxDB备份与恢复"></a>11.11 调研与开发：<em>InfluxDB备份与恢复</em></h4><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试<br>11.12-11.15：研究pod添加container。。go项目构建。。<br>11.18-11.22：在本机wsl的ubuntu成功构建golang项目datamars-agent，边抄边做，不用理解？。及时请教专家<br>11.25-11.29：大哥手改代码。。本地起agent调试task，打包image推送dockerhub，测试环境本地grpcurl到pod ip:port验证功能<br>12.02-12.06：bakserver流水线部署，测试环境联调<br>技术文档先行？？将需求拆分成一步步，便于开发与汇报<br>关注重要的事情（功能接入不是重要的，，对齐需求和功能验证√）<br>进度评估。。buffer。。好心态😇不怕叼<br>1&#x2F;2时间幻想（补齐能力，对齐上下游）1&#x2F;4等回复（线上下请教+准备）1&#x2F;4开发（不到）<br>与人沟通是重要的能力。。拉群请教。。软件开发还是很残酷的。。</p>
-<h4 id="12-10-年终述职"><a href="#12-10-年终述职" class="headerlink" title="12.10 年终述职"></a>12.10 年终述职</h4><ul>
-<li>个人贡献<br>MOPS开发任务：，<br>DBEngine开发任务：，<br>作为团队新人，确实得到了循序渐进的业务的熟悉以及能力的补充。</li>
-<li>赋能团队<br>更重要的是具备快速开发，产出，文档输出的能力；求助时不耽误对方的时间，总结经验复用，提高团队效率。</li>
-<li>服务客户<br>值班</li>
-</ul>
-<h4 id="成长对话"><a href="#成长对话" class="headerlink" title="成长对话"></a>成长对话</h4><ul>
-<li>本年度关键战役及成果产出</li>
-<li>面对未来1-2年的职业规划<br>补齐开发所需的各项能力，具备调研分析&#x2F;产品思考的能力</li>
-<li>希望提升的1-3项核心能力项，计划如何提升<ul>
-<li>快速学习的能力。通过自我学习&#x2F;请教他人&#x2F;迁移经验，辨别问题的关键，快速掌握解决问题所需的能力，不企图全面地构建知识体系。</li>
-<li>管理时间的能力。目前，开发时间很短，。。很长，还挤占了休息时间，如何提高效率？</li>
-<li>精确表达的能力。</li>
-</ul>
-</li>
+<h4 id="12-10-年终述职"><a href="#12-10-年终述职" class="headerlink" title="12.10 年终述职"></a>12.10 年终述职</h4><ol>
+<li>个人贡献<br>MOPS开发任务；DBEngine开发任务；作为团队新人，得到了循序渐进的业务的熟悉以及能力的补充。</li>
+<li>赋能团队<br>更重要的是具备快速开发，产出，文档输出的能力；总结经验复用，求助时不耽误对方的时间，提高团队效率。</li>
+<li>服务客户<br>值班？</li>
+</ol>
+<h4 id="12-xx-成长对话"><a href="#12-xx-成长对话" class="headerlink" title="12.xx 成长对话"></a>12.xx 成长对话</h4><ol>
+<li>本年度关键战役及成果产出<br><strong>MOPS开发任务</strong>：1 华为云主机开&#x2F;关机&#x2F;重启自动化，多亏了zhib保姆式的帮助，对于我来说弄清每个接口调用关系，每张表每个参数的含义是比较重要的； 2 Azure公有云主机申请，我见识到了更多的表，思考或者幻想如何套参数。。 3 Azure公有云主机回收&#x2F;开&#x2F;关机&#x2F;重启，比较轻车熟路； 4 公有云主机邮件，前后改了不下五版，令我震惊的是洋哥竟然有耐心连续几天给我讨论新方案。。七月份入职到国庆结束的三个月，我学习了将需求拆分成一步步，了解了开发，部署，联调的流程。。<br><strong>DBEngine开发任务</strong>：InfluxDB备份恢复，比较肤浅的调研；开发的过程中，我补上了k8s，linux的能力。做这个需求的两个月中，我发现了开发的时间太少，一方面也许本来开发时间所占的比例就应该小，一方面花费大量时间幻想。。<br>作为团队和开发新人，得到了循序渐进的业务的熟悉以及能力的补充。</li>
+<li>面对未来1-2年的职业规划<br>之前的我会考虑具备调研分析&#x2F;产品思考的能力，现在我更希望补齐开发所需的各项能力。。</li>
+<li>希望提升的1-3项核心能力项，计划如何提升<br>1 快速学习的能力。通过自我学习&#x2F;迁移经验&#x2F;请教他人，辨别问题的关键，快速补齐解决问题所需的能力，不企图全面地构建知识体系<br>2 管理时间的能力。目前，开发时间很短，。。很长，还挤占了休息时间，如何提高效率？<br>3 精确表达的能力。</li>
 <li>个人思考<br>why midea？什么是核心能力？什么是危机？。。</li>
-</ul>
+</ol>
 
       
     </div>
