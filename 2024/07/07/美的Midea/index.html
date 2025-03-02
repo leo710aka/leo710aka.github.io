@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-02-28T16:30:45.543Z">
+<meta property="article:modified_time" content="2025-03-02T16:46:56.306Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -244,6 +244,49 @@
 <li>apiserver-influxdb工作流完成实例创建，pv，sts，helm，install，node，instance<br>获取meta规格信息，构造临时value文件，生成用于安装InfluxDB集群的Helm命令并执行</li>
 </ol>
 <h4 id="2-18-InfluxDB服务化-：本地变配"><a href="#2-18-InfluxDB服务化-：本地变配" class="headerlink" title="2.18 InfluxDB服务化 ：本地变配"></a>2.18 <em>InfluxDB服务化</em> ：本地变配</h4><p>2.6-2.16：现有InfluxDB集群实例（只考虑data节点）的CPU、内存和存储资源已无法满足需求，需对资源配置进行扩展，以提升性能和稳定性。通过修改StatefulSet中cpu、memory配置并删除Pod触发StatefulSet控制器重建data节点Pod以应用新配置，通过修改data节点Pod对应的pvc中storage配置以触发pv的存储扩容（只能增加），实现资源变配（本地变配）<br>2.17：前端对齐开发，准备进入sit联调<br>2.18：插入需求“meta节点自定义创建”<br>2.28：理清当前状况+尽力走一遍流程-&gt;无法理解多节点类型实例如何发起变配，应该果断求助</p>
+<h4 id="3-3"><a href="#3-3" class="headerlink" title="3.3"></a>3.3</h4><p>阶段目标：入职半年..</p>
+<p>数据库方向是一个值得长期投入的领域，尤其适合对系统底层感兴趣的程序员。你的现有经验（运维+K8s）可成为切入云数据库或分布式数据库的跳板。建议以<strong>​“运维需求驱动内核学习”​</strong>为短期目标，逐步掌握分布式一致性、存储引擎等核心技术，同时通过开源贡献和项目实践构建技术影响力。&#x3D;&gt; <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724">https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724</a></p>
+<ul>
+<li>快速了解MySQL<br>1.MySQL45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>  特点中文、有音频、快速了解相关背景<br>2.高性能MySQL <a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a><br>3.MySQL技术内幕（InnoDB存储引擎）<a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">https://book.douban.com/subject/24708143/</a><br>4.官方MySQL Internals Manual： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/internals/en/guided-tour.html">https://dev.mysql.com/doc/internals/en/guided-tour.html</a><br>5.阿里云mysql内核月报：<a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a><br>6.Polardb-X知乎专栏：<a target="_blank" rel="noopener" href="https://www.zhihu.com/org/polardb-x">https://www.zhihu.com/org/polardb-x</a></li>
+<li>数据库架构<br>1.Architecture of a Database System 网上有中文翻译： <a target="_blank" rel="noopener" href="http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf">http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf</a><br>2.红宝书：<a target="_blank" rel="noopener" href="http://www.redbook.io/">http://www.redbook.io/</a><br>3.数据库系统实现：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/4838430/">https://book.douban.com/subject/4838430/</a><br>4.Database Internals 有中文书籍：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35078474/">https://book.douban.com/subject/35078474/</a></li>
+<li>通过以上书籍可以了解整体架构，数据库整体可以分为共识算法、存储引擎、事务处理（单机、分布式事务）、数据分析（执行引擎、分析引擎）<br>共识算法：<br>1)Paxos协议(basic paxos、multi paxos等） 蚂蚁金服Oceanbase实现了Paxos<br>paxos-simple.pdf  <a target="_blank" rel="noopener" href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a><br>paxos made live.pdf <a target="_blank" rel="noopener" href="https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf">https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf</a><br>2)Raft协议，本质上是Paxos的简化   开源版本ETCD使用的是raft共识算法、TiKV使用的复制算法最开始是改写的etcd的raft库<br>raft.pdf <a target="_blank" rel="noopener" href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf</a><br>存储引擎：<br>LSM Tree（LevelDB、RocksDB)<br>InnoDB引擎<br>单机事务（MySQL InnoDB事务可见性实现原理）<br>分布式事务<br>Percolator.pdf <a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf">https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf</a></li>
+<li>实战<br>1.从0到1数据库内核实战教程 <a target="_blank" rel="noopener" href="https://open.oceanbase.com/activities/4921877">https://open.oceanbase.com/activities/4921877</a><br>2.MariaDB原理与实现  <a target="_blank" rel="noopener" href="https://book.douban.com/subject/26340413/">https://book.douban.com/subject/26340413/</a><br>3.字节云数据库架构设计与实战 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942">https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942</a><br>4.MySQL 原理与实践 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752">https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752</a></li>
+<li>论文<br>Polardb计算存储分离论文<br>TiDB: a Raft-based HTAP database： TiDB 2020 VLDB上的文章，介绍TiDB的架构<br>Polardb-X分布式数据库论文<br>Spanner: Google’s Globally-Distributed Database: Google的tp数据库<a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf%E2%80%8Bwww.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf">https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf​www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf</a><br>F1: A Distributed SQL Database That Scales 大G的F1系列<a target="_blank" rel="noopener" href="http://www.vldb.org/pvldb/vol6/p1068-shute.pdf%E2%80%8Bwww.vldb.org/pvldb/vol6/p1068-shute.pdf">http://www.vldb.org/pvldb/vol6/p1068-shute.pdf​www.vldb.org/pvldb/vol6/p1068-shute.pdf</a><br>Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases; 亚马逊的Aurora</li>
+<li>快速了解kubernetes<ol>
+<li>深入剖析kubernetes(geek)：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></li>
+<li>kubernetes operator：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">https://kubernetes.io/docs/concepts/extend-kubernetes/operator/</a></li>
+<li>kubernetes 入门资料：kubernetes概述、kubernetes-operator机制、k8s scheduler framework</li>
+<li>容器网络插件：kube-ovn 、calico、Flannel、Weave、CNI</li>
+<li>社区开源经典容器管理项目：tidb-operator、flink-operator</li>
+<li>社区开源多k8s集群管理项目：kamada、clusternet</li>
+<li>kubernetes 集群管理平台：kubesphere</li>
+</ol>
+</li>
+<li>快速了解中间件、基础技术<ul>
+<li>Spring cloud技术<ol>
+<li>spring-cloud 中文文档：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-greenwich.html">https://www.springcloud.cc/spring-cloud-greenwich.html</a></li>
+<li>spring-cloud API网关（gateway）：<a target="_blank" rel="noopener" href="http://c.biancheng.net/springcloud/gateway.html">http://c.biancheng.net/springcloud/gateway.html</a></li>
+<li>spring-cloud 配置中心（Consul）：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-consul.html">https://www.springcloud.cc/spring-cloud-consul.html</a></li>
+<li>spring-cloud 统一配置、服务注册和发现（Nacos）：社区git、what is nacos</li>
+</ol>
+</li>
+<li>API网关<ol>
+<li>APISIX：社区git、快速指南、插件开发</li>
+<li>Kong：社区git、入门blog</li>
+<li>nginx-ingress：nginx官网 ingress手册</li>
+</ol>
+</li>
+<li>Spring <ol>
+<li>官方手册</li>
+<li>spring framework手册 <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api">https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api</a></li>
+</ol>
+</li>
+<li>Springboot <a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-boot.html">https://www.springcloud.cc/spring-boot.html</a></li>
+<li>Reids 推荐书籍：《Redis入门指南 （第2版）》、《Redis设计与实现》</li>
+<li>Nginx <a target="_blank" rel="noopener" href="https://www.cnblogs.com/54chensongxia/p/12938929.html">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></li>
+</ul>
+</li>
+</ul>
 
       
     </div>
