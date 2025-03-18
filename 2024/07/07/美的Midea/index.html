@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-03-18T13:18:35.289Z">
+<meta property="article:modified_time" content="2025-03-18T16:05:40.424Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -232,7 +232,7 @@
 <h4 id="2-13-服务调用架构"><a href="#2-13-服务调用架构" class="headerlink" title="2.13 服务调用架构"></a>2.13 服务调用架构</h4><ol>
 <li>apiserver：1 datamars管控接口 2 mcloud回调接口 3 properties获取apiserver服务自身暴露的域名端口+controller接口拼接url</li>
 <li>apiserver-{engine}：引擎专有服务，工作流(其实是workflowclient处理)中调用不同服务暴露的接口(common,,influxdb,,apiserver)</li>
-<li>bakserver&#x2F;metaservice：其他服务，由rpc&#x2F;grpc暴露服务</li>
+<li>bakserver&#x2F;metaservice&#x2F;xx-agent：其他服务，由rpc&#x2F;grpc暴露服务</li>
 <li>调用架构：api、v1、v2<img src="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg" width="450" height="300" alt=""></li>
 <li>服务架构：通过Kubernetes集群和Helm Chart等实现了对InfluxDB集群的高效管理。用户可以通过DataMars控制台方便地进行实例的备份恢复和配置变更，同时支持扩容重搭以应对业务需求的变化。工作流引擎负责处理用户请求并调用相应的Helm Chart模板、通用或专有的apiserver&#x2F;k8srepository接口等，确保操作的自动化和一致性。<img src="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg" width="450" height="300" alt=""></li>
 </ol>
@@ -243,7 +243,8 @@
 <li>meta规格，配置到instance_spec，engine &#x3D; “InfluxDBMeta”<br>| 场景 | 规格代码 | CPU 核数 | 内存 (GB) | 存储 (GB) | 网络带宽 |<br>|————–|———————–|———-|———–|———–|————|<br>| 小型集群 | influx-meta-small | 2 | 4 | 50 | 中等 |<br>| 中型集群 | influx-meta-medium | 4 | 8 | 50 | 高 |<br>| 大型集群 | influx-meta-large | 8+ | 16 | 50 | 超高 |<br>| 特大型集群 | influx-meta-xlarge | 16+ | 32 | 50 | 超高 |</li>
 <li>apiserver实例创建逻辑<br>meta信息通过request.getExtraJson()传入，ClusterInstanceService#initClusterInstanceExtend保存在cluster_instance_extend；initClusterInstanceParams能适配保存meta节点的param吗（iops，连接数，influxdb不考虑？）<br>不考虑在cluster_instance要新增字段体现meta规格信息</li>
 <li>apiserver-influxdb工作流完成实例创建，pv，sts，helm，install，node，instance<br>获取meta规格信息，构造临时value文件，生成用于安装InfluxDB集群的Helm命令并执行</li>
-<li><strong>more未考虑完全？</strong> param创建，变更？extend父子实例数量不一致？实例创建流程，sts，副本，顺序？？</li>
+<li>以上只是在k8s环境中实现了自定义meta规格创建，事实上应该参考tidb，将influxdb集群改造为父子实例模式，逻辑上把data&#x2F;meta节点区分开，进行变配&#x2F;更新meta信息..</li>
+<li><strong>more未考虑完全？</strong><br>？？param创建，变更？extend父子实例数量不一致？实例创建流程，sts，副本，顺序？？</li>
 </ol>
 <h4 id="3-3-阶段目标-：入职半年"><a href="#3-3-阶段目标-：入职半年" class="headerlink" title="3.3 阶段目标 ：入职半年.."></a>3.3 阶段目标 ：<em>入职半年..</em></h4><p>deepseek：数据库方向是一个值得长期投入的领域，尤其适合对系统底层感兴趣的程序员。你的现有经验（运维+K8s）可成为切入云数据库或分布式数据库的跳板。建议以<strong>​“运维需求驱动内核学习”​</strong>为短期目标，逐步掌握分布式一致性、存储引擎等核心技术，同时通过开源贡献和项目实践构建技术影响力。&#x3D;&gt; <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724">https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724</a><br>rong teng：在midea得到的成长是显著的；（身兼开发运维多职，具体求职情况如何？）数据库方向有些窄；（作为senior求职需要专精时显得窄？作为基础能力学习可行？）应届生可以提转方向，转团队；以招聘市场心仪岗位的需求作为努力发展的方向！？</p>
 <ul>
