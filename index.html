@@ -996,6 +996,51 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 </ul>
 <h4 id="3-13-AI编程助手：codetip"><a href="#3-13-AI编程助手：codetip" class="headerlink" title="3.13 AI编程助手：codetip"></a>3.13 AI编程助手：codetip</h4><p>代码可以看作是一种特殊的prompt，用于引导AI生成高质量的代码提示；开发者有目的地编写代码，实是为AI提供清晰的意图上下文。<br>代码补全 需要让AI理解意图；技巧 提供具体示例，遵循规范和语义化，规范注释；“内联对话”<br>代码对话 本地工程理解@workspace，RAG增强<br>最佳实践 </p>
 <h4 id="3-17-InfluxDB服务化-：实例-节点重启"><a href="#3-17-InfluxDB服务化-：实例-节点重启" class="headerlink" title="3.17 InfluxDB服务化 ：实例&#x2F;节点重启"></a>3.17 <em>InfluxDB服务化</em> ：实例&#x2F;节点重启</h4><p>3.17：简单需求，父子workflow + k8s资源控制器<br>3.18：接口配置：接口信息查看mariadb已有的相同接口，其他信息参考influxdb自身的其他接口；前端联调完成<br>3.19：提测，发版：发版分支一周内进行 1 代码扫描-安全扫描 2 安全-软件成分-Web漏洞-灰盒，解决漏洞；代码仓库设置发版分支，史诗中关联所涉及仓库，检索其发版分支的扫描报告，手动关联web漏洞测试报告，质量门禁达标以通过安全卡点</p>
+<h4 id="3-24-从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践"><a href="#3-24-从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践" class="headerlink" title="3.24 从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践"></a>3.24 从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践</h4><ul>
+<li>背景与需求分析<br>在云原生环境中，InfluxDB集群常以StatefulSet形式部署于Kubernetes。运维人员需要频繁执行以下操作：<br>动态选择特定Data Pod；解密存储在Secret；通过交互式命令登录数据库。<br>手工操作存在效率低下、易出错等问题。本工具通过Bash脚本整合Kubernetes CLI、Java加解密等能力，实现全流程自动化。</li>
+<li>技术方案设计亮点<ol>
+<li>混合编程模式（Bash+Java）<br><strong>核心难点</strong>：GCM解密在纯Bash环境难以实现（openssl版本低(不会升级…) 没有aes-256-gcm工具）<br><strong>创新方案</strong>：编写Java脚本，动态生成Java解密类（图1），通过Java标准加密库实现AES-GCM解密<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成随机类名避免冲突</span></span><br><span class="line">CLASS_NAME=<span class="string">&quot;InfluxDecryptor_<span class="subst">$(mktemp -u XXXXXXXXXX | tr -dc &#x27;a-zA-Z0-9&#x27;)</span>&quot;</span></span><br><span class="line"><span class="comment"># 编译并执行Java代码</span></span><br><span class="line"><span class="keyword">if</span> javac <span class="string">&quot;<span class="variable">$TEMP_JAVA</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">    auth_output=$(java -<span class="built_in">cp</span> /tmp <span class="variable">$&#123;CLASS_NAME&#125;</span>) </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$auth_output</span>&quot;</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Java编译失败&quot;</span></span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+凭证安全处理机制：<br>• 使用临时文件存储解密代码（<code>TEMP_JAVA=&quot;/tmp/$&#123;CLASS_NAME&#125;.java&quot;</code>）<br>• 执行后立即清理编译产物（<code>rm -f &quot;$TEMP_JAVA&quot;</code>）<br>• 避免敏感信息持久化</li>
+<li>跨语言参数传递<br>动态生成的Java脚本中，选择标准输出+格式控制方案：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;USERNAME:&quot;</span> + username.trim()); </span><br><span class="line">System.out.println(<span class="string">&quot;PASSWORD:&quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(decrypted).trim());</span><br></pre></td></tr></table></figure>
+多行输出解析难题<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 错误示例：初始方案采用`IFS`分割导致变量截断</span></span><br><span class="line">IFS=: <span class="built_in">read</span> username password &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> </span><br></pre></td></tr></table></figure>
+<strong>优化方案</strong>：bash脚本中，使用sed精确提取java脚本输出，通过正则表达式过滤前后空格，避免不可见字符影响<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">credentials=$(get_auth <span class="variable">$1</span>) <span class="comment"># get_auth()动态生成java解密脚本并多行输出</span></span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;解密失败，无法登录&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 提取用户名和密码（处理多行输出）</span></span><br><span class="line">username=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> | sed -n <span class="string">&#x27;s/^USERNAME://p&#x27;</span> | sed <span class="string">&#x27;s/^[[:space:]]*//;s/[[:space:]]*$//&#x27;</span>)</span><br><span class="line">password=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> | sed -n <span class="string">&#x27;s/^PASSWORD://p&#x27;</span> | sed <span class="string">&#x27;s/^[[:space:]]*//;s/[[:space:]]*$//&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>交互式Pod选择器<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">select_data_pod</span></span>() &#123;</span><br><span class="line">    <span class="comment"># 过滤带data标签的Pod</span></span><br><span class="line">    PODS=$(kubectl get pod -n <span class="variable">$NAMESPACE</span> | grep <span class="string">&quot;data&quot;</span> | awk <span class="string">&#x27;&#123;print $1, $6&#125;&#x27;</span>)</span><br><span class="line">    <span class="comment"># 构建交互式菜单</span></span><br><span class="line">    <span class="keyword">select</span> pod_option <span class="keyword">in</span> <span class="variable">$PODS</span>; <span class="keyword">do</span></span><br><span class="line">        SELECTED_POD=$(<span class="built_in">echo</span> <span class="variable">$pod_option</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>传递方案对比：<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件存储</td>
+<td>实现简单</td>
+<td>存在安全风险</td>
+</tr>
+<tr>
+<td>环境变量</td>
+<td>进程内可见</td>
+<td>长度受限</td>
+</tr>
+<tr>
+<td><strong>标准输出</strong></td>
+<td>无持久化风险</td>
+<td>需严格格式控制</td>
+</tr>
+<tr>
+<td>网络传输</td>
+<td>适合分布式</td>
+<td>增加复杂度</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>本项目完整代码已开源，读者可通过<a target="_blank" rel="noopener" href="https://github.com/example/influxdb-helper">GitHub仓库</a>获取最新版本。在Kubernetes运维领域，通过灵活组合各类工具实现自动化，是提升效率的关键路径。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
