@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-6685cdf3df810ad3e5ae44d4e1a9df22_720w.webp">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-abb99833337f84b3850e0f6484f013ef_720w.webp">
 <meta property="article:published_time" content="2024-09-22T05:34:33.000Z">
-<meta property="article:modified_time" content="2025-03-02T16:37:43.709Z">
+<meta property="article:modified_time" content="2025-04-02T16:39:45.450Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-6685cdf3df810ad3e5ae44d4e1a9df22_720w.webp">
@@ -150,7 +150,7 @@
 InfluxDB的HTTP接口默认起在8086上，所以influx默认也是连的本地的8086端口。-precision参数表明了任何返回的时间戳的格式和精度，如 rfc3339是让InfluxDB返回RFC339格式(YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ)的时间戳。</li>
 <li>数据格式：将数据点写入InfluxDB，只需要遵守如下的行协议：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]</span><br></pre></td></tr></table></figure>
 InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。时序数据有零个或多个数据点，每一个都是一个指标值。数据点包括time(一个时间戳)，measurement(例如cpu_load)，至少一个k-v格式的field(也即指标的数值例如 “value&#x3D;0.64”或者“temperature&#x3D;21.2”)，零个或多个tag，其一般是对于这个指标值的元数据(例如“host&#x3D;server01”, “region&#x3D;EMEA”)。<br>可以将measurement类比于SQL里的table，其主键索引总是时间戳。tag和field是在table里的其他列，tag是被索引起来的，field没有。不同之处在于InfluxDB里，你可以有几百万的measurements，不用事先定义数据的scheme，且null值不会被存储。</li>
-<li>使用CLI插入单条的时间序列数据到InfluxDB中，用INSERT后跟数据点：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; use testdb</span><br><span class="line">Using database testdb</span><br><span class="line">&gt; INSERT cpu,host=serverA,region=us_west value=0.64</span><br></pre></td></tr></table></figure>
+<li><strong>使用CLI插入单条的时间序列数据到InfluxDB中，用INSERT后跟数据点：</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; use testdb</span><br><span class="line">Using database testdb</span><br><span class="line">&gt; INSERT cpu,host=serverA,region=us_west value=0.64</span><br></pre></td></tr></table></figure>
 这样一个measurement为cpu，tag是host和region，value值为0.64的数据点被写入了InfluxDB中。</li>
 <li>现在我们查出写入的这笔数据：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; SELECT <span class="string">&quot;host&quot;</span>, <span class="string">&quot;region&quot;</span>, <span class="string">&quot;value&quot;</span> FROM <span class="string">&quot;cpu&quot;</span></span><br><span class="line">name: cpu</span><br><span class="line">---------</span><br><span class="line">time                                     host         region   value</span><br><span class="line">2015-10-21T19:28:07.580664347Z  serverA      us_west     0.64</span><br><span class="line"></span><br><span class="line">&gt; delete FROM <span class="string">&quot;cpu&quot;</span> WHERE <span class="string">&quot;host&quot;</span> = <span class="string">&#x27;serverA&#x27;</span> <span class="comment"># 不带where将删除measurement所有数据</span></span><br></pre></td></tr></table></figure>
 我们在写入的时候没有包含时间戳，当没有带时间戳的时候，InfluxDB会自动添加本地的当前时间作为它的时间戳。</li>
@@ -164,23 +164,30 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>客户端库，InfluxDB 提供了多种编程语言的客户端库，如Python、Go、Java等，可以方便地在应用程序中读写数据。</li>
 <li>采样和数据保留 <a target="_blank" rel="noopener" href="https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/downsampling_and_retention.html">https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/downsampling_and_retention.html</a></li>
 </ol>
-<h2 id="集群读写"><a href="#集群读写" class="headerlink" title="集群读写"></a>集群读写</h2><ol>
-<li>分片Shard：InfluxDB集群读写的基本单位分片是时间序列数据的物理存储单位，每个分片包含一段时间范围内的数据。分片的划分依据是时间范围和数据的存储策略（Retention Policy）。在集群环境中，分片可以分布在不同的节点上，以实现数据的分布式存储和负载均衡。这样可以提高数据的读写性能和系统的可扩展性。复制因子为X，则在每个分片的数据同步到X个节点（部署influxdb的主机）上<br>确定数据属于哪个分片的过程主要涉及以下几个步骤：数据写入时，首先根据时间戳确定属于哪个Shard Group（分片组）。然后，基于Measurement和Tag的值计算哈希值。最后，根据哈希值将数据分配到具体的分片。<blockquote>
+<h2 id="集群读写"><a href="#集群读写" class="headerlink" title="集群读写"></a>集群读写</h2><ul>
+<li>分片Shard：<strong>InfluxDB集群读写的基本单位分片是时间序列数据的物理存储单位</strong>，每个分片包含一段时间范围内的数据。<br>复制因子为X，则在每个分片的数据同步到X个节点（部署influxdb的主机）上。<br>分片的划分依据是时间范围和数据的存储策略（Retention Policy）。在集群环境中，分片可以分布在不同的节点上，以实现数据的分布式存储和负载均衡。这样可以提高数据的读写性能和系统的可扩展性。<br>确定数据属于哪个分片的过程主要涉及以下几个步骤：数据写入时，首先根据时间戳确定属于哪个Shard Group（分片组）。然后，基于Measurement和Tag的值计算哈希值。最后，根据哈希值将数据分配到具体的分片。<blockquote>
 <p>shard :&#x3D; shardGroup.shards[fnv.New64a(key) % len(shardGroup.Shards)]</p>
 </blockquote>
 </li>
-<li>分片组Shard groups：集群在一个分片组内创建分片，以最大限度地利用数据节点的数量。如果集群中有N个数据节点，复制因子为X，则在每个分片组中创建N&#x2F;X个分片，丢弃任何分数（？余数）<br>这意味着每天都会为写入的数据创建一个新的shard组。？在每个shard组中创建2个shard。由于复制因子为2，这两个分片中的每一个都在2个服务器上复制。例如，我们有一个2016年09月19日的shard组，它有两个shard 1和2。将Shard 1复制到服务器A和B，将Shard 2复制到服务器C和D。写入值时，集群必须首先确定shard组中的哪个shard应该接收写入，通过对测量+排序标记集（元序列）进行散列并将桶存储到正确的分片中来完成。</li>
+<li>分片组Shard groups：集群在一个分片组内创建分片，以最大限度地利用数据节点的数量。<br>分片数计算：当集群有 N 个数据节点且副本因子为 X 时，每个分片组中会创建 floor(N&#x2F;X) 个分片（向下取整）<br>示例：若集群有 4 个数据节点，副本因子为 2，则每个分片组包含 4&#x2F;2&#x3D;2 个分片（每个分片在 2 个节点上复制）<!-- 这意味着每天都会为写入的数据创建一个新的shard组。？在每个shard组中创建2个shard。由于复制因子为2，这两个分片中的每一个都在2个服务器上复制。例如，我们有一个2016年09月19日的shard组，它有两个shard 1和2。将Shard 1复制到服务器A和B，将Shard 2复制到服务器C和D。写入值时，集群必须首先确定shard组中的哪个shard应该接收写入，通过对测量+排序标记集（元序列）进行散列并将桶存储到正确的分片中来完成。 --></li>
 <li>集群写入：<br>假设一个HTTP写操作被发送到服务器D，数据属于分片1。写操作需要被复制到分片1的所有者：数据节点A和B。当写操作进入D时，该节点从其亚转移的本地缓存中确定需要将写操作复制到A和B，并立即尝试对两者进行写操作。<br>每个对HTTP API的请求都可以通过一致性查询参数指定一致性级别。 <a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency">https://docs.influxdata.com/enterprise_influxdb/v1/concepts/clustering/#write-consistency</a></li>
 <li>集群查询：<br>根据查询的时间段和数据的复制因子进行分布的。例如，如果保留策略的复制因子为4，则接收查询的协调数据节点将随机选择存储该分片副本的4个数据节点中的任何一个来接收查询。如果我们假设系统的分片持续时间为一天，那么对于查询覆盖的每一天，协调节点都会选择一个数据节点来接收当天的查询。<br>协调节点尽可能在本地执行和完成查询。如果一个查询必须扫描多个shard组（在上面的例子中是多个天），协调节点将查询转发给其他节点，以查找本地没有的shard。查询与扫描自己的本地数据并行转发。查询被分发到尽可能多的节点，以查询每个分片组一次。当结果从每个数据节点返回时，协调数据节点将它们组合成返回给用户的最终结果。</li>
+<li><strong>Shard Group 与 Shard 的实战示例：</strong><ol>
+<li>场景描述，假设有以下配置：<br>Retention Policy:  Duration: 30d  | Replication Factor: 2  | Shard Group Duration: 1d，<br>集群数据节点: 4 个（A&#x2F;B&#x2F;C&#x2F;D）</li>
+<li><strong>分片组创建</strong><br>时间划分：每天 00:00 自动创建新的分片组（如 2025-04-02 ~ 2025-04-03）<br>分片数：<code>4/2=2</code> 个分片（Shard 1 &amp; 2）</li>
+<li><strong>分片分布</strong><br>分片 1    | 副本节点 A, B          | 存储内容  所有哈希值模2&#x3D;0的 Series Key 数据<br>分片 2    | 副本节点 C, D          | 存储内容  所有哈希值模2&#x3D;1的 Series Key 数据   </li>
+<li>数据写入示例<br>当写入 <code>cpu,host=svr1 usage=80</code>：Series Key &#x3D; <code>cpu,host=svr1</code>，哈希值模2&#x3D;1 ⇒ 分片2，数据同时写入节点 C 和 D</li>
+<li>数据查询流程<br>查询 <code>SELECT * FROM cpu WHERE time &gt; &#39;2025-04-02&#39;</code>：定位到 2025-04-02 分片组，  协调节点同时向 A&#x2F;B（分片1）和 C&#x2F;D（分片2）发起查询， 合并结果后返回</li>
 </ol>
-<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker安装操作单例InfluxDB <a target="_blank" rel="noopener" href="https://www.cnblogs.com/nhdlb/p/16409849.html">https://www.cnblogs.com/nhdlb/p/16409849.html</a><br>Docker快速开始集群InfluxDB <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
-<p>InfluxDB部署需要的配置</p>
-<ul>
-<li>CPU：是指InfluxDB所部署的主机的CPU资源。具体需求取决于你的数据写入和查询负载。一般来说，至少需要2个vCPU，但对于高负载场景，可能需要更多的CPU资源。</li>
-<li>内存：InfluxDB对内存的需求也取决于数据量和查询复杂度。最低配置通常为2GB内存，但对于生产环境，建议至少8GB或更多。</li>
-<li>节点：在Kubernetes中，节点是运行容器的主机。多节点部署可以提高系统的高可用性和扩展性。</li>
-<li>IOPS：InfluxDB对磁盘I&#x2F;O性能有一定要求，特别是在高写入速率的场景下。建议使用SSD来提高I&#x2F;O性能。</li>
+</li>
+<li>Kubernetes 存储与 InfluxDB Shard 的关系解析<ol>
+<li><strong>PV&#x2F;PVC</strong>：是 Kubernetes 管理存储资源的抽象层。PV 描述物理存储资源（如 NFS、云盘等），PVC 是 Pod 对存储资源的请求声明。PVC 绑定到 PV 后，Pod 通过挂载 PVC 使用持久化存储。</li>
+<li><strong>Shard</strong>：是 InfluxDB 存储引擎的物理存储单元，表现为磁盘上的 TSM 文件（Time-Structured Merge Tree），每个 Shard 对应一个时间范围内的时序数据块。Shard 的存储路径通常位于 PVC 挂载的 <code>/var/lib/influxdb/data</code> 目录下。<br>每个 Shard 包含：时间序列索引（.tsi 文件），压缩后的时序数据块（.tsm 文件），WAL（Write-Ahead Log）日志文件（.wal） 其路径结构为：<code>/var/lib/influxdb/data/&lt;database&gt;/&lt;retention_policy&gt;/&lt;shard_id&gt;</code>。</li>
+<li>重建 PVC 导致数据丢失的本质问题<br>• <strong>PVC 删除与 PV 回收策略</strong>：若 PVC 的回收策略为 <code>Delete</code>（默认），删除 PVC 会导致 Kubernetes 清理其绑定的 PV 及底层存储数据（如 NFS 目录、云盘等）。此时 <code>/var/lib/influxdb</code> 下的 <code>data</code>、<code>meta</code> 目录被清空，导致 Shard 文件丢失。<br>• Shard 文件丢失会导致对应时间范围的时序数据不可查询，触发 <code>ERR: shard not found</code> 错误。<br>• Meta 文件丢失会破坏集群元数据一致性，导致用户权限、分片策略等配置失效。</li>
+</ol>
+</li>
 </ul>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker安装操作单例InfluxDB <a target="_blank" rel="noopener" href="https://www.cnblogs.com/nhdlb/p/16409849.html">https://www.cnblogs.com/nhdlb/p/16409849.html</a><br>Docker快速开始集群InfluxDB <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
 <p>在使用容器多节点部署InfluxDB时，数据库、容器、Docker、主机和Kubernetes（k8s）之间的关系可以理解如下：</p>
 <ul>
 <li>数据库（InfluxDB）：InfluxDB是一个时序数据库，用于存储和查询时间序列数据。在多节点部署中，InfluxDB可以运行在多个容器中，以实现高可用性和负载均衡。</li>
@@ -203,12 +210,17 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>恢复单个数据库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
 <li>有时你可能希望将备份的数据恢复到另一个数据库，可以使用 <code>-newdb</code> 选项来实现：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">influxd restore -portable -db &lt;old_database_name&gt; -newdb &lt;new_database_name&gt; /path/to/backup</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="导出和导入数据"><a href="#导出和导入数据" class="headerlink" title="导出和导入数据"></a>导出和导入数据</h3><p>对于大多数InfluxDB Enterprise应用程序，备份和恢复实用程序提供了备份和恢复策略所需的工具。但是，在某些情况下，标准备份和恢复实用程序可能无法充分处理应用程序中的大量数据。作为标准备份和恢复实用程序的替代方案，可以使用InfluxDB influx_inspect export和涌入-import命令为灾难恢复和备份策略创建备份和恢复过程。</p>
+<h2 id="导出和导入数据"><a href="#导出和导入数据" class="headerlink" title="导出和导入数据"></a>导出和导入数据</h2><p>对于大多数InfluxDB Enterprise应用程序，备份和恢复实用程序提供了备份和恢复策略所需的工具。但是，在某些情况下，标准备份和恢复实用程序可能无法充分处理应用程序中的大量数据。作为标准备份和恢复实用程序的替代方案，可以使用InfluxDB influx_inspect export和涌入-import命令为灾难恢复和备份策略创建备份和恢复过程。</p>
 <ol>
 <li>数据库导出：容器层面命令，指定 数据文件和 写前日志(WAL)文件的存储目录，将指定数据库中指定时间的数据导出到指定文件。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e2cb6c913a191e56c134e-data-0:/<span class="comment"># influx_inspect export -datadir &quot;/var/lib/influxdb/data&quot; -waldir &quot;/var/lib/influxdb/wal&quot; -out &quot;influxdb_test01_dump_out&quot; -database &quot;test01&quot; -start &quot;2024-10-22T00:00:00Z&quot;</span></span><br><span class="line">writing out tsm file data <span class="keyword">for</span> test01/autogen...complete.</span><br><span class="line">writing out wal file data <span class="keyword">for</span> test01/autogen...complete.</span><br><span class="line">root@influxdb-e2cb6c913a191e56c134e-data-0:/<span class="comment"># cat influxdb_test01_dump_out</span></span><br><span class="line"><span class="comment"># INFLUXDB EXPORT: 2024-10-22T00:00:00Z - 2262-04-11T23:47:16Z</span></span><br><span class="line"><span class="comment"># DDL</span></span><br><span class="line">CREATE DATABASE test01 WITH NAME autogen</span><br><span class="line"><span class="comment"># DML</span></span><br><span class="line"><span class="comment"># CONTEXT-DATABASE:test01</span></span><br><span class="line"><span class="comment"># CONTEXT-RETENTION-POLICY:autogen</span></span><br><span class="line"><span class="comment"># writing tsm data</span></span><br><span class="line">temp,location=room1 value=24.5 1729589246099070937</span><br><span class="line">temp,location=room2 value=22.5 1729589253425715740</span><br><span class="line">temp,location=room3 value=22 1729649010554978701</span><br><span class="line"><span class="comment"># writing wal data</span></span><br></pre></td></tr></table></figure></li>
 <li>数据库导入：容器层面执行命令，使用admin账号，指定文件、数据库、时间戳精度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e73f149ff7192bd87d190-data-1:/<span class="comment"># influx -import -path=&#x27;influxdb_test01_dump_out&#x27; -precision=ns -username=&#x27;&#x27; -password=&#x27;&#x27;</span></span><br><span class="line">2024/10/25 03:21:47 Processed 1 commands</span><br><span class="line">2024/10/25 03:21:47 Processed 2 inserts</span><br><span class="line">2024/10/25 03:21:47 Failed 0 inserts</span><br></pre></td></tr></table></figure></li>
 <li>实例导出：把influxdb集群实例中所有数据库的数据导出，不加 <code>-database</code>，加 <code>-compress</code></li>
 <li>实例导入：加<code>-compressed</code> 导入压缩文件，本质上是先解压后倒入</li>
+</ol>
+<h2 id="InfluxDB节点迁移"><a href="#InfluxDB节点迁移" class="headerlink" title="InfluxDB节点迁移"></a>InfluxDB节点迁移</h2><ol>
+<li>修改sts中的亲合度规则，指定调度的node</li>
+<li>删除pod和pvc，重建pod并关联重建的pvc，pod加入原集群</li>
+<li></li>
 </ol>
 
       
