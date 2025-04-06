@@ -415,8 +415,8 @@
 <li>Data 节点通过绑定到端口 8088 的 TCP 协议相互通信。Data 节点通过绑定到 8091 的 HTTP API 与 Meta 节点通信。这些端口必须在 Meta 节点和 Data 节点之间是可访问的。</li>
 <li>在集群内，所有 Meta 节点都必须与所有其它 Meta 节点通信。所有 Data 节点必须与所有其它 Data 节点和所有 Meta 节点通信。</li>
 </ul>
-<h3 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h3><p>InfluxDB 集群中，一个节点要么是专门用于存储和查询时间序列数据的数据节点，要么是专门用于存储集群元数据的元节点。数据节点负责存储实际的数据和处理查询请求，而元节点则负责管理集群的元数据，包括节点信息、数据库和保留策略等。</p>
-<p>元节点保存以下所有元数据：</p>
+<h2 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h2><p>InfluxDB 集群中，一个节点要么是专门用于存储和查询时间序列数据的数据节点，要么是专门用于存储集群元数据的元节点。数据节点负责存储实际的数据和处理查询请求，而元节点则负责管理集群的元数据，包括节点信息、数据库和保留策略等。</p>
+<h4 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h4><p>元节点保存以下所有元数据：</p>
 <ul>
 <li>集群中的所有节点及其角色</li>
 <li>集群中存在的所有数据库和保留策略</li>
@@ -425,13 +425,56 @@
 <li>所有连续查询</li>
 </ul>
 <p>元节点将这些数据保存在磁盘上的Raft数据库中，由BoltDB提供支持。默认情况下，Raft数据库是&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;meta&#x2F;raft.db。<br>注意：Meta节点需要&#x2F; Meta目录。</p>
-<p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
+<ol>
+<li><strong><code>influxd-meta</code> 元数据服务</strong><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件示例（meta节点）</span></span><br><span class="line">[<span class="string">meta</span>]</span><br><span class="line">  <span class="string">dir</span> <span class="string">=</span> <span class="string">&quot;/var/lib/influxdb/meta&quot;</span>  <span class="comment"># 元数据存储路径 </span></span><br><span class="line">  <span class="string">bind-address</span> <span class="string">=</span> <span class="string">&quot;:8089&quot;</span>          <span class="comment"># Raft协议通信端口</span></span><br><span class="line">  <span class="string">http-bind-address</span> <span class="string">=</span> <span class="string">&quot;:8091&quot;</span>     <span class="comment"># 管理API端口 </span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>influxd-ctl</code> 集群管理</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看分片分布</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl show-shards </span><br><span class="line"><span class="comment"># 强制同步分片到新节点</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl copy-shard 3 influxdb-data-0:8088 </span><br><span class="line"><span class="comment"># 节点维护操作</span></span><br><span class="line">influxd-ctl remove-data influxdb-data-0:8088  <span class="comment"># 下线节点 </span></span><br><span class="line"><span class="comment"># 检查Meta节点Raft状态</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl raft-state </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
 <ul>
 <li>measurements</li>
 <li>tag keys and values</li>
 <li>field keys and values</li>
 </ul>
 <p>在磁盘上，数据总是按照<database>&#x2F;<retention_policy>&#x2F;<shard_id>组织。默认父目录为&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data。注意：数据节点需要&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;的所有四个子目录，包括&#x2F;meta(specifically, the clients.json file)、&#x2F;data、&#x2F;wal和&#x2F;hh。</p>
+<ol>
+<li><strong><code>influx</code> CLI工具</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器执行CLI</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it influxdb-data-0 -n influxdb -- influx -username admin -password <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">SHOW DATABASES;        <span class="comment"># 显示所有数据库 </span></span><br><span class="line">SELECT * FROM cpu;     <span class="comment"># 查询数据</span></span><br><span class="line">CREATE RETENTION POLICY <span class="string">&quot;1d&quot;</span> ON db3 DURATION 1d REPLICATION 2;  <span class="comment"># 创建保留策略 </span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>influxd</code> 数据节点服务</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看运行状态</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-data-0 -- ps aux | grep influxd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键参数</span></span><br><span class="line">-data-dir /var/lib/influxdb/data   <span class="comment"># 数据存储目录 </span></span><br><span class="line">-wal-dir /var/lib/influxdb/wal     <span class="comment"># WAL日志目录</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>influx_inspect</code> 数据工具</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出TSM文件（需进入容器）</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it influxdb-data-0 -- influx_inspect <span class="built_in">export</span> \</span><br><span class="line">  -datadir /var/lib/influxdb/data \</span><br><span class="line">  -waldir /var/lib/influxdb/wal \</span><br><span class="line">  -out backup.gz -compress </span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证数据完整性</span></span><br><span class="line">influx_inspect verify -<span class="built_in">dir</span> /var/lib/influxdb/data/db3 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Data-与-Meta节点交互机制"><a href="#Data-与-Meta节点交互机制" class="headerlink" title="Data 与 Meta节点交互机制"></a>Data 与 Meta节点交互机制</h4><ol>
+<li><p>通信协议</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>端口</th>
+<th>用途</th>
+<th>协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Meta节点间</td>
+<td>8089</td>
+<td>Raft协议同步元数据</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Data节点间</td>
+<td>8088</td>
+<td>分片数据复制</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Data→Meta节点</td>
+<td>8091</td>
+<td>注册节点&#x2F;获取分片元信息</td>
+<td>HTTP</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>核心交互场景<br><strong>节点注册</strong>  ：   Data节点启动时通过HTTP API向Meta节点注册（<code>POST /data</code>）<br><strong>分片分配</strong>  ：   Meta节点根据<code>replication-factor</code>策略分配分片到Data节点<br><strong>写入协调</strong>  ：   客户端写入数据时，由Meta节点确定目标分片所在Data节点<br><strong>故障转移</strong>  ：   Meta节点检测Data节点离线后，自动通过Hinted Handoff机制转移副本</p>
+</li>
+</ol>
 <p>一个集群至少要有三个独立的元节点才能允许一个节点的丢失，如果要容忍n个节点的丢失则需要2n+1个元节点。集群的元节点的数目应该为奇数。不要是偶数元节点，因为这样在特定的配置下会导致故障。<br>一个集群运行只有一个数据节点，但这样数据就没有冗余了。这里的冗余通过写数据的RP中的副本个数来设置。一个集群在丢失n-1个数据节点后仍然能返回完整的数据，其中n是副本个数。为了在集群内实现最佳数据分配，我们建议数据节点的个数为偶数。</p>
 <h3 id="术语-Glossary"><a href="#术语-Glossary" class="headerlink" title="术语 &#x2F; Glossary"></a>术语 &#x2F; Glossary</h3><ul>
 <li>measurement：描述了存在关联field中的数据的意义，measurement是字符串。作为tag，fields和time列的容器。相当于MySQL的table，关系&#x2F;表的意思。单个measurement可以有不同的retention policy（即 一个measurement 中的不同 tag set 可以有不同的 retention policy，构成多组 series）</li>
@@ -520,12 +563,11 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>实例导出：把influxdb集群实例中所有数据库的数据导出，不加 <code>-database</code>，加 <code>-compress</code></li>
 <li>实例导入：加<code>-compressed</code> 导入压缩文件，本质上是先解压后倒入</li>
 </ol>
-<h2 id="InfluxDB节点迁移"><a href="#InfluxDB节点迁移" class="headerlink" title="InfluxDB节点迁移"></a>InfluxDB节点迁移</h2><ol>
-<li>修改sts中的亲合度规则，指定调度的node</li>
-<li>删除pod和pvc，重建pod并关联重建的pvc，pod加入原集群</li>
-<li></li>
-</ol>
+<!-- ## InfluxDB节点迁移
 
+1. 修改sts中的亲合度规则，指定调度的node
+2. 删除pod和pvc，重建pod并关联重建的pvc，pod加入原集群
+3.  -->
       
     </div>
     <footer class="article-footer">
