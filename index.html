@@ -416,7 +416,7 @@
 <li>在集群内，所有 Meta 节点都必须与所有其它 Meta 节点通信。所有 Data 节点必须与所有其它 Data 节点和所有 Meta 节点通信。</li>
 </ul>
 <h2 id="Where-data-lives"><a href="#Where-data-lives" class="headerlink" title="Where data lives"></a>Where data lives</h2><p>InfluxDB 集群中，一个节点要么是专门用于存储和查询时间序列数据的数据节点，要么是专门用于存储集群元数据的元节点。数据节点负责存储实际的数据和处理查询请求，而元节点则负责管理集群的元数据，包括节点信息、数据库和保留策略等。</p>
-<h4 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h4><p>元节点保存以下所有元数据：</p>
+<h3 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h3><p>元节点保存以下所有元数据：</p>
 <ul>
 <li>集群中的所有节点及其角色</li>
 <li>集群中存在的所有数据库和保留策略</li>
@@ -425,22 +425,22 @@
 <li>所有连续查询</li>
 </ul>
 <p>元节点将这些数据保存在磁盘上的Raft数据库中，由BoltDB提供支持。默认情况下，Raft数据库是&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;meta&#x2F;raft.db。<br>注意：Meta节点需要&#x2F; Meta目录。</p>
-<ol>
+<ul>
 <li><strong><code>influxd-meta</code> 元数据服务</strong><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件示例（meta节点）</span></span><br><span class="line">[<span class="string">meta</span>]</span><br><span class="line">  <span class="string">dir</span> <span class="string">=</span> <span class="string">&quot;/var/lib/influxdb/meta&quot;</span>  <span class="comment"># 元数据存储路径 </span></span><br><span class="line">  <span class="string">bind-address</span> <span class="string">=</span> <span class="string">&quot;:8089&quot;</span>          <span class="comment"># Raft协议通信端口</span></span><br><span class="line">  <span class="string">http-bind-address</span> <span class="string">=</span> <span class="string">&quot;:8091&quot;</span>     <span class="comment"># 管理API端口 </span></span><br></pre></td></tr></table></figure></li>
 <li><strong><code>influxd-ctl</code> 集群管理</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看分片分布</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl show-shards </span><br><span class="line"><span class="comment"># 强制同步分片到新节点</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl copy-shard 3 influxdb-data-0:8088 </span><br><span class="line"><span class="comment"># 节点维护操作</span></span><br><span class="line">influxd-ctl remove-data influxdb-data-0:8088  <span class="comment"># 下线节点 </span></span><br><span class="line"><span class="comment"># 检查Meta节点Raft状态</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-meta-0 -- influxd-ctl raft-state </span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
+</ul>
+<h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><p>数据节点保存所有原始时间序列数据和元数据，包括：</p>
 <ul>
 <li>measurements</li>
 <li>tag keys and values</li>
 <li>field keys and values</li>
 </ul>
 <p>在磁盘上，数据总是按照<database>&#x2F;<retention_policy>&#x2F;<shard_id>组织。默认父目录为&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data。注意：数据节点需要&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;的所有四个子目录，包括&#x2F;meta(specifically, the clients.json file)、&#x2F;data、&#x2F;wal和&#x2F;hh。</p>
-<ol>
+<ul>
 <li><strong><code>influx</code> CLI工具</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器执行CLI</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it influxdb-data-0 -n influxdb -- influx -username admin -password <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">SHOW DATABASES;        <span class="comment"># 显示所有数据库 </span></span><br><span class="line">SELECT * FROM cpu;     <span class="comment"># 查询数据</span></span><br><span class="line">CREATE RETENTION POLICY <span class="string">&quot;1d&quot;</span> ON db3 DURATION 1d REPLICATION 2;  <span class="comment"># 创建保留策略 </span></span><br></pre></td></tr></table></figure></li>
 <li><strong><code>influxd</code> 数据节点服务</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看运行状态</span></span><br><span class="line">kubectl <span class="built_in">exec</span> influxdb-data-0 -- ps aux | grep influxd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键参数</span></span><br><span class="line">-data-dir /var/lib/influxdb/data   <span class="comment"># 数据存储目录 </span></span><br><span class="line">-wal-dir /var/lib/influxdb/wal     <span class="comment"># WAL日志目录</span></span><br></pre></td></tr></table></figure></li>
 <li><strong><code>influx_inspect</code> 数据工具</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出TSM文件（需进入容器）</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it influxdb-data-0 -- influx_inspect <span class="built_in">export</span> \</span><br><span class="line">  -datadir /var/lib/influxdb/data \</span><br><span class="line">  -waldir /var/lib/influxdb/wal \</span><br><span class="line">  -out backup.gz -compress </span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证数据完整性</span></span><br><span class="line">influx_inspect verify -<span class="built_in">dir</span> /var/lib/influxdb/data/db3 </span><br></pre></td></tr></table></figure></li>
-</ol>
+</ul>
 <h4 id="Data-与-Meta节点交互机制"><a href="#Data-与-Meta节点交互机制" class="headerlink" title="Data 与 Meta节点交互机制"></a>Data 与 Meta节点交互机制</h4><ol>
 <li><p>通信协议</p>
 <table>
@@ -526,12 +526,6 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>数据查询流程<br>查询 <code>SELECT * FROM cpu WHERE time &gt; &#39;2025-04-02&#39;</code>：定位到 2025-04-02 分片组，  协调节点同时向 A&#x2F;B（分片1）和 C&#x2F;D（分片2）发起查询， 合并结果后返回</li>
 </ol>
 </li>
-<li>Kubernetes 存储与 InfluxDB Shard 的关系解析<ol>
-<li><strong>PV&#x2F;PVC</strong>：是 Kubernetes 管理存储资源的抽象层。PV 描述物理存储资源（如 NFS、云盘等），PVC 是 Pod 对存储资源的请求声明。PVC 绑定到 PV 后，Pod 通过挂载 PVC 使用持久化存储。</li>
-<li><strong>Shard</strong>：是 InfluxDB 存储引擎的物理存储单元，表现为磁盘上的 TSM 文件（Time-Structured Merge Tree），每个 Shard 对应一个时间范围内的时序数据块。Shard 的存储路径通常位于 PVC 挂载的 <code>/var/lib/influxdb/data</code> 目录下。<br>每个 Shard 包含：时间序列索引（.tsi 文件），压缩后的时序数据块（.tsm 文件），WAL（Write-Ahead Log）日志文件（.wal） 其路径结构为：<code>/var/lib/influxdb/data/&lt;database&gt;/&lt;retention_policy&gt;/&lt;shard_id&gt;</code>。</li>
-<li>重建 PVC 导致数据丢失的本质问题<br>• <strong>PVC 删除与 PV 回收策略</strong>：若 PVC 的回收策略为 <code>Delete</code>（默认），删除 PVC 会导致 Kubernetes 清理其绑定的 PV 及底层存储数据（如 NFS 目录、云盘等）。此时 <code>/var/lib/influxdb</code> 下的 <code>data</code>、<code>meta</code> 目录被清空，导致 Shard 文件丢失。<br>• Shard 文件丢失会导致对应时间范围的时序数据不可查询，触发 <code>ERR: shard not found</code> 错误。<br>• Meta 文件丢失会破坏集群元数据一致性，导致用户权限、分片策略等配置失效。</li>
-</ol>
-</li>
 </ul>
 <h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>Docker安装操作单例InfluxDB <a target="_blank" rel="noopener" href="https://www.cnblogs.com/nhdlb/p/16409849.html">https://www.cnblogs.com/nhdlb/p/16409849.html</a><br>Docker快速开始集群InfluxDB <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">https://github.com/chengshiwen/influxdb-cluster/wiki#docker-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B</a></p>
 <p>在使用容器多节点部署InfluxDB时，数据库、容器、Docker、主机和Kubernetes（k8s）之间的关系可以理解如下：</p>
@@ -543,6 +537,12 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>Kubernetes（k8s）：一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。Kubernetes可以管理多个主机上的容器，提供服务发现、负载均衡、自动扩展和自愈能力。在多节点部署中，Kubernetes可以管理InfluxDB容器的部署，确保它们在多个节点上运行，并提供高可用性和扩展性。</li>
 <li>关系总结：InfluxDB 作为数据库运行在 容器 中。容器 由 Docker 创建和管理。Docker 运行在 主机 上。Kubernetes 管理多个 主机 上的 Docker 容器，提供编排和管理功能。通过这种方式，InfluxDB可以在一个分布式环境中高效运行，利用Kubernetes的编排能力实现自动化管理和扩展。</li>
 </ul>
+<p>Kubernetes 存储与 InfluxDB Shard 的关系解析</p>
+<ol>
+<li><strong>PV&#x2F;PVC</strong>：是 Kubernetes 管理存储资源的抽象层。PV 描述物理存储资源（如 NFS、云盘等），PVC 是 Pod 对存储资源的请求声明。PVC 绑定到 PV 后，Pod 通过挂载 PVC 使用持久化存储。</li>
+<li><strong>Shard</strong>：是 InfluxDB 存储引擎的物理存储单元，表现为磁盘上的 TSM 文件（Time-Structured Merge Tree），每个 Shard 对应一个时间范围内的时序数据块。Shard 的存储路径通常位于 PVC 挂载的 <code>/var/lib/influxdb/data</code> 目录下。<br>每个 Shard 包含：时间序列索引（.tsi 文件），压缩后的时序数据块（.tsm 文件），WAL（Write-Ahead Log）日志文件（.wal） 其路径结构为：<code>/var/lib/influxdb/data/&lt;database&gt;/&lt;retention_policy&gt;/&lt;shard_id&gt;</code>。</li>
+<li>重建 PVC 导致数据丢失的本质问题<br>• <strong>PVC 删除与 PV 回收策略</strong>：若 PVC 的回收策略为 <code>Delete</code>（默认），删除 PVC 会导致 Kubernetes 清理其绑定的 PV 及底层存储数据（如 NFS 目录、云盘等）。此时 <code>/var/lib/influxdb</code> 下的 <code>data</code>、<code>meta</code> 目录被清空，导致 Shard 文件丢失。<br>• Shard 文件丢失会导致对应时间范围的时序数据不可查询，触发 <code>ERR: shard not found</code> 错误。<br>• Meta 文件丢失会破坏集群元数据一致性，导致用户权限、分片策略等配置失效。</li>
+</ol>
 <h2 id="InfluxDB-备份与恢复"><a href="#InfluxDB-备份与恢复" class="headerlink" title="InfluxDB 备份与恢复"></a>InfluxDB 备份与恢复</h2><p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/enterprise_influxdb/v1/administration/backup-and-restore/">https://docs.influxdata.com/enterprise_influxdb/v1/administration/backup-and-restore/</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46560589/article/details/127748939">https://blog.csdn.net/weixin_46560589/article/details/127748939</a></p>
 <p>InfluxDB Enterprise支持在集群实例、单个数据库和保留策略以及单个分片中备份和恢复数据。</p>
 <ol>
