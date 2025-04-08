@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-03-24T17:01:31.882Z">
+<meta property="article:modified_time" content="2025-04-08T13:52:26.995Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -236,7 +236,7 @@
 <li>调用架构：api、v1、v2<img src="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg" width="450" height="300" alt=""></li>
 <li>服务架构：通过Kubernetes集群和Helm Chart等实现了对InfluxDB集群的高效管理。用户可以通过DataMars控制台方便地进行实例的备份恢复和配置变更，同时支持扩容重搭以应对业务需求的变化。工作流引擎负责处理用户请求并调用相应的Helm Chart模板、通用或专有的apiserver&#x2F;k8srepository接口等，确保操作的自动化和一致性。<img src="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg" width="450" height="300" alt=""></li>
 </ol>
-<h4 id="2-18-InfluxDB服务化-：本地变配"><a href="#2-18-InfluxDB服务化-：本地变配" class="headerlink" title="2.18 InfluxDB服务化 ：本地变配"></a>2.18 <em>InfluxDB服务化</em> ：本地变配</h4><p>2.6-2.16：现有InfluxDB集群实例（只考虑data节点）的CPU、内存和存储资源已无法满足需求，需对资源配置进行扩展，以提升性能和稳定性。通过修改StatefulSet中cpu、memory配置并删除Pod触发StatefulSet控制器重建data节点Pod以应用新配置，通过修改data节点Pod对应的pvc中storage配置以触发pv的存储扩容（只能增加），实现资源变配（本地变配）<br>2.17：前端对齐开发，准备进入sit联调<br>2.18：插入需求“meta节点自定义创建”<br>2.28：整合已知信息已读代码-&gt;无法理解多节点类型实例如何发起变配，应该果断求助<br>3.3-3.10：改造influxdb集群为父子实例模式，改配置，传参调试，适配已有功能，考虑存量实例的影响<br>3.11-3.13：data变配基础上开发meta变配，云管订单遇到配额不匹配问题，上线延期下周<br>3.14：跨团队求助无果，请求协助，，新需求着手开发<br>3.17：搁置，开发新需求<br>3.18：实操tidb复现该“问题”，考虑转向与云管沟通。。</p>
+<h4 id="2-18-InfluxDB服务化-：本地变配"><a href="#2-18-InfluxDB服务化-：本地变配" class="headerlink" title="2.18 InfluxDB服务化 ：本地变配"></a>2.18 <em>InfluxDB服务化</em> ：本地变配</h4><p>2.6-2.16：现有InfluxDB集群实例（只考虑data节点）的CPU、内存和存储资源已无法满足需求，需对资源配置进行扩展，以提升性能和稳定性。通过修改StatefulSet中cpu、memory配置并删除Pod触发StatefulSet控制器重建data节点Pod以应用新配置，通过修改data节点Pod对应的pvc中storage配置以触发pv的存储扩容（只能增加），实现资源变配（本地变配）<br>2.17：前端对齐开发，准备进入sit联调<br>2.18：插入需求“meta节点自定义创建”<br>2.28：整合已知信息已读代码-&gt;无法理解多节点类型实例如何发起变配，应该果断求助<br>3.3-3.10：改造influxdb集群为父子实例模式，改配置，传参调试，适配已有功能，考虑存量实例的影响<br>3.11-3.13：data变配基础上开发meta变配，云管订单遇到配额不匹配问题，上线延期下周<br>3.14：跨团队求助无果，请求协助，，新需求着手开发<br>3.17：搁置，开发新需求<br>3.18：实操tidb复现该“问题”，考虑转向与云管沟通。。<br>3.27：发版 &#x3D;》InfluxDB父子实例改造&#x2F;本地变配&#x2F;节点&#x2F;实例重启</p>
 <h4 id="2-22-正畸，启动"><a href="#2-22-正畸，启动" class="headerlink" title="2.22 正畸，启动"></a>2.22 正畸，启动</h4><p>读书时无所事事的日子，今天拔完牙和妈妈一起冰敷等待的日子，还有多少<br>刚开始普遍很难，易的是背八股，难的是落实和推进<br>如何跳出这个困境？如何跳出程序员行业？30岁，35岁<br>熬夜是因为没有对明天的渴望。但是在晚上的当下，有很多事情想做😿<br>喜欢一个人独处，是因为不想自己长期以来形成的情绪稳定被打破。害怕形成亲密关系，有时无法融入团体😿</p>
 <h4 id="2-27-InfluxDB服务化-：实例创建自定义Meta节点规格"><a href="#2-27-InfluxDB服务化-：实例创建自定义Meta节点规格" class="headerlink" title="2.27 InfluxDB服务化 ：实例创建自定义Meta节点规格"></a>2.27 <em>InfluxDB服务化</em> ：实例创建自定义Meta节点规格</h4><p>2.18：本需求作为其他需求开发的前置条件<br>2.19：apisever打log上uat调试创建流程，从已部署分支git branch新分支以免影响正在使用者<br>2.21：提sql变更 1 dataspace提工单 2 直接进入各环境metadb(其本身为容器部署的mariadb服务) 3 某些配置项可通过datamars控制台修改<br>2.25：云管运营端商品信息变更，考虑是否影响<strong>存量实例</strong>；；1 云管释放旧实例将计价报错-&gt;调datamars管控接口释放&#x2F;发版前释放旧实例 2 可以发起工单但无法下单-&gt;手动修改配额发起工单后过云管审批<br>2.27：发版流程、、代码合master，流水线打包使用（<strong>发版版本</strong>）部署，<strong>sql变更</strong>（定时，增加条件避免误订正），<strong>云运营变更</strong>（改一次console-cloud即各环境共用）<br>👨‍🦲steven：裁员，残酷，危机感，，工作就是生活的很大一部分</p>
 <ol>
@@ -244,7 +244,7 @@
 <li>apiserver实例创建逻辑<br>meta信息通过request.getExtraJson()传入，ClusterInstanceService#initClusterInstanceExtend保存在cluster_instance_extend；initClusterInstanceParams能适配保存meta节点的param吗（iops，连接数，influxdb不考虑？）<br>不考虑在cluster_instance要新增字段体现meta规格信息</li>
 <li>apiserver-influxdb工作流完成实例创建，pv，sts，helm，install，node，instance<br>获取meta规格信息，构造临时value文件，生成用于安装InfluxDB集群的Helm命令并执行</li>
 <li>以上只是在k8s环境中实现了自定义meta规格创建，事实上应该参考tidb，将influxdb集群改造为父子实例模式，逻辑上把data&#x2F;meta节点区分开，进行变配&#x2F;更新meta信息..</li>
-<li><strong>more未考虑完全？</strong><br>？？param创建，变更？extend父子实例数量不一致？实例创建流程，sts，副本，顺序？？</li>
+<li><strong>more未考虑完全？</strong> param创建，变更？extend父子实例数量不一致？实例创建流程，sts，副本，顺序。。</li>
 </ol>
 <h4 id="3-3-阶段目标-：入职半年"><a href="#3-3-阶段目标-：入职半年" class="headerlink" title="3.3 阶段目标 ：入职半年.."></a>3.3 阶段目标 ：<em>入职半年..</em></h4><p>deepseek：数据库方向是一个值得长期投入的领域，尤其适合对系统底层感兴趣的程序员。你的现有经验（运维+K8s）可成为切入云数据库或分布式数据库的跳板。建议以<strong>​“运维需求驱动内核学习”​</strong>为短期目标，逐步掌握分布式一致性、存储引擎等核心技术，同时通过开源贡献和项目实践构建技术影响力。&#x3D;&gt; <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724">https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724</a><br>rong teng：在midea得到的成长是显著的；（身兼开发运维多职，具体求职情况如何？）数据库方向有些窄；（作为senior求职需要专精时显得窄？作为基础能力学习可行？）应届生可以提转方向，转团队；以招聘市场心仪岗位的需求作为努力发展的方向！？</p>
 <ul>
@@ -335,6 +335,7 @@
 </ol>
 </li>
 </ul>
+<h4 id="3-28-InfluxDB服务化-：节点迁移-重搭"><a href="#3-28-InfluxDB服务化-：节点迁移-重搭" class="headerlink" title="3.28 InfluxDB服务化 ：节点迁移 &#x2F; 重搭"></a>3.28 <em>InfluxDB服务化</em> ：节点迁移 &#x2F; 重搭</h4><p>3.28：需求分析-&gt;将pod迁移到集群的另一个资源充足的node上，并且恢复数据以及集群功能(元数据)<br>3.31-4.1：建议客户使用改造后的influxdb实例，存量实例释放&#x2F;启停&#x2F;重启等功能遇到问题 –》未考虑好适配<br>4.2-4.7：出方案 1 sts指定亲合度规则以重建pod和pvc；2 开源influxdb-cluster很多功能不支持，考虑直接从分片副本的层面恢复数据</p>
 
       
     </div>
