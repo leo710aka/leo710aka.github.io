@@ -570,7 +570,7 @@ InfluxDB里存储的数据被称为时间序列数据，其包含一个数值。
 <li>持续写入数据到db1(只能写入健康节点上的db1分片副本)，某一时刻执行truncate-shards，db1的shard3切断，新热分片shard4的分片副本分配到data-1以及迁移后的data-0中，此刻开始写入db1的新数据在data-0和data-1上的分片中一致（一个数据库的分片可能有多个，但只有一个正在写入，其他都是冷分片）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-meta-0 -n influxdb -- influxd-ctl truncate-shards</span><br></pre></td></tr></table></figure></li>
 <li>最后再恢复历史数据，也就是执行迁移前的data-0节点拥有的分片副本数据，以及迁移完成前应该写入但没有写入data-0的数据。从健康的data-1上的分片副本copy-shard而来，导出文件可见data-0和data-1上的db1数据完全一致<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于_internal分片的转移 先copy后remove</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-meta-0 -n influxdb -- influxd-ctl copy-shard influxdb-xx-data-1.influxdb-xx-data:8088 influxdb-xx-data-0.influxdb-xx-data:8088 1</span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-meta-0 -n influxdb -- influxd-ctl remove-shard influxdb-xx-data-1.influxdb-xx-data:8088 1</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分片的物理文件 wal&amp;tsm</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- <span class="built_in">ls</span> /var/lib/influxdb/data</span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- <span class="built_in">ls</span> /var/lib/influxdb/wal</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可能要等wal落tsm</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- influx_inspect <span class="built_in">export</span> -datadir <span class="string">&quot;/var/lib/influxdb/data&quot;</span> -waldir <span class="string">&quot;/var/lib/influxdb/wal&quot;</span> -out <span class="string">&quot;influxdb_dump_out&quot;</span> -database <span class="string">&quot;db1&quot;</span>，</span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- <span class="built_in">md5sum</span> influxdb_dump_out</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可能要等wal落tsm</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- influx_inspect <span class="built_in">export</span> -datadir <span class="string">&quot;/var/lib/influxdb/data&quot;</span> -waldir <span class="string">&quot;/var/lib/influxdb/wal&quot;</span> -out <span class="string">&quot;influxdb_dump_out&quot;</span> -database <span class="string">&quot;db1&quot;</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -i influxdb-xx-data-0 -n influxdb -- <span class="built_in">md5sum</span> influxdb_dump_out</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -1247,20 +1247,41 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 </ol>
 </li>
 </ul>
-<h4 id="3-28-InfluxDB服务化-：节点迁移-重搭"><a href="#3-28-InfluxDB服务化-：节点迁移-重搭" class="headerlink" title="3.28 InfluxDB服务化 ：节点迁移 &#x2F; 重搭"></a>3.28 <em>InfluxDB服务化</em> ：节点迁移 &#x2F; 重搭</h4><p>3.28：需求分析-&gt;将pod迁移到集群的另一个资源充足的node上，并且恢复数据以及集群功能(元数据)<br>3.31-4.1：存量实例问题处理,, 建议客户使用改造后的influxdb实例，存量实例释放&#x2F;启停&#x2F;重启等功能遇到问题 &#x3D;》未考虑好适配<br>4.2-4.7：出方案 1 sts指定亲合度规则以在指定node重建pod和pvc 2 开源influxdb-cluster功能不完全支持，考虑从分片副本层面恢复数据<br>4.8-4.10：数据恢复的主要思路&#x3D;》从健康节点的分片副本copy-shard恢复出迁移节点原有的所有分片副本，?质疑-&gt;恢复过程中健康节点的分片副本持续写入的增量数据能否恢复??<br>4.11：考虑创建第3个Data-Pod替代迁移节点(从仍健康的迁移节点上迁移数据)× -&gt;应该认为原节点完全不可用（相当于节点重搭了）设计方案参考其他数据库产品；；<br>4.14：推方案不动..自验证copy-shard达到预期效果，但无法解答原理，，自测方式还需模拟实际场景，多线程写入。。<br>4.15：写bash脚本批量写，开多终端模拟多线程，分片副本达70M+大流量2000point&#x2F;s写 &#x3D;》copy-shard恢复出分片副本与健康节点持续写的副本md5值不一致，恢复副本export文件小，猜测丢失数据<br>4.17：InfluxDB Data节点迁移方案评审：先迁移后逐个恢复分片数据。已验证在分片副本大小70M、写入数据达2000point&#x2F;s的情况下直接copy-shard会导致增量数据丢失，考虑在copy-shard前先执行truncate-shards截断热分片（集群中所有写入最新数据的分片，截断后关闭写入，变成冷分片），并在所有Data节点上创建该分片的新热分片副本，也就是在迁移节点上恢复了全部原有分片的新热分片副本，最新数据写入这个副本，然后再逐个从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复；自测符合预期<br>4.18-4.21：开发。发现原checkPodRebuildReady接口有时不符合预期，执行influxd-ctl指令(硬写成String在代码中)有时失效(meta no leader..)，经常需要手工介入。。</p>
+<h4 id="3-28-InfluxDB服务化-：节点迁移-重搭"><a href="#3-28-InfluxDB服务化-：节点迁移-重搭" class="headerlink" title="3.28 InfluxDB服务化 ：节点迁移 &#x2F; 重搭"></a>3.28 <em>InfluxDB服务化</em> ：节点迁移 &#x2F; 重搭</h4><p>3.28：需求分析-&gt;将pod迁移到集群的另一个资源充足的node上，并且恢复数据以及集群功能(元数据)<br>3.31-4.1：存量实例问题处理,, 建议客户使用改造后的influxdb实例，存量实例释放&#x2F;启停&#x2F;重启等功能遇到问题 &#x3D;》未考虑好适配<br>4.2-4.7：出方案 1 sts指定亲合度规则以在指定node重建pod和pvc 2 开源influxdb-cluster功能不完全支持，考虑从分片副本层面恢复数据<br>4.8-4.10：数据恢复的主要思路&#x3D;》从健康节点的分片副本copy-shard恢复出迁移节点原有的所有分片副本，?质疑-&gt;恢复过程中健康节点的分片副本持续写入的增量数据能否恢复??<br>4.11：考虑创建第3个Data-Pod替代迁移节点(从仍健康的迁移节点上迁移数据)× -&gt;应该认为原节点完全不可用（相当于节点重搭了）设计方案参考其他数据库产品；；<br>4.14：推方案不动..自验证copy-shard达到预期效果，但无法解答原理，，自测方式还需模拟实际场景，多线程写入。。<br>4.15：写bash脚本批量写，开多终端模拟多线程，分片副本达70M+大流量2000point&#x2F;s写 &#x3D;》copy-shard恢复出分片副本与健康节点持续写的副本md5值不一致，恢复副本export文件小，猜测丢失数据<br>4.17：InfluxDB Data节点迁移方案评审：先迁移后逐个恢复分片数据。已验证在分片副本大小70M、写入数据达2000point&#x2F;s的情况下直接copy-shard会导致增量数据丢失，考虑在copy-shard前先执行truncate-shards截断热分片（集群中所有写入最新数据的分片，截断后关闭写入，变成冷分片），并在所有Data节点上创建该分片的新热分片副本，也就是在迁移节点上恢复了全部原有分片的新热分片副本，最新数据写入这个副本，然后再逐个从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复；自测符合预期<br>4.18-4.21：开发。发现原checkPodRebuildReady接口有时不符合预期，执行influxd-ctl指令(硬写成String在代码中)有时失效(meta no leader..)，经常需要手工介入。。<br>4.22：提测<br>4.23：InfluxDB开源版可靠性不确定，，社区版，单节点，，开发，值班暂停<br>官方文档 <a target="_blank" rel="noopener" href="https://influxdb-v1-docs-cn.cnosdb.com/influxdb/v1.8/introduction/install/">https://influxdb-v1-docs-cn.cnosdb.com/influxdb/v1.8/introduction/install/</a><br>开源influxdb-cluster源码 <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster">https://github.com/chengshiwen/influxdb-cluster</a></p>
+<!-- <img src="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png" width="450" height="300" alt=""> -->
+<p><strong>Data节点迁移方案</strong></p>
+<ol start="0">
+<li>重启所有meta节点，避免后续执行influxd-clt指令时报错“no leader”</li>
+<li>记录待迁移Data节点上的分片副本信息</li>
+<li>迁移节点，sts加affinity节点调度规则，重建pod和pvc，完成后恢复sts</li>
+<li>分片数据和元数据完全丢失，backup工具缺失，考虑逐个恢复分片副本</li>
+<li>迁移节点重新加入集群 influxd-ctl remove&#x2F;add-data</li>
+<li>截断热分片truncate-shards（集群中所有写入最新数据的分片），在所有Data节点上创建该分片的新热分片副本，也就是在迁移节点上恢复了原有分片的热分片副本，新数据写入这个副本</li>
+<li>再从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复</li>
+<li>检查分片恢复情况</li>
+</ol>
+<p>架构：2 data 3 meta 副本因子为2；待解决如下故障场景，以及应对措施</p>
 <ol>
-<li>influxdb实例持续写入数据到db1，在做迁移操作前，先记录迁移节点拥有的分片副本，后续从健康节点的相同副本中恢复出来；一个数据库的分片可能有多个，但只有一个正在写入，后续做热分片处理</li>
-<li>迁移（sts中affinity指定node，创建pod和pvc）后更新节点&#x2F;分片元信息，新data-0节点丢失db1的shard3，另外_internal的db1转移到健康节点data-1上了</li>
-<li>db1持续写入，某一时刻执行influxd-ctl truncate-shard，db1的shard3切断，新热分片shard4分配到迁移后的data-0中，此刻开始写入db1的新数据在data-0和data-1上的分片中一致，influx_inspect export -datadir “&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;data” -waldir “&#x2F;var&#x2F;lib&#x2F;influxdb&#x2F;wal” -out “influxdb_dump_out” -database “db1”，cat influxdb_dump_out可见新数据一致</li>
-<li>最后再恢复历史数据，也就是执行迁移前的data-0节点拥有的分片副本数据，以及迁移完成前应该写入但没有写入data-0的数据，从健康的data-1上的分片副本copy-shard而来，导出文件可见data-0和data-1上的db1数据完全一致</li>
+<li>挂1个data -&gt; 节点迁移、重搭</li>
+<li>挂2个data -&gt; 备份恢复</li>
+<li>挂1个meta -&gt; 未知</li>
+<li>挂两个meta -&gt; 未知</li>
+<li>挂三个meta -&gt; 未知</li>
 </ol>
 <h4 id="4-14-DB值班开始"><a href="#4-14-DB值班开始" class="headerlink" title="4.14 DB值班开始 ; )"></a>4.14 DB值班开始 ; )</h4><p>DBCLOUD开源DB报警群（实例），DBEngine告警群（机器），致命告警-&gt;数据库值班告警处理群，MariaDB&#x2F;MySQL&#x2F;MongoDB&#x2F;PostgreSQL 常见问题,,</p>
 <ul>
-<li><p>MariaDB容器数据盘使用率过大<br>1.异常内容:容器数据盘占用率超过90%<br>2.问题定位：<br>1）&#x2F;var&#x2F;lib&#x2F;mysql 目录下存在大量临时文件（如 #sql_1_44.MAD，大小达185G）<br>2）show process查看未提交的长事务（WITH RECURSIVE 查询和 Sending data 状态，确认这些递归查询正在生成大临时表）持有临时表资源，导致文件无法自动清理。<br>3.处理方案<br>1）KILL 15443008, 15443009, 15443010; &#x2F;&#x2F; 终止进程（替换为实际ID）临时kill了超长事务连接，临时文件自动清理了（&#x2F;var&#x2F;lib&#x2F;mysql挂载点空间得到释放）<br>2）联系用户优化sql</p>
+<li>MariaDB容器数据盘使用率过大<br>1.异常内容:容器数据盘占用率超过90%<br>2.问题定位：<br>1）&#x2F;var&#x2F;lib&#x2F;mysql 目录下存在大量临时文件（如 #sql_1_44.MAD，大小达185G）<br>2）show process查看未提交的长事务（WITH RECURSIVE 查询和 Sending data 状态，确认这些递归查询正在生成大临时表）持有临时表资源，导致文件无法自动清理。<br>3.处理方案<br>1）KILL 15443008, 15443009, 15443010; &#x2F;&#x2F; 终止进程（替换为实际ID）临时kill了超长事务连接，临时文件自动清理了（&#x2F;var&#x2F;lib&#x2F;mysql挂载点空间得到释放）<br>2）联系用户优化sql</li>
+<li>MariaDB实例备库IO线程停止<br>1.告警内容<br>实例 IO 线程停止.通常由于无法连接到主库.<br>2.问题定位：<br>1）服务可用性-&gt;观察到发生主从切换，发生时间符合告警情况<br>2）kubectl get pod -n mariadb -Lrole -Lhealthy-&gt;从库（原主库切换而来）健康为no<br>3）kubectl descirbe 从库pod，观察到mysql container发生terminated，OOMKill，，<br>4）监控指标：内存缓慢提升-&gt;考虑扩容，暴增-&gt;dataspace诊断看慢sql<br>3.处理方案<br>1）备库重搭<br>2）联系用户扩容&#x2F;优化慢sql</li>
+</ul>
+<h4 id="4-22-2025成长对话"><a href="#4-22-2025成长对话" class="headerlink" title="4.22 2025成长对话"></a>4.22 2025成长对话</h4><ul>
+<li><p>制定2025年度重点工作计划。<br>快速开发InfluxDB服务化需求，持续优化已有功能；深度熟悉开源数据库，确保提供稳定服务。对齐其他数据库产品，了解用户实际需求，多方面考虑设计方案。做好值班任务。</p>
 </li>
-<li><p>MariaDB实例备库IO线程停止<br>1.告警内容<br>实例 IO 线程停止.通常由于无法连接到主库.<br>2.问题定位：<br>1）服务可用性-&gt;观察到发生主从切换，发生时间符合告警情况<br>2）kubectl get pod -n mariadb -Lrole -Lhealthy-&gt;从库（原主库切换而来）健康为no<br>3）kubectl descirbe 从库pod，观察到mysql container发生terminated，OOMKill，，<br>4）监控指标：内存缓慢提升-&gt;考虑扩容，暴增-&gt;dataspace诊断看慢sql<br>3.处理方案<br>1）备库重搭<br>2）联系用户扩容&#x2F;优化慢sql</p>
+<li><p>希望提升的1-3项核心能力项，计划如何提升。<br>1 深入技术栈学习。阅读InfluxDB源码，学习数据库架构设计，K8s应用课程等，掌握高频业务场景的原理和运维技巧。<br>2 高效合作开发的能力。在全面思考，明确需求后开始开发，遇到卡点快速解决。</p>
+</li>
+<li><p>面向未来1年的职业规划。<br>本岗位沉淀<br>在这个阶段希望提高自己的工程能力，能比较全面地思考设计方案，快速开发和交付需求；还应该具备产品侧思考的能力，对一个系统有深入的认知，能够独当一面，做到专精一个领域。</p>
 </li>
 </ul>
+<h4 id="4-23-Mops需求：NBU备份自动化"><a href="#4-23-Mops需求：NBU备份自动化" class="headerlink" title="4.23 Mops需求：NBU备份自动化"></a>4.23 Mops需求：NBU备份自动化</h4><p>统一运维平台，就是接需求，把。。等操作自动化</p>
 
       
     </div>
