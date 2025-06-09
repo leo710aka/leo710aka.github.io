@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-05-14T15:12:45.109Z">
+<meta property="article:modified_time" content="2025-06-09T12:18:58.242Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -371,7 +371,12 @@
 <li><p>面向未来1年的职业规划。<br>本岗位沉淀<br>在这个阶段希望提高自己的工程能力，能比较全面地思考设计方案，快速开发和交付需求；还应该具备产品侧思考的能力，对一个系统有深入的认知，能够独当一面，做到专精一个领域。</p>
 </li>
 </ul>
-<h4 id="4-23-Mops需求：NBU备份自动化"><a href="#4-23-Mops需求：NBU备份自动化" class="headerlink" title="4.23 Mops需求：NBU备份自动化"></a>4.23 Mops需求：NBU备份自动化</h4><p>统一运维平台：就是接各种需求，把主机创建、备份等操作自动化<br>4.25-5.8：手动验证全流程+调通API，分阶段做，卡点及时同步到群聊.. 官网找接口文档&#x2F;厂家提供，postPolicies接口参数调不好，就先手动设好用get查出来构造requestBody..<br>5.9-5.13：理清自动化接入和改造方案（先看一期代码，考虑接口和表能否复用），主动拉评审会议<br>5.14- ：1.边开发及时理清需求原型和改造点；2.重难点：作业平台下发NBU Client安装脚本，实现install交互流程</p>
+<h4 id="4-23-Mops需求：NBU备份自动化"><a href="#4-23-Mops需求：NBU备份自动化" class="headerlink" title="4.23 Mops需求：NBU备份自动化"></a>4.23 Mops需求：NBU备份自动化</h4><p><em>统一运维平台：</em>就是接各种需求，把主机创建、备份等操作自动化<br>4.25-5.8：手动验证全流程+调通API，分阶段做，卡点及时同步到群聊.. 官网找接口文档&#x2F;厂家提供，postPolicies接口参数调不好，就先手动设好用get查出来构造requestBody..<br>5.9-5.13：理清自动化接入和改造方案（先看一期代码，考虑接口和表能否复用），主动拉评审会议<br>5.14-5.16：开发及时理清需求原型和改造点，开发备份域配置管理界面<br>5.19-5.23：重难点&#x3D;》作业平台下发备份客户端安装ansible脚本改造，根据传参when指定不同task，实现在target主机安装指定平台的client，expect实现交互式流程<br>5.26-5.29：NBU备份申请自动化开发，实现BackupNbuService（备份平台NBU涉及代码，构造RestTemplate调API）；备份域配置“增删改查”，分页，模糊查询，@Transation处理先删后插&#x2F;先改后改&#x2F;先删后删。。延期-&gt;0605<br>6.3：自测&#x3D;》页面上发起请求获得requestBody&#x2F;通过postman调用本地起的后端服务，调试&#x3D;》注释排查法&#x2F;计算器debug<br>6.4：发sit，延期-&gt;0612；完善todo<br>6.5：自测，用户验收，ddl&amp;dml(注意StringEncryptor加密的密钥随env变化!!) 发版，存在问题待完善</p>
+<ol>
+<li>Ansible入门：脚本在特权机上，指定targetIp执行，，playbook为入口，roles&#x2F;tasks实现具体逻辑，，安装client注意预检查，常量写在var文件，脚本写在flie&#x2F;script.py通过scp传到target机器执行</li>
+<li><strong>CRUD</strong>基本功：1. 分页，baseMapper.selectPage(new Page&lt;&gt;(page, size), getQueryWrapper(req))  2. 模糊查询，queryWrapper.eqIfNotNull(BackupConfigPO::isDeleted, 0).likeIfNotNull(BackupConfigPO::getConfigKey, condition.getBackupRegion())  3. 模糊查询条件涉及表中text类型字段的内容为json，本质还是处理wrapper，queryWrapper.apply(“JSON_SEARCH(config_desc, ‘one’, ‘%” + req + “%’, NULL, ‘$.req’) IS NOT NULL”);</li>
+</ol>
+<h4 id="6-9"><a href="#6-9" class="headerlink" title="6.9"></a>6.9</h4><p>半年总结：</p>
 <h4 id="5-5-02-2027"><a href="#5-5-02-2027" class="headerlink" title="5.5 02&#x2F;2027"></a>5.5 02&#x2F;2027</h4><ul>
 <li><strong>工作经历</strong><br>美的 后端开发工程师-Java <sup>2024.7~</sup><ul>
 <li>Mops自动化运维平台：提供云主机&#x2F;存储自动化运维功能<ol>
