@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-06-09T12:18:58.242Z">
+<meta property="article:modified_time" content="2025-06-10T11:52:51.172Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -230,7 +230,7 @@
 <li><strong>总结</strong>(的)来说，在各位同事的帮助下，我在试用期间得到了快速成长，收获颇丰。【翻页】以上就是我的汇报内容。感谢各位领导和同事的聆听和支持。我相信，在大家的共同努力下，我们的工作会取得更大的进步。谢谢大家！</li>
 </ul>
 <h4 id="1-16-InfluxDB服务化-：备份集恢复"><a href="#1-16-InfluxDB服务化-：备份集恢复" class="headerlink" title="1.16 InfluxDB服务化 ：备份集恢复"></a>1.16 <em>InfluxDB服务化</em> ：备份集恢复</h4><p>1.02：不上心<br>1.14：开发uat自测(sit没测)完成，开发分支合dev提测，最后合main上线<br>1.16：SD&#x2F;GA测试发版失败，恢复工作流需要人工介入验证，存在问题 1地址没有<strong>动态配置！！</strong> 2漏配接口&#x2F;审批流变更<br>1.21：发布修复版本，生产延后</p>
-<h4 id="2-7-复工"><a href="#2-7-复工" class="headerlink" title="2.7 复工"></a>2.7 复工</h4><p>当前阶段的关键，，交付能力，，工程能力是练出来的<br>熬夜是没有对明天的期待、、-》培养兴趣转移注意力、，books<br>程序员。技术。不要只看自己的一亩三分地。。开源项目<br>工作以外；：给自己创造需求，根据需求解决问题，在解决问题上配合看书，，从而在某一细分领域有知识图谱，有一技之长，用系统性的看书代替cdsn查找零散的解决方案<br>“下班的时间放在哪哪里就有提升”<br>副业？；web3；licai</p>
+<h4 id="2-7"><a href="#2-7" class="headerlink" title="2.7"></a>2.7</h4><p><em><strong>复工</strong></em><br>当前阶段的关键，，交付能力，，工程能力是练出来的<br>熬夜是没有对明天的期待、、-》培养兴趣转移注意力、，books<br>程序员。技术。不要只看自己的一亩三分地。。开源项目<br>工作以外；：给自己创造需求，根据需求解决问题，在解决问题上配合看书，，从而在某一细分领域有知识图谱，有一技之长，用系统性的看书代替cdsn查找零散的解决方案<br>“下班的时间放在哪哪里就有提升”<br>副业？；web3；licai</p>
 <h4 id="2-13-服务调用架构"><a href="#2-13-服务调用架构" class="headerlink" title="2.13 服务调用架构"></a>2.13 服务调用架构</h4><ol>
 <li>apiserver：1 datamars管控接口 2 mcloud回调接口 3 properties获取apiserver服务自身暴露的域名端口+controller接口拼接url</li>
 <li>apiserver-{engine}：引擎专有服务，工作流(其实是workflowclient处理)中调用不同服务暴露的接口(common,,influxdb,,apiserver)</li>
@@ -239,7 +239,7 @@
 <li>服务架构：通过Kubernetes集群和Helm Chart等实现了对InfluxDB集群的高效管理。用户可以通过DataMars控制台方便地进行实例的备份恢复和配置变更，同时支持扩容重搭以应对业务需求的变化。工作流引擎负责处理用户请求并调用相应的Helm Chart模板、通用或专有的apiserver&#x2F;k8srepository接口等，确保操作的自动化和一致性。<img src="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg" width="450" height="300" alt=""></li>
 </ol>
 <h4 id="2-18-InfluxDB服务化-：本地变配"><a href="#2-18-InfluxDB服务化-：本地变配" class="headerlink" title="2.18 InfluxDB服务化 ：本地变配"></a>2.18 <em>InfluxDB服务化</em> ：本地变配</h4><p>2.6-2.16：现有InfluxDB集群实例（只考虑data节点）的CPU、内存和存储资源已无法满足需求，需对资源配置进行扩展，以提升性能和稳定性。通过修改StatefulSet中cpu、memory配置并删除Pod触发StatefulSet控制器重建data节点Pod以应用新配置，通过修改data节点Pod对应的pvc中storage配置以触发pv的存储扩容（只能增加），实现资源变配（本地变配）<br>2.17：前端对齐开发，准备进入sit联调<br>2.18：插入需求“meta节点自定义创建”<br>2.28：整合已知信息已读代码-&gt;无法理解多节点类型实例如何发起变配，应该果断求助<br>3.3-3.10：改造influxdb集群为父子实例模式，改配置，传参调试，适配已有功能，考虑存量实例的影响<br>3.11-3.13：data变配基础上开发meta变配，云管订单遇到配额不匹配问题，上线延期下周<br>3.14：跨团队求助无果，请求协助，，新需求着手开发<br>3.17：搁置，开发新需求<br>3.18：实操tidb复现该“问题”，考虑转向与云管沟通。。<br>3.27：发版 &#x3D;》InfluxDB父子实例改造&#x2F;本地变配&#x2F;节点&#x2F;实例重启</p>
-<h4 id="2-22-正畸-启动"><a href="#2-22-正畸-启动" class="headerlink" title="2.22 正畸, 启动"></a>2.22 正畸, 启动</h4><p>读书时无所事事的日子，今天拔完牙和妈妈一起冰敷等待的日子，还有多少<br>刚开始普遍很难，易的是背八股，难的是落实和推进<br>如何跳出这个困境？如何跳出程序员行业？30岁，35岁<br>熬夜是因为没有对明天的渴望。但是在晚上的当下，有很多事情想做😿<br>喜欢一个人独处，是因为不想自己长期以来形成的情绪稳定被打破。害怕形成亲密关系，有时无法融入团体😿</p>
+<h4 id="2-22"><a href="#2-22" class="headerlink" title="2.22"></a>2.22</h4><p><em><strong>正畸, 启动</strong></em><br>读书时无所事事的日子，今天拔完牙和妈妈一起冰敷等待的日子，还有多少<br>刚开始普遍很难，易的是背八股，难的是落实和推进<br>如何跳出这个困境？如何跳出程序员行业？30岁，35岁<br>熬夜是因为没有对明天的渴望。但是在晚上的当下，有很多事情想做😿<br>喜欢一个人独处，是因为不想自己长期以来形成的情绪稳定被打破。害怕形成亲密关系，有时无法融入团体😿</p>
 <h4 id="2-27-InfluxDB服务化-：实例创建自定义Meta节点规格"><a href="#2-27-InfluxDB服务化-：实例创建自定义Meta节点规格" class="headerlink" title="2.27 InfluxDB服务化 ：实例创建自定义Meta节点规格"></a>2.27 <em>InfluxDB服务化</em> ：实例创建自定义Meta节点规格</h4><p>2.18：本需求作为其他需求开发的前置条件<br>2.19：apisever打log上uat调试创建流程，从已部署分支git branch新分支以免影响正在使用者<br>2.21：提sql变更 1 dataspace提工单 2 直接进入各环境metadb(其本身为容器部署的mariadb服务) 3 某些配置项可通过datamars控制台修改<br>2.25：云管运营端商品信息变更，考虑是否影响<strong>存量实例</strong>；；1 云管释放旧实例将计价报错-&gt;调datamars管控接口释放&#x2F;发版前释放旧实例 2 可以发起工单但无法下单-&gt;手动修改配额发起工单后过云管审批<br>2.27：发版流程、、代码合master，流水线打包使用（<strong>发版版本</strong>）部署，<strong>sql变更</strong>（定时，增加条件避免误订正），<strong>云运营变更</strong>（改一次console-cloud即各环境共用）<br>👨‍🦲steven：裁员，残酷，危机感，，工作就是生活的很大一部分</p>
 <ol>
 <li>meta规格，配置到instance_spec，engine &#x3D; “InfluxDBMeta”<br>| 场景 | 规格代码 | CPU 核数 | 内存 (GB) | 存储 (GB) | 网络带宽 |<br>|————–|———————–|———-|———–|———–|————|<br>| 小型集群 | influx-meta-small | 2 | 4 | 50 | 中等 |<br>| 中型集群 | influx-meta-medium | 4 | 8 | 50 | 高 |<br>| 大型集群 | influx-meta-large | 8+ | 16 | 50 | 超高 |<br>| 特大型集群 | influx-meta-xlarge | 16+ | 32 | 50 | 超高 |</li>
@@ -376,7 +376,6 @@
 <li>Ansible入门：脚本在特权机上，指定targetIp执行，，playbook为入口，roles&#x2F;tasks实现具体逻辑，，安装client注意预检查，常量写在var文件，脚本写在flie&#x2F;script.py通过scp传到target机器执行</li>
 <li><strong>CRUD</strong>基本功：1. 分页，baseMapper.selectPage(new Page&lt;&gt;(page, size), getQueryWrapper(req))  2. 模糊查询，queryWrapper.eqIfNotNull(BackupConfigPO::isDeleted, 0).likeIfNotNull(BackupConfigPO::getConfigKey, condition.getBackupRegion())  3. 模糊查询条件涉及表中text类型字段的内容为json，本质还是处理wrapper，queryWrapper.apply(“JSON_SEARCH(config_desc, ‘one’, ‘%” + req + “%’, NULL, ‘$.req’) IS NOT NULL”);</li>
 </ol>
-<h4 id="6-9"><a href="#6-9" class="headerlink" title="6.9"></a>6.9</h4><p>半年总结：</p>
 <h4 id="5-5-02-2027"><a href="#5-5-02-2027" class="headerlink" title="5.5 02&#x2F;2027"></a>5.5 02&#x2F;2027</h4><ul>
 <li><strong>工作经历</strong><br>美的 后端开发工程师-Java <sup>2024.7~</sup><ul>
 <li>Mops自动化运维平台：提供云主机&#x2F;存储自动化运维功能<ol>
@@ -402,6 +401,12 @@
 </ol>
 </li>
 </ul>
+<h4 id="6-9-2025年中总结"><a href="#6-9-2025年中总结" class="headerlink" title="6.9 2025年中总结"></a>6.9 2025年中总结</h4><ol>
+<li><p>核心工作成果​​<br>​​InfluxDB服务化体系构建​​，父子实例架构升级，新增influx-meta规格体系，支持节点级独立变配，为后续迁移&#x2F;重启奠定基础；节点迁移与数据恢复方案​​（4月核心攻坚），创新性提出 ​​“热分片截断-冷副本恢复”双阶段法​​，解决增量数据丢失问题（自测2000 points&#x2F;s场景），​​价值​​：实现迁移过程数据零丢失，填补开源方案空白<br>​​<br>NBU备份自动化，接用户需求，​​Ansible驱动运维流水线，开发跨平台客户端安装脚本（适配Linux&#x2F;Windows），实现备份域配置管理界面（增删改查+模糊查询）</p>
+</li>
+<li><p>技术认知升级<br>在InfluxDB服务化攻坚中锤炼的“场景抽象-方案验证”能力，从寻找开源社区方案，到定制化能力开发（恢复，迁移都不支持，，），到数据一致性保证，构建故障矩阵​​（如Meta节点宕机应对策略），​，<br>下半年聚焦​​可复用的技术资产沉淀​​（如开源Ansible角色库），在解决工业级问题的过程中构建不可替代性。</p>
+</li>
+</ol>
 
       
     </div>
