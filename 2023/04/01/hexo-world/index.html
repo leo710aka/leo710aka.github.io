@@ -14,7 +14,7 @@
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. HexoH">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-01T09:02:15.000Z">
-<meta property="article:modified_time" content="2024-11-04T15:24:46.901Z">
+<meta property="article:modified_time" content="2025-06-24T15:04:15.963Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -108,6 +108,13 @@
 <h3 id="Clean、-Generate-static-files-、Deploy-to-remote-sites"><a href="#Clean、-Generate-static-files-、Deploy-to-remote-sites" class="headerlink" title="Clean、 Generate static files 、Deploy to remote sites"></a>Clean、 Generate static files 、Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean   <span class="comment"># 清理缓存、清理之前生成的静态文件</span></span><br><span class="line">$ hexo g       <span class="comment"># 构建网页文件（通过md文件生成html、css、js..）</span></span><br><span class="line">$ hexo d       <span class="comment"># 同步github，更新博客上的内容（这一步可能需要多试几次）</span></span><br></pre></td></tr></table></figure>
 <p>没办法同步的话，直接把新构建的 <code>E:\Code\Blog\blog\.deploy_git</code> 中的文件手动上传github仓库；<br>成功后若博客内容未更新，ctrl+f5清下缓存。</p>
 <h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>在 <code>_config.yml</code> 或 <code>_config.landscape</code> 中设置，修改配置后先 hexo clean 一下，再发布。</p>
+<h3 id="hexo-d-报错-Error-Spawn-failed"><a href="#hexo-d-报错-Error-Spawn-failed" class="headerlink" title="hexo d 报错 Error: Spawn failed ?"></a>hexo d 报错 Error: Spawn failed ?</h3><ol>
+<li>寻找github.com的最新ip，加了host解析后，能够ping通，但hexo d仍失败</li>
+<li>优先解决 SSL&#x2F;TLS 连接超时问题​​：修改 Hexo 配置文件 _config.yml，将仓库地址从 HTTPS 改为 SSH 协议，根治 HTTPS 不稳定</li>
+<li>将 C:\Users\caife.ssh\id_rsa.pub（公钥）文件内容加到 GitHub → ​​Settings → SSH and GPG Keys → New SSH Key​​，再次执行hexo d成功了。</li>
+<li>​​为何旧密钥直接生效？​​<br>你已有的 id_rsa 密钥对是之前通过合法流程生成的（可能曾用于其他服务），只是未添加到 GitHub。上传公钥后，GitHub 即可识别该密钥的签名，因此无需重新生成。生成命令示例​​：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;your_email@example.com&quot;</span>  <span class="comment"># 推荐更安全的 Ed25519 算法</span></span><br></pre></td></tr></table></figure></li>
+<li>GitHub 身份验证流程​<br>当你执行 hexo d 时：<br>​​客户端发起连接​​：Hexo 通过 Git 向 GitHub 发起 SSH 连接请求。<br>​​服务器生成挑战​​：GitHub 生成一个随机字符串（Challenge），用你账户中存储的​​公钥​​加密后发送给客户端。<br>​​客户端响应签名​​：本地 Git 使用​​私钥​​解密该字符串，生成签名并返回给 GitHub。<br>​​服务器验证签名​​：GitHub 用公钥验证签名有效性，若匹配则认证通过，允许推送文件</li>
+</ol>
 
       
     </div>
