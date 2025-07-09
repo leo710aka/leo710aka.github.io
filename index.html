@@ -1383,15 +1383,17 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 }</li>
 <li>这是用户的正式诉求<br>输入用户诉求。</li>
 </ul>
-<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删</p>
+<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-：自测，构造入参（how？走通流程</p>
 <ol>
 <li>f5理解：F5 BIG-IP 是业界主流的硬件&#x2F;软件负载均衡解决方案。配置好负载均衡后，一个请求从客户端到后端服务器的生效流程涉及多个关键环节，其核心是​<strong>​客户端访问域名 → DNS解析至F5的VIP → F5转发请求至Pool Members → 后端处理并返回响应</strong></li>
-<li>mops架构。。用户提交工单-&gt; iflow审批流-&gt; 回调传入xxTicketVo-&gt; parse成Po处理业务逻辑</li>
+<li>mops架构。。用户提交工单-&gt; iflow审批流-&gt; 回调&#x2F;前端调接口-&gt; 传入xxTicketVo-&gt; convert成Dto&#x2F;Po处理业务逻辑</li>
 <li>蓝鲸。。统一运维平台竞品</li>
 </ol>
-<h2 id="6-28-Alibaba-Java开发手册学习"><a href="#6-28-Alibaba-Java开发手册学习" class="headerlink" title="6.28 Alibaba Java开发手册学习"></a>6.28 Alibaba Java开发手册学习</h2><h4 id="3-代码风格"><a href="#3-代码风格" class="headerlink" title="3. 代码风格"></a>3. 代码风格</h4><ol>
-<li>魔法值</li>
-<li>文档注释 &#x2F;** *&#x2F; Idea怎么配置??</li>
+<h2 id="6-28-Alibaba-Java开发手册学习"><a href="#6-28-Alibaba-Java开发手册学习" class="headerlink" title="6.28 Alibaba Java开发手册学习"></a>6.28 Alibaba Java开发手册学习</h2><h4 id="2-面向对象"><a href="#2-面向对象" class="headerlink" title="2. 面向对象"></a>2. 面向对象</h4><p>解析值。。序列反序列parse，，JSONNode，，</p>
+<h4 id="3-代码风格"><a href="#3-代码风格" class="headerlink" title="3. 代码风格"></a>3. 代码风格</h4><ol>
+<li>魔法值 &#x3D;&gt; enum</li>
+<li>变量一般以小驼峰格式命名，但有一种特殊情况：定义类成员变量时，特别是POJO类中，针对布尔值类型的变量不要以“is”开头，而是将数据表中的“is_xxx”字段映射到POJO类中的属性“Xxx”（如is_deleted &#x3D;》Deleted）</li>
+<li>文档注释 &#x2F;** *&#x2F; 加上创建和修改时间，写在代码上方,, Idea怎么配置??</li>
 </ol>
 <h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><p>什么时候throw Exception，要不要终止业务？设计业务逻辑在哪一步终端都能达到某一个最终状态，并保留错误信息（ststus，log）？</p>
 
