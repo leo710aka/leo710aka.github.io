@@ -1383,7 +1383,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 }</li>
 <li>这是用户的正式诉求<br>输入用户诉求。</li>
 </ul>
-<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）</p>
+<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联</p>
 <ol>
 <li>f5理解：F5 BIG-IP 是业界主流的硬件&#x2F;软件负载均衡解决方案。配置好负载均衡后，一个请求从客户端到后端服务器的生效流程涉及多个关键环节，其核心是​<strong>​客户端访问域名 → DNS解析至F5的VIP → F5转发请求至Pool Members → 后端处理并返回响应</strong></li>
 <li>Mops服务架构。。用户提交工单-&gt; iflow审批流-&gt; 回调&#x2F;前端调接口-&gt; 传入xxTicketVo-&gt; convert成Dto&#x2F;Po处理业务逻辑</li>
@@ -1396,7 +1396,30 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>变量一般以小驼峰格式命名，但有一种特殊情况：定义类成员变量时，特别是POJO类中，针对布尔值类型的变量不要以“is”开头，而是将数据表中的“is_xxx”字段映射到POJO类中的属性“Xxx”（如is_deleted &#x3D;》Deleted）</li>
 <li>文档注释 &#x2F;** *&#x2F; 加上创建和修改时间，写在代码上方,, Idea怎么配置??</li>
 </ol>
-<h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><p>什么时候throw Exception，要不要终止业务？设计业务逻辑在哪一步终端都能达到某一个最终状态，并保留错误信息（ststus，log）？</p>
+<h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><ol>
+<li>where to throw Exception？who to solve？how solve？<br>如果异常在在当前方法的处理能力范围内且无需透出，就直接捕获异常并处理；否则向上抛出，由上层方法或框架来处理。<br>如果在方法内部处理异常，需根据业务场景定制处理，如重试、回滚（还有 <em>ticketDetail.setExecutionStatus(xxEnum.FAIL)</em> 返回）等操作；如果向上抛出异常，需要在异常对象中添加上下文参数、局部变量、运行环境等消息，便于排查问题。<br>考虑设计业务逻辑，无论在哪一步终止业务，都能让外界感知此时的状态，并保留错误信息（ststus，log）</li>
+<li>异常分类<ul>
+<li>Error（致命异常），不可控错误，如StackOverFlowError、OutOFMemoryError</li>
+<li>Exception（非致命异常）<ul>
+<li>checked异常（受检异常）例如：IOException, SQLException。<ul>
+<li>无能为力型，如SQLException，只好保存现场人工介入</li>
+<li>力所能及型，如发生非授权异常可跳转权限申请页面</li>
+</ul>
+</li>
+<li>unchecked异常（非受检异常）是运行时异常，继承自 RuntimeException，更像是由 <em><strong>业务逻辑</strong></em>可能导致的异常<ul>
+<li>可预测异常，如IndexOutOfBoundsException, NullPointerException，应该提前做好边界检查而不是抛出</li>
+<li>需捕获异常，如Dubno框架进行RFC调用时产生的超时异常DubboTimeoutException，客户端不能因服务端异常导致不可用，可以重试或降级处理</li>
+<li>可透出异常，如Spring框架中抛出的NoSuchRequestHandingMethodException，框架会自行将异常映射到合适的状态码如404</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>throws</strong>关键字用于声明一个方法可能抛出的受检异常（checked）。BusinessException 通常是一个运行时异常，也就是非受检异常，不需要在方法签名中用 throws 声明（显式捕捉和处理），因为它通常表示业务逻辑错误，而不是程序错误。非受检异常的设计目的是让开发者在编写代码时不必显式地捕获或声明它们。<br>但是，仍然需要确保在适当的地方捕获和处理，特别是在应用程序的边界层（如控制器层）进行统一的异常处理。？？</li>
+<li>​​防御式编程，可以让方法返回null，，防止空指针异常（NPE）上调用方的责任，需要事先判断</li>
+<li>需定位报错行数 → 必须打印 e​​（传入异常对象）会输出完整的堆栈(e.printStackTrace())跟踪，包括类名、方法名、文件名和行号。<br>​​仅需错误描述 → 使用 e.getMessage()​​（适用于前端提示或自定义消息）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log.error(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span>+e.getMessage(), e);</span><br><span class="line">throw new BusinessException(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span> + e.getMessage());</span><br></pre></td></tr></table></figure></li>
+</ol>
 <h2 id="7-11-CMDB项目深度参与策略"><a href="#7-11-CMDB项目深度参与策略" class="headerlink" title="7.11 CMDB项目深度参与策略"></a>7.11 CMDB项目深度参与策略</h2><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
 <h4 id="🔧-技术攻坚重点"><a href="#🔧-技术攻坚重点" class="headerlink" title="🔧 技术攻坚重点"></a>🔧 <strong>技术攻坚重点</strong></h4><ol>
 <li>理解CMDB系统本质与行业实践**<ul>
@@ -1444,9 +1467,9 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
    - **横向拓展**：将CMDB经验复用到其他运维系统（如将配置数据对接AIOps平台实现故障预测）。
 3. 长期定位（3年+）：运维基础设施架构师**
    - **技术深度**：精通分布式系统设计（CAP权衡、RAFT共识算法在CMDB高可用中的应用）。
-   - **跨界能力**：理解SRE理念，设计容灾方案（如多Region CMDB数据同步策略）。
+   - **跨界能力**：理解SRE理念，设计容灾方案（如多Region CMDB数据同步策略）。 -->
 
-#### 📌 **3. 避开常见陷阱的实战建议**
+<!-- #### 📌 **3. 避开常见陷阱的实战建议**
 1. **拒绝“文档型理解”**：  
    - 用`jstack`分析CMDB API线程阻塞问题，而非仅看日志。
    - 部署APM工具（SkyWalking）追踪跨服务调用链。
@@ -1459,45 +1482,27 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <h4 id="💎-以CMDB为杠杆撬动技术纵深"><a href="#💎-以CMDB为杠杆撬动技术纵深" class="headerlink" title="💎 以CMDB为杠杆撬动技术纵深"></a>💎 <strong>以CMDB为杠杆撬动技术纵深</strong></h4><ul>
 <li><strong>项目价值</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
 <li><strong>技术抓手</strong>：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">journey</span><br><span class="line">  title CMDB项目技术成长路径</span><br><span class="line">  section 基础能力</span><br><span class="line">    数据建模 --&gt; 领域驱动设计</span><br><span class="line">    采集框架 --&gt; 异步编程/协议解析</span><br><span class="line">  section 高阶能力</span><br><span class="line">    拓扑计算 --&gt; 图算法/分布式事务</span><br><span class="line">    云原生部署 --&gt; K8s/Istio治理</span><br></pre></td></tr></table></figure></li>
-<li><strong>行动清单</strong>：<br>✅ 本周：用PlantUML重绘系统架构图，标注技术栈；<br>✅ 本月：在开发环境中部署Istio，实践API熔断；<br>✅ 本季：推动一次CI数据模型重构，支持混合云设备管理。  <blockquote>
-<p>CMDB不仅是需求开发任务，更是你从“功能开发者”转型“系统架构师”的跳板。通过深度参与数据建模、性能优化和云原生集成，可系统构建分布式系统设计能力——这正是高级Java工程师的核心竞争力。</p>
-</blockquote>
-</li>
 </ul>
-<h4 id="⚙️-CMDB项目可培养的三大核心能力（直击大厂面试考点）"><a href="#⚙️-CMDB项目可培养的三大核心能力（直击大厂面试考点）" class="headerlink" title="⚙️ CMDB项目可培养的三大核心能力（直击大厂面试考点）"></a>⚙️ <strong>CMDB项目可培养的三大核心能力（直击大厂面试考点）</strong></h4><ol>
-<li>数据建模与架构设计能力**  <ul>
-<li><strong>技术实践</strong>：  <ul>
-<li>主导CMDB的<strong>配置项（CI）模型设计</strong>，理解硬&#x2F;软件&#x2F;服务等实体的属性继承与关系拓扑（如主机→虚拟机→应用依赖链）</li>
-<li>用<strong>图数据库（Neo4j）或关系型数据库</strong>实现关系映射，解决“变更影响分析”等场景。</li>
-</ul>
-</li>
-<li><strong>大厂考点关联</strong>：  <ul>
-<li>腾讯云交付架构师要求“<strong>全局思维与底层架构设计能力</strong>”，CMDB的数据模型设计是微缩版企业级架构设计。  </li>
-<li>面试可举例：“我设计的CI模型支持动态扩展字段，通过元数据驱动降低模型变更成本”。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>云原生技术栈深度实践**  <ul>
-<li><strong>技术实践</strong>：  <ul>
-<li>将CMDB模块拆分为<strong>微服务</strong>（如数据采集&#x2F;API服务&#x2F;拓扑计算），用K8s编排，集成<strong>Istio实现服务治理</strong>。  </li>
-<li>开发<strong>自动发现引擎</strong>，通过Agent&#x2F;API&#x2F;SNMP协议采集云资源，并实时同步至CMDB。</li>
-</ul>
-</li>
-<li><strong>大厂考点关联</strong>：腾讯公有云交付架构师要求“<strong>熟悉云原生技术，有降本与容灾设计经验</strong>”。CMDB的自动发现与K8s化部署是云原生能力的最佳背书。</li>
-</ul>
-</li>
-<li>系统思维与业务理解力**  <ul>
-<li><strong>技术实践</strong>：  <ul>
-<li>推动CMDB与<strong>监控系统（Prometheus）</strong>、<strong>工单系统（JIRA）</strong> 的API打通，理解运维生态协同逻辑。  </li>
-<li>通过<strong>故障影响链分析</strong>（如网络设备故障→关联服务宕机），训练复杂系统的问题归因能力。</li>
-</ul>
-</li>
-<li><strong>大厂考点关联</strong>：腾讯AI产品架构师需“<strong>理解客户需求，设计技术方案</strong>”。CMDB的跨系统集成经验可证明业务抽象能力。</li>
-</ul>
-</li>
-</ol>
-<h4 id="📊-CMDB项目经验如何写入简历（大厂HR关注点）"><a href="#📊-CMDB项目经验如何写入简历（大厂HR关注点）" class="headerlink" title="📊 CMDB项目经验如何写入简历（大厂HR关注点）"></a>📊 <strong>CMDB项目经验如何写入简历（大厂HR关注点）</strong></h4><table>
+<!-- #### ⚙️ **CMDB项目可培养的三大核心能力（直击大厂面试考点）**
+1. 数据建模与架构设计能力**  
+   - **技术实践**：  
+     - 主导CMDB的**配置项（CI）模型设计**，理解硬/软件/服务等实体的属性继承与关系拓扑（如主机→虚拟机→应用依赖链）
+     - 用**图数据库（Neo4j）或关系型数据库**实现关系映射，解决“变更影响分析”等场景。  
+   - **大厂考点关联**：  
+     - 腾讯云交付架构师要求“**全局思维与底层架构设计能力**”，CMDB的数据模型设计是微缩版企业级架构设计。  
+     - 面试可举例：“我设计的CI模型支持动态扩展字段，通过元数据驱动降低模型变更成本”。
+2. 云原生技术栈深度实践**  
+   - **技术实践**：  
+     - 将CMDB模块拆分为**微服务**（如数据采集/API服务/拓扑计算），用K8s编排，集成**Istio实现服务治理**。  
+     - 开发**自动发现引擎**，通过Agent/API/SNMP协议采集云资源，并实时同步至CMDB。  
+   - **大厂考点关联**：腾讯公有云交付架构师要求“**熟悉云原生技术，有降本与容灾设计经验**”。CMDB的自动发现与K8s化部署是云原生能力的最佳背书。
+3. 系统思维与业务理解力**  
+   - **技术实践**：  
+     - 推动CMDB与**监控系统（Prometheus）**、**工单系统（JIRA）** 的API打通，理解运维生态协同逻辑。  
+     - 通过**故障影响链分析**（如网络设备故障→关联服务宕机），训练复杂系统的问题归因能力。  
+   - **大厂考点关联**：腾讯AI产品架构师需“**理解客户需求，设计技术方案**”。CMDB的跨系统集成经验可证明业务抽象能力。 -->
+
+<h4 id="📊-项目经验如何写入简历"><a href="#📊-项目经验如何写入简历" class="headerlink" title="📊 项目经验如何写入简历"></a>📊 <strong>项目经验如何写入简历</strong></h4><table>
 <thead>
 <tr>
 <th><strong>简历模块</strong></th>
@@ -1524,26 +1529,25 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <blockquote>
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
-<h4 id="🚀-面向大厂的CMDB价值提炼策略"><a href="#🚀-面向大厂的CMDB价值提炼策略" class="headerlink" title="🚀 面向大厂的CMDB价值提炼策略"></a>🚀 <strong>面向大厂的CMDB价值提炼策略</strong></h4><ol>
-<li><strong>技术深度</strong>  <ul>
-<li><strong>穿透底层协议</strong>：深入SNMP&#x2F;IPMI等采集协议，理解网络层通信机制（腾讯云架构师面试常考）。  </li>
-<li><strong>性能优化实战</strong>：用Arthas诊断CMDB API性能瓶颈，优化JVM参数压榨GC停顿。</li>
-</ul>
-</li>
-<li><strong>架构广度</strong>  <ul>
-<li><strong>模拟分布式场景</strong>：在开发环境部署多Region CMDB，实现基于RAFT的数据同步（面试可谈分布式一致性理解）。  </li>
-<li><strong>开源贡献</strong>：将自研的自动化采集模块抽象为<strong>开源Agent工具</strong>（GitHub项目），吸引技术影响力。</li>
-</ul>
-</li>
-<li><strong>业务影响力</strong>  <ul>
-<li><strong>主动提案</strong>：向领导提交《CMDB驱动运维自动化方案》，推动与Jenkins流水线、监控告警联动。  </li>
-<li><strong>技术输出</strong>：在团队内主持 <strong>“CMDB在亿级设备企业的架构演进”</strong> 分享（模仿大厂内部Tech Talk）。</li>
-</ul>
-</li>
-</ol>
-<h3 id="💎-总结：CMDB作为跳板的核心逻辑"><a href="#💎-总结：CMDB作为跳板的核心逻辑" class="headerlink" title="💎 总结：CMDB作为跳板的核心逻辑"></a>💎 <strong>总结：CMDB作为跳板的核心逻辑</strong></h3><blockquote>
-<p>CMDB本质是 <strong>“运维领域的微缩企业级系统”</strong>——它要求你同时处理：<br>🔹 <strong>数据建模</strong>（CI关系拓扑 → 图数据库实战）<br>🔹 <strong>高并发设计</strong>（自动发现引擎 → 网络编程&#x2F;队列优化）<br>🔹 <strong>云原生落地</strong>（K8s化部署&#x2F;Service Mesh治理）<br>🔹 <strong>生态集成</strong>（API经济与系统协作）<br><strong>这些正是腾讯云、基础设施岗位的日考核心能力</strong>。  </p>
-</blockquote>
+<!-- #### 🚀 **面向大厂的CMDB价值提炼策略**
+1. **技术深度**  
+   - **穿透底层协议**：深入SNMP/IPMI等采集协议，理解网络层通信机制（腾讯云架构师面试常考）。  
+   - **性能优化实战**：用Arthas诊断CMDB API性能瓶颈，优化JVM参数压榨GC停顿。
+2. **架构广度**  
+   - **模拟分布式场景**：在开发环境部署多Region CMDB，实现基于RAFT的数据同步（面试可谈分布式一致性理解）。  
+   - **开源贡献**：将自研的自动化采集模块抽象为**开源Agent工具**（GitHub项目），吸引技术影响力。
+3. **业务影响力**  
+   - **主动提案**：向领导提交《CMDB驱动运维自动化方案》，推动与Jenkins流水线、监控告警联动。  
+   - **技术输出**：在团队内主持 **“CMDB在亿级设备企业的架构演进”** 分享（模仿大厂内部Tech Talk）。
+
+### 💎 **总结：CMDB作为跳板的核心逻辑**  
+> CMDB本质是 **“运维领域的微缩企业级系统”**——它要求你同时处理：  
+> 🔹 **数据建模**（CI关系拓扑 → 图数据库实战）  
+> 🔹 **高并发设计**（自动发现引擎 → 网络编程/队列优化）  
+> 🔹 **云原生落地**（K8s化部署/Service Mesh治理）  
+> 🔹 **生态集成**（API经济与系统协作）  
+> **这些正是腾讯云、基础设施岗位的日考核心能力**。   -->
+
 
       
     </div>
