@@ -1262,9 +1262,8 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>再从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复</li>
 <li>检查分片恢复情况</li>
 </ol>
-<p><strong>故障矩阵：</strong></p>
+<p><strong>故障矩阵：</strong> 架构 &#x3D;&gt; 2 data 3 meta 副本因子为2</p>
 <ol>
-<li><strong>架构：</strong>2 data 3 meta 副本因子为2</li>
 <li>挂1个data -&gt; 节点迁移、重搭</li>
 <li>挂2个data -&gt; 备份恢复</li>
 <li>挂1个meta -&gt; 未知</li>
@@ -1369,7 +1368,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>什么是Prompt工程？<br>是业务服务应用大语言模型的中枢，用于释放LLM的能力，包括 1）单个任务的Prompt撰写调试 2）多个任务Prompt的设计组合<br>如：撰写短视频文案 &#x3D;》 1. 分析热门文案 2. 结合商品信息生成文案</li>
 <li>Prompt工程开展方式<br>根据生成的可行性与效果，明确对模型的输入、输出目标，经设计&#x2F;调试后，生成效果达成业务目标后，固化为应用服务。</li>
 </ul>
-<h5 id="一个尝试：生成编程指令Prompt"><a href="#一个尝试：生成编程指令Prompt" class="headerlink" title="一个尝试：生成编程指令Prompt"></a>一个尝试：生成编程指令Prompt</h5><ul>
+<h2 id="6-20-一个尝试：生成编程指令Prompt"><a href="#6-20-一个尝试：生成编程指令Prompt" class="headerlink" title="6.20 一个尝试：生成编程指令Prompt"></a>6.20 一个尝试：生成编程指令Prompt</h2><ul>
 <li>你是一个资深编程助手，擅长根据用户诉求生成可执行的编程指令。让我们一步步做：<ol>
 <li>将用户诉求拆解为清晰、可执行的原子化步骤。</li>
 <li>注意环境适配（例如 Linux&#x2F;macOS 环境优先使用 Bash&#x2F;Python，Windows 环境优先使用 PowerShell）以及进行包依赖的检测。</li>
@@ -1383,20 +1382,20 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 }</li>
 <li>这是用户的正式诉求<br>输入用户诉求。</li>
 </ul>
-<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联</p>
+<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联<br>7.17：上线。修复 1 管理员节点自动带出尽可能多参数 2 支持定时执行 3 思考：checkChangeSuccess()方法期望同步response，但方法里调API返回fail会隔10s重复十次，就是一直fail的话接口会隔100s才返回数据，假如加了一个定时任务扫描出待变更工单列表，用for循环执行change()并且各调用了checkChangeSuccess()，会发生什么，for循环卡住？”springboot项目，写了一个变更c…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv">https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv</a></p>
 <ol>
 <li>f5理解：F5 BIG-IP 是业界主流的硬件&#x2F;软件负载均衡解决方案。配置好负载均衡后，一个请求从客户端到后端服务器的生效流程涉及多个关键环节，其核心是​<strong>​客户端访问域名 → DNS解析至F5的VIP → F5转发请求至Pool Members → 后端处理并返回响应</strong></li>
 <li>Mops服务架构。。用户提交工单-&gt; iflow审批流-&gt; 回调&#x2F;前端调接口-&gt; 传入xxTicketVo-&gt; convert成Dto&#x2F;Po处理业务逻辑</li>
 <li>蓝鲸。。统一运维平台竞品</li>
 <li>自动化运维开发总结：工单，，提效，，用户，，，</li>
 </ol>
-<h2 id="6-28-Alibaba-Java开发手册学习"><a href="#6-28-Alibaba-Java开发手册学习" class="headerlink" title="6.28 Alibaba Java开发手册学习"></a>6.28 Alibaba Java开发手册学习</h2><h4 id="2-面向对象"><a href="#2-面向对象" class="headerlink" title="2. 面向对象"></a>2. 面向对象</h4><p>解析值。。序列反序列parse，，JSONNode，，</p>
+<h2 id="6-28-Alibaba-Java开发手册学习"><a href="#6-28-Alibaba-Java开发手册学习" class="headerlink" title="6.28 Alibaba Java开发手册学习"></a>6.28 Alibaba Java开发手册学习</h2><h4 id="1-计算机基础"><a href="#1-计算机基础" class="headerlink" title="1. 计算机基础"></a>1. 计算机基础</h4><h4 id="2-面向对象"><a href="#2-面向对象" class="headerlink" title="2. 面向对象"></a>2. 面向对象</h4><p>解析值。。序列反序列parse，，JSONNode，，</p>
 <h4 id="3-代码风格"><a href="#3-代码风格" class="headerlink" title="3. 代码风格"></a>3. 代码风格</h4><ol>
 <li>魔法值 &#x3D;&gt; enum</li>
 <li>变量一般以小驼峰格式命名，但有一种特殊情况：定义类成员变量时，特别是POJO类中，针对布尔值类型的变量不要以“is”开头，而是将数据表中的“is_xxx”字段映射到POJO类中的属性“Xxx”（如is_deleted &#x3D;》Deleted）</li>
 <li>文档注释 &#x2F;** *&#x2F; 加上创建和修改时间，写在代码上方,, Idea怎么配置??</li>
 </ol>
-<h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><ol>
+<h4 id="4-走进-JVM"><a href="#4-走进-JVM" class="headerlink" title="4. 走进 JVM"></a>4. 走进 JVM</h4><h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><ol>
 <li>where to throw Exception？who to solve？how solve？<br>如果异常在在当前方法的处理能力范围内且无需透出，就直接捕获异常并处理；否则向上抛出，由上层方法或框架来处理。<br>如果在方法内部处理异常，需根据业务场景定制处理，如重试、回滚（还有 <em>ticketDetail.setExecutionStatus(xxEnum.FAIL)</em> 返回）等操作；如果向上抛出异常，需要在异常对象中添加上下文参数、局部变量、运行环境等消息，便于排查问题。<br>考虑设计业务逻辑，无论在哪一步终止业务，都能让外界感知此时的状态，并保留错误信息（ststus，log）</li>
 <li>异常分类<ul>
 <li>Error（致命异常），不可控错误，如StackOverFlowError、OutOFMemoryError</li>
@@ -1420,6 +1419,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>​​防御式编程，可以让方法返回null，，防止空指针异常（NPE）上调用方的责任，需要事先判断</li>
 <li>需定位报错行数 → 必须打印 e​​（传入异常对象）会输出完整的堆栈(e.printStackTrace())跟踪，包括类名、方法名、文件名和行号。<br>​​仅需错误描述 → 使用 e.getMessage()​​（适用于前端提示或自定义消息）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log.error(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span>+e.getMessage(), e);</span><br><span class="line">throw new BusinessException(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span> + e.getMessage());</span><br></pre></td></tr></table></figure></li>
 </ol>
+<h4 id="6-数据结构与集合"><a href="#6-数据结构与集合" class="headerlink" title="6. 数据结构与集合"></a>6. 数据结构与集合</h4><h4 id="7-并发与多线程"><a href="#7-并发与多线程" class="headerlink" title="7. 并发与多线程"></a>7. 并发与多线程</h4><h4 id="8-单元测试"><a href="#8-单元测试" class="headerlink" title="8. 单元测试"></a>8. 单元测试</h4><h4 id="9-代码规约"><a href="#9-代码规约" class="headerlink" title="9. 代码规约"></a>9. 代码规约</h4><p>。。</p>
 <h2 id="7-11-CMDB项目深度参与策略"><a href="#7-11-CMDB项目深度参与策略" class="headerlink" title="7.11 CMDB项目深度参与策略"></a>7.11 CMDB项目深度参与策略</h2><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
 <h4 id="🔧-技术攻坚重点"><a href="#🔧-技术攻坚重点" class="headerlink" title="🔧 技术攻坚重点"></a>🔧 <strong>技术攻坚重点</strong></h4><ol>
 <li>理解CMDB系统本质与行业实践**<ul>
@@ -1548,6 +1548,9 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 > 🔹 **生态集成**（API经济与系统协作）  
 > **这些正是腾讯云、基础设施岗位的日考核心能力**。   -->
 
+
+<h2 id="7-16-Java如何处理一个请求"><a href="#7-16-Java如何处理一个请求" class="headerlink" title="7.16 Java如何处理一个请求"></a>7.16 Java如何处理一个请求</h2><p>“一个请求，如<a target="_blank" rel="noopener" href="https://abc.co..."点击查看元宝的回答/">https://abc.co...&quot;点击查看元宝的回答</a><br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a></p>
+<h2 id="7-17-Mops-参与发版"><a href="#7-17-Mops-参与发版" class="headerlink" title="7.17 Mops 参与发版"></a>7.17 Mops 参与发版</h2><p>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a><br>集成，部署 “所谓的微服务实际上是怎么部署的呢？打ja…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
 
       
     </div>
