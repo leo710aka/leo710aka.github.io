@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-07-31T16:52:37.529Z">
+<meta property="article:modified_time" content="2025-07-31T17:09:02.682Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -362,7 +362,7 @@
 </ol>
 <h2 id="4-14-DB值班开始"><a href="#4-14-DB值班开始" class="headerlink" title="4.14 DB值班开始 ; )"></a>4.14 DB值班开始 ; )</h2><p>DBCLOUD开源DB报警群（实例），DBEngine告警群（机器），致命告警-&gt;数据库值班告警处理群，MariaDB&#x2F;MySQL&#x2F;MongoDB&#x2F;PostgreSQL 常见问题,,</p>
 <ul>
-<li>MariaDB容器数据盘使用率过大<br>1.异常内容:容器数据盘占用率超过90%<br>2.问题定位：<br>1）&#x2F;var&#x2F;lib&#x2F;mysql 目录下存在大量临时文件（如 #sql_1_44.MAD，大小达185G）<br>2）show process查看未提交的长事务（WITH RECURSIVE 查询和 Sending data 状态，确认这些递归查询正在生成大临时表）持有临时表资源，导致文件无法自动清理。<br>3.处理方案<br>1）KILL 15443008, 15443009, 15443010; &#x2F;&#x2F; 终止进程（替换为实际ID）临时kill了超长事务连接，临时文件自动清理了（&#x2F;var&#x2F;lib&#x2F;mysql挂载点空间得到释放）<br>2）联系用户优化sql</li>
+<li>MariaDB容器数据盘使用率过大<br>1.异常内容:容器数据盘占用率超过90%<br>2.问题定位：<br>1）&#x2F;var&#x2F;lib&#x2F;mysql 目录下存在大量临时文件（如 #sql_1_44.MAD，大小达185G）<br>2）show process 查看未提交的长事务（WITH RECURSIVE 查询和 Sending data 状态，确认这些递归查询正在生成大临时表）持有临时表资源，导致文件无法自动清理。<br>3.处理方案<br>1）KILL 15443008, 15443009, 15443010; &#x2F;&#x2F; 终止进程（替换为实际ID）临时kill了超长事务连接，临时文件自动清理了（&#x2F;var&#x2F;lib&#x2F;mysql挂载点空间得到释放）<br>2）联系用户优化sql</li>
 <li>MariaDB实例备库IO线程停止<br>1.告警内容<br>实例 IO 线程停止.通常由于无法连接到主库.<br>2.问题定位：<br>1）服务可用性-&gt;观察到发生主从切换，发生时间符合告警情况<br>2）kubectl get pod -n mariadb -Lrole -Lhealthy-&gt;从库（原主库切换而来）健康为no<br>3）kubectl descirbe 从库pod，观察到mysql container发生terminated，OOMKill，，<br>4）监控指标：内存缓慢提升-&gt;考虑扩容，暴增-&gt;dataspace诊断看慢sql<br>3.处理方案<br>1）备库重搭<br>2）联系用户扩容&#x2F;优化慢sql</li>
 </ul>
 <h2 id="4-22-2025成长对话"><a href="#4-22-2025成长对话" class="headerlink" title="4.22 2025成长对话"></a>4.22 2025成长对话</h2><ul>
@@ -512,8 +512,9 @@
 <h4 id="6-数据结构与集合"><a href="#6-数据结构与集合" class="headerlink" title="6. 数据结构与集合"></a>6. 数据结构与集合</h4><h4 id="7-并发与多线程"><a href="#7-并发与多线程" class="headerlink" title="7. 并发与多线程"></a>7. 并发与多线程</h4><h4 id="8-单元测试"><a href="#8-单元测试" class="headerlink" title="8. 单元测试"></a>8. 单元测试</h4><h4 id="9-代码规约"><a href="#9-代码规约" class="headerlink" title="9. 代码规约"></a>9. 代码规约</h4><p>。。</p>
 <hr>
 
-<h2 id="7-11-CMDB项目深度参与策略"><a href="#7-11-CMDB项目深度参与策略" class="headerlink" title="7.11 CMDB项目深度参与策略"></a>7.11 CMDB项目深度参与策略</h2><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
-<h4 id="🔧-技术攻坚重点"><a href="#🔧-技术攻坚重点" class="headerlink" title="🔧 技术攻坚重点"></a>🔧 <strong>技术攻坚重点</strong></h4><ol>
+<h2 id="7-11-CMDB-项目运营"><a href="#7-11-CMDB-项目运营" class="headerlink" title="7.11 CMDB 项目运营"></a>7.11 CMDB 项目运营</h2><h4 id="深度参与策略"><a href="#深度参与策略" class="headerlink" title="深度参与策略"></a>深度参与策略</h4><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
+<ol>
+<li>🔧 <strong>技术攻坚重点</strong><ul>
 <li>理解CMDB系统本质与行业实践**<ul>
 <li><strong>核心价值</strong>：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，支撑运维自动化、变更管理等场景。</li>
 <li><strong>主流竞品参考</strong>：<ul>
@@ -525,8 +526,7 @@
 <li><strong>自研系统关键模块</strong>：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
 </ul>
 </li>
-<li>通过CMDB项目深挖技术栈**<ul>
-<li><strong>Java底层实践场景</strong>：<ul>
+<li>通过CMDB项目深挖技术栈，Java底层实践场景：<ul>
 <li><strong>高并发设计</strong>：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
 <li><strong>JVM调优实战</strong>：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
 <li><strong>分布式事务</strong>：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
@@ -538,63 +538,20 @@
 <li><strong>可观测性建设</strong>：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
 </ul>
 </li>
-</ul>
-</li>
 <li>避免“CRUD开发”，聚焦架构能力**<ul>
 <li><strong>数据模型设计</strong>：主导CI分类标准制定（如主机&#x2F;网络设备&#x2F;应用的属性继承关系），用图数据库（Neo4j）存储拓扑。</li>
 <li><strong>自动化采集框架</strong>：开发插件式采集器，支持Agent&#x2F;API&#x2F;SNMP多协议，用Quartz调度扫描任务。</li>
 <li><strong>变更影响链分析</strong>：实现“修改防火墙策略 → 自动标记依赖服务”的联动逻辑（学习规则引擎Drools）。</li>
 </ul>
 </li>
-</ol>
-<!-- #### 🚀 2. 职业发展进阶路径（1-3年规划）**
-1. 短期目标（0-6个月）：成为CMDB系统核心Owner**
-   - **技术动作**：
-     - 用ArchiMate画出系统现状图，标注技术债与优化点。
-     - 为关键模块编写单元测试（Jacoco覆盖率>70%）。
-     - 提交RFC文档推动技术升级（如用Spring Cloud替代老旧RPC框架）。
-   - **成果输出**：主导一次数据模型重构或自动发现引擎性能优化（压测QPS提升50%+）。
-2. 中期目标（1-2年）：云原生架构能力认证**
-   - **能力认证**：考取CKA（Kubernetes管理员）、Istio认证工程师。
-   - **横向拓展**：将CMDB经验复用到其他运维系统（如将配置数据对接AIOps平台实现故障预测）。
-3. 长期定位（3年+）：运维基础设施架构师**
-   - **技术深度**：精通分布式系统设计（CAP权衡、RAFT共识算法在CMDB高可用中的应用）。
-   - **跨界能力**：理解SRE理念，设计容灾方案（如多Region CMDB数据同步策略）。 -->
-
-<!-- #### 📌 **3. 避开常见陷阱的实战建议**
-1. **拒绝“文档型理解”**：  
-   - 用`jstack`分析CMDB API线程阻塞问题，而非仅看日志。
-   - 部署APM工具（SkyWalking）追踪跨服务调用链。
-2. **技术影响力构建**：  
-   - 将CMDB自动化采集模块抽象为开源工具（如GitHub发布`cmdb-agent`项目）。
-   - 在团队内主持“CMDB与云原生集成”技术分享（议题参考：K8s Operator管理配置项生命周期）。
-3. **跳出执行层思维**：  
-   - 向领导提交《CMDB与运维生态集成方案》，推动与监控系统（Prometheus）、流水线（Jenkins）的API打通。 -->
-
-<h4 id="💎-以CMDB为杠杆撬动技术纵深"><a href="#💎-以CMDB为杠杆撬动技术纵深" class="headerlink" title="💎 以CMDB为杠杆撬动技术纵深"></a>💎 <strong>以CMDB为杠杆撬动技术纵深</strong></h4><ul>
-<li><strong>项目价值</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
-<li><strong>技术抓手</strong>：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">journey</span><br><span class="line">  title CMDB项目技术成长路径</span><br><span class="line">  section 基础能力</span><br><span class="line">    数据建模 --&gt; 领域驱动设计</span><br><span class="line">    采集框架 --&gt; 异步编程/协议解析</span><br><span class="line">  section 高阶能力</span><br><span class="line">    拓扑计算 --&gt; 图算法/分布式事务</span><br><span class="line">    云原生部署 --&gt; K8s/Istio治理</span><br></pre></td></tr></table></figure></li>
 </ul>
-<!-- #### ⚙️ **CMDB项目可培养的三大核心能力（直击大厂面试考点）**
-1. 数据建模与架构设计能力**  
-   - **技术实践**：  
-     - 主导CMDB的**配置项（CI）模型设计**，理解硬/软件/服务等实体的属性继承与关系拓扑（如主机→虚拟机→应用依赖链）
-     - 用**图数据库（Neo4j）或关系型数据库**实现关系映射，解决“变更影响分析”等场景。  
-   - **大厂考点关联**：  
-     - 腾讯云交付架构师要求“**全局思维与底层架构设计能力**”，CMDB的数据模型设计是微缩版企业级架构设计。  
-     - 面试可举例：“我设计的CI模型支持动态扩展字段，通过元数据驱动降低模型变更成本”。
-2. 云原生技术栈深度实践**  
-   - **技术实践**：  
-     - 将CMDB模块拆分为**微服务**（如数据采集/API服务/拓扑计算），用K8s编排，集成**Istio实现服务治理**。  
-     - 开发**自动发现引擎**，通过Agent/API/SNMP协议采集云资源，并实时同步至CMDB。  
-   - **大厂考点关联**：腾讯公有云交付架构师要求“**熟悉云原生技术，有降本与容灾设计经验**”。CMDB的自动发现与K8s化部署是云原生能力的最佳背书。
-3. 系统思维与业务理解力**  
-   - **技术实践**：  
-     - 推动CMDB与**监控系统（Prometheus）**、**工单系统（JIRA）** 的API打通，理解运维生态协同逻辑。  
-     - 通过**故障影响链分析**（如网络设备故障→关联服务宕机），训练复杂系统的问题归因能力。  
-   - **大厂考点关联**：腾讯AI产品架构师需“**理解客户需求，设计技术方案**”。CMDB的跨系统集成经验可证明业务抽象能力。 -->
-
-<h4 id="📊-项目经验如何写入简历"><a href="#📊-项目经验如何写入简历" class="headerlink" title="📊 项目经验如何写入简历"></a>📊 <strong>项目经验如何写入简历</strong></h4><table>
+</li>
+<li>💎 <strong>以CMDB为杠杆撬动技术纵深</strong><ul>
+<li><strong>项目价值</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
+<li><strong>技术抓手</strong>：   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">journey</span><br><span class="line">  title CMDB项目技术成长路径</span><br><span class="line">  section 基础能力</span><br><span class="line">    数据建模 --&gt; 领域驱动设计</span><br><span class="line">    采集框架 --&gt; 异步编程/协议解析</span><br><span class="line">  section 高阶能力</span><br><span class="line">    拓扑计算 --&gt; 图算法/分布式事务</span><br><span class="line">    云原生部署 --&gt; K8s/Istio治理</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>📊 <strong>项目经验如何写入简历</strong><table>
 <thead>
 <tr>
 <th><strong>简历模块</strong></th>
@@ -618,6 +575,8 @@
 <td>通过拓扑影响分析模块，故障定位时效从30min缩短至5min，年止损运维成本200万+</td>
 </tr>
 </tbody></table>
+</li>
+</ol>
 <blockquote>
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
@@ -691,7 +650,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="第一步，登录目标项目"><a href="#第一步，登录目标项目" class="headerlink" title="第一步，登录目标项目"></a>第一步，登录目标项目</h4><p>ssh</p>
+<h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="1-进入环境"><a href="#1-进入环境" class="headerlink" title="1 进入环境"></a>1 进入环境</h4><p>堡垒机，跳板机，物理机，linux后台</p>
 <h4 id="Zookeeper导致Linux磁盘占用过高的SOP"><a href="#Zookeeper导致Linux磁盘占用过高的SOP" class="headerlink" title="Zookeeper导致Linux磁盘占用过高的SOP"></a>Zookeeper导致Linux磁盘占用过高的SOP</h4><ol>
 <li>告警确认<br>• 监控告警内容：磁盘使用率&gt;80%（路径&#x2F;apps，总量48.97G，空闲仅9.29G）。<br>• 初步定位：确认Zookeeper目录为占用源头（如&#x2F;apps&#x2F;zookeeper&#x2F;version-2）。</li>
 <li>登录与排查<br>• 通过跳板机连接CMDB主机（FinalShell + SSH）。<br>• 使用命令逐层定位</li>
