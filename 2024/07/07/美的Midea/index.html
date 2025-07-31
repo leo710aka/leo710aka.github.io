@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-07-26T03:05:55.620Z">
+<meta property="article:modified_time" content="2025-07-31T16:52:37.529Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -472,7 +472,7 @@
 }</li>
 <li>这是用户的正式诉求<br>输入用户诉求。</li>
 </ul>
-<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联<br>7.17：上线。修复 1 管理员节点自动带出尽可能多参数 2 支持定时执行 3 思考：checkChangeSuccess()方法期望同步response，但方法里调API返回fail会隔10s重复十次，就是一直fail的话接口会隔100s才返回数据，假如加了一个定时任务扫描出待变更工单列表，用for循环执行change()并且各调用了checkChangeSuccess()，会发生什么，for循环卡住？”springboot项目，写了一个变更c…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv">https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv</a></p>
+<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联<br>7.17：上线。修复 1 管理员节点自动带出尽可能多参数 2 支持定时执行 3 思考：checkChangeSuccess()方法期望同步response，但方法里调API返回fail会隔10s重复十次，就是一直fail的话接口会隔100s才返回数据，假如加了一个定时任务扫描出待变更工单列表，用for循环执行change()并且各调用了checkChangeSuccess()，会发生什么，for循环卡住？”springboot项目，写了一个变更c…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv">https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv</a><br>7.29：支持定时执行，注意避免同一个工单被多次扫除(未完成变更后状态-&gt;EXECUTED)，注意调度任务下发到本地节点，可能由于代码版本不同造成“灵异事件”</p>
 <ol>
 <li>f5理解：F5 BIG-IP 是业界主流的硬件&#x2F;软件负载均衡解决方案。配置好负载均衡后，一个请求从客户端到后端服务器的生效流程涉及多个关键环节，其核心是​<strong>​客户端访问域名 → DNS解析至F5的VIP → F5转发请求至Pool Members → 后端处理并返回响应</strong></li>
 <li>Mops服务架构。。用户提交工单-&gt; iflow审批流-&gt; 回调&#x2F;前端调接口-&gt; 传入xxTicketVo-&gt; convert成Dto&#x2F;Po处理业务逻辑</li>
@@ -510,6 +510,8 @@
 <li>需定位报错行数 → 必须打印 e​​（传入异常对象）会输出完整的堆栈(e.printStackTrace())跟踪，包括类名、方法名、文件名和行号。<br>​​仅需错误描述 → 使用 e.getMessage()​​（适用于前端提示或自定义消息）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log.error(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span>+e.getMessage(), e);</span><br><span class="line">throw new BusinessException(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span> + e.getMessage());</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="6-数据结构与集合"><a href="#6-数据结构与集合" class="headerlink" title="6. 数据结构与集合"></a>6. 数据结构与集合</h4><h4 id="7-并发与多线程"><a href="#7-并发与多线程" class="headerlink" title="7. 并发与多线程"></a>7. 并发与多线程</h4><h4 id="8-单元测试"><a href="#8-单元测试" class="headerlink" title="8. 单元测试"></a>8. 单元测试</h4><h4 id="9-代码规约"><a href="#9-代码规约" class="headerlink" title="9. 代码规约"></a>9. 代码规约</h4><p>。。</p>
+<hr>
+
 <h2 id="7-11-CMDB项目深度参与策略"><a href="#7-11-CMDB项目深度参与策略" class="headerlink" title="7.11 CMDB项目深度参与策略"></a>7.11 CMDB项目深度参与策略</h2><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
 <h4 id="🔧-技术攻坚重点"><a href="#🔧-技术攻坚重点" class="headerlink" title="🔧 技术攻坚重点"></a>🔧 <strong>技术攻坚重点</strong></h4><ol>
 <li>理解CMDB系统本质与行业实践**<ul>
@@ -639,8 +641,56 @@
 > **这些正是腾讯云、基础设施岗位的日考核心能力**。   -->
 
 
-<h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  “一个请求，如<a target="_blank" rel="noopener" href="https://abc.co..."点击查看元宝的回答/">https://abc.co...&quot;点击查看元宝的回答</a><br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a></p>
-<h2 id="7-17-Mops-参与发版"><a href="#7-17-Mops-参与发版" class="headerlink" title="7.17 Mops 参与发版"></a>7.17 Mops 参与发版</h2><p>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a><br>集成，部署 “所谓的微服务实际上是怎么部署的呢？打ja…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
+<h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a><br>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a></p>
+<h2 id="7-17-Mops-参与发版"><a href="#7-17-Mops-参与发版" class="headerlink" title="7.17 Mops 参与发版"></a>7.17 Mops 参与发版</h2><p>集成，部署 “所谓的微服务实际上是怎么部署的呢？打ja…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
+<h4 id="开发，测试，发版流程"><a href="#开发，测试，发版流程" class="headerlink" title="开发，测试，发版流程"></a>开发，测试，发版流程</h4><ol>
+<li>开发阶段<ul>
+<li>master：生产环境稳定分支，仅用于发布，禁止直接修改。</li>
+<li>develop：开发集成分支，功能合并主干。上一次发版完成后，从master拉出下一个版本的开发分支develop或v1.33</li>
+<li>feature&#x2F;xxx：团队各开发从develop切出的功能分支，开发完成后合并回develop，在sit环境进行联调测试。</li>
+<li>release：预发布分支（UAT环境），？？由develop（sit测试通过的feature？？）合并而来，用于用户验收测试。</li>
+<li>hotfix：从master切出的紧急修复分支，修复后合并至master和develop。</li>
+</ul>
+</li>
+<li>测试阶段<ul>
+<li>SIT（系统集成测试）：在develop分支部署测试环境，验证功能集成与基础流程。<ul>
+<li>输出：测试报告、Bug清单（P1&#x2F;P2级Bug必须关闭）。</li>
+</ul>
+</li>
+<li>UAT（用户验收测试）：在release分支部署预生产环境，业务方验证业务逻辑。关键点：数据与生产环境隔离但配置一致，避免环境差异问题。</li>
+</ul>
+</li>
+<li>发版准备<ul>
+<li>发版文档：包含需求清单，DDL&amp;DML，配置变更清单。</li>
+<li>SQL变更：迭代的DDL&amp;DML记录到<code>db文件</code>，上传git。</li>
+<li>针对本次变更的配置备份、数据备份，确保有完整的回滚步骤。</li>
+</ul>
+</li>
+<li>集成部署<ul>
+<li>发版分支打Tag（例：v1.2.0_uat_passed）。</li>
+<li>持续集成</li>
+<li>检查sql是否变更成功</li>
+<li>持续部署，可分批部署到多节点，减小用户影响<ul>
+<li>灰度发布：先切10%流量验证，逐步全量。</li>
+<li>蓝绿部署：并行两套环境，切换流量实现零宕机。</li>
+</ul>
+</li>
+<li>流水线</li>
+</ul>
+</li>
+<li>上线验证<ul>
+<li>避免业务高峰期发版，</li>
+<li>数据一致性：比对测试库与生产库关键表数据量。</li>
+<li>核心链路检查：登录、支付等关键功能。</li>
+<li>监控报警：CPU&#x2F;内存&#x2F;错误日志实时监控（如Prometheus+Granfa）。</li>
+</ul>
+</li>
+<li>事件管理<ul>
+<li>事件指导致或可能导致服务中断或服务质量下降的任一事态</li>
+<li>以恢复业务为第一要务，72h内进行根因查找与5C闭环</li>
+</ul>
+</li>
+</ol>
 <h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="第一步，登录目标项目"><a href="#第一步，登录目标项目" class="headerlink" title="第一步，登录目标项目"></a>第一步，登录目标项目</h4><p>ssh</p>
 <h4 id="Zookeeper导致Linux磁盘占用过高的SOP"><a href="#Zookeeper导致Linux磁盘占用过高的SOP" class="headerlink" title="Zookeeper导致Linux磁盘占用过高的SOP"></a>Zookeeper导致Linux磁盘占用过高的SOP</h4><ol>
 <li>告警确认<br>• 监控告警内容：磁盘使用率&gt;80%（路径&#x2F;apps，总量48.97G，空闲仅9.29G）。<br>• 初步定位：确认Zookeeper目录为占用源头（如&#x2F;apps&#x2F;zookeeper&#x2F;version-2）。</li>
