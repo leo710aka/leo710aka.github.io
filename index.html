@@ -1425,33 +1425,28 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <h2 id="7-11-CMDB-项目运营"><a href="#7-11-CMDB-项目运营" class="headerlink" title="7.11 CMDB 项目运营"></a>7.11 CMDB 项目运营</h2><h4 id="深度参与策略"><a href="#深度参与策略" class="headerlink" title="深度参与策略"></a>深度参与策略</h4><p>接手CMDB,, 做需求&#x3D;》做系统<br>点击查看元宝的回答 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a>  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
 <ol>
 <li>🔧 <strong>技术攻坚重点</strong><ul>
-<li>理解CMDB系统本质与行业实践**<ul>
-<li><strong>核心价值</strong>：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，支撑运维自动化、变更管理等场景。</li>
-<li><strong>主流竞品参考</strong>：<ul>
-<li><strong>ServiceNow CMDB</strong>：企业级SaaS方案，强在ITSM流程集成。</li>
-<li><strong>BMC Helix</strong>：传统ITOM厂商方案，适合复杂环境。</li>
-<li><strong>开源方案</strong>：iTop、CMDBuild（适合二次开发，与你项目更匹配）。</li>
-</ul>
-</li>
-<li><strong>自研系统关键模块</strong>：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
+<li>理解CMDB系统本质与行业实践<ul>
+<li>核心价值：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，支撑运维自动化、变更管理等场景。</li>
+<li>主流竞品参考：ServiceNow CMDB，企业级SaaS方案，强在ITSM流程集成。BMC Helix：传统ITOM厂商方案，适合复杂环境。开源方案：iTop、CMDBuild（适合二次开发，与你项目更匹配）。</li>
+<li>自研系统关键模块：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
 </ul>
 </li>
 <li>通过CMDB项目深挖技术栈，Java底层实践场景：<ul>
-<li><strong>高并发设计</strong>：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
-<li><strong>JVM调优实战</strong>：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
-<li><strong>分布式事务</strong>：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
+<li>高并发设计：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
+<li>JVM调优实战：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
+<li>分布式事务：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
 </ul>
 </li>
 <li><strong>云原生技术落地</strong>：<ul>
-<li><strong>容器化部署</strong>：将CMDB模块拆分为微服务，用Docker打包，K8s调度（学习Pod滚动升级、HPA弹性伸缩）。</li>
-<li><strong>服务网格治理</strong>：通过Istio实现API鉴权、流量控制（Envoy代理注入）。</li>
-<li><strong>可观测性建设</strong>：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
+<li>容器化部署：将CMDB模块拆分为微服务，用Docker打包，K8s调度（学习Pod滚动升级、HPA弹性伸缩）。</li>
+<li>服务网格治理：通过Istio实现API鉴权、流量控制（Envoy代理注入）。</li>
+<li>可观测性建设：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
 </ul>
 </li>
-<li>避免“CRUD开发”，聚焦架构能力**<ul>
-<li><strong>数据模型设计</strong>：主导CI分类标准制定（如主机&#x2F;网络设备&#x2F;应用的属性继承关系），用图数据库（Neo4j）存储拓扑。</li>
-<li><strong>自动化采集框架</strong>：开发插件式采集器，支持Agent&#x2F;API&#x2F;SNMP多协议，用Quartz调度扫描任务。</li>
-<li><strong>变更影响链分析</strong>：实现“修改防火墙策略 → 自动标记依赖服务”的联动逻辑（学习规则引擎Drools）。</li>
+<li>避免“CRUD开发”，聚焦架构能力<ul>
+<li>数据模型设计：主导CI分类标准制定（如主机&#x2F;网络设备&#x2F;应用的属性继承关系），用图数据库（Neo4j）存储拓扑。</li>
+<li>自动化采集框架：开发插件式采集器，支持Agent&#x2F;API&#x2F;SNMP多协议，用Quartz调度扫描任务。</li>
+<li>变更影响链分析：实现“修改防火墙策略 → 自动标记依赖服务”的联动逻辑（学习规则引擎Drools）。</li>
 </ul>
 </li>
 </ul>
@@ -1490,68 +1485,42 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <blockquote>
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
-<!-- #### 🚀 **面向大厂的CMDB价值提炼策略**
-1. **技术深度**  
-   - **穿透底层协议**：深入SNMP/IPMI等采集协议，理解网络层通信机制（腾讯云架构师面试常考）。  
-   - **性能优化实战**：用Arthas诊断CMDB API性能瓶颈，优化JVM参数压榨GC停顿。
-2. **架构广度**  
-   - **模拟分布式场景**：在开发环境部署多Region CMDB，实现基于RAFT的数据同步（面试可谈分布式一致性理解）。  
-   - **开源贡献**：将自研的自动化采集模块抽象为**开源Agent工具**（GitHub项目），吸引技术影响力。
-3. **业务影响力**  
-   - **主动提案**：向领导提交《CMDB驱动运维自动化方案》，推动与Jenkins流水线、监控告警联动。  
-   - **技术输出**：在团队内主持 **“CMDB在亿级设备企业的架构演进”** 分享（模仿大厂内部Tech Talk）。
-
-### 💎 **总结：CMDB作为跳板的核心逻辑**  
-> CMDB本质是 **“运维领域的微缩企业级系统”**——它要求你同时处理：  
-> 🔹 **数据建模**（CI关系拓扑 → 图数据库实战）  
-> 🔹 **高并发设计**（自动发现引擎 → 网络编程/队列优化）  
-> 🔹 **云原生落地**（K8s化部署/Service Mesh治理）  
-> 🔹 **生态集成**（API经济与系统协作）  
-> **这些正是腾讯云、基础设施岗位的日考核心能力**。   -->
-
-
+<h4 id="8-15-安装安全组件"><a href="#8-15-安装安全组件" class="headerlink" title="8.15 安装安全组件"></a>8.15 安装安全组件</h4><p>isat install&#x3D;》container</p>
 <h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a><br>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a></p>
 <h2 id="7-17-Mops-参与发版"><a href="#7-17-Mops-参与发版" class="headerlink" title="7.17 Mops 参与发版"></a>7.17 Mops 参与发版</h2><p>集成，部署 “所谓的微服务实际上是怎么部署的呢？打ja…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
 <h4 id="开发，测试，发版流程"><a href="#开发，测试，发版流程" class="headerlink" title="开发，测试，发版流程"></a>开发，测试，发版流程</h4><ol>
 <li>开发阶段<ul>
-<li>master：生产环境稳定分支，仅用于发布，禁止直接修改。</li>
-<li>develop：开发集成分支，功能合并主干。上一次发版完成后，从master拉出下一个版本的开发分支develop或v1.33</li>
-<li>feature&#x2F;xxx：团队各开发从develop切出的功能分支，开发完成后合并回develop，在sit环境进行联调测试。</li>
-<li>release：预发布分支（UAT环境），？？由develop（sit测试通过的feature？？）合并而来，用于用户验收测试。</li>
+<li>main：生产环境稳定分支，仅用于发布，禁止直接修改。</li>
+<li>develop：开发&#x2F;测试&#x2F;发版分支，功能合并主干。上一次发版完成后，拉出最多下两个版本的开发分支，如 bugfix&#x2F;v1.33.0和 feature&#x2F;v1.34，发版完成后合入线上分支和下一个版本分支。</li>
+<li>feature&#x2F;xxx：团队各开发成员从develop切出的功能分支，开发完成后合并回develop，发到sit联调，uat验收，发版。</li>
 <li>hotfix：从master切出的紧急修复分支，修复后合并至master和develop。</li>
 </ul>
 </li>
 <li>测试阶段<ul>
-<li>SIT（系统集成测试）：在develop分支部署测试环境，验证功能集成与基础流程。<ul>
-<li>输出：测试报告、Bug清单（P1&#x2F;P2级Bug必须关闭）。</li>
-</ul>
-</li>
-<li>UAT（用户验收测试）：在release分支部署预生产环境，业务方验证业务逻辑。关键点：数据与生产环境隔离但配置一致，避免环境差异问题。</li>
+<li>SIT（系统集成测试）：前后端联调测试环境，验证功能集成与基础流程。</li>
+<li>UAT（用户验收测试）：预生产环境，业务方验证业务逻辑。关键点：数据与生产环境隔离但配置一致，避免环境差异问题。</li>
 </ul>
 </li>
 <li>发版准备<ul>
 <li>发版文档：包含需求清单，DDL&amp;DML，配置变更清单。</li>
-<li>SQL变更：迭代的DDL&amp;DML记录到<code>db文件</code>，上传git。</li>
+<li>SQL变更：提交sql设置发版窗口执行，迭代的DDL&amp;DML记录到<code>db文件</code> 上传git。</li>
 <li>针对本次变更的配置备份、数据备份，确保有完整的回滚步骤。</li>
 </ul>
 </li>
 <li>集成部署<ul>
-<li>发版分支打Tag（例：v1.2.0_uat_passed）。</li>
+<li>？？发版分支打Tag（例：v1.2.0_uat_passed）。</li>
 <li>持续集成</li>
-<li>检查sql是否变更成功</li>
+<li>检查提的sql是否变更成功</li>
 <li>持续部署，可分批部署到多节点，减小用户影响<ul>
 <li>灰度发布：先切10%流量验证，逐步全量。</li>
 <li>蓝绿部署：并行两套环境，切换流量实现零宕机。</li>
 </ul>
 </li>
-<li>流水线</li>
+<li>流水线：即集成＋部署</li>
 </ul>
 </li>
 <li>上线验证<ul>
-<li>避免业务高峰期发版，</li>
-<li>数据一致性：比对测试库与生产库关键表数据量。</li>
-<li>核心链路检查：登录、支付等关键功能。</li>
-<li>监控报警：CPU&#x2F;内存&#x2F;错误日志实时监控（如Prometheus+Granfa）。</li>
+<li>避免业务高峰期发版，，</li>
 </ul>
 </li>
 <li>事件管理<ul>
@@ -1570,6 +1539,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>自动化清理脚本：   编写定时任务（cron），每月清理旧日志（保留30天）<br>  0 3 * * * find &#x2F;apps&#x2F;zookeeper&#x2F;version-2 -mtime +30 -delete  # 每日3点清理</li>
 <li>指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 确认分区使用率</span></span><br><span class="line"> 98    2025-07-18 17:38:17   <span class="built_in">df</span> -h</span><br><span class="line"> <span class="comment"># 查看子目录大小 tab自动补齐路径</span></span><br><span class="line"> 99    2025-07-18 17:38:29   <span class="built_in">du</span> sh /apps/svr/*</span><br><span class="line">100    2025-07-18 17:38:38   <span class="built_in">du</span> sh /apps/svr/zookeeper-3.4.6/*</span><br><span class="line">102    2025-07-18 17:38:49   <span class="built_in">ls</span></span><br><span class="line">103    2025-07-18 17:38:57   <span class="built_in">cd</span> data</span><br><span class="line">105    2025-07-18 17:39:10   <span class="built_in">du</span> sh *</span><br><span class="line">106    2025-07-18 17:39:16   <span class="built_in">du</span> -sh *</span><br><span class="line">107    2025-07-18 17:39:22   <span class="built_in">cd</span> version-2/</span><br><span class="line"><span class="comment"># 分析日志文件（发现日均61MB未清理）</span></span><br><span class="line">108    2025-07-18 17:39:26   ll</span><br><span class="line"><span class="comment"># 删除两个月前的日志</span></span><br><span class="line">109    2025-07-18 17:39:52   find . -<span class="built_in">type</span> f -mtime +60 -<span class="built_in">exec</span> <span class="built_in">rm</span> &#123;&#125; \;</span><br><span class="line">110    2025-07-18 17:39:57   ll</span><br><span class="line">111    2025-07-18 17:40:00   sf -h</span><br><span class="line">112    2025-07-18 17:40:03   <span class="built_in">df</span> -h</span><br><span class="line">123    2025-07-20 21:50:41   <span class="built_in">history</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳</p>
 
       
     </div>
