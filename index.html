@@ -1487,6 +1487,10 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 </blockquote>
 <h4 id="8-15-安装安全组件"><a href="#8-15-安装安全组件" class="headerlink" title="8.15 安装安全组件"></a>8.15 安装安全组件</h4><p>isat install&#x3D;》container</p>
 <h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a><br>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a></p>
+<h4 id="MOPS-统一运维平台"><a href="#MOPS-统一运维平台" class="headerlink" title="MOPS 统一运维平台"></a>MOPS 统一运维平台</h4><p>打造主机、网络、存储等运维一键操作，支持申请、变更、回收等常见场景，实现工单下发、流程审批、策略下发的逻辑，集成平台API、脚本下发、定时调度、CMDB能力，保证流程清晰、节点可控、异常告警。。<br>负责网络管理模块开发，发版小组<br>竞品。。蓝鲸研发运维技术PaaS体系<br>产品化。。</p>
+<h5 id="Mops"><a href="#Mops" class="headerlink" title="Mops"></a>Mops</h5><p>网络管理模块。。增删改查。。AI code<br>技术实现：多平台用策略模式，加注解实现定时任务调度？<br>解决问题：并发。。</p>
+<h5 id="CMDB"><a href="#CMDB" class="headerlink" title="CMDB"></a>CMDB</h5><p>配置数据库。。mongodb、Elasticsearch<br>与mops数据同步，订阅。。<br>数据重复。。问题排查</p>
+<h5 id="InfluxDB服务化"><a href="#InfluxDB服务化" class="headerlink" title="InfluxDB服务化"></a>InfluxDB服务化</h5><p>投入了半年时间，支持数据库产品的备份恢复，变配，节点迁移，，开源产品调研，k8s了解</p>
 <h2 id="7-17-Mops-参与发版"><a href="#7-17-Mops-参与发版" class="headerlink" title="7.17 Mops 参与发版"></a>7.17 Mops 参与发版</h2><p>集成，部署 “所谓的微服务实际上是怎么部署的呢？打ja…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
 <h4 id="开发，测试，发版流程"><a href="#开发，测试，发版流程" class="headerlink" title="开发，测试，发版流程"></a>开发，测试，发版流程</h4><ol>
 <li>开发阶段<ul>
@@ -1508,26 +1512,33 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 </ul>
 </li>
 <li>上线验证<ul>
-<li>发版分支打Tag（如feature&#x2F;v1.33.0，相当于是一个快照，后续再合代码要打新tag）</li>
+<li>发版分支打Tag（如feature-v1.33.0，相当于是一个快照，后续再合代码要打新tag）</li>
 <li>持续集成（指定tag，发版前提前集成）</li>
 <li>检查提的sql是否变更成功（提醒先到uat执行一遍）</li>
-<li>持续部署，可分批部署到多节点，减小用户影响<ul>
+<li>持续部署，可分批部署到多节点，减小用户影响（提前到uat部署一遍）<ul>
 <li>灰度发布：先切10%流量验证，逐步全量。</li>
 <li>蓝绿部署：并行两套环境，切换流量实现零宕机。</li>
 </ul>
 </li>
 <li>流水线：即集成＋部署</li>
-<li>上线验证，避免业务高峰期发版，，</li>
+<li>发版验证：避免业务高峰期发版，有问题就先回退旧版本（集成旧tag部署）</li>
 <li>发版成功：发版分支合到main和下一个版本分支，SQL变更提交到MOPS_SQL</li>
 </ul>
 </li>
 <li>事件管理<ul>
 <li>事件指导致或可能导致服务中断或服务质量下降的任一事态</li>
-<li>以恢复业务为第一要务，72h内进行根因查找与5C闭环<br>发版流程</li>
+<li>以恢复业务为第一要务，72h内进行根因查找与5C闭环</li>
 </ul>
 </li>
 </ol>
-<h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="Helloworld-进入环境"><a href="#Helloworld-进入环境" class="headerlink" title="Helloworld 进入环境"></a>Helloworld 进入环境</h4><p>堡垒机，跳板机，物理机，linux后台</p>
+<h4 id="集成，部署命令。。"><a href="#集成，部署命令。。" class="headerlink" title="集成，部署命令。。"></a>集成，部署命令。。</h4><p><a target="_blank" rel="noopener" href="https://devsecops.midea.com/system/cd/deploy/detail?sysId=ITS000001343&did=469851dd-ad76-47f5-8a39-3d4bacedd933&type=1">https://devsecops.midea.com/system/cd/deploy/detail?sysId=ITS000001343&amp;did=469851dd-ad76-47f5-8a39-3d4bacedd933&amp;type=1</a></p>
+<h4 id="发版异常"><a href="#发版异常" class="headerlink" title="发版异常"></a>发版异常</h4><ol>
+<li>看监控平台，搜“error”</li>
+<li>回退？？</li>
+</ol>
+<h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="Helloworld-进入环境"><a href="#Helloworld-进入环境" class="headerlink" title="Helloworld 进入环境"></a>Helloworld 进入环境</h4><p>堡垒机，跳板机，物理机，linux后台<br>Linux基本命令：<br>netstat ; top;  awk ; dstat;  iostat; lsof; free；uptime；dmesg ；dig ； nslookup</p>
+<p>vim&#x2F;vi的基本快捷命令（shift + g； dd；yy等）</p>
+<p>终端的一些快捷命令（ctrl + a; ctrl + e）</p>
 <h4 id="Zookeeper导致Linux磁盘占用过高的SOP"><a href="#Zookeeper导致Linux磁盘占用过高的SOP" class="headerlink" title="Zookeeper导致Linux磁盘占用过高的SOP"></a>Zookeeper导致Linux磁盘占用过高的SOP</h4><ol>
 <li>告警确认<br>• 监控告警内容：磁盘使用率&gt;80%（路径&#x2F;apps，总量48.97G，空闲仅9.29G）。<br>• 初步定位：确认Zookeeper目录为占用源头（如&#x2F;apps&#x2F;zookeeper&#x2F;version-2）。</li>
 <li>登录与排查<br>• 通过跳板机连接CMDB主机（FinalShell + SSH）。<br>• 使用命令逐层定位</li>
@@ -1537,7 +1548,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>自动化清理脚本：   编写定时任务（cron），每月清理旧日志（保留30天）<br>  0 3 * * * find &#x2F;apps&#x2F;zookeeper&#x2F;version-2 -mtime +30 -delete  # 每日3点清理</li>
 <li>指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 确认分区使用率</span></span><br><span class="line"> 98    2025-07-18 17:38:17   <span class="built_in">df</span> -h</span><br><span class="line"> <span class="comment"># 查看子目录大小 tab自动补齐路径</span></span><br><span class="line"> 99    2025-07-18 17:38:29   <span class="built_in">du</span> sh /apps/svr/*</span><br><span class="line">100    2025-07-18 17:38:38   <span class="built_in">du</span> sh /apps/svr/zookeeper-3.4.6/*</span><br><span class="line">102    2025-07-18 17:38:49   <span class="built_in">ls</span></span><br><span class="line">103    2025-07-18 17:38:57   <span class="built_in">cd</span> data</span><br><span class="line">105    2025-07-18 17:39:10   <span class="built_in">du</span> sh *</span><br><span class="line">106    2025-07-18 17:39:16   <span class="built_in">du</span> -sh *</span><br><span class="line">107    2025-07-18 17:39:22   <span class="built_in">cd</span> version-2/</span><br><span class="line"><span class="comment"># 分析日志文件（发现日均61MB未清理）</span></span><br><span class="line">108    2025-07-18 17:39:26   ll</span><br><span class="line"><span class="comment"># 删除两个月前的日志</span></span><br><span class="line">109    2025-07-18 17:39:52   find . -<span class="built_in">type</span> f -mtime +60 -<span class="built_in">exec</span> <span class="built_in">rm</span> &#123;&#125; \;</span><br><span class="line">110    2025-07-18 17:39:57   ll</span><br><span class="line">111    2025-07-18 17:40:00   sf -h</span><br><span class="line">112    2025-07-18 17:40:03   <span class="built_in">df</span> -h</span><br><span class="line">123    2025-07-20 21:50:41   <span class="built_in">history</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线</p>
+<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线</p>
 <h2 id="8-31-Workspace-Cursor使用"><a href="#8-31-Workspace-Cursor使用" class="headerlink" title="8.31 Workspace &#x2F; Cursor使用"></a>8.31 Workspace &#x2F; Cursor使用</h2><ol>
 <li>基本介绍<br>Workspace是一个基于云端的代码编辑环境，由Cursor提供支持。Cursor是一个AI驱动的代码编辑器，集成了Claude 3.5 Sonnet等先进的AI模型，为开发者提供智能编程辅助。在这个环境中，您可以编写代码、获取AI辅助、管理项目并执行基本的开发任务。</li>
 <li>与IntelliJ IDEA等传统IDE相比，Workspace&#x2F;Cursor有以下主要区别：<br>• <strong>运行环境</strong>：Workspace运行在云端服务器上，而非本地机器<br>• <strong>资源位置</strong>：代码、依赖包和运行环境都位于远程服务器<br>• <strong>功能侧重</strong>：相比完整IDE功能较为精简，但集成了强大的AI辅助能力<br>• <strong>界面设计</strong>：更简洁，专注于代码编辑和AI交互；？类vscode</li>
