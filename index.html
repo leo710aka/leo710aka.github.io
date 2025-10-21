@@ -1011,7 +1011,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="24-07-08"><a href="#24-07-08" class="headerlink" title="24.07.08"></a>24.07.08</h2><p><img src="https://leo710aka.github.io/bk/midea.jpg"></p>
+        <h1 id="08-07-24"><a href="#08-07-24" class="headerlink" title="08&#x2F;07&#x2F;24"></a>08&#x2F;07&#x2F;24</h1><p><img src="https://leo710aka.github.io/bk/midea.jpg"></p>
 <p>入职第一天，熟悉运维平台，目标实现其自动化，后续参与到美的云,?<br>熟悉新旧平台的功能和调用关系，拆分业务需求开发步骤，编写文档，每日汇报进展，熟悉开发流程、、<br>软工院作为非互联网公司的非核心业务的底层平台建设部门，结果导向，组员多一年社招；)无校招培养。？</p>
 <h2 id="7-17-7-29"><a href="#7-17-7-29" class="headerlink" title="7.17 ~ 7.29"></a>7.17 ~ 7.29</h2><p>EDP培训 ＋ MGC（头脑风暴&#x2F;产品调研&#x2F;拉通对齐&gt;&gt;技术）<br>T型人才(广度＋深度)，开发技术+产品思维-&gt;架构师<br>不设限，主动承担任务，机会莫名来：) take other people’s jobs and become indispensable to the team..</p>
 <!-- <img src="https://leo710aka.github.io/bk/midea2.jpg" width="450" height="300" alt=""> -->
@@ -1291,31 +1291,6 @@ ALEX：最近和一些软工院同学深入聊了一下他们的职业发展规�
 <li>Ansible入门：脚本在特权机上，指定targetIp执行，，playbook为入口，roles&#x2F;tasks实现具体逻辑，，安装client注意预检查，常量写在var文件，脚本写在flie&#x2F;script.py通过scp传到target机器执行</li>
 <li><strong>CRUD</strong>基本功：1. 分页，baseMapper.selectPage(new Page&lt;&gt;(page, size), getQueryWrapper(req))  2. 模糊查询，queryWrapper.eqIfNotNull(BackupConfigPO::isDeleted, 0).likeIfNotNull(BackupConfigPO::getConfigKey, condition.getBackupRegion())  3. 模糊查询条件涉及表中text类型字段的内容为json，本质还是处理wrapper，queryWrapper.apply(“JSON_SEARCH(config_desc, ‘one’, ‘%” + req + “%’, NULL, ‘$.req’) IS NOT NULL”);</li>
 </ol>
-<h2 id="5-5-02-2027"><a href="#5-5-02-2027" class="headerlink" title="5.5 02&#x2F;2027"></a>5.5 02&#x2F;2027</h2><ul>
-<li><strong>工作经历</strong><br>美的 后端开发工程师-Java <sup>2024.7~</sup><ul>
-<li>Mops自动化运维平台：提供云主机&#x2F;存储自动化运维功能<ol>
-<li>接用户需求，调研厂商api，实现了华为&#x2F;azure云主机开关机申请回收，netbackup备份自动化</li>
-<li>了解整个系统架构，springboot，，mq，java回收器，，</li>
-</ol>
-</li>
-<li>DBengine数据库引擎平台：提供数据库运维管理功能<ol>
-<li>调研开发基于开源influxdb的服务化功能，对齐mariadb，提供创建回收、备份恢复、重启、节点迁移等功能</li>
-<li>具备常见数据库运维能力，，oom，慢sql，主从切换异常，，</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><strong>项目经历</strong><ol>
-<li>读influxdb源码？</li>
-<li>读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..</li>
-</ol>
-</li>
-<li><strong>技能</strong><ol>
-<li>Java开发</li>
-<li>数据库</li>
-</ol>
-</li>
-</ul>
 <h2 id="6-9-2025年中总结"><a href="#6-9-2025年中总结" class="headerlink" title="6.9 2025年中总结"></a>6.9 2025年中总结</h2><ul>
 <li>工作成果<br>1.InfluxDB服务化体系构建<br>完成父子实例模式改造，新增InfluxDBMeta规格体系，实现节点级独立变配能力，为后续节点重启、迁移奠定基础；<br>针对Data节点迁移提出 “热分片截断-冷副本恢复”双阶段法，通过多线程大流量写入压力验证（2000 points&#x2F;s），解决开源工具增量数据丢失问题；<br>参与数据库运维工作。<br>2.NBU备份自动化开发<br>支持备份平台自动化运维需求，开发基于Ansible的客户端安装脚本，整合NBU API，实现备份申请自动化；<br>开发备份域配置管理界面（增删改查+JSON字段模糊查询）</li>
 <li>能力提升<br>在InfluxDB服务化需求开发中锻炼了“场景抽象-方案验证”的能力，从寻找开源社区方案到定制化能力开发（如备份集恢复、节点迁移及数据一致性保障），梳理故障矩阵（如单Data宕机、多Meta宕机的应对策略）；在NBU备份自动化需求开发中能够快速上手Ansible脚本，复用已有能力，与用户及时沟通并完成开发。</li>
@@ -1558,6 +1533,41 @@ ALEX：最近和一些软工院同学深入聊了一下他们的职业发展规�
 <li>快捷键<br>Ctrl+F: 在当前文件中查找<br>Ctrl+Shift+F: 全局搜索<br>Ctrl+P&#x2F;shift*2（安装idea快捷键插件）: 查找文件<br>Ctrl+Shift+P: 打开Command Palette<br>Ctrl+I：生成代码建议<br>Ctrl+B&#x2F;Ctrl+左键：跳转类<br>Ctrl+alt+B：跳转实现类<br>Ctrl+J&#x2F;Ctrl+&#96;（反引号在tab键上面）：打开终端窗口<br>Ctrl+alt+J：打开chat框</li>
 </ol>
 <h2 id="OBCA准备"><a href="#OBCA准备" class="headerlink" title="OBCA准备"></a>OBCA准备</h2><p>mysql45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a><br>obca <a target="_blank" rel="noopener" href="https://www.oceanbase.com/training/obca">https://www.oceanbase.com/training/obca</a></p>
+<h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><ul>
+<li><strong>工作经历</strong><br>后端开发工程师-Java <sup>2024.7~</sup></li>
+<li><strong>项目经历</strong><ul>
+<li>Mops自动化运维平台：提供主机&#x2F;网络&#x2F;存储等自动化运维功能<ol>
+<li>接用户需求，调研厂商api，实现了华为&#x2F;azure云主机开关机申请回收，netbackup备份自动化</li>
+<li>独立？开发负责负载均衡、域名解析两大块自动化需求</li>
+<li>了解整个系统架构，springboot，，mq，java回收器，，</li>
+</ol>
+</li>
+<li>DBEngine数据库引擎平台：提供数据库服务化功能<ol>
+<li>调研开发基于开源influxdb的服务化功能，对齐mariadb，支持创建回收、备份恢复、重启、节点迁移等功能</li>
+<li>了解k8s云原生环境运维开发</li>
+<li>？具备常见数据库运维能力，，oom，慢sql，主从切换异常，，</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>学习</strong><ol>
+<li>读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..</li>
+<li>学《mysql45讲》，通过OBCA？？</li>
+</ol>
+</li>
+<li><strong>技能</strong><ol>
+<li>Java开发</li>
+<li>数据库</li>
+</ol>
+</li>
+</ul>
+<p>^^</p>
+<ul>
+<li><p><strong>为什么tc，为什么不做中台，为什么tob？</strong><br>为了持续学习，用好奇指引、、</p>
+</li>
+<li><p>一个挑战。</p>
+</li>
+</ul>
 
       
     </div>
