@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/10/21/68f7a97f73ce3.png">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/11/21/692089497f66d.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-11-30T16:02:28.283Z">
+<meta property="article:modified_time" content="2025-12-03T16:19:38.803Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -585,27 +585,21 @@
 <h2 id="11-30-CMDB-项目运营"><a href="#11-30-CMDB-项目运营" class="headerlink" title="11.30 CMDB 项目运营"></a>11.30 CMDB 项目运营</h2><h4 id="深度参与策略"><a href="#深度参与策略" class="headerlink" title="深度参与策略"></a>深度参与策略</h4><p>接手CMDB,,从做需求-&gt;做系统 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a><br>最大化CMDB项目的学习价值,, <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
 <ul>
 <li>理解CMDB系统本质与行业实践<ul>
-<li>核心价值：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，支撑运维自动化、变更管理等场景。</li>
-<li>主流竞品参考：ServiceNow CMDB，企业级SaaS方案，强在ITSM流程集成。BMC Helix：传统ITOM厂商方案，适合复杂环境。开源方案：iTop、CMDBuild（适合二次开发，与你项目更匹配）。</li>
+<li>核心价值：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，唯一事实库，支撑运维自动化、变更管理等场景。</li>
+<li>主流竞品参考：ServiceNow CMDB，企业级SaaS方案，强在ITSM流程集成。腾讯Blue King。开源方案：iTop、CMDBuild。</li>
 <li>自研系统关键模块：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
 </ul>
 </li>
-<li>通过CMDB项目深挖技术栈，Java底层实践场景：<ul>
+<li>通过CMDB项目深挖技术栈，Java底层实践场景：？<ul>
 <li>高并发设计：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
 <li>JVM调优实战：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
 <li>分布式事务：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
 </ul>
 </li>
 <li><strong>云原生技术落地</strong>：<ul>
+<li>微服务架构：Apache(SSO登录)-NGINX(反向代理+静态资源)-eruka(服务发现)-zuul(网关分发请求)-各微服务-mongodb主数据库-es(同步数据用于检索)</li>
 <li>容器化部署：将CMDB模块拆分为微服务，用Docker打包，K8s调度（学习Pod滚动升级、HPA弹性伸缩）。</li>
-<li>服务网格治理：通过Istio实现API鉴权、流量控制（Envoy代理注入）。</li>
 <li>可观测性建设：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
-</ul>
-</li>
-<li>避免“CRUD开发”，聚焦架构能力<ul>
-<li>数据模型设计：主导CI分类标准制定（如主机&#x2F;网络设备&#x2F;应用的属性继承关系），用图数据库（Neo4j）存储拓扑。</li>
-<li>自动化采集框架：开发插件式采集器，支持Agent&#x2F;API&#x2F;SNMP多协议，用Quartz调度扫描任务。</li>
-<li>变更影响链分析：实现“修改防火墙策略 → 自动标记依赖服务”的联动逻辑（学习规则引擎Drools）。</li>
 </ul>
 </li>
 <li><strong>以CMDB为杠杆撬动技术纵深</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
@@ -613,7 +607,7 @@
 <thead>
 <tr>
 <th><strong>简历模块</strong></th>
-<th><strong>平庸写法</strong></th>
+<th>平庸写法</th>
 <th><strong>高价值写法（量化+技术关键词）</strong></th>
 </tr>
 </thead>
@@ -639,7 +633,7 @@
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
 <h4 id="Owner-presentation"><a href="#Owner-presentation" class="headerlink" title="Owner presentation"></a>Owner presentation</h4><p>给私有化客户做介绍，，</p>
-<hr>
+<h4 id="CMDB-智能助手"><a href="#CMDB-智能助手" class="headerlink" title="CMDB 智能助手"></a>CMDB 智能助手</h4><hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
 <li><strong>工作经历</strong><br>后端开发工程师-Java <sup>2024.7~</sup></li>
