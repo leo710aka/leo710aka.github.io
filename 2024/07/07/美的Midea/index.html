@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/10/21/68f7a97f73ce3.png">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/11/21/692089497f66d.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-12-03T16:19:38.803Z">
+<meta property="article:modified_time" content="2025-12-05T16:23:28.945Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -525,9 +525,9 @@
 <li>下发 OneAgent（监控工具）</li>
 <li>配置服务（生成配置文件）<br>通过 Shell 脚本动态生成服务的配置文件（如 application.yml），用于定义服务的端口、文件路径、Redis 配置等。可以根据环境（如开发、测试、生产）动态调整配置。</li>
 <li>启动服务<br><code>nohup /usr/bin/java $&#123;C_CMDB_XXL_JOB_EXECUTOR_ONEAGENT_OPTS&#125; -Xms8g -Xmx8g -jar -Dspring.config.location=$&#123;package_path&#125;/application.yml -Djasypt.encryptor.password=abcdefg $&#123;package_path&#125;/$&#123;package_name&#125;.jar &gt; $&#123;package_path&#125;/$&#123;package_name&#125;.log 2&gt;&amp;1 &amp;</code><br>启动 Java 服务，并将日志输出到指定文件。<br>nohup：允许服务在后台运行，即使关闭终端，服务也不会停止。<br>-Xms8g：设置 JVM 的初始堆内存为 8GB。<br>-Xmx8g：设置 JVM 的最大堆内存为 8GB。<br>-Dspring.config.location：指定 Spring Boot 的配置文件路径。<br>-Djasypt.encryptor.password：指定加密配置的解密密码。<br>${package_path}&#x2F;${package_name}.jar：指定要运行的 .jar 文件。<br>日志输出：&gt; ${package_path}&#x2F;${package_name}.log：将标准输出重定向到日志文件。2&gt;&amp;1：将标准错误输出重定向到标准输出。</li>
-<li>ps检查服务是否启动成功。</li>
+<li>ps检查服务是否启动成功</li>
 </ol>
-<h4 id="加一个微服务"><a href="#加一个微服务" class="headerlink" title="加一个微服务"></a>加一个微服务</h4><p>“springcloud微服务架构里，每个微服务是单独开发，部署的吗，如何互相发现、调用？如果要新增一个微服务，要做什么工作？有没有“主服务”的概念，所有微服务都要记在主服务的配置文件中？”<a target="_blank" rel="noopener" href="https://yb.tencent.com/s/oL2XPesIhuCx">https://yb.tencent.com/s/oL2XPesIhuCx</a></p>
+<h4 id="新增微服务"><a href="#新增微服务" class="headerlink" title="新增微服务"></a>新增微服务</h4><p>“springcloud微服务架构里，每个微服务是单独开发，部署的吗，如何互相发现、调用？如果要新增一个微服务，要做什么工作？有没有“主服务”的概念，所有微服务都要记在主服务的配置文件中？”<a target="_blank" rel="noopener" href="https://yb.tencent.com/s/oL2XPesIhuCx">https://yb.tencent.com/s/oL2XPesIhuCx</a></p>
 <h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="Helloworld"><a href="#Helloworld" class="headerlink" title="Helloworld"></a>Helloworld</h4><p>运维人员 -&gt; 办公电脑 -&gt; 访问入口 -&gt; 堡垒机(安全审计核心) &#x2F; 跳板机(简易通道) -&gt; 内网 -&gt; 物理机 &#x2F; Linux后台(应用载体) </p>
 <p>Linux基本命令：<br>netstat ; top;  awk ; dstat;  iostat; lsof; free, df；uptime；dmesg ；dig ； nslookup</p>
 <p>vim&#x2F;vi的基本快捷命令（gg, shift + g, :n ; dd, :%d ; yy, p ,u等）</p>
@@ -538,16 +538,20 @@
 <li>告警解除  </li>
 <li>Zookeeper日志管理优化<br>配置自动清理：zoo.cfg中启用参数 autopurge.purgeInterval&#x3D;24（每24h清理），autopurge.snapRetainCount&#x3D;7（保留7个快照）<br>日志轮转，集成Logrotate：配置日志按大小&#x2F;时间切割并压缩：<code>/etc/logrotate.d/zookeeper</code> 中设置 daily, rotate 30, compress<br>自动化清理脚本：编写定时任务，每月清理旧日志（保留30天）  &#x3D;&gt;  0 3 * * * find &#x2F;apps&#x2F;zookeeper&#x2F;version-2 -mtime +30 -delete</li>
 </ol>
-<h4 id="CPU高："><a href="#CPU高：" class="headerlink" title="CPU高："></a>CPU高：</h4><ol>
-<li>内存fgc导致 —针对进程 oom?<br>先dump，下载heap文件<br>jmap -dump:live,format&#x3D;b,file&#x3D;heap.hprof 1651260<br>通过Eclipse Memory Analyzer (MAT)工具分析heap文件</li>
-<li>线程导致<br>找出排查cpu高的线程对应的方法：<br>1）top。找出对应的高cpu的pid<br>2）top -Hp pid。打印出pid里的线程，找出对应的cpu高的线程tid<br>3）jstack -l pid &gt; jstack.txt。打印对应的进程堆栈信息<br>4）printf “%x\n” <TID>。找出对应16进制的线程id<br>5）vi jstack.txt。搜索第4步的线程id，看其方法</li>
-<li>机器资源不足。。</li>
+<h4 id="ops-subscribe微服务磁盘占用过高"><a href="#ops-subscribe微服务磁盘占用过高" class="headerlink" title="ops-subscribe微服务磁盘占用过高"></a>ops-subscribe微服务磁盘占用过高</h4><ol>
+<li>Java服务（devops部署）堆积日志的情况与中间件（zookeeper是eops部署&#x2F;apps&#x2F;svr目录）有所差异</li>
+<li>清理多余日志<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">987    2025-12-04 17:13:46   <span class="built_in">df</span> -h</span><br><span class="line">991    2025-12-04 17:15:44   <span class="built_in">du</span> -sh /apps/devops/*</span><br><span class="line">992    2025-12-04 17:16:04   <span class="built_in">cd</span> /apps/devops/ops-cmdb-subscribe/</span><br><span class="line">993    2025-12-04 17:16:12   <span class="built_in">du</span> -sh *</span><br><span class="line"><span class="comment"># nohup部署命令中指定的服务日志清空掉（但其实还有一份备份）</span></span><br><span class="line">994    2025-12-04 17:17:10   <span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; ops-cmdb-subscribe-1.0.log</span><br><span class="line"><span class="comment"># Java服务本身输出日志（application配置）</span></span><br><span class="line">996    2025-12-04 17:24:27   <span class="built_in">cd</span> /apps/devops/log/ops-subscribe/2025-12-04/</span><br><span class="line">998    2025-12-04 17:24:39   <span class="built_in">ls</span> -alh</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="CMDB回调并发量大导致MOPS飙升CPU"><a href="#CMDB回调并发量大导致MOPS飙升CPU" class="headerlink" title="CMDB回调并发量大导致MOPS飙升CPU"></a>CMDB回调并发量大导致MOPS飙升CPU</h4><ol>
 <li>根本原因：回调任务包含查询接口，请求返回慢，并发大导致？？cpu飙升，后续请求直接卡住，服务挂？？不是io型任务开多线程没用</li>
 <li>临时方案：1）关闭回调任务，积存任务消化完即可 2）重启mops服务</li>
 <li>优化：1）优化cmdb查询接口，加索引 2）避免并发大？。缓存，，</li>
 <li>研究。。。</li>
+</ol>
+<h4 id="CPU高："><a href="#CPU高：" class="headerlink" title="CPU高："></a>CPU高：</h4><ol>
+<li>内存fgc导致 —针对进程 oom?<br>先dump，下载heap文件<br>jmap -dump:live,format&#x3D;b,file&#x3D;heap.hprof 1651260<br>通过Eclipse Memory Analyzer (MAT)工具分析heap文件</li>
+<li>线程导致<br>找出排查cpu高的线程对应的方法：<br>1）top。找出对应的高cpu的pid<br>2）top -Hp pid。打印出pid里的线程，找出对应的cpu高的线程tid<br>3）jstack -l pid &gt; jstack.txt。打印对应的进程堆栈信息<br>4）printf “%x\n” <TID>。找出对应16进制的线程id<br>5）vi jstack.txt。搜索第4步的线程id，看其方法</li>
+<li>机器资源不足。。</li>
 </ol>
 <h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）</p>
 <ol>
@@ -633,7 +637,16 @@
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
 <h4 id="Owner-presentation"><a href="#Owner-presentation" class="headerlink" title="Owner presentation"></a>Owner presentation</h4><p>给私有化客户做介绍，，</p>
-<h4 id="CMDB-智能助手"><a href="#CMDB-智能助手" class="headerlink" title="CMDB 智能助手"></a>CMDB 智能助手</h4><hr>
+<h4 id="CMDB-智能助手"><a href="#CMDB-智能助手" class="headerlink" title="CMDB 智能助手"></a>CMDB 智能助手</h4><p>rag</p>
+<h2 id="12-11-2025年度总结-成长对话"><a href="#12-11-2025年度总结-成长对话" class="headerlink" title="12.11 2025年度总结&amp;成长对话"></a>12.11 2025年度总结&amp;成长对话</h2><ul>
+<li><p>工作成果</p>
+</li>
+<li><p>能力提升</p>
+</li>
+<li><p>存在不足</p>
+</li>
+</ul>
+<hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
 <li><strong>工作经历</strong><br>后端开发工程师-Java <sup>2024.7~</sup></li>
