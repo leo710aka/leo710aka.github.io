@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/10/21/68f7a97f73ce3.png">
 <meta property="og:image" content="https://www.helloimg.com/i/2025/11/21/692089497f66d.jpg">
 <meta property="article:published_time" content="2024-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2025-12-05T16:23:28.945Z">
+<meta property="article:modified_time" content="2025-12-08T15:38:43.389Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -636,7 +636,23 @@
 <blockquote>
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
-<h4 id="Owner-presentation"><a href="#Owner-presentation" class="headerlink" title="Owner presentation"></a>Owner presentation</h4><p>给私有化客户做介绍，，</p>
+<h4 id="CMDB-交接分享"><a href="#CMDB-交接分享" class="headerlink" title="CMDB 交接分享"></a>CMDB 交接分享</h4><ul>
+<li>整体理解<br>CMDB（配置管理数据库）是IT基础设施与应用配置项的集中存储库，为运维、自动化、各业务系统提供数据支撑。<br>数据组织：以配置项（模型就是配置项相当于表）的形式组织各类数据，支持通过模型管理灵活变更字段，通过关系拓扑进一步展开数据间的关系。<br>数据使用：支持白屏化检索、维护数据，导入导出，支持查看历史版本，涉及”管理员”字段（管理员信息维护数据字典）自动发起变更流程；对外提供数据连接器（配置项增删改查）、消费视图能力，通过API读写数据；数据订阅服务通过监控oplog触发回调任务；数据审计（数据传入传出、消费视图审计，数据归档）<br>数据更新：通过定时任务+采集脚本实现配置项信息的自动发现。<br>数据治理：数据质量（自动校验异常数据），IP治理，EAM对账（定时任务拉取数据获取差异并展示）<br>系统管理：支持配置用户角色以获得不同权限，对界面上的用户操作有审计记录。</li>
+<li>服务运维<br>内部部署：devops主机部署微服务，数据库mongo、es由DBA运维<br>日常运维：看监控数据；从监控查到服务部署的主机，登陆，查看java服务，重启？<br>私有化部署：微服务组件、数据库都以镜像打包，服务化部署，k8s运维</li>
+<li>系统架构与组件<ol>
+<li>用户通过访问CMDB域名解析到F5资源，经过F5跳转后进入系统。Apache主要负责单点登录功能，配置文件中可以设置跳过认证的URL。</li>
+<li>Nginx作为反向代理，将请求转发到网关。网关通过注册中心获取服务IP，并根据负载均衡策略选择微服务节点。前端资源部署通过流水线将打包文件放到指定文件夹，静态资源无需进程管理。</li>
+<li>CMDB主服务（OPS_CMDB）处理大部分页面请求，代码结构复杂，接口查询逻辑需通过页面查找。MongoDB ：主数据库，集群模式，一主一从一隐藏，读写分离。</li>
+<li>数据连接器服务提供外部API，用户通过登录获取token后访问。查询和写入数据需经过参数验证和限流控制（默认1000条）。数据入库前会经过多层级校验（如选项值、关联字段等），采用责任链模式实现。高频接口涉及大量衍生查询，需谨慎修改。消费视图提供(多)配置项数据关联+指定字段查询能力。</li>
+<li>全文检索服务对接开放搜索，查询时通过缓存获取用户可访问的索引列表，支持高亮和加权排序。mongodb数据通过monscache同步es，根据模型字段值检索。</li>
+<li>数据订阅服务通过MongoDB的OP Log捕获数据变更，发送到Kafka后由订阅服务消费并触发后续逻辑（如离职资产交接）。数据质量服务通过配置告警任务，筛出异常数据</li>
+<li>定时任务服务通过注解开发新任务，采集代理服务通过Kafka下发脚本并分批处理返回数据。自动采集：xxljob-&gt;ops-syn-task-&gt;kafka-&gt;ansible-&gt;执行消息回调-&gt;kafka-&gt;syn-task入库</li>
+<li>用户中心服务处理登录初始化，表头配置服务管理页面表格显示字段，均为低改动频率服务。</li>
+<li>组件包版本管理：测试环境用snapshot可随意修改，生产环境需更新release版本号并重新打包部署。</li>
+<li>远程Debug需在启动项添加参数，连接UAT环境IP和端口，适用于本地无法模拟的场景（如采集任务）。</li>
+</ol>
+</li>
+</ul>
 <h4 id="CMDB-智能助手"><a href="#CMDB-智能助手" class="headerlink" title="CMDB 智能助手"></a>CMDB 智能助手</h4><p>rag</p>
 <h2 id="12-11-2025年度总结-成长对话"><a href="#12-11-2025年度总结-成长对话" class="headerlink" title="12.11 2025年度总结&amp;成长对话"></a>12.11 2025年度总结&amp;成长对话</h2><ul>
 <li><p>工作成果</p>
@@ -779,7 +795,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -797,6 +813,10 @@
         
           <li>
             <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/08/MongoDB/">MongoDB</a>
           </li>
         
           <li>
@@ -825,10 +845,6 @@
         
           <li>
             <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/07/SpringCloud/">SpringCloud</a>
           </li>
         
       </ul>
