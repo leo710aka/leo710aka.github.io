@@ -262,6 +262,158 @@
 
 
   
+    <article id="post-Agent" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/12/22/Agent/" class="article-date">
+  <time class="dt-published" datetime="2025-12-22T05:34:33.000Z" itemprop="datePublished">2025-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/12/22/Agent/">Agent</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>AI Agent的本质是能够感知环境、自主决策并执行行动的智能实体。与传统AI系统最大的区别在于Agent具有自主性、反应性、目标导向和学习能力，它不再是简单的工具，而是能够主动规划和完成复杂任务的智能体。从1997年击败国际象棋世界冠军的IBM“深蓝”，到2011年苹果推出的个人助理Siri，都展示了Agent在特定领域的强大能力，关键的转折点发生在2023年左右，大语言模型LLM的出现为Agent提供了强大的通用理解和推理能力，使其不再局限于单一任务。</p>
+<h2 id="Agent-架构模式"><a href="#Agent-架构模式" class="headerlink" title="Agent 架构模式"></a>Agent 架构模式</h2><ol>
+<li>组成组件<br><strong>Agent</strong>：智能代理，它是一个能够感知环境、做出决策并执行动作的软件实体（比起LLM只能“回答问题”，Agent可以真正地“执行任务”）。在LLM语境中，Agent通常利用LLM作为大脑，来理解用户输入、决定需要执行的动作（比如调用工具）、处理工具返回的结果并生成响应。<br><strong>LLM</strong>（大语言模型）：如GPT系列，是Agent的核心，负责理解自然语言、进行推理和生成文本。<br><strong>Tool</strong>：工具，是Agent可以调用的函数，用于执行特定任务，比如查询数据库、调用API。Tool扩展了Agent的能力，使其能够获取实时信息或执行具体操作。<br><code>Function Calling</code>：函数调用，是LLM的一种能力，允许模型根据用户输入决定何时以及如何调用哪个函数（Tool），并以结构化格式（如JSON）输出函数调用参数。然后由外部系统执行该函数。<br><strong>Prompt</strong>：提示词，是引导LLM生成期望输出的文本。在Agent中，Prompt通常包含系统指令（定义Agent的角色和能力）、用户输入、对话历史以及工具描述等。<br><code>RAG</code>（检索增强生成）：通过从外部知识库检索相关信息，并将其作为上下文提供给LLM，从而生成更准确、更相关的回答。<br><code>MCP</code>（模型上下文协议）：<strong>MCP可以包含本地tools和外部API，但通常 MCP更强调于将工具（无论是本地tools还是外部API）以标准化的上下文协议暴露给AI模型</strong>。MCP可以看作是一个中间层，它将工具抽象成标准的接口，使得AI Agent可以通过统一的协议来调用这些工具，从而实现模型与工具之间的解耦。</li>
+<li>一个典型的工作流程如下：<br>用户输入自然语言请求。<br>Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。<br>LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。<br>Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。<br>工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。<br>Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
+<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> --></li>
+<li>a demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#### main.py</span></span><br><span class="line"><span class="keyword">from</span> pydantic_ai.models.gemini <span class="keyword">import</span> GeminiModel</span><br><span class="line"><span class="keyword">from</span> pydantic_ai <span class="keyword">import</span> Agent</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">import</span> tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型API Key等可以写到.env文件 并加载到环境变量</span></span><br><span class="line">load_dotenv()</span><br><span class="line">model = GeminiModel(<span class="string">&quot;gemini-2.5-flash-preview-04-17&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将llm模型、系统prompt、工具tools “注册” 到 Agent</span></span><br><span class="line">agent = Agent(model,</span><br><span class="line">            system_prompt=<span class="string">&quot;You are an experienced programmer&quot;</span>,</span><br><span class="line">            tools=[tools.read_file, tools.list_files])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    history = []</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># eg. Input: list and read file. base on your konwledge tell me what lang each file use.</span></span><br><span class="line">        user_input = <span class="built_in">input</span>(<span class="string">&quot;Input: &quot;</span>)</span><br><span class="line">        <span class="comment"># 将用户输入、历史对话（上下文）发给 agent 并记录本次对话（短期记忆）</span></span><br><span class="line">        resp = agent.run_sync(user_input,</span><br><span class="line">                            message_history=history)</span><br><span class="line">        history = <span class="built_in">list</span>(resp.all_messages())</span><br><span class="line">        <span class="built_in">print</span>(resp.output)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#### tools.py</span></span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">base_dir = Path(<span class="string">&quot;./test&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_file</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="comment"># docstring 帮助模型理解 tools</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Return file content. If not exist, return error message.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;(read_file <span class="subst">&#123;name&#125;</span>)&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(base_dir / name, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            content = f.read()</span><br><span class="line">        <span class="keyword">return</span> content</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;An error occurred: <span class="subst">&#123;e&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_files</span>() -&gt; <span class="built_in">list</span>[<span class="built_in">str</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;(list_file)&quot;</span>)</span><br><span class="line">    file_list = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> base_dir.rglob(<span class="string">&quot;*&quot;</span>):</span><br><span class="line">        <span class="keyword">if</span> item.is_file():</span><br><span class="line">            file_list.append(<span class="built_in">str</span>(item.relative_to(base_dir)))</span><br><span class="line">    <span class="keyword">return</span> file_list</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="LangChain"><a href="#LangChain" class="headerlink" title="LangChain"></a>LangChain</h2><p>LangChain 是一个功能强大的大语言模型应用开发框架。在AI应用开发领域，其提供的基础设施和模块化思想与Spring在Java后端开发中的定位类似。<br><a target="_blank" rel="noopener" href="https://python.langchain.com/docs/concepts/">https://python.langchain.com/docs/concepts/</a><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.07842">https://arxiv.org/abs/2302.07842</a></p>
+<ul>
+<li>🧩 LangChain 包：通过 <code>pip</code> 命令（类似于Java的Maven或Gradle）安装到项目中，避免重复造轮子。LangChain本身就是一个大的“元”包，它由多个更精细的包共同组成一个生态系统：  <code>langchain-core</code>：包含最核心的抽象和LangChain表达式语言。  <code>langchain-community</code>：包含大量的第三方集成，如与不同模型、向量数据库等的对接。 <code>langchain</code>：包含构成应用认知架构的链、代理和检索策略。</li>
+<li>🏗️ LangChain的核心组成部分<br>  要真正用好LangChain，可以重点关注其六大核心组件，它们就像是构建AI应用的“积木”：<ol>
+<li><strong>模型 I&#x2F;O</strong>：作为与各种大模型交互的门户，它让开发者能够通过统一的接口调用不同的模型，而不必关心底层API的差异。</li>
+<li><strong>检索</strong>：这是实现RAG应用的基础。它帮助你将外部数据源转换为模型可以理解的格式，并从中快速找到相关信息。</li>
+<li><strong>代理</strong>：LangChain最强大的特性之一。让大模型获得了“动手”能力，可以主动分析问题、决定步骤、调用工具来完成任务。</li>
+<li><strong>链</strong>：用于将多个步骤组合成一个完整的工作流。例如，一个链可以依次执行“检索相关文档 -&gt; 构建提示词 -&gt; 调用模型 -&gt; 解析输出”这一整套流程。</li>
+<li><strong>记忆</strong>：为对话或交互过程提供“记忆力”，使其能够参考之前的对话上下文，从而实现连贯的多轮对话。</li>
+<li><strong>回调</strong>：提供了一种监控和调试应用的机制，允许你在应用执行的各个阶段插入自定义逻辑，便于优化和观察内部运行状态。</li>
+</ol>
+</li>
+</ul>
+<h2 id="LangGraph"><a href="#LangGraph" class="headerlink" title="LangGraph"></a>LangGraph</h2><p>LangGraph 核心认知：<strong>用“有向图”构建智能体的新一代框架</strong>，是 <strong>用于构建有状态、多步骤、多分支智能体（Agent）</strong> 的框架，核心是将 Agent 的行为拆解为<strong>节点（Nodes）</strong> 和<strong>边（Edges）</strong>，用<strong>有向图（Directed Graph）</strong> 替代老版本的“线性循环” 以支持更复杂的流程编排。<br>你可以把 LangGraph 理解为：<strong>给 Agent 设计“流程图”的工具</strong>，而老版本 ReAct Agent 只是这个流程图中最基础的“单循环分支”。<br><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/overview">https://docs.langchain.com/oss/python/langgraph/overview</a></p>
+<ul>
+<li>LangGraph 核心概念解析（多节点、边是关键）<ol>
+<li>核心基础：<strong>状态（State）</strong><ul>
+<li><strong>作用</strong>：整个图的<strong>“共享内存”</strong>，所有节点都能<strong>读写</strong>这个状态（比如用户问题、LLM 思考结果、工具调用结果、最终回答等）。</li>
+<li><strong>举例</strong>：在你之前的 CMDB Agent 中，状态里会包含： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;messages&quot;</span>: [&#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;显示运行中的Linux服务器&quot;</span>&#125;, </span><br><span class="line">                &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;ai&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;思考过程+工具调用指令&quot;</span>&#125;,</span><br><span class="line">                &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;tool&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;工具调用结果&quot;</span>&#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>特点</strong>：状态是<strong>持久化</strong>的（通过 Checkpoint 如 <code>InMemorySaver</code>），支持中断、恢复、回溯（比如多轮对话的上下文保留）。</li>
+</ul>
+</li>
+<li>最小执行单元：<strong>节点（Node）</strong><ul>
+<li><strong>定义</strong>：图的<strong>最小操作单元</strong>，对应一个具体的功能（比如调用 LLM、调用工具、格式化回答、清洗用户问题）。</li>
+<li><strong>类型</strong>（实际开发中常见）：</li>
+<li><strong>LLM 节点</strong>：调用大模型生成思考结果或工具调用指令（比如你之前看到的“分析问题+工具选择”）。</li>
+<li><strong>工具调用节点</strong>：执行具体的工具函数（比如 <code>cmdb_search</code>、<code>cmdb_query</code>）。</li>
+<li><strong>预处理&#x2F;后处理节点</strong>：清洗用户问题、格式化最终回答。</li>
+<li><strong>判断节点</strong>：根据状态判断流程走向（比如“是否需要继续调用工具？”）。</li>
+<li><strong>多节点的价值</strong>：你可以把 Agent 的复杂行为拆分成多个独立节点，比如：<br> <code>用户输入清洗节点</code> → <code>LLM 思考节点</code> → <code>CMDB 工具节点</code> → <code>日志工具节点</code> → <code>回答格式化节点</code></li>
+</ul>
+</li>
+<li>流程的灵魂：<strong>边（Edge）</strong><ul>
+<li><strong>定义</strong>：节点之间的<strong>连接关系</strong>，定义流程的<strong>走向</strong>。LangGraph 支持三种边，这也是“多分支”的核心：</li>
+<li><strong>普通边（Direct Edge）</strong>：直接从 A 节点跳转到 B 节点（比如“清洗节点”执行完，直接到“LLM 思考节点”）。</li>
+<li><strong>条件边（Conditional Edge）</strong>：根据<strong>状态的内容</strong>判断跳转方向（最核心的“多分支”能力）。<ul>
+<li>举例：LLM 输出“需要调用 CMDB 工具”，则跳转到 <code>cmdb_search</code> 节点；如果输出“需要调用日志工具”，则跳转到 <code>log_search</code> 节点；如果输出“无需调用工具”，则跳转到“回答节点”。</li>
+</ul>
+</li>
+<li><strong>入口&#x2F;出口边</strong>：定义图的<strong>开始节点</strong>（比如用户输入节点）和<strong>结束节点</strong>（比如回答节点）。</li>
+<li><strong>多边的价值</strong>：打破了老版本“单一循环”的限制，支持<strong>分支、并行、循环</strong>等复杂流程。</li>
+</ul>
+</li>
+<li>关键能力：<strong>检查点（Checkpoint）</strong><ul>
+<li><strong>作用</strong>：记录图的执行状态，支持<strong>中断、恢复、回溯</strong>（比如你之前用的 <code>InMemorySaver</code> 就是内存级的检查点，还可以用 Redis、SQL 实现持久化）。</li>
+<li><strong>场景</strong>：多轮对话中，用户可以“回退”到上一步，或 Agent 崩溃后恢复执行。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>LangGraph 中 Agent 与 Tools 的工作机制（结合你的 CMDB 例子）<br>  以你之前的“显示运行中的 Linux 服务器”为例，LangGraph 的执行流程可以拆解为<strong>一个极简的有向图</strong>：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[入口节点：用户输入] </span><br><span class="line">    ↓（普通边）</span><br><span class="line">[LLM 思考节点]：分析问题，生成工具调用指令（cmdb_search + 入参）</span><br><span class="line">    ↓（条件边：判断需要调用工具）</span><br><span class="line">[工具调用节点]：执行 cmdb_search，将结果写回状态</span><br><span class="line">    ↓（条件边：判断无需继续调用工具）</span><br><span class="line">[LLM 回答节点]：基于工具结果生成最终回答</span><br><span class="line">    ↓（普通边）</span><br><span class="line">[出口节点：输出回答]</span><br></pre></td></tr></table></figure>
+  核心细节：<ol>
+<li><strong>状态驱动</strong>：所有节点都通过<strong>状态</strong>交互，没有直接的函数调用——LLM 节点从状态中读用户问题，工具节点从状态中读工具调用指令，执行后写回结果。</li>
+<li><strong>工具的解耦</strong>：工具本身是独立的函数（如 <code>cmdb_search</code>），LangGraph 只通过<strong>工具调用节点</strong>统一管理，支持多工具的动态选择和调用。</li>
+<li><strong>循环执行</strong>：通过<strong>条件边</strong>实现“思考→工具→再思考→再工具”的循环（比如用户问“查生产主机并统计数量”，可能需要先调用 <code>cmdb_search</code>，再调用 <code>cmdb_query</code> 统计）。</li>
+</ol>
+</li>
+<li>LangGraph vs 老版本 ReAct Agent（核心区别）<br>老版本 ReAct Agent（LangChain v0.x 的 <code>AgentExecutor</code>）是 LangGraph 的<strong>简化版</strong>，两者的核心差异在于<strong>流程的编排能力</strong>：<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>老版本 ReAct Agent（AgentExecutor）</th>
+<th>LangGraph</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>架构基础</strong></td>
+<td>线性循环（Single Loop）</td>
+<td>有向图（Directed Graph）</td>
+</tr>
+<tr>
+<td><strong>节点&#x2F;边</strong></td>
+<td>无物理节点拆分，只有“思考→工具”的逻辑两步；无多分支边，只有单一循环。</td>
+<td>支持多节点、多类型边（条件边、普通边），可编排复杂流程。</td>
+</tr>
+<tr>
+<td><strong>状态管理</strong></td>
+<td>临时状态（每次循环重新生成，无持久化）</td>
+<td>统一的状态对象，支持持久化、回溯（Checkpoint）。</td>
+</tr>
+<tr>
+<td><strong>流程灵活性</strong></td>
+<td>只能“思考→工具→思考”的单一循环，多工具需按顺序调用（一次一个）。</td>
+<td>支持多分支（比如不同工具的并行调用）、条件跳转、中断恢复。</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>扩展复杂流程（如多工具并行）需要大量自定义代码。</td>
+<td>通过图的编排即可实现，无需修改核心逻辑。</td>
+</tr>
+<tr>
+<td>老版本 ReAct Agent 的核心是 <code>AgentExecutor</code> 的<strong>单一循环</strong>：</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">while True:</span><br><span class="line">    # 1. 调用 LLM 生成思考结果和工具调用指令</span><br><span class="line">    llm_output = llm.invoke(状态)</span><br><span class="line">    # 2. 判断是否需要调用工具</span><br><span class="line">    if 需要调用工具：</span><br><span class="line">        tool_result = tool.invoke(llm_output 中的指令)</span><br><span class="line">        # 将工具结果加入状态，继续循环</span><br><span class="line">    else:</span><br><span class="line">        # 生成最终回答，退出循环</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+它的“节点”只是<strong>逻辑上的两步（思考、工具）</strong>，没有物理上的节点拆分，也没有多分支的边——即使有多个工具，也只能<strong>按顺序单次调用</strong>（一次调一个），无法实现并行或多分支跳转。<br>比如：<br>老版本要实现“查生产主机+查今日告警”，只能先调用 <code>cmdb_search</code>，再调用 <code>alert_search</code>，通过<strong>多次循环</strong>实现。<br>LangGraph 可以通过<strong>多节点和条件边</strong>，甚至<strong>并行执行</strong>这两个工具（比如同时调用 CMDB 和告警工具，提升效率）。</li>
+<li>五、总结：为什么需要 LangGraph？<ol>
+<li><strong>从“单一循环”到“复杂图”</strong>：老版本 Agent 适合简单的单工具循环场景，而 LangGraph 适合需要<strong>复杂流程编排</strong>的场景（比如多工具、多分支、有状态的智能体）。</li>
+<li><strong>可视化与可维护性</strong>：将 Agent 的行为拆解为节点和边，流程更清晰，便于调试和维护（比如你之前看到的“两轮 LLM 调用”，在 LangGraph 中就是两个节点的执行）。</li>
+<li><strong>生产级能力</strong>：Checkpoint、状态持久化、中断恢复等能力，让 LangGraph 更适合生产环境的部署。</li>
+</ol>
+</li>
+</ul>
+<h2 id="Spring-AI"><a href="#Spring-AI" class="headerlink" title="Spring AI"></a>Spring AI</h2><p>集成到Java</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/12/22/Agent/" data-id="cmjgly9kz0000kcv58xk20h5j" data-title="Agent" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-MongoDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/12/08/MongoDB/" class="article-date">
@@ -1627,15 +1779,11 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>对齐expectation2me（期望我做什么，提高什么能力），如何js（绩效）</li>
 </ul>
 <h2 id="12-14-CMDB-Agent"><a href="#12-14-CMDB-Agent" class="headerlink" title="12.14 CMDB Agent"></a>12.14 CMDB Agent</h2><h4 id="一：理论知识"><a href="#一：理论知识" class="headerlink" title="一：理论知识"></a>一：理论知识</h4><ul>
-<li><strong>Agent</strong>架构模式<ol>
-<li>组成组件<br><strong>Agent</strong>：智能代理，它是一个能够感知环境、做出决策并执行动作的软件实体（比起LLM只能“回答问题”，Agent可以真正地“执行任务”）。在LLM语境中，Agent通常利用LLM作为大脑，来理解用户输入、决定需要执行的动作（比如调用工具）、处理工具返回的结果并生成响应。<br><strong>LLM</strong>（大语言模型）：如GPT系列，是Agent的核心，负责理解自然语言、进行推理和生成文本。<br><strong>Tool</strong>：工具，是Agent可以调用的函数，用于执行特定任务，比如查询数据库、调用API。Tool扩展了Agent的能力，使其能够获取实时信息或执行具体操作。<br><code>Function Calling</code>：函数调用，是LLM的一种能力，允许模型根据用户输入决定何时以及如何调用哪个函数（Tool），并以结构化格式（如JSON）输出函数调用参数。然后由外部系统执行该函数。<br><strong>Prompt</strong>：提示词，是引导LLM生成期望输出的文本。在Agent中，Prompt通常包含系统指令（定义Agent的角色和能力）、用户输入、对话历史以及工具描述等。<br><code>RAG</code>（检索增强生成）：通过从外部知识库检索相关信息，并将其作为上下文提供给LLM，从而生成更准确、更相关的回答。<br><code>MCP</code>（模型上下文协议）：<strong>MCP可以包含本地tools和外部API，但通常 MCP更强调于将工具（无论是本地tools还是外部API）以标准化的上下文协议暴露给AI模型</strong>。MCP可以看作是一个中间层，它将工具抽象成标准的接口，使得AI Agent可以通过统一的协议来调用这些工具，从而实现模型与工具之间的解耦。</li>
-<li>一个典型的工作流程如下：<br>用户输入自然语言请求。  Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。  LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。  Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。  工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。  Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
-<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> --></li>
-<li>demo<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#### main.py</span></span><br><span class="line"><span class="keyword">from</span> pydantic_ai.models.gemini <span class="keyword">import</span> GeminiModel</span><br><span class="line"><span class="keyword">from</span> pydantic_ai <span class="keyword">import</span> Agent</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">import</span> tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型API Key等可以写到.env文件 并加载到环境变量</span></span><br><span class="line">load_dotenv()</span><br><span class="line">model = GeminiModel(<span class="string">&quot;gemini-2.5-flash-preview-04-17&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将llm模型、系统prompt、工具tools “注册” 到 Agent</span></span><br><span class="line">agent = Agent(model,</span><br><span class="line">              system_prompt=<span class="string">&quot;You are an experienced programmer&quot;</span>,</span><br><span class="line">              tools=[tools.read_file, tools.list_files])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    history = []</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># eg. Input: list and read file. base on your konwledge tell me what lang each file use.</span></span><br><span class="line">        user_input = <span class="built_in">input</span>(<span class="string">&quot;Input: &quot;</span>)</span><br><span class="line">        <span class="comment"># 将用户输入、历史对话（上下文）发给 agent 并记录本次对话（短期记忆）</span></span><br><span class="line">        resp = agent.run_sync(user_input,</span><br><span class="line">                              message_history=history)</span><br><span class="line">        history = <span class="built_in">list</span>(resp.all_messages())</span><br><span class="line">        <span class="built_in">print</span>(resp.output)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#### tools.py</span></span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">base_dir = Path(<span class="string">&quot;./test&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_file</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="comment"># docstring 帮助模型理解 tools</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Return file content. If not exist, return error message.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;(read_file <span class="subst">&#123;name&#125;</span>)&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(base_dir / name, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            content = f.read()</span><br><span class="line">        <span class="keyword">return</span> content</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;An error occurred: <span class="subst">&#123;e&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list_files</span>() -&gt; <span class="built_in">list</span>[<span class="built_in">str</span>]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;(list_file)&quot;</span>)</span><br><span class="line">    file_list = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> base_dir.rglob(<span class="string">&quot;*&quot;</span>):</span><br><span class="line">        <span class="keyword">if</span> item.is_file():</span><br><span class="line">            file_list.append(<span class="built_in">str</span>(item.relative_to(base_dir)))</span><br><span class="line">    <span class="keyword">return</span> file_list</span><br></pre></td></tr></table></figure></li>
-<li>学习资料：<br><a target="_blank" rel="noopener" href="https://python.langchain.com/docs/concepts/%EF%BC%88%E6%A6%82%E5%BF%B5%E9%80%9A%E7%94%A8%EF%BC%89">https://python.langchain.com/docs/concepts/（概念通用）</a><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.07842">https://arxiv.org/abs/2302.07842</a></li>
-</ol>
-</li>
+<li>一个典型的Agent工作流程如下：<br>用户输入自然语言请求。  Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。  LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。  Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。  工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。  Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
+<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> -->
+学习资料：
+https://python.langchain.com/docs/concepts/（概念通用）
+https://arxiv.org/abs/2302.07842</li>
 <li><strong>Spring AI</strong> 核心概念<ol>
 <li>Spring AI 是Spring生态系统中的一个项目，旨在简化AI功能的集成。它提供了统一的API来调用各种AI模型。</li>
 <li>Spring AI 集成了以下功能来支持上述流程：<br>ChatClient：统一接口，用于与各种LLM交互。<br>Prompt Templates：支持参数化提示词模板，方便构建动态Prompt。<br>Function Calling：支持定义工具（通过@Description注解等），并自动处理函数调用流程。<br>RAG：提供了检索器（Retriever）和向量存储（VectorStore）的支持，可以方便地实现检索增强。<br>Agents：提供了Agent的抽象和实现，比如通过Chain（链）来组合多个步骤，包括工具调用。</li>
@@ -2066,265 +2214,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 
 
   
-    <article id="post-RabbitMQ" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/11/RabbitMQ/" class="article-date">
-  <time class="dt-published" datetime="2024-01-11T02:58:11.000Z" itemprop="datePublished">2024-01-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="一、初识MQ"><a href="#一、初识MQ" class="headerlink" title="一、初识MQ"></a>一、初识MQ</h1><h4 id="1-同步和异步通讯"><a href="#1-同步和异步通讯" class="headerlink" title="1. 同步和异步通讯"></a>1. 同步和异步通讯</h4><p>微服务间通讯有同步和异步两种方式：<br>1、同步通讯：就像打电话，需要实时响应；<br>2、异步通讯：就像发邮件，不需要马上回复。<br>两种方式各有优劣，打电话可以立即得到响应，但是你却不能跟多个人同时通话。发送邮件可以同时与多个人收发邮件，但是往往响应会有延迟。<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717161939695.png?raw=true" width="700" height="200"> </p>
-<ol>
-<li><p><strong>同步通讯</strong><br> 我们之前学习的Feign调用就属于同步方式，虽然调用可以实时得到结果，但存在下面的问题：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162004285.png?raw=true" width="700" height="200"><br> 同步调用的优点：</p>
-<ul>
-<li>时效性较强</li>
-<li>可以立即得到结果</li>
-</ul>
-<p> 同步调用的问题：</p>
-<ul>
-<li>耦合度高</li>
-<li>性能和吞吐能力下降</li>
-<li>有额外的资源消耗</li>
-<li>有级联失败问题</li>
-</ul>
-</li>
-<li><p><strong>异步通讯</strong>：常见实现是事件驱动模式<br> 异步调用则可以避免上述问题：我们以购买商品为例，用户支付后需要调用订单服务完成订单状态修改，调用物流服务，从仓库分配响应的库存并准备发货。<br> 在事件模式中，支付服务是事件发布者（publisher），在支付完成后只需要发布一个支付成功的事件（event），事件中带上订单id。订单服务和物流服务是事件订阅者（Consumer），订阅支付成功的事件，监听到事件后完成自己业务即可。为了解除事件发布者与订阅者之间的耦合，两者并不是直接通信，而是有一个中间人（Broker）。发布者发布事件到Broker，不关心谁来订阅事件。订阅者从Broker订阅事件，不关心谁发来的消息。<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210422095356088.png?raw=true"><br> Broker 是一个像数据总线一样的东西，所有的服务要接收数据和发送数据都发到这个总线上，这个总线就像协议一样，让服务间的通讯变得标准和可控。</p>
-<p> <strong>好处：</strong></p>
-<ul>
-<li>吞吐量提升：无需等待订阅者处理完成，响应更快速</li>
-<li>故障隔离：服务没有直接调用，不存在级联失败问题</li>
-<li>调用间没有阻塞，不会造成无效的资源占用</li>
-<li>耦合度极低，每个服务都可以灵活插拔，可替换</li>
-<li>流量削峰：不管发布事件的流量波动多大，都由Broker接收，订阅者可以按照自己的速度去处理事件</li>
-</ul>
-<p> <strong>缺点：</strong></p>
-<ul>
-<li>架构复杂了，业务没有明显的流程线，不好管理；</li>
-<li>需要依赖于Broker的可靠、安全、性能<br> 好在现在开源软件或云平台上 Broker 的软件是非常成熟的，比较常见的一种就是我们今天要学习的MQ技术。</li>
-</ul>
-</li>
-</ol>
-<h4 id="2-技术对比"><a href="#2-技术对比" class="headerlink" title="2. 技术对比"></a>2. 技术对比</h4><p>MQ，中文是消息队列（MessageQueue），字面来看就是存放消息的队列。也就是事件驱动架构中的Broker。<br>比较常见的MQ实现：ActiveMQ，RabbitMQ，RocketMQ，Kafka。几种常见MQ的对比：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><strong>RabbitMQ</strong></th>
-<th><strong>ActiveMQ</strong></th>
-<th><strong>RocketMQ</strong></th>
-<th><strong>Kafka</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>公司&#x2F;社区</td>
-<td>Rabbit</td>
-<td>Apache</td>
-<td>阿里</td>
-<td>Apache</td>
-</tr>
-<tr>
-<td>开发语言</td>
-<td>Erlang</td>
-<td>Java</td>
-<td>Java</td>
-<td>Scala&amp;Java</td>
-</tr>
-<tr>
-<td>协议支持</td>
-<td>AMQP，XMPP，SMTP，STOMP</td>
-<td>OpenWire,STOMP，REST,XMPP,AMQP</td>
-<td>自定义协议</td>
-<td>自定义协议</td>
-</tr>
-<tr>
-<td>可用性</td>
-<td>高</td>
-<td>一般</td>
-<td>高</td>
-<td>高</td>
-</tr>
-<tr>
-<td>单机吞吐量</td>
-<td>一般</td>
-<td>差</td>
-<td>高</td>
-<td>非常高</td>
-</tr>
-<tr>
-<td>消息延迟</td>
-<td>微秒级</td>
-<td>毫秒级</td>
-<td>毫秒级</td>
-<td>毫秒以内</td>
-</tr>
-<tr>
-<td>消息可靠性</td>
-<td>高</td>
-<td>一般</td>
-<td>高</td>
-<td>一般</td>
-</tr>
-</tbody></table>
-<p>追求可用性：Kafka、 RocketMQ 、RabbitMQ</p>
-<p>追求可靠性：RabbitMQ、RocketMQ</p>
-<p>追求吞吐能力：RocketMQ、Kafka</p>
-<p>追求消息低延迟：RabbitMQ、Kafka</p>
-<h1 id="二、快速入门"><a href="#二、快速入门" class="headerlink" title="二、快速入门"></a>二、快速入门</h1><h4 id="1-安装RabbitMQ"><a href="#1-安装RabbitMQ" class="headerlink" title="1. 安装RabbitMQ"></a>1. 安装RabbitMQ</h4><!-- 安装RabbitMQ，参考课前资料：![](https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162628635.png?raw=true) -->
-<p>MQ的基本结构：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717162752376.png?raw=true"><br>RabbitMQ中的一些角色：</p>
-<ul>
-<li>publisher：生产者</li>
-<li>consumer：消费者</li>
-<li>exchange：交换机，负责消息路由</li>
-<li>queue：队列，存储消息</li>
-<li>virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离</li>
-</ul>
-<h4 id="2-RabbitMQ消息模型"><a href="#2-RabbitMQ消息模型" class="headerlink" title="2. RabbitMQ消息模型"></a>2. RabbitMQ消息模型</h4><!-- RabbitMQ官方提供了5个不同的Demo示例，对应了不同的消息模型： -->
-<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163332646.png?raw=true"></p>
-<h4 id="3-导入Demo工程"><a href="#3-导入Demo工程" class="headerlink" title="3. 导入Demo工程"></a>3. 导入Demo工程</h4><!-- 课前资料提供了一个Demo工程，mq-demo:![](https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163253264.png?raw=true)
-导入后可以看到结构如下： -->
-<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163604330.png?raw=true"><br>包括三部分：</p>
-<ul>
-<li>mq-demo：父工程，管理项目依赖</li>
-<li>publisher：消息的发送者</li>
-<li>consumer：消息的消费者</li>
-</ul>
-<h4 id="4-入门案例"><a href="#4-入门案例" class="headerlink" title="4. 入门案例"></a>4. 入门案例</h4><p>简单队列模式的模型图：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717163434647.png?raw=true" width="700" height="200"><br>官方的HelloWorld是基于最基础的消息队列模型来实现的，只包括三个角色：</p>
-<ul>
-<li>publisher：消息发布者，将消息发送到队列queue</li>
-<li>queue：消息队列，负责接受并缓存消息</li>
-<li>consumer：订阅队列，处理队列中的消息</li>
-</ul>
-<ol>
-<li>publisher实现<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PublisherTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSendMessage</span><span class="params">()</span> <span class="keyword">throws</span> IOException, TimeoutException &#123;</span><br><span class="line">        <span class="comment">// 1.建立连接</span></span><br><span class="line">        <span class="type">ConnectionFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConnectionFactory</span>();</span><br><span class="line">        <span class="comment">// 1.1.设置连接参数，分别是：主机名（改成自己的ip）、端口号、vhost、用户名、密码</span></span><br><span class="line">        factory.setHost(<span class="string">&quot;192.168.150.101&quot;</span>); </span><br><span class="line">        factory.setPort(<span class="number">5672</span>);</span><br><span class="line">        factory.setVirtualHost(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">        factory.setUsername(<span class="string">&quot;itcast&quot;</span>);</span><br><span class="line">        factory.setPassword(<span class="string">&quot;123321&quot;</span>);</span><br><span class="line">        <span class="comment">// 1.2.建立连接</span></span><br><span class="line">        <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> factory.newConnection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.创建通道Channel</span></span><br><span class="line">        <span class="type">Channel</span> <span class="variable">channel</span> <span class="operator">=</span> connection.createChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.创建队列</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;simple.queue&quot;</span>;</span><br><span class="line">        channel.queueDeclare(queueName, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.发送消息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;hello, rabbitmq!&quot;</span>;</span><br><span class="line">        channel.basicPublish(<span class="string">&quot;&quot;</span>, queueName, <span class="literal">null</span>, message.getBytes());</span><br><span class="line">        System.out.println(<span class="string">&quot;发送消息成功：【&quot;</span> + message + <span class="string">&quot;】&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5.关闭通道和连接</span></span><br><span class="line">        channel.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>consumer实现<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConsumerTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException &#123;</span><br><span class="line">        <span class="comment">// 1.建立连接</span></span><br><span class="line">        <span class="type">ConnectionFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConnectionFactory</span>();</span><br><span class="line">        <span class="comment">// 1.1.设置连接参数，分别是：主机名、端口号、vhost、用户名、密码</span></span><br><span class="line">        factory.setHost(<span class="string">&quot;192.168.150.101&quot;</span>);</span><br><span class="line">        factory.setPort(<span class="number">5672</span>);</span><br><span class="line">        factory.setVirtualHost(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">        factory.setUsername(<span class="string">&quot;itcast&quot;</span>);</span><br><span class="line">        factory.setPassword(<span class="string">&quot;123321&quot;</span>);</span><br><span class="line">        <span class="comment">// 1.2.建立连接</span></span><br><span class="line">        <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> factory.newConnection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.创建通道Channel</span></span><br><span class="line">        <span class="type">Channel</span> <span class="variable">channel</span> <span class="operator">=</span> connection.createChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.创建队列</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;simple.queue&quot;</span>;</span><br><span class="line">        channel.queueDeclare(queueName, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.订阅消息</span></span><br><span class="line">        channel.basicConsume(queueName, <span class="literal">true</span>, <span class="keyword">new</span> <span class="title class_">DefaultConsumer</span>(channel)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleDelivery</span><span class="params">(String consumerTag, Envelope envelope,</span></span><br><span class="line"><span class="params">                                       AMQP.BasicProperties properties, <span class="type">byte</span>[] body)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">                <span class="comment">// 5.处理消息</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(body);</span><br><span class="line">                System.out.println(<span class="string">&quot;接收到消息：【&quot;</span> + message + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(<span class="string">&quot;等待接收消息。。。。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-消息被消费后，就消失（阅后即焚）</li>
-</ol>
-<hr>
-
-<h1 id="三、SpringAMQP"><a href="#三、SpringAMQP" class="headerlink" title="三、SpringAMQP"></a>三、SpringAMQP</h1><p>SpringAMQP 是基于 RabbitMQ 封装的一套模板，并且还利用 SpringBoot 对其实现了自动装配，使用起来非常方便。<br>SpringAMQP提供了三个功能：</p>
-<ul>
-<li>自动声明队列、交换机及其绑定关系</li>
-<li>基于注解的监听器模式，异步接收消息</li>
-<li>封装了RabbitTemplate工具，用于发送消息 <img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717164024967.png?raw=true" width="400" height="200">
-<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717164038678.png?raw=true" width="400" height="200"></li>
-</ul>
-<h4 id="1-Basic-Queue-简单队列模型"><a href="#1-Basic-Queue-简单队列模型" class="headerlink" title="1. Basic Queue 简单队列模型"></a>1. Basic Queue 简单队列模型</h4><p>在父工程mq-demo中引入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--AMQP依赖，包含RabbitMQ--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>消息发送<br>首先配置MQ地址，在publisher服务的application.yml中添加配置：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.150</span><span class="number">.101</span> <span class="comment"># 主机名</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span> <span class="comment"># 端口</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/</span> <span class="comment"># 虚拟主机</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">itcast</span> <span class="comment"># 用户名</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123321</span> <span class="comment"># 密码</span></span><br></pre></td></tr></table></figure>
-然后在publisher服务中编写测试类SpringAmqpTest，并利用RabbitTemplate实现消息发送：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringAmqpTest</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RabbitTemplate rabbitTemplate;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSimpleQueue</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 队列名称</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;simple.queue&quot;</span>;</span><br><span class="line">        <span class="comment">// 消息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;hello, spring amqp!&quot;</span>;</span><br><span class="line">        <span class="comment">// 发送消息</span></span><br><span class="line">        rabbitTemplate.convertAndSend(queueName, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>消息接收<br>首先配置MQ地址，在consumer服务的application.yml中添加配置：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.150</span><span class="number">.101</span> <span class="comment"># 主机名</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span> <span class="comment"># 端口</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/</span> <span class="comment"># 虚拟主机</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">itcast</span> <span class="comment"># 用户名</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123321</span> <span class="comment"># 密码</span></span><br></pre></td></tr></table></figure>
-然后在consumer服务的<code>cn.itcast.mq.listener</code>包中新建一个类SpringRabbitListener，代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringRabbitListener</span> &#123;</span><br><span class="line">    <span class="meta">@RabbitListener(queues = &quot;simple.queue&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenSimpleQueueMessage</span><span class="params">(String msg)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;spring 消费者接收到消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="2-WorkQueue"><a href="#2-WorkQueue" class="headerlink" title="2. WorkQueue"></a>2. WorkQueue</h4><p>Work queues，也被称为（Task queues），任务模型。简单来说就是<strong>让多个消费者绑定到一个队列，共同消费队列中的消息</strong>。<br>当消息处理比较耗时的时候，可能生产消息的速度会远远大于消息的消费速度。长此以往，消息就会堆积越来越多，无法及时处理。此时就可以使用 work 模型，多个消费者共同处理消息处理，速度就能大大提高了。<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717164238910.png?raw=true" width="400" height="200"></p>
-<ol>
-<li>消息发送：在publisher服务中的SpringAmqpTest类中添加一个测试方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * workQueue</span></span><br><span class="line"><span class="comment">     * 向队列中不停发送消息，模拟消息堆积。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testWorkQueue</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    <span class="comment">// 队列名称</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;simple.queue&quot;</span>;</span><br><span class="line">    <span class="comment">// 消息</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;hello, message_&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">        <span class="comment">// 发送消息</span></span><br><span class="line">        rabbitTemplate.convertAndSend(queueName, message + i);</span><br><span class="line">        Thread.sleep(<span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>消息接收：要模拟多个消费者绑定同一个队列，我们在consumer服务的SpringRabbitListener中添加2个新的方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;simple.queue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenWorkQueue1</span><span class="params">(String msg)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者1接收到消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span> + LocalTime.now());</span><br><span class="line">    Thread.sleep(<span class="number">20</span>);``</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@RabbitListener(queues = &quot;simple.queue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenWorkQueue2</span><span class="params">(String msg)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    System.err.println(<span class="string">&quot;消费者2........接收到消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span> + LocalTime.now());</span><br><span class="line">    Thread.sleep(<span class="number">200</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>测试：启动ConsumerApplication后，在执行publisher服务中刚刚编写的发送测试方法testWorkQueue。<br>可以看到消费者1很快完成了自己的25条消息。消费者2却在缓慢的处理自己的25条消息。也就是说消息是平均分配给每个消费者，并没有考虑到消费者的处理能力。这样显然是有问题的。<br>在spring中有一个简单的配置，可以解决这个问题。我们修改consumer服务的application.yml文件，添加配置：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">listener:</span></span><br><span class="line">      <span class="attr">simple:</span></span><br><span class="line">        <span class="attr">prefetch:</span> <span class="number">1</span> <span class="comment"># 每次只能获取一条消息，处理完成才能获取下一个消息</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="3-发布-订阅"><a href="#3-发布-订阅" class="headerlink" title="3. 发布&#x2F;订阅"></a>3. 发布&#x2F;订阅</h4><p>发布订阅的模型如图：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717165309625.png?raw=true" width="500" height="200"><br>可以看到，在订阅模型中，多了一个exchange角色，而且过程略有变化：</p>
-<ul>
-<li>Publisher：生产者，也就是要发送消息的程序，但是不再发送到队列中，而是发给X（交换机）</li>
-<li>Exchange：交换机，图中的X。一方面，接收生产者发送的消息。另一方面，知道如何处理消息，例如递交给某个特别队列、递交给所有队列、或是将消息丢弃。到底如何操作，取决于Exchange的类型。Exchange有以下3种类型：<ul>
-<li>Fanout：广播，将消息交给所有绑定到交换机的队列</li>
-<li>Direct：定向，把消息交给符合指定routing key 的队列</li>
-<li>Topic：通配符，把消息交给符合routing pattern（路由模式） 的队列</li>
-</ul>
-</li>
-<li>Consumer：消费者，与以前一样，订阅队列，没有变化</li>
-<li>Queue：消息队列也与以前一样，接收消息、缓存消息。</li>
-</ul>
-<p><strong>Exchange（交换机）只负责转发消息，不具备存储消息的能力</strong>，因此如果没有任何队列与Exchange绑定，或者没有符合路由规则的队列，那么消息会丢失！<br>这样，实现了一个消息发送给多个消费者。</p>
-<h4 id="4-Fanout"><a href="#4-Fanout" class="headerlink" title="4. Fanout"></a>4. Fanout</h4><p>在广播模式下，消息发送流程是这样的：</p>
-<ul>
-<li>1）  可以有多个队列</li>
-<li>2）  每个队列都要绑定到Exchange（交换机）</li>
-<li>3）  生产者发送的消息，只能发送到交换机，交换机来决定要发给哪个队列，生产者无法决定</li>
-<li>4）  交换机把消息发送给绑定过的所有队列</li>
-<li>5）  订阅队列的消费者都能拿到消息</li>
-</ul>
-<p>我们的计划是这样的：</p>
-<ul>
-<li>创建一个交换机 itcast.fanout，类型是Fanout</li>
-<li>创建两个队列fanout.queue1和fanout.queue2，绑定到交换机itcast.fanout<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717165509466.png?raw=true" width="500" height="200"></li>
-</ul>
-<ol>
-<li>声明队列和交换机<br>Spring提供了一个接口Exchange，来表示所有不同类型的交换机：<img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717165552676.png?raw=true"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在consumer中创建一个类，声明队列和交换机</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FanoutConfig</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 声明交换机</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Fanout类型交换机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> FanoutExchange <span class="title function_">fanoutExchange</span><span class="params">()</span>&#123;    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FanoutExchange</span>(<span class="string">&quot;itcast.fanout&quot;</span>);    &#125;</span><br><span class="line">    <span class="comment">// 队列1，绑定交换机</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">fanoutQueue1</span><span class="params">()</span>&#123;    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.queue1&quot;</span>);    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Binding <span class="title function_">bindingQueue1</span><span class="params">(Queue fanoutQueue1, FanoutExchange fanoutExchange)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(fanoutQueue1).to(fanoutExchange);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 队列2，绑定交换机</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Queue <span class="title function_">fanoutQueue2</span><span class="params">()</span>&#123;    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.queue2&quot;</span>);    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Binding <span class="title function_">bindingQueue2</span><span class="params">(Queue fanoutQueue2, FanoutExchange fanoutExchange)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BindingBuilder.bind(fanoutQueue2).to(fanoutExchange);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>消息发送<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在publisher服务的SpringAmqpTest类中添加测试方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testFanoutExchange</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">exchangeName</span> <span class="operator">=</span> <span class="string">&quot;itcast.fanout&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;hello, everyone!&quot;</span>;</span><br><span class="line">    <span class="comment">// 发送到交换机</span></span><br><span class="line">    rabbitTemplate.convertAndSend(exchangeName, <span class="string">&quot;&quot;</span>, message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>消息接收<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在consumer服务的SpringRabbitListener中添加两个方法，作为消费者</span></span><br><span class="line"><span class="meta">@RabbitListener(queues = &quot;fanout.queue1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenFanoutQueue1</span><span class="params">(String msg)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者1接收到Fanout消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@RabbitListener(queues = &quot;fanout.queue2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenFanoutQueue2</span><span class="params">(String msg)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者2接收到Fanout消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="5-Direct"><a href="#5-Direct" class="headerlink" title="5. Direct"></a>5. Direct</h4><p>在Fanout模式中，一条消息，会被所有订阅的队列都消费。但是，在某些场景下，我们希望不同的消息被不同的队列消费。这时就要用到Direct类型的Exchange。<br>在Direct模型下：</p>
-<ul>
-<li>队列与交换机的绑定，不能是任意绑定了，而是要指定一个<code>BindingKey</code>（路由key）</li>
-<li>消息的发送方在 向 Exchange发送消息时，必须指定消息的 <code>RoutingKey</code>。</li>
-<li>Exchange不再把消息交给每一个绑定的队列，而是根据消息的<code>RoutingKey</code>进行判断，只有队列的<code>Bindingkey</code>与消息的 <code>Routingkey</code>完全一致，才会接收到消息</li>
-<li>一个队列可以有多个BindingKey。如果多个队列具有相同的RoutingKey，则与Fanout功能类似(可以模拟广播)<br><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717170223317.png?raw=true"></li>
-</ul>
-<ol>
-<li>基于注解声明队列和交换机<br>基于@Bean的方式声明队列和交换机比较麻烦，Spring还提供了基于注解方式来声明。<br>在consumer的SpringRabbitListener中添加两个消费者，同时基于注解 <code>@RabbitListener</code> 来声明队列和交换机：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 消费者1+队列+交换机+BindingKey</span></span><br><span class="line"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">    value = @Queue(name = &quot;direct.queue1&quot;),</span></span><br><span class="line"><span class="meta">    exchange = @Exchange(name = &quot;itcast.direct&quot;, type = ExchangeTypes.DIRECT),</span></span><br><span class="line"><span class="meta">    key = &#123;&quot;red&quot;, &quot;blue&quot;&#125;</span></span><br><span class="line"><span class="meta">))</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenDirectQueue1</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者接收到direct.queue1的消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 消费者2+队列+交换机+BindingKey</span></span><br><span class="line"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">    value = @Queue(name = &quot;direct.queue2&quot;),</span></span><br><span class="line"><span class="meta">    exchange = @Exchange(name = &quot;itcast.direct&quot;, type = ExchangeTypes.DIRECT),</span></span><br><span class="line"><span class="meta">    key = &#123;&quot;red&quot;, &quot;yellow&quot;&#125;</span></span><br><span class="line"><span class="meta">))</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenDirectQueue2</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;消费者接收到direct.queue2的消息：【&quot;</span> + msg + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>消息发送<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSendDirectExchange</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">exchangeName</span> <span class="operator">=</span> <span class="string">&quot;itcast.direct&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;红色警报！日本乱排核废水，导致海洋生物变异，惊现哥斯拉！&quot;</span>;</span><br><span class="line">    <span class="comment">// 发送消息，携带 RoutingKey</span></span><br><span class="line">    rabbitTemplate.convertAndSend(exchangeName, <span class="string">&quot;red&quot;</span>, message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="6-Topic"><a href="#6-Topic" class="headerlink" title="6.Topic"></a>6.Topic</h4><p><code>Topic</code>类型的<code>Exchange</code>与<code>Direct</code>相比，都是可以根据<code>RoutingKey</code>把消息路由到不同的队列。只不过<code>Topic</code>类型<code>Exchange</code>可以让队列在绑定<code>Routing key</code> 的时候使用通配符！<br><code>Routingkey</code> 一般都是有一个或多个单词组成，多个单词之间以”.”分割，例如： <code>item.insert</code><br>通配符规则：<code>#</code>：匹配一个或多个词；<code>*</code>：匹配不多不少恰好1个词<br>举例：<code>item.#</code>：能够匹配<code>item.spu.insert</code> 或者 <code>item.spu</code>；<code>item.*</code>：只能匹配<code>item.spu</code>  ​<br><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20210717170705380.png?raw=true"><br>解释：</p>
-<ul>
-<li>Queue1：绑定的是<code>china.#</code> ，因此凡是以 <code>china.</code>开头的<code>routing key</code> 都会被匹配到。包括china.news和china.weather</li>
-<li>Queue2：绑定的是<code>#.news</code> ，因此凡是以 <code>.news</code>结尾的 <code>routing key</code> 都会被匹配。包括china.news和japan.news</li>
-</ul>
-<ol>
-<li>消息发送<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitTemplate.convertAndSend(exchangeName, <span class="string">&quot;china.news&quot;</span>, message);</span><br></pre></td></tr></table></figure></li>
-<li>消息接收<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">    value = @Queue(name = &quot;topic.queue1&quot;),</span></span><br><span class="line"><span class="meta">    exchange = @Exchange(name = &quot;itcast.topic&quot;, type = ExchangeTypes.TOPIC),</span></span><br><span class="line"><span class="meta">    key = &quot;china.#&quot;</span></span><br><span class="line"><span class="meta">))</span></span><br></pre></td></tr></table></figure></li>
-<li>总结<br> 描述下Direct交换机与Topic交换机的差异？<ul>
-<li>Topic交换机接收的消息RoutingKey必须是多个单词，以 <code>.</code> 分割</li>
-<li>Topic交换机与队列绑定时的bindingKey可以指定通配符</li>
-<li><code>#</code>：代表0个或多个词</li>
-<li><code>*</code>：代表1个词</li>
-</ul>
-</li>
-</ol>
-<h4 id="7-消息转换器"><a href="#7-消息转换器" class="headerlink" title="7.消息转换器"></a>7.消息转换器</h4><p>之前说过，Spring会把你发送的消息序列化为字节发送给MQ，接收消息的时候，还会把字节反序列化为Java对象。</p>
-<p><img src="https://github.com/leo710aka/bk/blob/main/rabbitmq/assets/image-20200525170410401.png?raw=true" alt="image-20200525170410401"></p>
-<p>只不过，默认情况下Spring采用的序列化方式是JDK序列化。众所周知，JDK序列化存在下列问题：</p>
-<ul>
-<li>数据体积过大</li>
-<li>有安全漏洞</li>
-<li>可读性差</li>
-</ul>
-<p>显然，JDK序列化方式并不合适。我们希望消息体的体积更小、可读性更高，因此可以使用JSON方式来做序列化和反序列化。</p>
-<p>在publisher和consumer两个服务中都引入依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.dataformat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-xml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>配置消息转换器。在启动类中添加一个Bean即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MessageConverter <span class="title function_">jsonMessageConverter</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonMessageConverter</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/11/RabbitMQ/" data-id="cmiae68a3000hl4v5btxucmzb" data-title="RabbitMQ" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -2369,6 +2258,10 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
           </li>
         
           <li>
+            <a href="/2025/12/22/Agent/">Agent</a>
+          </li>
+        
+          <li>
             <a href="/2025/12/08/MongoDB/">MongoDB</a>
           </li>
         
@@ -2394,10 +2287,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
         
           <li>
             <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 业 设 计</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/11/RabbitMQ/">RabbitMQ</a>
           </li>
         
       </ul>
