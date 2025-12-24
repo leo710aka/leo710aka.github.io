@@ -1775,19 +1775,17 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>服务客户<br>• MOPS响应用户群问题，实现业务方需求和优化点，产品化客户答疑<br>• CMDB值班运维，支持业务方运营</li>
 <li>制定2026年度重点工作计划。<br>1、MOPS功能优化<br>负载均衡自动化：支持一键回退能力，完善流程中配置项自动带出的能力。<br>域名解析自动化：完善提交工单时的自动校验能力，避免因平台记录与实际配置不一致导致变更异常。<br>2、CMDB项目运营<br>负责日常开发运维，支持业务方数据运营，治理历史数据。设计开发CMDB智能助手，利用AI工具赋能，初步设想是支持自然语言交互和提供简单的数据查询能力。</li>
 <li>希望提升的1-3项核心能力项，计划如何提升。<br>1、对系统有更加深入的理解。通过CMDB项目的运营，了解各微服务和组件是如何协同工作的，对接业务方需求时保证不影响服务的稳定性，面对告警可以快速找到解决思路。<br>2、能够独立负责项目的开发。主动承担更加复杂的任务，以及开发需求的同时增加对业务方面的思考。<br>3、学习AI领域的知识，通过CMDB智能助手项目深入学习通过AI赋能传统应用。</li>
-<li>面向未来1年的职业规划。<br><em><strong>更高岗位或职级</strong></em>：经过一年的多项目需求开发锻炼，交付任务数已经达到了团队平均水平，需要主动承担起更加复杂的项目，有独立思考和设计方案的能力。深度参与服务运维和产品化工作，日常开发中也要思考可优化的点。开发需求的同时，应该增加对业务的思考，对一个系统有更加深入的理解。</li>
-<li>对齐expectation2me（期望我做什么，提高什么能力），如何js（绩效）</li>
+<li>面向未来1年的职业规划。<br><em><strong>【更高岗位或职级】</strong></em>：经过一年的多项目需求开发锻炼，交付任务数已经达到了团队平均水平，需要主动承担起更加复杂的项目，有独立思考和设计方案的能力。深度参与服务运维和产品化工作，日常开发中也要思考可优化的点。开发需求的同时，应该增加对业务的思考，对一个系统有更加深入的理解。</li>
+<li>上级反馈<br>做好的：<br>1、完成了influxdb的服务化基础能力开发<br>2、完成了负载均衡、dns的自动化能力开发<br>待改进：<br>1、主动解决问题的能力需要加强<br>2、需要加强基础能力的学习<br>明确员工亟待提升的核心能力，并为其制定成长计划。&#x3D;》独立自主解决问题的能力，希望能成长成为能够主导一个方向的负责人</li>
+<li>expectation2me<br>1、提高演讲汇报能力__周会主题AI分享，保持好奇心<br>2、突破自己&#x3D;&gt;没有舒适区&#x2F;合适的时间&#x3D;&gt;参与mariadb值班&#x3D;&gt;面对挑战性任务&#x3D;&gt;积累信心<br>3、CMDB稳定性运营&amp;Agent建设(ps.运营交给外包)<br>2025：交付，修复（任务数↑，hospital，solotrip）<br>2026：足球</li>
 </ul>
 <h2 id="12-14-CMDB-Agent"><a href="#12-14-CMDB-Agent" class="headerlink" title="12.14 CMDB Agent"></a>12.14 CMDB Agent</h2><h4 id="一：理论知识"><a href="#一：理论知识" class="headerlink" title="一：理论知识"></a>一：理论知识</h4><ul>
-<li>一个典型的Agent工作流程如下：<br>用户输入自然语言请求。  Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。  LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。  Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。  工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。  Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
-<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> -->
-学习资料：
-https://python.langchain.com/docs/concepts/（概念通用）
-https://arxiv.org/abs/2302.07842</li>
+<li>一个典型的Agent工作流程如下：<br>用户输入自然语言请求。<br>Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。<br>LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。<br>Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。<br>工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。<br>Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
+<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> --></li>
 <li><strong>Spring AI</strong> 核心概念<ol>
 <li>Spring AI 是Spring生态系统中的一个项目，旨在简化AI功能的集成。它提供了统一的API来调用各种AI模型。</li>
 <li>Spring AI 集成了以下功能来支持上述流程：<br>ChatClient：统一接口，用于与各种LLM交互。<br>Prompt Templates：支持参数化提示词模板，方便构建动态Prompt。<br>Function Calling：支持定义工具（通过@Description注解等），并自动处理函数调用流程。<br>RAG：提供了检索器（Retriever）和向量存储（VectorStore）的支持，可以方便地实现检索增强。<br>Agents：提供了Agent的抽象和实现，比如通过Chain（链）来组合多个步骤，包括工具调用。</li>
-<li>官方资源：<br>• <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-ai">https://spring.io/projects/spring-ai</a> - 必读！<br>• <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-ai/reference/index.html">https://docs.spring.io/spring-ai/reference/index.html</a><br>视频教程（推荐）：<br>• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=%E7%A4%BA%E4%BE%8B">https://www.youtube.com/watch?v=示例</a> - 搜索”Spring AI Getting Started”<br>• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=%E7%A4%BA%E4%BE%8B">https://www.youtube.com/watch?v=示例</a></li>
+<li>官方资源：<br>• <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-ai">https://spring.io/projects/spring-ai</a> - 必读！<br>• <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-ai/reference/index.html">https://docs.spring.io/spring-ai/reference/index.html</a><br>视频教程（推荐）：<br>• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=%E7%A4%BA%E4%BE%8B">https://www.youtube.com/watch?v=示例</a> - 搜索”Spring AI Getting Started”</li>
 <li>关键概念速成：<br>&#x2F;&#x2F; Spring AI 核心组件关系<br><code>ChatClient</code> ←→ PromptTemplate ←→ ChatResponse<br> ↓<br>Function Calling ←→ Tools ←→ Your CMDB Service</li>
 </ol>
 </li>
@@ -1807,9 +1805,44 @@ https://arxiv.org/abs/2302.07842</li>
 <p>竞品核心功能提取：</p>
 <p>• 自然语言转查询：”内存大于8G的服务器” → MongoDB查询<br>• 结果格式化：表格、图表、自然语言总结<br>• 错误处理：查询无结果时的智能建议</p>
 <h4 id="三：Agent架构设计（针对MongoDB文档型CMDB）"><a href="#三：Agent架构设计（针对MongoDB文档型CMDB）" class="headerlink" title="三：Agent架构设计（针对MongoDB文档型CMDB）"></a>三：Agent架构设计（针对MongoDB文档型CMDB）</h4><ul>
+<li>业界主流架构方案对比</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>技术栈</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Python独立Agent服务</strong></td>
+<td>Python + FastAPI&#x2F;Flask + LangChain</td>
+<td>AI生态丰富，开发速度快，框架成熟</td>
+<td>需要维护多语言栈，网络调用开销</td>
+<td>大多数企业，特别是AI优先的团队</td>
+</tr>
+<tr>
+<td><strong>Spring AI集成</strong></td>
+<td>Java + Spring AI</td>
+<td>技术栈统一，性能更好，与现有系统无缝集成</td>
+<td>Spring AI相对较新，生态不如Python丰富</td>
+<td>Java技术栈为主的企业，追求技术统一性</td>
+</tr>
+<tr>
+<td><strong>混合架构</strong></td>
+<td>Python Agent + Java业务层</td>
+<td>兼顾AI能力和业务逻辑，职责清晰</td>
+<td>架构复杂，运维成本高</td>
+<td>大型企业，已有复杂Java系统</td>
+</tr>
+</tbody></table>
+<ul>
 <li>技术栈选择：</li>
 </ul>
-<p>框架: Spring Boot 3.x + Spring AI（pom引入，用包？？）<br>AI服务: OpenAI API 或 本地ChatGLM<br>数据库: MongoDB (你的现有数据)<br>向量数据库: 可选，初期可用MongoDB Atlas搜索功能<br>前端: 简单HTML页面 + WebSocket</p>
+<p>框架: Spring Boot 3.x + Spring AI<br>AI服务: OpenAI API 或 本地ChatGLM<br>数据库: MongoDB (你的现有数据)<br>向量数据库: 可选，初期可用MongoDB Atlas搜索功能<br>前端: 简单HTML页面 + WebSocket</p>
 <ul>
 <li>详细架构设计：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 包结构规划</span><br><span class="line">com.yourcompany.cmdbai/</span><br><span class="line">├── config/</span><br><span class="line">│   ├── AiConfig.java              // AI配置</span><br><span class="line">│   └── MongoConfig.java          // MongoDB配置</span><br><span class="line">├── controller/</span><br><span class="line">│   └── ChatController.java       // WebSocket聊天接口</span><br><span class="line">├── service/</span><br><span class="line">│   ├── AgentOrchestrator.java    // Agent调度核心</span><br><span class="line">│   ├── MongoQueryService.java    // MongoDB查询封装</span><br><span class="line">│   └── SessionManager.java       // 会话管理</span><br><span class="line">├── agent/</span><br><span class="line">│   ├── tools/                    // 工具集</span><br><span class="line">│   │   ├── QueryTool.java        // 基础查询</span><br><span class="line">│   │   ├── AnalyzeTool.java      // 统计分析</span><br><span class="line">│   │   └── SearchTool.java       // 全文搜索</span><br><span class="line">│   └── prompts/                  // 提示词模板</span><br><span class="line">│       ├── system_prompt.txt     // 系统角色设定</span><br><span class="line">│       └── query_prompt.txt      // 查询专用提示</span><br><span class="line">└── model/</span><br><span class="line">    ├── ChatMessage.java          // 消息模型</span><br><span class="line">    └── CmdbDocument.java         // </span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -1844,7 +1877,7 @@ https://arxiv.org/abs/2302.07842</li>
 </ol>
 </li>
 </ul>
-<h4 id="五：demo搭建"><a href="#五：demo搭建" class="headerlink" title="五：demo搭建"></a>五：demo搭建</h4><p>……</p>
+<h4 id="五：demo搭建"><a href="#五：demo搭建" class="headerlink" title="五：demo搭建"></a>五：demo搭建</h4><p><a target="_blank" rel="noopener" href="https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py">https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py</a> (Python demo using LangGraph)</p>
 <hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
