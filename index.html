@@ -262,6 +262,107 @@
 
 
   
+    <article id="post-Milvus" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/01/10/Milvus/" class="article-date">
+  <time class="dt-published" datetime="2026-01-10T02:59:33.000Z" itemprop="datePublished">2026-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2026/01/10/Milvus/">Milvus</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>📚 文档链接：</strong> <a target="_blank" rel="noopener" href="https://milvus.io/docs">快速入门 | Milvus 文档</a></p>
+<h3 id="什么是向量嵌入？"><a href="#什么是向量嵌入？" class="headerlink" title="什么是向量嵌入？"></a>什么是向量嵌入？</h3><p>向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。</p>
+<p>这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为“密集向量搜索”的搜索方式。这与依赖精确匹配和使用稀疏向量的传统关键词搜索形成对比。向量嵌入的发展，通常源于大型科技公司广泛训练的基础模型，使得搜索能够捕捉数据的本质，超越词汇或稀疏向量搜索方法的局限性。</p>
+<p><strong>向量</strong>：可以理解为在多维空间中的一个点，它由一组数字（坐标）表示。在 AI 中，无论是文本、图像还是声音，都可以通过特定的模型（如 qwen3-embedding-4b-torch）转换为一个向量。这个向量捕捉了原始数据的深层特征。<br><strong>维度</strong>：就是指这个向量有多少个数字。例如，一个 [0.12, 0.45, -0.23, …, 0.78]的向量，如果它有 1024 个数字，我们就说它是一个 1024 维​ 的向量。维度的选择通常由您选用的嵌入模型决定，并且在创建 Milvus 集合时必须正确定义，因为所有存入的向量都必须有相同的维度。</p>
+<h3 id="非结构化数据、Embeddings-和-Milvus"><a href="#非结构化数据、Embeddings-和-Milvus" class="headerlink" title="非结构化数据、Embeddings 和 Milvus"></a>非结构化数据、Embeddings 和 Milvus</h3><p>非结构化数据（如文本、图像和音频）格式各异，蕴含丰富的潜在语义，因此分析起来极具挑战性。Embeddings 被用来将非结构化数据转换成能够捕捉其基本特征的数字向量。然后将这些向量存储在向量数据库中，从而实现快速、可扩展的搜索和分析。</p>
+<p>Milvus 提供强大的数据建模功能，使您能够将非结构化或多模式数据组织成结构化的 Collections。它支持多种数据类型，适用于不同的属性模型，包括常见的数字和字符类型、各种向量类型、数组、集合和 JSON，为您节省了维护多个数据库系统的精力。<br>与处理结构化数据并执行精确搜索操作的传统关系数据库不同，向量数据库擅长使用 Approximate Nearest Neighbor（ANN）算法等技术进行语义相似性搜索。这种能力对于开发推荐系统、聊天机器人和多媒体内容搜索工具等各种领域的应用程序，以及解决 ChatGPT 等大型语言模型和 AI 带来的挑战（如理解上下文和细微差别以及 AI 幻觉）至关重要。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Milvus 概念</th>
+<th align="left">类比关系型数据库概念</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Collection（集合）</strong></td>
+<td align="left">Table（表）</td>
+<td align="left">存储向量和关联元数据（如文本内容、来源）的基本单位。</td>
+</tr>
+<tr>
+<td align="left"><strong>Entity（实体）</strong></td>
+<td align="left">Row（行）</td>
+<td align="left">一条完整的记录，包含主键、向量字段和标量字段（元数据）。</td>
+</tr>
+<tr>
+<td align="left"><strong>Field（字段）</strong></td>
+<td align="left">Column（列）</td>
+<td align="left">包括向量字段（存储向量）和标量字段（存储 ID、标签等结构化数据）。</td>
+</tr>
+<tr>
+<td align="left"><strong>Index（索引）</strong></td>
+<td align="left">Index（索引）</td>
+<td align="left">为向量字段建立的索引（如 HNSW、IVF_FLAT），是高速检索的关键。</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p><strong>写入数据（以 Python 为例）</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymilvus <span class="keyword">import</span> connections, Collection, FieldSchema, CollectionSchema, DataType</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 连接到您的 Milvus 服务</span></span><br><span class="line">connections.connect(<span class="string">&quot;default&quot;</span>, host=<span class="string">&#x27;localhost&#x27;</span>, port=<span class="string">&#x27;19530&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 定义集合结构（假设向量维度为1024）</span></span><br><span class="line">fields = [</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;id&quot;</span>, dtype=DataType.VARCHAR, is_primary=<span class="literal">True</span>, max_length=<span class="number">100</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;text_content&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">65535</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;embedding_vector&quot;</span>, dtype=DataType.FLOAT_VECTOR, dim=<span class="number">1024</span>)</span><br><span class="line">]</span><br><span class="line">schema = CollectionSchema(fields, description=<span class="string">&quot;问答助手知识库&quot;</span>)</span><br><span class="line">collection = Collection(<span class="string">&quot;qa_knowledge_base&quot;</span>, schema)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 插入数据（假设您已使用 embedding 模型将文本转换为向量）</span></span><br><span class="line">data = [</span><br><span class="line">    [<span class="string">&quot;doc_001&quot;</span>, <span class="string">&quot;CMDB是配置管理数据库，用于...&quot;</span>, [<span class="number">0.12</span>, <span class="number">0.34</span>, ...]], <span class="comment"># 1024维向量</span></span><br><span class="line">    [<span class="string">&quot;doc_002&quot;</span>, <span class="string">&quot;MongoDB的聚合管道用于...&quot;</span>, [<span class="number">0.56</span>, <span class="number">0.78</span>, ...]],</span><br><span class="line">]</span><br><span class="line">collection.insert(data)</span><br><span class="line">collection.flush()  <span class="comment"># 确保数据持久化</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 创建索引（以HNSW为例）</span></span><br><span class="line">index_params = &#123;</span><br><span class="line">    <span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;HNSW&quot;</span>,</span><br><span class="line">    <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,  <span class="comment"># 使用余弦相似度</span></span><br><span class="line">    <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;M&quot;</span>: <span class="number">16</span>, <span class="string">&quot;efConstruction&quot;</span>: <span class="number">200</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">collection.create_index(<span class="string">&quot;embedding_vector&quot;</span>, index_params)</span><br><span class="line">collection.load()  <span class="comment"># 将集合加载到内存以提供服务</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>读取与搜索</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用户提出问题，并转换为向量</span></span><br><span class="line">question = <span class="string">&quot;如何查询CMDB中的主机信息？&quot;</span></span><br><span class="line">question_vector = embed(question)  <span class="comment"># 使用相同的模型生成1024维向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Milvus 中搜索最相似的 Top K 个向量</span></span><br><span class="line">search_params = &#123;<span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;ef&quot;</span>: <span class="number">50</span>&#125;&#125;</span><br><span class="line">results = collection.search(</span><br><span class="line">    data=[question_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding_vector&quot;</span>,</span><br><span class="line">    param=search_params,</span><br><span class="line">    limit=<span class="number">3</span>,  <span class="comment"># 返回最相似的3条结果</span></span><br><span class="line">    output_fields=[<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text_content&quot;</span>]  <span class="comment"># 指定需要返回的元数据字段</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理结果</span></span><br><span class="line"><span class="keyword">for</span> hits <span class="keyword">in</span> results:</span><br><span class="line">    <span class="keyword">for</span> hit <span class="keyword">in</span> hits:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;相似度得分: <span class="subst">&#123;hit.score&#125;</span>, 关联知识: <span class="subst">&#123;hit.entity.get(<span class="string">&#x27;text_content&#x27;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Milvus 支持的搜索类型<br>ANN 搜索：查找最接近查询向量的前 K 个向量。<br>过滤搜索：在指定的过滤条件下执行 ANN 搜索。<br>范围搜索：查找查询向量指定半径范围内的向量。<br>混合搜索：基于多个向量场进行 ANN 搜索。<br>全文搜索：基于 BM25 的全文搜索。<br>Rerankers：根据附加标准或辅助算法调整搜索结果顺序，完善初始 ANN 搜索结果。<br>获取：根据主键检索数据。<br>查询使用特定表达式检索数据。</p>
+</li>
+</ol>
+<h3 id="Milvus-在-RAG"><a href="#Milvus-在-RAG" class="headerlink" title="Milvus 在 RAG"></a>Milvus 在 RAG</h3><p>在 RAG 流程中，Milvus 扮演着 <strong>知识库与高速检索引擎</strong> 的角色。</p>
+<ol>
+<li><strong>检索（Retrieval）</strong>：当用户提问时，系统首先使用嵌入模型将问题转换为查询向量。随后，Milvus 在该查询向量与知识库中所有文档向量之间进行高速的相似性比较，找出最相关的几个知识片段。</li>
+<li><strong>增强（Augmentation）</strong>：将这些检索到的知识片段（元数据中的原始文本）作为上下文，与用户的问题一起组合成一个更丰富的提示词（Prompt）。</li>
+<li><strong>生成（Generation）</strong>：将这个富含上下文的提示词发送给您的大语言模型（如 <code>qwen3-235b-a22b</code>），由它来生成精准、有据可依的最终答案。</li>
+</ol>
+<p>什么是 Agentic RAG？基础的 RAG 中，检索-增强-生成是一次性完成的。而 <strong>Agentic RAG（智能体驱动的 RAG）</strong> 则引入了“智能体”的概念，使得检索过程变得更智能、更动态。<br>智能体可以根据对大模型初步生成内容的理解，<strong>主动地、多次地</strong> 与向量数据库（Milvus）进行交互。这使 RAG 系统从静态的“文档查找”升级为动态的、具有决策能力的“研究助手”。例如：</p>
+<ul>
+<li><strong>判断是否需要进一步检索</strong>：如果首次检索到的信息不足以回答问题，智能体可以重新生成搜索 query，进行多轮检索，直到信息足够。</li>
+<li><strong>分解复杂问题</strong>：对于复杂问题，智能体可以将其拆解成多个子问题，然后针对每个子问题去 Milvus 中检索相关信息，最后综合所有信息生成答案。</li>
+<li><strong>工具调用（Tool Use）</strong>：智能体可以将 Milvus 的检索功能视为一个可调用的工具，根据对话进程决定何时以及如何调用这个工具。</li>
+</ul>
+<p>人工智能集成</p>
+<ol>
+<li>Embeddings 模型集成 Embedding 模型将非结构化数据转换为其在高维数据空间中的数字表示，以便您可以将其存储在 Milvus 中。目前，PyMilvus（Python SDK）集成了多个嵌入模型，因此您可以快速将数据准备成向量嵌入。有关详情，请参阅嵌入概述。</li>
+<li>Reranker 模型集成 在信息检索和生成式人工智能领域，Reranker 是优化初始搜索结果顺序的重要工具。PyMilvus 也集成了几种 Rerankers 模型，以优化初始搜索返回结果的顺序。详情请参考Rerankers 概述。</li>
+<li>LangChain 和其他人工智能工具集成 在 GenAI 时代，LangChain 等工具受到了应用程序开发人员的广泛关注。作为核心组件，Milvus 通常在此类工具中充当向量存储。要了解如何将 Milvus 集成到您喜爱的人工智能工具中，请参阅我们的集成和教程。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/01/10/Milvus/" data-id="cmk7pvivl0000w0v5cc42bgkz" data-title="Milvus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Agent" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/12/22/Agent/" class="article-date">
@@ -1964,9 +2065,9 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 <li>希望提升的1-3项核心能力项，计划如何提升。<br>1、对系统有更加深入的理解。通过CMDB项目的运营，了解各微服务和组件是如何协同工作的，对接业务方需求时保证不影响服务的稳定性，面对告警可以快速找到解决思路。<br>2、能够独立负责项目的开发。主动承担更加复杂的任务，以及开发需求的同时增加对业务方面的思考。<br>3、学习AI领域的知识，通过CMDB智能助手项目深入学习通过AI赋能传统应用。</li>
 <li>面向未来1年的职业规划。<br><em><strong>【更高岗位或职级】</strong></em>：经过一年的多项目需求开发锻炼，交付任务数已经达到了团队平均水平，需要主动承担起更加复杂的项目，有独立思考和设计方案的能力。深度参与服务运维和产品化工作，日常开发中也要思考可优化的点。开发需求的同时，应该增加对业务的思考，对一个系统有更加深入的理解。</li>
 <li>上级反馈<br>做好的：<br>1、完成了influxdb的服务化基础能力开发<br>2、完成了负载均衡、dns的自动化能力开发<br>待改进：<br>1、主动解决问题的能力需要加强<br>2、需要加强基础能力的学习<br>明确员工亟待提升的核心能力，并为其制定成长计划。&#x3D;》独立自主解决问题的能力，希望能成长成为能够主导一个方向的负责人</li>
-<li>expectation2me<br>1、提高演讲汇报能力__周会主题AI分享，保持好奇心<br>2、突破自己&#x3D;&gt;没有舒适区&#x2F;合适的时间&#x3D;&gt;参与mariadb值班&#x3D;&gt;面对挑战性任务&#x3D;&gt;积累信心<br>3、CMDB稳定性运营&amp;Agent建设(ps.运营交给外包)<br>2025：交付，修复（任务数↑，hospital，solotrip）<br>2026：足球</li>
+<li>expectation2me<br>1、提高演讲<strong>汇报能力</strong>__周会主题AI分享，保持好奇心<br>2、突破自己&#x3D;&gt;没有舒适区&#x2F;合适的时间&#x3D;&gt;参与mariadb值班&#x3D;&gt;面对挑战性任务&#x3D;&gt;积累信心<br>3、CMDB稳定性运营&amp;Agent建设(ps.运营交给外包)<br>2025：交付（任务数↑），修复（hospital，solotrip）<br>2026：游泳+健身，足球，见朋友，年底tc</li>
 </ul>
-<h2 id="12-14-CMDB-Agent"><a href="#12-14-CMDB-Agent" class="headerlink" title="12.14 CMDB Agent"></a>12.14 CMDB Agent</h2><h4 id="一：理论知识"><a href="#一：理论知识" class="headerlink" title="一：理论知识"></a>一：理论知识</h4><ul>
+<h2 id="12-14-CMDB-Agent调研"><a href="#12-14-CMDB-Agent调研" class="headerlink" title="12.14 CMDB Agent调研"></a>12.14 CMDB Agent调研</h2><h4 id="一：理论知识"><a href="#一：理论知识" class="headerlink" title="一：理论知识"></a>一：理论知识</h4><ul>
 <li>一个典型的Agent工作流程如下：<br>用户输入自然语言请求。<br>Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。<br>LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。<br>Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。<br>工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。<br>Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
 <!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> --></li>
 <li><strong>Spring AI</strong> 核心概念<ol>
@@ -2027,44 +2128,10 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 </tr>
 </tbody></table>
 <ul>
-<li>技术栈选择：</li>
+<li>技术栈选择：<br>框架: Spring Boot 3.x + Spring AI<br>AI服务: OpenAI API 或 本地ChatGLM<br>数据库: MongoDB (你的现有数据)<br>向量数据库: 可选，初期可用MongoDB Atlas搜索功能<br>前端: 简单HTML页面 + WebSocket</li>
+<li>demo搭建<br><a target="_blank" rel="noopener" href="https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py">https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py</a> (Python demo using LangGraph)</li>
 </ul>
-<p>框架: Spring Boot 3.x + Spring AI<br>AI服务: OpenAI API 或 本地ChatGLM<br>数据库: MongoDB (你的现有数据)<br>向量数据库: 可选，初期可用MongoDB Atlas搜索功能<br>前端: 简单HTML页面 + WebSocket</p>
-<ul>
-<li>详细架构设计：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 包结构规划</span><br><span class="line">com.yourcompany.cmdbai/</span><br><span class="line">├── config/</span><br><span class="line">│   ├── AiConfig.java              // AI配置</span><br><span class="line">│   └── MongoConfig.java          // MongoDB配置</span><br><span class="line">├── controller/</span><br><span class="line">│   └── ChatController.java       // WebSocket聊天接口</span><br><span class="line">├── service/</span><br><span class="line">│   ├── AgentOrchestrator.java    // Agent调度核心</span><br><span class="line">│   ├── MongoQueryService.java    // MongoDB查询封装</span><br><span class="line">│   └── SessionManager.java       // 会话管理</span><br><span class="line">├── agent/</span><br><span class="line">│   ├── tools/                    // 工具集</span><br><span class="line">│   │   ├── QueryTool.java        // 基础查询</span><br><span class="line">│   │   ├── AnalyzeTool.java      // 统计分析</span><br><span class="line">│   │   └── SearchTool.java       // 全文搜索</span><br><span class="line">│   └── prompts/                  // 提示词模板</span><br><span class="line">│       ├── system_prompt.txt     // 系统角色设定</span><br><span class="line">│       └── query_prompt.txt      // 查询专用提示</span><br><span class="line">└── model/</span><br><span class="line">    ├── ChatMessage.java          // 消息模型</span><br><span class="line">    └── CmdbDocument.java         // </span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="四：开发路线规划（8周实战计划）"><a href="#四：开发路线规划（8周实战计划）" class="headerlink" title="四：开发路线规划（8周实战计划）"></a>四：开发路线规划（8周实战计划）</h4><ul>
-<li>阶段1：环境搭建与基础对话（第1周）<br>目标：跑通Spring AI基础功能<br>具体任务：<ol>
-<li>创建Spring Boot 3.x项目，添加Spring AI依赖</li>
-<li>配置OpenAI API或本地模型连接</li>
-<li>实现简单的聊天接口（非智能，先验证通路）</li>
-<li>连接MongoDB，验证数据读取</li>
-<li>验证标准：<br>curl -X POST <a target="_blank" rel="noopener" href="http://localhost:8080/chat">http://localhost:8080/chat</a> <br>  -H “Content-Type: application&#x2F;json” <br>  -d ‘{“message”: “你好”}’ &#x3D;》 返回: “你好！我是CMDB助手…”</li>
-</ol>
-</li>
-<li>阶段2：实现第一个智能工具（第2-3周）<br>目标：让AI能查询MongoDB数据<br>具体任务：<ol>
-<li>学习Spring AI函数调用（Function Calling）</li>
-<li>创建HostQueryTool工具类</li>
-<li>设计提示词模板，教AI使用工具</li>
-<li>实现自然语言到MongoDB查询的转换<br>示例功能：用户: “列出所有Linux服务器” &#x3D;》AI: [调用QueryTool] → 返回服务器列表</li>
-</ol>
-</li>
-<li>阶段3：增强查询能力（第4-5周）<br>目标：支持复杂查询和统计分析<br>具体任务：<ol>
-<li>添加AnalyzeTool支持统计功能</li>
-<li>实现条件查询：”内存大于8G的Windows服务器”</li>
-<li>添加分组统计：”按操作系统统计主机数量”</li>
-<li>优化错误处理和边界情况</li>
-</ol>
-</li>
-<li>阶段4：产品化完善（第6-8周）<br>目标：打造可用的产品<br>具体任务：<ol>
-<li>添加WebSocket实现实时对话</li>
-<li>设计前端聊天界面</li>
-<li>实现会话历史和上下文管理</li>
-<li>性能优化和部署配置</li>
-</ol>
-</li>
-</ul>
-<h4 id="五：demo搭建"><a href="#五：demo搭建" class="headerlink" title="五：demo搭建"></a>五：demo搭建</h4><p><a target="_blank" rel="noopener" href="https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py">https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py</a> (Python demo using LangGraph)</p>
+<h2 id="2026-01-05-CMDB-Copilot"><a href="#2026-01-05-CMDB-Copilot" class="headerlink" title="2026.01.05 CMDB Copilot"></a>2026.01.05 CMDB Copilot</h2><p>1.5：项目启动<br>1.7：datamax问数体验，开启多轮问答方案调研（确定表-确定字段-确定sql..）<br>1.9：DataAgent项目体验，SpringAiAlibaba，Apache2.0<br>1.11：DataAgent&#x3D;》配置llm+embedding，初始化数据源embedding到本地vectorStore，，Graph多轮问数</p>
 <hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
@@ -2163,277 +2230,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 
 
   
-    <article id="post-毕业设计" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" class="article-date">
-  <time class="dt-published" datetime="2024-05-01T03:11:00.000Z" itemprop="datePublished">2024-05-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 业 设 计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <!-- 毕 业 🎓 设 计 -->
-
-<h2 id="选-题"><a href="#选-题" class="headerlink" title="选 题"></a><strong>选 题</strong></h2><p><em>基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发_</em>_</p>
-<h3 id="论文结构"><a href="#论文结构" class="headerlink" title="论文结构"></a>论文结构</h3><p>摘 要 II<br>Abstract III<br>目 录 V<br>第一章 绪论<br>1.1 引言<br>1.2 研究背景<br>1.3 研究现状<br>1.4 课题来源及意义<br>1.5 论文结构<br>第二章 数据原型系统开发环境和工具<br>2.1 Python爬虫<br>2.2 Django框架<br>2.3 设计模式<br>2.4 前端开发框架<br>2.5 开源图形库 ECharts<br>2.6 本章小结<br>第三章 数据原型系统架构设计<br>3.1 综合性金融系统架构设计<br>3.2 数据原型系统架构设计<br>3.3 功能接口设计<br>3.4 数据库设计<br>第四章 数据原型系统的实现<br>4.1从金融平台获取数据实现<br>4.2 数据库查询实现<br>4.3 数据可视化实现<br>4.4 Echarts 图形库渲染生成统计图表<br>4.5 数据下载接口实现<br>4.6 数据维护接口实现<br>第五章 数据原型系统的测试及结果<br>5.1 数据更新模块测试<br>5.2 数据下载模块测试<br>5.3 数据分析模块测试<br>5.4 数据维护模块测试<br>5.5 本章小结<br>第六章 结论<br>1.论文工作总结<br>2.工作展望<br>参考文献<br>致谢</p>
-<h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><ul>
-<li>香港市场股票数据库的构建<ul>
-<li>MySql数据库：股票、基金、期货</li>
-<li>数据库表结构：参考旧论文&#x2F;直接用东方财富网表头</li>
-<li>用python爬虫爬取数据, 数据清洗, 爬取历史数据</li>
-</ul>
-</li>
-<li>获取香港期货代码 \spider\Get_Future_Info.py<ul>
-<li>数据库创建  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CreateDatabase</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, new_database</span>):</span><br><span class="line">        self.new_database = new_database</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_new_database</span>(<span class="params">self</span>):</span><br><span class="line">        connection = pymysql.connect(host=<span class="string">&#x27;127.0.0.1&#x27;</span>, user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;078114&#x27;</span>, cursorclass=pymysql.cursors.DictCursor)</span><br><span class="line">        new_database_name = self.new_database</span><br><span class="line">        cursor = connection.cursor()</span><br><span class="line">        cursor.execute(<span class="string">f&quot;CREATE DATABASE <span class="subst">&#123;new_database_name&#125;</span>&quot;</span>)</span><br><span class="line">        cursor.close()</span><br><span class="line">        connection.close()</span><br></pre></td></tr></table></figure></li>
-<li>数据库操作  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Database</span>:          </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">InsertFutureInfo</span>(<span class="params">self, item</span>):  <span class="comment"># 插入数据</span></span><br><span class="line">        mydb = pymysql.connect(host=<span class="string">&#x27;127.0.0.1&#x27;</span>, port=<span class="number">3306</span>, user=<span class="string">&#x27;root&#x27;</span>, password=<span class="string">&#x27;078114&#x27;</span>, database=<span class="string">&#x27;finance&#x27;</span>, charset=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">        cursor = mydb.cursor()</span><br><span class="line">        sql = <span class="string">&quot;insert into futureinfo values(%s, %s)&quot;</span></span><br><span class="line">        cursor.executemany(sql, item) <span class="comment"># 要传入一个二维列表或元组的列表作为参数 item，每个子列表或元组应包含两个元素，对应着 SQL 语句中的两个 %s，用于插入数据库表中的两个字段的值</span></span><br><span class="line">        mydb.commit()</span><br><span class="line">        cursor.close()</span><br><span class="line">        mydb.close()</span><br></pre></td></tr></table></figure></li>
-<li>爬虫操作  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取期货列表：东方财富网今天期货市场中港交所的期货列表信息（??不确定是不是完整期货信息）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getInfo</span>(<span class="params">self</span>): </span><br><span class="line">    url_base = <span class="string">&#x27;https://futsseapi.eastmoney.com/list/HKSTOCKF?callback=aaa_callback&amp;xx&#x27;</span></span><br><span class="line">    all_data = <span class="built_in">list</span>()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>): <span class="comment"># 默认30页？</span></span><br><span class="line">        url = url_base.<span class="built_in">format</span>(size=<span class="number">20</span>, page=i)</span><br><span class="line">        data_str = requests.get(url).text</span><br><span class="line">        json_str = data_str[data_str.index(<span class="string">&#x27;(&#x27;</span>) + <span class="number">1</span>:-<span class="number">1</span>] <span class="comment"># 去除 JSON 数据中的回调函数</span></span><br><span class="line">        data_list = json.loads(json_str)[<span class="string">&quot;list&quot;</span>]</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> data_list:</span><br><span class="line">            tmp = [item[<span class="string">&#x27;dm&#x27;</span>], item[<span class="string">&#x27;name&#x27;</span>]] <span class="comment"># 期货代码，期货名称</span></span><br><span class="line">            all_data.append(tmp)</span><br><span class="line">    Database().InsertFutureInfo(all_data) </span><br></pre></td></tr></table></figure>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取历史期货数据：通过之前获取的期货列表信息，根据期货代码获取其历史（日线）数据（??不确定完整）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getHistory</span>(<span class="params">self</span>): </span><br><span class="line">    url_base = <span class="string">&#x27;https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=130.&#123;secid&#125;&amp;xx&#x27;</span></span><br><span class="line">    all_data = <span class="built_in">list</span>()</span><br><span class="line">    code_list = Database().GetCodeList() <span class="comment"># 获取期货列表信息</span></span><br><span class="line">    <span class="keyword">for</span> dm <span class="keyword">in</span> tqdm(code_list):</span><br><span class="line">        url = url_base.<span class="built_in">format</span>(secid=dm) <span class="comment"># 日线数据</span></span><br><span class="line">        response = requests.get(url=url, timeout=<span class="number">15</span>)</span><br><span class="line">        klines_data = json.loads(response.text)[<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;klines&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> klines_data:</span><br><span class="line">            res_data = data.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            res_data = [dm] + res_data <span class="comment"># 元组首位加上期货代码</span></span><br><span class="line">            all_data.append(res_data)</span><br><span class="line">    Database().InsertFutureHistory(all_data)</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="系统开发"><a href="#系统开发" class="headerlink" title="系统开发"></a>系统开发</h2><ul>
-<li>系统架构<ul>
-<li>前端：Django+Template，Echarts</li>
-<li>后端：Django，MySQL，定时任务</li>
-</ul>
-</li>
-<li>主要工作（原）<ul>
-<li>四大模块：数据更新、数据下载、数据分析、数据维护<ul>
-<li>一、香港数据<ol>
-<li>数据实时更新 （1.1 数据列表(香港股票，香港基金，香港指数，香港期货，香港交易所),1.2 基本信息数据（股票、基金、期货），1.3 基本信息， 1.4 财务报表， 1.5 香港历史交易数据（香港股票，香港基金，香港指数，香港期货）， 1.6 当日交易数据（香港股票，香港基金，香港指数，香港期货）） </li>
-<li>数据下载 （2.1 列表数据下载(香港股票，香港基金，香港指数，香港期货，香港交易所)，2.2 基本信息数据下载（股票、基金、期货），2.3 基本信息下载， 2.4 财务报表数据下载， 2.5 香港历史交易数据下载（大陆股票，大陆基金，大陆指数，大陆期货）， 2.6 当日交易数据下载（香港股票，香港基金，香港指数，香港期货））</li>
-<li>数据分析 （3.1 列表数据分析(香港股票，香港基金，香港指数，香港期货，香港交易所)，3.2 基本信息数据分析（股票、基金、期货），3.3 基本信息分析， 3.4 财务报表数据分析， 3.5 大陆历史交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货）， 3.6 当日交易数据分析（大陆股票，大陆基金，大陆指数，大陆期货））</li>
-<li>数据维护 （4.1 数据导出 4.1.1 数据列表导出(香港股票，香港基金，香港指数，香港期货，香港交易所),4.1.2 基本信息数据导出（股票、基金、期货），4.1.3 基本信息数据导出， 4.1.4 财务报表导出， 4.1.5 香港历史交易数据导出（香港陆股票，香港基金，香港指数，香港期货）， 4.1.6 当日交易数据导出（香港股票，香港基金，香港指数，香港期货）， 4.2 数据导入 4.2.1 数据列表导入(香港股票，香港基金，香港指数，香港期货，香港交易所),4.2.2 基本信息数据导入（股票、基金、期货），4.2.3 基本信息数据导入， 4.2.4 财务报表导入， 4.2.5 香港历史交易数据导入（香港股票，香港基金，香港指数，香港期货）， 4.2.6 当日交易数据导入（香港股票，香港基金，香港指数，香港期货））】</li>
-</ol>
-</li>
-<li>二、香港相关数据还要包括 【1 深港通、沪港通数据；2. 在港上市的大陆股票；3. 在港国企股；4. 港股的科创板】</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>主要工作（真）</strong><ul>
-<li><strong>主要是要多完成港股中相关数据内容：</strong><a target="_blank" rel="noopener" href="https://quote.eastmoney.com/center/ggsc.html">港股主板、港股创业板、知名港股、蓝筹股、红筹股、红筹成分股、国企股、国企成分股、港股通成份股、人民币交易港股、AH股比价、香港指数</a> </li>
-<li><strong>突出两地股市的差别：对这几个港股数据，提供数据展示（调用其他同学的接口同时展现大陆数据），数据更新、维护、下载的功能；最好论文还要有一些分析的结果，需要自己做一些结果和图表出来，系统上时间不够可以不加</strong></li>
-</ul>
-</li>
-<li>开发流程<ul>
-<li>港股数据爬取（spider）：<br>  创建各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将“股票代码”、“股票名称”等保存在数据库对应的基本信息表中，同时保存“更新时间”为今日<br>  创建各类港股历史数据表：根据“港股市场xx股”的基本信息表中的股票代码，获取该股至今的历史数据，将“股票代码, 名称, k线数据, 时间”存入对应的历史数据表中</li>
-<li>港股数据更新（spider）：<br>  更新各类港股基本信息表：获取“港股市场xx股”（在今日）的信息列表，将对应表中不存在的“股票代码”的数据存入并且保存“更新时间”为今日，将原本存在的股票信息和“更新时间”更新<br>  更新各类港股历史数据表：根据“港股市场xx股”的基本信息表中的“股票代码”和“更新时间”，获取从“更新时间”至今的历史数据，存入对应的历史数据表中（无序）</li>
-<li>港股基本数据展示（Django）：展示各类港股基本信息表</li>
-<li>港股K线图展示（Django）：根据股票代码，结合Echarts展示各类港股历史数据的K线图</li>
-<li>提供数据接口供其他的模块使用（Django）：以JSON形式返回各类港股历史数据到页面上</li>
-<li>数据下载（Django）：以JSON形式返回各类港股历史数据到页面上，右键“另存为”下载</li>
-<li>数据维护：导入，导出</li>
-</ul>
-</li>
-</ul>
-<h3 id="数据库建设"><a href="#数据库建设" class="headerlink" title="数据库建设"></a>数据库建设</h3><ol>
-<li>创建数据库和表（\spider\DB_Fund.py）<ul>
-<li>xx股基本信息表 xxinfo<table>
-<thead>
-<tr>
-<th>股票代码</th>
-<th>股票名称</th>
-<th>最新价</th>
-<th>涨跌额</th>
-<th>涨跌幅</th>
-<th>今开</th>
-<th>最高</th>
-<th>最低</th>
-<th>昨收</th>
-<th>成交量(股)</th>
-<th>成交额</th>
-<th>更新日期</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>code</td>
-<td>name</td>
-<td>now</td>
-<td>change</td>
-<td>changerate</td>
-<td>open</td>
-<td>high</td>
-<td>low</td>
-<td>yesterday_close</td>
-<td>volume</td>
-<td>amount</td>
-<td>date_updated</td>
-</tr>
-</tbody></table>
-</li>
-<li>xx股历史数据表 xxhistory<table>
-<thead>
-<tr>
-<th>code</th>
-<th>date</th>
-<th>open</th>
-<th>now</th>
-<th>high</th>
-<th>low</th>
-<th>volume</th>
-<th>amount</th>
-<th>rate</th>
-<th>changerate</th>
-<th>per</th>
-<th>zero</th>
-</tr>
-</thead>
-</table>
-</li>
-<li>A-H股基本信息表 AHStockComparisoninfo<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>H股代码</th>
-<th>最新价(HKD)</th>
-<th>涨跌幅</th>
-<th>A股代码</th>
-<th>最新价(RMB)</th>
-<th>涨跌幅</th>
-<th>比价（A&#x2F;H）</th>
-<th>溢价（A&#x2F;H）%</th>
-<th>更新时间</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>name</td>
-<td>code_hkd</td>
-<td>now_hkd</td>
-<td>changerate_hkd</td>
-<td>code_rmb</td>
-<td>now_rmb</td>
-<td>changerate_rmb</td>
-<td>AHcomparison</td>
-<td>AHcomparisonrate</td>
-<td>date_updated</td>
-</tr>
-</tbody></table>
-</li>
-<li>港股市场术语英文表示：<ol>
-<li>港股主板：HKEXMainBoardinfo</li>
-<li>港股创业板：GEMofHKEXinfo</li>
-<li>知名港股</li>
-<li>蓝筹股</li>
-<li>红筹股</li>
-<li>红筹成分股</li>
-<li>国企股：SOEStocksinfo</li>
-<li>国企成分股：SOEConstituentStocksinfo</li>
-<li>港股通成份股：HKStockConnectConstituentStocksinfo</li>
-<li>人民币交易港股</li>
-<li>AH股比价：AHStockComparisoninfo</li>
-<li>ADR</li>
-<li>香港指数：HKStockIndexinfo</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>爬取港股基本信息（\spider\Get_HKStock\HKStockSpider().getxxInfo()）<ul>
-<li>使用F12抓包，点击如“港股主板”按钮查询出对应的股票数据，刷新页面，过滤出js文件，找到对应的股票数据的get请求api（默认pn&#x3D;1，pz&#x3D;20，表示获取第一页大小为20的股票数据列表）；从中获取总数据行数”data”&#x2F;“total”，再次发送get请求（设置pn&#x3D;1，pz&#x3D;total）获取完整的该股票数据列表    </li>
-<li>港股主板：’<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:3&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583816">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:3&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583816</a>‘</li>
-<li>港股创业板：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+t:4&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583886">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+t:4&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583886</a></li>
-<li>知名港股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0106&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583906">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0106&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583906</a></li>
-<li>蓝筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0105&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944470">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944282&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0105&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944470</a></li>
-<li>红筹股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0102&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944490">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0102&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944490</a></li>
-<li>红筹成分：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0111&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944499">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0111&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944499</a></li>
-<li>国企股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0103&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583915">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0103&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583915</a></li>
-<li>国企成分股：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0112&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583919">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0112&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583919</a></li>
-<li>股港股通成份股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0146,b:MK0144&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944503">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0146,b:MK0144&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944503</a></li>
-<li>人民币交易港股：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:116+s:64&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714570944509">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:116+s:64&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714570944509</a></li>
-<li>AH股比价：<a target="_blank" rel="noopener" href="https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=b:MK0101&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&_=1714570944513">https://57.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112407221764962597832_1714570944286&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=b:MK0101&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152,f191,f192,f193,f186,f185,f187,f189,f188&amp;_=1714570944513</a></li>
-<li>香港指数：<a target="_blank" rel="noopener" href="https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=8413067108550254%7C0%7C1%7C0%7Cweb&fid=f3&fs=m:124,m:125,m:305&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&_=1714550583922">https://86.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408726538243180275_1714550583811&amp;pn=1&amp;pz=20&amp;po=1&amp;np=1&amp;ut=bd1d9ddb04089700cf9c27f6f7426281&amp;fltt=2&amp;invt=2&amp;wbp2u=8413067108550254|0|1|0|web&amp;fid=f3&amp;fs=m:124,m:125,m:305&amp;fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152&amp;_=1714550583922</a></li>
-</ul>
-</li>
-<li>爬取港股历史数据（\spider\Get_HKStock\HKStockSpider().getxxHistory()）<ul>
-<li>从各类港股基本信息表中获取股票代码替换secid，date为今日，查询其历史k线数据</li>
-<li>一般情况，MySQL每张表最好不要超过2000万条数据，阿里的Java开发手册上也提出：单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。或者说，要根据实际场景分析。</li>
-<li>港股日线数据(除A-H股价比，港股指数外)：<a target="_blank" rel="noopener" href="https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&secid=116.%7Bsecid%7D&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=755&lmt=1000000&_=1714571208630">https://push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery35106242902488344593_1714571208625&amp;secid=116.{secid}&amp;ut=fa5fd1943c7b386f172d6893dbfba10b&amp;fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&amp;fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&amp;klt=101&amp;fqt=1&amp;beg=0&amp;end=20500101&amp;smplmt=755&amp;lmt=1000000&amp;_=1714571208630</a></li>
-<li>A-H股价比，港股指数日线数据先不弄。。</li>
-</ul>
-</li>
-<li>数据更新（\spider\Update_HKStock.py）<ul>
-<li>更新港股基本信息</li>
-<li>更新港股历史数据</li>
-<li>定时任务</li>
-</ul>
-</li>
-<li>数据接口（Django实现）：以JSON形式返回各类港股历史数据到页面上，供其他的模块使用</li>
-<li>数据下载（Django实现）：以JSON形式返回各类港股历史数据到页面上，右键“另存为”保存</li>
-<li>数据维护</li>
-</ol>
-<h3 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h3><ul>
-<li>项目结构 <img src="https://leo710aka.github.io/bk/datasite.png" width="550" height="300" alt=""></li>
-</ul>
-<h3 id="示例1：展示香港指数基本信息表-HKStockIndexinfo"><a href="#示例1：展示香港指数基本信息表-HKStockIndexinfo" class="headerlink" title="示例1：展示香港指数基本信息表 HKStockIndexinfo"></a><strong>示例1：展示香港指数基本信息表 HKStockIndexinfo</strong><img src="https://github.com/leo710aka/bk/blob/main/bishe1.png?raw=true" width="700" height="300" alt=""></h3><ol>
-<li>编写model（datasite&#x2F;mainapp&#x2F;models.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HKStockIndexinfo</span>(models.Model):</span><br><span class="line">    code = models.CharField(max_length=<span class="number">12</span>, primary_key=<span class="literal">True</span>)  <span class="comment"># 假设code是主键</span></span><br><span class="line">    name = models.FloatField(max_length=<span class="number">20</span>, db_column=<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">    now = models.FloatField(db_column=<span class="string">&#x27;now&#x27;</span>)</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        db_table = <span class="string">&#x27;HKStockIndexinfo&#x27;</span></span><br><span class="line">        managed = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
-<li>迁移，将 model与 MySQL中的表映射<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
-<li>编写html（datasite&#x2F;mainapp&#x2F;templates&#x2F;hkstockindexinfo.html）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>代码<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    &#123;% for info in infos %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; info.code &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">&quot;color: #1e8ecc;&quot;</span>&gt;</span>&#123;&#123; info.name &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>编写应用请求（datasite&#x2F;mainapp&#x2F;views.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hkstockindexinfo</span>(<span class="params">request</span>):</span><br><span class="line">    infos = HKStockIndexinfo.objects.<span class="built_in">all</span>()                    <span class="comment"># 从MySQL中获取对应表的数据</span></span><br><span class="line">    context = &#123;<span class="string">&#x27;infos&#x27;</span>: infos&#125;                                <span class="comment"># 创建上下文字典</span></span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;hkstockindexinfo.html&#x27;</span>, context)  <span class="comment"># 渲染模板</span></span><br></pre></td></tr></table></figure></li>
-<li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;hkstockindexinfo&#x27;</span>, views.hkstockindexinfo),  <span class="comment"># 不需要配置项目-应用两级url</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li>启动Django项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
-<li>发送请求 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/hkstockindexinfo%EF%BC%8C">http://127.0.0.1:8000/hkstockindexinfo，</a> 展示香港指数基本信息表</li>
-</ol>
-<h3 id="示例2：使用Echart展示港股主板历史数据k线图"><a href="#示例2：使用Echart展示港股主板历史数据k线图" class="headerlink" title="示例2：使用Echart展示港股主板历史数据k线图"></a><strong>示例2：使用Echart展示港股主板历史数据k线图</strong><img src="https://github.com/leo710aka/bk/blob/main/bishe4.png?raw=true" width="700" height="300" alt=""></h3><ol>
-<li>编写model（datasite&#x2F;mainapp&#x2F;models.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HKEXMainBoardhistory</span>(models.Model):</span><br><span class="line">    code = models.CharField(max_length=<span class="number">12</span>, primary_key=<span class="literal">True</span>)  <span class="comment"># 假设code是主键</span></span><br><span class="line">    date = models.CharField(max_length=<span class="number">10</span>, db_column=<span class="string">&#x27;date&#x27;</span>)</span><br><span class="line">    <span class="built_in">open</span> = models.FloatField(db_column=<span class="string">&#x27;open&#x27;</span>)</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        db_table = <span class="string">&#x27;HKEXMainBoardhistory&#x27;</span></span><br><span class="line">        managed = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
-<li>迁移，将 model与 MySQL中的表映射<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations  <span class="comment"># IDE console</span></span><br></pre></td></tr></table></figure></li>
-<li>编写html（datasite&#x2F;mainapp&#x2F;templates&#x2F;historyklines.html）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load static %&#125;  <span class="comment">&lt;!-- 在项目setting.py配置：STATIC_URL = &#x27;/static/&#x27; --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>港股主板历史数据k线图<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入已经下载到本地/static/assets/js下的Echarts文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;&#123;% static &#x27;assets/js/echarts.js&#x27; %&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 1600px;height:800px;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 从Echarts官网上复制K线图示例代码</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> chartDom = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;main&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> myChart = echarts.<span class="title function_">init</span>(chartDom);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> option;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 使用模板语言获取传递的 JSON 数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> jsonData = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&#x27;&#123;&#123; jsonData | escapejs &#125;&#125;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">splitData</span>(<span class="params">rawData</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderItem</span>(<span class="params">params, api</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        </span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 使用后端查询的数据，代替模版代码中原本外部引入的json文件</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> data = <span class="title function_">splitData</span>(jsonData);</span></span><br><span class="line"><span class="language-javascript">        myChart.<span class="title function_">setOption</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>编写应用请求（datasite&#x2F;mainapp&#x2F;views.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">historyklines</span>(<span class="params">request</span>):</span><br><span class="line">    code = request.GET.get(<span class="string">&#x27;code&#x27;</span>)  <span class="comment"># 获取请求中携带的code参数值</span></span><br><span class="line">    queryset = HKEXMainBoardhistory.objects.<span class="built_in">filter</span>(code=code)  <span class="comment"># 查询所有代码为 code 的数据</span></span><br><span class="line">    jsonData = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> queryset:  <span class="comment"># 构造二维数组</span></span><br><span class="line">        data_row = [</span><br><span class="line">            item.date, item.<span class="built_in">open</span>, item.now, item.low, item.high, item.volume</span><br><span class="line">        ]</span><br><span class="line">        jsonData.append(data_row)</span><br><span class="line">    jsonData_str = json.dumps(jsonData)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;historyklines.html&#x27;</span>, &#123;<span class="string">&#x27;jsonData&#x27;</span>: jsonData_str&#125;)</span><br></pre></td></tr></table></figure></li>
-<li>配置路由（datasite&#x2F;datasite&#x2F;urls.py）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;historyklines&#x27;</span>, views.historyklines),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li>启动Django项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS E:\Code\datasite&gt; python manage.py runserver</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="示例3：提供数据接口供其他模块调用，下载历史数据"><a href="#示例3：提供数据接口供其他模块调用，下载历史数据" class="headerlink" title="示例3：提供数据接口供其他模块调用，下载历史数据"></a><strong>示例3：提供数据接口供其他模块调用，下载历史数据</strong><img src="https://github.com/leo710aka/bk/blob/main/bishe3.png?raw=true" width="700" height="300" alt=""></h3><ol>
-<li>指的是xx股历史数据</li>
-<li>编写Model、View，配置urls<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hkexmainboarddata</span>(<span class="params">request</span>):</span><br><span class="line">    code = request.GET.get(<span class="string">&#x27;code&#x27;</span>)</span><br><span class="line">    data = HKEXMainBoardhistory.objects.<span class="built_in">filter</span>(code=code)</span><br><span class="line">    data_dict_list = [&#123;<span class="string">&quot;code&quot;</span>: item.code, <span class="string">&quot;date&quot;</span>: item.date, <span class="string">&quot;open&quot;</span>: item.<span class="built_in">open</span>, <span class="string">&quot;now&quot;</span>: item.now,</span><br><span class="line">                       <span class="string">&quot;high&quot;</span>: item.high, <span class="string">&quot;low&quot;</span>: item.low, <span class="string">&quot;volume&quot;</span>: item.volume, <span class="string">&quot;amount&quot;</span>: item.amount,</span><br><span class="line">                       <span class="string">&quot;rate&quot;</span>: item.rate, <span class="string">&quot;changerate&quot;</span>: item.changerate, <span class="string">&quot;per&quot;</span>: item.per, <span class="string">&quot;zero&quot;</span>: item.zero&#125;</span><br><span class="line">                      <span class="keyword">for</span> item <span class="keyword">in</span> data]</span><br><span class="line">    <span class="comment"># 转换为 JSON 格式</span></span><br><span class="line">    data_json = json.dumps(data_dict_list)</span><br><span class="line">    <span class="comment"># 返回 JSON 响应</span></span><br><span class="line">    <span class="keyword">return</span> JsonResponse(data_json, safe=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure></li>
-<li>查询页面：输入港股代码，点击“生成K线图”按钮发送xxklines请求&#x2F;点击“下载历史数据”展示历史数据（右键“另存为”下载）<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card &quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-header&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>港股历史数据<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;myForm&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 150px;&quot;</span>&gt;</span>请输入港股主板代码：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">name</span>=<span class="string">&quot;codeInput&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">id</span>=<span class="string">&quot;submitButton&quot;</span>&gt;</span>生成K线图<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">id</span>=<span class="string">&quot;submitButton0&quot;</span>&gt;</span>下载历史数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;myForm&#x27;</span>).<span class="title function_">addEventListener</span>(<span class="string">&#x27;submit&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  event.<span class="title function_">preventDefault</span>(); <span class="comment">// 阻止表单默认提交行为</span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 获取输入框中的内容</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> code = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;codeInput&#x27;</span>).<span class="property">value</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (event.<span class="property">submitter</span>.<span class="property">id</span> === <span class="string">&#x27;submitButton&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 构造生成K线图的请求URL</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> url = <span class="string">`http://127.0.0.1:8000/hkexmainboardklines?code=<span class="subst">$&#123;code&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 在新标签页中打开链接</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="title function_">open</span>(url, <span class="string">&#x27;_blank&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">submitter</span>.<span class="property">id</span> === <span class="string">&#x27;submitButton0&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 构造下载历史数据的请求URL</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> url = <span class="string">`http://127.0.0.1:8000/hkexmainboarddata?code=<span class="subst">$&#123;code&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 在新标签页中打开链接</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="title function_">open</span>(url, <span class="string">&#x27;_blank&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-
-<h1 id="毕业答辩"><a href="#毕业答辩" class="headerlink" title="毕业答辩"></a>毕业答辩</h1><p>毕业答辩的意义是，校方为了进一步的审查论文。<br>考查内容可归纳如下：①进一步考查和验证毕业论文作者对所着论文论题的认识程度及当场论证论题的能力 ②进一步考查毕业论文作者对专业知识掌握的深度与广度 ③审查毕业论文是否学员自己独立完成<br>答辩时提问依据：①汇报PPT的内容 ②毕业论文的内容 ③汇报者的言语</p>
-<h3 id="答辩安排"><a href="#答辩安排" class="headerlink" title="答辩安排"></a>答辩安排</h3><p>答辩日期：5月24日（13周周五），上午1-4节，8：50开始，预计到中午左右结束；<br>答辩地点：A4206<br>需携带资料:<br>1.答辩ppt 电子版（u盘）；2.一式3份双面打印的论文（最新版，不需要装帧封面）。<br>注意事项：<br>1.请大家提前半小时（上午8：20）到现场，调试好设备（电脑、投影仪、麦克风，等），所有的ppt都拷贝到指定电脑上（可以用课室的电脑，但建议至少带一台笔记本做备用）。<br>2.提前打印好3份毕设论文（简单的双面打印即可，不需要特别装帧封面，因为不是最终稿），答辩前统一交给老师翻阅。如果在答辩前对论文有修改，和提交系统的版本不一致也没关系，只要打印最新版就可以了。<br>3.每人答辩陈述时间5分钟左右（可以利用powerpoint的排练功能提前排练好），然后留3分钟左右回答老师的提问。<br>4.回答问题时要认真记录下老师提出的修改意见，并在答辩结束后按要求修改论文，然后提交论文最终版到维普系统；<br>5.答辩结束后，老师们会在维普系统上给论文和答辩过程打分，大家把论文最终版提交维普系统之后，可以直接从系统上下载并打印带有老师电子签名的各类表格（一般不需要找老师们手签）。最终版论文一定要装帧好封面，和全套打印的表格一起，按照顺序放入档案袋并交给导师。</p>
-<h2 id="答辩内容"><a href="#答辩内容" class="headerlink" title="答辩内容"></a>答辩内容</h2><p>各位评委老师，同学们：<br>大家上午好! 我是<em>网络工程</em>专业的<em>蔡枫</em>，我的论文题目是<em><strong>基于内地与香港金融平台的在线量化投资的数据原型系统的设计与开发</strong></em>。<br>&lt;翻页&gt;<br>今天我将从以下四个方面阐述我的毕业论文内容。<br>&lt;翻页&gt;</p>
-<h3 id="第一部分-选题背景及意义"><a href="#第一部分-选题背景及意义" class="headerlink" title="第一部分 选题背景及意义"></a>第一部分 选题背景及意义</h3><p>随着在线量化投资的普及，如何有效地收集和整理海量的互联网金融数据，成为了一大挑战。<br>&lt;翻页&gt;<br>一方面，互联网数据具有实时性，导致用户和金融公司都难以检索过去特定时间的完整金融数据。<br>另一方面，人们需花费大量时间在门户网站浏览实时金融信息，但缺乏明确直观的数据分析结果。<br>&lt;翻页&gt;<br>为有效解决以上问题，本论文设计并开发了基于网络爬虫的数据原型系统，实时获取互联网上的金融数据，并提供数据下载的功能。<br>另外，系统提供了数据可视化和数据分析的功能，用户能够从中获取具有参考价值的信息。<br>以及，作为综合性金融系统中的底层数据平台，能够为其他模块的开发提供数据源。<br>&lt;翻页&gt;</p>
-<h3 id="第二部分-开发环境与技术"><a href="#第二部分-开发环境与技术" class="headerlink" title="第二部分 开发环境与技术"></a>第二部分 开发环境与技术</h3><p>&lt;翻页&gt;<br>首先介绍一下网络爬虫，其通过模拟人类浏览网页的行为，获取并解析网络信息。<br>&lt;翻页&gt;<br>如果目标网站提供了 API 接口，我们可以通过浏览器的开发者工具进行抓包，并在Python项目中直接调用以获取数据。<br>&lt;翻页&gt;<br>系统的开发语言为 Python，采用 Django 框架结合前端技术进行 Web 应用的构建。通过编写 MTV 三层架构代码，开发子系统的各功能。<br>&lt;翻页&gt;<br>本系统中选择 MySQL 作为数据库，存储爬取到的网络金融数据，以及进行后续的功能开发。<br>&lt;翻页&gt;<br>本系统的数据库中主要有两种表，即各类港股基本信息表和港股历史数据表。<br>&lt;翻页&gt;<br>在港股基本信息表中，包括股票代码、股票名称、最新价、涨跌额等基本信息，另外还添加了 date_updated 字段，以便在更新历史数据表时计算出所需更新数据的时间段。<br>&lt;翻页&gt;<br>在港股历史数据表中，保存了表示K线数据的相关字段。<br>&lt;翻页&gt;</p>
-<h3 id="第三部分-系统设计与实现"><a href="#第三部分-系统设计与实现" class="headerlink" title="第三部分 系统设计与实现"></a>第三部分 系统设计与实现</h3><p>&lt;翻页&gt;<br>本文的数据原型系统是作为综合性金融系统底层的数据平台模块进行开发的，其他的量化因子分析模块和量化投资策略模块由小组成员负责开发。<br>&lt;翻页&gt;<br>在底层的数据平台，即本文的数据原型系统中，保存了香港金融市场股票的交易数据，包括了数据库建设模块、数据可视化模块、数据接口模块、数据分析模块这四个模块。<br>&lt;翻页&gt;<br>在数据库建设模块中，主要有三个程序，分别用于创建数据库和表，初始化表数据，以及更新表数据。<br>其中更新程序是利用 schedule 库，设置定时任务16点实时更新数据到各类港股基本信息表中，根据基本信息表中的的股票代码和更新时间，获取其自更新时间至今的K线数据添加到对应的表中同时修改“更新时间”为当日，以及定期对表执行“转储SQL”操作进行数据备份，以便在需要时快速重构。<br>&lt;翻页&gt;<br>在数据可视化模块中，提供了基本信息表格功能。点击子系统导航栏，选择港股类型，在子系统界面上对应的基本信息数据。<br>&lt;翻页&gt;<br>实现的基本步骤为：编写模型与数据库表映射，编写视图接收请求和模版页面，并配置好请求访问路径，即可通过浏览器访问系统功能。<br>&lt;翻页&gt;<br>另外，提供了历史数据K线图展示功能，根据前端输入的各类港股股票代码，从数据库中获取数据，并利用 ECharts 生成历史数据K线图。<br>&lt;翻页&gt;<br>其实现步骤类似前面介绍的基本信息表格。<br>&lt;翻页&gt;<br>在数据接口模块中，复用了历史数据K线图功能的功能界面和业务代码，根据输入的各类港股股票代码，从数据库中对应的历史数据表中获取数据，以JSON形式返回到新标签页面上。<br>&lt;翻页&gt;<br>数据可以供综合性金融系统中的其他模块使用，用户也可以在页面上右键“另存为”下载数据文件。<br>&lt;翻页&gt;<br>最后是数据分析模块：对于采集的金融数据作进一步的分析，呈现更直观和更有价值的信息。我们另外爬取了内地市场沪深京A股的数据，对比分析凸显港陆市场的数据差别。<br>&lt;翻页&gt;<br>首先，对于港股与沪深京A股，计算基本统计描述。<br>&lt;翻页&gt;<br>可以简单分析看出，香港市场在股价波动性和交易量方面普遍较大，呈现出更高的市场活力和波动性；<br>内地市场的平均股价虽然较低，但交易量和交易金额却相对较高，显示出更为稳定的交易情况。<br>&lt;翻页&gt;<br>然后进一步进行各类数据的可视化分析。我们进行了收盘价分布统计，这是放大后。。<br>&lt;翻页&gt;<br>然后是涨跌幅分布比较。。<br>&lt;翻页&gt;</p>
-<h3 id="第四部分-总结与展望"><a href="#第四部分-总结与展望" class="headerlink" title="第四部分 总结与展望"></a>第四部分 总结与展望</h3><p>&lt;翻页&gt;<br>本次毕业设计的工作涵盖了搭建数据原型系统的各个方面，包括金融数据库的设计、系统前端和后端的开发等。<br>（数据采集：直接从东方财富网接口获取金融数据，并通过数据清洗和整理存储到数据库中。在开发时使用了大模型进行数据含义的分析和编写数据清洗代码，极大地提高了开发效率。对于前端的编写，同组的同学提供了模板，为开发带来了很大的便利。只需开发子系统功能界面，将模板页面中空缺内容区块覆盖。在系统后端的开发过程中，我快速学习了Django的开发流程，进行需求分析和功能设计后，解决实际开发问题，同时总结经验完善系统。）<br>同时，对于这几个方面，未来还有需要改进的地方。<br>&lt;翻页&gt;<br>对于这几个方面，未来也有需要改进的地方，如加强数据采集时对异常情况的处理，优化系统前后端性能等。。<br>（在数据采集方面，引入多线程实现对数据的并行处理，另外还需加强对异常情况的处理，确保系统稳健运行。在系统前端方面，进一步完善用户界面的设计和用户体验，考虑引入前端框架如React、Vue.js等，以提升前端开发的效率和灵活性，提供更加直观和友好的数据展示方式。在系统后端方面，不断优化系统架构和性能，加强对系统的监控和管理，及时发现和解决潜在的问题，确保系统长期稳定运行。）<br>&lt;翻页&gt;<br>最后感谢各位老师的聆听及指导，我的汇报到此结束。</p>
-<h3 id="问答环节"><a href="#问答环节" class="headerlink" title="问答环节"></a>问答环节</h3><ol>
-<li>为什么会选择这个课题?<br>(自身原因+外部因素&#x3D;选择的原因，把选择的原因放大，从多角度回答)<br>我认为计算机金融有潜力，以及量化投资的研究在当下是非常有价值的，有很强的现实意义，其中数据平台的构建是基石。<br>本次毕业设计的工作涵盖了搭建数据原型系统的各个方面，包括金融数据库的设计、系统前端和后端的搭建等，提供一种快速构建的思路。</li>
-<li>论文的创新点体现在哪里?<br>(通过和已有成果或内容相比较,从内容和研究方法上来讲创新。)<br>回答参考:本篇毕业论文的创新之处在于讨论 xxx 的问题时不仅在 xxx 方面列出xxx，也从实际的角度进行了举例论证。一是在方法上，本文将Xx方法与XX方法相结合,能够有效消除单一方法带来的误差,有效提高了数据的精度(结果的有效性)。二是在理论上，综合近十年的文献发现，目前还没有研究学者提出 xXX方面的内容，本文在理论的提出上是一种全新的尝试</li>
-<li>本论文中你主要做了什么?<br>查找了大量的文献、书籍报刊，对这些资料进行了精谀，结合国内外的研究现状，对 xxx问题进行了归纳总结;在此基础上，提炼出本课题的核心，对xxx展开研究，并运用 xxx 方法进行研究;对xxx 研究结果进行分析，提出 solvexxx 问题的建议及措施。</li>
-<li>本论文的意义和目的是什么?<br>(理论意义+实践意义)在理论方面，本文应用了 Xxx的专业方法，对于丰富果，并以具体的 xxx 例子展开应用得到较好的应用结果。</li>
-<li>写论文的过程中有哪些困难，怎么克服的?<br>(如实叙即可，但一定要说问题是 solve 的!)<br>在撰写论文的过程中在xx方面(资料收集问卷发放实验开展)遇到有关 xxx(找不到相应主题的学术文献)困难，在与指导老师沟通后，查阅了老师推。荐的相关书籍、资料以及文献信息，也请教了直系的学长学姐们，最后 solve 了相关问题，在此也非常感谢给我提供帮助的他们。</li>
-<li>论文哪些地方可以继续改进?<br>目前对于这个课题的认识确实还不够具体，所以在xxx 方萄的研究片法有一定限度，研究成果与前辈们的研究成果也确实相似，没有做到能够更加深入的研究。同时也受限于条件没能更多的试验方法</li>
-<li>论文中的数据和资料从哪里来?<br>我的资料主要来自于知网等学术网站和导师提供的资料文献，数据是通过调查法以及些同类课题的数据参考,再统一分析计算得出</li>
-<li>论文中相关定义的解释，理论解释?<br>要求你掌握本文研究中重点的一些概念及定义。有一些概率可以做一些生活中的举例来加深记忆。回答的时候也可以根据定义来加以拓展，比如:老师，这个问题我是这样理解的，以生活中的案例来举例 xxx 概念就好。比 XXX中的XXXX，对xxx是非常重要的。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" data-id="cmjzvj9mi000zhgv5dwzl4a3k" data-title="毕 业 设 计" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -2457,7 +2253,7 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -2475,6 +2271,10 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
         
           <li>
             <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/10/Milvus/">Milvus</a>
           </li>
         
           <li>
@@ -2503,10 +2303,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
         
           <li>
             <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 业 设 计</a>
           </li>
         
       </ul>

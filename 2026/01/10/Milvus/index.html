@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Milvus | Qué miras Bobo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="📚 文档链接： 快速入门 | Milvus 文档 什么是向量嵌入？向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。 这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Milvus">
+<meta property="og:url" content="http://example.com/2026/01/10/Milvus/index.html">
+<meta property="og:site_name" content="Qué miras Bobo">
+<meta property="og:description" content="📚 文档链接： 快速入门 | Milvus 文档 什么是向量嵌入？向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。 这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-10T02:59:33.000Z">
+<meta property="article:modified_time" content="2026-01-10T03:47:36.925Z">
+<meta property="article:author" content="fengcai">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Qué miras Bobo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://github.com/leo710aka/bk/blob/main/DT1.jpg?raw=true">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Qué miras Bobo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Milvus" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/01/10/Milvus/" class="article-date">
+  <time class="dt-published" datetime="2026-01-10T02:59:33.000Z" itemprop="datePublished">2026-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Milvus
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>📚 文档链接：</strong> <a target="_blank" rel="noopener" href="https://milvus.io/docs">快速入门 | Milvus 文档</a></p>
+<h3 id="什么是向量嵌入？"><a href="#什么是向量嵌入？" class="headerlink" title="什么是向量嵌入？"></a>什么是向量嵌入？</h3><p>向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。</p>
+<p>这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为“密集向量搜索”的搜索方式。这与依赖精确匹配和使用稀疏向量的传统关键词搜索形成对比。向量嵌入的发展，通常源于大型科技公司广泛训练的基础模型，使得搜索能够捕捉数据的本质，超越词汇或稀疏向量搜索方法的局限性。</p>
+<p><strong>向量</strong>：可以理解为在多维空间中的一个点，它由一组数字（坐标）表示。在 AI 中，无论是文本、图像还是声音，都可以通过特定的模型（如 qwen3-embedding-4b-torch）转换为一个向量。这个向量捕捉了原始数据的深层特征。<br><strong>维度</strong>：就是指这个向量有多少个数字。例如，一个 [0.12, 0.45, -0.23, …, 0.78]的向量，如果它有 1024 个数字，我们就说它是一个 1024 维​ 的向量。维度的选择通常由您选用的嵌入模型决定，并且在创建 Milvus 集合时必须正确定义，因为所有存入的向量都必须有相同的维度。</p>
+<h3 id="非结构化数据、Embeddings-和-Milvus"><a href="#非结构化数据、Embeddings-和-Milvus" class="headerlink" title="非结构化数据、Embeddings 和 Milvus"></a>非结构化数据、Embeddings 和 Milvus</h3><p>非结构化数据（如文本、图像和音频）格式各异，蕴含丰富的潜在语义，因此分析起来极具挑战性。Embeddings 被用来将非结构化数据转换成能够捕捉其基本特征的数字向量。然后将这些向量存储在向量数据库中，从而实现快速、可扩展的搜索和分析。</p>
+<p>Milvus 提供强大的数据建模功能，使您能够将非结构化或多模式数据组织成结构化的 Collections。它支持多种数据类型，适用于不同的属性模型，包括常见的数字和字符类型、各种向量类型、数组、集合和 JSON，为您节省了维护多个数据库系统的精力。<br>与处理结构化数据并执行精确搜索操作的传统关系数据库不同，向量数据库擅长使用 Approximate Nearest Neighbor（ANN）算法等技术进行语义相似性搜索。这种能力对于开发推荐系统、聊天机器人和多媒体内容搜索工具等各种领域的应用程序，以及解决 ChatGPT 等大型语言模型和 AI 带来的挑战（如理解上下文和细微差别以及 AI 幻觉）至关重要。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Milvus 概念</th>
+<th align="left">类比关系型数据库概念</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Collection（集合）</strong></td>
+<td align="left">Table（表）</td>
+<td align="left">存储向量和关联元数据（如文本内容、来源）的基本单位。</td>
+</tr>
+<tr>
+<td align="left"><strong>Entity（实体）</strong></td>
+<td align="left">Row（行）</td>
+<td align="left">一条完整的记录，包含主键、向量字段和标量字段（元数据）。</td>
+</tr>
+<tr>
+<td align="left"><strong>Field（字段）</strong></td>
+<td align="left">Column（列）</td>
+<td align="left">包括向量字段（存储向量）和标量字段（存储 ID、标签等结构化数据）。</td>
+</tr>
+<tr>
+<td align="left"><strong>Index（索引）</strong></td>
+<td align="left">Index（索引）</td>
+<td align="left">为向量字段建立的索引（如 HNSW、IVF_FLAT），是高速检索的关键。</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p><strong>写入数据（以 Python 为例）</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymilvus <span class="keyword">import</span> connections, Collection, FieldSchema, CollectionSchema, DataType</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 连接到您的 Milvus 服务</span></span><br><span class="line">connections.connect(<span class="string">&quot;default&quot;</span>, host=<span class="string">&#x27;localhost&#x27;</span>, port=<span class="string">&#x27;19530&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 定义集合结构（假设向量维度为1024）</span></span><br><span class="line">fields = [</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;id&quot;</span>, dtype=DataType.VARCHAR, is_primary=<span class="literal">True</span>, max_length=<span class="number">100</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;text_content&quot;</span>, dtype=DataType.VARCHAR, max_length=<span class="number">65535</span>),</span><br><span class="line">    FieldSchema(name=<span class="string">&quot;embedding_vector&quot;</span>, dtype=DataType.FLOAT_VECTOR, dim=<span class="number">1024</span>)</span><br><span class="line">]</span><br><span class="line">schema = CollectionSchema(fields, description=<span class="string">&quot;问答助手知识库&quot;</span>)</span><br><span class="line">collection = Collection(<span class="string">&quot;qa_knowledge_base&quot;</span>, schema)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 插入数据（假设您已使用 embedding 模型将文本转换为向量）</span></span><br><span class="line">data = [</span><br><span class="line">    [<span class="string">&quot;doc_001&quot;</span>, <span class="string">&quot;CMDB是配置管理数据库，用于...&quot;</span>, [<span class="number">0.12</span>, <span class="number">0.34</span>, ...]], <span class="comment"># 1024维向量</span></span><br><span class="line">    [<span class="string">&quot;doc_002&quot;</span>, <span class="string">&quot;MongoDB的聚合管道用于...&quot;</span>, [<span class="number">0.56</span>, <span class="number">0.78</span>, ...]],</span><br><span class="line">]</span><br><span class="line">collection.insert(data)</span><br><span class="line">collection.flush()  <span class="comment"># 确保数据持久化</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 创建索引（以HNSW为例）</span></span><br><span class="line">index_params = &#123;</span><br><span class="line">    <span class="string">&quot;index_type&quot;</span>: <span class="string">&quot;HNSW&quot;</span>,</span><br><span class="line">    <span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>,  <span class="comment"># 使用余弦相似度</span></span><br><span class="line">    <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;M&quot;</span>: <span class="number">16</span>, <span class="string">&quot;efConstruction&quot;</span>: <span class="number">200</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">collection.create_index(<span class="string">&quot;embedding_vector&quot;</span>, index_params)</span><br><span class="line">collection.load()  <span class="comment"># 将集合加载到内存以提供服务</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>读取与搜索</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用户提出问题，并转换为向量</span></span><br><span class="line">question = <span class="string">&quot;如何查询CMDB中的主机信息？&quot;</span></span><br><span class="line">question_vector = embed(question)  <span class="comment"># 使用相同的模型生成1024维向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Milvus 中搜索最相似的 Top K 个向量</span></span><br><span class="line">search_params = &#123;<span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;ef&quot;</span>: <span class="number">50</span>&#125;&#125;</span><br><span class="line">results = collection.search(</span><br><span class="line">    data=[question_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding_vector&quot;</span>,</span><br><span class="line">    param=search_params,</span><br><span class="line">    limit=<span class="number">3</span>,  <span class="comment"># 返回最相似的3条结果</span></span><br><span class="line">    output_fields=[<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text_content&quot;</span>]  <span class="comment"># 指定需要返回的元数据字段</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理结果</span></span><br><span class="line"><span class="keyword">for</span> hits <span class="keyword">in</span> results:</span><br><span class="line">    <span class="keyword">for</span> hit <span class="keyword">in</span> hits:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;相似度得分: <span class="subst">&#123;hit.score&#125;</span>, 关联知识: <span class="subst">&#123;hit.entity.get(<span class="string">&#x27;text_content&#x27;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Milvus 支持的搜索类型<br>ANN 搜索：查找最接近查询向量的前 K 个向量。<br>过滤搜索：在指定的过滤条件下执行 ANN 搜索。<br>范围搜索：查找查询向量指定半径范围内的向量。<br>混合搜索：基于多个向量场进行 ANN 搜索。<br>全文搜索：基于 BM25 的全文搜索。<br>Rerankers：根据附加标准或辅助算法调整搜索结果顺序，完善初始 ANN 搜索结果。<br>获取：根据主键检索数据。<br>查询使用特定表达式检索数据。</p>
+</li>
+</ol>
+<h3 id="Milvus-在-RAG"><a href="#Milvus-在-RAG" class="headerlink" title="Milvus 在 RAG"></a>Milvus 在 RAG</h3><p>在 RAG 流程中，Milvus 扮演着 <strong>知识库与高速检索引擎</strong> 的角色。</p>
+<ol>
+<li><strong>检索（Retrieval）</strong>：当用户提问时，系统首先使用嵌入模型将问题转换为查询向量。随后，Milvus 在该查询向量与知识库中所有文档向量之间进行高速的相似性比较，找出最相关的几个知识片段。</li>
+<li><strong>增强（Augmentation）</strong>：将这些检索到的知识片段（元数据中的原始文本）作为上下文，与用户的问题一起组合成一个更丰富的提示词（Prompt）。</li>
+<li><strong>生成（Generation）</strong>：将这个富含上下文的提示词发送给您的大语言模型（如 <code>qwen3-235b-a22b</code>），由它来生成精准、有据可依的最终答案。</li>
+</ol>
+<p>什么是 Agentic RAG？基础的 RAG 中，检索-增强-生成是一次性完成的。而 <strong>Agentic RAG（智能体驱动的 RAG）</strong> 则引入了“智能体”的概念，使得检索过程变得更智能、更动态。<br>智能体可以根据对大模型初步生成内容的理解，<strong>主动地、多次地</strong> 与向量数据库（Milvus）进行交互。这使 RAG 系统从静态的“文档查找”升级为动态的、具有决策能力的“研究助手”。例如：</p>
+<ul>
+<li><strong>判断是否需要进一步检索</strong>：如果首次检索到的信息不足以回答问题，智能体可以重新生成搜索 query，进行多轮检索，直到信息足够。</li>
+<li><strong>分解复杂问题</strong>：对于复杂问题，智能体可以将其拆解成多个子问题，然后针对每个子问题去 Milvus 中检索相关信息，最后综合所有信息生成答案。</li>
+<li><strong>工具调用（Tool Use）</strong>：智能体可以将 Milvus 的检索功能视为一个可调用的工具，根据对话进程决定何时以及如何调用这个工具。</li>
+</ul>
+<p>人工智能集成</p>
+<ol>
+<li>Embeddings 模型集成 Embedding 模型将非结构化数据转换为其在高维数据空间中的数字表示，以便您可以将其存储在 Milvus 中。目前，PyMilvus（Python SDK）集成了多个嵌入模型，因此您可以快速将数据准备成向量嵌入。有关详情，请参阅嵌入概述。</li>
+<li>Reranker 模型集成 在信息检索和生成式人工智能领域，Reranker 是优化初始搜索结果顺序的重要工具。PyMilvus 也集成了几种 Rerankers 模型，以优化初始搜索返回结果的顺序。详情请参考Rerankers 概述。</li>
+<li>LangChain 和其他人工智能工具集成 在 GenAI 时代，LangChain 等工具受到了应用程序开发人员的广泛关注。作为核心组件，Milvus 通常在此类工具中充当向量存储。要了解如何将 Milvus 集成到您喜爱的人工智能工具中，请参阅我们的集成和教程。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/01/10/Milvus/" data-id="cmk7pvivl0000w0v5cc42bgkz" data-title="Milvus" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2046/08/27/Guitar/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Guitar 🎸
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/12/22/Agent/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Agent</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/10/Milvus/">Milvus</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/22/Agent/">Agent</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/08/MongoDB/">MongoDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/22/Docker_Kubernetes/">Kubernetes</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/Golang/">Golang</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/18/%E7%90%86%E8%B4%A2/">Lic Ai</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 fengcai<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

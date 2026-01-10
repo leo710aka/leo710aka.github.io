@@ -69,6 +69,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/01/hexo-world/" class="article-date">
+  <time class="dt-published" datetime="2023-04-01T09:02:15.000Z" itemprop="datePublished">2023-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/04/01/hexo-world/">hexo | Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>Hexo 是一个基于 Node.js 的静态博客框架，提供简单的方式来创建和部署静态博客，使作者专注于写作而不必担心后端服务器的维护。<br>Hexo 使用 Markdown 作为主要的文章撰写语言，这是一种轻量级的标记语言，使得写作变得简单且易于阅读。<br>Hexo 生成的是静态页面，因此页面加载速度非常快。这对于提供更好的用户体验和搜索引擎优化（SEO）非常有利。<br>Hexo 使用版本控制系统（通常是 Git）来管理博客内容，因此用户可以轻松地追踪和管理博客文章的历史。<br>Hexo 可以将博客部署到各种平台，包括 GitHub Pages、Netlify、Vercel 等。这使得博客的部署变得非常简单。</p>
+<h3 id="配置-hexo"><a href="#配置-hexo" class="headerlink" title="配置 hexo"></a>配置 hexo</h3><p>见 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Eg41157tL">https://www.bilibili.com/video/BV1Eg41157tL</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;leo710aka&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;1908454905@qq.com&quot;</span></span><br></pre></td></tr></table></figure>
+<p>_cnfig.yml不能直接复制粘贴过去。。</p>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p>在C:\Users\cf\Documents\Visual Studio Code\blog下右键<strong>Git Bash Here</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;文件名&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者直接在..\source\posts下编写md文件. More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+
+<p>在本地服务器看看效果. <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> </p>
+<h3 id="Clean、-Generate-static-files-、Deploy-to-remote-sites"><a href="#Clean、-Generate-static-files-、Deploy-to-remote-sites" class="headerlink" title="Clean、 Generate static files 、Deploy to remote sites"></a>Clean、 Generate static files 、Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean   <span class="comment"># 清理缓存、清理之前生成的静态文件</span></span><br><span class="line">$ hexo g       <span class="comment"># 构建网页文件（通过md文件生成html、css、js..）</span></span><br><span class="line">$ hexo d       <span class="comment"># 同步github，更新博客上的内容（这一步可能需要多试几次）</span></span><br></pre></td></tr></table></figure>
+<p>没办法同步的话，直接把新构建的 <code>E:\Code\Blog\blog\.deploy_git</code> 中的文件手动上传github仓库；<br>成功后若博客内容未更新，ctrl+f5清下缓存。</p>
+<h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>在 <code>_config.yml</code> 或 <code>_config.landscape</code> 中设置，修改配置后先 hexo clean 一下，再发布。</p>
+<h3 id="hexo-d-报错-Error-Spawn-failed"><a href="#hexo-d-报错-Error-Spawn-failed" class="headerlink" title="hexo d 报错 Error: Spawn failed ?"></a>hexo d 报错 Error: Spawn failed ?</h3><ol>
+<li>寻找github.com的最新ip，加了host解析后，能够ping通，但hexo d仍失败</li>
+<li>优先解决 SSL&#x2F;TLS 连接超时问题​​：修改 Hexo 配置文件 _config.yml，将仓库地址从 HTTPS 改为 SSH 协议，根治 HTTPS 不稳定</li>
+<li>将 C:\Users\caife.ssh\id_rsa.pub（公钥）文件内容加到 GitHub → ​​Settings → SSH and GPG Keys → New SSH Key​​，再次执行hexo d成功了。</li>
+<li>​​为何旧密钥直接生效？​​<br>你已有的 id_rsa 密钥对是之前通过合法流程生成的（可能曾用于其他服务），只是未添加到 GitHub。上传公钥后，GitHub 即可识别该密钥的签名，因此无需重新生成。生成命令示例​​：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;your_email@example.com&quot;</span>  <span class="comment"># 推荐更安全的 Ed25519 算法</span></span><br></pre></td></tr></table></figure></li>
+<li>GitHub 身份验证流程​<br>当你执行 hexo d 时：<br>​​客户端发起连接​​：Hexo 通过 Git 向 GitHub 发起 SSH 连接请求。<br>​​服务器生成挑战​​：GitHub 生成一个随机字符串（Challenge），用你账户中存储的​​公钥​​加密后发送给客户端。<br>​​客户端响应签名​​：本地 Git 使用​​私钥​​解密该字符串，生成签名并返回给 GitHub。<br>​​服务器验证签名​​：GitHub 用公钥验证签名有效性，若匹配则认证通过，允许推送文件</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/01/hexo-world/" data-id="cmjzvj9me000ohgv5bd513t37" data-title="hexo | Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Python_Anaconda_Django" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/09/01/Python_Anaconda_Django/" class="article-date">
@@ -1591,221 +1651,6 @@
 
 
   
-    <article id="post-Spring" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/09/11/Spring/" class="article-date">
-  <time class="dt-published" datetime="2021-09-11T03:49:42.000Z" itemprop="datePublished">2021-09-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/09/11/Spring/">Spring 🍃</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Spring 是一个开源的轻量级框架，用于构建企业级 Java 应用程序。它提供了广泛的基础设施支持和许多可重用的库，以<strong>简化企业级应用程序的开发</strong>。Spring 框架的设计目标是促进松耦合、可维护性和可测试性的编码实践。<br><strong>Spring的一个最大的目的就是使 JAVA EE 开发更加容易。</strong>同时，Spring之所以与Struts、Hibernate等单层框架不同，是因为Spring致力于提供一个以统一的、高效的方式构造整个应用，并且可以将单层框架以最佳的组合揉和在一起建立一个连贯的体系。可以说Spring是一个提供了更完善开发环境的一个框架，可以为POJO对象提供企业级的服务。</p>
-<img src="https://github.com/leo710aka/bk/blob/main/spring.png?raw=true" width="500" height="200" alt=""> 
-
-<p><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-framework">官方的项目和教程</a>地址，在学习Spring时，一定要把它当做生态体系，而是不是一个简单的开发框架。<br>Spring简单例子引入Spring要点：<a target="_blank" rel="noopener" href="https://pdai.tech/md/spring/spring-x-framework-helloworld.html">https://pdai.tech/md/spring/spring-x-framework-helloworld.html</a></p>
-<h2 id="核心功能和特点"><a href="#核心功能和特点" class="headerlink" title="核心功能和特点"></a>核心功能和特点</h2><ul>
-<li>非侵入式：基于Spring开发的应用中的对象可以不依赖于Spring的API</li>
-<li><strong>控制反转（IoC）</strong>：Inversion of Control，指的是将对象的创建权交给 Spring 去创建。Spring 的 IoC 容器管理对象的生命周期和配置，开发者不再需要手动 new创建对象。这种反转控制的方式使得应用程序更加松散耦合、易于测试和维护。<strong>Spring 管理一切</strong>，管理项目中的对象和整合其他对象。</li>
-<li><strong>依赖注入</strong>：DI——Dependency Injection，是指依赖的对象不需要手动调用 setXX 方法去设置，而是通过配置赋值。</li>
-<li><strong>面向切面编程（AOP）</strong>：Spring 提供了强大的 AOP 支持，通过 AOP 可以更好地处理横切关注点，如事务管理、安全性、日志记录等。AOP 可以提高代码的模块性和可维护性。</li>
-<li>容器：Spring 是一个容器，因为它包含并且管理应用对象的生命周期</li>
-<li>组件化：Spring 实现了使用简单的组件配置组合成一个复杂的应用。在 Spring 中可以使用XML和Java注解组合这些对象。</li>
-<li>一站式：在 IOC 和 AOP 的基础上可以整合各种企业应用的开源框架和优秀的第三方类库（实际上 Spring 自身也提供了表现层的 SpringMVC 和持久层的 Spring JDBC）<ul>
-<li>模型视图控制器（MVC）：Spring MVC 是一个强大的 Web 框架，通过注解配置和可插拔的视图解析器简化了 Web 应用的开发。它提供了清晰的分层结构，使得开发更加模块化。</li>
-<li>Spring 简化了数据访问的过程，提供了一致的编程模型，支持 JDBC 和 ORM 框架。这使得数据访问更加灵活、简单，且易于集成各种数据源。</li>
-<li>Spring 真正的利用了一些现有的技术，像 ORM 框架、日志框架、JEE、Quartz 和 JDK 计时器，其他视图技术。</li>
-<li>Spring 对 JavaEE 开发中非常难用的一些 API（JDBC、JavaMail、远程调用等）都提供了封装，使这些API应用难度大大降低。</li>
-</ul>
-</li>
-<li>事务管理：Spring 提供了声明式事务管理，通过注解或 XML 配置来管理事务。这样可以将事务管理从业务代码中解耦，使代码更加干净和易于理解。Spring 提供了一致的事务管理接口，可向下扩展到（使用一个单一的数据库，例如）本地事务并扩展到全局事务（例如，使用 JTA）</li>
-<li>灵活性和可扩展性：Spring 的模块化结构使得可以仅使用需要的功能，从而保持应用程序的轻量级。Spring 的组件是可插拔的，可以轻松地集成第三方库。<ul>
-<li>？？Spring 可以使开发人员使用 POJOs（Plain old Java object）开发企业级的应用程序。只使用 POJOs 的好处是你不需要一个 EJB 容器产品，比如一个应用程序服务器，但是你可以选择使用一个健壮的 servlet 容器，比如 Tomcat 或者一些商业产品。</li>
-<li>Spring 在一个单元模式中是有组织的。即使包和类的数量非常大，你只要担心你需要的，而其它的就可以忽略了。</li>
-<li>轻量级的 IOC 容器往往是轻量级的，例如，特别是当与 EJB 容器相比的时候。这有利于在内存和 CPU 资源有限的计算机上开发和部署应用程序。</li>
-</ul>
-</li>
-<li>测试支持：Spring 框架鼓励并支持测试驱动开发(TDD)。提供许多工具和类库来进行单元测试和集成测试，保障应用程序的质量。<br>？？测试一个用 Spring 编写的应用程序很容易，因为环境相关的代码被移动到这个框架中。此外，通过使用 JavaBean-style POJOs，它在使用依赖注入注入测试数据时变得更容易。</li>
-</ul>
-<h2 id="Spring-Framework"><a href="#Spring-Framework" class="headerlink" title="Spring Framework"></a>Spring Framework</h2><p>下图来自官方文档 Spring-framework 5.0；需要注意的是，虽然这个图来源于Spring Framwork5.0 M4 版本，但是它依然是V4版本的图，比如Spring 5版本中的web模块已经去掉了Portlet模块，新增了WebFlux模块等。<br>包含了 Spring 框架的所有模块，可以满足一切企业级应用开发的需求，在开发过程中可以根据需求有选择性地使用所需要的模块。<br><img src="https://pdai.tech/images/spring/springframework/spring-framework-introduce-8.png" width="700" height="200" alt=""> </p>
-<h4 id="Core-Container（Spring的核心容器）"><a href="#Core-Container（Spring的核心容器）" class="headerlink" title="Core Container（Spring的核心容器）"></a>Core Container（Spring的核心容器）</h4><p>Spring 的核心容器是其他模块建立的基础，没有这些核心容器，也不可能有 AOP、Web 等上层的功能。</p>
-<ul>
-<li>Beans 模块：提供了框架的基础部分，包括控制反转和依赖注入。</li>
-<li>Core 核心模块：封装了 Spring 框架的底层部分，包括资源访问、类型转换及一些常用工具类。</li>
-<li>Context 上下文模块：建立在 Core 和 Beans 模块的基础之上，集成 Beans 模块功能并添加资源绑定、数据验证、国际化、Java EE 支持、容器生命周期、事件传播等。ApplicationContext 接口是上下文模块的焦点。</li>
-<li>SpEL 模块：提供了强大的表达式语言支持，支持访问和修改属性值，方法调用，支持访问及修改数组、容器和索引器，命名变量，支持算数和逻辑运算，支持从 Spring 容器获取 Bean，它也支持列表投影、选择和一般的列表聚合等。</li>
-</ul>
-<h4 id="Data-Access-Integration（数据访问／集成）"><a href="#Data-Access-Integration（数据访问／集成）" class="headerlink" title="Data Access&#x2F;Integration（数据访问／集成）"></a>Data Access&#x2F;Integration（数据访问／集成）</h4><ul>
-<li>JDBC 模块：提供了一个 JDBC 的样例模板，使用这些模板能消除传统冗长的 JDBC 编码还有必须的事务控制，而且能享受到 Spring 管理事务的好处。</li>
-<li>ORM 模块：提供与流行的“对象-关系”映射框架无缝集成的 API，包括 JPA、JDO、Hibernate 和 MyBatis 等。而且还可以使用 Spring 事务管理，无需额外控制事务。</li>
-<li>OXM 模块：提供了一个支持 Object &#x2F;XML 映射的抽象层实现，如 JAXB、Castor、XMLBeans、JiBX 和 XStream。将 Java 对象映射成 XML 数据，或者将XML 数据映射成 Java 对象。</li>
-<li>JMS 模块：指 Java 消息服务，提供一套 “消息生产者、消息消费者”模板用于更加简单的使用 JMS，JMS 用于用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。</li>
-<li>Transactions 事务模块：支持编程和声明式事务管理。</li>
-</ul>
-<h4 id="Web模块"><a href="#Web模块" class="headerlink" title="Web模块"></a>Web模块</h4><ul>
-<li>Web 模块：提供了基本的Web开发集成特性，例如多文件上传功能、使用的 Servlet监听器的IOC容器初始化以及Web应用上下文。</li>
-<li>Servlet 模块：提供了一个 Spring MVC Web 框架实现。Spring MVC 框架提供了基于注解的请求资源注入、更简单的数据绑定、数据验证等及一套非常易用的 JSP 标签，完全无缝与 Spring 其他技术协作。</li>
-<li>WebSocket 模块：提供了简单的接口，用户只要实现响应的接口就可以快速的搭建 WebSocket Server，从而实现双向通讯。</li>
-<li>Webflux 模块： Spring WebFlux 是 Spring Framework 5.x中引入的新的响应式web框架。与Spring MVC不同，它不需要Servlet API，是完全异步且非阻塞的，并且通过Reactor项目实现了Reactive Streams规范。Spring WebFlux 用于创建基于事件循环执行模型的完全异步且非阻塞的应用程序。</li>
-</ul>
-<h4 id="AOP、Aspects、Instrumentation-和-Messaging"><a href="#AOP、Aspects、Instrumentation-和-Messaging" class="headerlink" title="AOP、Aspects、Instrumentation 和 Messaging"></a>AOP、Aspects、Instrumentation 和 Messaging</h4><ul>
-<li>AOP 模块：提供了面向切面编程实现，提供比如日志记录、权限控制、性能统计等通用功能和业务逻辑分离的技术，并且能动态的把这些功能添加到需要的代码中，这样各司其职，降低业务逻辑和通用功能的耦合。<ol>
-<li>AOP：即面向方面（切面）编程。是一种编程思想，是对OOP的补充，可以进一步提高编程的效率。<br>  例如，把多个业务组件的共同功能封装成一个“系统组件”，如对所有service类进行权限检查、记录日志、事务管理…</li>
-<li>织入：将方面<strong>Aspect</strong>（处理系统组件的额外的bean）[切点<strong>Pointcut</strong>（声明织入到哪些对象的哪些位置）+ 通知<strong>Advice</strong>（处理的逻辑(前,后,返回,异常)] <strong>—&gt;</strong> 织入<strong>Weaving</strong>（编译时&#x2F;装载时&#x2F;运行时） <strong>—&gt;</strong> 目标对象<strong>Target</strong>（程序中开发好的bean）的连接点<strong>Joinpoint</strong>（可以织入代码的地方）</li>
-<li>AOP的实现<ul>
-<li>AspectJ：语言级的实现（一门新语言）。编译期织入代码。</li>
-<li>Spring AOP：纯Java实现。运行时通过代理的方式织入代码，只支持方法类型的连接点。<ul>
-<li>JDK动态代理：在运行时创建接口的代理实例。Spring AOP 默认方式，在接口的代理实例中织入代码。</li>
-<li>CGLib动态代理：不要求目标类实现接口，通过继承目标类来创建代理对象。即可以代理没有实现接口的类。</li>
-<li>如果你的目标类已经实现了接口，并且你希望代理对象是目标类的接口的实现，那么可以使用JDK动态代理。如果你的目标类没有实现接口，或者你需要代理非公共方法（final、private等），那么可以使用CGLib动态代理。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServiceLogAspect</span> &#123;</span><br><span class="line">    <span class="comment">// 切点：service包下的所有方法</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.nowcoder.community.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pointcut</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    <span class="comment">// 前置通知</span></span><br><span class="line">    <span class="meta">@Before(&quot;pointcut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        <span class="comment">// 用户[1.2.3.4],在[xxx],访问了[com.nowcoder.community.service.xxx()].</span></span><br><span class="line">        <span class="type">ServletRequestAttributes</span> <span class="variable">attributes</span> <span class="operator">=</span> (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">        <span class="type">HttpServletRequest</span> <span class="variable">request</span> <span class="operator">=</span> attributes.getRequest();</span><br><span class="line">        <span class="type">String</span> <span class="variable">ip</span> <span class="operator">=</span> request.getRemoteHost();</span><br><span class="line">        <span class="type">String</span> <span class="variable">now</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>).format(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        <span class="type">String</span> <span class="variable">target</span> <span class="operator">=</span> joinPoint.getSignature().getDeclaringTypeName() + <span class="string">&quot;.&quot;</span> + joinPoint.getSignature().getName();</span><br><span class="line">        logger.info(String.format(<span class="string">&quot;用户[%s],在[%s],访问了[%s].&quot;</span>, ip, now, target));    </span><br><span class="line">    &#125;  &#125;</span><br></pre></td></tr></table></figure></li>
-<li>Aspects 模块：提供与 AspectJ 的集成，是一个功能强大且成熟的面向切面编程（AOP）框架。<br>Instrumentation 模块：提供了类工具的支持和类加载器的实现，可以在特定的应用服务器中使用。</li>
-<li>messaging 模块：Spring 4.0 以后新增了消息（Spring-messaging）模块，该模块提供了对消息传递体系结构和协议的支持。</li>
-<li>jcl 模块： Spring 5.x中新增了日志框架集成的模块。</li>
-</ul>
-<h3 id="Test模块"><a href="#Test模块" class="headerlink" title="Test模块"></a>Test模块</h3><p>Spring 支持 Junit 和 TestNG 测试框架，而且还额外提供了一些基于 Spring 的测试功能，比如在测试 Web 框架时，模拟 Http 请求的功能。包含Mock Objects, TestContext Framework, Spring MVC Test, WebTestClient。</p>
-<h3 id="结合Spring历史版本和SpringBoot看发展"><a href="#结合Spring历史版本和SpringBoot看发展" class="headerlink" title="结合Spring历史版本和SpringBoot看发展"></a>结合Spring历史版本和SpringBoot看发展</h3><img src="https://pdai.tech/images/spring/springframework/spring-framework-helloworld-8.png" width="600" height="200" alt=""> 
-
-
-<hr>
-
-<h2 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h2><ul>
-<li><p>IoC Container管理的是Spring Bean， 那么Spring Bean是什么呢？<br>Spring里面的bean就类似是定义的一个组件，而这个组件的作用就是实现某个功能的，这里所定义的bean就相当于给了你一个更为简便的方法来调用这个组件去实现你要完成的功能。</p>
-</li>
-<li><p>Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是<strong>一种设计思想。</strong><br>  在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。</p>
-<ul>
-<li>谁控制谁，控制什么？传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对象的创建；<ul>
-<li>谁控制谁？当然是IoC 容器控制了对象；</li>
-<li>控制什么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）。？？？？？？？？</li>
-</ul>
-</li>
-<li>为何是反转，哪些方面反转了?有反转就有正转，传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；<ul>
-<li>为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；</li>
-<li>哪些方面反转了？依赖对象的获取被反转了。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="https://pdai.tech/images/spring/springframework/spring-framework-ioc-2.png" width="750" height="200" alt=""> 
-
-<ul>
-<li><p>IoC能做什么？<br>IoC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。<br><strong>传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；有了IoC容器后，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。</strong><br>其实IoC对编程带来的最大改变不是从代码上，而是从思想上，发生了“主从换位”的变化。应用程序原本是老大，要获取什么资源都是主动出击，但是在IoC&#x2F;DI思想中，应用程序就变成被动的了，被动的等待IoC容器来创建并注入它所需要的资源了。</p>
-</li>
-<li><p>IoC和DI是什么关系？<br>控制反转是通过依赖注入实现的，其实它们是同一个概念的不同角度描述。通俗来说就是IoC是设计思想，DI是实现方式。<br>DI—Dependency Injection：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。？？？？？<br>谁依赖于谁？当然是应用程序依赖于IoC容器；？？？？！！！！！！！<br>为什么需要依赖？应用程序需要IoC容器来提供对象需要的外部资源；<br>谁注入谁？很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象；<br>注入了什么？就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。</p>
-</li>
-<li><p>Ioc 配置的三种方式</p>
-<ul>
-<li>xml 配置：就是将bean的信息配置.xml文件里，通过Spring加载文件为我们创建bean。这种方式出现很多早前的SSM项目中，将第三方类库或者一些配置工具类都以这种方式进行配置，主要原因是由于第三方类不支持Spring注解。</li>
-<li>Java 配置：将类的创建交给我们配置的JavcConfig类来完成，Spring只负责维护和管理，采用纯Java创建方式。其本质上就是把在XML上的配置声明转移到Java配置类中</li>
-<li>注解配置：通过在类上加注解的方式，来声明一个类交给Spring管理，Spring会自动扫描带有@Component，@Controller，@Service，@Repository这四个注解的类，然后帮我们创建并管理，前提是需要先配置Spring的注解扫描器。设置ComponentScan的basePackage, 比如 context:component-scan base-package&#x3D;’tech.pdai.springframework’&gt;, 或者@ComponentScan(“tech.pdai.springframework”)注解，或者 new AnnotationConfigApplicationContext(“tech.pdai.springframework”)指定扫描的basePackage.</li>
-</ul>
-</li>
-<li><p>依赖注入的三种方式</p>
-<ul>
-<li>构造方法注入（Construct注入）</li>
-<li>setter注入</li>
-<li>基于注解的注入（接口注入）<br>  、、？？</li>
-</ul>
-</li>
-</ul>
-<hr>
-
-<h2 id="切面编程-AOP"><a href="#切面编程-AOP" class="headerlink" title="切面编程(AOP)"></a>切面编程(AOP)</h2><p><a target="_blank" rel="noopener" href="https://pdai.tech/md/spring/spring-x-framework-aop.html">https://pdai.tech/md/spring/spring-x-framework-aop.html</a></p>
-<p>、、</p>
-<hr>
-
-<h2 id="SpringMVC请求流程和案例"><a href="#SpringMVC请求流程和案例" class="headerlink" title="SpringMVC请求流程和案例"></a>SpringMVC请求流程和案例</h2><ul>
-<li><p>什么是MVC<br>MVC英文是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计规范。本质上也是一种解耦。用一种业务逻辑、数据、界面显示分离的方法，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。<br>Model（模型）是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。<br>View（视图）是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。<br>Controller（控制器）是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。</p>
-<img src="https://pdai.tech/images/spring/springframework/spring-springframework-mvc-4.png" width="500" height="200" alt=""> 
-</li>
-<li><p>什么是Spring MVC？<br>简单而言，Spring MVC是Spring在Spring Container Core和AOP等技术基础上，遵循上述Web MVC的规范推出的web开发框架，目的是为了简化Java栈的web开发。</p>
-</li>
-<li><p>Spring MVC的请求流程<br>Spring Web MVC 框架也是一个基于请求驱动的Web 框架，并且也使用了前端控制器模式来进行设计，再根据请求映射 规则分发给相应的页面控制器（动作&#x2F;处理器）进行处理。<img src="https://pdai.tech/images/spring/springframework/spring-springframework-mvc-5.png" width="750" height="200" alt=""><br>核心架构的具体流程步骤如下：<br>1、首先用户发送请求——&gt;DispatcherServlet，前端控制器收到请求后自己不进行处理，而是委托给其他的解析器进行 处理，作为统一访问点，进行全局的流程控制；<br>2、DispatcherServlet——&gt;HandlerMapping， HandlerMapping 将会把请求映射为 HandlerExecutionChain 对象（包含一 个Handler 处理器（页面控制器）对象、多个HandlerInterceptor 拦截器）对象，通过这种策略模式，很容易添加新 的映射策略；<br>3、DispatcherServlet——&gt;HandlerAdapter，HandlerAdapter 将会把处理器包装为适配器，从而支持多种类型的处理器， 即适配器设计模式的应用，从而很容易支持很多类型的处理器；<br>4、HandlerAdapter——&gt;处理器功能处理方法的调用，HandlerAdapter 将会根据适配的结果调用真正的处理器的功能处 理方法，完成功能处理；并返回一个ModelAndView 对象（包含模型数据、逻辑视图名）；<br>5、ModelAndView 的逻辑视图名——&gt; ViewResolver，ViewResolver 将把逻辑视图名解析为具体的View，通过这种策 略模式，很容易更换其他视图技术；<br>6、View——&gt;渲染，View 会根据传进来的Model 模型数据进行渲染，此处的Model 实际是一个Map 数据结构，因此 很容易支持其他视图技术；<br>7、返回控制权给DispatcherServlet，由DispatcherServlet 返回响应给用户，到此一个流程结束。<br>补充：<br>1、Filter(ServletFilter)：进入Servlet前可以有preFilter, Servlet处理之后还可有postFilter<br>2、LocaleResolver：在视图解析&#x2F;渲染时，还需要考虑国际化(Local)，显然这里需要有LocaleResolver.<br>3、ThemeResolver：如何控制视图样式呢？SpringMVC中还设计了ThemeSource接口和ThemeResolver，包含一些静态资源的集合(样式及图片等），用来控制应用的视觉风格。</p>
-</li>
-</ul>
-<hr>
-
-<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>在Spring Boot中，你可以使用拦截器（Interceptor）来处理请求前、请求后或请求处理过程中的逻辑。拦截器通常用于执行一些跟请求处理相关的任务，例如身份验证、日志记录、权限检查等。以下是在Spring Boot中使用拦截器的基本步骤：</p>
-<ol>
-<li><strong>创建拦截器类</strong>：<br>首先，你需要创建一个Java类，实现<code>HandlerInterceptor</code>接口，该接口定义了拦截器的方法，包括<code>preHandle</code>、<code>postHandle</code>和<code>afterCompletion</code>等。这些方法分别用于在请求处理前、请求处理后和请求完成后执行相应的逻辑。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginTicketInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line">    <span class="comment">// 登录信息拦截器（检查登录凭证是否有效）</span></span><br><span class="line">    <span class="comment">// 每次请求，不管是什么请求，都要检查登录信息；这在interceptor中完成，而不是在每个controller重写一遍</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HostHolder hostHolder;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">ticket</span> <span class="operator">=</span> CookieUtil.getValue(request, <span class="string">&quot;ticket&quot;</span>);                 <span class="comment">// 从cookie中获取凭证</span></span><br><span class="line">        <span class="keyword">if</span> (ticket != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">LoginTicket</span> <span class="variable">loginTicket</span> <span class="operator">=</span> userService.findLoginTicket(ticket);      <span class="comment">// 查询凭证</span></span><br><span class="line">            <span class="keyword">if</span> (loginTicket != <span class="literal">null</span> &amp;&amp; loginTicket.getStatus() == <span class="number">0</span> &amp;&amp; loginTicket.getExpired().after(<span class="keyword">new</span> <span class="title class_">Date</span>())) &#123;      </span><br><span class="line">                <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userService.findUserById(loginTicket.getUserId());  <span class="comment">// 若凭证有效，查询用户</span></span><br><span class="line">                hostHolder.setUser(user);                                       <span class="comment">// 在本次请求中持有用户</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 将登录用户的信息添加到ModelAndView对象中，这样在视图中可以方便地使用这些信息</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> hostHolder.getUser();</span><br><span class="line">        <span class="keyword">if</span> (user != <span class="literal">null</span> &amp;&amp; modelAndView != <span class="literal">null</span>)  modelAndView.addObject(<span class="string">&quot;loginUser&quot;</span>, user);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 清除hostHolder中持有的用户信息。确保每个请求处理完成后都不会泄漏用户信息或状态，以便下一个请求可以从头开始。</span></span><br><span class="line">        hostHolder.clear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>配置拦截器</strong>：<br>在Spring Boot应用程序中，通常在配置类中配置拦截器。你可以继承<code>WebMvcConfigurerAdapter</code>类（或实现<code>WebMvcConfigurer</code>接口）并覆盖<code>addInterceptors</code>方法，将你的拦截器添加到拦截器链中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebMvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoginTicketInterceptor loginTicketInterceptor;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        <span class="comment">// 设置不拦截静态资源</span></span><br><span class="line">        registry.addInterceptor(loginTicketInterceptor)</span><br><span class="line">                .excludePathPatterns(<span class="string">&quot;/**/*.css&quot;</span>, <span class="string">&quot;/**/*.js&quot;</span>, <span class="string">&quot;/**/*.png&quot;</span>, <span class="string">&quot;/**/*.jpg&quot;</span>, <span class="string">&quot;/**/*.jpeg&quot;</span>);</span><br><span class="line">    &#125;  &#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="Spring-事务管理"><a href="#Spring-事务管理" class="headerlink" title="Spring 事务管理"></a>Spring 事务管理</h2><ol start="0">
-<li>事务：是由N步数据库操作序列组成的逻辑扩行单元，这系列操作要么全执行，要么全放弃执行事务的特性(ACID)。报错会回滚。</li>
-<li>常见的并发异常：第一类丢失更新、第二类丢失更新脏读、不可重复读、幻读。</li>
-<li>事务隔离级别定义了多个并发事务之间的可见性和影响的程度。在关系型数据库中，常见的隔离级别包括：<br>DEFAULT：使用数据库的默认隔离级别。通常是READ_COMMITTED。<br>READ_UNCOMMITTED：允许一个事务读取另一个事务尚未提交的数据。最低的隔离级别，不推荐在生产环境中使用，因为可能会导致脏读、不可重复读和幻读问题。<br>READ_COMMITTED：保证一个事务不会读取到其他并发事务未提交的数据。这是大多数数据库的默认隔离级别。<br>SERIALIZABLE：最高的隔离级别，确保事务串行执行，完全隔离了其他事务的影响。通常性能较差，不常用。</li>
-<li>悲观锁 (数据库)<br>共享锁 (S锁)：事务A对某数据加了共享锁后，其他事务只能对该数据加共享锁，但不能加排他锁。<br>排他锁 (X锁)：事务A对某数据加了排他锁后，其他事对该数据既不能加共享锁，也不能加排他锁。</li>
-<li>乐观锁(自定义)：版本号、时间戳等；若变化则取消本次更新，否则就更新数据(版本号+1)在更新数据前，检查版本号是否发生变</li>
-<li>声明式事务：通过XML &#x2F; 通过注解，声明某方法的事务特征。<br>通过 <code>@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)</code> 注解配置事务的属性，以控制事务的隔离级别（isolation）、传播行为（propagation）等。<br>常见的传播行为包括：REQUIRED, REQUIRES_NEW, SUPPORTS, NESTED</li>
-<li>编程式事务：通过 TransactionTemplate 管理事务并通过它执行数据库的操作。（业务复杂&#x2F;只处理其中几条代码时用）</li>
-</ol>
-<h2 id="统一异常处理"><a href="#统一异常处理" class="headerlink" title="统一异常处理"></a>统一异常处理</h2><ul>
-<li>@ControllerAdvice：用于修饰类，表示该类是Controller的全局配置类（放在&#x2F;controller&#x2F;advice&#x2F;下）；<br>在此类中，可以对Controller进行如下三种全局配置：异常处理方案、绑定数据方案、绑定参数方案</li>
-<li>@ExceptionHandler：用于修饰（@ControllerAdvice所修饰类中的）方法，在Controller出现异常后被调用，用于处理捕获到的异常</li>
-<li>@ModelAttribute：用于修饰方法，使其在Controller方法执行前被调用，用于为Model对象绑定参数（如获取从页面post的数据）</li>
-<li>@DataBinder：用于修饰方法，该方法会在Controller方法执行前被调用，用于绑定参数的转换器<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice(annotations = Controller.class)</span>          <span class="comment">// 表示扫描所有controller类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExceptionAdvice</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(ExceptionAdvice.class);</span><br><span class="line">    <span class="meta">@ExceptionHandler(&#123;Exception.class&#125;)</span>                   <span class="comment">// 指处理所有类型的异常</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleException</span><span class="params">(Exception e, HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        logger.error(<span class="string">&quot;服务器发生异常: &quot;</span> + e.getMessage());  <span class="comment">// 打印日志</span></span><br><span class="line">        <span class="keyword">for</span> (StackTraceElement element : e.getStackTrace()) &#123;</span><br><span class="line">            logger.error(element.toString()); &#125;  &#125;         <span class="comment">// 打印具体报错</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="Spring-Security"><a href="#Spring-Security" class="headerlink" title="Spring Security"></a>Spring Security</h2><ul>
-<li>Spring Security是一个专注于为Java应用程序提供身份认证和授权的框架，它的强大之处在于它可以轻松扩展以满足自定义的需求<ul>
-<li>对身份的 <strong>认证</strong> <em>和</em> <strong>授权</strong> 提供全面的、可扩展的支持</li>
-<li>防止各种攻击，如会话固定攻击、点击劫持、csrf攻击等</li>
-<li>支持与Servlet API、Spring MVC等Web技术集成</li>
-</ul>
-</li>
-<li>核心概念：<ul>
-<li><strong>认证（Authentication）</strong>：验证用户的身份。</li>
-<li><strong>授权（Authorization）</strong>：确定用户是否有权执行某个操作。</li>
-<li><strong>过滤器链（Filter Chain）</strong>：一系列的过滤器，用于处理认证和授权的请求。Spring Security的处理在 Spring MVC之前（ Security底层是基于filter，可以拦截大量请求）<br><img src="https://github.com/leo710aka/bk/blob/main/spring_security.png?raw=true"></li>
-</ul>
-</li>
-<li>基本配置：Spring Security 配置通常通过 Java 配置或 XML 配置完成。<ul>
-<li>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span>   <span class="comment">// Java 配置示例</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> <span class="keyword">extends</span> <span class="title class_">WebSecurityConfigurerAdapter</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">            .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">&quot;/&quot;</span>, <span class="string">&quot;/home&quot;</span>).permitAll()</span><br><span class="line">                .anyRequest().authenticated()</span><br><span class="line">                .and()</span><br><span class="line">            .formLogin()</span><br><span class="line">                .loginPage(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">            .logout()</span><br><span class="line">                .permitAll();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configureGlobal</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        auth</span><br><span class="line">            .inMemoryAuthentication()</span><br><span class="line">                .withUser(<span class="string">&quot;user&quot;</span>).password(<span class="string">&quot;&#123;noop&#125;password&quot;</span>).roles(<span class="string">&quot;USER&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>安全过滤器链：Spring Security 的核心是安全过滤器链，它负责处理请求的认证和授权过程。在配置中，你可以通过 <code>HttpSecurity</code> 来定制过滤器链。<ul>
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">    .authorizeRequests()  <span class="comment">// 对请求进行授权</span></span><br><span class="line">        .antMatchers(<span class="string">&quot;/&quot;</span>, <span class="string">&quot;/home&quot;</span>).permitAll()  <span class="comment">// 允许所有用户访问</span></span><br><span class="line">        .anyRequest().authenticated()  <span class="comment">// 其他请求需要身份验证</span></span><br><span class="line">        .and()</span><br><span class="line">    .formLogin()  <span class="comment">// 定义登录操作</span></span><br><span class="line">        .loginPage(<span class="string">&quot;/login&quot;</span>)  <span class="comment">// 指定登录页</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">    .logout()  <span class="comment">// 定义登出操作</span></span><br><span class="line">        .permitAll();</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><strong><code>SecurityContext</code></strong> 是 Spring Security 中用于存储当前执行身份验证操作的上下文信息的接口。<br>它通常包含了与认证（Authentication）相关的信息，例如当前已认证的用户、用户的权限等。 <code>SecurityContextHolder</code> 负责管理 <code>SecurityContext</code>，而 <code>SecurityContext</code> 的实现则是 <code>SecurityContextImpl</code>。<ul>
-<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在认证成功后，将认证对象放入 SecurityContext</span></span><br><span class="line"><span class="type">UsernamePasswordAuthenticationToken</span> <span class="variable">authenticationToken</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UsernamePasswordAuthenticationToken</span>(userDetails, <span class="literal">null</span>, userDetails.getAuthorities());</span><br><span class="line"><span class="type">SecurityContext</span> <span class="variable">context</span> <span class="operator">=</span> SecurityContextHolder.createEmptyContext();</span><br><span class="line">context.setAuthentication(authenticationToken);</span><br><span class="line">SecurityContextHolder.setContext(context);</span><br><span class="line"><span class="comment">// 在需要获取当前用户信息的地方</span></span><br><span class="line"><span class="type">SecurityContext</span> <span class="variable">context</span> <span class="operator">=</span> SecurityContextHolder.getContext();</span><br><span class="line"><span class="type">Authentication</span> <span class="variable">authentication</span> <span class="operator">=</span> context.getAuthentication();</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/11/Spring/" data-id="cmjzvj9mc000khgv5eohraaa1" data-title="Spring 🍃" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1829,7 +1674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -1847,6 +1692,10 @@
         
           <li>
             <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/10/Milvus/">Milvus</a>
           </li>
         
           <li>
@@ -1875,10 +1724,6 @@
         
           <li>
             <a href="/2024/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/01/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">毕 业 设 计</a>
           </li>
         
       </ul>
