@@ -14,7 +14,7 @@
 <meta property="og:description" content="📚 文档链接： 快速入门 | Milvus 文档 什么是向量嵌入？向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。 这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-01-10T02:59:33.000Z">
-<meta property="article:modified_time" content="2026-01-10T03:47:36.925Z">
+<meta property="article:modified_time" content="2026-01-11T14:52:24.296Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
   
@@ -96,7 +96,7 @@
         <p><strong>📚 文档链接：</strong> <a target="_blank" rel="noopener" href="https://milvus.io/docs">快速入门 | Milvus 文档</a></p>
 <h3 id="什么是向量嵌入？"><a href="#什么是向量嵌入？" class="headerlink" title="什么是向量嵌入？"></a>什么是向量嵌入？</h3><p>向量嵌入是从机器学习模型中提取的数值表示，捕捉非结构化数据的语义含义。这些嵌入通过神经网络或变压器架构对数据中的复杂相关性进行分析，创建一个密集的向量空间，其中每个点对应于数据对象（如文档中的词）的“含义”。</p>
 <p>这个过程将文本或其他非结构化数据转换为反映语义相似性的向量——在这个多维空间中，意义相关的词被放置得更近，从而实现一种称为“密集向量搜索”的搜索方式。这与依赖精确匹配和使用稀疏向量的传统关键词搜索形成对比。向量嵌入的发展，通常源于大型科技公司广泛训练的基础模型，使得搜索能够捕捉数据的本质，超越词汇或稀疏向量搜索方法的局限性。</p>
-<p><strong>向量</strong>：可以理解为在多维空间中的一个点，它由一组数字（坐标）表示。在 AI 中，无论是文本、图像还是声音，都可以通过特定的模型（如 qwen3-embedding-4b-torch）转换为一个向量。这个向量捕捉了原始数据的深层特征。<br><strong>维度</strong>：就是指这个向量有多少个数字。例如，一个 [0.12, 0.45, -0.23, …, 0.78]的向量，如果它有 1024 个数字，我们就说它是一个 1024 维​ 的向量。维度的选择通常由您选用的嵌入模型决定，并且在创建 Milvus 集合时必须正确定义，因为所有存入的向量都必须有相同的维度。</p>
+<p><strong>向量</strong>：可以理解为在多维空间中的一个点，它由一组数字（坐标）表示。在 AI 中，无论是文本、图像还是声音，都可以通过特定模型（如 qwen3-embedding-4b-torch）转换为一个向量。这个向量捕捉了原始数据的深层特征。<br><strong>维度</strong>：就是指这个向量有多少个数字。例如，一个 [0.12, 0.45, -0.23, …, 0.78]的向量，如果它有 1024 个数字，我们就说它是一个 1024 维​ 的向量。维度的选择通常由您选用的嵌入模型决定，并且在创建 Milvus 集合时必须正确定义，因为所有存入的向量都必须有相同的维度。</p>
 <h3 id="非结构化数据、Embeddings-和-Milvus"><a href="#非结构化数据、Embeddings-和-Milvus" class="headerlink" title="非结构化数据、Embeddings 和 Milvus"></a>非结构化数据、Embeddings 和 Milvus</h3><p>非结构化数据（如文本、图像和音频）格式各异，蕴含丰富的潜在语义，因此分析起来极具挑战性。Embeddings 被用来将非结构化数据转换成能够捕捉其基本特征的数字向量。然后将这些向量存储在向量数据库中，从而实现快速、可扩展的搜索和分析。</p>
 <p>Milvus 提供强大的数据建模功能，使您能够将非结构化或多模式数据组织成结构化的 Collections。它支持多种数据类型，适用于不同的属性模型，包括常见的数字和字符类型、各种向量类型、数组、集合和 JSON，为您节省了维护多个数据库系统的精力。<br>与处理结构化数据并执行精确搜索操作的传统关系数据库不同，向量数据库擅长使用 Approximate Nearest Neighbor（ANN）算法等技术进行语义相似性搜索。这种能力对于开发推荐系统、聊天机器人和多媒体内容搜索工具等各种领域的应用程序，以及解决 ChatGPT 等大型语言模型和 AI 带来的挑战（如理解上下文和细微差别以及 AI 幻觉）至关重要。</p>
 <table>
@@ -135,27 +135,29 @@
 <li><p><strong>读取与搜索</strong>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用户提出问题，并转换为向量</span></span><br><span class="line">question = <span class="string">&quot;如何查询CMDB中的主机信息？&quot;</span></span><br><span class="line">question_vector = embed(question)  <span class="comment"># 使用相同的模型生成1024维向量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Milvus 中搜索最相似的 Top K 个向量</span></span><br><span class="line">search_params = &#123;<span class="string">&quot;metric_type&quot;</span>: <span class="string">&quot;COSINE&quot;</span>, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&quot;ef&quot;</span>: <span class="number">50</span>&#125;&#125;</span><br><span class="line">results = collection.search(</span><br><span class="line">    data=[question_vector],</span><br><span class="line">    anns_field=<span class="string">&quot;embedding_vector&quot;</span>,</span><br><span class="line">    param=search_params,</span><br><span class="line">    limit=<span class="number">3</span>,  <span class="comment"># 返回最相似的3条结果</span></span><br><span class="line">    output_fields=[<span class="string">&quot;id&quot;</span>, <span class="string">&quot;text_content&quot;</span>]  <span class="comment"># 指定需要返回的元数据字段</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理结果</span></span><br><span class="line"><span class="keyword">for</span> hits <span class="keyword">in</span> results:</span><br><span class="line">    <span class="keyword">for</span> hit <span class="keyword">in</span> hits:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;相似度得分: <span class="subst">&#123;hit.score&#125;</span>, 关联知识: <span class="subst">&#123;hit.entity.get(<span class="string">&#x27;text_content&#x27;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Milvus 支持的搜索类型<br>ANN 搜索：查找最接近查询向量的前 K 个向量。<br>过滤搜索：在指定的过滤条件下执行 ANN 搜索。<br>范围搜索：查找查询向量指定半径范围内的向量。<br>混合搜索：基于多个向量场进行 ANN 搜索。<br>全文搜索：基于 BM25 的全文搜索。<br>Rerankers：根据附加标准或辅助算法调整搜索结果顺序，完善初始 ANN 搜索结果。<br>获取：根据主键检索数据。<br>查询使用特定表达式检索数据。</p>
+<li><p>Milvus 支持的搜索类型<br>ANN 搜索：查找最接近查询向量的前 K 个向量。<br>过滤搜索：在指定的过滤条件下执行 ANN 搜索。<br>范围搜索：查找查询向量指定半径范围内的向量。<br>混合搜索：基于多个向量场进行 ANN 搜索。<br>全文搜索：基于 BM25 的全文搜索。<br>获取：根据主键检索数据。<br>查询使用特定表达式检索数据。</p>
+</li>
+<li><p>Rerankers<br>在基础的 RAG 流程中，系统通过 Embedding 模型​ 将用户查询和知识库文档转换为向量，然后利用向量数据库进行快速的相似性搜索，找出最相关的几个文档片段作为上下文提供给 LLM 。然而，这种基于向量相似度的检索有时无法完美捕捉深层次的语义关联，可能返回一些看似相关实则无关的“噪声”文档 。<br>Reranker 模型的作用就在于此。它通常在向量检索之后介入，像一个专业的裁判，对初步检索到的候选文档（例如 Top 20 或 Top 50）进行二次精排 。其核心工作原理是：<br>1、精细化语义理解：不同于 Embedding 模型分别处理查询和文档，典型的 Cross-encoder Reranker​ 会将查询和一个候选文档同时输入模型，让模型直接分析两者之间的交互信息，从而给出一个更精确的相关性分数 。<br>2、结果重排序：Reranker 为所有候选文档重新打分并排序，最终只将排名最靠前的、真正相关的少量文档（如 Top 3 或 Top 5）传递给 LLM 。</p>
 </li>
 </ol>
-<h3 id="Milvus-在-RAG"><a href="#Milvus-在-RAG" class="headerlink" title="Milvus 在 RAG"></a>Milvus 在 RAG</h3><p>在 RAG 流程中，Milvus 扮演着 <strong>知识库与高速检索引擎</strong> 的角色。</p>
+<h3 id="Milvus-4-RAG"><a href="#Milvus-4-RAG" class="headerlink" title="Milvus 4 RAG"></a>Milvus 4 RAG</h3><p>在 RAG 流程中，Milvus 扮演着 <strong>知识库与高速检索引擎</strong> 的角色。</p>
 <ol>
-<li><strong>检索（Retrieval）</strong>：当用户提问时，系统首先使用嵌入模型将问题转换为查询向量。随后，Milvus 在该查询向量与知识库中所有文档向量之间进行高速的相似性比较，找出最相关的几个知识片段。</li>
-<li><strong>增强（Augmentation）</strong>：将这些检索到的知识片段（元数据中的原始文本）作为上下文，与用户的问题一起组合成一个更丰富的提示词（Prompt）。</li>
-<li><strong>生成（Generation）</strong>：将这个富含上下文的提示词发送给您的大语言模型（如 <code>qwen3-235b-a22b</code>），由它来生成精准、有据可依的最终答案。</li>
+<li><strong>检索（Retrieval）</strong>：当用户提问时，系统首先使用嵌入模型将问题转换为查询向量。随后，Milvus 在该查询向量与知识库中所有文档向量之间进行高速的相似性比较（不同于结构化数据库的精确查询，是支持相似语义的模糊查询），找出最相关的几个知识片段。</li>
+<li><strong>增强（Augmentation）</strong>：将这些检索到的知识片段（元数据中的原始文本）作为上下文，与用户的问题组合成一个更丰富的 Prompt</li>
+<li><strong>生成（Generation）</strong>：将这个富含上下文的提示词发送给大语言模型（如 <code>qwen3-235b-a22b</code>），由它来生成精准、有据可依的最终答案。</li>
 </ol>
-<p>什么是 Agentic RAG？基础的 RAG 中，检索-增强-生成是一次性完成的。而 <strong>Agentic RAG（智能体驱动的 RAG）</strong> 则引入了“智能体”的概念，使得检索过程变得更智能、更动态。<br>智能体可以根据对大模型初步生成内容的理解，<strong>主动地、多次地</strong> 与向量数据库（Milvus）进行交互。这使 RAG 系统从静态的“文档查找”升级为动态的、具有决策能力的“研究助手”。例如：</p>
+<p>人工智能集成：</p>
+<ol>
+<li>Embeddings 模型集成：将非结构化数据转换为其在高维数据空间中的数字表示，以便您可以将其存储在 Milvus 中。目前，PyMilvus（Python SDK）集成了多个嵌入模型，因此您可以快速将数据准备成向量嵌入。</li>
+<li>Reranker 模型集成：在信息检索和生成式人工智能领域，Reranker 是优化初始搜索结果顺序的重要工具。PyMilvus 也集成了几种 Rerankers 模型，以优化初始搜索返回结果的顺序。</li>
+<li>LangChain 和其他人工智能工具集成：在 GenAI 时代，LangChain 等工具受到了应用程序开发人员的广泛关注。作为核心组件，Milvus 通常在此类工具中充当向量存储。要了解如何将 Milvus 集成到您喜爱的人工智能工具中，请参阅我们的集成和教程。</li>
+</ol>
+<p><strong>Agentic RAG（智能体驱动的 RAG，<code>Agentic RAG = RAG + Agent</code>）</strong>：基础的 RAG 中，检索-增强-生成是一次性完成的。而Agentic RAG则引入了“智能体”的概念，智能体可以根据对大模型初步生成内容的理解，<strong>主动地、多次地</strong> 与向量数据库（Milvus）进行交互。这使 RAG 系统从静态的“文档查找”升级为动态的、具有决策能力的“研究助手”。例如：</p>
 <ul>
-<li><strong>判断是否需要进一步检索</strong>：如果首次检索到的信息不足以回答问题，智能体可以重新生成搜索 query，进行多轮检索，直到信息足够。</li>
+<li><strong>判断是否需要进一步检索</strong>：如果首次检索到的信息不足以回答问题，智能体可以重新生成搜索 query，多轮检索，直到信息足够。</li>
 <li><strong>分解复杂问题</strong>：对于复杂问题，智能体可以将其拆解成多个子问题，然后针对每个子问题去 Milvus 中检索相关信息，最后综合所有信息生成答案。</li>
 <li><strong>工具调用（Tool Use）</strong>：智能体可以将 Milvus 的检索功能视为一个可调用的工具，根据对话进程决定何时以及如何调用这个工具。</li>
 </ul>
-<p>人工智能集成</p>
-<ol>
-<li>Embeddings 模型集成 Embedding 模型将非结构化数据转换为其在高维数据空间中的数字表示，以便您可以将其存储在 Milvus 中。目前，PyMilvus（Python SDK）集成了多个嵌入模型，因此您可以快速将数据准备成向量嵌入。有关详情，请参阅嵌入概述。</li>
-<li>Reranker 模型集成 在信息检索和生成式人工智能领域，Reranker 是优化初始搜索结果顺序的重要工具。PyMilvus 也集成了几种 Rerankers 模型，以优化初始搜索返回结果的顺序。详情请参考Rerankers 概述。</li>
-<li>LangChain 和其他人工智能工具集成 在 GenAI 时代，LangChain 等工具受到了应用程序开发人员的广泛关注。作为核心组件，Milvus 通常在此类工具中充当向量存储。要了解如何将 Milvus 集成到您喜爱的人工智能工具中，请参阅我们的集成和教程。</li>
-</ol>
 
       
     </div>
