@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Maven | Qué miras Bobo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1. Maven是什么？ 基本概念Maven是Apache基金会的开源项目管理和构建自动化工具，使用POM(Project Object Model) 文件描述项目结构、依赖关系和构建配置。  是否专门用于Java？主要定位：主要用于Java项目可扩展性：通过插件可支持其他语言（Scala、Groovy、Kotlin等）生态系统：虽然不限于Java，但在Java生态中最为成熟  核心功能 1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven">
+<meta property="og:url" content="http://example.com/2026/04/11/Maven/index.html">
+<meta property="og:site_name" content="Qué miras Bobo">
+<meta property="og:description" content="1. Maven是什么？ 基本概念Maven是Apache基金会的开源项目管理和构建自动化工具，使用POM(Project Object Model) 文件描述项目结构、依赖关系和构建配置。  是否专门用于Java？主要定位：主要用于Java项目可扩展性：通过插件可支持其他语言（Scala、Groovy、Kotlin等）生态系统：虽然不限于Java，但在Java生态中最为成熟  核心功能 1234">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-11T15:00:11.000Z">
+<meta property="article:modified_time" content="2026-04-11T17:59:54.062Z">
+<meta property="article:author" content="fengcai">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Qué miras Bobo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://github.com/leo710aka/bk/blob/main/DT1.jpg?raw=true">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Qué miras Bobo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Maven" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/04/11/Maven/" class="article-date">
+  <time class="dt-published" datetime="2026-04-11T15:00:11.000Z" itemprop="datePublished">2026-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Maven
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Maven是什么？"><a href="#1-Maven是什么？" class="headerlink" title="1. Maven是什么？"></a>1. Maven是什么？</h2><ul>
+<li><p>基本概念<br>Maven是<strong>Apache基金会</strong>的开源项目管理和构建自动化工具，使用<strong>POM(Project Object Model)</strong> 文件描述项目结构、依赖关系和构建配置。</p>
+</li>
+<li><p>是否专门用于Java？<br>主要定位：主要用于Java项目<br>可扩展性：通过插件可支持其他语言（Scala、Groovy、Kotlin等）<br>生态系统：虽然不限于Java，但在Java生态中最为成熟</p>
+</li>
+<li><p>核心功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── 依赖管理（Dependency Management）</span><br><span class="line">├── 项目构建（Build Lifecycle）</span><br><span class="line">├── 统一项目结构（Standard Directory Layout）</span><br><span class="line">├── 插件体系（Plugin Architecture）</span><br><span class="line">└── 仓库管理（Repository）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Maven依赖的本质</p>
+<ul>
+<li>通过pom.xml引入的依赖，默认下载的是<strong>已编译的JAR包</strong>，主要包含：<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>说明</th>
+<th>是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>.class文件</strong></td>
+<td>已编译的字节码（人类可读的.java源代码文件编译而来）</td>
+<td>✅ 必须，用于运行</td>
+</tr>
+<tr>
+<td><strong>pom.xml</strong></td>
+<td>依赖的元数据</td>
+<td>✅ 必须，用于传递依赖解析</td>
+</tr>
+<tr>
+<td><strong>源代码(.java)</strong></td>
+<td>可选，用于调试</td>
+<td>❌ 可选，IDE可单独下载</td>
+</tr>
+<tr>
+<td><strong>javadoc</strong></td>
+<td>API文档</td>
+<td>❌ 可选，IDE可单独下载</td>
+</tr>
+</tbody></table>
+</li>
+<li>依赖获取过程  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pom.xml中的依赖声明</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.google.guava&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;guava&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">31.1</span>-jre&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
+<li>实际下载的文件  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~/.m2/repository/com/google/guava/guava/31.1-jre/</span><br><span class="line">├── guava-31.1-jre.jar        // 主要JAR，包含.class文件</span><br><span class="line">├── guava-31.1-jre.pom        // 该依赖的pom文件</span><br><span class="line">├── _remote.repositories      // 仓库信息</span><br><span class="line">└── 可能还有：</span><br><span class="line">    ├── guava-31.1-jre-sources.jar  // 源代码</span><br><span class="line">    └── guava-31.1-jre-javadoc.jar  // 文档</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Maven基本命令"><a href="#2-Maven基本命令" class="headerlink" title="2. Maven基本命令"></a>2. Maven基本命令</h2><h3 id="常用命令速查表"><a href="#常用命令速查表" class="headerlink" title="常用命令速查表"></a>常用命令速查表</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>mvn clean</strong></td>
+<td>清理项目</td>
+<td>删除target目录</td>
+</tr>
+<tr>
+<td><strong>mvn compile</strong></td>
+<td>编译源码</td>
+<td>生成target&#x2F;classes</td>
+</tr>
+<tr>
+<td><strong>mvn test</strong></td>
+<td>运行测试</td>
+<td>执行src&#x2F;test下的测试</td>
+</tr>
+<tr>
+<td><strong>mvn package</strong></td>
+<td>打包项目</td>
+<td>生成jar&#x2F;war包</td>
+</tr>
+<tr>
+<td><strong>mvn install</strong></td>
+<td>安装到本地仓库</td>
+<td><code>mvn package</code> + 将jar安装到本地 ~&#x2F;.m2&#x2F;repository</td>
+</tr>
+<tr>
+<td><strong>mvn deploy</strong></td>
+<td>部署到远程仓库</td>
+<td>发布到Nexus&#x2F;Artifactory</td>
+</tr>
+<tr>
+<td><strong>mvn clean install</strong></td>
+<td>清理并安装</td>
+<td>常用组合命令</td>
+</tr>
+<tr>
+<td><strong>mvn dependency:tree</strong></td>
+<td>查看依赖树</td>
+<td>分析依赖关系</td>
+</tr>
+<tr>
+<td><strong>mvn spring-boot:run</strong></td>
+<td>运行Spring Boot</td>
+<td>需要对应插件</td>
+</tr>
+</tbody></table>
+<h3 id="Maven生命周期阶段"><a href="#Maven生命周期阶段" class="headerlink" title="Maven生命周期阶段"></a>Maven生命周期阶段</h3><p>A[clean] –&gt; B[validate] –&gt; C[compile] –&gt; D[test] –&gt; E[package] –&gt; F[verify] –&gt; G[install] –&gt; H[deploy]</p>
+<h4 id="1-mvn-compile-编译阶段"><a href="#1-mvn-compile-编译阶段" class="headerlink" title="1. mvn compile - 编译阶段"></a>1. <code>mvn compile</code> - 编译阶段</h4><p><strong>相当于</strong>：执行 <code>javac</code> 编译源代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实际操作</span></span><br><span class="line"><span class="comment"># 1. 编译主代码</span></span><br><span class="line">javac -<span class="built_in">cp</span> <span class="string">&quot;所有依赖的jar&quot;</span> -d target/classes src/main/java/**/*.java</span><br><span class="line"><span class="comment"># 2. 处理资源文件</span></span><br><span class="line"><span class="built_in">cp</span> src/main/resources/** target/classes/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成目录结构</span></span><br><span class="line">target/</span><br><span class="line">├── classes/                    <span class="comment"># 编译输出的.class文件</span></span><br><span class="line">│   ├── com/example/Main.class</span><br><span class="line">│   └── application.properties</span><br><span class="line">└── generated-sources/          <span class="comment"># 生成的代码（如有）</span></span><br></pre></td></tr></table></figure>
+
+<p>当您运行 mvn compile时，Maven 会：<br>解析依赖：读取 pom.xml 中的 <dependencies><br>下载依赖：从远程仓库下载到本地 ~&#x2F;.m2&#x2F;repository&#x2F;<br>构建依赖图：处理传递依赖<br>关键点：Maven 管理的这些依赖是已经编译好的 .class 文件（JAR 包），不是 .java 文件。</p>
+<p>然后 Maven 会：<br>编译您的代码：src&#x2F;main&#x2F;java&#x2F;下的 .java 文件<br>使用依赖：编译时将下载的依赖 JAR 加入 classpath<br>打包：将您的 .class 文件 + 资源文件打包</p>
+<p>todo：那么打包的时候到底保护包含依赖？我自己的源代码编译 .class + 依赖包的 .class ？？</p>
+<h4 id="2-mvn-package-打包阶段"><a href="#2-mvn-package-打包阶段" class="headerlink" title="2. mvn package - 打包阶段"></a>2. <code>mvn package</code> - 打包阶段</h4><p><strong>相当于</strong>：<strong>根据packaging类型不同</strong>,将编译结果打包成可分发的格式（<strong>注意</strong>：普通<code>mvn package</code>生成的jar<strong>不包含依赖</strong>！依赖需要单独配置）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pom.xml中指定打包类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span>  <span class="comment">&lt;!-- 默认值 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 或 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 或 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>打包过程</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于jar包：</span></span><br><span class="line">jar cvf target/myapp-1.0.jar -C target/classes .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成的jar内容：</span></span><br><span class="line"><span class="comment"># META-INF/MANIFEST.MF     # 清单文件</span></span><br><span class="line"><span class="comment"># com/example/Main.class   # 你的类</span></span><br><span class="line"><span class="comment"># application.properties   # 资源文件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-mvn-install-安装阶段"><a href="#3-mvn-install-安装阶段" class="headerlink" title="3. mvn install - 安装阶段"></a>3. <code>mvn install</code> - 安装阶段</h4><p><code>mvn install</code> 做了两件事：<br>1 <strong>执行之前所有阶段</strong>：validate → compile → test → package → verify → install<br>2 <strong>将当前项目的构建结果安装到本地仓库</strong>，安装位置 →</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.m2/repository/com/yourcompany/yourapp/1.0.0/</span><br><span class="line">├── yourapp-1.0.0.jar      # 打包的jar</span><br><span class="line">├── yourapp-1.0.0.pom      # 当前项目的pom.xml</span><br><span class="line">└── yourapp-1.0.0-sources.jar  # 源代码（如果生成）</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令组合示例"><a href="#命令组合示例" class="headerlink" title="命令组合示例"></a>命令组合示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标准开发流程</span></span><br><span class="line">mvn clean compile</span><br><span class="line">mvn <span class="built_in">test</span></span><br><span class="line">mvn package</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跳过测试</span></span><br><span class="line">mvn clean install -DskipTests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定配置文件</span></span><br><span class="line">mvn clean install -Pprod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">mvn <span class="built_in">help</span>:effective-pom</span><br><span class="line">mvn <span class="built_in">help</span>:describe -Dcmd=package</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-打包Java服务为可运行JAR"><a href="#3-打包Java服务为可运行JAR" class="headerlink" title="3. 打包Java服务为可运行JAR"></a>3. 打包Java服务为可运行JAR</h2><h3 id="三种打包方式对比"><a href="#三种打包方式对比" class="headerlink" title="三种打包方式对比"></a>三种打包方式对比</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>插件</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>普通JAR</strong></td>
+<td>maven-jar-plugin</td>
+<td>不包含依赖</td>
+<td>库项目</td>
+</tr>
+<tr>
+<td><strong>Fat JAR</strong></td>
+<td>maven-assembly-plugin</td>
+<td>包含所有依赖</td>
+<td>简单应用</td>
+</tr>
+<tr>
+<td><strong>可执行JAR</strong></td>
+<td>spring-boot-maven-plugin</td>
+<td>Spring Boot专用</td>
+<td>Spring Boot应用</td>
+</tr>
+<tr>
+<td><strong>Shadow JAR</strong></td>
+<td>maven-shade-plugin</td>
+<td>重命名包解决冲突</td>
+<td>复杂依赖</td>
+</tr>
+</tbody></table>
+<p>Spring Boot项目（最常用）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pom.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.example.MainApplication<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 包含依赖 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">layout</span>&gt;</span>JAR<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>repackage<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打包命令</span></span><br><span class="line">mvn clean package</span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">java -jar target/your-app-1.0.0.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整构建流程示例"><a href="#完整构建流程示例" class="headerlink" title="完整构建流程示例"></a>完整构建流程示例</h3><p>项目结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">my-project/</span><br><span class="line">├── src/</span><br><span class="line">│   ├── main/</span><br><span class="line">│   │   ├── java/</span><br><span class="line">│   │   │   └── com/example/</span><br><span class="line">│   │   │       └── App.java</span><br><span class="line">│   │   └── resources/</span><br><span class="line">│   │       └── config.properties</span><br><span class="line">│   └── test/</span><br><span class="line">│       └── java/</span><br><span class="line">│           └── com/example/</span><br><span class="line">│               └── AppTest.java</span><br><span class="line">├── target/                 # 构建输出目录</span><br><span class="line">└── pom.xml</span><br></pre></td></tr></table></figure>
+
+<p>执行流程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 清理 + 编译</span></span><br><span class="line">mvn clean compile</span><br><span class="line"><span class="comment"># 生成: target/classes/ 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 运行测试</span></span><br><span class="line">mvn <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 生成: target/test-classes/ 和 target/surefire-reports/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 打包</span></span><br><span class="line">mvn package</span><br><span class="line"><span class="comment"># 生成: target/my-project-1.0.jar</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 安装到本地仓库</span></span><br><span class="line">mvn install</span><br><span class="line"><span class="comment"># 生成: ~/.m2/repository/com/example/my-project/1.0/</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4-IDEA中使用Maven与问题解决"><a href="#4-IDEA中使用Maven与问题解决" class="headerlink" title="4. IDEA中使用Maven与问题解决"></a>4. IDEA中使用Maven与问题解决</h2><h3 id="IDEA-Maven配置位置"><a href="#IDEA-Maven配置位置" class="headerlink" title="IDEA Maven配置位置"></a>IDEA Maven配置位置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File → Settings → Build, Execution, Deployment → Build Tools → Maven</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ol>
+<li><strong>刷新依赖</strong>：Maven工具窗口的刷新按钮 🔄</li>
+<li><strong>执行命令</strong>：双击生命周期中的阶段</li>
+<li><strong>查看依赖图</strong>：右键项目 → Show Dependencies</li>
+<li><strong>排除冲突</strong>：在依赖树上右键排除</li>
+</ol>
+<h3 id="问题分类"><a href="#问题分类" class="headerlink" title="问题分类"></a>问题分类</h3><ol>
+<li>Import报红<br>本地仓库缺失<br>版本冲突<br>网络问题</li>
+<li>编译失败<br>依赖下载不全<br>编译版本不匹配</li>
+<li>运行时异常<br>依赖冲突<br>ClassNotFound</li>
+</ol>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>点击刷新按钮</li>
+<li>仍未解决，检查网络–&gt; 清除本地仓库–&gt; 清理IDEA缓存 –&gt; 检查依赖冲突 –&gt; 重新导入项目</li>
+</ol>
+<h3 id="具体问题解决步骤"><a href="#具体问题解决步骤" class="headerlink" title="具体问题解决步骤"></a>具体问题解决步骤</h3><h4 id="问题1：刷新按钮无效"><a href="#问题1：刷新按钮无效" class="headerlink" title="问题1：刷新按钮无效"></a>问题1：刷新按钮无效</h4><p><strong>症状</strong>：点击刷新后，依赖仍然报红</p>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><p><strong>强制刷新</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 命令行执行</span></span><br><span class="line">mvn clean install -U</span><br></pre></td></tr></table></figure>
+<p><code>-U</code> 参数强制更新快照版本</p>
+</li>
+<li><p><strong>删除本地仓库</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows</span></span><br><span class="line">rd /s /q %USERPROFILE%\.m2\repository</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mac/Linux</span></span><br><span class="line"><span class="built_in">rm</span> -rf ~/.m2/repository</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>清除IDEA缓存</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File → Invalidate Caches and Restart</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="问题2：依赖下载慢-失败"><a href="#问题2：依赖下载慢-失败" class="headerlink" title="问题2：依赖下载慢&#x2F;失败"></a>问题2：依赖下载慢&#x2F;失败</h4><p><strong>解决方案</strong>：</p>
+<ol>
+<li><p><strong>配置阿里云镜像</strong>（<code>settings.xml</code>）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>IDEA配置镜像</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File → Settings → Build Tools → Maven</span><br><span class="line">修改 User settings file 为包含镜像的settings.xml</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="问题3：依赖冲突"><a href="#问题3：依赖冲突" class="headerlink" title="问题3：依赖冲突"></a>问题3：依赖冲突</h4><p><strong>症状</strong>：NoSuchMethodError, ClassNotFoundException</p>
+<p><strong>排查命令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看依赖树</span></span><br><span class="line">mvn dependency:tree</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看冲突</span></span><br><span class="line">mvn dependency:tree -Dverbose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分析依赖</span></span><br><span class="line">mvn dependency:analyze</span><br></pre></td></tr></table></figure>
+
+<p><strong>IDEA可视化排查</strong>：</p>
+<ol>
+<li>右键项目 → Analyze → Analyze Dependencies</li>
+<li>查看冲突标记（红色）</li>
+</ol>
+<p><strong>解决冲突示例</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>problematic-lib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>conflict-group<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>conflict-artifact<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="问题4：版本不兼容"><a href="#问题4：版本不兼容" class="headerlink" title="问题4：版本不兼容"></a>问题4：版本不兼容</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 统一管理版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.3.23<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="IDEA-Maven工具窗口使用技巧"><a href="#IDEA-Maven工具窗口使用技巧" class="headerlink" title="IDEA Maven工具窗口使用技巧"></a>IDEA Maven工具窗口使用技巧</h3><h4 id="1-快速操作"><a href="#1-快速操作" class="headerlink" title="1. 快速操作"></a>1. 快速操作</h4><table>
+<thead>
+<tr>
+<th>图标</th>
+<th>功能</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🔄</td>
+<td>重新导入所有Maven项目</td>
+<td>Ctrl+Shift+O</td>
+</tr>
+<tr>
+<td>🏃</td>
+<td>运行Maven目标</td>
+<td>右键→Run Maven</td>
+</tr>
+<tr>
+<td>📊</td>
+<td>显示依赖图</td>
+<td>右键→Show Dependencies</td>
+</tr>
+<tr>
+<td>🧹</td>
+<td>执行clean</td>
+<td>双击Lifecycle→clean</td>
+</tr>
+</tbody></table>
+<h4 id="2-配置文件切换"><a href="#2-配置文件切换" class="headerlink" title="2. 配置文件切换"></a>2. 配置文件切换</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pom.xml 中定义不同环境 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">env</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">env</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在IDEA Maven工具窗口的Profiles中勾选激活。</p>
+<h3 id="终极解决方案清单"><a href="#终极解决方案清单" class="headerlink" title="终极解决方案清单"></a>终极解决方案清单</h3><p>当遇到顽固依赖问题时，按顺序执行：</p>
+<ol>
+<li><p><strong>第一步：清理缓存</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -U</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第二步：删除本地仓库对应目录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除有问题依赖的目录</span></span><br><span class="line"><span class="built_in">rm</span> -rf ~/.m2/repository/com/example/problem-dependency</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第三步：IDEA完全清理</strong></p>
+<ul>
+<li>File → Invalidate Caches and Restart</li>
+<li>删除项目下的 <code>.idea</code> 目录和 <code>*.iml</code> 文件</li>
+<li>重新导入</li>
+</ul>
+</li>
+<li><p><strong>第四步：检查Maven配置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看有效POM</span></span><br><span class="line">mvn <span class="built_in">help</span>:effective-pom</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看有效设置</span></span><br><span class="line">mvn <span class="built_in">help</span>:effective-settings</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第五步：网络代理检查</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- settings.xml 配置代理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">proxy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>optional<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">active</span>&gt;</span>true<span class="tag">&lt;/<span class="name">active</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">protocol</span>&gt;</span>http<span class="tag">&lt;/<span class="name">protocol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">host</span>&gt;</span>proxy.company.com<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">port</span>&gt;</span>8080<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">proxy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a>预防措施</h3><ol>
+<li><p><strong>使用依赖锁定</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-enforcer-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>enforce<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">rules</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">dependencyConvergence</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">rules</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>enforce<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>定期清理本地仓库</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理失败下载</span></span><br><span class="line">find ~/.m2/repository -name <span class="string">&quot;*.lastUpdated&quot;</span> -delete</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用CI&#x2F;CD环境验证</strong><br>在Jenkins&#x2F;GitHub Actions中设置定期构建，提前发现问题。</p>
+</li>
+</ol>
+<h3 id="常见错误代码与解决"><a href="#常见错误代码与解决" class="headerlink" title="常见错误代码与解决"></a>常见错误代码与解决</h3><table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>含义</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>501 HTTPS Required</strong></td>
+<td>仓库需要HTTPS</td>
+<td>更新settings.xml，使用https仓库</td>
+</tr>
+<tr>
+<td><strong>401 Unauthorized</strong></td>
+<td>认证失败</td>
+<td>配置正确的server认证</td>
+</tr>
+<tr>
+<td><strong>Could not transfer artifact</strong></td>
+<td>网络&#x2F;权限</td>
+<td>检查网络，清理.lastUpdated文件</td>
+</tr>
+<tr>
+<td><strong>No compiler is provided</strong></td>
+<td>JDK配置错误</td>
+<td>配置JAVA_HOME，或在pom中指定javac</td>
+</tr>
+</tbody></table>
+<h3 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h3><ol>
+<li><p><strong>离线模式</strong>（网络不稳定时）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -o</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>跳过测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -DskipTests</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">mvn clean install -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>多线程构建</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -T 4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>调试模式</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -X clean install</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/04/11/Maven/" data-id="cmnun4218000dm0v58ypd7kxf" data-title="Maven" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2046/08/27/Guitar/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Guitar 🎸
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/01/10/Milvus/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Milvus</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2046/12/30/nice-photo/">Nice Photo</a>
+          </li>
+        
+          <li>
+            <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2026/04/11/Maven/">Maven</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/10/Milvus/">Milvus</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/22/Agent/">Agent</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/08/MongoDB/">MongoDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/22/Docker_Kubernetes/">Kubernetes</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/InfluxDB/">InfluxDB</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/22/Golang/">Golang</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/18/%E7%90%86%E8%B4%A2/">Lic Ai</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 fengcai<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
