@@ -262,6 +262,916 @@
 
 
   
+    <article id="post-美的Midea" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2027/07/07/%E7%BE%8E%E7%9A%84Midea/" class="article-date">
+  <time class="dt-published" datetime="2027-07-07T02:58:11.000Z" itemprop="datePublished">2027-07-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2027/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <!-- real date: 2024-07-07 10:58:11 -->
+
+<h1 id="08-07-24"><a href="#08-07-24" class="headerlink" title="08&#x2F;07&#x2F;24"></a>08&#x2F;07&#x2F;24</h1><p><img src="https://leo710aka.github.io/bk/midea.jpg"></p>
+<p>入职第一天，熟悉运维平台，目标实现其自动化，后续参与到美的云,?<br>熟悉新旧平台的功能和调用关系，拆分业务需求开发步骤，编写文档，每日汇报进展，熟悉开发流程、、<br>软工院作为非互联网公司的非核心业务的底层平台建设部门，结果导向，组员多一年社招；)无校招培养。？</p>
+<h2 id="7-17-7-29"><a href="#7-17-7-29" class="headerlink" title="7.17 ~ 7.29"></a>7.17 ~ 7.29</h2><p>EDP培训 ＋ MGC（头脑风暴&#x2F;产品调研&#x2F;拉通对齐&gt;&gt;技术）<br>T型人才(广度＋深度)，开发技术+产品思维-&gt;架构师<br>不设限，主动承担任务，机会莫名来：) take other people’s jobs and become indispensable to the team..</p>
+<p>复杂的事情简单化(思考简化)，简单的事情复杂化(做到极致)<br>工作就是生活，生活就是工作，不需要平衡（找到热爱的工作）<br>成功的百分比 &#x3D; 做事 &#x2F; (个人 + 做事)；做事的比例越大，成功的概率越大</p>
+<p>Allen: 向上管理?× 向上反馈，同步进展<br>MGC结营<br>融入团队？主动承担？谈论未知？如何选择自己在团队中的角色，人设？？<br>圈子</p>
+<h2 id="8-17"><a href="#8-17" class="headerlink" title="8.17"></a>8.17</h2><p>佛山校友会迎新<br>“努力会发光，先有为后有位”，“头三年不要动，把这一套学会”<br>程序员的本质核心竞争力是什么？1.开发都是那一套 2.专精一个领域 3.meet新公司的需求 4.解决问题的能力</p>
+<h2 id="8-22-需求一："><a href="#8-22-需求一：" class="headerlink" title="8.22 需求一："></a>8.22 <strong>需求一</strong>：</h2><p><em>华为云主机开&#x2F;关机&#x2F;重启自动化</em> : mq、定时任务、公有云api、crud、、<br>完成第一版8.14，自测8.15，，merge request，code review，sit，测试，uat，发版8.22、、<br>反思、、在开发同事的指导下完成了开发，不具备独立调研和开发能力，，<br>缺少对产品的思考？？没有对需求进行120%的思考和完成。。</p>
+<h2 id="8-24"><a href="#8-24" class="headerlink" title="8.24"></a>8.24</h2><p>顺德校友会迎新<br>why Midea？1.生活成本低（特别是住宿好通勤方便）2.相比下工作轻松（能够有自己的时间学习业务以外的东西）<br>思考自己在..年后会到什么层次（本科毕业+6y ?&#x3D; 博士毕业起步）。。阶段性目标</p>
+<h2 id="8-27-Steven"><a href="#8-27-Steven" class="headerlink" title="8.27 Steven:"></a>8.27 Steven:</h2><p>深入一个领域，，<br>先做一点功能点，然后负责一个模块，到不同系统的交互、、<br>多学基础，与外包的区别。。与人沟通的能力<br>幂等，整体设计，微服务治理，看项目源码，，<br>干半年就不是应届生了。社会很残酷，前两年要快速成长；思考两&#x2F;五年后的情况、、<br>开发整个过一遍，打包，发版，，<br>多讨论，多问，code review<br><strong>失败邮件发送</strong>：设计一个功能，，关注点，逻辑路径，通用性，，如何表述。。?！ –&gt;</p>
+<h2 id="9-9-并发先查后改"><a href="#9-9-并发先查后改" class="headerlink" title="9.9 并发先查后改"></a>9.9 并发先查后改</h2><p>方法：事务+行锁【悲观锁】，避免在高并发场景下<strong>先读后写</strong>导致多个线程同时读取相同的值然后同时写入引发数据不一致的问题<br>测试：线程池多线程访问，打印数据，排查重复值；考虑数据库连接池配置<br>思考：项目部署到多节点下，则是多进程的多线程环境，需要用Redis分布式锁，或者唯一的全局数据库节点加锁；<br>单节点的多线程才能用synchronized？、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NumberService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> NumberMapper numberMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional</span> <span class="comment">// 在业务逻辑层开启事务，确保整个操作是原子的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">incrementNumber</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        <span class="comment">// 查询并锁定行</span></span><br><span class="line">        <span class="type">NumberEntity</span> <span class="variable">numberEntity</span> <span class="operator">=</span> numberMapper.selectForUpdate(id);</span><br><span class="line">        <span class="comment">// 读取后进行计算并更新，保证只有当前事务可以操作该行</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">currentNumber</span> <span class="operator">=</span> numberEntity.getNumber();</span><br><span class="line">        numberEntity.setNumber(currentNumber + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 更新数据库</span></span><br><span class="line">        numberMapper.updateById(numberEntity);</span><br><span class="line">        <span class="comment">// 更新完成后提交事务，释放锁</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NumberMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span>&lt;NumberEntity&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 FOR UPDATE 读取并锁定行，防止其他事务并发读取该行</span></span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM number_table WHERE id = #&#123;id&#125; FOR UPDATE&quot;)</span></span><br><span class="line">    NumberEntity <span class="title function_">selectForUpdate</span><span class="params">(Long id)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优势：完全避免了并发更新导致的数据不一致，是标准的悲观锁实现。<br>潜在问题：如果方法被高频调用，FOR UPDATE可能导致锁竞争，影响并发性能。<br>更优方案：直接 UPDATE + SELECT</p>
+<ol>
+<li>UPDATE 自带行级锁：执行 UPDATE 时，数据库会自动对目标行加排他锁，确保原子性</li>
+<li>避免两次数据库交互：无需先 SELECT 再 UPDATE，减少一次网络往返</li>
+<li>减少锁持有时间：锁只在 UPDATE 执行期间持有，而非整个事务周期</li>
+</ol>
+<h2 id="9-12-需求二："><a href="#9-12-需求二：" class="headerlink" title="9.12 需求二："></a>9.12 <strong>需求二</strong>：</h2><p><em>Azure公有云主机申请</em> :根据云管界面配置配齐参数发送报文到作业平台，完成自动化主机创建和标准化<br>对其参数，连续加班，9.9完成第一版，9.10上sit前端联调，9.11开发部分发邮件，9.12上uat，6.同步DDL&amp;DML，7.发版，验收成功<br>接触运维协同，，code review，联调，，集成，部署，流水线，，</p>
+<h2 id="9-14"><a href="#9-14" class="headerlink" title="9.14"></a><strong>9.14</strong></h2><p>窝囊费:）到账</p>
+<!-- 12000+440(补贴)-2674.81(代扣代缴:898.9+1151+480补充公积金+144.91扣税)-762.1(房租水电)(+2302公积金) = 9003.09(+2302)
+| 个人住房公积金 | 个人补充公积金 | 公司缴纳金额 | 月缴纳金额合计 |
+| ------- | ------- | ------- | ------- |
+| 1151 | 480 | 671 | 2302 |
+
+| 五险 | 个人缴纳金额 | 公司缴纳金额 | 总计 |
+| ------- | ------- | ------- | ------- |
+| 养老保险 | 767.2 | 1438.5 | 2205.7 |
+| 医疗保险 | 115.2 | 281.3 | 393.82 |
+| 失业保险 | 19.18 | 76.72 | 95.9 |
+| 工伤保险 | 0 | 38.36 | 38.36 |
+| 生育保险 | 0 | 0 | 0 |
+| 总计    | 898.9 | 1834.88 | 2733.78 | -->
+
+
+<h2 id="9-26-需求三："><a href="#9-26-需求三：" class="headerlink" title="9.26 需求三："></a>9.26 需求三：</h2><p><em>Azure公有云主机回收&#x2F;开&#x2F;关机&#x2F;重启</em> : 调研AzureApi和测试方法，开发，，<br>9.23回收上sit，9.24开关机重启代码重构(原华为云方法过于不通用)，9.25bug毁了我的足球梦，9.26配置ngix上uat，验收<br>思考：自测可以 1.全流程验证 2.单独功能验证 3.考虑开发与测试环境的区别（ping的包装方法&#x2F;命令行执行在开发&#x2F;测试环境的区别）<br>后续：完善公有云开发（Azure回收配额，ip，失败邮件），后续由<em>运维平台MOPS</em> -&gt; 参与到数据库开发</p>
+<h2 id="10-12-需求四："><a href="#10-12-需求四：" class="headerlink" title="10.12 需求四："></a>10.12 需求四：</h2><p>任务触发式失败邮件完成，改造为工单定时任务扫描式，10.17上线<br>邮件通用性？？工单+定时任务层面的通用，，</p>
+<h2 id="10-14"><a href="#10-14" class="headerlink" title="10.14"></a>10.14</h2><p><strong>数据管控平台DataMars:</strong> 云管cmcloud开发功能，先提供内部服务，后到SAAS，，<br>InfluxDB备份恢复 1 调研 2 手工实现 3 详细文档<br>2-3月时间，不要求11月上线，整体设计，转正答辩<br>api，数据库内核，容器，k8s<br>容器，登录主机，查看docker实例，操作数据库实例</p>
+<h2 id="10-22-K8S-验证InfluxDB-Cluster-实例导入导出"><a href="#10-22-K8S-验证InfluxDB-Cluster-实例导入导出" class="headerlink" title="10.22 K8S 验证InfluxDB Cluster 实例导入导出"></a>10.22 K8S 验证InfluxDB Cluster 实例导入导出</h2><ol>
+<li>FinalShell客户端：主要用于服务器管理和运维。支持 SSH、SFTP 等多种协议，方便用户通过图形界面进行远程连接和操作。</li>
+<li>跳板机&#x2F;堡垒机： SSH连接，登录堡垒机opsec.midea.com，mip账密 + OTP验证</li>
+<li>资产列表中选择指定环境下的主机，InfluxDB多节点部署在对应环境的几台主机上</li>
+<li>切换用户：rouser，apps，root<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo su - apps</span><br></pre></td></tr></table></figure></li>
+<li>K8S入门 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32618563">https://zhuanlan.zhihu.com/p/32618563</a><ul>
+<li>Namespace(命名空间,是一个逻辑隔离的环境,用于资源分组和隔离) -&gt; InfluxDB集群(可以有多个)，Pod(Kubernetes的基本计算单元) -&gt; InfluxDB集群节点(逻辑上)，容器 -&gt; InfluxDB单例(物理上) </li>
+<li>Namespace：作为最顶层的资源，实现了资源的逻辑隔离。</li>
+<li>StatefulSet：对于有状态的服务如数据库，K8s 推荐使用 StatefulSet 进行管理，确保每个 Pod 都有一个持久的唯一标识并提供稳定的网络标识和存储。 InfluxDB 集群中，StatefulSet 用于管理数据节点和元节点。</li>
+<li>Pod 是最基本的部署单元，它是可以被创建和管理的最小部署对象。当创建一个 InfluxDB 集群实例时，StatefulSet 会用来管理 Pod 的生命周期(而不是直接创建Pod)。</li>
+<li>InfluxDB 集群部署：对于一个 Namespace下的几个  Pod，这些节点会通过 StatefulSet或者 Deployment来进行管理和部署。在实际操作中，创建 InfluxDB 集群实例的 Helm Chart 或者 Operator 通常会自动化这些资源的创建过程。</li>
+<li>通信调度：K8s 中，Pod 之间的通信通常通过 Service 来进行。Service 会为一组 Pod 提供一个稳定的 IP 地址和 DNS 名称。对于 InfluxDB 集群，可能会有一个或多个 Service 来管理数据节点和元数据节点之间的通信。</li>
+</ul>
+</li>
+<li>连接拉起DB实例的主机，查看 <code>influxdb</code> 命名空间下的所有 Stateful、Pod 的状态和节点信息<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get sts -n influxdb</span><br><span class="line">kubectl get pod -n influxdb -o wide</span><br></pre></td></tr></table></figure>
+可以看到，<strong>在 Kubernetes上创建了 InfluxDB集群实例，它们共用一个 Namespace：influxdb</strong>，使用 StatefulSet 来创建和管理 Pod。这些 Pod 负责运行 InfluxDB 服务，并由 StatefulSet 确保它们的高可用性和数据持久化。<br>对于每个集群实例，<strong>有 2个 sts为 meta和 data，分别有2和3个复制，即2个元节点和3个数据节点 Pod，部署在3台服务器上</strong>。pod内部共用数据卷，pod之间数据不互通，部署在同一主机上的pod之间可以通过本地机器为中介复制文件。</li>
+<li>查看 <code>influxdb</code> 命名空间下的 service 信息。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n influxdb</span><br></pre></td></tr></table></figure>
+有 2 个Service，用来定义一组Pod的访问策略的抽象。它提供了一种方式，使得外部客户端可以通过一个固定的IP地址和端口访问这些Pod，而不需要关心Pod的实际IP地址和端口。Service会通过选择器（selector）将这些端口映射到后端的Pod上。</li>
+<li><code>kubectl exec</code> 进入指定的 Pod(默认进入其中的第一个容器)，并启动一个 bash shell；可以看到当前 InfluxDB 版本是v1.8.10-c1.1.2<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apps@(datamars)mhpl74337-10.20.248.65 ~$ kubectl <span class="built_in">exec</span> -it influxdb-e2cb6c913a191e56c134e-data-0 -n influxdb -- bash</span><br><span class="line">root@influxdb-e2cb6c913a191e56c134e-data-0:/<span class="comment"># influxd version</span></span><br><span class="line">InfluxDB v1.8.10-c1.1.2 (git: master 529251fda5d776cf47bb0c247cf81075f2980fed, build: go1.16.15 linux/amd64)</span><br></pre></td></tr></table></figure>
+在使用InfluxDB进行备份和恢复操作时，通常需要在data节点上执行相关命令（meta节点上都没有influx指令）</li>
+<li>进入influx命令行界面，验证身份信息；事实上，进入到influxdb实例中，便无需考虑部署节点&#x2F;主机的差异了，直接操作数据库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e2cb6c913a191e56c134e-data-0:/<span class="comment"># influx</span></span><br><span class="line">Connected to http://localhost:8086 version 1.8.10-c1.1.2</span><br><span class="line">InfluxDB shell version: 1.8.10-c1.1.2</span><br><span class="line">&gt; auth</span><br><span class="line">username: </span><br><span class="line">password: </span><br></pre></td></tr></table></figure></li>
+<li>数据库导出：容器层面命令，指定 数据文件和 写前日志(WAL)文件的存储目录，将指定数据库中指定时间的数据导出到指定文件。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e2cb6c913a191e56c134e-data-0:/<span class="comment"># influx_inspect export -datadir &quot;/var/lib/influxdb/data&quot; -waldir &quot;/var/lib/influxdb/wal&quot; -out &quot;influxdb_test01_dump_out&quot; -database &quot;test01&quot; -start &quot;2024-10-22T00:00:00Z&quot;</span></span><br></pre></td></tr></table></figure>
+数据文件复制：1、从pod1复制到本地机器 2、从本地机器复制到部署在同一服务器上的pod2（NODE: mhpl74344）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl <span class="built_in">cp</span> influxdb/influxdb-e2cb6c913a191e56c134e-data-1:/influxdb_test01_dump_out data/influxdb_test01_dump_out</span><br><span class="line">sudo kubectl <span class="built_in">cp</span> data/influxdb_test01_dump_out influxdb/influxdb-e73f149ff7192bd87d190-data-1:/influxdb_test01_dump_out </span><br></pre></td></tr></table></figure>
+获取密码：查看对应实例的admin账密，解密data<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secrets -n influxdb <span class="comment"># 看命名空间</span></span><br><span class="line">kubectl get secrets -n influxdb influxdb-e73f149ff7192bd87d190-influxdb -o yaml <span class="comment"># 看选定实例</span></span><br></pre></td></tr></table></figure>
+数据库导入：容器层面执行命令，使用admin账号，指定文件、数据库、时间戳精度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@influxdb-e73f149ff7192bd87d190-data-1:/<span class="comment"># influx -import -path=&#x27;influxdb_test01_dump_out&#x27; -precision=ns -username=&#x27;admin&#x27; -password=&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+实例导出：不加 <code>-database</code>，把influxdb集群实例中所有数据库的数据导出，加 <code>-compress</code> 导出压缩文件<br>实例导入：加<code>-compressed</code> 导入压缩文件，本质上是先解压后倒入</li>
+</ol>
+<h2 id="11-4-Pod-添加-agent-Container"><a href="#11-4-Pod-添加-agent-Container" class="headerlink" title="11.4 Pod 添加 agent Container"></a>11.4 Pod 添加 agent Container</h2><ol>
+<li>从已有的MongoDB实例中的statefulset配置文件中，找到datamars-agent容器修改配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导出配置文件</span></span><br><span class="line">kubectl get sts influxdb-xxxx-xxx -n influxdb -o yaml &gt; influxdb-sts.yaml</span><br><span class="line"><span class="comment"># 文件下载本地</span></span><br><span class="line">sz influxdb-sts.yaml </span><br></pre></td></tr></table></figure></li>
+<li>本地编辑器打开（for convenience）<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span>     </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">command:</span>  <span class="comment"># 找到datamars-agent容器</span></span><br><span class="line">        <span class="comment"># 配置</span></span><br><span class="line">        <span class="attr">image:</span> </span><br><span class="line">        <span class="attr">name:</span> </span><br><span class="line">        <span class="attr">volumeMounts:</span>  <span class="comment"># volumeMounts 是在容器层面配置的，定义了容器内的挂载点</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/etc/localtime</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">host-local-time</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/etc/mongodb-config</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">config</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/log</span>  <span class="comment"># /log 挂载了名为 log 的卷。</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">log</span></span><br><span class="line">      <span class="attr">volumes:</span>  <span class="comment"># volumes 是在 Pod 层面配置的，定义了 Pod 中可以使用的卷</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">defaultMode:</span> <span class="number">420</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">influxdb-e73f149ff7192bd87d190-data</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">config</span>  <span class="comment"># config 卷是一个 configMap，实际路径在物理机上并不固定，由 Kubernetes 动态管理</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">hostPath:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">/etc/localtime</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">File</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">host-local-time</span>  <span class="comment"># host-local-time 卷是一个 hostPath，路径为 /etc/localtime，类型为 File</span></span><br><span class="line">  <span class="attr">volumeClaimTemplates:</span>  <span class="comment"># volumeClaimTemplates 是在 StatefulSet 层面配置的，定义了持久化存储卷的声明</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">annotations:</span></span><br><span class="line">        <span class="attr">ext.datamars.org/blkio.throttle.read_iops_device:</span> <span class="string">&quot;8000&quot;</span></span><br><span class="line">        <span class="attr">ext.datamars.org/blkio.throttle.write_iops_device:</span> <span class="string">&quot;8000&quot;</span></span><br><span class="line">      <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">log</span>  <span class="comment"># log 卷声明了一个 PersistentVolumeClaim，请求 50Gi 的存储，实际路径在物理机上由存储类 datamars-default-lvm 管理，具体路径取决于存储类的实现</span></span><br><span class="line">      <span class="attr">namespace:</span> <span class="string">mongodb</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">accessModes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">requests:</span></span><br><span class="line">          <span class="attr">storage:</span> <span class="string">50Gi</span></span><br><span class="line">      <span class="attr">storageClassName:</span> <span class="string">datamars-default-lvm</span></span><br><span class="line">      <span class="attr">volumeMode:</span> <span class="string">Filesystem</span></span><br><span class="line">    <span class="attr">status:</span></span><br><span class="line">      <span class="attr">phase:</span> <span class="string">Pending</span></span><br></pre></td></tr></table></figure>
+查看pv（集群层面的存储），pvc（pv的使用规则）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pv -n influxdb</span><br><span class="line">kubectl get pvc -n influxdb</span><br></pre></td></tr></table></figure></li>
+<li>添加到influxdb-data Statefulset的配置中，手动更新sts配置（导出influxdb-sts.yaml，sz到本地，修改后rz传到服务器）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f influxdb-sts.yaml</span><br></pre></td></tr></table></figure>
+或者，直接修改influxdb-data Statefulset的配置中，:wq 保存，成功后自动更新到Pod<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit sts -n influxdb influxdb-e73fxxbd87d190-data</span><br><span class="line">kubectl describe sts -n influxdb influxdb-e73fxxbd87d190-data <span class="comment"># 最下面可以看到事件信息</span></span><br><span class="line">kubectl logs influxdb-e73fxx190-data-0 -n influxdb -c datamars-agent <span class="comment"># 或者看日志</span></span><br></pre></td></tr></table></figure>
+注意以上操作只是手动修改当前Pod，要想新建Pod中的配置更新，需要通过helm chart配置__</li>
+</ol>
+<h2 id="11-11-InfluxDB服务化-：实例备份-调研-开发"><a href="#11-11-InfluxDB服务化-：实例备份-调研-开发" class="headerlink" title="11.11 InfluxDB服务化 ：实例备份(调研&amp;开发)"></a>11.11 <em>InfluxDB服务化</em> ：实例备份(调研&amp;开发)</h2><p>10.14-10.18：看文档，建立InfluxDB集群概念(前期已经也在看了..)，建立整体框架概念（apiserver–bakserver–agent）<br>10.21-10.25：本地容器搭建influxdb集群×，连接服务器测试实例验证功能，了解K8S概念，手动验证实例(库级)导入导出即逻辑备份<br>10.28-11.01：对其需求(能做但没用户??)，完成技术文档框架，开始将功能接入datamars-bakserver，了解golang开发<br>11.04-11.08：搭建go开发和agent项目环境，，无法理解go项目结构，尝试从bakserver侧理解task下发-接收-执行全流程<br>11.11：理解所有业务代码(after2weeks)发现task下发无需改动，只需适配influxdb(修改配置类和表)，接着打包至sit环境打印log调试<br>11.12-11.15：研究pod添加container(改sts后delete pod重建)，go项目构建(windows尝试配齐开发工具但有些包依赖linux环境)》。<br>11.18-11.27：本机wsl的ubuntu成功构建起datamars-agent，边抄边做，不用理解其框架?.. 及时请教专家<br>11.28-12.03：kun手改agent代码：）打包image push到dockerhub，宿主机拉取镜像后本地grpcurl调试 pod ip:port 验证功能<br>12.04-12.09：bakserver打日志流水线部署到uat(集群实例所在环境)，通过apiserver-bakserver-agent中的日志验证全流程功能<br>12.10：验证通过<br>技术文档先行，将需求拆分成一步步，重要的是要有<strong>产出</strong>，，能汇报<strong>进度</strong>。。buffer。。好心态😇不怕叼<br>关注重要的事情（功能接入已有框架&#x2F;理解业务逻辑×，功能验证和对齐需求√，开发卡点及时请教）<br>1&#x2F;2时间幻想(串联已知信息且验证,对齐上下游并重复验证,本质是开发环境,业务不熟悉)，1&#x2F;4等回复(线上下请教+准备)，1&#x2F;4开发(快乐短暂)<br>与人沟通是重要的能力。。拉群问。。软件开发还是很残酷的。。</p>
+<p>2025.04：重新考虑… 1 influx_inspect export只是把该pod指定数据库(或所有库)的指定时间段的分片数据(tsm&amp;wal)导出line protocol文件，各Data-Pod数据不一致时不能代表整个实例；2 influx -import本质是将数据重新写入，前提要先恢复好shard元数据，，</p>
+<h2 id="12-12-年终述职"><a href="#12-12-年终述职" class="headerlink" title="12.12 年终述职"></a>12.12 年终述职</h2><ul>
+<li>大家好，那我现在开始~<br>七月份入职后，我先是接触了MOPS自动化运维的开发任务:）<!-- 1 第一个需求是“华为云主机开/关机/重启自动化”，主要进行了华为云api的验证并接入代码；基本上每天就是面对zhib开发，通过这个需求，我建立了对开发环境和流程的认识，学会了将需求拆分开来开发和逐步验证
+2 然后是“Azure公有云主机申请自动化”，我在看不懂的文档和听不懂的会议中陷入了迷失，才理解到其实我的工作就是配齐参数构造报文发送至作业平台，经过前端、运维的协作，主要是不停地对齐需求对参数，最终在发版前一小时极限提交变更，上线，五人
+3 对于“Azure公有云主机回收/开/关机/重启”，开发起来比较轻车熟路了，区别于华为云api会返回job状态，azure需要设计新的验证方式如开机成功是ping通，重启是先ping不通后ping通，为了适配原业务逻辑也进行了很多思考，当然代码是zhib重构的
+4 “公有云主机邮件发送”，指的是进行了主机“开/关机/申请/回收”操作后，发送邮件提醒执行状态，对此我前后憋出四五版方案，之所以复杂是做触发式方案“触发时”需要考虑因素较多且互相影响，最后做的定时任务扫描工单表，简化了发送条件并且更好理解
+国庆后，我开始了influxdb的备份与恢复的开发:<
+我先是进行了influxdb本身功能的简单验证，尝试去理解这个跨多系统的工作流程以及每个系统里的业务逻辑，非常艰难地搭起开发环境，开发的同时补上了k8s、linux等能力，目前备份部分已经验证通过；
+这个过程中，我深刻的理解到要把时间要花在关键的事情上，比如做好调研和理清需求是重要的，全面对齐上下游验证自己的猜想是耗时痛苦的，而写代码本身应该是快乐而短暂的:> 
+特别要感谢zhup老师对我的赋能，他提供了从技术文档编写、需求本身分析和开发技能补齐的全套帮助 --></li>
+<li>总的来说，这五个月以来，我作为团队和开发领域的新人，得到了循序渐进的挑战和成长。了解到如何作为团队中的一个成员进行开发，能够理清一些比较复杂的业务逻辑，能够尝试进行调研和方案设计 ~<br>相比于<strong>赋能团队</strong>，我觉得更多的是还我自身需要补齐能力；也许目前开发效率低，本质是对业务的不熟悉和开发技能的缺失，但是除了我觉得提升开发能力，还应该具备产品思考的能力，<strong>服务客户</strong>。我的汇报就到这里。<!-- <img src="https://leo710aka.github.io/bk/md.jpg" width="450" height="300" alt=""> --></li>
+</ul>
+<h2 id="12-27-成长对话"><a href="#12-27-成长对话" class="headerlink" title="12.27 成长对话"></a>12.27 成长对话</h2><ol>
+<li>本年度关键战役及成果产出<br><strong>MOPS开发任务</strong>：<br>1 华为云主机开&#x2F;关机&#x2F;重启自动化：进行了华为云api的验证并接入代码，对开发环境和流程有了基本认识，学会将需求拆分进行开发和逐步验证。<br>2 Azure公有云主机申请自动化：开发初期遇到文档和会议理解上的困难，沟通后明确需要配置参数构造Azure主机申请报文，发送至作业平台完成自动化主机创建和标准化，经过与前端、运维同事协同开发上线，申请数达20+。<br>3 Azure公有云主机回收&#x2F;开&#x2F;关机&#x2F;重启自动化：区别于华为云api会返回job状态，为Azure任务设计了新的验证方式，如开机成功是能够ping通主机，重启是先ping不通后ping通，并为适配原业务逻辑进行了代码重构。<br>4 公有云主机邮件发送：为公有云消息通知功能设计了多版方案，最终采用定时任务扫描工单表的方式，以工单执行状态和执行时间作为邮件发送条件，简化了发送条件且便于理解和维护，发送邮件数达40＋。<br><strong>DBEngine开发任务</strong>：<br>1 InfluxDB备份与恢复：先进行了InfluxDB Cluster实例导入导出功能的验证，确定了先导出物理备份文件后上传OSS的技术方案，功能分别接入 apiserver，bakserver，agent 各系统，在配置开发环境及开发验证的过程中补齐了K8s、Linux等能力；目前备份功能进入联调阶段，同步开发备份集恢复功能。</li>
+<li>面对未来1-2年的职业规划<br>作为团队和开发新人，在这个阶段希望能锻炼自己的专业能力，补齐开发所需地各项能力，积累实战经验，能够快速开发需求和输出文档；而从需求开发和解决问题的经验中抽象出能力，无非就是在沟通时抓住重点，开发时做到极致，这也许就是院长所说的“复杂的事情简单化，简单的事情复杂化”；<br>除了专业能力的提升，还应该具备产品侧思考的能力，对一个系统有深入的认知，能够独当一面，做到专精一个领域。</li>
+<li>希望提升的1-3项核心能力项，计划如何提升<br>1 快速学习的能力。通过自主学习&#x2F;经验复用，辨别需求开发中问题的关键，快速掌握解决问题所需能力，不企图全面构建知识体系<br>2 时间管理的能力。目前，需求开发中实际用于写代码的时间很少，大部分的时间用于串联和验证已知或猜测的信息，对齐上下游，这也许是因为对开发环境、业务的不熟悉和开发技能的缺失。另外，由于当前需求开发很依赖他人的讲解，做到高效提问，不耽误他人时间也是很重要的。以及要学会在开发中预留buffer，在实际开发中提高效率。<br>3 精确表达的能力。描述调研方案或解释曾做过的功能时，往往没法在当时呈现所有的思考结果。在对齐需求和协同开发中，有时会抓不住重点，重复提问，效率不高。需要向同事请教如何提升这项能力。</li>
+<li>上级总结<br>24年成果：<br>1）mops完成2个公有云的主机开&#x2F;关机&#x2F;重启自动化的能力研发<br>2）完成数据库influxdb的备份和恢复任务开发<br>做的好的：<br>1）作为应届生有一定的主动性，对于不懂的积极学习<br>2）能够在同学指导下完成工作<br>待改进：<br>1）技术能力需要加强和提升，需要快速学习新技能<br>明确员工亟待提升的核心能力，并为其制定成长计划：需要提升代码开发基本技能，加强基础学习</li>
+<li>more thinking<br>无法独立开发，效率低，代码量少；问人很正常，在群里问，卡点，同步领导；值班，锻炼解决问题的能力；长期发展，先补齐技能，有好奇心，，提高工作日效率，边工作边学习成长，，<strong>用心，真诚</strong> ：_<br>阶段目标、、开发效率，高级开发，项目管理<br>2024：校招，旅行，吉他<br>2025：职场，矫正，足球<br>【程序员如何快速成长，这几点值得重点参考，我只教一遍！】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bK4y1B7rj">https://www.bilibili.com/video/BV1bK4y1B7rj</a><br>【【社区分享】程序员宝藏推荐！提升天花板！覆盖学生到架构师！】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ta411s7ij/">https://www.bilibili.com/video/BV1Ta411s7ij/</a><br>【建议收藏，高级开发如何提升产品能力！我常用的5个网站！】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1y2C3YpEaL/">https://www.bilibili.com/video/BV1y2C3YpEaL/</a></li>
+</ol>
+<h2 id="2025-01-16-试用期转正答辩汇报"><a href="#2025-01-16-试用期转正答辩汇报" class="headerlink" title="2025.01.16 试用期转正答辩汇报"></a>2025.01.16 试用期转正答辩汇报</h2><ul>
+<li><strong>尊敬的领导、各位同事：</strong></li>
+<li>大家好！我是蔡枫，今天非常荣幸能在这里与大家分享我在试用期的工作成果和心得。【翻页】我将从试用期工作内容、工作改进点、下季度工作计划以及问题与建议，四个方面进行汇报。【翻页】</li>
+<li><strong>试用期工作内容</strong><br>这段时间，我主要参与到两个项目中：分别是MOPS公有云自动化和InfluxDB服务化。<br>我首先接触到Mops华为云和Azure两个云厂商公有云主机的 “开&#x2F;关机&#x2F;重启&#x2F;申请&#x2F;回收自动化” 的需求，在业务熟悉的同时，进行了云主机运维功能的完善。以及，我参与到influxdb服务化开发，目前实例备份与恢复功能已开发完成，并将逐步支持其他功能。【翻】</li>
+<li>；）<!-- 1 华为云主机开/关机/重启自动化：七月份入职后，第一个需求做的是 “华为云主机开/关机/重启自动化”，我在同事的指导下开展了工作，先是进行了华为云主机相关api的验证，在理解了现有 “云管-MOPS_backend-云厂商API” 流程后接入代码业务逻辑，并学习了技术文档的撰写。这个过程中，我对开发环境和流程有了基本认识，学会将需求拆分进行开发和逐步验证。
+2 Azure公有云主机申请自动化：然后是 “Azure公有云主机申请自动化”，开发初期遇到文档和会议理解上的困难，跟不上进度，沟通后明确需要配置参数构造Azure主机申请报文，发送至作业平台完成自动化主机创建和标准化，这个过程中接触到与运维同事的协同开发，与前端同事的联调验证，azure主机申请数达30+。
+3 Azure公有云主机回收/开/关机/重启自动化：区别于华为云api会返回任务执行状态，为 “Azure主机开/关机/重启/回收自动化” 任务设计了新的验证方式，如开机成功是能够ping通主机，重启是先ping不通后ping通，并为适配原业务逻辑进行了代码重构。【翻】
+4 公有云主机邮件发送：随着对公有云主机业务的逐渐熟悉，发现存在着问题是公有云主机在执行自动化任务后，无法自动通知用户或运维人员进行后续处理。为了解决这一问题，我为公有云消息通知功能设计了多版方案。触发式方案指是在获得任务状态的同时判断工单执行状况，成功需要通知用户，失败则通知运维人员进行检查；但存在着触发条件复杂，且互相影响的问题？？。。定时任务方案则是直接以工单状态为判断条件，简化了发送条件且便于理解和维护。发送邮件数达60＋。【翻】
+5 InfluxDB备份与恢复：十月份后，我参与到influxdb数据库的服务化开发。面对influxdb备份恢复能力欠缺，无法保障高可用的问题背景，我首先在测试环境实例上验证了开源InfluxDB Cluster的读写/备份/恢复功能，设计了技术方案。具体来说，InfluxDB Cluster实例支持导入导出功能，选择一个数据节点导出备份文件，再将其上传至OSS，实现实例备份；而实例恢复功能需要在创建的新实例中，从OSS下载并导入所选备份集的数据，并恢复相关元数据。在开发实例备份功能时，我花费大量时间在agent代理、bakserver中控服务代码业务逻辑的理解上，以及k8s运维工作的熟悉中，了解了工作流和Helm Chart的配置和使用，进行了分步验证和联调测试。有了前期调研经验和开发技能的熟悉后，后续我快速开发了备份集恢复功能：将工作拆分为restore工作流开发、agent开发和bakserver接入三部分。首先，参考create工作流，我完善了restore工作流，即在创建新实例的同时从备份集恢复数据；然后在agent框架式代码中实现了备份集导入实例逻辑；而对于bakserver我在有经验后明白通用业务逻辑中的接入往往变动不大，开发速度也比一开始快乐很多。这段时间里，我主动和团队成员对齐进度，主动讨论需求实现中的问题，给出自己的方案见解，最后的功能上线环节对我来说，也是不小的挑战，更加深入的理解了开发工作。。这个过程中，我深刻的理解到要把时间要花在关键的事情上，比如做好调研和理清需求是重要的，全面对齐上下游验证自己的猜想是耗时痛苦的。我由此对整个服务化工作有了进一步了解，为后续开发工作打好基础。【翻】 --></li>
+<li><strong>试用期工作改进点</strong><br>在试用期间，我意识到需要首先要提高代码能力。在需求开发的过程中，我逐渐熟悉开发环境和流程，初步掌握验证和联调方法。作为团队和开发新人，在这个阶段希望能锻炼自己的专业能力，积累实战经验，能够快速开发需求和输出文档；<br>同时，我补充了运维相关的能力，学习并通过实践掌握了K8s，Linux相关知识和基本操作，为后续工作打下坚实基础。<br>以及在做需求，协同开发的过程中，我增强了沟通理解的能力，学会从需求开发和解决问题的经验中抽象出能力，要能在沟通时抓住重点，开发时做到极致。【翻】</li>
+<li><strong>下季度工作计划</strong><br>接下来，我计划完善和支持InfluxDB实例集恢复、扩容、重搭等功能，以进一步提升系统的高可用性。<br>总的来说，通过Kubernetes集群和Helm Chart等实现了对InfluxDB集群的高效管理。用户可以通过DataMars控制台方便地进行实例的备份恢复和配置变更，同时支持扩容重搭以应对业务需求的变化。工作流引擎负责处理用户请求并调用相应的Helm Chart模板、通用或专有的apiserver接口等，确保操作的自动化和一致性。相信有了前期开发经验，我能够更快的进行后续的开发产出。【翻】</li>
+<li><strong>问题及建议</strong><br>最后，希望提出一些建议。首先，在新人指引方面，我认为前期培训缺少技术方面的指引，可能导致新员工在后续开发中理解比较费劲，上手难度大。建议组织开展包括开发流程、开发环境搭建、代码规范等内容的培训，确保新员工能够快速融入。其次，关于文档落实，我发现一些技术文档内容不够详尽，导致无法自行定位问题，需要频繁联系文档编写者。对此首先我应该提高自己的文档撰写水平，确保能够让人快速理解整体流程，找到问题所在，并及时更新文档内容。</li>
+<li><strong>总结</strong>(的)来说，在各位同事的帮助下，我在试用期间得到了快速成长，收获颇丰。【翻页】以上就是我的汇报内容。感谢各位领导和同事的聆听和支持。我相信，在大家的共同努力下，我们的工作会取得更大的进步。谢谢大家！</li>
+</ul>
+<h2 id="1-16-InfluxDB服务化-：备份集恢复"><a href="#1-16-InfluxDB服务化-：备份集恢复" class="headerlink" title="1.16 InfluxDB服务化 ：备份集恢复"></a>1.16 <em>InfluxDB服务化</em> ：备份集恢复</h2><p>1.02：不上心<br>1.14：开发uat自测(sit没测)完成，开发分支合dev提测，最后合main上线<br>1.16：SD&#x2F;GA测试发版失败，恢复工作流需要人工介入验证，存在问题 1地址没有<strong>动态配置！！</strong> 2漏配接口&#x2F;审批流变更<br>1.21：发布修复版本，生产延后</p>
+<h2 id="2-7-复工"><a href="#2-7-复工" class="headerlink" title="2.7 复工"></a>2.7 <em><strong>复工</strong></em></h2><p>当前阶段的关键，，交付能力，，工程能力是练出来的<br>熬夜是没有对明天的期待、、-》培养兴趣转移注意力、，books<br>程序员。技术。不要只看自己的一亩三分地。。开源项目<br>工作以外；：给自己创造需求，根据需求解决问题，在解决问题上配合看书，，从而在某一细分领域有知识图谱，有一技之长，用系统性的看书代替cdsn查找零散的解决方案<br>“下班的时间放在哪哪里就有提升”<br>副业？；web3；licai</p>
+<p>dataMars服务架构理解</p>
+<ol>
+<li>apiserver：1 datamars管控接口 2 mcloud回调接口 3 properties获取apiserver服务自身暴露的域名端口+controller接口拼接url</li>
+<li>apiserver-{engine}：引擎专有服务，工作流(其实是workflowclient处理)中调用不同服务暴露的接口(common,,influxdb,,apiserver)</li>
+<li>bakserver&#x2F;metaservice&#x2F;xx-agent：其他服务，由rpc&#x2F;grpc暴露服务</li>
+<li>调用架构：api、v1、v2<!-- <img src="https://www.helloimg.com/i/2025/03/01/67c1e151bda80.jpg" width="450" height="300" alt=""> --></li>
+<li>服务架构：通过Kubernetes集群和Helm Chart等实现了对InfluxDB集群的高效管理。用户可以通过DataMars控制台方便地进行实例的备份恢复和配置变更，同时支持扩容重搭以应对业务需求的变化。工作流引擎负责处理用户请求并调用相应的Helm Chart模板、通用或专有的apiserver&#x2F;k8srepository接口等，确保操作的自动化和一致性。<!-- <img src="https://www.helloimg.com/i/2025/03/01/67c1e14b13f0e.jpg" width="450" height="300" alt=""> --></li>
+</ol>
+<p>todo 手画图</p>
+<h2 id="2-18-InfluxDB服务化-：本地变配"><a href="#2-18-InfluxDB服务化-：本地变配" class="headerlink" title="2.18 InfluxDB服务化 ：本地变配"></a>2.18 <em>InfluxDB服务化</em> ：本地变配</h2><p>2.6-2.16：现有InfluxDB集群实例（只考虑data节点）的CPU、内存和存储资源已无法满足需求，需对资源配置进行扩展，以提升性能和稳定性。通过修改StatefulSet中cpu、memory配置并删除Pod触发StatefulSet控制器重建data节点Pod以应用新配置，通过修改data节点Pod对应的pvc中storage配置以触发pv的存储扩容（只能增加），实现资源变配（本地变配）<br>2.17：前端对齐开发，准备进入sit联调<br>2.18：插入需求“meta节点自定义创建”<br>2.28：整合已知信息已读代码-&gt;无法理解多节点类型实例如何发起变配，应该果断求助<br>3.3-3.10：改造influxdb集群为父子实例模式，改配置，传参调试，适配已有功能，考虑存量实例的影响<br>3.11-3.13：data变配基础上开发meta变配，云管订单遇到配额不匹配问题，上线延期下周<br>3.14：跨团队求助无果，请求协助，，新需求着手开发<br>3.17：搁置，开发新需求<br>3.18：实操tidb复现该“问题”，考虑转向与云管沟通。。<br>3.27：发版 &#x3D;》InfluxDB父子实例改造&#x2F;本地变配&#x2F;节点&#x2F;实例重启</p>
+<h2 id="2-22-正畸-启动"><a href="#2-22-正畸-启动" class="headerlink" title="2.22 正畸, 启动"></a>2.22 <em><strong>正畸, 启动</strong></em></h2><p>读书时无所事事的日子，今天拔完牙和妈妈一起冰敷等待的日子，还有多少<br>刚开始普遍很难，易的是背八股，难的是落实和推进<br>如何跳出这个困境？如何跳出程序员行业？30岁，35岁<br>熬夜是因为没有对明天的渴望。但是在晚上的当下，有很多事情想做😿<br>喜欢一个人独处，是因为不想自己长期以来形成的情绪稳定被打破。害怕形成亲密关系，有时无法融入团体😿</p>
+<h2 id="2-27-InfluxDB服务化-：实例创建自定义Meta节点规格"><a href="#2-27-InfluxDB服务化-：实例创建自定义Meta节点规格" class="headerlink" title="2.27 InfluxDB服务化 ：实例创建自定义Meta节点规格"></a>2.27 <em>InfluxDB服务化</em> ：实例创建自定义Meta节点规格</h2><p>2.18：本需求作为其他需求开发的前置条件<br>2.19：apisever打log上uat调试创建流程，从已部署分支git branch新分支以免影响正在使用者<br>2.21：提sql变更 1 dataspace提工单 2 直接进入各环境metadb(其本身为容器部署的mariadb服务) 3 某些配置项可通过datamars控制台修改<br>2.25：云管运营端商品信息变更，考虑是否影响<strong>存量实例</strong>；；1 云管释放旧实例将计价报错-&gt;调datamars管控接口释放&#x2F;发版前释放旧实例 2 可以发起工单但无法下单-&gt;手动修改配额发起工单后过云管审批<br>2.27：发版流程、、代码合master，流水线打包使用（<strong>发版版本</strong>）部署，<strong>sql变更</strong>（定时，增加条件避免误订正），<strong>云运营变更</strong>（改一次console-cloud即各环境共用）<br>Steven👨‍🦲：裁员，残酷，危机感，，工作就是生活的很大一部分</p>
+<ol>
+<li>meta规格，配置到instance_spec，engine &#x3D; “InfluxDBMeta”</li>
+<li>apiserver实例创建逻辑<br>meta信息通过request.getExtraJson()传入，ClusterInstanceService#initClusterInstanceExtend保存在cluster_instance_extend；initClusterInstanceParams能适配保存meta节点的param吗（iops，连接数，influxdb不考虑？）<br>不考虑在cluster_instance要新增字段体现meta规格信息</li>
+<li>apiserver-influxdb工作流完成实例创建，pv，sts，helm，install，node，instance<br>获取meta规格信息，构造临时value文件，生成用于安装InfluxDB集群的Helm命令并执行</li>
+<li>以上只是在k8s环境中实现了自定义meta规格创建，事实上应该参考tidb，将influxdb集群改造为父子实例模式，逻辑上把data&#x2F;meta节点区分开，进行变配&#x2F;更新meta信息..</li>
+<li><strong>more to concern?</strong> param创建，变更？extend父子实例数量不一致？实例创建流程，sts，副本，顺序。。</li>
+</ol>
+<h2 id="3-3-阶段目标-：入职半年"><a href="#3-3-阶段目标-：入职半年" class="headerlink" title="3.3 阶段目标 ：入职半年 .."></a>3.3 阶段目标 ：<em>入职半年 ..</em></h2><p>deepseek：数据库方向是一个值得长期投入的领域，尤其适合对系统底层感兴趣的程序员。你的现有经验（运维+K8s）可成为切入云数据库或分布式数据库的跳板。建议以<strong>​“运维需求驱动内核学习”​</strong>为短期目标，逐步掌握分布式一致性、存储引擎等核心技术，同时通过开源贡献和项目实践构建技术影响力。&#x3D;&gt; <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724">https://yuanbao.tencent.com/bot/app/share/chat/c6b48985efa0c1101e5c6ae18c867724</a><br>rong teng：在midea得到的成长是显著的；（身兼开发运维多职，具体求职情况如何？）数据库方向有些窄；（作为senior求职需要专精时显得窄？作为基础能力学习可行？）应届生可以提转方向，转团队；以招聘市场心仪岗位的需求作为努力发展的方向！？</p>
+<ul>
+<li>快速了解MySQL<br>1.MySQL45讲 <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>  特点中文、有音频、快速了解相关背景<br>2.高性能MySQL <a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">https://book.douban.com/subject/23008813/</a><br>3.MySQL技术内幕（InnoDB存储引擎）<a target="_blank" rel="noopener" href="https://book.douban.com/subject/24708143/">https://book.douban.com/subject/24708143/</a><br>4.官方MySQL Internals Manual： <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/internals/en/guided-tour.html">https://dev.mysql.com/doc/internals/en/guided-tour.html</a><br>5.阿里云mysql内核月报：<a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a><br>6.Polardb-X知乎专栏：<a target="_blank" rel="noopener" href="https://www.zhihu.com/org/polardb-x">https://www.zhihu.com/org/polardb-x</a></li>
+<li>数据库架构<br>1.Architecture of a Database System 网上有中文翻译： <a target="_blank" rel="noopener" href="http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf">http://dblab.xmu.edu.cn/sites/default/files/files/linziyu-Architecture%20of%20a%20Database%20System%28Chinese%20Version%29-ALL.pdf</a><br>2.红宝书：<a target="_blank" rel="noopener" href="http://www.redbook.io/">http://www.redbook.io/</a><br>3.数据库系统实现：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/4838430/">https://book.douban.com/subject/4838430/</a><br>4.Database Internals 有中文书籍：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35078474/">https://book.douban.com/subject/35078474/</a></li>
+<li>通过以上书籍可以了解整体架构，数据库整体可以分为共识算法、存储引擎、事务处理（单机、分布式事务）、数据分析（执行引擎、分析引擎）<br>共识算法：<br>1)Paxos协议(basic paxos、multi paxos等） 蚂蚁金服Oceanbase实现了Paxos<br>paxos-simple.pdf  <a target="_blank" rel="noopener" href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a><br>paxos made live.pdf <a target="_blank" rel="noopener" href="https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf">https://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf</a><br>2)Raft协议，本质上是Paxos的简化   开源版本ETCD使用的是raft共识算法、TiKV使用的复制算法最开始是改写的etcd的raft库<br>raft.pdf <a target="_blank" rel="noopener" href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf</a><br>存储引擎：<br>LSM Tree（LevelDB、RocksDB)<br>InnoDB引擎<br>单机事务（MySQL InnoDB事务可见性实现原理）<br>分布式事务<br>Percolator.pdf <a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf">https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Peng.pdf</a></li>
+<li>实战<br>1.从0到1数据库内核实战教程 <a target="_blank" rel="noopener" href="https://open.oceanbase.com/activities/4921877">https://open.oceanbase.com/activities/4921877</a><br>2.MariaDB原理与实现  <a target="_blank" rel="noopener" href="https://book.douban.com/subject/26340413/">https://book.douban.com/subject/26340413/</a><br>3.字节云数据库架构设计与实战 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942">https://ke.segmentfault.com/course/1650000041697934/section/1500000041697942</a><br>4.MySQL 原理与实践 <a target="_blank" rel="noopener" href="https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752">https://ke.segmentfault.com/course/1650000023669742/section/1500000023669752</a></li>
+<li>论文<br>Polardb计算存储分离论文<br>TiDB: a Raft-based HTAP database： TiDB 2020 VLDB上的文章，介绍TiDB的架构<br>Polardb-X分布式数据库论文<br>Spanner: Google’s Globally-Distributed Database: Google的tp数据库<a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf%E2%80%8Bwww.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf">https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf​www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf</a><br>F1: A Distributed SQL Database That Scales 大G的F1系列<a target="_blank" rel="noopener" href="http://www.vldb.org/pvldb/vol6/p1068-shute.pdf%E2%80%8Bwww.vldb.org/pvldb/vol6/p1068-shute.pdf">http://www.vldb.org/pvldb/vol6/p1068-shute.pdf​www.vldb.org/pvldb/vol6/p1068-shute.pdf</a><br>Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases; 亚马逊的Aurora</li>
+<li>快速了解kubernetes<ol>
+<li>深入剖析kubernetes(geek)：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></li>
+<li>kubernetes operator：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">https://kubernetes.io/docs/concepts/extend-kubernetes/operator/</a></li>
+<li>kubernetes 入门资料：kubernetes概述、kubernetes-operator机制、k8s scheduler framework</li>
+<li>容器网络插件：kube-ovn 、calico、Flannel、Weave、CNI</li>
+<li>社区开源经典容器管理项目：tidb-operator、flink-operator</li>
+<li>社区开源多k8s集群管理项目：kamada、clusternet</li>
+<li>kubernetes 集群管理平台：kubesphere</li>
+</ol>
+</li>
+<li>快速了解中间件、基础技术<ul>
+<li>Spring cloud技术<ol>
+<li>spring-cloud 中文文档：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-greenwich.html">https://www.springcloud.cc/spring-cloud-greenwich.html</a></li>
+<li>spring-cloud API网关（gateway）：<a target="_blank" rel="noopener" href="http://c.biancheng.net/springcloud/gateway.html">http://c.biancheng.net/springcloud/gateway.html</a></li>
+<li>spring-cloud 配置中心（Consul）：<a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-cloud-consul.html">https://www.springcloud.cc/spring-cloud-consul.html</a></li>
+<li>spring-cloud 统一配置、服务注册和发现（Nacos）：社区git、what is nacos</li>
+</ol>
+</li>
+<li>API网关<ol>
+<li>APISIX：社区git、快速指南、插件开发</li>
+<li>Kong：社区git、入门blog</li>
+<li>nginx-ingress：nginx官网 ingress手册</li>
+</ol>
+</li>
+<li>Spring <ol>
+<li>官方手册</li>
+<li>spring framework手册 <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api">https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-api</a></li>
+</ol>
+</li>
+<li>Springboot <a target="_blank" rel="noopener" href="https://www.springcloud.cc/spring-boot.html">https://www.springcloud.cc/spring-boot.html</a></li>
+<li>Reids 推荐书籍：《Redis入门指南 （第2版）》、《Redis设计与实现》</li>
+<li>Nginx <a target="_blank" rel="noopener" href="https://www.cnblogs.com/54chensongxia/p/12938929.html">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-13-AI编程助手：codetip"><a href="#3-13-AI编程助手：codetip" class="headerlink" title="3.13 AI编程助手：codetip"></a>3.13 AI编程助手：codetip</h2><p>代码可以看作是一种特殊的prompt，用于引导AI生成高质量的代码提示；开发者有目的地编写代码，实是为AI提供清晰的意图上下文。<br>代码补全 需要让AI理解意图；技巧 提供具体示例，遵循规范和语义化，规范注释；“内联对话”<br>代码对话 本地工程理解@workspace，RAG增强<br>最佳实践 </p>
+<p>todo 体验cursor</p>
+<h2 id="3-17-InfluxDB服务化-：实例-节点重启"><a href="#3-17-InfluxDB服务化-：实例-节点重启" class="headerlink" title="3.17 InfluxDB服务化 ：实例&#x2F;节点重启"></a>3.17 <em>InfluxDB服务化</em> ：实例&#x2F;节点重启</h2><p>3.17：简单需求，父子workflow + k8s资源控制器<br>3.18：接口配置：接口信息查看mariadb已有的相同接口，其他信息参考influxdb自身的其他接口；前端联调完成<br>3.19：提测，发版：发版分支一周内进行 1 代码扫描-安全扫描 2 安全-软件成分-Web漏洞-灰盒，解决漏洞；代码仓库设置发版分支，史诗中关联所涉及仓库，检索其发版分支的扫描报告，手动关联web漏洞测试报告，质量门禁达标以通过安全卡点</p>
+<h2 id="3-24-从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践"><a href="#3-24-从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践" class="headerlink" title="3.24 从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践"></a>3.24 从零实现Kubernetes环境下的InfluxDB自动化登录工具：Bash与Java的跨语言实践</h2><ul>
+<li>背景与需求分析<br>在云原生环境中，InfluxDB集群常以StatefulSet形式部署于Kubernetes。运维人员需要频繁执行以下操作：<br>动态选择特定Data Pod；解密存储在Secret；通过交互式命令登录数据库。<br>手工操作存在效率低下、易出错等问题。本工具通过Bash脚本整合Kubernetes CLI、Java加解密等能力，实现全流程自动化。</li>
+<li>技术方案设计亮点<ol>
+<li>混合编程模式（Bash+Java）<br><strong>核心难点</strong>：GCM解密在纯Bash环境难以实现（openssl版本低(不会升级…) 没有aes-256-gcm工具）<br><strong>创新方案</strong>：编写Java脚本，动态生成Java解密类（图1），通过Java标准加密库实现AES-GCM解密<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成随机类名避免冲突</span></span><br><span class="line">CLASS_NAME=<span class="string">&quot;InfluxDecryptor_<span class="subst">$(mktemp -u XXXXXXXXXX | tr -dc &#x27;a-zA-Z0-9&#x27;)</span>&quot;</span></span><br><span class="line"><span class="comment"># 编译并执行Java代码</span></span><br><span class="line"><span class="keyword">if</span> javac <span class="string">&quot;<span class="variable">$TEMP_JAVA</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">    auth_output=$(java -<span class="built_in">cp</span> /tmp <span class="variable">$&#123;CLASS_NAME&#125;</span>) </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$auth_output</span>&quot;</span>  </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Java编译失败&quot;</span></span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+凭证安全处理机制：<br>• 使用临时文件存储解密代码（<code>TEMP_JAVA=&quot;/tmp/$&#123;CLASS_NAME&#125;.java&quot;</code>）<br>• 执行后立即清理编译产物（<code>rm -f &quot;$TEMP_JAVA&quot;</code>）<br>• 避免敏感信息持久化</li>
+<li>跨语言参数传递<br>动态生成的Java脚本中，选择标准输出+格式控制方案：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;USERNAME:&quot;</span> + username.trim()); </span><br><span class="line">System.out.println(<span class="string">&quot;PASSWORD:&quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(decrypted).trim());</span><br></pre></td></tr></table></figure>
+多行输出解析难题<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 错误示例：初始方案采用`IFS`分割导致变量截断</span></span><br><span class="line">IFS=: <span class="built_in">read</span> username password &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> </span><br></pre></td></tr></table></figure>
+<strong>优化方案</strong>：bash脚本中，使用sed精确提取java脚本输出，通过正则表达式过滤前后空格，避免不可见字符影响<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">credentials=$(get_auth <span class="variable">$1</span>) <span class="comment"># get_auth()动态生成java解密脚本并多行输出</span></span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;解密失败，无法登录&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 提取用户名和密码（处理多行输出）</span></span><br><span class="line">username=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> | sed -n <span class="string">&#x27;s/^USERNAME://p&#x27;</span> | sed <span class="string">&#x27;s/^[[:space:]]*//;s/[[:space:]]*$//&#x27;</span>)</span><br><span class="line">password=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$credentials</span>&quot;</span> | sed -n <span class="string">&#x27;s/^PASSWORD://p&#x27;</span> | sed <span class="string">&#x27;s/^[[:space:]]*//;s/[[:space:]]*$//&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>交互式Pod选择器<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">select_data_pod</span></span>() &#123;</span><br><span class="line">    <span class="comment"># 过滤带data标签的Pod</span></span><br><span class="line">    PODS=$(kubectl get pod -n <span class="variable">$NAMESPACE</span> | grep <span class="string">&quot;data&quot;</span> | awk <span class="string">&#x27;&#123;print $1, $6&#125;&#x27;</span>)</span><br><span class="line">    <span class="comment"># 构建交互式菜单</span></span><br><span class="line">    <span class="keyword">select</span> pod_option <span class="keyword">in</span> <span class="variable">$PODS</span>; <span class="keyword">do</span></span><br><span class="line">        SELECTED_POD=$(<span class="built_in">echo</span> <span class="variable">$pod_option</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>传递方案对比：<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件存储</td>
+<td>实现简单</td>
+<td>存在安全风险</td>
+</tr>
+<tr>
+<td>环境变量</td>
+<td>进程内可见</td>
+<td>长度受限</td>
+</tr>
+<tr>
+<td><strong>标准输出</strong></td>
+<td>无持久化风险</td>
+<td>需严格格式控制</td>
+</tr>
+<tr>
+<td>网络传输</td>
+<td>适合分布式</td>
+<td>增加复杂度</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>本项目完整代码已开源，读者可通过<a target="_blank" rel="noopener" href="https://github.com/example/influxdb-helper">GitHub仓库</a>获取最新版本。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-28-InfluxDB服务化-：节点迁移-重搭"><a href="#3-28-InfluxDB服务化-：节点迁移-重搭" class="headerlink" title="3.28 InfluxDB服务化 ：节点迁移 &#x2F; 重搭"></a>3.28 <em>InfluxDB服务化</em> ：节点迁移 &#x2F; 重搭</h2><p>3.28：需求分析-&gt;将pod迁移到集群的另一个资源充足的node上，并且恢复数据以及集群功能(元数据)<br>3.31-4.1：存量实例问题处理,, 建议客户使用改造后的influxdb实例，存量实例释放&#x2F;启停&#x2F;重启等功能遇到问题 &#x3D;》未考虑好适配<br>4.2-4.7：出方案 1 sts指定亲合度规则以在指定node重建pod和pvc 2 开源influxdb-cluster功能不完全支持，考虑从分片副本层面恢复数据<br>4.8-4.10：数据恢复的主要思路&#x3D;》从健康节点的分片副本copy-shard恢复出迁移节点原有的所有分片副本，?质疑-&gt;恢复过程中健康节点的分片副本持续写入的增量数据能否恢复??<br>4.11：考虑创建第3个Data-Pod替代迁移节点(从仍健康的迁移节点上迁移数据)× -&gt;应该认为原节点完全不可用（相当于节点重搭了）设计方案参考其他数据库产品；；<br>4.14：推方案不动..自验证copy-shard达到预期效果，但无法解答原理，，自测方式还需模拟实际场景，多线程写入。。<br>4.15：写bash脚本批量写，开多终端模拟多线程，分片副本达70M+大流量2000point&#x2F;s写 &#x3D;》copy-shard恢复出分片副本与健康节点持续写的副本md5值不一致，恢复副本export文件小，猜测丢失数据<br>4.17：InfluxDB Data节点迁移方案评审：先迁移后逐个恢复分片数据。已验证在分片副本大小70M、写入数据达2000point&#x2F;s的情况下直接copy-shard会导致增量数据丢失，考虑在copy-shard前先执行truncate-shards截断热分片（集群中所有写入最新数据的分片，截断后关闭写入，变成冷分片），并在所有Data节点上创建该分片的新热分片副本，也就是在迁移节点上恢复了全部原有分片的新热分片副本，最新数据写入这个副本，然后再逐个从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复；自测符合预期<br>4.18-4.21：开发。发现原checkPodRebuildReady接口有时不符合预期，执行influxd-ctl指令(硬写成String在代码中)有时失效(meta no leader..)，经常需要手工介入。。<br>4.22：提测<br>4.23：InfluxDB开源版可靠性不确定，，社区版，单节点，，开发，值班暂停<br>官方文档 <a target="_blank" rel="noopener" href="https://influxdb-v1-docs-cn.cnosdb.com/influxdb/v1.8/introduction/install/">https://influxdb-v1-docs-cn.cnosdb.com/influxdb/v1.8/introduction/install/</a><br>开源influxdb-cluster源码 <a target="_blank" rel="noopener" href="https://github.com/chengshiwen/influxdb-cluster">https://github.com/chengshiwen/influxdb-cluster</a></p>
+<!-- <img src="https://www.helloimg.com/i/2025/04/23/6808e34c40fe2.png" width="450" height="300" alt=""> -->
+<p><strong>Data节点迁移方案</strong></p>
+<ol start="0">
+<li>重启所有meta节点，避免后续执行influxd-clt指令时报错“no leader”</li>
+<li>记录待迁移Data节点上的分片副本信息</li>
+<li>迁移节点，sts加affinity节点调度规则，重建pod和pvc，完成后恢复sts</li>
+<li>分片数据和元数据完全丢失，backup工具缺失，考虑逐个恢复分片副本</li>
+<li>迁移节点重新加入集群 influxd-ctl remove&#x2F;add-data</li>
+<li>截断热分片truncate-shards（集群中所有写入最新数据的分片），在所有Data节点上创建该分片的新热分片副本，也就是在迁移节点上恢复了原有分片的热分片副本，新数据写入这个副本</li>
+<li>再从健康节点上的冷分片副本copy-shard恢复出分片的历史数据（迁移前分片副本原有的数据&amp;迁移过程中未能写入的数据），该分片数据完全恢复</li>
+<li>检查分片恢复情况</li>
+</ol>
+<p><strong>故障矩阵：</strong> 架构 &#x3D;&gt; 2 data 3 meta 副本因子为2</p>
+<ol>
+<li>挂1个data -&gt; 节点迁移、重搭</li>
+<li>挂2个data -&gt; 备份恢复</li>
+<li>挂1个meta -&gt; 未知</li>
+<li>挂两个meta -&gt; 未知</li>
+<li>挂三个meta -&gt; 未知</li>
+</ol>
+<h2 id="4-14-DB值班开始"><a href="#4-14-DB值班开始" class="headerlink" title="4.14 DB值班开始 ; )"></a>4.14 DB值班开始 ; )</h2><p>DBCLOUD开源DB报警群（实例），DBEngine告警群（机器），致命告警-&gt;数据库值班告警处理群，MariaDB&#x2F;MySQL&#x2F;MongoDB&#x2F;PostgreSQL 常见问题,,</p>
+<ul>
+<li>MariaDB容器数据盘使用率过大<br>1.异常内容:容器数据盘占用率超过90%<br>2.问题定位：<br>1）&#x2F;var&#x2F;lib&#x2F;mysql 目录下存在大量临时文件（如 #sql_1_44.MAD，大小达185G）<br>2）show process 查看未提交的长事务（WITH RECURSIVE 查询和 Sending data 状态，确认这些递归查询正在生成大临时表）持有临时表资源，导致文件无法自动清理。<br>3.处理方案<br>1）KILL 15443008, 15443009, 15443010; &#x2F;&#x2F; 终止进程（替换为实际ID）临时kill了超长事务连接，临时文件自动清理了（&#x2F;var&#x2F;lib&#x2F;mysql挂载点空间得到释放）<br>2）联系用户优化sql</li>
+<li>MariaDB实例备库IO线程停止<br>1.告警内容<br>实例 IO 线程停止.通常由于无法连接到主库.<br>2.问题定位：<br>1）服务可用性-&gt;观察到发生主从切换，发生时间符合告警情况<br>2）kubectl get pod -n mariadb -Lrole -Lhealthy-&gt;从库（原主库切换而来）健康为no<br>3）kubectl descirbe 从库pod，观察到mysql container发生terminated，OOMKill，，<br>4）监控指标：内存缓慢提升-&gt;考虑扩容，暴增-&gt;dataspace诊断看慢sql<br>3.处理方案<br>1）备库重搭<br>2）联系用户扩容&#x2F;优化慢sql</li>
+</ul>
+<h2 id="4-22-2025成长对话-6-9-年中总结"><a href="#4-22-2025成长对话-6-9-年中总结" class="headerlink" title="4.22 2025成长对话 &amp; 6.9 年中总结"></a>4.22 2025成长对话 &amp; 6.9 年中总结</h2><ul>
+<li><p>制定2025年度重点工作计划。<br>快速开发InfluxDB服务化需求，持续优化已有功能；深度熟悉开源数据库，确保提供稳定服务。对齐其他数据库产品，了解用户实际需求，多方面考虑设计方案。做好值班任务。</p>
+</li>
+<li><p>希望提升的1-3项核心能力项，计划如何提升。<br>1 深入技术栈学习。阅读InfluxDB源码，学习数据库架构设计，K8s应用课程等，掌握高频业务场景的原理和运维技巧。<br>2 高效合作开发的能力。在全面思考，明确需求后开始开发，遇到卡点快速解决。</p>
+</li>
+<li><p>面向未来1年的职业规划。<br>本岗位沉淀<br>在这个阶段希望提高自己的工程能力，能比较全面地思考设计方案，快速开发和交付需求；还应该具备产品侧思考的能力，对一个系统有深入的认知，能够独当一面，做到专精一个领域。</p>
+</li>
+<li><p>工作成果<br>1.InfluxDB服务化体系构建<br>完成父子实例模式改造，新增InfluxDBMeta规格体系，实现节点级独立变配能力，为后续节点重启、迁移奠定基础；<br>针对Data节点迁移提出 “热分片截断-冷副本恢复”双阶段法，通过多线程大流量写入压力验证（2000 points&#x2F;s），解决开源工具增量数据丢失问题；<br>参与数据库运维工作。<br>2.NBU备份自动化开发<br>支持备份平台自动化运维需求，开发基于Ansible的客户端安装脚本，整合NBU API，实现备份申请自动化；<br>开发备份域配置管理界面（增删改查+JSON字段模糊查询）</p>
+</li>
+<li><p>能力提升<br>在InfluxDB服务化需求开发中锻炼了“场景抽象-方案验证”的能力，从寻找开源社区方案到定制化能力开发（如备份集恢复、节点迁移及数据一致性保障），梳理故障矩阵（如单Data宕机、多Meta宕机的应对策略）；在NBU备份自动化需求开发中能够快速上手Ansible脚本，复用已有能力，与用户及时沟通并完成开发。</p>
+</li>
+<li><p>存在不足<br>数据库开发方面需要积累技术深度，全面考虑方案并推动评审；自动化运维需求开发可以积累解决方案，缩短交付周期。</p>
+</li>
+</ul>
+<h2 id="4-23-Mops需求：NBU备份自动化"><a href="#4-23-Mops需求：NBU备份自动化" class="headerlink" title="4.23 Mops需求：NBU备份自动化"></a>4.23 Mops需求：NBU备份自动化</h2><p>4.25-5.8：手动验证全流程+调通API，分阶段做，卡点及时同步到群聊.. 官网找接口文档&#x2F;厂家提供，postPolicies接口参数调不好，就先手动设好用get查出来构造requestBody..<br>5.9-5.13：理清自动化接入和改造方案（先看一期代码，考虑接口和表能否复用），主动拉评审会议<br>5.14-5.16：开发及时理清需求原型和改造点，开发备份域配置管理界面<br>5.19-5.23：重难点&#x3D;》作业平台下发备份客户端安装ansible脚本改造，根据传参when指定不同task，实现在target主机安装指定平台的client，expect实现交互式流程<br>5.26-5.29：NBU备份申请自动化开发，实现BackupNbuService（备份平台NBU涉及代码，构造RestTemplate调API）；备份域配置“增删改查”，分页，模糊查询，@Transation处理先删后插&#x2F;先改后改&#x2F;先删后删。。延期-&gt;0605<br>6.3：自测&#x3D;》页面上发起请求获得requestBody&#x2F;通过postman调用本地起的后端服务，调试&#x3D;》注释排查法&#x2F;计算器debug<br>6.4：发sit，延期-&gt;0612；完善todo<br>6.5：自测，业务验收，ddl&amp;dml(注意StringEncryptor加密的密钥随env变化!!) 发版，存在问题待完善<br>11.13：<code>产品化</code>客户验收（产品化环境开发、、接入客户环境、、）</p>
+<ol start="0">
+<li><em>统一运维平台：</em>就是接各种需求，把主机创建、备份等操作自动化</li>
+<li>Ansible入门：脚本在特权机上，指定targetIp执行，，playbook为入口，roles&#x2F;tasks实现具体逻辑，，安装client注意预检查，常量写在var文件，脚本写在flie&#x2F;script.py通过scp传到target机器执行</li>
+<li><strong>CRUD</strong>基本功：1. 分页，baseMapper.selectPage(new Page&lt;&gt;(page, size), getQueryWrapper(req))  2. 模糊查询，queryWrapper.eqIfNotNull(BackupConfigPO::isDeleted, 0).likeIfNotNull(BackupConfigPO::getConfigKey, condition.getBackupRegion())  3. 模糊查询条件涉及表中text类型字段的内容为json，本质还是处理wrapper，queryWrapper.apply(“JSON_SEARCH(config_desc, ‘one’, ‘%” + req + “%’, NULL, ‘$.req’) IS NOT NULL”);</li>
+</ol>
+<h2 id="6-12-智能体人才认证（一级）"><a href="#6-12-智能体人才认证（一级）" class="headerlink" title="6.12 智能体人才认证（一级）"></a>6.12 智能体人才认证（一级）</h2><h5 id="0-ChatGPT的基本原理及应用实践分享"><a href="#0-ChatGPT的基本原理及应用实践分享" class="headerlink" title="0. ChatGPT的基本原理及应用实践分享"></a>0. ChatGPT的基本原理及应用实践分享</h5><ul>
+<li>what is 大语言模型<br>流式输出（逐字计算概率），基于Transformer神经网络（本质上一个Encoder+Decoder结构，自然语言 ⇄ 机器理解）</li>
+<li>why ChatGPT<br>除了卷大模型（参数量）&amp;大数据量，有着更好的交互原因：1 指令微调？ 2 基于人类反馈的强化学习</li>
+<li>提示工程 Prompt Engineering<br>提示词尽量简单、明确，最好完整描述以下关键要素：1 指令 2 上下文 3 输入数据 4 输出指示<br>提示词使用技巧：1 明确提出（不）应该做什么  2 提供输出的格式提示 3 使用特殊符号指令将需要处理的文本分开 4 增加示例，少样本提示 5 增加任务角色（Role）或场景</li>
+<li>应用场景实践<br>本地知识库问答：从本地知识库构成的文本向量库中搜索相关知识+用户问题 &#x3D;》一个提问（增强Prompt 如：“基于以下知识：{text1}…{textN}，回答：{question}”）&#x3D;》 LLM(如 ChatGLM2、GPT-3.5)读取该 Prompt结合自身语言能力生成最终回答；模型参数提供语言能力，但不存储动态知识。语言模型的“理解能力”本质是参数化的统计规律，通过海量通用文本训练获得。专业领域适配需针对性选择微调或 RAG 策略，二者互补而非互斥。当前技术趋势是：通用大模型作“引擎”，领域知识库作“燃料”，Prompt 工程作“方向盘”，三者协同实现高效、低成本的专业化智能问答。</li>
+</ul>
+<h5 id="1-学习-LLM"><a href="#1-学习-LLM" class="headerlink" title="1. 学习 LLM"></a>1. 学习 LLM</h5><ul>
+<li>大语言模型 LLM 的“理解能力”来源：参数、训练与概率生成<ol>
+<li>60亿参数的本质<br>参数是什么？神经网络中神经元连接的权重值（浮点数矩阵），例如 ChatGLM2-6B 的 60 亿参数即其网络权重总量。<br>参数如何产生？通过海量无监督预训练：模型从数万亿 token 的通用文本（网页、书籍、百科等）中学习语言统计规律。例如：GPT-3 训练数据：45TB 原始文本 → 过滤后 570GB，包含近万亿 token；训练目标：预测文本中遮蔽词（如 “猫喜欢抓__” → “老鼠”）或续写句子。  </li>
+<li>参数如何实现“理解”？<br>概率建模：LLM 本质是概率生成器。给定输入文本，模型计算下一个词的概率分布（如 “天空是___” → “蓝色”概率 80%，“绿色”概率 0.1%）；<br>上下文编码：通过 Transformer 的自注意力机制，模型捕捉长距离依赖（如代词指代、逻辑关联）；<br>知识内化：训练中高频出现的知识（如 “水的沸点是 100°C”）被编码到参数中，形成“通用知识库”。  </li>
+<li>训练成果与参数的关系<br>训练完成后的参数 &#x3D; 固化后的语言规律与知识表示；<br>生成过程：根据输入 Prompt 的语义，激活相关参数路径，按概率生成符合语言习惯的文本。</li>
+</ol>
+</li>
+<li>专业领域模型训练：微调 vs. 知识库增强<ol>
+<li>全参数微调（Full Fine-tuning）<br>方法：在领域数据上继续训练模型，更新全部参数（如用医疗文献训练 ChatGLM2）；<br>效果：模型深度内化领域知识，生成更专业、连贯的文本；<br>成本：需大量领域数据（GB 级）和 GPU 算力（如 8×A100 训练数天）。  </li>
+<li>高效参数微调（PEFT）<br>方法：仅训练少量新增参数（如 LoRA、Adapter），冻结原模型参数；<br>优势：节省 90% 算力，适合中小机构；<br>适用场景：领域术语适应（如法律条文格式），但无法新增未训练过的知识。  </li>
+<li>知识库增强（RAG）的定位<br>核心价值：无需训练模型，直接注入动态更新的领域知识（如企业最新产品文档）；<br>局限：依赖检索质量，复杂推理能力受限于 LLM 本身。</li>
+</ol>
+</li>
+<li>DeepSeek 之所以能广泛回答各领域问题，并非因为对所有领域都做过“专门训练”，而是通过大规模通用预训练 + 领域增强技术 + 智能调度机制实现的；<ol>
+<li>基础：海量通用预训练（广度覆盖）<br>DeepSeek 的底层模型（如 DeepSeek-R1）在训练初期使用数万亿 token 的互联网公开文本，覆盖科技、教育、历史、文化、生活、基础学术等广泛领域。<br>效果：模型能对大多数常识性问题生成合理回答，类似一个“受过通识教育的聪明助手”。</li>
+<li>增强：垂直领域优化策略（深度强化）为提升专业领域表现，DeepSeek 采用以下技术实现“泛中求精”：<br>混合专家模型（MoE）：模型内部划分多个“专家子网络”（如医疗、法律、编程等），根据问题自动激活相关专家；<br>领域微调（Fine-tuning）：对金融、法律、医学等专业领域，用高质量数据二次训练模型，优化参数<br>检索增强生成（RAG）：对动态知识（如实时政策、企业数据库），通过外部知识库检索最新信息，再生成答案；  </li>
+<li>调度：智能路由与知识管理<br>动态路由机制：用户提问时，模型自动判断问题类型，分配至：  通用知识层（如“水的沸点是多少”）；专业模块（如“心肌梗死的最新诊疗指南”）；  外部检索（如“2025 年光伏产业新政策”）。<br>知识更新与纠偏：用户反馈可修正错误答案（如律师指出法律条文解读偏差）；  结合知识图谱持续更新事实库，减少“知识过期”问题。</li>
+<li>用户建议：如何获得更专业回答？<br>明确领域身份：     提问时声明“以金融分析师身份，分析光伏产业趋势”，引导模型调用专业模块。<br>开启深度思考模式：     对逻辑问题（如数学、编程），勾选“深度思考（R1）”提升推理质量。<br>补充专业资料：     上传领域文档（如论文、手册），用 RAG 增强答案准确性。<br>微调定制专家：     企业用户可通过 LoRA 微调，训练专属领域模型（如“医疗问诊助手”）。</li>
+</ol>
+</li>
+</ul>
+<h5 id="2-大模型提示词工程基础"><a href="#2-大模型提示词工程基础" class="headerlink" title="2. 大模型提示词工程基础"></a>2. 大模型提示词工程基础</h5><ul>
+<li>提示词基本要素<ol>
+<li>指令：想要模型执行的特定任务或指令</li>
+<li>上下文：包含上下文信息，引导模型更好地响应</li>
+<li>输入数据：用户输入的内容或问题</li>
+<li>输出指示：指定输出的类型或格式</li>
+</ol>
+</li>
+<li>提示词工程进阶技术<ol>
+<li>少样本提示：可以作为一种提示词，以启用上下文学习，我们在提示中提供演示以引导模型实现更好的性能。</li>
+<li>链式思考（CoT）提示：提出问题的同时提供自己的推理方法，供LLM学习参考</li>
+<li>检索增强生成（RAG）：如本地知识库问答。从本质上讲，RAG包括一个检索组件、一个外部知识数据库和一个生成组件。整体流程：RAG需要从外部知识数据库中获取文档，然后将这些文档与用户的查询一起被传输到LLM，用于生成响应</li>
+<li>自动推理并使用工具 (ART)：？接到一个新任务的时候，从任务库中选择多步推理和使用工具的案例。在测试中，调用外部工具时，先暂停生成，将工具输出整合后继续接着生成。</li>
+<li>自我反思（Reflexion）：？自我反思是一个通过语言反馈来强化基于语言的智能体的机制。<br>• 在高层次上，自我反思将来自环境的反馈（自由形式的语言或者标量）转换为语言反馈，也被称作 self-reflection，为下一轮中 LLM 智能体提供上下文。<br>• 这有助于智能体快速有效地从之前的错误中学习，进而提升许多高级任务的性能。</li>
+</ol>
+</li>
+</ul>
+<h5 id="3-如何从0-1开展Prompt工程项目"><a href="#3-如何从0-1开展Prompt工程项目" class="headerlink" title="3. 如何从0-1开展Prompt工程项目"></a>3. 如何从0-1开展Prompt工程项目</h5><ul>
+<li>Prompt就是给AI的指令，引导大模型生成响应回答。<br>进阶例子：“现在你是一名xx专家，以下是xx内容，你的任务是对内容进行xxx，让我们一步一步做：1. 做&#x2F;不做xx 2. 以json格式输出… 3. …”</li>
+<li>什么是Prompt工程？<br>是业务服务应用大语言模型的中枢，用于释放LLM的能力，包括 1）单个任务的Prompt撰写调试 2）多个任务Prompt的设计组合<br>如：撰写短视频文案 &#x3D;》 1. 分析热门文案 2. 结合商品信息生成文案</li>
+<li>Prompt工程开展方式<br>根据生成的可行性与效果，明确对模型的输入、输出目标，经设计&#x2F;调试后，生成效果达成业务目标后，固化为应用服务。</li>
+</ul>
+<h2 id="6-20-一个尝试：生成编程指令Prompt"><a href="#6-20-一个尝试：生成编程指令Prompt" class="headerlink" title="6.20 一个尝试：生成编程指令Prompt"></a>6.20 一个尝试：生成编程指令Prompt</h2><ul>
+<li>你是一个资深编程助手，擅长根据用户诉求生成可执行的编程指令。让我们一步步做：<ol>
+<li>将用户诉求拆解为清晰、可执行的原子化步骤。</li>
+<li>注意环境适配（例如 Linux&#x2F;macOS 环境优先使用 Bash&#x2F;Python，Windows 环境优先使用 PowerShell）以及进行包依赖检测。</li>
+<li>考虑错误处理，如网络请求需设置超时（例如 ‘timeout 3’）</li>
+<li>输出规范，代码必须包含完整可执行结构和注释（每20行至少1个注释）  </li>
+<li>按照以下格式返回：{步骤拆解：””，生成程序：””}</li>
+<li>不受示例语言的限制，选择最适合的语言实现。</li>
+</ol>
+</li>
+<li>这是一个示例AI问答<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 输入</span></span><br><span class="line">写一个能够在Linux环境使用的脚本，检测对指定IP和端口是否连通。</span><br><span class="line"></span><br><span class="line"><span class="comment">## 输出</span></span><br><span class="line"><span class="comment">### 步骤拆解</span></span><br><span class="line">1.参数检查：验证输入参数格式（IP 端口 或 -f 文件）</span><br><span class="line">2.端口测试：依次尝试 nc → telnet → /dev/tcp 三种方式（3秒超时）</span><br><span class="line">3.批量处理：支持从文件逐行读取 IP 端口（跳过空行和注释）</span><br><span class="line">4.结果输出：直接显示开放/关闭状态</span><br><span class="line"></span><br><span class="line"><span class="comment">### 生成程序</span></span><br><span class="line">----------------------------------------------------------------</span><br><span class="line"><span class="comment">#!/bin/bash -e</span></span><br><span class="line"><span class="comment"># 端口检测工具v2 | 支持: Linux/macOS/Windows(WSL)</span></span><br><span class="line"><span class="comment"># 基础依赖: nc &gt; telnet &gt; /dev/tcp</span></span><br><span class="line"></span><br><span class="line">config_timeout=3  <span class="comment"># 全局超时可配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数: 环境预检</span></span><br><span class="line"><span class="function"><span class="title">check_dependencies</span></span>() &#123;</span><br><span class="line">  <span class="comment"># 检测网络工具链</span></span><br><span class="line">  <span class="built_in">local</span> tools=(nc telnet)</span><br><span class="line">  <span class="keyword">for</span> tool <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;tools[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> ! <span class="built_in">command</span> -v <span class="string">&quot;<span class="variable">$tool</span>&quot;</span> &amp;&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">echo</span> <span class="string">&quot;! 缺少 <span class="variable">$tool</span>, 启用降级模式&quot;</span> &gt;&amp;2</span><br><span class="line">      <span class="built_in">return</span> 1</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  <span class="built_in">return</span> 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数: 端口检测 (带双超时)</span></span><br><span class="line"><span class="function"><span class="title">test_port</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> ip=<span class="variable">$1</span> port=<span class="variable">$2</span></span><br><span class="line">  <span class="comment"># 方案1: nc (Linux/macOS)</span></span><br><span class="line">  <span class="keyword">if</span> nc -z -w <span class="string">&quot;<span class="variable">$&#123;config_timeout&#125;</span>&quot;</span> <span class="string">&quot;<span class="variable">$ip</span>&quot;</span> <span class="string">&quot;<span class="variable">$port</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">return</span> 0</span><br><span class="line">  <span class="comment"># 方案2: /dev/tcp (跨平台)</span></span><br><span class="line">  <span class="keyword">elif</span> <span class="built_in">timeout</span> <span class="string">&quot;<span class="variable">$&#123;config_timeout&#125;</span>&quot;</span> bash -c <span class="string">&quot;cat &lt; /dev/null &gt; /dev/tcp/<span class="variable">$&#123;ip&#125;</span>/<span class="variable">$&#123;port&#125;</span>&quot;</span>2&gt;/dev/null;<span class="keyword">then</span></span><br><span class="line">    <span class="built_in">return</span> 0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">return</span> 1</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 主流程</span></span><br><span class="line">[ <span class="variable">$#</span> -lt 2 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;用法: <span class="variable">$0</span> IP 端口&quot;</span> &amp;&amp; <span class="built_in">exit</span> 1</span><br><span class="line">check_dependencies || <span class="built_in">echo</span> <span class="string">&quot;! 使用基础检测模式&quot;</span> &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> test_port <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="string">&quot;<span class="variable">$2</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✅ <span class="variable">$1</span>:<span class="variable">$2</span> 开放&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;❌ <span class="variable">$1</span>:<span class="variable">$2</span> 关闭&quot;</span> &amp;&amp; <span class="built_in">exit</span> 3</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">----------------------------------------------------------------</span><br></pre></td></tr></table></figure></li>
+<li>这是用户的正式诉求<br>(输入用户诉求。)</li>
+</ul>
+<h2 id="6-27-Mops需求：负载均衡变更自动化"><a href="#6-27-Mops需求：负载均衡变更自动化" class="headerlink" title="6.27 Mops需求：负载均衡变更自动化"></a>6.27 Mops需求：负载均衡变更自动化</h2><p>6.27：页面流程理解+看“申请”自动化代码-&gt;考虑改造点，找api，输出文档<br>6.30-7.4：需求对齐，减少开发量的机会，，对于依赖项的变更（healthCheck-&gt;ResourcePool-VirtualServer）采用“蓝绿发布”&#x3D;》先增后删<br>7.5-7.9：开发完成<br>7.10-7.11：自测，前端发起一次请求F12取payload &#x2F; 后端接口处打印入参 + 按需修改 &#x3D;》构造入参，走通流程，只需关注新加的代码（无关逻辑如校验&#x2F;审批代码可以先注释掉。。）<br>7.14：变更成功后回滚。。手动修改+提sql同步配置；思考&#x3D;》是不是可以直接另提一次变更，或者另外提供回滚接口，，总之此时回滚和前一次变更已经没有关联<br>7.17：上线。修复 1 管理员节点自动带出尽可能多参数 2 支持定时执行 3 思考：checkChangeSuccess()方法期望同步response，但方法里调API返回fail会隔10s重复十次，就是一直fail的话接口会隔100s才返回数据，假如加了一个定时任务扫描出待变更工单列表，用for循环执行change()并且各调用了checkChangeSuccess()，会发生什么，for循环卡住？”springboot项目，写了一个变更c…”点击查看元宝的回答<br><a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv">https://yuanbao.tencent.com/bot/app/share/chat/qqYiHTHYRWDv</a><br>7.29：支持定时执行，注意避免同一个工单被多次扫除(未完成变更后状态-&gt;EXECUTED)，注意调度任务下发到本地节点，可能由于代码版本不同造成“灵异事件”<br>10.16：支持变更页面上的所有参数<br>10.30：支持回收自动化<br>11.13：优化提交工单时校验逻辑，避免重复补工单（按需增加存表字段&amp;管理端加编辑后门）</p>
+<ol>
+<li>f5理解：F5 BIG-IP 是业界主流的硬件&#x2F;软件负载均衡解决方案。配置好负载均衡后，一个请求从客户端到后端服务器的生效流程涉及多个关键环节，其核心是​<strong>​客户端访问域名 → DNS解析至F5的VIP → F5转发请求至Pool Members → 后端处理并返回响应</strong></li>
+<li>Mops服务架构。。用户提交工单-&gt; iflow审批流-&gt; 回调&#x2F;前端调接口-&gt; 传入xxTicketVo-&gt; convert成Dto&#x2F;Po处理业务逻辑</li>
+<li>蓝鲸。。统一运维平台竞品</li>
+<li>自动化运维开发总结：工单，，提效，，用户，，，</li>
+</ol>
+<h2 id="6-28-Alibaba-Java开发手册学习"><a href="#6-28-Alibaba-Java开发手册学习" class="headerlink" title="6.28 Alibaba Java开发手册学习"></a>6.28 Alibaba Java开发手册学习</h2><h4 id="1-计算机基础"><a href="#1-计算机基础" class="headerlink" title="1. 计算机基础"></a>1. 计算机基础</h4><h4 id="2-面向对象"><a href="#2-面向对象" class="headerlink" title="2. 面向对象"></a>2. 面向对象</h4><p>解析值。。序列反序列parse，，JSONNode，，</p>
+<h4 id="3-代码风格"><a href="#3-代码风格" class="headerlink" title="3. 代码风格"></a>3. 代码风格</h4><ol>
+<li>魔法值 &#x3D;&gt; enum</li>
+<li>变量一般以小驼峰格式命名，但有一种特殊情况：定义类成员变量时，特别是POJO类中，针对布尔值类型的变量不要以“is”开头，而是将数据表中的“is_xxx”字段映射到POJO类中的属性“Xxx”（如is_deleted &#x3D;》Deleted）</li>
+<li>文档注释 &#x2F;** *&#x2F; 加上创建和修改时间，写在代码上方,, Idea怎么配置??</li>
+</ol>
+<h4 id="4-走进-JVM"><a href="#4-走进-JVM" class="headerlink" title="4. 走进 JVM"></a>4. 走进 JVM</h4><h4 id="5-异常与日志"><a href="#5-异常与日志" class="headerlink" title="5. 异常与日志"></a>5. 异常与日志</h4><ol>
+<li>where to throw Exception？who to solve？how solve？<br>如果异常在在当前方法的处理能力范围内且无需透出，就直接捕获异常并处理；否则向上抛出，由上层方法或框架来处理。<br>如果在方法内部处理异常，需根据业务场景定制处理，如重试、回滚（还有 <em>ticketDetail.setExecutionStatus(xxEnum.FAIL)</em> 返回）等操作；如果向上抛出异常，需要在异常对象中添加上下文参数、局部变量、运行环境等消息，便于排查问题。<br>考虑设计业务逻辑，无论在哪一步终止业务，都能让外界感知此时的状态，并保留错误信息（ststus，log）</li>
+<li>异常分类<ul>
+<li>Error（致命异常），不可控错误，如StackOverFlowError、OutOFMemoryError</li>
+<li>Exception（非致命异常）<ul>
+<li>checked异常（受检异常）例如：IOException, SQLException。<ul>
+<li>无能为力型，如SQLException，只好保存现场人工介入</li>
+<li>力所能及型，如发生非授权异常可跳转权限申请页面</li>
+</ul>
+</li>
+<li>unchecked异常（非受检异常）是运行时异常，继承自 RuntimeException，更像是由 <em><strong>业务逻辑</strong></em>可能导致的异常<ul>
+<li>可预测异常，如IndexOutOfBoundsException, NullPointerException，应该提前做好边界检查而不是抛出</li>
+<li>需捕获异常，如Dubno框架进行RFC调用时产生的超时异常DubboTimeoutException，客户端不能因服务端异常导致不可用，可以重试或降级处理</li>
+<li>可透出异常，如Spring框架中抛出的NoSuchRequestHandingMethodException，框架会自行将异常映射到合适的状态码如404</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>throws</strong>关键字用于声明一个方法可能抛出的受检异常（checked）。BusinessException 通常是一个运行时异常，也就是非受检异常，不需要在方法签名中用 throws 声明（显式捕捉和处理），因为它通常表示业务逻辑错误，而不是程序错误。非受检异常的设计目的是让开发者在编写代码时不必显式地捕获或声明它们。<br>但是，仍然需要确保在适当的地方捕获和处理，特别是在应用程序的边界层（如控制器层）进行统一的异常处理。？？</li>
+<li>​​防御式编程，可以让方法返回null，，防止空指针异常（NPE）上调用方的责任，需要事先判断</li>
+<li>需定位报错行数 → 必须打印 e​​（传入异常对象）会输出完整的堆栈(e.printStackTrace())跟踪，包括类名、方法名、文件名和行号。<br>​​仅需错误描述 → 使用 e.getMessage()​​（适用于前端提示或自定义消息）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log.error(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span>+e.getMessage(), e);</span><br><span class="line">throw new BusinessException(<span class="string">&quot;查询VirtualServer信息异常：&quot;</span> + e.getMessage());</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="6-数据结构与集合"><a href="#6-数据结构与集合" class="headerlink" title="6. 数据结构与集合"></a>6. 数据结构与集合</h4><h4 id="7-并发与多线程"><a href="#7-并发与多线程" class="headerlink" title="7. 并发与多线程"></a>7. 并发与多线程</h4><h4 id="8-单元测试"><a href="#8-单元测试" class="headerlink" title="8. 单元测试"></a>8. 单元测试</h4><h4 id="9-代码规约"><a href="#9-代码规约" class="headerlink" title="9. 代码规约"></a>9. 代码规约</h4><p>todo</p>
+<hr>
+
+
+<h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a><br>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a></p>
+<h4 id="MOPS-统一运维平台"><a href="#MOPS-统一运维平台" class="headerlink" title="MOPS 统一运维平台"></a>MOPS 统一运维平台</h4><p>打造主机、网络、存储等运维一键操作，支持申请、变更、回收等常见场景，实现工单下发、流程审批、策略下发的逻辑，集成平台API、脚本下发、定时调度、CMDB能力，保证流程清晰、节点可控、异常告警。。<br>负责。。网络管理模块开发，发版小组，值班<br>竞品。。蓝鲸研发运维技术PaaS体系<br>产品化。。定制化功能</p>
+<h5 id="Mops"><a href="#Mops" class="headerlink" title="Mops"></a>Mops</h5><p>网络管理模块。。增删改查。。AI code<br>技术实现：多平台用策略模式，加注解实现定时任务调度？<br>解决问题：并发。。</p>
+<h5 id="CMDB"><a href="#CMDB" class="headerlink" title="CMDB"></a>CMDB</h5><p>配置数据库<br>mongodb、Elasticsearch<br>运维事实库，，与mops数据同步，订阅。。<br>数据重复。。问题排查</p>
+<h5 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h5><p>作业平台，特权机+脚本下发<br>运维入口</p>
+<h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>自动化运维&#x3D;》LLM作为“大脑”负责思考和规划，MCP等框架提供标准化的“工具库”，而强大的权限与安全体系则扮演着“交通警察”和“紧箍咒”的角色。这三者的有机结合，使得Agent既能智能地帮我们一步步完成复杂任务，又能被有效地约束在安全、可控的边界之内，从而真正成为一位可靠的数字助手。<br>Serval raises $52M in funding. Learn More <a target="_blank" rel="noopener" href="https://www.serval.com/updates/series-a">https://www.serval.com/updates/series-a</a><br>Spring AI Alibaba 1.0 GA 正式发布，Java智能体开发进入新时代 <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1666891">https://developer.aliyun.com/article/1666891</a></p>
+<h2 id="7-17-Mops-CMDB发版"><a href="#7-17-Mops-CMDB发版" class="headerlink" title="7.17 Mops &amp; CMDB发版"></a>7.17 Mops &amp; CMDB发版</h2><p>“一个Java系统开发完了，是怎么跑起来…”  <a target="_blank" rel="noopener" href="https://yb.tencent.com/s/jj0KGxxEGgzU">https://yb.tencent.com/s/jj0KGxxEGgzU</a><br>“IDEA调试、线上运行，Maven、SpringCloud…”  <a target="_blank" rel="noopener" href="https://yb.tencent.com/s/GB2sYz5WPHbB">https://yb.tencent.com/s/GB2sYz5WPHbB</a><br>集成，部署 “所谓的微服务实际上是怎么部署的呢…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
+<h4 id="MOPS-开发，测试，发版流程"><a href="#MOPS-开发，测试，发版流程" class="headerlink" title="MOPS 开发，测试，发版流程"></a>MOPS 开发，测试，发版流程</h4><ol>
+<li>开发阶段<ul>
+<li>main：生产环境稳定分支，仅用于发布，禁止直接修改。</li>
+<li>develop：开发&#x2F;测试&#x2F;发版分支，功能合并主干。前一个<code>feature/v1.1.0</code>发版完成后，拉出最多下两个版本的开发分支，如 bugfix&#x2F;v1.1.0和 feature&#x2F;v1.2.0，发版完成后合入线上分支和下一个版本分支。</li>
+<li>feature&#x2F;xxx：团队开发各自从develop切出的功能分支，开发完成后合并回去，发sit联调，uat验收，发版。</li>
+<li>bugfix：main切出的紧急修复分支，修复后合并至main和当前develop。</li>
+</ul>
+</li>
+<li>测试阶段<ul>
+<li>SIT（系统集成测试）：前后端联调测试环境，验证功能集成与基础流程。</li>
+<li>UAT（用户验收测试）：预生产环境，业务方验证业务逻辑。关键点：数据与生产环境隔离但配置一致，避免环境差异问题。</li>
+</ul>
+</li>
+<li>发版准备<ul>
+<li>发版材料：包含需求清单，DDL&amp;DML，配置变更清单。提交变更实施文档、代码质量报告、版本号（从最新git记录的Copy Revision Number）</li>
+<li>SQL变更：提变更单，先DDL后DML，设置发版窗口执行，记录到<code>db文件</code>上传git。</li>
+<li>针对本次变更的配置备份、数据备份，确保有完整的回滚步骤。</li>
+</ul>
+</li>
+<li>上线验证<ul>
+<li>发版分支打Tag（如feature-v1.33.0，相当于是一个快照，后续再合代码要打新tag）</li>
+<li>持续集成（指定tag，发版前提前集成）</li>
+<li>检查提的sql是否变更成功（提醒先到uat执行一遍）</li>
+<li>持续部署，可分批部署到多节点，减小用户影响（提前到uat部署一遍）<ul>
+<li>灰度发布：先切10%流量验证，逐步全量。</li>
+<li>蓝绿部署：并行两套环境，切换流量实现零宕机。</li>
+</ul>
+</li>
+<li>流水线：集成＋部署</li>
+<li>发版验证：避免业务高峰期发版，异常&#x3D;》监控平台搜“error”排查，以及先回退旧版本（集成旧tag部署）</li>
+<li>发版成功：发版分支合到main和下一个版本分支，SQL变更提交到MOPS_SQL</li>
+</ul>
+</li>
+<li>事件管理<ul>
+<li>事件指导致或可能导致服务中断或服务质量下降的任一事态</li>
+<li>以恢复业务为第一要务，72h内进行根因查找与5C闭环</li>
+</ul>
+</li>
+</ol>
+<h4 id="CMDB-部署指令"><a href="#CMDB-部署指令" class="headerlink" title="CMDB 部署指令"></a>CMDB 部署指令</h4><ol>
+<li>下发介质（jar包）<br>将服务的可执行文件（通常是一个 .jar ）下发目标服务器。这个 .jar 文件是通过构建工具（如 Maven 或 Gradle）打包生成，包含了应用程序的所有代码、依赖库和资源文件。</li>
+<li>停止旧服务<br><code>ps aux | grep $&#123;package_name&#125; | grep java | grep -v grep | awk &#39;&#123;print $2&#125;&#39; | xargs kill -15</code><br>停止正在运行的旧版本服务，释放端口和资源。ps aux：列出所有进程。grep ${package_name}：过滤出与服务相关的进程。kill -15：优雅地终止进程，避免强制终止（kill -9）可能导致数据丢失或资源未释放。</li>
+<li>检查进程<br>确认服务进程是否已经成功停止。ps -ef：列出所有进程及其详细信息。grep ${package_name}：过滤出与服务相关的进程。</li>
+<li>备份文件<br>在部署新版本之前，备份旧版本的 .jar 文件和相关配置文件，以便在新版本出现问题时可以快速回滚。</li>
+<li>下发 OneAgent（监控工具）</li>
+<li>配置服务（生成配置文件）<br>通过 Shell 脚本动态生成服务的配置文件（如 application.yml），用于定义服务的端口、文件路径、Redis 配置等。可以根据环境（如开发、测试、生产）动态调整配置。</li>
+<li>启动服务<br><code>nohup /usr/bin/java $&#123;C_CMDB_XXL_JOB_EXECUTOR_ONEAGENT_OPTS&#125; -Xms8g -Xmx8g -jar -Dspring.config.location=$&#123;package_path&#125;/application.yml -Djasypt.encryptor.password=abcdefg $&#123;package_path&#125;/$&#123;package_name&#125;.jar &gt; $&#123;package_path&#125;/$&#123;package_name&#125;.log 2&gt;&amp;1 &amp;</code><br>启动 Java 服务，并将日志输出到指定文件。<br>nohup：允许服务在后台运行，即使关闭终端，服务也不会停止。<br>-Xms8g：设置 JVM 的初始堆内存为 8GB。<br>-Xmx8g：设置 JVM 的最大堆内存为 8GB。<br>-Dspring.config.location：指定 Spring Boot 的配置文件路径。<br>-Djasypt.encryptor.password：指定加密配置的解密密码。<br>${package_path}&#x2F;${package_name}.jar：指定要运行的 .jar 文件。<br>日志输出：&gt; ${package_path}&#x2F;${package_name}.log：将标准输出重定向到日志文件。2&gt;&amp;1：将标准错误输出重定向到标准输出。</li>
+<li>ps检查服务是否启动成功</li>
+</ol>
+<h4 id="新增微服务"><a href="#新增微服务" class="headerlink" title="新增微服务"></a>新增微服务</h4><p>“springcloud微服务架构里，每个微服务是单独开发，部署的吗，如何互相发现、调用？如果要新增一个微服务，要做什么工作？有没有“主服务”的概念，所有微服务都要记在主服务的配置文件中？”<a target="_blank" rel="noopener" href="https://yb.tencent.com/s/oL2XPesIhuCx">https://yb.tencent.com/s/oL2XPesIhuCx</a></p>
+<h2 id="7-18-MOPS-CMDB运维日志"><a href="#7-18-MOPS-CMDB运维日志" class="headerlink" title="7.18 MOPS &amp; CMDB运维日志"></a>7.18 MOPS &amp; CMDB运维日志</h2><h4 id="Helloworld"><a href="#Helloworld" class="headerlink" title="Helloworld"></a>Helloworld</h4><p>运维人员 -&gt; 办公电脑 -&gt; 访问入口 -&gt; 堡垒机(安全审计核心) &#x2F; 跳板机(简易通道) -&gt; 内网 -&gt; 物理机 &#x2F; Linux后台(应用载体) </p>
+<p>Linux基本命令：<br>netstat ; top;  awk ; dstat;  iostat; lsof; free, df；uptime；dmesg ；dig ； nslookup</p>
+<p>vim&#x2F;vi的基本快捷命令（gg, shift + g, :n ; dd, :%d ; yy, p ,u等）</p>
+<p>终端的一些快捷命令（ctrl + a; ctrl + e）</p>
+<h4 id="Zookeeper磁盘占用过高的SOP"><a href="#Zookeeper磁盘占用过高的SOP" class="headerlink" title="Zookeeper磁盘占用过高的SOP"></a>Zookeeper磁盘占用过高的SOP</h4><ol>
+<li>告警确认<br>• 监控告警内容：磁盘使用率&gt;80%<br>• 初步排查：通过跳板机连接CMDB主机（FinalShell + SSH）逐层定位，确认Zookeeper目录为占用源头（如&#x2F;apps&#x2F;zookeeper&#x2F;v2）</li>
+<li>清理旧日志，并且再次运行 df -h 确认使用率下降。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 确认分区使用率</span></span><br><span class="line"> 98    2025-07-18 17:38:17   <span class="built_in">df</span> -h</span><br><span class="line"> <span class="comment"># 逐步排查子目录 tab自动补齐路径</span></span><br><span class="line"> 99    2025-07-18 17:38:29   <span class="built_in">du</span> sh /apps/svr/*</span><br><span class="line">100    2025-07-18 17:38:38   <span class="built_in">du</span> sh /apps/svr/zookeeper-3.4.6/*</span><br><span class="line">101    2025-07-18 17:38:44   <span class="built_in">cd</span> /apps/svr/zookeeper-3.4.6/data</span><br><span class="line">106    2025-07-18 17:39:16   <span class="built_in">du</span> -sh *</span><br><span class="line">107    2025-07-18 17:39:22   <span class="built_in">cd</span> version-2/</span><br><span class="line"><span class="comment"># 分析日志文件（发现日均61MB未清理）</span></span><br><span class="line">108    2025-07-18 17:39:26   ll</span><br><span class="line"><span class="comment"># 删除两个月前的日志 检查效果</span></span><br><span class="line">109    2025-07-18 17:39:52   find . -<span class="built_in">type</span> f -name <span class="string">&quot;snapshot.*&quot;</span> -mtime +60 -<span class="built_in">exec</span> <span class="built_in">rm</span> -f &#123;&#125; \;</span><br><span class="line">110    2025-07-18 17:39:57   ll</span><br><span class="line">112    2025-07-18 17:40:03   <span class="built_in">df</span> -h</span><br><span class="line">123    2025-07-20 21:50:41   <span class="built_in">history</span></span><br></pre></td></tr></table></figure></li>
+<li>告警解除  </li>
+<li>Zookeeper日志管理优化<br>配置自动清理：zoo.cfg中启用参数 autopurge.purgeInterval&#x3D;24（每24h清理），autopurge.snapRetainCount&#x3D;7（保留7个快照）<br>日志轮转，集成Logrotate：配置日志按大小&#x2F;时间切割并压缩：<code>/etc/logrotate.d/zookeeper</code> 中设置 daily, rotate 30, compress<br>自动化清理脚本：编写定时任务，每月清理旧日志（保留30天）  &#x3D;&gt;  0 3 * * * find &#x2F;apps&#x2F;zookeeper&#x2F;version-2 -mtime +30 -delete</li>
+</ol>
+<h4 id="ops-subscribe微服务磁盘占用过高"><a href="#ops-subscribe微服务磁盘占用过高" class="headerlink" title="ops-subscribe微服务磁盘占用过高"></a>ops-subscribe微服务磁盘占用过高</h4><ol>
+<li>Java服务（devops部署）堆积日志的情况与中间件（zookeeper是eops部署&#x2F;apps&#x2F;svr目录）有所差异</li>
+<li>清理多余日志<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">987    2025-12-04 17:13:46   <span class="built_in">df</span> -h</span><br><span class="line">991    2025-12-04 17:15:44   <span class="built_in">du</span> -sh /apps/devops/*</span><br><span class="line">992    2025-12-04 17:16:04   <span class="built_in">cd</span> /apps/devops/ops-cmdb-subscribe/</span><br><span class="line">993    2025-12-04 17:16:12   <span class="built_in">du</span> -sh *</span><br><span class="line"><span class="comment"># nohup部署命令中指定的服务日志清空掉（但其实还有一份备份）</span></span><br><span class="line">994    2025-12-04 17:17:10   <span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; ops-cmdb-subscribe-1.0.log</span><br><span class="line"><span class="comment"># Java服务本身输出日志（application配置）</span></span><br><span class="line">996    2025-12-04 17:24:27   <span class="built_in">cd</span> /apps/devops/log/ops-subscribe/2025-12-04/</span><br><span class="line">998    2025-12-04 17:24:39   <span class="built_in">ls</span> -alh</span><br></pre></td></tr></table></figure></li>
+<li>那为什么df看到&#x2F;apps比&#x2F;还大?<br>逻辑上，层级上，所有目录都在根目录&#x2F;下面，包括&#x2F;apps。<br>但&#x2F;apps很可能是一个独立的「挂载点」(单独分区)。可以理解成电脑有一块系统盘挂在&#x2F;（系统分区，空间小），又插了一块数据盘挂在&#x2F;apps（数据分区，空间大），它们物理上是两块盘。可以通过 mount | grep apps 进行验证。。</li>
+</ol>
+<h4 id="CMDB回调并发量大导致MOPS飙升CPU"><a href="#CMDB回调并发量大导致MOPS飙升CPU" class="headerlink" title="CMDB回调并发量大导致MOPS飙升CPU"></a>CMDB回调并发量大导致MOPS飙升CPU</h4><ol>
+<li>根本原因：回调任务包含查询接口，请求返回慢，并发大导致？？cpu飙升，后续请求直接卡住，服务挂？？不是io型任务开多线程没用</li>
+<li>临时方案：1）关闭回调任务，积存任务消化完即可 2）重启mops服务</li>
+<li>优化：1）优化cmdb查询接口，加索引 2）避免并发大？。缓存，，</li>
+<li>研究。。。</li>
+</ol>
+<h4 id="CPU高："><a href="#CPU高：" class="headerlink" title="CPU高："></a>CPU高：</h4><ol>
+<li>内存fgc导致 —针对进程 oom?<br>先dump，下载heap文件<br>jmap -dump:live,format&#x3D;b,file&#x3D;heap.hprof 1651260<br>通过Eclipse Memory Analyzer (MAT)工具分析heap文件</li>
+<li>线程导致<br>找出排查cpu高的线程对应的方法：<br>1）top。找出对应的高cpu的pid<br>2）top -Hp pid。打印出pid里的线程，找出对应的cpu高的线程tid<br>3）jstack -l pid &gt; jstack.txt。打印对应的进程堆栈信息<br>4）printf “%x\n” <TID>。找出对应16进制的线程id<br>5）vi jstack.txt。搜索第4步的线程id，看其方法</li>
+<li>机器资源不足。。</li>
+</ol>
+<h4 id="CMDB消费视图偶现API-Runtimeout"><a href="#CMDB消费视图偶现API-Runtimeout" class="headerlink" title="CMDB消费视图偶现API Runtimeout"></a>CMDB消费视图偶现API Runtimeout</h4><p>1、调cmdb域名<a target="_blank" rel="noopener" href="http://cmdbuat.midea.com/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9Cthe">http://cmdbuat.midea.com/ops-data-access/view/direct，偶现“the</a> upstream server is timing out”，nginx报错但不一定其本身出错<br>2、调网关<a target="_blank" rel="noopener" href="http://10.16.115.110:7004/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9CZuulException%E2%80%9D%E5%B9%B6%E4%B8%94%E6%97%B6%E9%97%B4%E9%83%BD%E6%98%AF1min%EF%BC%8C%E6%80%80%E7%96%91%E6%98%AF%E4%B8%8B%E6%B8%B8ops-data-access%E6%9C%8D%E5%8A%A1%E5%87%BA%E9%94%99">http://10.16.115.110:7004/ops-data-access/view/direct，偶现“ZuulException”并且时间都是1min，怀疑是下游ops-data-access服务出错</a><br>3、直接调服务ip:port上的数据连接器接口：<a target="_blank" rel="noopener" href="http://10.16.64.39:7119/view/direct%EF%BC%8C%E4%B8%A4%E4%B8%AAip%EF%BC%8C%E5%8F%91%E7%8E%B0%E5%85%B6%E4%B8%AD%E8%BF%99%E4%B8%80%E4%B8%AA%E4%B8%8D%E8%A1%8C%EF%BC%8C%E6%80%80%E7%96%91%E6%98%AF%E8%BF%99%E4%B8%AA%E8%8A%82%E7%82%B9%E6%9C%8D%E5%8A%A1%E6%8C%82%E4%BA%86/%E8%BF%9B%E7%A8%8B%E8%B5%B7%E6%9D%A5%E4%BA%86%E4%BD%86%E6%9C%8D%E5%8A%A1%E6%B2%A1%E8%B5%B7%E6%9D%A5%EF%BC%8C%E9%87%8D%E5%90%AFnohup">http://10.16.64.39:7119/view/direct，两个ip，发现其中这一个不行，怀疑是这个节点服务挂了/进程起来了但服务没起来，重启nohup</a> java…，jps检查<br>&#x3D;》思路：CMDB组件很多，逐步排查，一般是提供接口的服务本身出错，如果是nginx&#x2F;网关出错的影响面会更大</p>
+<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong></p>
+<ol>
+<li>当F5设备被配置为该域名的权威DNS服务器时，nslookup查询才会最终指向它。<br>一个域名的权威DNS服务器信息（NS记录）是由其上一级域名注册商管理的（比如.com域名的注册商）。当你在注册商处将域名的NS记录指向你的F5设备（或其管理的DNS服务）后，一个完整的解析流程如下：<br>本地输入 nslookup <a target="_blank" rel="noopener" href="http://www.yourdomain.com/">www.yourdomain.com</a> &#x3D;》本地DNS服务器会从根域名服务器开始，一路查询到.com服务器，最终获知你的域名的权威DNS服务器是你的F5设备 &#x3D;》本地DNS服务器随后向你的F5设备发起查询，并获得F5上配置的IP地址（VIP）返回给用户。</li>
+<li>如果不指定记录类型（直接 nslookup example.com），默认查询的是A记录。要查询特定类型，需使用 -qt&#x3D;类型参数</li>
+<li>DNS与负载均衡（F5）的配合<br>用户访问 app.example.com-&gt; DNS解析返回F5的VIP（如 203.0.113.10） -&gt; 用户请求到达F5 -&gt; F5根据预设的负载均衡算法（如轮询、最小连接数等）将请求转发给后台的Web服务器池（如 10.1.1.101, 10.1.1.102）</li>
+</ol>
+<h2 id="8-31-use-Workspace"><a href="#8-31-use-Workspace" class="headerlink" title="8.31 use Workspace"></a>8.31 use Workspace</h2><ol>
+<li>基本介绍<br>Workspace是一个基于云端的代码编辑环境，由Cursor提供支持。Cursor是一个AI驱动的代码编辑器，集成了Claude等先进的AI模型，为开发者提供智能编程辅助。在这个环境中，您可以编写代码、获取AI辅助、管理项目并执行基本的开发任务。<br>与IntelliJ IDEA等传统IDE相比，Workspace&#x2F;Cursor有以下主要区别：<br>• <strong>运行环境</strong>：Workspace运行在云端服务器上，而非本地机器<br>• <strong>资源位置</strong>：代码、依赖包和运行环境都位于远程服务器<br>• <strong>功能界面</strong>：相比完整IDE功能较为精简，但集成了强大的AI辅助能力；更简洁，专注于代码编辑和AI交互，类vscode</li>
+<li>问答模式<br>• <strong>edit</strong>：结合本地rag，针对代码结构和业务逻辑，返回与工程相关且与上下文相关的答案<br>• <strong>chat</strong>：纯AI对话，回答仅针对上下文相关内容，不涉及对工程的理解<br>• <strong>agent</strong>：智能体的“大脑”与“手脚”，AI Agent的核心目标是​​将自然语言指令转化为一系列具体的、可执行的操作​​，直到任务完成。它不再是简单的聊天或代码补全，而是一个具备自主性的系统。实现从​​任务规划与分解，​​工具调用与执行，​​到自我验证与迭代。适合用来完成相对复杂的任务如：代码重构，错误修复（单文件用edit模式即可），自动化任务（实现文件批量操作、脚本生产）</li>
+<li>规则&amp;交互<br>• AI规则：设置个人、工程规则，使AI输出遵循个性化要求；优先级：系统规则&gt;用户规则&gt;工程规则<br>• MCP：连接的“通用协议”，可以理解为AI世界的​​“USB-C标准接口”​​。在MCP出现之前，每个Agent想要连接一个新工具（如数据库、GitHub API），都需要进行大量的定制化开发，而MCP定义了一套统一的通信规范，工具开发者只需按照此标准将工具封装成独立的​​MCP Server​​，任何支持MCP协议的Agent都可以“即插即用”这些工具，极大地降低了开发难度并促进了工具生态的繁荣。<br>• “&#x2F;”加run，fix，explain，&#x2F;CR审查；“@”加devops中的需求、缺陷、任务至chat，、；“#”设置引用知识库</li>
+<li>开发流程<br>• 版本管理：图形化操作，或直接用git指令——git branch -a查看所有本地&#x2F;远程origin分支，git checkout -b feature&#x2F;xx origin&#x2F;feature&#x2F;xx从远程分支拉出本地分支，git branch -vv查看本地&amp;远程分支关联情况<br>• 配置Maven：ctrl+shift+p-&gt;打开setting（ui）-&gt;配置path to settings.xml 、依赖包会被下载到远程服务器的Maven本地仓库<br>• 安装Extensions（最接近IntellijIdea2022.3.2的主题-&gt;Darcula Theme_v1.18.1_Rafael Renan Pacheco）<br>• 设置启动参数和环境变量：在.vscode&#x2F;launch.json加配置”configurations”: [{“xx”:”yy”}]，相当于idea里edit Run&#x2F;Debug Configuration<br>• 运行&#x2F;Debug：1）终端输入运行命令 2）chat输入&#x2F;run，回答中返回可执行命令。点击执行<br>• 本地调试：Postman发请求到<a target="_blank" rel="noopener" href="https://caifeng7-31579-.devops.midea.com/xx">https://caifeng7-31579-.devops.midea.com/xx</a></li>
+<li>AI coding实践<br>• 从单纯的Programmer转为AI的协作伙伴，提供足够清晰的开发方案，让AI在充分理解后生成代码<br>• 让AI参考现有资源：已有代码、API文档，以及建立和使用知识库；也可以通过MCP读外部文档<br>• 拆解任务，逐个完成，分而治之，，<br>• 尝试约束AI行为，明确输出要求，，配置工程规则，让AI了解项目（chat-&gt;setting-&gt;配置rules.md）<br>• 复用交互模式，优化开发流程</li>
+<li>快捷键<br>Ctrl+F: 在当前文件中查找<br>Ctrl+Shift+F: 全局搜索<br>Ctrl+P&#x2F;shift*2（安装idea快捷键插件）: 查找文件<br>Ctrl+Shift+P: 打开Command Palette<br>Ctrl+I：生成代码建议<br>Ctrl+B&#x2F;Ctrl+左键：跳转类<br>Ctrl+alt+B：跳转实现类<br>Ctrl+J&#x2F;Ctrl+&#96;（反引号在tab键上面）：打开终端窗口<br>Ctrl+alt+J：打开chat框</li>
+</ol>
+<h2 id="10-20-OBCA准备"><a href="#10-20-OBCA准备" class="headerlink" title="10.20 OBCA准备"></a>10.20 OBCA准备</h2><h4 id="MySQL-实战-45-讲-https-time-geekbang-org-column-intro-100020801"><a href="#MySQL-实战-45-讲-https-time-geekbang-org-column-intro-100020801" class="headerlink" title="MySQL 实战 45 讲 (https://time.geekbang.org/column/intro/100020801)"></a>MySQL 实战 45 讲 (<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100020801">https://time.geekbang.org/column/intro/100020801</a>)</h4><ol start="0">
+<li>不是要背下所有东西，而是在构建体系后，能快速回忆起来</li>
+<li>一条sql查询如何执行？<strong>客户端</strong>-&gt; <strong>Server层</strong>: 连接器-（-查询缓存命中则直接返回）词法&#x2F;语法分析-优化器（执行计划生成,索引选择）-执行器（操作引擎,返回结果）-&gt; <strong>存储引擎</strong>（存储数据,提供读写接口）<!-- <img src="https://www.helloimg.com/i/2025/10/21/68f7a97f73ce3.png" width="450" height="300" alt="一条SQL查询语句是如何执行的？"> --></li>
+<li>一条sql更新如何执行？把原数据行从硬盘读到内存（或者在缓存命中）-&gt; 写新数据到新行 -&gt; 引擎将新数据更新到内存并且把这个update操作记录到 <strong>redo log</strong>（InnoDB独有物理日志-&gt;“在某个数据页上做了什么修改”,保证事务的​​持久性 Durability,提供 ​​crash-safe​​ 能力）此时redolog处于 <em>prepare</em> 状态随时可以提交事务 -&gt; 执行器生成这个操作的 <strong>binlog</strong>（Mysql Server层实现的逻辑日志-&gt;“给 ID&#x3D;2 这一行的 c 字段加 1 ”,用于​​主从复制​​和​​数据恢复​,如时间点恢复）并且写入磁盘 -&gt; 执行器调用引擎的提交事务接口，引擎把刚刚写入的redolog改成提交<em>commit</em>状态，更新完成（<code>二阶段提交</code>以保证两份日志保持逻辑一致）-&gt; 两份日志都成功写入磁盘后，被修改的数据页（脏页）并不会立即写入磁盘，而是由 MySQL 在“后台”选择一个合适的时机异步刷盘。<br>​”redolog是如何配合binlog工作的？”<a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/vVRlFaO0o3sg">https://yuanbao.tencent.com/bot/app/share/chat/vVRlFaO0o3sg</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/68963">https://time.geekbang.org/column/article/68963</a> 事务隔离。事务就是要保证一组数据库操作，要么全部成功，要么全部失败，InnoDB在引擎层支持事务。</li>
+<li>索引。MySQL中索引是在存储引擎层实现的。InnoDB 使用了 B+ 树索引模型，所以数据都是存储在 B+ 树的数据模型中的。每一个索引在 InnoDB 里面对应一棵 B+ 树，N叉树的N以整数字段为例差不多是 1200，树高等于4的情况下就能够存储很多数据，以减少单次查询的磁盘访问次数。根据建立索引的字段不同，索引类型分为（1）主键索引，叶子节点存的是整行数据（2）非主键索引，叶子节点内容是主键的值，还需要回表到主键的B+树二次查询。</li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/69636">https://time.geekbang.org/column/article/69636</a> 根据业务需求建索引，包括了覆盖索引、前缀索引、索引下推，，在满足语句需求的情况下， 尽量少地访问资源是数据库设计的重要原则之一</li>
+</ol>
+<h4 id="OBCA-认证-https-www-oceanbase-com-training-obca"><a href="#OBCA-认证-https-www-oceanbase-com-training-obca" class="headerlink" title="OBCA 认证 (https://www.oceanbase.com/training/obca)"></a>OBCA 认证 (<a target="_blank" rel="noopener" href="https://www.oceanbase.com/training/obca">https://www.oceanbase.com/training/obca</a>)</h4><p>^^ death</p>
+<h2 id="11-20-毕业生回炉"><a href="#11-20-毕业生回炉" class="headerlink" title="11.20 毕业生回炉"></a>11.20 毕业生回炉</h2><img src="https://www.helloimg.com/i/2025/11/21/692089497f66d.jpg" width="450" height="300" alt="冬藏春生.团队对话-职业生涯教练.孙小红">
+刚刚好找出这张照片，刚好这一天的头发服帖，刚好朋友拍出了不错的构图，脸上也满是生气，好像有勇气冲到一个新的level
+但最近我都在跑医院，想着每个周末只是在修复自己的身体和精神，到了工作日又要回去摧残自己..这有什么意义吗
+为了回归到这张照片，想了半天得出一个结论是，不断地修复自己到一个刚刚好的状态就是生活的意义，吗
+有点虚无，说了但像什么也没说，什么又是一个刚刚好的状态呢
+也许是我刚好能够面对相机，刚好拍下了这张照片
+也许人置身生活的洪流，只能不断修复自己
+也许可以找到互相修复的人
+
+
+<h2 id="11-30-CMDB-项目运营"><a href="#11-30-CMDB-项目运营" class="headerlink" title="11.30 CMDB 项目运营"></a>11.30 CMDB 项目运营</h2><h4 id="深度参与策略"><a href="#深度参与策略" class="headerlink" title="深度参与策略"></a>深度参与策略</h4><p>接手CMDB,,从做需求-&gt;做系统 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a><br>最大化CMDB项目的学习价值,, <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
+<ul>
+<li>理解CMDB系统本质与行业实践<ul>
+<li>核心价值：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，唯一事实库，支撑运维自动化、变更管理等场景。</li>
+<li>主流竞品参考：ServiceNow CMDB，企业级SaaS方案，强在ITSM流程集成。腾讯Blue King。开源方案：iTop、CMDBuild。</li>
+<li>自研系统关键模块：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
+</ul>
+</li>
+<li>通过CMDB项目深挖技术栈，Java底层实践场景：<ul>
+<li>高并发设计：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
+<li>JVM调优实战：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
+<li>分布式事务：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
+</ul>
+</li>
+<li>云原生技术落地：<ul>
+<li>微服务架构：Apache(SSO登录)-NGINX(反向代理+静态资源)-eruka(服务发现)-zuul(网关分发请求)-各微服务-mongodb主数据库-es(同步数据用于检索)</li>
+<li>容器化部署：将CMDB模块拆分为微服务，用Docker打包，K8s调度（学习Pod滚动升级、HPA弹性伸缩）。</li>
+<li>可观测性建设：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
+</ul>
+</li>
+<li><strong>以CMDB为杠杆撬动技术纵深</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
+<li>📊 <strong>项目经验如何写入简历</strong><table>
+<thead>
+<tr>
+<th><strong>简历模块</strong></th>
+<th>平庸写法</th>
+<th><strong>高价值写法（量化+技术关键词）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>项目经验</strong></td>
+<td>参与CMDB需求开发</td>
+<td>主导CMDB数据模型重构，设计弹性CI架构，支持200+动态属性扩展，模型变更效率提升40%</td>
+</tr>
+<tr>
+<td><strong>技术亮点</strong></td>
+<td>使用Spring Cloud开发API</td>
+<td>基于Quartz+Netty开发高并发自动发现引擎，单节点支持5000+设备&#x2F;秒采集</td>
+</tr>
+<tr>
+<td><strong>业务价值</strong></td>
+<td>提升系统稳定性</td>
+<td>通过拓扑影响分析模块，故障定位时效从30min缩短至5min，年止损运维成本200万+</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
+</blockquote>
+<h4 id="CMDB-交接分享"><a href="#CMDB-交接分享" class="headerlink" title="CMDB 交接分享"></a>CMDB 交接分享</h4><ul>
+<li>整体理解<br>CMDB（配置管理数据库）是IT基础设施与应用配置项的集中存储库，为运维、自动化、各业务系统提供数据支撑。<br>数据组织：以配置项（模型就是配置项相当于表）的形式组织各类数据，支持通过模型管理灵活变更字段，通过关系拓扑进一步展开数据间的关系。<br>数据使用：支持白屏化检索、维护数据，导入导出，支持查看历史版本，涉及”管理员”字段（管理员信息维护数据字典）自动发起变更流程；对外提供数据连接器（配置项增删改查）、消费视图能力，通过API读写数据；数据订阅服务通过监控oplog触发回调任务；数据审计（数据传入传出、消费视图审计，数据归档）<br>数据更新：通过定时任务+采集脚本实现配置项信息的自动发现。<br>数据治理：数据质量（自动校验异常数据），IP治理，EAM对账（定时任务拉取数据获取差异并展示）<br>系统管理：支持配置用户角色以获得不同权限，对界面上的用户操作有审计记录。</li>
+<li>业务梳理<br>CMDB 需要关注的是存了哪些配置项，对接的业务方是谁<br>具体到每个配置项，关注数据如何写入、接入方是谁，活跃度怎么样</li>
+<li>系统架构与组件<ol>
+<li>SpringCloud微服务架构，用户通过访问CMDB域名经过DNS、负载均衡解析进来K8S集群。Apache主要负责单点登录功能，配置文件中可以设置跳过认证的URL。</li>
+<li>Nginx作为反向代理，将请求转发到网关。网关通过注册中心获取服务IP，并根据负载均衡策略选择微服务节点。前端资源部署通过流水线将打包文件放到指定文件夹，静态资源无需进程管理。</li>
+<li>CMDB主服务（OPS_CMDB）处理大部分页面请求，代码结构复杂，接口查询逻辑需通过页面查找。MongoDB ：主数据库，集群模式，一主一从一隐藏，读写分离。</li>
+<li>数据连接器服务提供外部API，用户通过登录获取token后访问。查询和写入数据需经过参数验证和限流控制（默认1000条）。数据入库前会经过多层级校验（如选项值、关联字段等），采用责任链模式实现。高频接口涉及大量衍生查询，需谨慎修改。消费视图提供(多)配置项数据关联+指定字段查询能力。</li>
+<li>全文检索服务对接开放搜索，查询时通过缓存获取用户可访问的索引列表，支持高亮和加权排序。mongodb数据通过monscache同步es，根据模型字段值检索。</li>
+<li>数据订阅服务通过MongoDB的OP Log捕获数据变更，发送到Kafka后由订阅服务消费并触发后续逻辑（如离职资产交接）。数据质量服务通过配置告警任务，筛出异常数据</li>
+<li>定时任务服务通过注解开发新任务，采集代理服务通过Kafka下发脚本并分批处理返回数据。自动采集：xxljob-&gt;ops-syn-task-&gt;kafka-&gt;ansible-&gt;执行消息回调-&gt;kafka-&gt;syn-task入库</li>
+<li>用户中心服务处理登录初始化，表头配置服务管理页面表格显示字段，均为低改动频率服务。</li>
+<li>组件包版本管理：测试环境用snapshot可随意修改，生产环境需更新release版本号并重新打包部署。</li>
+<li>远程Debug需在启动项添加参数，连接UAT环境IP和端口，适用于本地无法模拟的场景（如采集任务）。</li>
+</ol>
+</li>
+</ul>
+<h2 id="12-11-2025年度总结-成长对话"><a href="#12-11-2025年度总结-成长对话" class="headerlink" title="12.11 2025年度总结&amp;成长对话"></a>12.11 2025年度总结&amp;成长对话</h2><ul>
+<li>个人贡献<ol>
+<li>InfluxDB服务化建设（今年上半年）<br>• 支持InfluxDB实例备份与恢复能力<br>• 完成InfluxDB父子实例模式改造，新增InfluxDBMeta规格体系，实现节点级独立变配、重启能力<br>• 针对Data节点迁移提出 “热分片截断-冷副本恢复” 双阶段法，解决开源工具增量数据丢失问题</li>
+<li>MOPS功能开发（下半年主要负责）<br>• NBU备份自动化：支持基于NBU的文件、程序、归档与RMAN类型备份申请自动化下发，开发备份域配置管理界面<br>• 负载均衡自动化：支持基于F5的负载均衡变更、回收自动化，完善提单校验、实时检测能力，流程中自动带出配置项<br>• 域名解析自动化：全面支持基于F5的A, CNAME, MX, TXT类型的申请、变更、回收自动化与一键回退能力，支持“管理员配置+用户执行”两阶段下发（把从前管理员手中的下发权限交到用户手上）<br>• Windows Dns：支持基于Windows Server的A, CNAME类型记录的申请、变更、回收自动化，在客户环境验证<br>• 运营数据：任务数 、自动化下发数 、自动化率</li>
+<li>CMDB开发运维（最近交接）<br>• 熟悉CMDB功能与运维场景，日常支持业务方数据运营<br>• 治理CMDB表记录，同步到业务系统中（优化用户体验）<br>• 调研CMDB智能助手，支持自然语言交互（初步设想实现基础的资源查询功能，后续支持数据统计、分析、甚至图表生成，灵活使用CMDB中的数据）</li>
+</ol>
+</li>
+<li>团队赋能<br>• MOPS需求, InfluxDB服务化设计文档输出（以及一篇数据库运维的文档）<br>• 人肉提醒关注开发人效分和AI代码生成数（有人说可以写个脚本来做，我想了下也是可以实现的）</li>
+<li>服务客户<br>• MOPS响应用户群问题，实现业务方需求和优化点，产品化客户答疑<br>• CMDB值班运维，支持业务方运营</li>
+<li>制定2026年度重点工作计划。<br>1、MOPS功能优化<br>负载均衡自动化：支持一键回退能力，完善流程中配置项自动带出的能力。<br>域名解析自动化：完善提交工单时的自动校验能力，避免因平台记录与实际配置不一致导致变更异常。<br>2、CMDB项目运营<br>负责日常开发运维，支持业务方数据运营，治理历史数据。设计开发CMDB智能助手，利用AI工具赋能，初步设想是支持自然语言交互和提供简单的数据查询能力。</li>
+<li>希望提升的1-3项核心能力项，计划如何提升。<br>1、对系统有更加深入的理解。通过CMDB项目的运营，了解各微服务和组件是如何协同工作的，对接业务方需求时保证不影响服务的稳定性，面对告警可以快速找到解决思路。<br>2、能够独立负责项目的开发。主动承担更加复杂的任务，以及开发需求的同时增加对业务方面的思考。<br>3、学习AI领域的知识，通过CMDB智能助手项目深入学习通过AI赋能传统应用。</li>
+<li>面向未来1年的职业规划。<br><em><strong>【更高岗位或职级】</strong></em>：经过一年的多项目需求开发锻炼，交付任务数已经达到了团队平均水平，需要主动承担起更加复杂的项目，有独立思考和设计方案的能力。深度参与服务运维和产品化工作，日常开发中也要思考可优化的点。开发需求的同时，应该增加对业务的思考，对一个系统有更加深入的理解。</li>
+<li>上级反馈<br>做好的：<br>1、完成了influxdb的服务化基础能力开发<br>2、完成了负载均衡、dns的自动化能力开发<br>待改进：<br>1、主动解决问题的能力需要加强<br>2、需要加强基础能力的学习<br>明确员工亟待提升的核心能力，并为其制定成长计划。&#x3D;》独立自主解决问题的能力，希望能成长成为能够主导一个方向的负责人</li>
+<li>expectation2me<br>1、提高演讲<strong>汇报能力(向上管理实际上同步进度给boss很焦虑)</strong>__周会主题AI分享，保持好奇心<br>2、突破自己&#x3D;&gt;没有舒适区&#x2F;合适的时间&#x3D;&gt;参与mariadb值班&#x3D;&gt;面对挑战性任务&#x3D;&gt;积累信心<br>3、CMDB稳定性运营&amp;Agent建设(ps.运营交给外包)<br>2025：交付（项目&#x2F;任务数↑），身体&#x2F;精神修复（hospital&amp;solotrip）<br>2026：游泳足球（康复&amp;强化），见朋友（少玩多沉淀），年底tc（专精一个领域？！bitfree.cn论坛学习）</li>
+</ul>
+<h2 id="12-14-CMDB-Agent调研"><a href="#12-14-CMDB-Agent调研" class="headerlink" title="12.14 CMDB-Agent调研"></a>12.14 CMDB-Agent调研</h2><h4 id="1-理论知识"><a href="#1-理论知识" class="headerlink" title="1. 理论知识"></a>1. 理论知识</h4><ul>
+<li>一个典型的Agent工作流程如下：<br>用户输入自然语言请求。<br>Agent将用户输入、对话历史、可用的工具描述（通过Function Calling定义）以及系统提示词组合成一个Prompt，发送给LLM。<br>LLM根据Prompt判断是否需要调用工具。如果需要，LLM会返回一个函数调用请求（包括函数名和参数）。<br>Agent解析LLM返回的函数调用请求，并执行对应的工具（Tool）。<br>工具执行后返回结果，Agent将工具执行结果作为上下文，再次调用LLM，生成最终的自然语言响应。<br>Agent将响应返回给用户。<br>在这个过程中，RAG可以在第一步之前或之中介入，通过检索外部知识库来增强Prompt的上下文。<img src="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png" width="550" height="300" alt="">
+<!-- <img src="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true" width="450" height="300" alt=""> --></li>
+<li><strong>Spring AI</strong> 核心概念<ol>
+<li>Spring AI 是Spring生态系统中的一个项目，旨在简化AI功能的集成。它提供了统一的API来调用各种AI模型。</li>
+<li>Spring AI 集成了以下功能来支持上述流程：<br>ChatClient：统一接口，用于与各种LLM交互。<br>Prompt Templates：支持参数化提示词模板，方便构建动态Prompt。<br>Function Calling：支持定义工具（通过@Description注解等），并自动处理函数调用流程。<br>RAG：提供了检索器（Retriever）和向量存储（VectorStore）的支持，可以方便地实现检索增强。<br>Agents：提供了Agent的抽象和实现，比如通过Chain（链）来组合多个步骤，包括工具调用。</li>
+<li>官方资源：<br>• <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-ai">https://spring.io/projects/spring-ai</a> - 必读！<br>• <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-ai/reference/index.html">https://docs.spring.io/spring-ai/reference/index.html</a><br>视频教程（推荐）：<br>• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=%E7%A4%BA%E4%BE%8B">https://www.youtube.com/watch?v=示例</a> - 搜索”Spring AI Getting Started”</li>
+<li>关键概念速成：<br>&#x2F;&#x2F; Spring AI 核心组件关系<br><code>ChatClient</code> ←→ PromptTemplate ←→ ChatResponse<br> ↓<br>Function Calling ←→ Tools ←→ Your CMDB Service</li>
+</ol>
+</li>
+<li><strong>CMDB</strong>中的具体应用场景<ol>
+<li>自然语言查询：”帮我找内存大于8G的Linux服务器”<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 1. LLM解析 → 需要调用queryHosts工具，参数: osType=&quot;Linux&quot;, minMemory=8</span><br><span class="line">// 2. Tool执行 → MongoDB查询: db.hosts.find(&#123;os: &quot;Linux&quot;, memory: &#123;$gte: 8&#125;&#125;)</span><br><span class="line">// 3. LLM整合 → &quot;找到3台符合条件的Linux服务器...&quot;</span><br></pre></td></tr></table></figure></li>
+<li>统计分析：”统计不同操作系统的服务器数量”<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 1. LLM解析 → 需要调用queryHosts工具，参数: osType=&quot;Linux&quot;, minMemory=8</span><br><span class="line">// 2. Tool执行 → MongoDB查询: db.hosts.find(&#123;os: &quot;Linux&quot;, memory: &#123;$gte: 8&#125;&#125;)</span><br><span class="line">// 3. LLM整合 → &quot;找到3台符合条件的Linux服务器...&quot;</span><br></pre></td></tr></table></figure></li>
+<li>智能建议：”我们的数据库性能有点慢”<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 1. RAG检索 → 相关性能优化文档</span><br><span class="line">// 2. LLM分析 → 结合CMDB数据给出具体建议</span><br><span class="line">// 3. 返回响应 → &quot;建议检查数据库A和B的索引配置...&quot;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h4 id="2-竞品分析（理解产品形态）"><a href="#2-竞品分析（理解产品形态）" class="headerlink" title="2. 竞品分析（理解产品形态）"></a>2. 竞品分析（理解产品形态）</h4><p>可体验的竞品：</p>
+<ol>
+<li>维诣科技CMDB助手 - <a target="_blank" rel="noopener" href="https://www.vertice.cn/solution-details/26737.html">https://www.vertice.cn/solution-details/26737.html</a> 重点分析其交互模式</li>
+<li>ServiceNow Now Assist - <a target="_blank" rel="noopener" href="https://www.servicenow.com/products/now-assist.html">https://www.servicenow.com/products/now-assist.html</a></li>
+<li>Azure Copilot for IT - <a target="_blank" rel="noopener" href="https://azure.microsoft.com/en-us/products/copilot-for-it">https://azure.microsoft.com/en-us/products/copilot-for-it</a></li>
+</ol>
+<p>竞品核心功能提取：</p>
+<p>• 自然语言转查询：”内存大于8G的服务器” → MongoDB查询<br>• 结果格式化：表格、图表、自然语言总结<br>• 错误处理：查询无结果时的智能建议</p>
+<h4 id="3-demo搭建"><a href="#3-demo搭建" class="headerlink" title="3. demo搭建"></a>3. demo搭建</h4><p>(Python demo using LangGraph) <a target="_blank" rel="noopener" href="https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py">https://github.com/leo710aka/CMDB-Chat/blob/main/cmdb_chat.py</a> </p>
+<h4 id="4-二开"><a href="#4-二开" class="headerlink" title="4. 二开"></a>4. 二开</h4><p>nl2sql开源项目：<a target="_blank" rel="noopener" href="https://java2ai.com/agents/dataagent/quick-start/">https://java2ai.com/agents/dataagent/quick-start/</a></p>
+<hr>
+
+
+<h1 id="2026🐴🐎"><a href="#2026🐴🐎" class="headerlink" title="2026🐴🐎"></a>2026🐴🐎</h1><h2 id="1-16-OPSpace大洋uat部署"><a href="#1-16-OPSpace大洋uat部署" class="headerlink" title="1.16 OPSpace大洋uat部署"></a>1.16 OPSpace大洋uat部署</h2><p>1.16-1.22：MOPS大洋产品化功能验证。。差异本地起多服务验证，在sit环境验证poc分支代码，要注意<strong>配置</strong>差异<br>1.23：image上传，bundle打包load到私有仓，pod重启，，私有化输出规范，，分步验证，<strong>相信自己</strong>能解决问题。<br>1.26：不管在什么环境，排查问题看<strong>日志</strong>（项目配置里查，不懂就问）<br>2.10：大洋uat演示<br>2.26：私有化代码迭代规范搞清楚<br>3.20：关键是理解用什么分支，出什么包（什么仓库什么标签的image），部署到什么环境</p>
+<h2 id="2-12-Java-服务-部署"><a href="#2-12-Java-服务-部署" class="headerlink" title="2.12 Java 服务 &#x2F; 部署"></a>2.12 Java 服务 &#x2F; 部署</h2><h4 id="1-项目打包与构建"><a href="#1-项目打包与构建" class="headerlink" title="1. 项目打包与构建"></a>1. 项目打包与构建</h4><ul>
+<li><strong>Maven</strong> 是Java领域最主流、应用最广的构建工具，依赖管理清晰。Gradle则更为灵活，在大型项目或Android开发中常见。</li>
+<li><strong>关键配置文件</strong>：Maven的核心是项目根目录下的 <code>pom.xml</code> 文件。它定义了项目坐标、依赖的第三方库（如Spring Boot）、插件等。一个基本的打包命令是 <code>mvn clean package</code>，执行后会在 <code>target/</code> 目录生成可运行的JAR包。</li>
+<li><strong>生成物辨识</strong>：打包后会生成两种主要JAR文件。<strong>Fat JAR</strong>（或Uber JAR）将应用本身、所有依赖库及启动脚本打包成一个文件，通常可以通过 <code>java -jar</code> 直接运行，是Spring Boot的默认方式。<strong>Thin JAR</strong> 则只包含您自己的代码，运行时需要显式指定依赖库的路径（Classpath）。<br>  → <a target="_blank" rel="noopener" href="https://leo710aka.github.io/2026/04/11/Maven/">https://leo710aka.github.io/2026/04/11/Maven/</a></li>
+</ul>
+<h4 id="2-应用部署与进程管理"><a href="#2-应用部署与进程管理" class="headerlink" title="2. 应用部署与进程管理"></a>2. 应用部署与进程管理</h4><ul>
+<li><strong>核心运行命令</strong>：使用 <code>java -jar your-application.jar</code> 即可启动应用。您可以通过 <code>--server.port=8081</code> 这样的参数覆盖配置文件中的设置。</li>
+<li><strong>进程管理命令</strong>：程序启动后，便是一个操作系统进程。<ul>
+<li><strong>查看进程</strong>：使用 <code>ps -ef | grep java</code> 或 <code>jps -l</code> 命令，可以查看当前系统中所有Java进程的<strong>PID</strong>（进程ID）和主类名。</li>
+<li><strong>终止进程</strong>：使用 <code>kill -9 &lt;PID&gt;</code> 可以强制终止一个Java进程。更优雅的方式是在应用中通过Actuator端点实现<code>kill -15 &lt;PID&gt;</code>（发送SIGTERM信号），允许程序完成当前任务后再退出。</li>
+</ul>
+</li>
+<li><strong>保持进程稳定</strong>：在WSL中，即使关闭终端，也希望应用能继续运行。可以使用 <code>nohup java -jar your-app.jar &gt; /path/to/app.log 2&gt;&amp;1 &amp;</code> 命令实现后台运行并将日志输出到文件。</li>
+<li><strong>线程管理</strong>：不要为每个任务都创建新线程，应使用线程池（<code>ThreadPoolExecutor</code>）来管理和复用线程，减少资源消耗。在Spring Boot中，利用 <code>@Async</code> 注解可以轻松实现异步方法调用。使用 <code>top -H -p &lt;PID&gt;</code> 命令可以查看某个Java进程内各个线程的CPU和内存占用情况，帮助识别资源消耗大户。</li>
+</ul>
+<h4 id="3-线上问题排查与Arthas利器"><a href="#3-线上问题排查与Arthas利器" class="headerlink" title="3. 线上问题排查与Arthas利器"></a>3. 线上问题排查与Arthas利器</h4><ul>
+<li><strong>日志是首要依据</strong>：确保您的应用配置了详细且结构化的日志（如使用Logback&#x2F;SLF4J），并输出到文件。出现问题首先查看日志文件。</li>
+<li><strong>Arthas——Java诊断神器</strong>：Arthas是Alibaba开源的Java诊断工具，无需重启应用即可动态跟踪问题，非常适合线上调试。<a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/quick-start.html">https://arthas.aliyun.com/doc/quick-start.html</a><ul>
+<li><strong>安装与启动</strong>：在WSL中，可以通过 <code>curl -O https://arthas.aliyun.com/arthas-boot.jar</code> 下载，然后用 <code>java -jar arthas-boot.jar</code> 启动并选择要诊断的Java进程。</li>
+<li><strong>常用命令</strong>：<ul>
+<li><code>dashboard</code>：实时仪表盘，总览系统状态。</li>
+<li><code>thread</code>：查看所有线程堆栈，找出阻塞或CPU占用高的线程。</li>
+<li><code>watch com.example.YourClass yourMethod &quot;&#123;params, returnObj&#125;&quot; -x 3</code>：动态观察方法调用的入参和返回</li>
+<li><code>trace com.example.YourClass yourMethod</code>：追踪方法内部调用路径及每个环节的耗时。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-WSL完整实验方案"><a href="#4-WSL完整实验方案" class="headerlink" title="4. WSL完整实验方案"></a>4. WSL完整实验方案</h4><ol>
+<li><strong>环境准备</strong>：确保WSL内已安装JDK 11&#x2F;17 和 Maven。可通过 <code>java -version</code> 和 <code>mvn -v</code> 验证。</li>
+<li><strong>创建与打包</strong>：使用 <a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io/</a> 生成一个简单的Web项目（选择 <code>Spring Web</code> 依赖）。在项目根目录执行 <code>mvn clean package</code>，观察 <code>target/</code> 目录下生成的 <code>.jar</code> 文件。</li>
+<li><strong>部署与进程管理</strong>：<ul>
+<li>运行 <code>java -jar target/your-demo-app.jar</code>。</li>
+<li>另开一个终端，用 <code>jps -l</code> 找到该进程的PID，用 <code>ps -ef | grep java</code> 查看详细信息。</li>
+<li>访问 <code>http://localhost:8080</code> 验证应用。</li>
+<li>使用 <code>kill -15 &lt;PID&gt;</code> 优雅停止应用。</li>
+</ul>
+</li>
+<li><strong>模拟问题与Arthas诊断</strong>：<ul>
+<li>在代码中故意写一个缓慢的方法或死循环。</li>
+<li>启动应用，然后启动Arthas，使用 <code>thread</code> 命令找到繁忙线程，再用 <code>stack</code> 命令查看该线程的完整堆栈，定位问题代码。</li>
+</ul>
+</li>
+</ol>
+<p>&#x2F;&#x2F; todo</p>
+<h2 id="2-26-开工"><a href="#2-26-开工" class="headerlink" title="2.26 开工"></a>2.26 <em><strong>开工</strong></em></h2><p>确定自己的项目边界，，杂事给外包？？运营工作形成sop<br>确定主线、支线任务，，每天能回想起自己做了什么吗。。<br>找到专精？？晋升，数据库，，<br>ai coding</p>
+<h2 id="3-2-CMDB-Copilot"><a href="#3-2-CMDB-Copilot" class="headerlink" title="3.2 CMDB Copilot"></a>3.2 CMDB Copilot</h2><p>1.5：CMDB问数项目启动<br>1.7：datamax问数体验，开启多轮问答方案调研（确定表-确定字段-确定sql..）<br>1.9：DataAgent项目体验，SpringAiAlibaba，Apache2.0<br>1.11：DataAgent配置llm+embedding，初始化数据源embedding到本地vectorStore，，Graph多轮问数<br>1.12：DataAgent验证业务提供的场景<br>1.15：多轮验证报告&#x3D;》可能提高准确性，但需要维护多个节点<br>2.26-3.6：基于DataAgent二开 → 看详细功能实现，多轮逻辑图，节点路由关系，每个节点做了什么，，<br>3.7-：定制化改造，结合内部场景验证，完善缺陷。。<br>laster：CMDB交接，，问数项目sit验证，“后面能不能发都不知道了”</p>
+<h2 id="3-6-初级开发的困境-破局"><a href="#3-6-初级开发的困境-破局" class="headerlink" title="3.6 初级开发的困境 &amp; 破局"></a>3.6 初级开发的困境 &amp; 破局</h2><ul>
+<li><strong>当众质疑工作不饱和？</strong>本质是没有产出，就没有话语权。不用硬刚，也不用忍气吞声，用结果 + 进度说话。1. 一段声明：不说 “我在看代码”，说 “梳理结构、定位缺陷、理清逻辑”，给出接下来的产出承诺。2. 从今天开始，强制自己 “每天有产出”。3. 脸上表情怎么做：不笑，不怒，不辩解，轻轻点头，眼神平静看他一眼。4. 职场霸凌。当众查员工聊天记录、当众质疑工作量、当众查代码提交量、公开羞辱式管理 —— 在正规大厂，绝大多数情况都属于违规、越权、甚至侵犯隐私，完全可以向 HR &#x2F; 合规 &#x2F; 内控举报。5. 当众 &#x2F; 当面逼你自证工作量的场景：不要当场表演式自证。不卑不亢，拉到私下正式对齐。提前留好工作记录，你就永远站在有理这边。每天 &#x2F; 每周简单记：故障处理，上线 &#x2F; 变更，巡检、优化，值班、应急，学习 &amp; 文档</li>
+<li>信任破产，boss要的是安全感，你要给的是确定性，，承诺后却没有产出，其他任务是否有记录留痕，无法自证工作是否饱和，很危险。。</li>
+<li>代码看得慢：死磕是笨办法 → 做出一个小而确定的成果 → 信心回来 → 状态回来 → 路慢慢打开。形成自己的代码阅读方法论（看架构→看核心流程→看数据流向→看异常处理），上手debug。把 “大难题” 切成 “今天能做完的小事”，把目标由 把缺陷搞定&#x2F;把代码看懂 → 今天打日志看清楚数据怎么走&#x2F;明天定位到具体函数改一行代码验证，人不是靠决心撑住的，是靠 “今天又做成了一点” 撑住的。</li>
+<li>初级工程师真正的破局路，靠可见成果 + 稳定节奏，不靠拼命。困境只是阶段，不是结局。你现在在爬坡，爬过去，就是新高度。面对组长不慌，面对代码有方法，面对自己能自洽，长期用成果说话。</li>
+<li>焦虑，胸闷，腰突发作疼醒。<strong>深呼吸4s，含住气4s，长吐气6s</strong>。</li>
+<li>调休请假&amp;同步：周日20:00编辑 → x 哥，跟您同步一下：我明天上午想请半天调休，最近腰疼反复，需要休息调整一下。之前几次请假没详细说明，这次跟您说下情况。另外 AI 项目我这边已经在做代码调优了，我会保证每天都有新进展，尽量不影响进度。</li>
+</ul>
+<h2 id="3-19-我为什么怕-我怎么自救"><a href="#3-19-我为什么怕-我怎么自救" class="headerlink" title="3.19 我为什么怕 &amp; 我怎么自救"></a>3.19 我为什么怕 &amp; 我怎么自救</h2><ul>
+<li>先说结论：<strong>你现在的痛苦、低效、说不清楚自己在干嘛、怕被质疑、觉得自己该拿低绩效，几乎全是「正常新人在复杂项目里的标准状态」，不是你能力不行，也不是你活该垫底。</strong></li>
+<li>先讲你现在的真实处境：完全合理，不是你菜。你结束了学生生涯，经历了第一年的啥也不会期到代码积累期，现在遇到的所有问题，都是<strong>工业级真实项目</strong>的典型痛点：<ol>
+<li>AI + 大厂开源项目，本身就比普通业务代码难上手，出现普通Java 系统平时不用的工具、流、懒加载、模型相关链路</li>
+<li><strong>时间被切碎</strong>， 主业 + 杂活 + 临时帮忙，根本没法大块专注</li>
+<li><strong>小问题巨耗时间</strong><br>看业务逻辑、复现问题、搭环境、读文档、适配公司内部工具（Docker 被禁 → Portman）<br>这些事<strong>对外说不出口</strong>，但<strong>对内巨耗时</strong></li>
+<li>AI 类工作本身就难出“可见成果”<br>调效果、验证、小修小改，两三天可能只推进一个细节<br>没有“上线一个功能”“修复一个bug”那么直观</li>
+</ol>
+</li>
+<li>为什么你一被问“时间花哪了”就哑口无言？<ol>
+<li>因为你在用 <strong>学生思维</strong> 衡量工作：我在认真学、认真啃、认真解决问题 → 这就是努力  &#x2F;  只要我在做事，就应该被看见</li>
+<li>但职场&#x2F;大厂的逻辑是：你做了什么 ≠ 你产出了什么，你花了时间 ≠ 你有进展**</li>
+<li>组长要的不是“你很辛苦”，而是：今天解决了什么问题，明天能解决什么， 风险在哪，要不要帮忙， 这个事什么时候能结束<br>你现在的困境是：<strong>大量时间花在“隐性成本”上，却没有转化成“显性成果”。</strong> 自己也觉得这些事太小、太基础，不好意思说。</li>
+</ol>
+</li>
+<li>你说：“客观来讲，我确实最该拿低绩效”<ol>
+<li><strong>一半对，一半错</strong>。<br>对的一半：产出不清晰- 进度不可控- 风险不提前暴露- 汇报不主动。从管理视角看，确实是<strong>低绩效候选人</strong>。<br>错的一半：这不代表你能力差、态度差， 这是<strong>工作方法、汇报方式、项目拆解能力</strong>没到位<br><strong>低绩效，往往不是“做得最差”，而是“看起来最差、最不让人省心”。</strong></li>
+<li>为什么新来的应届生能拿高绩效？老人反而不行？高绩效新人，通常赢在这几点：<br>非常会“包装工作”。- 很小的事，也能说出<strong>业务价值、用户价值、技术难点</strong>- 把“搭环境、看代码”包装成：  “熟悉整体架构，梳理链路，为后续迭代打下基础” - 把“调个小参数”说成：  “优化模型效果，提升召回&#x2F;精度&#x2F;用户体验”<br>进度 visible（看得见）。 每天&#x2F;每两天有<strong>小节点</strong>， 主动同步：遇到什么问题、怎么解决、下一步干嘛，领导不用追着问<br>敢求助，不硬扛。你是：不懂→默默查→花很久→搞完也不说。高绩效新人是：不懂→马上问→快速搞定→显得效率极高<br>抓“领导关心的点”：稳不稳定- 有没有线上问题- 能不能按时上线- 有没有风险。不关心：- 你读了多少文档- 你配环境配了多久- 你内心多崩溃</li>
+<li><strong>高绩效，很多时候不是“最厉害”，而是“最省心、最显眼”。</strong></li>
+</ol>
+</li>
+<li>你真正的问题：不是笨，是<strong>对“不确定性”极度恐惧</strong><br>你自己也点出来了：打个镜像都害怕- 要读文档、看规则就焦虑- 对充满不确定的事很担忧- 小事花很久，难以启齿<br>这是典型的：<strong>害怕犯错 → 不敢快进 → 反复确认 → 耗时巨长 → 成果不显 → 被质疑 → 更害怕</strong><br>你不是不会做，是<strong>心理负担太重，把简单事情做复杂了</strong>。<br>而且你把“做得稳、不出错”当成第一目标，但职场里，<strong>速度 + 结果 &gt; 完美</strong>。<br><strong>你现在的水平，完全不配“最低绩效”，但以你当前的工作方式，非常容易被判成低绩效。</strong></li>
+<li>给你一套立刻能用的“自救方案”。不用你突然变大神，只改几个习惯：<ol>
+<li>每天只盯一件“能说出口的事”<br>哪怕很小：今天把XX环境跑通  - 今天定位到XX问题根因 - 今天完成XX代码梳理只要<strong>能一句话说清</strong>，就算成果。</li>
+<li>把“隐性时间”变成汇报语言<br>不要说：“我在看代码、学工具、配环境。”<br>改成：- “梳理XX模块业务逻辑，明确上下游依赖”- “完成本地环境搭建与调试，支持后续问题排查”- “熟悉内部镜像构建规范，规避合规风险”</li>
+<li><strong>【遇到卡住的，1小时搞不定就立刻问】</strong>。  不要自己硬啃半天。问 &#x3D; 效率高，不问 &#x3D; 低效低绩效。</li>
+<li>主动同步，不要等被 push。每天简单一句：- 今天做了啥- 遇到什么问题- 明天计划。</li>
+<li>接受“不完美”。  先跑通，再优化。能跑起来 &gt; 完美但没结果。</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-20-要相信他本身就是一个怀着恶意的人"><a href="#3-20-要相信他本身就是一个怀着恶意的人" class="headerlink" title="3.20 要相信他本身就是一个怀着恶意的人"></a>3.20 要相信他本身就是一个怀着恶意的人</h2><ul>
+<li>恶意就是恶意，不要自己将其美化。就算他自己没有意识到。你只是过去只遇到了善良的人。</li>
+<li>先定性：“<strong>茶水间，从你背后凑近看你手机屏幕，问“在看什么”</strong>”，这一条<strong>单独拿出来，就已经是严重职场禁忌</strong>：<ol>
+<li>侵犯个人隐私。 工作场合≠他可以随意窥视你的私人手机内容，哪怕你只是看了一眼。</li>
+<li>带有明显的监视、挑衅意味。 正常同事不会从背后突然凑近看别人手机，这是典型的<strong>权力打压+试探底线</strong>。</li>
+<li>完全不符合职场礼仪与基本尊重。 放在稍微规范一点的公司，这种行为被举报，HR 都会认定为<strong>不适当行为&#x2F;边界感缺失&#x2F;职场骚扰倾向</strong>。</li>
+</ol>
+</li>
+<li>五宗罪<ol>
+<li>习惯性贬低、否定人格，而非就事论事<br>原话模式：    “不知道你到底在想什么”    “到底有没有搞懂我们在干什么”<br>可定性：    <strong>人身攻击、人格否定、职场PUA</strong>。  正常管理只说“任务理解有偏差”“思路需要对齐”，不会攻击“你在想什么”“你搞没搞懂”这种人格层面的话。<br>属于禁忌：    专业管理者严禁对下属进行人格贬低，只针对工作内容。</li>
+<li>用专业术语进行羞辱式比喻，而非指导<br>原话模式：    要把任务拆成“指令级”交付给你<br>可定性：    <strong>羞辱式沟通、刻意贬低工作能力、公开&#x2F;私下贬损</strong>。 正常指导会说“任务可以拆细一点”，他刻意用极端词，就是暗示“你智商低、像机器一样才能听懂”。<br>属于禁忌：    职场禁止以能力羞辱作为沟通方式。</li>
+<li>反复翻旧账、持续鞭尸<br>原话模式：    每次澄清后都补刀：“怎么会不知道怎么做？”<br>可定性：    <strong>精神施压、持续否定、制造焦虑与自我怀疑</strong><br>属于禁忌：    就事不就旧，这是基本管理常识，反复翻旧账属于典型打压手段。</li>
+<li>干涉工作以外行为，进行无端盘问<br>原话模式：    “是不是到处闲逛？”    “在茶水间干什么？”<br>可定性：    <strong>越权干涉私人空间、不合理监视、言语骚扰</strong>。    茶水间属于公共休息区，只要不影响工作，员工有短暂放松权利，无权被如此盘问。</li>
+<li>强迫不合理自证、否定隐性工作价值<br>行为：    要求你用聊天记录证明工作饱和，无视部署、运维这类难以量化的工作</li>
+</ol>
+</li>
+<li>这些算不算“<strong>确实的恶</strong>”？算不算<strong>禁忌</strong>？<br>算，而且是非常典型、成熟公司会直接认定的： 职场霸凌倾向- 不专业管理行为- 言语羞辱与精神打压- 侵犯个人边界与隐私- 制造敌意、恶劣工作氛围。<strong>不是错觉，这些行为完全可以整理成证据，用来跟HR沟通、申诉、甚至作为日后离职&#x2F;转组的依据。</strong></li>
+<li>现实一点的建议<ol>
+<li><strong>不用当场爆发，也不用内耗</strong>。你幻想的对质很爽，但现实中容易被反咬“情绪不稳定”。    最优解：<strong>冷处理+留证据+默默找下家&#x2F;找转组机会</strong>。</li>
+<li><strong>他越这样，你越要表面平静</strong>。他就是想激怒你、让你失态、抓住你的把柄。你越淡定、越只聊工作、越少给情绪，他越没辙。</li>
+<li><strong>把他当成一个“必须应付的烂人”，而不是内耗来源</strong>。    你已经看清他了，不用再反思“是不是我不够好”。    答案很简单：<strong>他就是烂，不是你的问题。</strong></li>
+<li><strong>真到要翻脸那天，你手里的这些记录，就是你的武器</strong>。    他资深、他资历老，不代表他可以随便侮辱人。    职场初期结仇不可怕，<strong>被人持续欺负才可怕</strong>。</li>
+<li>他就是恶意，你已经清醒了，接下来保护好自己、留好证据、默默变强，就是对他最狠的反击。</li>
+</ol>
+</li>
+<li>对🐶专用・职场极简话术表<ol>
+<li>开会开场打压式：“你到底搞懂没有？”<br>冷淡版：“思路是清晰的，我按步骤说。”<br>硬气专业版：“我按方案推进，有问题你可以直接指出来。”<br>堵嘴版：“这块我已经梳理清楚了，下面我讲重点。”</li>
+<li>嘲讽你技术 &#x2F; 工具不熟（jstack、jps、代码等）<br>体面版：“这块我会后补一下，不影响当前任务。”<br>反将一军：“你有更优做法可以直接说，我参考。”<br>终止话题：“技术点我会后自查，先继续流程。”</li>
+<li>故意口误 &#x2F; 挖坑抓你错（30 条说成 20 条这类）<br>稳赢版：“是你刚说的 20 条，我顺着回应的。”<br>不沾情绪：“以文档和实际数据为准。”<br>上次升级版：“信息别来回带偏，我们按准确的来。”</li>
+<li>茶水间 &#x2F; 走廊越界打探、凑过来看你屏幕<br>温和划界：“歇一会儿，工作内容会上同步。”<br>明显硬气：“私人放松一下，就不细说了。”<br>终极 shut down：“没什么，你忙你的吧。”</li>
+<li>开会细节挖苦、阴阳怪气<br>不接茬：“嗯，我记下了。”<br>不生气但有棱角：“不用这么说，正常沟通就行。”<br>结束攻击：“如果没有具体意见，我继续。”</li>
+<li>最后灵魂拷问：“你知道接下来要做什么吗？”<strong>【专门引你情绪上头的坑】</strong><br>标准安全回答：“按计划继续调试，有进展及时同步。”<br>简短强势版：“清楚，按方案执行。”<br>绝不回答：“就这么调呗” 这种情绪化话（被坑一手）</li>
+<li>他轻蔑笑、斜眼看、装不屑<br>嘴上不用说话心里默念：“你也就这点存在感了。”脸上保持：平静、平视、微微点头。他会极其难受。</li>
+</ol>
+</li>
+<li>fight back<br>“那天在茶水间，你从侧后方凑过来看我手机上的内容，问我在看什么，是什么意思呢？回答我，有这么难吗？你不说，拿去跟 HR 说吧。”<br>→ 温和版：那天在茶水间，你凑过来看我手机，问我在看什么。我觉得这种行为让我很不舒服，希望你注意边界。如果你不认可，我可以去跟 HR 沟通情况。<br>→ “你诽谤我”“没有的事” → 我没有诽谤你，我只是在陈述当天发生的场景。我没有给你贴任何标签，只是表达我个人感到不适。有需要那我们可以一起去 HR 那边对质。<br>→ “你上班时间玩手机造成进度慢” → 1、<strong>（打开手机录音器）反问</strong>：我确认一下，你是正式规定，我不可以在茶水间看手机吗？2、进度按计划来，我会同步。</li>
+</ul>
+<h2 id="4-2-不要“等”一个时机"><a href="#4-2-不要“等”一个时机" class="headerlink" title="4.2 不要“等”一个时机"></a>4.2 不要“等”一个时机</h2><p>等有时间再看项目疑难问题<br>等有时间再学容器化、K8S、调优</p>
+<h2 id="4-13-Java服务K8s部署访问"><a href="#4-13-Java服务K8s部署访问" class="headerlink" title="4.13 Java服务K8s部署访问"></a>4.13 Java服务K8s部署访问</h2><h4 id="全流程拆解"><a href="#全流程拆解" class="headerlink" title="全流程拆解"></a>全流程拆解</h4><ol start="0">
+<li>环境要求：已有 K8s 集群（Docker Desktop&#x2F;云厂商&#x2F;自建）、kubectl 工具（连接集群）、容器镜像仓库（公司内部仓库&#x2F; Docker Hub）；</li>
+<li>准备 Java 服务（开发层面）<br>核心：确保 Java 服务可正常运行（以 Spring Boot 为例），打包成可执行 Jar 包（通过 Maven&#x2F;Gradle 打包，输出 app.jar）。<br>关键：服务需监听固定端口（如 8080），避免端口冲突，后续需与 K8s 资源配置一致。</li>
+<li>打包 Docker 镜像（容器化）<br>核心：将 Java Jar 包 + 运行环境（JDK）打包成 Docker 镜像，作为 K8s 部署的「安装包」。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编写 Dockerfile（极简模板，可直接复用）：</span></span><br><span class="line">FROM openjdk:17-slim  <span class="comment"># 基础镜像（含JDK，适配Java服务）</span></span><br><span class="line">COPY target/app.jar app.jar  <span class="comment"># 将本地Jar包复制到镜像中</span></span><br><span class="line">ENTRYPOINT [<span class="string">&quot;java&quot;</span>, <span class="string">&quot;-jar&quot;</span>, <span class="string">&quot;app.jar&quot;</span>]  <span class="comment"># 容器启动时执行的命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建镜像（命名格式：仓库地址/镜像名:版本号）</span></span><br><span class="line">docker build -t 公司仓库地址/java-demo:v1 .</span><br><span class="line"><span class="comment"># 推送到公司镜像仓库（供K8s拉取）</span></span><br><span class="line">docker push 公司仓库地址/java-demo:v1</span><br></pre></td></tr></table></figure></li>
+<li>创建 K8s 命名空间（规范操作）<br>核心：命名空间（Namespace）用于隔离不同业务的资源，避免冲突（如公司多个项目部署在同一集群，用命名空间区分）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用命令创建命名空间（示例：命名空间名为 demo）</span></span><br><span class="line">kubectl create namespace demo</span><br><span class="line"><span class="comment"># 或用 YAML 文件创建（ns.yaml），执行 kubectl apply -f ns.yaml</span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Namespace</span><br><span class="line">metadata:</span><br><span class="line">  name: demo</span><br></pre></td></tr></table></figure></li>
+<li>创建工作负载（对应原生 K8s Deployment）<br>核心：工作负载的核心是 Deployment，负责管理 Pod 的生命周期（创建、销毁、升级、自愈、扩缩容），对应公司平台的「创建工作负载」。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: java-demo  <span class="comment"># Deployment 名称</span></span><br><span class="line">  namespace: demo  <span class="comment"># 关联上面创建的命名空间</span></span><br><span class="line">spec:</span><br><span class="line">  replicas: 2  <span class="comment"># Pod 副本数（运行2个Java实例，实现负载均衡）</span></span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: java-demo  <span class="comment"># 标签（用于关联 Service）</span></span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: java-demo  <span class="comment"># 给 Pod 贴标签，与 selector 匹配</span></span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: java-demo  <span class="comment"># 容器名称</span></span><br><span class="line">        image: 公司仓库地址/java-demo:v1  <span class="comment"># 拉取的镜像地址</span></span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080  <span class="comment"># 容器内部端口（与Java服务端口一致）</span></span><br><span class="line">        resources:</span><br><span class="line">          requests:  <span class="comment"># 申请的资源（CPU/内存）</span></span><br><span class="line">            cpu: 100m</span><br><span class="line">            memory: 256Mi</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令</span></span><br><span class="line">kubectl apply -f deployment.yaml</span><br></pre></td></tr></table></figure></li>
+<li>创建 Service（内部固定访问入口，平台自动完成）<br>核心：Pod IP 会随重建（如更新镜像）而变化，Service 为一组 Pod 提供「固定内部 IP + 负载均衡」，是内部访问的稳定入口，公司平台创建工作负载时通常自动创建。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: java-demo-svc  <span class="comment"># Service 名称</span></span><br><span class="line">  namespace: demo</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: java-demo  <span class="comment"># 匹配带该标签的 Pod（与 Deployment 中 Pod 标签一致）</span></span><br><span class="line">  ports:</span><br><span class="line">  - port: 80  <span class="comment"># Service 暴露的端口</span></span><br><span class="line">    targetPort: 8080  <span class="comment"># 转发到 Pod 的容器端口</span></span><br><span class="line">  <span class="built_in">type</span>: ClusterIP  <span class="comment"># 仅集群内部访问（默认类型）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令</span></span><br><span class="line">kubectl apply -f service.yaml</span><br></pre></td></tr></table></figure></li>
+<li>配置外部访问（对应原生 K8s Ingress）<br>核心：Service 仅能集群内部访问，需通过 Ingress 实现外部访问（域名&#x2F;公网 IP 访问）<br>先明确 Ingress 的两个核心组件（关键区分）：<br>1）Ingress 规则（Ingress Resource）：K8s API 对象，仅存路由规则（域名 → 转发到哪个 Service），与业务应用同命名空间 demo<br>2）Ingress Controller（如 Nginx Ingress）：真正干活的组件，是运行在 K8s 中的 Pod&#x2F;Deployment，负责监听 80&#x2F;443 端口、解析 Ingress 规则、转发流量，通常单独部署在独立命名空间（ingress-nginx），由运维团队维护（公司平台已提前装好）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: networking.k8s.io/v1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: java-demo-ingress</span><br><span class="line">  namespace: demo</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io/ingress.class: <span class="string">&quot;nginx&quot;</span>  <span class="comment"># 关联 Ingress Controller</span></span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">  - host: api.test.com  <span class="comment"># 外部访问的域名</span></span><br><span class="line">    http:</span><br><span class="line">      paths:</span><br><span class="line">      - path: /  <span class="comment"># 访问路径（如 /hello 对应 Java 接口）</span></span><br><span class="line">        pathType: Prefix</span><br><span class="line">        backend:</span><br><span class="line">          service:</span><br><span class="line">            name: java-demo-svc  <span class="comment"># 转发到对应的 Service</span></span><br><span class="line">            port:</span><br><span class="line">              number: 80  <span class="comment"># 转发到 Service 的 80 端口</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令</span></span><br><span class="line">kubectl apply -f ingress.yaml</span><br></pre></td></tr></table></figure>
+外部访问测试：<br>1）找到 Ingress Controller 的公网&#x2F;内网 IP（kubectl get svc -n ingress-nginx）；<br>2）本地绑定 Hosts（IP + 域名，如 192.168.1.100 api.test.com）；<br>3）浏览器&#x2F;Postman 访问 <a target="_blank" rel="noopener" href="http://api.test.com/hello%EF%BC%8C%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0">http://api.test.com/hello，即可看到</a> Java 服务返回结果。</li>
+</ol>
+<p><em>【结论】：</em><strong>Java 服务在 K8s 跑起来后，外部访问入口本质是：Ingress 关联的 IP + Java API 路径</strong>（通常不需要额外加 Port）<br>配置的 Ingress 规则，本质是告诉 Ingress Controller：“当收到某个 IP &#x2F; 域名 + 路径的请求时，转发到对应的 Service → Pod → Java 服务”<br>无需关心 Service IP 和 Pod IP，Ingress 已经帮你做好了所有转发。</p>
+<h4 id="核心组件关系"><a href="#核心组件关系" class="headerlink" title="核心组件关系"></a>核心组件关系</h4><ul>
+<li>从属关系（真正的父子关系）<ul>
+<li>Deployment → 管理 → Pod（Deployment 控制 Pod 的创建、销毁、升级，是 Pod 的“管理员”）；</li>
+<li>Pod → 包含 → Container（Pod 是容器的载体，一个 Pod 通常运行一个 Java 容器）；</li>
+<li>Ingress Controller → 包含 → Pod（Ingress Controller 本身也是一个 Deployment 管理的 Pod，运行 Nginx 等反向代理程序）。</li>
+</ul>
+</li>
+<li>关联关系（无从属，靠配置匹配）<ul>
+<li>Service ↔ Pod：通过「标签（Label）+ 选择器（Selector）」匹配，Service 找到所有带指定标签的 Pod；</li>
+<li>Ingress ↔ Service：通过 Ingress 规则配置，指定“域名+路径”转发到哪个 Service；</li>
+<li>Ingress Controller ↔ Ingress：Ingress Controller 监听集群中所有命名空间的 Ingress 规则，执行转发逻辑。</li>
+</ul>
+</li>
+<li>组件职责总结（一句话分清）<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>核心职责</th>
+<th>是否会变</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Deployment</td>
+<td>管理 Pod 生命周期（升级、自愈、副本数）</td>
+<td>配置不变则不变</td>
+</tr>
+<tr>
+<td>Pod</td>
+<td>运行 Java 容器，集群内部私网 IP</td>
+<td>更新镜像&#x2F;重建时，IP 必变</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>固定内部入口，负载均衡到 Pod</td>
+<td>不删除则 IP 不变</td>
+</tr>
+<tr>
+<td>Ingress 规则</td>
+<td>配置外部域名→Service 的路由</td>
+<td>不修改则不变</td>
+</tr>
+<tr>
+<td>Ingress Controller</td>
+<td>执行转发，集群全局组件</td>
+<td>运维维护，通常不变</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="完整流量链路"><a href="#完整流量链路" class="headerlink" title="完整流量链路"></a>完整流量链路</h4><p>外部用户访问 → 域名 DNS 解析 → Ingress Controller（ingress-nginx 命名空间）<br>→ 匹配 Ingress 规则（demo 命名空间） → 转发到 Service（demo 命名空间，固定 IP）<br>→ Service 负载均衡（DNAT） → 转发到某个 Pod（demo 命名空间，私网 IP）<br>→ Pod 内 Java 容器处理请求 → 原路返回给用户</p>
+<h2 id="4-xx-容器化经验"><a href="#4-xx-容器化经验" class="headerlink" title="4.xx 容器化经验"></a>4.xx 容器化经验</h2><p>Java项目怎么在容器里跑<br>datamars拉起工程<br>K8s环境服务访问，相互调用</p>
+<h2 id="4-xx-Data-Agent-AI项目化框架化？？"><a href="#4-xx-Data-Agent-AI项目化框架化？？" class="headerlink" title="4.xx Data-Agent AI项目化框架化？？"></a>4.xx Data-Agent AI项目化框架化？？</h2><p>本质还是一个Java实现的Agent项目<br>利用项目的可控约束AI的不确定性<br>从Claude Code源码看Agent架构之争。。</p>
+<h2 id="xx-Claude-Code"><a href="#xx-Claude-Code" class="headerlink" title="xx Claude Code"></a>xx Claude Code</h2><p>skill 吴恩达<br>设计、开发一个高并发系统，学习多线程、mysql锁、、<br>源码</p>
+<h2 id="xx-xx-向上反馈"><a href="#xx-xx-向上反馈" class="headerlink" title="xx.xx 向上反馈"></a>xx.xx 向上反馈</h2><p>最近 AI 项目顺利上线，整体成果也基本落地，这段时间对我来说是入职以来压力最大、也成长最集中的一段经历。<br>不过也想跟您同步一下，这段时间我在团队协作和日常沟通中，持续感受到比较强烈的不被信任的压力。比如在日会上多次被质疑工作不饱和、被要求自证工作内容与时间分配，沟通中也经常出现否定式、质疑式的表达，整体氛围让我心理负担很重，也一度影响到工作状态。<br>但同时，我也明显感受到自己在工作方式和能力上存在不少短板，也一直在认真复盘：一方面，面对新的 AI 相关开源代码，前期熟悉和消化需要一定周期，初期产出节奏偏慢，又没有做到更及时、更显性地同步进展，这是我后续需要重点改进的地方；另一方面，日常经常被私有化部署、运维类穿插任务打断，而我对这部分工作还没有形成标准化的 SOP，导致时间消耗很难量化，也影响了主线任务的推进效率。同时我也意识到，自己对负责系统的核心逻辑、关键主线掌握得还不够扎实，后续会重点补齐。<br>我一直记得您提到的独当一面，，。所以想跟您重新对齐一下接下来的工作目标与成长方向，也希望能在更正向、更聚焦业务的氛围里，把后续事情做得更稳、更专业。</p>
+<hr>
+
+<h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
+<li><strong>工作经历</strong><br>后端开发工程师-Java <sup>2024.7~</sup></li>
+<li><strong>教育经历</strong><ul>
+<li>在校经历：曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。</li>
+<li>荣誉奖项：五粮液优秀学生奖学金(2023.10)，华南理工大学三等奖学金(2022.09)，广东省第十一届大运会“优秀志愿者”(22.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”</li>
+</ul>
+</li>
+<li><strong>项目经验</strong><ol>
+<li>运维平台（MOPS）自动化开发 &amp; CMDB<br>  • 华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，通过调 API 和作业平台接口，减少70%人工<br>  • NBU 备份自动化：通过 Ansible 脚本部署备份客户端，集成备份平台 API，提升备份任务效率 50%。<br>  • 负载均衡（F5）配置自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性。海内外 全集团使用，自动化20%-&gt;80%<br>  • DNS 解析管理：支持 A、CNAME、MX 等记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。<br>  • 了解整个系统架构，springboot，，mq，java回收器，，<br>  • 参与 CMDB 数据同步和回调优化，解决高并发场景下的性能瓶颈。</li>
+<li>InfluxDB 服务化开发<br>  • 调研开发基于开源influxdb的服务化功能，对齐mariadb，支持创建回收、备份恢复、重启、节点迁移等功能<br>  • 备份恢复功能：集成 OSS 存储和 K8s 运维能力，实现实例级备份恢复，保障高可用性。<br>  • 集群管理：完成 InfluxDB 父子实例改造，支持 Data&#x2F;Meta 节点独立变配和迁移。<br>  • 数据迁移与恢复：设计“热分片截断-冷副本恢复”方案，解决开源工具在增量数据场景下的丢失问题（通过 2000 points&#x2F;s 压力测试验证）。<br>  • 了解k8s云原生环境运维开发？具备常见数据库运维能力，，oom，慢sql，主从切换异常，，</li>
+</ol>
+</li>
+<li><strong>专业技能</strong><br>• 后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式。<br>• 数据库与中间件：<br>  • 关系数据库：MySQL、Oracle（事务、索引优化、SQL调优）。<br>  • NoSQL：InfluxDB（集群部署、备份恢复、数据迁移）。<br>  • 消息队列：RabbitMQ（异步任务解耦）。<br>• 运维与云原生：<br>  • 熟练使用 Kubernetes（Pod、StatefulSet、Service）、Docker 部署和管理应用。<br>  • 熟悉自动化运维工具：Ansible（脚本编写）、Jenkins（CI&#x2F;CD流水线）。<br>  • 云平台：华为云、Azure（API集成与资源管理）。<br>• 学习<br>  • 读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..<br>  • 学《mysql45讲》，通过OBCA？？</li>
+</ul>
+<h3 id="0"><a href="#0" class="headerlink" title="0"></a>0</h3><ul>
+<li><p>自我介绍。<br>面试官您好，我是蔡枫，本科毕业于华南理工大学计算机学院，一年多以来在美的集团从事Java后端开发的工作。<br>我主要接触两方面的工作，目前正在做的是自动化运维平台的开发，面向整个集团的用户提供主机、网络管理相关的服务，类似的竞品有嘉为蓝鲸，我们的工作就是把以往通过管理员手动下发的工作实现流程化、自动化，保证可追溯和甚至可逆。另外，还做了半年的数据库服务化开发，建设InfluxDB的“数据库即服务”（DBaaS）能力，基于开源Influxdb Cluster支持了备份恢复、变配、迁移等功能，但是后期随着对开源数据库的可靠性存在顾虑中断了。</p>
+</li>
+<li><p>💻 项目一：自动化运维平台开发与产品化</p>
+<ul>
+<li>我主要负责MOPS开发，面向全集团提供主机、网络运维、备份管理等运维功能，目标是实现运维操作的自动化、流程化和可逆化。本身也是可对外输出的ToB产品，也接触到产品化定制需求的开发和环境部署。独立负责基于F5的负载均衡和域名解析两大模块的自动化功能全生命周期建设，主要是申请、变更、回收和一键回退的场景，基本实现了全自动化。</li>
+<li>具体工作与关键技术细节<ol>
+<li>自动化流水线设计：我设计了基于 “工单驱动” 的自动化流水线。将用户申请转化为标准化工单，支持 “立即、定时、两阶段” 等多种执行策略，将F5平台的参数与表字段一一对应，调用API、脚本实现策略下发。（特别的，负载均衡变更为创建新pool挂到原vs&#x3D;》蓝绿发布，，记录变更前状态以保证回滚完全。。）</li>
+<li>多系统集成与可靠性保障：深度集成CMDB（作为资源事实库）、作业平台（用于脚本下发）等系统。为确保流程可靠，我着重处理了异常控制和回滚机制。所有操作步骤都有明确的状态和日志记录，每一环节的操作都详细记录上下文到日志供排查；下发成功后，支持一定时效内和指定权限人发起一键回退。。</li>
+<li>产品化与高可用设计：为支持产品化输出，我对功能进行了抽象和封装，使其能通过配置适配不同客户的环境。通过Powershell脚本另外支持了Windows平台的DNS自动化下发。</li>
+</ol>
+</li>
+<li>市场竞品对比与成果衡量<ul>
+<li>对标产品：这项工作在市场上类似嘉为蓝鲸的自动化运维平台或腾讯蓝鲸的相关模块。它们核心价值也在于将复杂的手动操作标准化、自动化，并确保过程可控。</li>
+<li>我的成果：<br>效率提升：将F5配置和DNS解析这类操作的平均交付时间从天级缩短到分钟级，全年支持变更超千次。<br>可靠性：通过完善的异常处理和回滚，将因配置失误导致的业务中断事件降低了90%以上。<br>产品价值：直接支撑了该平台作为ToB产品成功落地，获得了客户验收。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>💾 项目二：InfluxDB数据库服务化能力建设</p>
+<ul>
+<li>我主导了InfluxDB数据库的服务化改造，在数据库管控平台（DataMars）中，建设InfluxDB的“数据库即服务”（DBaaS）能力，解决手动运维数据库效率低、易出错的问题。基于开源Influxdb Cluster，从0到1负责InfluxDB实例的备份恢复、在线变配、节点迁移&#x2F;重搭等核心功能的调研、设计和开发。</li>
+<li>具体工作与关键技术细节<ol>
+<li>核心场景实现：<br>备份恢复：调研并采用 influx_inspect export 逻辑备份与OSS对象存储结合方案，实现了数据库级和实例级的备份恢复，并集成到平台的工作流引擎中。<br>在线变配：通过修改Kubernetes StatefulSet配置，实现了CPU、内存的原地变配，以及通过PVC（持久化存储声明）扩容实现存储空间的在线扩展。<br>节点迁移与数据一致性保障：这是项目最大挑战。我设计并实现了 “热分片截断-冷副本恢复”双阶段迁移方案。在数据持续高速写入（2000 points&#x2F;s）的场景下，通过先截断热分片引导新数据写入新节点，再从健康节点同步历史数据，有效解决了开源工具在迁移过程中可能丢失增量数据的问题，确保了数据一致性。</li>
+<li>技术架构：功能深度集成到平台的apiserver、bakserver和agent组件中，通过K8S Operator模式对InfluxDB集群的生命周期进行管理。</li>
+</ol>
+</li>
+<li>市场竞品对比与成果衡量<ul>
+<li>对标产品：这类数据库服务化平台在业界类似云和恩墨zCloud、腾讯云DBbridge等数据库管理平台，核心是实现数据库资源的池化、按需供给和全生命周期智能化管理。</li>
+<li>我的成果：事实上基本没有用户，随着发现开源数据库的功能不完善，开发也中断了。</li>
+</ul>
+</li>
+<li>在面试中介绍时，你可以遵循“背景-行动-结果-对比”的结构：<br>•   开头总结：用一句话点明项目核心价值。<br>•   具体阐述：重点突出你如何解决关键问题，特别是高可用、数据一致性、自动化闭环方面的设计。<br>•   量化成果：用数据（如效率提升百分比、可靠性指标）证明你的贡献。<br>•   展现视野：通过提及竞品，表明你不仅埋头编码，更抬头看路，了解行业最佳实践。</li>
+</ul>
+</li>
+<li><p><strong>技术亮点与难点</strong></p>
+<ol>
+<li>InfluxDB 节点迁移（2025年4月）<br>  • 难点：开源工具在数据同步时可能丢失增量数据，需自定义解决方案。<br>  • 解决：设计“热分片截断+冷副本恢复”双阶段方案，通过多线程压测验证数据一致性。<br>  • 价值：为分布式数据库的容灾提供了可复用的方法论。</li>
+<li>负载均衡&#x2F;F5 配置自动化（2025年7月）<br>  • 难点：并发变更时资源竞争导致配置异常。<br>  • 解决：引入状态机管理工单流程，通过校验机制和回滚逻辑保证安全性。<br>  • 价值：支持每年 1000+ 次变更需求，错误率下降至 1% 以下。<br>  • ？！工程化思维：注重文档、自动化、可维护性（如制定 SOP、设计回滚方案）。</li>
+</ol>
+</li>
+<li><p>为什么要跳槽？<br>？</p>
+</li>
+<li><p>工作一年以来对Java开发的理解。<br>整体比较符合预期，就是解决实际问题的根据，利用算法&amp;数据结构，实现具体的需求。目前不可避免的陷入在很小的领域（很具体的功能）编写杂七杂八的业务逻辑，但这是总来有执行者来做的工作，我觉得关键是前期方案设计时保证整体的可靠性和通用性（自动化场景1 2 3，平台1 2 3），做需求时总结出sop，或者直接交给AI来做</p>
+</li>
+<li><p>一个挑战。</p>
+<ol>
+<li>自动化运维，负载均衡vs&lt;-pool&lt;-server三层结构，改造为支持并发。。立即，定时，同时都有，怎么考虑，，</li>
+<li>influxdb服务化，做迁移的时候，把指令全试了一遍</li>
+</ol>
+</li>
+<li><p>一次排查问题。<br>cpu飙升，发现是一个接口有io操作，并发大了就卡住了。。<br>首先，停掉回写接口，把cpu降下来，恢复服务<br>分析，不是计算型的，所以多线程没用，要考虑优化io查询，cmdb加索引。。<br>其次，如何降低并发，加缓存？异步？？</p>
+</li>
+<li><p>处理线上问题，处理偶现问题<br>。。</p>
+</li>
+<li><p><strong>为什么tob，为什么2c？中台？</strong><br>不局限tob&#x2F;c，但是要持续学习，保持好奇。做中台就像一个螺丝钉，不断修修补补，比较无趣（运维场景深度待挖掘）</p>
+</li>
+<li><p>对AI的使用<br>AI Coding使用的主要场景有 1、有过往代码可参考的新需求 2、有API文档的需求<br>运维Agent</p>
+</li>
+</ul>
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><ul>
+<li>字节跳动·巨量广告<ul>
+<li>面试辅导<br>  为什么捞出一年经验的校招生，有什么期待？</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2027/07/07/%E7%BE%8E%E7%9A%84Midea/" data-id="cmnun421l000ym0v5agf88n3v" data-title="美 的 Midea" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Maven" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/04/11/Maven/" class="article-date">
@@ -1512,333 +2422,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 
 
   
-    <article id="post-理财" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/08/18/%E7%90%86%E8%B4%A2/" class="article-date">
-  <time class="dt-published" datetime="2024-08-18T08:55:11.000Z" itemprop="datePublished">2024-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/08/18/%E7%90%86%E8%B4%A2/">Lic Ai</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="保-险"><a href="#保-险" class="headerlink" title="保 险"></a>保 险</h1><h2 id="社会保障"><a href="#社会保障" class="headerlink" title="社会保障"></a>社会保障</h2><p>通过对国民收入的再分配，使公民在遇到特定风险或困难时能够获得基本生活保障。本质是追求一种公平。</p>
-<h2 id="社会保险"><a href="#社会保险" class="headerlink" title="社会保险"></a><strong>社会保险</strong></h2><ol>
-<li><strong>养老保险</strong>：为了保障老年人退休后的基本生活，通过个人和单位的缴费，在退休后按月领取养老金。个人在达到法定退休年龄时，如果满足缴费年限等条件，就可以领取养老金。</li>
-<li><strong>医疗保险</strong>：旨在为参保人员提供医疗费用的报销或补偿，以减轻医疗费用的负担。参保人员在生病住院或接受治疗时，可以通过医保报销一部分或全部的医疗费用。</li>
-<li>失业保险：为因非个人原因失去工作的参保人员提供一定时间内的生活保障金，帮助他们在失业期间维持基本生活。</li>
-<li>工伤保险：用于保障因工作原因遭受意外伤害或职业病的劳动者，提供医疗费用和伤残补助，甚至提供生活保障金等。</li>
-<li>生育保险：主要为参保女性在生育期间提供一定的经济补助和医疗费用报销。</li>
-</ol>
-<h3 id="社保卡"><a href="#社保卡" class="headerlink" title="社保卡"></a>社保卡</h3><p>佛山社保卡如何申领？“一人一卡”清理又是个啥？ <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA">https://mp.weixin.qq.com/s/9uQ5qGOYv35BGRgs4OvzvA</a><br>没领佛山社保卡可以使用医保报销吗？可以，微信支付时会显示报销数额。<br>如何使用医保余额？办理实体医保卡，可以查到余额。</p>
-<h3 id="医保"><a href="#医保" class="headerlink" title="医保"></a>医保</h3><ul>
-<li>医疗保险是一种社会保障制度。通常由个人和单位共同缴纳，参保人员在医疗机构就诊时可以通过医保报销部分或全部的医疗费用。<br>通过医保报销的费用是由医保基金支付的，而这个基金是由全体参保人员（包括你和你的单位）共同缴纳的资金组成的。<strong>个人缴纳的那部分医保费用只是整个基金的一部分，而报销的金额往往远超过个人单独缴纳的部分，这正是医保体系的优势所在</strong>。</li>
-<li><em>佛山医疗保险享受指引</em><ol>
-<li>门诊选点：公众号-粤医保</li>
-<li>异地就医备案<br>  办理条件：异地安置退休人员、异地长期居住人员、常驻异地工作人员、临时外出就医人员<br>  办理途径：公众号-粤医保-线上办理-异地就医备案</li>
-<li>医保报销方式<br>  定点联网机构住院(?)费用：凭社保卡&#x2F;医保电子凭证&#x2F;身份证现场结算；未能即使结算的，先挂账后结算；无法补记账结算的，垫付费用后申请零星保险。（医保里的钱可以用吗？怎么用？<br>  零星报销：提供资料到参保所属医保经办机构办理<br>  <a target="_blank" rel="noopener" href="https://ihr.midea.com/selfhelp/ihr/selfhelp/pdf?businessId=8a928ead90719d3201907b3b580d00b7&mc_widget_identifier=com.midea.msd.ihrcommonmx&scene=selfhelp_sdc&page=showPdf&type=1">https://ihr.midea.com/selfhelp/ihr/selfhelp/pdf?businessId=8a928ead90719d3201907b3b580d00b7&amp;mc_widget_identifier=com.midea.msd.ihrcommonmx&amp;scene=selfhelp_sdc&amp;page=showPdf&amp;type=1</a></li>
-</ol>
-</li>
-</ul>
-<h3 id="住房公积金"><a href="#住房公积金" class="headerlink" title="住房公积金"></a>住房公积金</h3><ul>
-<li>住房公积金是一种社会福利制度，而不是严格意义上的社会保障。住房公积金是国家为帮助职工解决住房问题而设立的一项长期住房储金。它由职工个人和单位共同缴纳，归职工个人所有，并在一定条件下用于购房、建房、房屋维修或者租房等住房相关支出。</li>
-<li>职工可以在以下情况下提取住房公积金：购买、建造、翻建、大修自住住房。偿还住房贷款本息（利率低）。支付房租。离职或退休后可以提取全部住房公积金。</li>
-<li>住房公积金可以断缴。如果有购房计划或其他需要公积金支持的需求，最好避免长时间断缴。<ul>
-<li>可以断缴：如果你换工作、辞职、或者暂时没有固定工作，住房公积金可以暂时断缴。没有法律强制要求必须连续缴纳。一旦找到新工作或稳定下来，你可以恢复缴纳住房公积金。新单位会重新为你开设账户或继续使用之前的账户。</li>
-<li>断缴的影响<br>  <strong>贷款购房影响</strong>：<strong>影响贷款资格</strong>，在申请住房公积金贷款时，很多地方要求申请人在最近的6个月或12个月内连续缴纳公积金。如果公积金断缴，可能会影响你申请住房公积金贷款的资格。<strong>贷款额度影响</strong>，公积金贷款额度通常与公积金的缴纳时间和余额挂钩。如果断缴时间较长，贷款额度可能会受到影响。<br>  <strong>影响提取条件</strong>：如果计划通过提取公积金支付房租或购房时，断缴可能会影响提取公积金的条件，因为很多地方要求提取前必须有一定的连续缴纳记录。</li>
-<li>如何减少断缴的影响：1、补缴：在新单位入职后，你可以尝试与单位协商，进行断缴期间的补缴。以恢复在断缴期间的公积金记录。2、灵活就业人员公积金：有些城市允许灵活就业人员或个体工商户自行缴纳公积金，以避免断缴。</li>
-</ul>
-</li>
-<li>住房公积金在中国是可以随着工作地点的变更而进行转移的。通常的步骤是：在新城市的新工作单位会为你开设一个新的住房公积金账户。向新单位的公积金管理中心申请将旧账户的公积金余额转入新账户。新单位所在的公积金管理中心会联系原城市的公积金管理中心，办理资金转移。公积金转移通常需要一定时间，一旦转移完成，你的住房公积金余额将会合并到新城市的账户中。</li>
-<li><em>佛山公积金提取</em>：wx公众号办理租房提取业务，选择按年&#x2F;月提取，隔日到账。</li>
-</ul>
-<h2 id="个人所得税"><a href="#个人所得税" class="headerlink" title="个人所得税"></a>个人所得税</h2><h4 id="工资条计算步骤"><a href="#工资条计算步骤" class="headerlink" title="工资条计算步骤"></a>工资条计算步骤</h4><ol>
-<li><strong>应发合计 &#x3D; 基本工资 + 考评绩效 + 其他发放 + 福利</strong><br>2月说明：12330&#x3D;3555+8445+0+330(餐补)</li>
-<li><strong>实发工资 &#x3D; 应发合计 - 代扣代缴</strong><br>代扣代缴项：包括五险一金（专项扣除）、本月预扣个人所得税。<br>2月说明：：9612.2&#x3D;12330-2717.8</li>
-<li><strong>累计预扣预缴应纳税所得额 &#x3D; 累计收入 - 累计减除费用 - 累计专项扣除 - 累计专项附加扣除</strong><br>累计减除费用：每月5,000元起征点，年度累计为60,000元（如工作满12个月）。<br>专项附加扣除：包括子女教育（每月2,000元&#x2F;孩）、房贷利息（每月1,000元）、赡养老人（每月2,000元）等，需在个税APP填报。<br>2月说明：11101.74&#x3D;35710(2024.12起重新计算?) - 15000 - 6308.26(累计个人缴纳社保&amp;公积金) - 3300， 公式逻辑：逐月累计收入及扣除项，动态计算全年税基。</li>
-<li><strong>扣税 &#x3D; 累计预扣预缴应纳税所得额 × 税率 - 速算扣除数 - 累计已预扣预缴税额</strong><br>税率表：采用七级超额累进税率（3%-45%），按月累计收入匹配税率档位。若某月税额突增，可能是累计收入进入更高税率区间，属正常现象。<br>示例：若累计应纳税所得额36,000元，对应税率10%，速算扣除数2,520元，则当月预扣税额 &#x3D; 36,000×10% - 2,520 - 已缴税额。</li>
-</ol>
-<h4 id="退税条件与计算"><a href="#退税条件与计算" class="headerlink" title="退税条件与计算"></a>退税条件与计算</h4><p>个人所得税丨2024年个人综合所得年度汇算操作指引 <a target="_blank" rel="noopener" href="https://mapmpm5.midea.com/newservicenopages/#/content/preview?id=1896853229331374081">https://mapmpm5.midea.com/newservicenopages/#/content/preview?id=1896853229331374081</a><br>个人的汇算清缴，就是把您2024年一整年取得的劳动收入（税法中叫“综合所得”，具体指工资薪金、劳务报酬、稿酬、特许权使用费共4项）合并计算个税，得出应纳个人所得税，与2024年实际预扣预缴的个税比较，税款多退少补。预缴税款与实际应缴税款产生差异的核心原因在于<strong>预扣预缴机制与全年综合计算的逻辑差异</strong>。<br>预扣预缴是<strong>基于局部数据和固定规则的估算</strong>，而汇算清缴是<strong>基于完整数据和真实扣除的精准计算</strong>，<br><strong>建议</strong>：通过“个人所得税APP”提前核对收入明细和扣除项，利用汇算规则合法降低税负（如优化年终奖计税方式）。以下是具体原因分析：</p>
-<ol>
-<li>收入结构与预扣方式的差异<br>  • <strong>预扣预缴的“分段计算”特性</strong> ： 工资薪金采用<strong>累计预扣法</strong>，按月计算税款（逐月累加收入并匹配税率），而劳务报酬、稿酬等按<strong>固定比例预扣</strong>（如劳务报酬预扣率20%）。若全年收入波动大（如年终奖集中发放）或存在多处收入，可能导致：1. <strong>前期预缴税率低，后期税率跳档</strong>：例如前半年收入低按3%预扣，后半年累计收入超过36,000元后按10%计税，全年汇算需补差额。 2. <strong>劳务报酬预扣率高于综合税率</strong>：劳务报酬预扣时按20%扣税，但全年综合所得实际税率可能仅为3%或10%，汇算时可退税。<br>  • <strong>年终奖计税方式选择的影响</strong> ： 年终奖可选择<strong>单独计税</strong>（按“年终奖&#x2F;12”匹配月度税率）或<strong>合并计税</strong>（并入综合所得）。若预缴时选择单独计税，但汇算时合并后适用更高税率，则需补税。</li>
-<li>扣除项目的动态调整<br>  • <strong>专项附加扣除的补充申报</strong>  ：预缴时未填报的专项附加扣除（如租房、赡养老人等），可在汇算时补充扣除，直接减少应纳税额。例如：<strong>租房扣除（1,500元&#x2F;月）</strong>：若全年未申报，汇算时补充可减少18,000元应税所得额，按10%税率计算可退1,800元。<strong>大病医疗扣除</strong>：只能在次年汇算时申报，直接影响退税额度。<br>  • 其他扣除项的汇算调整：如公益捐赠（需在汇算时提供凭证）、职业资格继续教育等扣除，预缴时未计入的，汇算时可补充抵扣。</li>
-<li>收入合并的税负效应<br>  • <strong>综合所得合并计算的税率跃升</strong>  ：工资、劳务报酬等四项收入合并后，可能使全年应纳税所得额跨越税率档位。例如：<strong>单独计算时未超档</strong>：工资10万元（适用10%税率）+ 劳务报酬5万元（预扣20%但实际税率10%），合并后15万元应纳税所得额适用20%税率，需补税。<strong>多处收入叠加</strong>：从两家单位取得工资，每家均按5,000元起征点预扣，但全年合并收入超过6万元的部分需补税。<br>  • 稿酬的特殊计算规则：按“（稿酬收入×80%）×70%”计入综合所得，若预缴时未按此规则计算（如企业误操作）汇算时需调整。</li>
-<li>政策与实操的特殊情形<br>  • <strong>免税收入的误计入</strong>  ： 部分免税补贴（如差旅津贴、误餐补助）若被错误计入工资，预缴时多缴税款，汇算时可申请剔除并退税。<br>  • <strong>预缴申报的误差</strong>  ：  企业可能因操作失误导致预缴税款错误（如漏报专项扣除），需通过汇算修正。</li>
-</ol>
-<h3 id="劳动合同"><a href="#劳动合同" class="headerlink" title="劳动合同"></a>劳动合同</h3><ol>
-<li><strong>N+1补偿的适用场景与条件</strong><br>  • <strong>触发条件</strong>：  <strong>企业合法解除劳动合同但未提前30日通知</strong>，需支付“N+1”（经济补偿金+代通知金）。<br>  • 具体情形包括：<br>  ◦ 劳动者医疗期满后无法返岗且无法调岗；<br>  ◦ 劳动者经培训或调岗仍不胜任工作；<br>  ◦ 客观情况重大变化（如部门撤销、搬迁）导致合同无法履行。  </li>
-<li><strong>计算规则</strong>：<br>  • <strong>N</strong>：按工作年限计算（每满1年支付1个月工资，不满半年按0.5个月计算）。  N按离职前12个月平均工资计算，包含奖金、津贴等。<br>  • <strong>+1</strong>：额外支付1个月工资（按解除合同前12个月平均工资或上月工资计算）。<br>  • ​月工资上限：若月工资高于当地上年度职工月平均工资3倍，按3倍标准支付且年限最高12年</li>
-<li><strong>员工主动离职的经济补偿可能性</strong><br>  • <strong>一般情况</strong>：员工主动离职无补偿。<br>  • <strong>例外情形</strong>（企业存在过错，员工被迫离职）：<br> • 企业未足额支付工资、未缴社保、未提供劳动保护等（依据《劳动合同法》第38条）；<br> • 此时员工可主张<strong>N倍经济补偿金</strong>（无“+1”），但需书面通知并保留证据（如工资流水、社保记录）。  </li>
-<li><strong>违法解除劳动合同的赔偿标准（2N）</strong> ：若企业无合法依据解除合同（如无故辞退、程序违法、裁撤孕期员工等），需支付<strong>2N赔偿金</strong>（经济补偿金的双倍）。    </li>
-<li><strong>实务对比与维权建议</strong>  <table>
-<thead>
-<tr>
-<th><strong>情形</strong></th>
-<th><strong>补偿标准</strong></th>
-<th><strong>法律依据</strong></th>
-<th><strong>维权路径</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>企业合法解除未提前通知</td>
-<td>N+1</td>
-<td>《劳动合同法》第40条</td>
-<td>协商或仲裁主张代通知金</td>
-</tr>
-<tr>
-<td>企业违法解除</td>
-<td>2N</td>
-<td>《劳动合同法》第87条</td>
-<td>劳动仲裁或诉讼索赔双倍赔偿</td>
-</tr>
-<tr>
-<td>员工被迫离职（企业过错）</td>
-<td>N</td>
-<td>《劳动合同法》第38条</td>
-<td>提交证据申请仲裁</td>
-</tr>
-</tbody></table>
-</li>
-</ol>
-<hr>
-<h1 id="商业保险"><a href="#商业保险" class="headerlink" title="商业保险"></a>商业保险</h1><p>【当代年轻人没了铁饭碗，还能负重奔跑多久？北京二胎家庭如何转移风险？】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16F4m1V7wv/?share_source=copy_web&vd_source=2cbe8cdd54a75d0c43fcdefa624d3fbe">https://www.bilibili.com/video/BV16F4m1V7wv/?share_source=copy_web&amp;vd_source=2cbe8cdd54a75d0c43fcdefa624d3fbe</a></p>
-<p>“年纪轻的一定要买百万医疗险和意外险，还有抗癌险，关键时候真的能救命的，有余裕买个重疾险，如果生病了确证了就能拿到几十万的保额，可以作为治疗和康复期的生活费开销，医疗费有医保和百万医疗险，到时候真生比较严重的病百分之九十能报销，年纪轻买了便宜加起来一年千把块，父母没生病可以给他们买众民保和中银全名保，还有当地的惠民保三个加起来六百块不到，不看健康告知年龄大可以报销，配合医保大概能报销八十花的多甚至能报销到九十，给家里老人多套保障，不会出现得了病只能放弃的人间惨剧，如果老人没医保可以买城乡医保一年几百块”</p>
-<p>mom：东莞农村？居民社保医保，莞家福，莞家福居民保？，midea家属保险</p>
-<p>2025年度商业保险开始投保了~ 员工（统一投保无需美福下单）本人及任选两名家属的免费&#x2F;自付费升级方案 <a target="_blank" rel="noopener" href="https://mapnew5.midea.com/newservicenopages/#/content/detail?id=1902351310562877442&type=2">https://mapnew5.midea.com/newservicenopages/#/content/detail?id=1902351310562877442&amp;type=2</a></p>
-<h4 id="快速了解一个保险的7个核心要素"><a href="#快速了解一个保险的7个核心要素" class="headerlink" title="快速了解一个保险的7个核心要素"></a>快速了解一个保险的7个核心要素</h4><ol>
-<li><strong>保障范围</strong>（核心）<br>• 保什么：疾病类型（如60种重疾）、门诊&#x2F;住院&#x2F;手术等报销范围。<br>• 特别关注：是否包含社保外费用（如进口药、质子重离子）、癌症特药清单。<br>• 图片信息提示：图中“重大疾病列表”需核对乳腺癌是否被列为赔付疾病。  </li>
-<li><strong>购买条件</strong><br>• 年龄：是否限制60岁以上？续保是否允许超龄？<br>• 健康告知：是否询问癌症病史？如有，如何核保？（图片中未提及健康告知，可能宽松）<br>• 等待期：生效前等待期（通常30-90天，重疾险可能180天）。  </li>
-<li><strong>免赔额与报销比例</strong><br>• <strong>免赔额</strong>：如“意外住院补贴限额100元&#x2F;天”可能指单日免赔额。<br>• <strong>报销比例</strong>：社保内是否100%？社保外是否有比例限制？（图中“社保范围内7.5万&#x2F;位”需进一步解读）。  </li>
-<li><strong>既往症条款</strong><br>• 关键问题：乳腺癌术后治疗是否被定义为“既往症”？若属于，报销比例是多少？（图中“免检责任”可能指部分疾病免检，需核实）</li>
-<li><strong>保额与限额</strong><br>• 单项限额：如“意外住院补贴7.5万&#x2F;位”是否够用？<br>• 年度总限额：重大疾病总保额是否充足（至少100万以上）。  </li>
-<li><strong>增值服务</strong><br>• 实用性：医疗垫付、重疾绿通、二次诊疗意见（图中未提及，需向HR确认）。  </li>
-<li><strong>免责条款</strong><br>• 雷区排查：如“不覆盖胎液”（图片底部注释）可能指免责先天性疾病，需明确免责清单。</li>
-</ol>
-<h4 id="从报销顺序理解"><a href="#从报销顺序理解" class="headerlink" title="从报销顺序理解"></a>从报销顺序理解</h4><ol>
-<li>“社保医保”“惠民保”：基本保障，看病报销“社保范围”内的如60%</li>
-<li>团保商业保险：企业与保险公司合作提供，一方面能够报销“社保范围”内剩余40%中的部分，一方面能保重疾住院等</li>
-<li>百万医疗险：看病报销“社保范围”外的部分，？有患癌史无法购买，可选择众民保</li>
-<li>重疾保：以上“医疗险”报销看病本身的费用，而“重疾险”为支付单笔保费，用于后续正常生活；需要安全告知</li>
-<li>意外险：负责意外事故以及某些“医疗险”不涵盖的病</li>
-<li>可以按照“医疗险”，“重疾险”，“意外险”来搭配购买，但也存在商业保险覆盖其中多种的能力<img src="https://www.helloimg.com/i/2025/03/26/67e2eafe59c4a.jpg" width="350" height="300" alt=""></li>
-</ol>
-<p>根据您母亲的情况（47岁、乳腺癌病史、已参保东莞社保及莞家福），结合健康限制和保障需求，以下是商业保险的配置建议及具体产品的分析：</p>
-<h4 id="一、基础保障优先级（必选）"><a href="#一、基础保障优先级（必选）" class="headerlink" title="一、基础保障优先级（必选）"></a><strong>一、基础保障优先级（必选）</strong></h4><ol>
-<li><strong>普惠型医疗险（补充社保和莞家福）</strong><br>• <strong>推荐产品</strong>：全国版惠民保（如众民保）、东莞本地惠民保（如已参保莞家福需确认既往症规则）<br>• <strong>适用性</strong>：<br>  ◦ 无健康告知，覆盖乳腺癌术后治疗费用（报销比例通常为30%-50%，需查看具体条款）。<br>  ◦ 年保费约100-200元，保额高达300万，覆盖医保内外费用（部分产品含特药）。<br>• <strong>注意事项</strong>：<br>  ◦ 优先选择支持“乳腺癌复发治疗”的产品，如众民保对复发医疗费按比例报销。  </li>
-<li><strong>乳腺癌复发险（专项核心保障）</strong><br>• <strong>推荐产品</strong>：<br>  ◦ <strong>泰康粉红卫士</strong>：0-2期患者可投保，复发或转移一次性赔付最高50万，报销型最高100万（含41种特药）。<br>  ◦ <strong>太平洋粉红守护</strong>：支持0-2期患者，可选对侧乳腺癌保障，含48种特药报销，续保稳定性较好。<br>• <strong>适用性</strong>：<br>  ◦ 覆盖乳腺癌复发、转移、对侧新发，报销比例100%（含社保外费用）。<br>  ◦ 年保费约1400-3000元（根据保额选择），等待期90天。</li>
-</ol>
-<h4 id="二、补充保障（根据预算可选）"><a href="#二、补充保障（根据预算可选）" class="headerlink" title="二、补充保障（根据预算可选）"></a><strong>二、补充保障（根据预算可选）</strong></h4><ol>
-<li><strong>意外险</strong><br>• <strong>推荐产品</strong>：众安高危职业意外险、平安综合意外险<br>• <strong>适用性</strong>：<br>  ◦ 无健康告知，保意外身故&#x2F;伤残（50-100万）、意外医疗（不限社保）。<br>  ◦ 年保费约200-500元，杠杆率高。  </li>
-<li><strong>团体医疗险（企业合作产品）</strong><br>• <strong>适用性</strong>：<br>  ◦ 您提到的太平洋人寿企业合作套餐，若无健康告知或宽松告知，可作为基础住院医疗补充（覆盖门诊住院费用）。<br>  ◦ 需确认是否覆盖社保外费用及乳腺癌复发相关治疗。</li>
-</ol>
-<h4 id="三、不推荐或限制类产品"><a href="#三、不推荐或限制类产品" class="headerlink" title="三、不推荐或限制类产品"></a><strong>三、不推荐或限制类产品</strong></h4><ol>
-<li><strong>常规重疾险&#x2F;百万医疗险</strong>：<br>• 因乳腺癌病史，99%产品拒保或除外责任。  </li>
-<li><strong>防癌医疗险</strong>：<br>• 仅少数产品允许投保（如支付宝终身防癌险），但通常除外乳腺癌责任。</li>
-</ol>
-<p><strong>具体产品对比分析</strong></p>
-<table>
-<thead>
-<tr>
-<th><strong>产品类型</strong></th>
-<th><strong>推荐产品</strong></th>
-<th><strong>核心优势</strong></th>
-<th><strong>局限性</strong></th>
-<th><strong>年保费参考</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>乳腺癌复发险</strong></td>
-<td>泰康粉红卫士</td>
-<td>保费最低（1400元起），特药覆盖最全（41种）</td>
-<td>仅限0-2期患者，续保需审核</td>
-<td>1400-5000元</td>
-</tr>
-<tr>
-<td><strong>乳腺癌复发险</strong></td>
-<td>太平洋粉红守护</td>
-<td>含对侧乳腺癌保障，特药清单更新快（48种）</td>
-<td>仅限0-2期患者，保费较高</td>
-<td>2000-8000元</td>
-</tr>
-<tr>
-<td><strong>惠民保</strong></td>
-<td>众民保（全国版）</td>
-<td>覆盖复发治疗，含CAR-T疗法和质子重离子</td>
-<td>免赔额高（2万），报销比例50%-80%</td>
-<td>150-300元</td>
-</tr>
-<tr>
-<td><strong>团体医疗险</strong></td>
-<td>太平洋企业合作套餐</td>
-<td>无健康告知，可能覆盖既往症</td>
-<td>需确认保额和报销范围（可能仅限社保内）</td>
-<td>企业合作价（待确认）</td>
-</tr>
-</tbody></table>
-<h4 id="四、配置方案建议"><a href="#四、配置方案建议" class="headerlink" title="四、配置方案建议"></a><strong>四、配置方案建议</strong></h4><ol>
-<li><strong>预算有限方案（年保费约1600元）</strong>：<br>• <strong>必选</strong>：泰康粉红卫士（基础型1400元）+ 众民保（200元）。<br>• <strong>作用</strong>：覆盖乳腺癌复发高额医疗费，补充普惠报销。  </li>
-<li><strong>全面保障方案（年保费约5000元）</strong>：<br>• <strong>必选</strong>：太平洋粉红守护（含特药责任3000元）+ 众民保（200元）+ 团体医疗险（企业合作）。<br>• <strong>可选</strong>：叠加意外险（300元），覆盖意外风险。  </li>
-<li>区分保险类型，明确赔付规则</li>
-</ol>
-<ul>
-<li><strong>可叠加赔付的保险类型（给付型）</strong><br>• <strong>重疾险</strong>：若确诊合同约定的疾病（如癌症、心梗等），不同保司的重疾险可同时赔付，互不影响。例如：投保两份50万保额的重疾险，确诊后可获100万赔付。<br>• <strong>寿险&#x2F;意外险身故&#x2F;伤残保障</strong>：身故或伤残保额可叠加赔付，但未成年人受保额限制（如10岁以下身故保额最高20万）。<br>• <strong>年金险</strong>：按合同约定固定给付生存金，多份保单可同时领取。  </li>
-<li><strong>不可叠加赔付的保险类型（报销补偿型）</strong><br>• <strong>医疗险（含意外医疗）</strong>：以实际医疗费用为上限，发票原件仅能用于一次报销。若A公司已全额赔付，B公司不再赔付；若A公司仅报销80%，剩余20%可向B公司申请（需提供分割单）。<br>• <strong>财产险（车险、家财险）</strong>：遵循损失补偿原则，赔付总和不超过实际损失。例如：车辆全损价值50万，即使投保两份车险，最高仅赔50万。</li>
-</ul>
-<ol start="4">
-<li>保障范围叠加策略</li>
-</ol>
-<ul>
-<li><strong>优先覆盖不同风险场景</strong><br>• <strong>疾病+意外+身故组合</strong>：例如「重疾险+医疗险+意外险」，覆盖疾病治疗、意外伤害和身故风险。<br>• <strong>高低保额搭配</strong>：小额医疗险（覆盖1万内费用） + 百万医疗险（覆盖大额住院费用），减少免赔额影响。  </li>
-<li><strong>避免重复投保同类报销型保险</strong><br>• 同时购买多份百万医疗险无意义（均需扣除1万免赔额），但可搭配无免赔额的小额医疗险。  </li>
-<li><strong>注意隐性条款冲突</strong><br>• 部分医疗险限制“仅报销社保目录内费用”，若另一份医疗险覆盖社保外费用，可互补。</li>
-</ul>
-<ol start="5">
-<li>总结建议<br>• <strong>合理搭配类型</strong>：给付型（重疾、寿险） + 报销型（医疗险） + 财产险，避免同类报销险重复。<br>• <strong>重点核查条款</strong>：健康告知、免责范围、赔付优先级（如医疗险报销顺序）。<br>• <strong>动态调整保障</strong>：定期检视保单，根据家庭阶段（如生子、购房）增减保额或险种。</li>
-</ol>
-<h4 id="五、注意事项"><a href="#五、注意事项" class="headerlink" title="五、注意事项"></a>五、注意事项</h4><ol>
-<li><strong>健康告知</strong>：购买前务必确认条款中的“既往症定义”，乳腺癌相关治疗可能被除外。  </li>
-<li><strong>报销材料</strong>：需保存医疗发票、诊断证明、用药清单等，多数产品需先经医保报销。  </li>
-<li><strong>续保稳定性</strong>：众民保为1年期产品，不保证续保，但众安产品历史稳定性较好。</li>
-</ol>
-<p>建议优先投保乳腺癌复发险（专项保障），再补充惠民保和意外险，最后根据企业团体险条款决定是否叠加。<br>建议通过保险顾问协助核保（如众安、慧择平台），确保理赔无争议。</p>
-<hr>
-
-<h1 id="投资"><a href="#投资" class="headerlink" title="投资"></a>投资</h1><h3 id="三、个性化投资策略建议"><a href="#三、个性化投资策略建议" class="headerlink" title="三、个性化投资策略建议"></a>三、个性化投资策略建议</h3><h4 id="1-资金配置方案（月均5000元）："><a href="#1-资金配置方案（月均5000元）：" class="headerlink" title="1. 资金配置方案（月均5000元）："></a>1. <strong>资金配置方案（月均5000元）</strong>：</h4><table>
-<thead>
-<tr>
-<th>类别</th>
-<th>比例</th>
-<th>工具示例</th>
-<th>目的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>学习投入</td>
-<td>10%</td>
-<td>付费研报、专业课程</td>
-<td>知识体系构建</td>
-</tr>
-<tr>
-<td>模拟交易</td>
-<td>0%</td>
-<td>同花顺模拟盘、Backtrader</td>
-<td>策略验证</td>
-</tr>
-<tr>
-<td>指数定投</td>
-<td>40%</td>
-<td>沪深300ETF（A股）</td>
-<td>强制储蓄+市场β收益</td>
-</tr>
-<tr>
-<td>行业ETF</td>
-<td>30%</td>
-<td>半导体ETF（512480）</td>
-<td>把握结构性机会</td>
-</tr>
-<tr>
-<td>现金储备</td>
-<td>20%</td>
-<td>货币基金</td>
-<td>应对黑天鹅事件</td>
-</tr>
-</tbody></table>
-<h4 id="2-技术赋能投资的具体路径："><a href="#2-技术赋能投资的具体路径：" class="headerlink" title="2. 技术赋能投资的具体路径："></a>2. <strong>技术赋能投资的具体路径</strong>：</h4><ul>
-<li><strong>量化入门</strong>：<ol>
-<li>用Python复现经典策略（如双均线策略）</li>
-<li>开发舆情监控爬虫（抓取雪球、股吧热词）</li>
-<li>构建多因子选股模型（参考WorldQuant Alpha库）</li>
-</ol>
-</li>
-<li><strong>工具推荐</strong>：<ul>
-<li>数据平台：AKShare（开源替代Tushare）</li>
-<li>回测框架：QLib（阿里开源）</li>
-<li>可视化：Plotly+Dash构建交互式看板</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-阶段目标管理："><a href="#3-阶段目标管理：" class="headerlink" title="3. 阶段目标管理："></a>3. <strong>阶段目标管理</strong>：</h4><ul>
-<li><strong>新手期（0-1年）</strong>：<ul>
-<li>目标：年化收益率跑赢货币基金（2%-3%）</li>
-<li>关键动作：完成10个策略回测、建立投资checklist</li>
-</ul>
-</li>
-<li><strong>进阶期（1-3年）</strong>：<ul>
-<li>目标：年化收益率8%-10%（同期沪深300水平）</li>
-<li>关键动作：开发自动化交易信号系统</li>
-</ul>
-</li>
-</ul>
-<h3 id="四、风险控制工具箱"><a href="#四、风险控制工具箱" class="headerlink" title="四、风险控制工具箱"></a>四、风险控制工具箱</h3><ol>
-<li><strong>极端情况应对预案</strong>：<ul>
-<li>设置动态止损线（如回撤超15%强制减仓）</li>
-<li>保留3-6个月生活费的现金储备</li>
-<li>建立黑天鹅事件清单（如中美脱钩、疫情反复）</li>
-</ul>
-</li>
-<li><strong>认知偏差矫正方法</strong>：<ul>
-<li>交易日志模板：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| 日期 | 操作 | 决策依据 | 情绪状态 | 事后评估 |</span><br><span class="line">|------|------|----------|----------|----------|</span><br><span class="line">| 2023-08-01 | 买入XX股 | MACD金叉 | 焦虑追涨 | 错误：未考虑成交量萎缩 |</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><strong>推荐监控指标</strong>：<ul>
-<li>十年期美债收益率（全球资产定价锚）</li>
-<li>人民币汇率波动区间</li>
-<li>融资融券余额变化率</li>
-</ul>
-</li>
-</ol>
-<h3 id="六、推荐资源清单"><a href="#六、推荐资源清单" class="headerlink" title="六、推荐资源清单"></a>六、推荐资源清单</h3><ol>
-<li><strong>数据源</strong>：<ul>
-<li>国家统计局宏观数据库</li>
-<li>FRED（美联储经济数据）</li>
-</ul>
-</li>
-<li><strong>工具链</strong>：<ul>
-<li>Jupyter Notebook + Pandas（数据分析）</li>
-<li>TensorFlow&#x2F;PyTorch（预测模型）</li>
-</ul>
-</li>
-<li><strong>深度阅读</strong>：<ul>
-<li>《主动型指数投资》（王延巍）</li>
-<li>《量化投资：以Python为工具》（蔡立耑）</li>
-</ul>
-</li>
-</ol>
-<p><strong>下一步行动建议</strong>：</p>
-<ol>
-<li>本周内注册模拟交易账户</li>
-<li>用Matplotlib复现近5年行业轮动图谱</li>
-<li>加入量化投资开源社区（如JoinQuant）</li>
-</ol>
-<p>你的技术背景是独特优势，建议从**”工程师型投资者”<strong>路径切入，将编程能力转化为投资生产力。记住：在认知不充分时，</strong>不亏损<strong>比</strong>追求收益**更重要。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/08/18/%E7%90%86%E8%B4%A2/" data-id="cmnun421k000wm0v5hka8h8fi" data-title="Lic Ai" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1854,15 +2437,29 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sun-Jul-07-2024-10-58-11-GMT-0800-%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4/" rel="tag">Sun Jul 07 2024 10:58:11 GMT+0800 (中国标准时间)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/top/" rel="tag">top</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Sun-Jul-07-2024-10-58-11-GMT-0800-%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4/" style="font-size: 10px;">Sun Jul 07 2024 10:58:11 GMT+0800 (中国标准时间)</a> <a href="/tags/top/" style="font-size: 10px;">top</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2027/07/">July 2027</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -1880,6 +2477,10 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
         
           <li>
             <a href="/2046/08/27/Guitar/">Guitar 🎸</a>
+          </li>
+        
+          <li>
+            <a href="/2027/07/07/%E7%BE%8E%E7%9A%84Midea/">美 的 Midea</a>
           </li>
         
           <li>
@@ -1908,10 +2509,6 @@ VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开
         
           <li>
             <a href="/2024/09/22/Golang/">Golang</a>
-          </li>
-        
-          <li>
-            <a href="/2024/08/18/%E7%90%86%E8%B4%A2/">Lic Ai</a>
           </li>
         
       </ul>
