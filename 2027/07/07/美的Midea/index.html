@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-04-12T17:00:24.189Z">
+<meta property="article:modified_time" content="2026-04-18T05:13:50.237Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -828,7 +828,7 @@
 <li>fight back<br>“那天在茶水间，你从侧后方凑过来看我手机上的内容，问我在看什么，是什么意思呢？回答我，有这么难吗？你不说，拿去跟 HR 说吧。”<br>→ 温和版：那天在茶水间，你凑过来看我手机，问我在看什么。我觉得这种行为让我很不舒服，希望你注意边界。如果你不认可，我可以去跟 HR 沟通情况。<br>→ “你诽谤我”“没有的事” → 我没有诽谤你，我只是在陈述当天发生的场景。我没有给你贴任何标签，只是表达我个人感到不适。有需要那我们可以一起去 HR 那边对质。<br>→ “你上班时间玩手机造成进度慢” → 1、<strong>（打开手机录音器）反问</strong>：我确认一下，你是正式规定，我不可以在茶水间看手机吗？2、进度按计划来，我会同步。</li>
 </ul>
 <h2 id="4-2-不要“等”一个时机"><a href="#4-2-不要“等”一个时机" class="headerlink" title="4.2 不要“等”一个时机"></a>4.2 不要“等”一个时机</h2><p>等有时间再看项目疑难问题<br>等有时间再学容器化、K8S、调优</p>
-<h2 id="4-13-Java服务K8s部署访问"><a href="#4-13-Java服务K8s部署访问" class="headerlink" title="4.13 Java服务K8s部署访问"></a>4.13 Java服务K8s部署访问</h2><h4 id="全流程拆解"><a href="#全流程拆解" class="headerlink" title="全流程拆解"></a>全流程拆解</h4><ol start="0">
+<h2 id="4-13-Java服务容器化改造-K8s部署访问"><a href="#4-13-Java服务容器化改造-K8s部署访问" class="headerlink" title="4.13 Java服务容器化改造 &amp; K8s部署访问"></a>4.13 Java服务容器化改造 &amp; K8s部署访问</h2><h4 id="全流程拆解"><a href="#全流程拆解" class="headerlink" title="全流程拆解"></a>全流程拆解</h4><ol start="0">
 <li>环境要求：已有 K8s 集群（Docker Desktop&#x2F;云厂商&#x2F;自建）、kubectl 工具（连接集群）、容器镜像仓库（公司内部仓库&#x2F; Docker Hub）；</li>
 <li>准备 Java 服务（开发层面）<br>核心：确保 Java 服务可正常运行（以 Spring Boot 为例），打包成可执行 Jar 包（通过 Maven&#x2F;Gradle 打包，输出 app.jar）。<br>关键：服务需监听固定端口（如 8080），避免端口冲突，后续需与 K8s 资源配置一致。</li>
 <li>打包 Docker 镜像（容器化）<br>核心：将 Java Jar 包 + 运行环境（JDK）打包成 Docker 镜像，作为 K8s 部署的「安装包」。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编写 Dockerfile（极简模板，可直接复用）：</span></span><br><span class="line">FROM openjdk:17-slim  <span class="comment"># 基础镜像（含JDK，适配Java服务）</span></span><br><span class="line">COPY target/app.jar app.jar  <span class="comment"># 将本地Jar包复制到镜像中</span></span><br><span class="line">ENTRYPOINT [<span class="string">&quot;java&quot;</span>, <span class="string">&quot;-jar&quot;</span>, <span class="string">&quot;app.jar&quot;</span>]  <span class="comment"># 容器启动时执行的命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建镜像（命名格式：仓库地址/镜像名:版本号）</span></span><br><span class="line">docker build -t 公司仓库地址/java-demo:v1 .</span><br><span class="line"><span class="comment"># 推送到公司镜像仓库（供K8s拉取）</span></span><br><span class="line">docker push 公司仓库地址/java-demo:v1</span><br></pre></td></tr></table></figure></li>
@@ -888,8 +888,16 @@
 </tbody></table>
 </li>
 </ul>
-<h4 id="完整流量链路"><a href="#完整流量链路" class="headerlink" title="完整流量链路"></a>完整流量链路</h4><p>外部用户访问 → 域名 DNS 解析 → Ingress Controller（ingress-nginx 命名空间）<br>→ 匹配 Ingress 规则（demo 命名空间） → 转发到 Service（demo 命名空间，固定 IP）<br>→ Service 负载均衡（DNAT） → 转发到某个 Pod（demo 命名空间，私网 IP）<br>→ Pod 内 Java 容器处理请求 → 原路返回给用户</p>
-<h2 id="4-xx-容器化经验"><a href="#4-xx-容器化经验" class="headerlink" title="4.xx 容器化经验"></a>4.xx 容器化经验</h2><p>Java项目怎么在容器里跑<br>datamars拉起工程<br>K8s环境服务访问，相互调用</p>
+<h4 id="完整流量链路"><a href="#完整流量链路" class="headerlink" title="完整流量链路"></a>完整流量链路</h4><p>外部用户访问 → 域名 DNS 解析 → Ingress Controller（ingress-nginx 命名空间）<br>→ 匹配 Ingress 规则（demo 命名空间） → 转发到 Service（demo 命名空间，固定 IP）<br>→ Service 负载均衡（DNAT） → 转发到某个 Pod（demo 命名空间，私网 IP）<br>→ Pod 内 Java 容器处理请求 → </p>
+<h4 id="底座拉起"><a href="#底座拉起" class="headerlink" title="底座拉起"></a>底座拉起</h4><p>datamars拉起<br>K8s环境服务访问，相互调用</p>
+<h2 id="4-17-Workspace-经验"><a href="#4-17-Workspace-经验" class="headerlink" title="4.17 Workspace 经验"></a>4.17 Workspace 经验</h2><ol>
+<li>theme color （Familiar Java Themes），Keyboard shortcut</li>
+<li>AI rule（用中文回答，代码&#x2F;注释规范，不要修改pom文件,, ）</li>
+<li>Skills（给 AI 用的 SOP，自动触发的结构化 Prompt &#x3D; 业务知识 × 执行流程 × 约束规则 的结合体）<br>1）本质是<strong>注入到系统提示（System Prompt）里的文本</strong>，AI 会自动加载所有的 Skill 描述（name + description，始终存在），命中后才加载 Skill 全文（description 是”门卫”，全文是”说明书”）<br>2）目录结构，全局（所有项目都能用）：~&#x2F;.agents&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md，项目级（当前项目专用，优先级更高）：&lt;项目&gt;&#x2F;.continue&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md<br>3）一个好的 Skill 应该包含三类内容：A. 业务知识（What） “这个模块是干什么的，核心概念是什么”  → 让 AI 不需要每次重新学习业务背景，B. 执行流程（How）  “遇到这类任务，按什么步骤来做”  → 让 AI 的行为可预期、可重复 ，  C. 约束规则（Don’t）”有哪些已知坑、必须遵守的规范”    → 防止 AI 重犯已知错误      </li>
+<li>Memory Management<br>1）对话和生成内容均使用中文（Scope：gobal）</li>
+<li>Run &amp; Debug<br>1）配置 jdk（Language &amp; Framework - Java - JDK）和 Extension（Java，Springboot，Git）<br>2）配置 maven（Path to Maven’s setting.xml）<br>3）配置启动文件 launch.json {<br>     “type”: “java”,<br>     “name”: “SIT-MOpsPlatformBackendApplication”,<br>     “request”: “launch”,<br>     “mainClass”: “com.midea.mops.MOpsPlatformBackendApplication”,<br>     “projectName”: “mops-platform”,<br>     “args”: [],<br>     “vmArgs”: [<br>          “-Xmx1024m”,<br>          “-XX:+UseG1GC”<br>      ],<br>     “env”: {<br>         “spring.profiles.active”: “sit”,<br>         “jasypt.encryptor.password”: “j7m9JOJDy83LUbFDY6Q2”,<br>         “log.path”: “&#x2F;home&#x2F;coder&#x2F;logs&#x2F;apps”,<br>         “rocketmq.enabled”: “true”<br>     }<br> }</li>
+<li>AI Coding实践<br>1）让AI 了解项目的工程架构和编码风格 &amp; review生成的文档让AI修改（我需要你完整阅读项目代码，了解整个项目的项目架构、工作机制，然后完整梳理域名解析（DNS）相关的业务和实现，将你的理解写成文档放到D:\code\xops-platform-backend\doc\dns.md下）<br>2）让AI 对当前需求生成开发计划（@doc&#x2F;dns.md  基于现有DNS架构，我需要新增XXX功能，请给出实现方案（有skill的话就不用@引用））<br>3）设置 AI 约束（project_rules.md）配置项目级规则，让 AI 生成的代码符合团队规范<br>4）复杂功能分步骤拆解（ps 生成plan后 换窗口执行？？上下文控制）<br>5）代码质量：辅助 Code Review，发现潜在 bug、边界条件、异常场景<br>6）单元测试：核心逻辑必须有单元测试，集成测试：接口级别的联调测试，边界测试：空值、越界、异常场景</li>
+</ol>
 <h2 id="4-xx-Data-Agent-AI项目化框架化？？"><a href="#4-xx-Data-Agent-AI项目化框架化？？" class="headerlink" title="4.xx Data-Agent AI项目化框架化？？"></a>4.xx Data-Agent AI项目化框架化？？</h2><p>本质还是一个Java实现的Agent项目<br>利用项目的可控约束AI的不确定性<br>从Claude Code源码看Agent架构之争。。</p>
 <h2 id="xx-Claude-Code"><a href="#xx-Claude-Code" class="headerlink" title="xx Claude Code"></a>xx Claude Code</h2><p>skill 吴恩达<br>设计、开发一个高并发系统，学习多线程、mysql锁、、<br>源码</p>
 <h2 id="xx-xx-向上反馈"><a href="#xx-xx-向上反馈" class="headerlink" title="xx.xx 向上反馈"></a>xx.xx 向上反馈</h2><p>最近 AI 项目顺利上线，整体成果也基本落地，这段时间对我来说是入职以来压力最大、也成长最集中的一段经历。<br>不过也想跟您同步一下，这段时间我在团队协作和日常沟通中，持续感受到比较强烈的不被信任的压力。比如在日会上多次被质疑工作不饱和、被要求自证工作内容与时间分配，沟通中也经常出现否定式、质疑式的表达，整体氛围让我心理负担很重，也一度影响到工作状态。<br>但同时，我也明显感受到自己在工作方式和能力上存在不少短板，也一直在认真复盘：一方面，面对新的 AI 相关开源代码，前期熟悉和消化需要一定周期，初期产出节奏偏慢，又没有做到更及时、更显性地同步进展，这是我后续需要重点改进的地方；另一方面，日常经常被私有化部署、运维类穿插任务打断，而我对这部分工作还没有形成标准化的 SOP，导致时间消耗很难量化，也影响了主线任务的推进效率。同时我也意识到，自己对负责系统的核心逻辑、关键主线掌握得还不够扎实，后续会重点补齐。<br>我一直记得您提到的独当一面，，。所以想跟您重新对齐一下接下来的工作目标与成长方向，也希望能在更正向、更聚焦业务的氛围里，把后续事情做得更稳、更专业。</p>
