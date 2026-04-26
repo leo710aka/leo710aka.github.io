@@ -1079,6 +1079,172 @@
 <li>Run &amp; Debug<br>1）配置 jdk（Language &amp; Framework - Java - JDK）和 Extension（Java，Springboot，Git）<br>2）配置 maven（Path to Maven’s setting.xml）<br>3）配置启动文件 launch.json {<br>     “type”: “java”,<br>     “name”: “SIT-MOpsPlatformBackendApplication”,<br>     “request”: “launch”,<br>     “mainClass”: “com.midea.mops.MOpsPlatformBackendApplication”,<br>     “projectName”: “mops-platform”,<br>     “args”: [],<br>     “vmArgs”: [<br>          “-Xmx1024m”,<br>          “-XX:+UseG1GC”<br>      ],<br>     “env”: {<br>         “spring.profiles.active”: “sit”,<br>         “jasypt.encryptor.password”: “j7m9JOJDy83LUbFDY6Q2”,<br>         “log.path”: “&#x2F;home&#x2F;coder&#x2F;logs&#x2F;apps”,<br>         “rocketmq.enabled”: “true”<br>     }<br> }</li>
 <li>AI Coding实践<br>1）让AI 了解项目的工程架构和编码风格 &amp; review生成的文档让AI修改（我需要你完整阅读项目代码，了解整个项目的项目架构、工作机制，然后完整梳理域名解析（DNS）相关的业务和实现，将你的理解写成文档放到D:\code\xops-platform-backend\doc\dns.md下）<br>2）让AI 对当前需求生成开发计划（@doc&#x2F;dns.md  基于现有DNS架构，我需要新增XXX功能，请给出实现方案（有skill的话就不用@引用））<br>3）设置 AI 约束（project_rules.md）配置项目级规则，让 AI 生成的代码符合团队规范<br>4）复杂功能分步骤拆解（ps 生成plan后 换窗口执行？？上下文控制）<br>5）代码质量：辅助 Code Review，发现潜在 bug、边界条件、异常场景<br>6）单元测试：核心逻辑必须有单元测试，集成测试：接口级别的联调测试，边界测试：空值、越界、异常场景</li>
 </ol>
+<h2 id="4-27-慢-SQL-排查-SOP"><a href="#4-27-慢-SQL-排查-SOP" class="headerlink" title="4.27 慢 SQL 排查 SOP"></a>4.27 慢 SQL 排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
+<thead>
+<tr>
+<th>阈值</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 100ms</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>100ms ~ 1s</td>
+<td>关注，高频接口需优化</td>
+</tr>
+<tr>
+<td>&gt; 1s</td>
+<td>慢 SQL，需处理</td>
+</tr>
+<tr>
+<td>&gt; 3s</td>
+<td>严重，必须处理</td>
+</tr>
+</tbody></table>
+<h4 id="2-EXPLAIN-分析执行计划"><a href="#2-EXPLAIN-分析执行计划" class="headerlink" title="2. EXPLAIN 分析执行计划"></a>2. EXPLAIN 分析执行计划</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> ...; </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>select_type</code>——子查询的执行策略<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+<th>好坏</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PRIMARY</td>
+<td>主查询</td>
+<td>—</td>
+</tr>
+<tr>
+<td>MATERIALIZED</td>
+<td>子查询物化，只执行一次</td>
+<td>✅ 好</td>
+</tr>
+<tr>
+<td>DEPENDENT SUBQUERY</td>
+<td>相关子查询，主表每行执行一次</td>
+<td>❌ 危险</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>独立子查询，执行一次</td>
+<td>✅ 好</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>DEPENDENT SUBQUERY 是慢 SQL 的高危信号</strong>，主表 N 行 × 子查询 M 行 &#x3D; N×M 代价</p>
+</blockquote>
+</li>
+<li><code>type</code>——单表访问方式（性能从好到坏）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; ALL</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+<th>好坏</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ref</td>
+<td>索引等值查找</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>range</td>
+<td>索引范围扫描</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>index</td>
+<td>全索引扫描</td>
+<td>⚠️</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>全表扫描</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+</li>
+<li><code>key</code>——实际用了哪个索引<br><code>NULL</code> &#x3D; 没用索引，结合 <code>type=ALL</code> 是最差情况；有值但 type 仍是 index&#x2F;ALL，说明索引未能有效过滤</li>
+<li><code>rows</code>——预估扫描行数<br>越大越慢；DEPENDENT SUBQUERY 的 rows 要 × 主表 rows，<strong>是乘法关系</strong></li>
+<li><code>Extra</code>——额外信息<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Using where</td>
+<td>引擎拿到数据后 Server 层再过滤，正常</td>
+</tr>
+<tr>
+<td>Using index</td>
+<td>覆盖索引，无需回表，✅ 好</td>
+</tr>
+<tr>
+<td>Using index condition</td>
+<td>索引条件下推(ICP)，减少回表，✅ 好</td>
+</tr>
+<tr>
+<td>Using filesort</td>
+<td>需要额外排序，⚠️ 关注</td>
+</tr>
+<tr>
+<td>Using temporary</td>
+<td>用了临时表，⚠️ 关注</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h4 id="3-定位根因"><a href="#3-定位根因" class="headerlink" title="3. 定位根因"></a>3. 定位根因</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">按以下顺序逐一排查：</span><br><span class="line"></span><br><span class="line">1. 有没有 DEPENDENT SUBQUERY？</span><br><span class="line">   → 是：找出为什么优化器认为子查询依赖外层</span><br><span class="line">        → 子查询 SELECT 的列 = 外层过滤列？→ 考虑加索引或改写</span><br><span class="line">        → 子查询内部有 JOIN，且 JOIN 列 = SELECT 列？→ 去掉多余 JOIN</span><br><span class="line"></span><br><span class="line">2. 有没有 type=ALL？</span><br><span class="line">   → 是：WHERE 条件的列有没有索引？</span><br><span class="line">        → 没有：加索引</span><br><span class="line">        → 有但没用：检查是否违反最左前缀原则</span><br><span class="line"></span><br><span class="line">3. 索引有没有命中过滤条件？</span><br><span class="line">   → 检查现有索引的列顺序：等值列在前，范围列在后</span><br><span class="line">   → 子查询的 WHERE 列是否在索引前缀里</span><br><span class="line"></span><br><span class="line">4. ORDER BY 有没有触发 filesort？</span><br><span class="line">   → 排序列是否在索引末尾（范围查询之后的列）</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-制定优化策略"><a href="#4-制定优化策略" class="headerlink" title="4. 制定优化策略"></a>4. 制定优化策略</h4><p>优先级从高到低：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>适用场景</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>消除 DEPENDENT SUBQUERY</strong></td>
+<td>子查询被反复执行</td>
+<td>从 O(N×M) → O(N+M)，数量级提升</td>
+</tr>
+<tr>
+<td><strong>加索引</strong></td>
+<td>type&#x3D;ALL 且 WHERE 列无索引</td>
+<td>从全表扫 → 索引查找，数量级提升</td>
+</tr>
+<tr>
+<td><strong>去掉子查询中多余的 JOIN</strong></td>
+<td>JOIN 列与 SELECT 列相同导致 DEPENDENT</td>
+<td>可能让优化器改为 MATERIALIZED</td>
+</tr>
+<tr>
+<td><strong>覆盖索引</strong></td>
+<td>频繁回表</td>
+<td>消除回表，中等收益</td>
+</tr>
+<tr>
+<td><strong>改写为 LEFT JOIN IS NULL</strong></td>
+<td>NOT IN 子查询</td>
+<td>视情况，需验证</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>LEFT JOIN 改写不一定更快</strong>：如果主表没有先缩小范围就做全量 JOIN，反而会更慢（本次实验验证过）</p>
+</blockquote>
+<h4 id="5-验证效果"><a href="#5-验证效果" class="headerlink" title="5. 验证效果"></a>5. 验证效果</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 改完后重新 EXPLAIN，对比关键列变化</span></span><br><span class="line"><span class="comment">-- 重点确认：</span></span><br><span class="line"><span class="comment">-- 1. DEPENDENT SUBQUERY 是否消失或 rows 大幅减少</span></span><br><span class="line"><span class="comment">-- 2. type=ALL 是否变为 ref（索引等值查找）/ range（索引范围扫描）</span></span><br><span class="line"><span class="comment">-- 3. key=NULL 是否命中了索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再实际执行计时，和改前对比</span></span><br></pre></td></tr></table></figure>
+
+<p>@todo: 多次实际</p>
 <h2 id="4-xx-Data-Agent-AI项目化框架化？？"><a href="#4-xx-Data-Agent-AI项目化框架化？？" class="headerlink" title="4.xx Data-Agent AI项目化框架化？？"></a>4.xx Data-Agent AI项目化框架化？？</h2><p>本质还是一个Java实现的Agent项目<br>利用项目的可控约束AI的不确定性<br>从Claude Code源码看Agent架构之争。。</p>
 <h2 id="xx-Claude-Code"><a href="#xx-Claude-Code" class="headerlink" title="xx Claude Code"></a>xx Claude Code</h2><p>skill 吴恩达<br>设计、开发一个高并发系统，学习多线程、mysql锁、、<br>源码</p>
 <h2 id="xx-xx-向上反馈"><a href="#xx-xx-向上反馈" class="headerlink" title="xx.xx 向上反馈"></a>xx.xx 向上反馈</h2><p>最近 AI 项目顺利上线，整体成果也基本落地，这段时间对我来说是入职以来压力最大、也成长最集中的一段经历。<br>不过也想跟您同步一下，这段时间我在团队协作和日常沟通中，持续感受到比较强烈的不被信任的压力。比如在日会上多次被质疑工作不饱和、被要求自证工作内容与时间分配，沟通中也经常出现否定式、质疑式的表达，整体氛围让我心理负担很重，也一度影响到工作状态。<br>但同时，我也明显感受到自己在工作方式和能力上存在不少短板，也一直在认真复盘：一方面，面对新的 AI 相关开源代码，前期熟悉和消化需要一定周期，初期产出节奏偏慢，又没有做到更及时、更显性地同步进展，这是我后续需要重点改进的地方；另一方面，日常经常被私有化部署、运维类穿插任务打断，而我对这部分工作还没有形成标准化的 SOP，导致时间消耗很难量化，也影响了主线任务的推进效率。同时我也意识到，自己对负责系统的核心逻辑、关键主线掌握得还不够扎实，后续会重点补齐。<br>我一直记得您提到的独当一面，，。所以想跟您重新对齐一下接下来的工作目标与成长方向，也希望能在更正向、更聚焦业务的氛围里，把后续事情做得更稳、更专业。</p>
