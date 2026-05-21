@@ -1010,7 +1010,7 @@
 </li>
 <li>fight back<br>“那天在茶水间，你从侧后方凑过来看我手机上的内容，问我在看什么，是什么意思呢？回答我，有这么难吗？你不说，拿去跟 HR 说吧。”<br>→ 温和版：那天在茶水间，你凑过来看我手机，问我在看什么。我觉得这种行为让我很不舒服，希望你注意边界。如果你不认可，我可以去跟 HR 沟通情况。<br>→ “你诽谤我”“没有的事” → 我没有诽谤你，我只是在陈述当天发生的场景。我没有给你贴任何标签，只是表达我个人感到不适。有需要那我们可以一起去 HR 那边对质。<br>→ “你上班时间玩手机造成进度慢” → 1、<strong>（打开手机录音器）反问</strong>：我确认一下，你是正式规定，我不可以在茶水间看手机吗？2、进度按计划来，我会同步。</li>
 </ul>
-<h2 id="4-13-OpS-Productization-Java-容器化-K8s-部署"><a href="#4-13-OpS-Productization-Java-容器化-K8s-部署" class="headerlink" title="4.13 OpS Productization: Java 容器化 &amp; K8s 部署"></a>4.13 OpS Productization: Java 容器化 &amp; K8s 部署</h2><h4 id="全流程拆解"><a href="#全流程拆解" class="headerlink" title="全流程拆解"></a>全流程拆解</h4><ol start="0">
+<h2 id="4-13-Java-容器化-K8s-部署"><a href="#4-13-Java-容器化-K8s-部署" class="headerlink" title="4.13 Java 容器化 &amp; K8s 部署"></a>4.13 Java 容器化 &amp; K8s 部署</h2><h4 id="全流程拆解"><a href="#全流程拆解" class="headerlink" title="全流程拆解"></a>全流程拆解</h4><ol start="0">
 <li>环境要求：已有 K8s 集群（Docker Desktop&#x2F;云厂商&#x2F;自建）、kubectl 工具（连接集群）、容器镜像仓库（公司内部仓库&#x2F; Docker Hub）；</li>
 <li>准备 Java 服务（开发层面）<br>核心：确保 Java 服务可正常运行（以 Spring Boot 为例），打包成可执行 Jar 包（通过 Maven&#x2F;Gradle 打包，输出 app.jar）。<br>关键：服务需监听固定端口（如 8080），避免端口冲突，后续需与 K8s 资源配置一致。</li>
 <li>打包 Docker 镜像（容器化）<br>核心：将 Java Jar 包 + 运行环境（JDK）打包成 Docker 镜像，作为 K8s 部署的「安装包」。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编写 Dockerfile（极简模板，可直接复用）：</span></span><br><span class="line">FROM openjdk:17-slim  <span class="comment"># 基础镜像（含JDK，适配Java服务）</span></span><br><span class="line">COPY target/app.jar app.jar  <span class="comment"># 将本地Jar包复制到镜像中</span></span><br><span class="line">ENTRYPOINT [<span class="string">&quot;java&quot;</span>, <span class="string">&quot;-jar&quot;</span>, <span class="string">&quot;app.jar&quot;</span>]  <span class="comment"># 容器启动时执行的命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建镜像（命名格式：仓库地址/镜像名:版本号）</span></span><br><span class="line">docker build -t 公司仓库地址/java-demo:v1 .</span><br><span class="line"><span class="comment"># 推送到公司镜像仓库（供K8s拉取）</span></span><br><span class="line">docker push 公司仓库地址/java-demo:v1</span><br></pre></td></tr></table></figure></li>
@@ -1076,14 +1076,6 @@
 <p>一句话极简链路：<strong>浏览器 → DNS → 节点IP:80 → Ingress Controller → 网关Service → 网关Pod → 业务Service → 业务Pod</strong></p>
 <h4 id="底座拉起"><a href="#底座拉起" class="headerlink" title="底座拉起"></a>底座拉起</h4><p>datamars拉起<br>数据初始化？？<br>K8s环境服务访问，相互调用</p>
 <p>todo：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></p>
-<h2 id="4-17-AI-Coding-experience"><a href="#4-17-AI-Coding-experience" class="headerlink" title="4.17 AI Coding experience"></a>4.17 AI Coding experience</h2><ol>
-<li>theme color （Familiar Java Themes），Keyboard shortcut</li>
-<li>AI rule（用中文回答，代码&#x2F;注释规范，不要修改pom文件,, ）</li>
-<li>Skills（给 AI 用的 SOP，自动触发的结构化 Prompt &#x3D; 业务知识 × 执行流程 × 约束规则 的结合体）<br>1）本质是<strong>注入到系统提示（System Prompt）里的文本</strong>，AI 会自动加载所有的 Skill 描述（name + description，始终存在），命中后才加载 Skill 全文（description 是”门卫”，全文是”说明书”）<br>2）目录结构，全局（所有项目都能用）：~&#x2F;.agents&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md，项目级（当前项目专用，优先级更高）：&lt;项目&gt;&#x2F;.continue&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md<br>3）一个好的 Skill 应该包含三类内容：A. 业务知识（What） “这个模块是干什么的，核心概念是什么”  → 让 AI 不需要每次重新学习业务背景，B. 执行流程（How）  “遇到这类任务，按什么步骤来做”  → 让 AI 的行为可预期、可重复 ，  C. 约束规则（Don’t）”有哪些已知坑、必须遵守的规范”    → 防止 AI 重犯已知错误      </li>
-<li>Memory Management<br>1）对话和生成内容均使用中文（Scope：gobal）</li>
-<li>Run &amp; Debug<br>1）配置 jdk（Language &amp; Framework - Java - JDK）和 Extension（Java，Springboot，Git）<br>2）配置 maven（Path to Maven’s setting.xml）<br>3）配置启动文件 launch.json {<br>     “type”: “java”,<br>     “name”: “SIT-MOpsPlatformBackendApplication”,<br>     “request”: “launch”,<br>     “mainClass”: “com.midea.mops.MOpsPlatformBackendApplication”,<br>     “projectName”: “mops-platform”,<br>     “args”: [],<br>     “vmArgs”: [<br>          “-Xmx1024m”,<br>          “-XX:+UseG1GC”<br>      ],<br>     “env”: {<br>         “spring.profiles.active”: “sit”,<br>         “jasypt.encryptor.password”: “xxxxxx”,<br>         “log.path”: “&#x2F;home&#x2F;coder&#x2F;logs&#x2F;apps”,<br>         “rocketmq.enabled”: “true”<br>     }<br> }</li>
-<li>AI Coding实践<br>1）让AI 了解项目的工程架构和编码风格 &amp; review生成的文档让AI修改（我需要你完整阅读项目代码，了解整个项目的项目架构、工作机制，然后完整梳理域名解析（DNS）相关的业务和实现，将你的理解写成文档放到D:\code\xops-platform-backend\doc\dns.md下）<br>2）让AI 对当前需求生成开发计划（@doc&#x2F;dns.md  基于现有DNS架构，我需要新增XXX功能，请给出实现方案（有skill的话就不用@引用））<br>3）设置 AI 约束（project_rules.md）配置项目级规则，让 AI 生成的代码符合团队规范<br>4）复杂功能分步骤拆解（ps 生成plan后 换窗口执行？？上下文控制）<br>5）代码质量：辅助 Code Review，发现潜在 bug、边界条件、异常场景<br>6）单元测试：核心逻辑必须有单元测试，集成测试：接口级别的联调测试，边界测试：空值、越界、异常场景</li>
-</ol>
 <h2 id="4-27-慢-SQL-排查-SOP"><a href="#4-27-慢-SQL-排查-SOP" class="headerlink" title="4.27 慢 SQL 排查 SOP"></a>4.27 慢 SQL 排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
 <thead>
 <tr>
@@ -1300,6 +1292,26 @@
 </li>
 </ol>
 <p>[近年AI应用技术串讲与优质文档分享｜Agent、Skill、OpenClaw、Harness……]<a target="_blank" rel="noopener" href="https://oigi8odzc5w.feishu.cn/wiki/WBMfwiNkfi6uNFkRtXdcavDzn0e">https://oigi8odzc5w.feishu.cn/wiki/WBMfwiNkfi6uNFkRtXdcavDzn0e</a></p>
+<h2 id="5-1-AI-Coding"><a href="#5-1-AI-Coding" class="headerlink" title="5.1 AI Coding"></a>5.1 AI Coding</h2><ol>
+<li>IDE configuration<ol>
+<li>theme color （Familiar Java Themes），Keyboard shortcut</li>
+<li>AI rule（用中文回答，代码&#x2F;注释规范，不要修改pom文件,, ）</li>
+<li>Skills（给 AI 用的 SOP，自动触发的结构化 Prompt &#x3D; 业务知识 × 执行流程 × 约束规则 的结合体）<br> 1）本质是<strong>注入到系统提示（System Prompt）里的文本</strong>，AI 会自动加载所有的 Skill 描述（name + description，始终存在），命中后才加载 Skill 全文（description 是”门卫”，全文是”说明书”）<br> 2）目录结构，全局（所有项目都能用）：~&#x2F;.agents&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md，项目级（当前项目专用，优先级更高）：&lt;项目&gt;&#x2F;.continue&#x2F;skills&#x2F;<skill-name>&#x2F;SKILL.md<br> 3）一个好的 Skill 应该包含三类内容：A. 业务知识（What） “这个模块是干什么的，核心概念是什么”  → 让 AI 不需要每次重新学习业务背景，B. 执行流程（How）  “遇到这类任务，按什么步骤来做”  → 让 AI 的行为可预期、可重复 ，  C. 约束规则（Don’t）”有哪些已知坑、必须遵守的规范”    → 防止 AI 重犯已知错误      </li>
+<li>Memory Management<br> 1）对话和生成内容均使用中文（Scope：gobal）</li>
+<li>Run &amp; Debug<br> 1）配置 jdk（Language &amp; Framework - Java - JDK）和 Extension（Java，Springboot，Git）<br> 2）配置 maven（Path to Maven’s setting.xml）<br> 3）配置启动文件 launch.json {<br>     “type”: “java”,<br>     “name”: “SIT-MOpsPlatformBackendApplication”,<br>     “request”: “launch”,<br>     “mainClass”: “com.midea.mops.MOpsPlatformBackendApplication”,<br>     “projectName”: “mops-platform”,<br>     “args”: [],<br>     “vmArgs”: [<br>         “-Xmx1024m”,<br>         “-XX:+UseG1GC”<br>     ],<br>     “env”: {<br>         “spring.profiles.active”: “sit”,<br>         “jasypt.encryptor.password”: “xxxxxx”,<br>         “log.path”: “&#x2F;home&#x2F;coder&#x2F;logs&#x2F;apps”,<br>         “rocketmq.enabled”: “true”<br>     }<br> }</li>
+</ol>
+</li>
+<li>AI Coding实践<br>1）让 AI 了解项目的工程架构和编码风格 &amp; review生成的文档让AI修改（我需要你完整阅读项目代码，了解整个项目的项目架构、工作机制，然后完整梳理域名解析（DNS）相关的业务和实现，将你的理解写成文档放到D:\code\xops-platform-backend\doc\dns.md下）<br>2）让 AI 对当前需求生成开发计划（@doc&#x2F;dns.md  基于现有DNS架构，我需要新增XXX功能，请给出实现方案（有skill的话就不用@引用））<br>3）设置 AI 约束（project_rules.md）配置项目级规则，让 AI 生成的代码符合团队规范<br>4）复杂功能分步骤拆解（ps 生成plan后 换窗口执行）<br>5）代码质量：辅助 Code Review，发现潜在 bug、边界条件、异常场景<br>6）单元测试：核心逻辑必须有单元测试，集成测试：接口级别的联调测试，边界测试：空值、越界、异常场景</li>
+<li>more<br>单个对话历史会话过长且不必要时，或者把上下文浓缩到md后，可以开启新窗口做后续对话<br>ai写的代码有缺陷，接着改，还是从头来？<br>怎么省token？<br>??</li>
+<li>VibeCoding<ol>
+<li>需求：头脑风暴，提供目标、输入、输出、让AI以提问的形式向我确定需求，生成proposal.md</li>
+<li>设计：根据需求文档里划分的模块编写详细设计文档，模块之间保持独立可测试</li>
+<li>划分任务：为每个模块划分最小可执行任务，生成task清单并且用check list表示子任务是否完成，可多agent并行开发</li>
+<li>实现：命令agent根据progress.md，以主Agent监控整体进度，管理多个子Agent执行各模块的形式来实现，必须要有完整的单元测试</li>
+</ol>
+</li>
+</ol>
+<p>todo 设计、开发一个高并发系统，学习多线程、mysql锁、、</p>
 <h2 id="5-3-Claude-Code-First-Trial"><a href="#5-3-Claude-Code-First-Trial" class="headerlink" title="5.3 Claude Code, First Trial"></a>5.3 Claude Code, First Trial</h2><ol>
 <li><strong>Claude Code</strong> 是 <strong>Anthropic 出品的 AI 编程 Agent &#x2F; 终端编码助手</strong><ul>
 <li>不是编程语言、不是系统、不是IDE，是<strong>跑在终端里、帮你写代码、改代码、调试、查Bug、写配置、写脚本</strong>的 AI</li>
@@ -1312,19 +1324,19 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入交互式对话，然后直接打字提问</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换模型</span></span><br><span class="line">/model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清空当前会话上下文</span></span><br><span class="line">/clear</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出交互模式</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
 <li>Claude.md（宪法）</li>
 <li>权限配置（项目级，会话级，，）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; /update-config</span><br></pre></td></tr></table></figure>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">● User answered Claude&#x27;s questions:</span><br><span class="line">  ⎿  · 权限配置应该保存在哪里？ → 项目本地</span><br><span class="line">     · 你希望预先允许哪些常用的命令？ → 写入文件, 读取文件</span><br><span class="line"></span><br><span class="line">● 好！我理解了。让我为你的项目创建一个合理的权限配置。首先读取现有的设置文件（如果存在）。</span><br><span class="line"></span><br><span class="line">  Read 1 file (ctrl+o to expand)</span><br><span class="line"></span><br><span class="line">● 现在我来创建一个权限配置文件。根据你的选择，我会配置读取、写入文件的权限：</span><br><span class="line"></span><br><span class="line">● Write(.claude\settings.local.json)</span><br><span class="line">  ⎿  Wrote 21 lines to .claude\settings.local.json</span><br><span class="line">       1 &#123;</span><br><span class="line">       2   &quot;permissions&quot;: &#123;</span><br><span class="line">       3     &quot;allow&quot;: [</span><br><span class="line">       4       &quot;Read&quot;,</span><br><span class="line">       5       &quot;Write&quot;,</span><br><span class="line">       6       &quot;Edit&quot;,</span><br><span class="line">       7       &quot;Glob&quot;,</span><br><span class="line">       8       &quot;Grep&quot;,</span><br><span class="line">       9       &quot;Bash(git *)&quot;,</span><br><span class="line">      10       &quot;Bash(ls)&quot;,</span><br><span class="line">     … +11 lines (ctrl+o to expand)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">● User answered Claude&#x27;s questions:</span><br><span class="line">  ⎿  · 权限配置应该保存在哪里？ → 项目本地</span><br><span class="line">    · 你希望预先允许哪些常用的命令？ → 写入文件, 读取文件</span><br><span class="line"></span><br><span class="line">● 好！我理解了。让我为你的项目创建一个合理的权限配置。首先读取现有的设置文件（如果存在）。</span><br><span class="line"></span><br><span class="line">  Read 1 file (ctrl+o to expand)</span><br><span class="line"></span><br><span class="line">● 现在我来创建一个权限配置文件。根据你的选择，我会配置读取、写入文件的权限：</span><br><span class="line"></span><br><span class="line">● Write(.claude\settings.local.json)</span><br><span class="line">  ⎿  Wrote 21 lines to .claude\settings.local.json</span><br><span class="line">      1 &#123;</span><br><span class="line">      2   &quot;permissions&quot;: &#123;</span><br><span class="line">      3     &quot;allow&quot;: [</span><br><span class="line">      4       &quot;Read&quot;,</span><br><span class="line">      5       &quot;Write&quot;,</span><br><span class="line">      6       &quot;Edit&quot;,</span><br><span class="line">      7       &quot;Glob&quot;,</span><br><span class="line">      8       &quot;Grep&quot;,</span><br><span class="line">      9       &quot;Bash(git *)&quot;,</span><br><span class="line">      10       &quot;Bash(ls)&quot;,</span><br><span class="line">    … +11 lines (ctrl+o to expand)</span><br></pre></td></tr></table></figure></li>
 <li>上下文记忆<br>只记用户取向，不记代码，实时获取源码事实</li>
 <li>skill 吴恩达</li>
 <li>源码 <a target="_blank" rel="noopener" href="https://github.com/ultraworkers/claw-code">https://github.com/ultraworkers/claw-code</a></li>
+<li>用通用agent构思项目，，不用框架怎么做一个cmdb问数</li>
 </ol>
-<p>&#x2F;&#x2F; todo 设计、开发一个高并发系统，学习多线程、mysql锁、、</p>
 <h2 id="5-11-【运维产品】沉淀"><a href="#5-11-【运维产品】沉淀" class="headerlink" title="5.11 【运维产品】沉淀"></a>5.11 【运维产品】沉淀</h2><h4 id="1-自动化运维平台"><a href="#1-自动化运维平台" class="headerlink" title="1. 自动化运维平台"></a>1. 自动化运维平台</h4><p>MOPS &amp; CMDB &amp; Ansible（运维平台，数据底座 + 运维作业）<br>MOPS：通过<strong>工单</strong>触发一个申请&#x2F;变更&#x2F;回收流程，通过生成的<strong>记录</strong>映射到的实际平台上的策略，用API&#x2F;script做自动化，运维数据落到 CMDB。。流程 可靠（可追溯、可回滚），高可用??<br>CMDB：运维事实库。本质就是如何把数据写入，如何供外部使用。日常&#x2F;私有化迭代（只做热点运维工作，没有熟悉功能和组件）<br>CMDB Copilot：基于CMDB数据源的nl2sql问数服务。。搞容器化<br>嘉为蓝鲸，Azure 智能运维<br>价值，用户，钱</p>
 <h4 id="2-私有化输出"><a href="#2-私有化输出" class="headerlink" title="2. 私有化输出"></a>2. 私有化输出</h4><p>ToB：流程和稳定（业务复杂，数据准确，并发要求低），超出客户期待<br>中立云：目标客户→对成本重视的企业の数量级&gt;&gt;对成本不重视的，对公有云降维打击，占领云计算的农村<br>迭代：私有化主干分支 feature&#x2F;product_output 或 poc（区别于内部main分支，两个分别维护，短期方便但长期废人力），私有化迭代分支 feature&#x2F;priv1.x.0（初期从主干拉出，迭代开发私有化功能），私有化Release版本（中期从主干拉出，私有feature测完后合入，出正式的私有化镜像包）<br>单一master分支改造：大洋代码合回内部主分支，后续迭代考虑如何一套代码跑多个环境。。客户适应系统，而不是系统适配客户？？</p>
 <h4 id="3-系统思考"><a href="#3-系统思考" class="headerlink" title="3. 系统思考"></a>3. 系统思考</h4><p>MOPS：懂关键能力实现&amp;组件原理，，慢sql治理？？线上问题，服务、DB、中间件不可用？？<br>运维作业：流量大怎么做（分批，下班时间），失败怎么做（重试？保证数据一致性；考虑如果失败的堆积到一起重试流量太大。。）<br>稳定性建设：四大类检查<br>故障复盘</p>
 <h4 id="4-独当一面"><a href="#4-独当一面" class="headerlink" title="4. 独当一面"></a>4. 独当一面</h4><p>运维产品<br>数据库运维</p>
 <h4 id="5-AI"><a href="#5-AI" class="headerlink" title="5. AI"></a>5. AI</h4><p>AI Coding：形成开发规范 1）理解项目（形成doc，skill？？团队经验）2）配置代码格式等 3）AI根据需求描述生成计划，头脑风暴  4）分步开发（太长思考中断）<br>AI工程vs传统工程 —「道法术」中的变与不变 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Foiid7aYvTD0-ejBSGhM7A">https://mp.weixin.qq.com/s/Foiid7aYvTD0-ejBSGhM7A</a><br>AI 驱动的智能异常处置：从异常发现到根因定位 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VHqYQ-cnburG8ydI94F_DA">https://mp.weixin.qq.com/s/VHqYQ-cnburG8ydI94F_DA</a><br>凌晨 3 点故障告警，我让 AI 在 10 分钟内找到了根因 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Ru_tYyofOqnKitzAU7Bu7g">https://mp.weixin.qq.com/s/Ru_tYyofOqnKitzAU7Bu7g</a></p>
 <h4 id="6-工作模式"><a href="#6-工作模式" class="headerlink" title="6. 工作模式"></a>6. 工作模式</h4><p>事情多，都紧急，人脑过载，效率低，，<br>我总是在等一个时机<br>等有时间再看项目疑难问题<br>等有时间再学容器化、K8S、调优<br>stn：没有舒适区</p>
-<h2 id="5-18-【晋升】one-one"><a href="#5-18-【晋升】one-one" class="headerlink" title="5.18 【晋升】one one"></a>5.18 【晋升】one one</h2><h4 id="1-开场（周一下午刚上班-13-30-14-00）"><a href="#1-开场（周一下午刚上班-13-30-14-00）" class="headerlink" title="1. 开场（周一下午刚上班 13:30-14:00）"></a>1. 开场（周一下午刚上班 13:30-14:00）</h4><p>老板好，临近年中，我梳理了下近半年的工作重点：期间完成了 MOPS 所负责业务的持续优化，Opspace 私有化部署，CMDB 问数项目初步上线，同时也更多承担了团队协作事项，日常也有在扩充自身技术栈。<br>不过对照年初沟通时，您对我的发展期许来看，目前我实际负责的工作内容还是有一定出入。所以想借年中这个节点，跟您再对齐一下您对我的个人成长期望，以及我后续的工作重心安排。另外年初我主动提过想要争取晋升，也想听听您对我现阶段工作的整体评价，以及我自身还需要做出哪些调整改进。</p>
+<h2 id="5-18-【晋升】one-one"><a href="#5-18-【晋升】one-one" class="headerlink" title="5.18 【晋升】one one"></a>5.18 【晋升】one one</h2><h4 id="1-开场（下午刚上班-13-30-14-00）"><a href="#1-开场（下午刚上班-13-30-14-00）" class="headerlink" title="1. 开场（下午刚上班 13:30-14:00）"></a>1. 开场（下午刚上班 13:30-14:00）</h4><p>老板好，临近年中，我梳理了下近半年的工作重点：期间完成了 MOPS 所负责业务的持续优化，Opspace 私有化部署，CMDB 问数项目初步上线，同时也更多承担了团队协作事项，日常也有在扩充自身技术栈。<br>不过对照年初沟通时，您对我的发展期许来看，目前我实际负责的工作内容还是有一定出入。所以想借年中这个节点，跟您再对齐一下您对我的个人成长期望，以及我后续的工作重心安排。另外年初我主动提过想要争取晋升，也想听听您对我现阶段工作的整体评价，以及我自身还需要做出哪些调整改进。</p>
 <h4 id="2-正式面谈"><a href="#2-正式面谈" class="headerlink" title="2. 正式面谈"></a>2. 正式面谈</h4><ol>
 <li>开场，礼貌直白，切入主题<br>老板，这次一对一，我想给您同步下我这半年的工作产出、个人成长，也想坦诚对齐下我目前的能力定位，同时正式向您申请本次年中的晋升定级。</li>
 <li>MOPS主业：稳定迭代 + 事故复盘优化<br>持续负责运维平台DNS自动化的迭代开发。期间外包开发出现过线上问题，虽然不是我直接开发的，但我意识到自己在方案评审、外包交付把关上存在疏漏。后面我花了几周时间，<strong>完整梳理全链路业务场景、代码逻辑、边界 case</strong>，完成了自动化全场景梳理和优化方案，及时与业务方同步。<br>目前自动化相关我基本是自己来完成，我也将这个业务的开发经验沉淀了一个skill。</li>
@@ -1345,6 +1357,45 @@
 <li>为什么要给你晋升？<br>三点原因：第一，工作产出达标，半年独立完成私有化交付、AI攻坚、平台迭代，还长期兜底团队杂项工作，工作量和贡献超出初级开发；第二，能力质变，具备独立排查问题、把控项目、对接客户的能力；第三，薪资客观偏低，入职薪资低于同批次水平，目前能力已经匹配更高职级，希望薪资职级对齐产出。<br>对比同期入职的硕士同事，日常承担工作量、项目推进、技术深耕、团队协助层面个人能力与产出完全不落下风（对比起刚进来更是绰绰有余）。当初校招入职定薪偏低，当前薪资水平低于同能力、同年限行业正常区间，希望公司结合实际能力与贡献重新核定，希望得到肯定，互相尊重</li>
 <li>下半年规划是什么？<br>一、持续做MOPS业务的迭代优化，同时积累Java技术深度<br>二、把AI融入工作中<br>三、确定个人深耕方向，做到真正独当一面。</li>
 <li>再观察一下、下次再升<br>我理解公司的评级标准，也接受客观评估。麻烦您明确告诉我，我目前还差哪些硬性条件、多长时间可以达标？我会针对性补齐短板，严格按照标准执行，希望下次评估能给到明确的晋升结果。</li>
+</ol>
+<h4 id="5-feedback"><a href="#5-feedback" class="headerlink" title="5. feedback"></a>5. feedback</h4><p>开发能力肯定ok<br>架构（服务拆分，中间件选择，高可用，数据库，微服务，服务治理）<br>代码规范（《重构》，学习优秀开源项目，Spring）<br>AI使用（主动学，窗口期1-2y，思考用ClaudeCode怎么做CMDB问数）<br>做AI运维（主动拓展scope，从日常的杂活中抽理出来，看别人的&#x3D;自己做了）<br>独当一面（一方面是能够解决热点问题，一方面是能从0到1落地项目）<br><strong>保持好奇心</strong></p>
+<h2 id="5-21-【转组】😓"><a href="#5-21-【转组】😓" class="headerlink" title="5.21 【转组】😓"></a>5.21 【转组】😓</h2><p>嫡系应届生专属深度谈心方案</p>
+<ol>
+<li>这次把我跟着平台划转，我已经了解，是单纯业务需要。但是还是比较意外，因为前一天才对齐了一下未来的个人发展期望，也比较好奇 why me not xx？</li>
+<li>业务上，还是只做MOPS？但日常运转的人少了，负责的业务就多了，至少网络方面要接受防火墙。担心又陷入各种对接需求，迭代优化，杂活细活。AI智能运维这一块，后续团队是否有资源支撑的话？</li>
+<li>我在新团队的发展侧重点、您对我的后续建议。能否脱离表层业务迭代，深耕底层，架构，组件，K8s，刚好补齐我架构思维弱的短板，也契合您之前对我的成长要求。</li>
+<li>刚好前天也提到的，我这两年的产出和个人发展肯定是您比较了解，我跨团队之后，一些晋升的机会是不是比较难把握了。</li>
+<li>嫡系师徒关系，背书。还是特别感谢您这两年带我，从校招生到独立对接交付，我的成长和产出都是您给的机会。后续我也会踏踏实实做事，有成长、有成果也会常跟您同步，还想一直跟着您的节奏学习。</li>
+</ol>
+<p>hr talk</p>
+<ol>
+<li>您好，关于本次团队调动我已知悉，整体愿意配合公司人事安排。</li>
+<li>title，汇报对象，上半年绩效怎么打，新团队业务方向、定岗分工，正式生效时间、工位调整、系统信息变更节点</li>
+<li>我理解是业务需要导致的变动，我在运维平台两年也积累了不少项目经验与工作成果，和Steven同步产出和对其期望的时候也获得了积极的评价。</li>
+<li>我有个核心顾虑想坦诚沟通。过去两年我的工作产出、个人成长方向，一直都和原团队充分对齐确认。年初我也主动跟原领导表达过希望争取晋升，之后也一直针对性补齐短板，踏实完成各项工作产出。后续转入新团队，彼此熟悉度不足，我担心过往积累的工作贡献无法被充分考量，原本既定的晋升预期会受到影响，个人参评优先级被延后。</li>
+<li>希望公司在后续晋升评审中，能够综合考量我的整体资历与过往产出，给到和团队同等资历人员公平的晋升机会，我也会尽快适应新岗位，全力完成本职工作。</li>
+</ol>
+<p>新boss 一对一完整沟通方案</p>
+<ol>
+<li>开场表态（沉稳、服从、有思考，不被动）<br>“领导，这次部门业务拆分、运维平台划归监控团队，我已经认真梳理过了。我完全服从团队安排，也理解这是公司底层基建整合的战略调整。<br>我自己复盘了一下，其实对我个人是非常好的机会。之前半年我更多聚焦在业务需求交付、平台迭代和用户对接上，细碎事务比较多，一直缺少底层架构、K8s、监控稳定性这一块的深耕，刚好这次调整补齐我的技术短板。”</li>
+<li>自我介绍核心能力（给对方定你的价值）<br>“我在前团队主要负责运维平台全链路的开发、私有化交付、事故复盘治理，同时独立落地了<strong>CMDB智能问数、用户智能提单</strong>这类AI赋能运维的落地尝试，有一点智能运维的实践积累。接下来转到新团队，我希望不再停留在表层业务交付，想沉下心深耕底层基建和架构设计。”</li>
+<li>核心诉求1：对齐未来工作重心（规避杂活）<br>“想跟您对齐一下，接下来我的核心工作优先级：<br>我优先配合做好现有工作交接，同时希望<strong>主要精力投入到底层架构梳理、K8s运维、中间件稳定性治理</strong>这一块，补齐架构层面的思考，这也是我接下来最想突破的方向。”</li>
+<li>核心诉求2：保留AI智能运维赛道（关键！防止丢特色）<br>“另外我有个自己的小规划想跟您同步：<br>我之前一直在探索AI+运维的落地，也是我个人很想长期深耕的方向。<br>我了解咱们团队侧重底层基建，可能没有现成的AI项目资源。但我想后续<strong>利用空余时间、结合咱们监控、运维场景，做一些轻量化的智能优化小迭代</strong>，比如日志智能分析、异常智能识别这类贴合团队业务的小创新。<br>想问问您，后续我可以在不影响主线工作的前提下，自主尝试、向您同步进度吗？希望能保留这个技术探索方向。”</li>
+<li>收尾：表态度、求指导、立上进心（为晋升铺路）<br>“接下来两个月我会快速吃透团队底层业务，补齐架构思维，踏实做好本职工作。<br>我目前处在职级成长和晋升冲刺的阶段，非常希望在新团队，在您的带领下做出新的技术沉淀和成果，后续也麻烦领导多指点我的不足、帮我把控成长方向。”</li>
+</ol>
+<p>沟通核心目标（最重要）</p>
+<ol>
+<li>确立姿态：<strong>我不是被划拨的边角人力，是带着平台核心能力+AI创新能力过来做技术深耕的骨干</strong></li>
+<li>主动规避：杂活、琐事、重复交付</li>
+<li>主动对齐：未来2个月我的工作重心&#x3D;底层架构+K8s+中间件稳定性</li>
+<li>主动抛出：我想在新团队延续智能运维AI方向，求指导、求小落地空间</li>
+<li>让新领导快速对你建立「<strong>有想法、肯深耕、有创新、可培养、能晋升</strong>」的优质印象</li>
+</ol>
+<h2 id="5-21-2026年中"><a href="#5-21-2026年中" class="headerlink" title="5.21 2026年中"></a>5.21 2026年中</h2><ol>
+<li><p>MOPS<br>1）MOPS 需求开发（DNS自动化全场景&amp;优化项梳理&amp;代码重构，备份慢sql优化）<br>2）MOPS 域名解析 &amp; 负载均衡相关需求支持<br>3）OPSpace 定制化开发&amp;交付（NBU整机备份&amp;WindowsDNS下发改造，客户环境部署&amp;使用指引）</p>
+</li>
+<li><p>CMDB<br>1）CMDB 问数（知识梳理，多轮定制化开发调试）<br>2）CMDB 产品化交付（数据对接，部署问题处理）<br>3）CMDB 私有化版本迭代，出包<br>4）CMDB 运营（用户问题，告警）</p>
+</li>
 </ol>
 <hr>
 
