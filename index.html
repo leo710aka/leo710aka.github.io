@@ -1312,24 +1312,77 @@
 </li>
 </ol>
 <p>todo 设计、开发一个高并发系统，学习多线程、mysql锁、、</p>
-<h2 id="5-3-Claude-Code-First-Trial"><a href="#5-3-Claude-Code-First-Trial" class="headerlink" title="5.3 Claude Code, First Trial"></a>5.3 Claude Code, First Trial</h2><ol>
+<h2 id="5-3-Claude-Code-First-Trial"><a href="#5-3-Claude-Code-First-Trial" class="headerlink" title="5.3 Claude Code, First Trial"></a>5.3 Claude Code, First Trial</h2><ul>
 <li><strong>Claude Code</strong> 是 <strong>Anthropic 出品的 AI 编程 Agent &#x2F; 终端编码助手</strong><ul>
-<li>不是编程语言、不是系统、不是IDE，是<strong>跑在终端里、帮你写代码、改代码、调试、查Bug、写配置、写脚本</strong>的 AI</li>
-<li>本体是 <strong>Node.js 写的命令行应用</strong>，跑在 <strong>Bash &#x2F; Zsh &#x2F; PowerShell</strong> 这些 Shell 里（Git Bash 只是补全 Windows 缺失的类 Unix 终端和命令环境）</li>
+<li>不是编程语言、不是系统、不是IDE，是跑在终端里、帮你写代码、改代码、调试、查Bug、写配置、写脚本的 AI</li>
+<li>本体是 Node.js 写的命令行应用，跑在 Bash &#x2F; Zsh &#x2F; PowerShell 这些 Shell 里（Git Bash 只是补全 Windows 缺失的类 Unix 终端和命令环境）</li>
 <li>PowerShell → claude.cmd → node.exe → 运行 Claude Code 源码 → 底层复用 Git Bash 环境做兼容支撑。</li>
 </ul>
 </li>
 <li>Basic Configuration &amp; Commands<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C:\Users\caife\.claude.json → 配置免登录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;hasCompletedOnboarding&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 正确的API中转地址</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_BASE_URL</span> = <span class="string">&quot;https://yunwuapi.com&quot;</span></span><br><span class="line"><span class="comment"># 2. 正确的API密钥变量（中转服务用这个）</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_AUTH_TOKEN</span> = <span class="string">&quot;sk-nIrKsXi2fKr57vz2ORPR9fnJ6qWOTdrEJalxHf9DSHSuMr4P&quot;</span></span><br><span class="line"><span class="comment"># 3. 设置一个可用模型（模型大厅复制名称）</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_BASE_URL</span> = <span class="string">&quot;https://yunwuapi.com&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入交互式对话，然后直接打字提问</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换模型</span></span><br><span class="line">/model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清空当前会话上下文</span></span><br><span class="line">/clear</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出交互模式</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
-<li>Claude.md（宪法）</li>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 正确的API中转地址</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_BASE_URL</span> = <span class="string">&quot;https://yunwuapi.com&quot;</span></span><br><span class="line"><span class="comment"># 2. 正确的API密钥变量（中转服务用这个）</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_AUTH_TOKEN</span> = <span class="string">&quot;sk-nIrKsXi2fKr57vz2ORPR9fnJ6qWOTdrEJalxHf9DSHSuMr4P&quot;</span></span><br><span class="line"><span class="comment"># 3. 设置一个可用模型（模型大厅复制名称）</span></span><br><span class="line"><span class="variable">$env:ANTHROPIC_MODEL</span> = <span class="string">&quot;claude-haiku-4-5-20251001&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入交互式对话，然后直接打字提问</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换模型</span></span><br><span class="line">/model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看安装的skills</span></span><br><span class="line">/skills</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清空当前会话上下文</span></span><br><span class="line">/clear</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出交互模式</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
+<li><code>CC Switch</code> 可以统一为本地的各CLI配置各模型厂商，启用后 &#x2F;model 可以看到当前在用模型，无需配置环境变量(下载 xx.windows.msi → <a target="_blank" rel="noopener" href="https://github.com/farion1231/cc-switch/releases">https://github.com/farion1231/cc-switch/releases</a>)</li>
+<li><code>Vibe Coding</code> 新手起步：必做清单<ol>
+<li>给 AI 一个”说明书” — <strong>CLAUDE.md</strong>（这是最重要的一件事。在项目根目录创建 CLAUDE.md，每次会话 AI 都会自动读取它。）<ul>
+<li>项目概述（ 一个扫雷游戏网页版）</li>
+<li>技术栈（  纯 HTML&#x2F;CSS&#x2F;JS，无框架；  用原生 DOM API，不引入 jQuery）</li>
+<li>我的偏好（  函数优先，少用 class；   变量命名用中文拼音也行，我都能接受； 先实现功能，美化后面再说）</li>
+<li>常用命令（  直接双击 minesweeper.html 就能跑）</li>
+</ul>
+</li>
+<li>把需求写下来（不用写 PRD 文档，但至少想清楚这三点再开始）<ul>
+<li>这个项目是给谁用的？ 我自己玩 &#x2F; 给朋友展示  </li>
+<li>核心功能是什么？   9x9 雷区、左键揭开、右键标旗 </li>
+<li>什么算”做完”？ 能玩一局，赢了有提示</li>
+</ul>
+</li>
+<li>搭好骨架再填肉（每一步都验证，出问题范围很小，AI 也好修）<br> 正确的节奏：<ol>
+<li>先要骨架 — “帮我写一个扫雷的 HTML 页面，只有一个空棋盘，什么都不要多”</li>
+<li>跑起来 — 打开看，确认能渲染</li>
+<li>加一个功能 — “现在加上点击揭开格子”</li>
+<li>跑起来 — 确认能用</li>
+<li>再加一个 — “加上右键标旗”</li>
+<li>循环…</li>
+</ol>
+</li>
+<li>善用记忆（做到一半时，把你验证过的偏好告诉 AI，会存到 Feedback 记忆里记住）<br>  ▎ “记住：这个项目以后都用 CSS Grid 布局，别用 table”</li>
+<li>不要追求一次完美（Vibecoding 的精髓是迭代。一个功能 AI 第一次写得不对，换个说法再试一次，或者指出来哪里不对。这比你花时间想”最完美的提示词”高效得多）</li>
+</ol>
+</li>
+<li><code>Token</code> 是 AI 处理文本的最小单位。<ul>
+<li>它不是”一个字”也不是”一个单词”，而是介于两者之间。<br>  中文：大约 1 个 token ≈ 1.5 个汉字（”我爱你”        → 约 2-3 个 token）<br>  英文：大约 1 个 token ≈ 0.75 个单词（”const x &#x3D; 1;” → 约 7 个 token（每个符号都算））<br>  代码：token 消耗较大（符号、缩进、换行都会占 token）</li>
+<li>每次对话，token 消耗在三个地方：（一个典型会话，读一个 300 行文件 + 几轮对话，轻松吃掉几千 token）<br>  输入，最大头，你说的 + 我读的文件 + 工具返回结果 + 系统指令 + CLAUDE.md + 记忆文件<br>  思考，中等，我内部推理的过程（你看到的 <thinking> 就是这部分）<br>  输出，较小，我回复给你的文字 + 工具调用的参数          </li>
+<li>怎么省 Token（实用篇）<ol>
+<li>一次说清楚比反复追问省 — 三次对话来回比一次详细描述多耗 3 倍 token</li>
+<li>文件别写太大 — 单文件 500 行 vs 5 个 100 行文件，前者每次读完更省</li>
+<li>不需要改的文件别说 — “你帮我看看 X 文件”如果你其实只想改 Y</li>
+</ol>
+</li>
+<li>建议：尽量在一个会话里持续迭代，不要每个小改动都开新会话。上下文可以复用，省掉”开机费”。<br>  你的 minesweeper.html 约 400 行，每次完整读取约 2000-3000 token。加上 CLAUDE.md 和记忆文件，每次新会话起步大约 4000-5000 token 的”开机费”。这在一个 20 万 token 的上下文窗口里不算什么，但如果频繁开新会话、每次都全量读取，累积起来就多了。<br>  同一会话加功能： 记忆已加载(0) + 文件已在上下文(0) + 你一句话描述需求(50 token)    &#x3D; 约 50 token 新增<br>  新会话里加功能： 重读 CLAUDE.md(500) + 重读记忆(800) + 重读文件(3000) + 你重新说明项目(200)    &#x3D; 约 4500 token 新增</li>
+<li>什么时候开新会话？<br>  换个完全不同的项目  →  开新<br>  上下文太长了，AI 开始”忘事”  →  开新（但先把关键状态写进记忆）<br>  第二天打开电脑继续  →  默认就是新会话，但记忆文件会恢复上下文</li>
+</ul>
+</li>
+<li>记忆架构总览（<code>Context Engineer</code>）<ul>
+<li>短期记忆 &#x3D; 上下文窗口<br>每个对话会话有一个有限的上下文窗口（Token 上限）。这是 Claude 的”短期记忆” – 当前 Claude 能”看到”的所有内容。<br>当上下文接近填满时，Claude Code 会自动进行上下文压缩。早期对话为摘要。最近的交互保留细节，早期的被激进压缩。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">长期记忆（磁盘）  --&gt;  会话开始时加载  --&gt;  进入上下文窗口（短期记忆）</span><br><span class="line">                        ^                        |</span><br><span class="line">                        |    压缩/摘要后写回       |</span><br><span class="line">                        +-------------------------+</span><br></pre></td></tr></table></figure></li>
+<li>长期记忆 &#x3D; 磁盘持久化<br>存储在 .claude&#x2F;projects&#x2F;<project>&#x2F;memory&#x2F; 下，跨会话保留。入口是 MEMORY.md（索引文件），具体内容分散在独立 .md 文件中。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Memory Index</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## user-profile.md</span></span><br><span class="line">记录用户的技术栈偏好、工作习惯、常用工具链等。</span><br><span class="line"></span><br><span class="line"><span class="comment">## feedback-log.md</span></span><br><span class="line">记录用户对 Claude 历史输出的反馈，包括满意和不满意的地方。</span><br><span class="line"></span><br><span class="line"><span class="comment">## project-goals.md</span></span><br><span class="line">当前项目的核心目标、里程碑和约束条件。</span><br><span class="line"></span><br><span class="line"><span class="comment">##  Reference Memory（参考记忆）</span></span><br><span class="line">存储外部参考资料、链接、API 文档摘要、教程等。</span><br></pre></td></tr></table></figure></li>
+<li>不应该存入记忆的<br>代码模式&#x2F;架构（代码库本身已记录）<br>Git 历史（git log 获取）<br>当前任务状态（用 Plans&#x2F;Tasks 系统， 使用 .claude&#x2F;plans&#x2F; 目录）<br>可自动检索的信息（文件结构等）</li>
+<li>记忆 vs 计划 vs 任务 vs CLAUDE.md<ol>
+<li>Memory   │ .claude&#x2F;projects&#x2F;<project>&#x2F;memory&#x2F;  │ 跨会话保留用户偏好、项目上下文、反馈   │ Claude自主决定何时读取</li>
+<li>Plans    │ .claude&#x2F;plans&#x2F;                 │ 规划大型变更的步骤和方案         │ 是执行路线图，不是记忆</li>
+<li>Tasks    │ .claude&#x2F;tasks&#x2F;                 │ 跟踪具体的待办事项               │ 有状态（待办&#x2F;进行中&#x2F;完成）</li>
+<li>CLAUDE.md │ 项目根目录                     │ 项目规范、约定、常用命令         │   每次会话自动加载到上下文中</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>skill<br>吴恩达<br>全局目录 C:\Users\caife.claude\skills<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">● Skill 已创建完成。结构如下：</span><br><span class="line"></span><br><span class="line">  football-memes/</span><br><span class="line">  ├── SKILL.md                          <span class="comment"># 技能主文件（触发规则 + 工作流）</span></span><br><span class="line">  └── references/</span><br><span class="line">      └── football-memes.md             <span class="comment"># 分类足球梗库（中英双语）</span></span><br></pre></td></tr></table></figure></li>
+<li>agents 子会话<br>&#x2F;btw</li>
 <li>权限配置（项目级，会话级，，）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; /update-config</span><br></pre></td></tr></table></figure>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">● User answered Claude&#x27;s questions:</span><br><span class="line">  ⎿  · 权限配置应该保存在哪里？ → 项目本地</span><br><span class="line">    · 你希望预先允许哪些常用的命令？ → 写入文件, 读取文件</span><br><span class="line"></span><br><span class="line">● 好！我理解了。让我为你的项目创建一个合理的权限配置。首先读取现有的设置文件（如果存在）。</span><br><span class="line"></span><br><span class="line">  Read 1 file (ctrl+o to expand)</span><br><span class="line"></span><br><span class="line">● 现在我来创建一个权限配置文件。根据你的选择，我会配置读取、写入文件的权限：</span><br><span class="line"></span><br><span class="line">● Write(.claude\settings.local.json)</span><br><span class="line">  ⎿  Wrote 21 lines to .claude\settings.local.json</span><br><span class="line">      1 &#123;</span><br><span class="line">      2   &quot;permissions&quot;: &#123;</span><br><span class="line">      3     &quot;allow&quot;: [</span><br><span class="line">      4       &quot;Read&quot;,</span><br><span class="line">      5       &quot;Write&quot;,</span><br><span class="line">      6       &quot;Edit&quot;,</span><br><span class="line">      7       &quot;Glob&quot;,</span><br><span class="line">      8       &quot;Grep&quot;,</span><br><span class="line">      9       &quot;Bash(git *)&quot;,</span><br><span class="line">      10       &quot;Bash(ls)&quot;,</span><br><span class="line">    … +11 lines (ctrl+o to expand)</span><br></pre></td></tr></table></figure></li>
-<li>上下文记忆<br>只记用户取向，不记代码，实时获取源码事实</li>
-<li>skill 吴恩达</li>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">● User answered Claude&#x27;s questions:</span><br><span class="line">  ⎿  · 权限配置应该保存在哪里？ → 项目本地</span><br><span class="line">    · 你希望预先允许哪些常用的命令？ → 写入文件, 读取文件</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">● Write(.claude\settings.local.json)</span><br><span class="line">  ⎿  Wrote 21 lines to .claude\settings.local.json</span><br><span class="line">      1 &#123;</span><br><span class="line">      2   &quot;permissions&quot;: &#123;</span><br><span class="line">      3     &quot;allow&quot;: [</span><br><span class="line">      4       &quot;Read&quot;,</span><br><span class="line">      5       &quot;Write&quot;,</span><br><span class="line">      6       &quot;Edit&quot;,</span><br><span class="line">      7       &quot;Glob&quot;,</span><br><span class="line">      8       &quot;Grep&quot;,</span><br><span class="line">      9       &quot;Bash(git *)&quot;,</span><br><span class="line">      10       &quot;Bash(ls)&quot;,</span><br><span class="line">    … +11 lines (ctrl+o to expand)</span><br></pre></td></tr></table></figure></li>
 <li>源码 <a target="_blank" rel="noopener" href="https://github.com/ultraworkers/claw-code">https://github.com/ultraworkers/claw-code</a></li>
 <li>用通用agent构思项目，，不用框架怎么做一个cmdb问数</li>
-</ol>
+</ul>
 <h2 id="5-11-【运维产品】沉淀"><a href="#5-11-【运维产品】沉淀" class="headerlink" title="5.11 【运维产品】沉淀"></a>5.11 【运维产品】沉淀</h2><h4 id="1-自动化运维平台"><a href="#1-自动化运维平台" class="headerlink" title="1. 自动化运维平台"></a>1. 自动化运维平台</h4><p>MOPS &amp; CMDB &amp; Ansible（运维平台，数据底座 + 运维作业）<br>MOPS：通过<strong>工单</strong>触发一个申请&#x2F;变更&#x2F;回收流程，通过生成的<strong>记录</strong>映射到的实际平台上的策略，用API&#x2F;script做自动化，运维数据落到 CMDB。。流程 可靠（可追溯、可回滚），运维数据全流程闭环，，<br>作业平台：高并发，高可用？？三个节点，100个任务，怎么调度，怎么等待？？<br>CMDB：运维事实库，本质就是如何把数据写入，如何供外部使用，日常&#x2F;私有化迭代（只做热点运维工作，日常用户答疑，没有深耕功能和组件）<br>CMDB Copilot：基于CMDB数据源的nl2sql问数服务。。搞容器化 → 不用框架，只用通用模型+上下文工程+skills(提示词工程) 怎么实现？？<br>嘉为蓝鲸，Azure 智能运维<br>价值，用户，钱</p>
 <h4 id="2-私有化输出"><a href="#2-私有化输出" class="headerlink" title="2. 私有化输出"></a>2. 私有化输出</h4><p>ToB：流程和稳定（业务复杂，数据准确，并发要求低），超出客户期待<br>中立云：目标客户→对成本重视的企业の数量级&gt;&gt;对成本不重视的，对公有云降维打击，占领云计算的农村<br>迭代：私有化主干分支 feature&#x2F;product_output 或 poc（区别于内部main分支，两个分别维护，短期方便但长期废人力），私有化迭代分支 feature&#x2F;priv1.x.0（初期从主干拉出，迭代开发私有化功能），私有化Release版本（中期从主干拉出，私有feature测完后合入，出正式的私有化镜像包）<br>单一master分支改造：大洋代码合回内部主分支，后续迭代考虑如何一套代码跑多个环境。。客户适应系统，而不是系统适配客户？？</p>
 <h4 id="3-系统思考"><a href="#3-系统思考" class="headerlink" title="3. 系统思考"></a>3. 系统思考</h4><p>MOPS：懂关键能力实现&amp;组件原理，，慢sql治理？？线上问题，服务、DB、中间件不可用？？<br>运维作业：流量大怎么做（分批，下班时间），失败怎么做（重试？保证数据一致性；考虑如果失败的堆积到一起重试流量太大。。）<br>稳定性建设：四大类检查<br>故障复盘</p>
@@ -1407,7 +1460,7 @@
 <li>荣誉奖项：五粮液优秀学生奖学金(2023.10)，华南理工大学三等奖学金(2022.09)，广东省第十一届大运会“优秀志愿者”(22.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”</li>
 </ul>
 </li>
-<li><strong>工作经历</strong><br>Midea 后端开发工程师-Java <sup>2024.7~</sup></li>
+<li><strong>工作经历</strong><br><em>Midea</em> 后端开发工程师-Java <sup>2024.7~</sup></li>
 <li><strong>项目经验</strong><ol>
 <li>自动化运维平台（MOPS）自动化骨干<ul>
 <li>负责网络管理模块，防火墙、负载均衡、域名解析的自动化能力建设，全流程可追溯，运维数据闭环</li>
