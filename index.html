@@ -654,12 +654,6 @@
 <hr>
 
 
-<h2 id="7-16-Mops-深度学习———暨Java开发体系构建"><a href="#7-16-Mops-深度学习———暨Java开发体系构建" class="headerlink" title="7.16 Mops 深度学习———暨Java开发体系构建"></a>7.16 Mops 深度学习———暨Java开发体系构建</h2><p>Java如何处理一个请求  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw">https://yuanbao.tencent.com/bot/app/share/chat/crOguvwf38jw</a><br>mops架构熟悉 “如何深入了解当前负责的java项目，在i…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ">https://yuanbao.tencent.com/bot/app/share/chat/bsqucYK8K9bJ</a></p>
-<h4 id="MOPS-统一运维平台"><a href="#MOPS-统一运维平台" class="headerlink" title="MOPS 统一运维平台"></a>MOPS 统一运维平台</h4><p>打造主机、网络、存储等运维一键操作，支持申请、变更、回收等常见场景，实现工单下发、流程审批、策略下发的逻辑，集成平台API、脚本下发、定时调度、CMDB能力，保证流程清晰、节点可控、异常告警。。<br>负责。。网络管理模块开发，发版小组，值班<br>竞品。。蓝鲸研发运维技术PaaS体系<br>产品化。。定制化功能</p>
-<h5 id="Mops"><a href="#Mops" class="headerlink" title="Mops"></a>Mops</h5><p>网络管理模块。。增删改查。。AI code<br>技术实现：多平台用策略模式，加注解实现定时任务调度？<br>解决问题：并发。。</p>
-<h5 id="CMDB"><a href="#CMDB" class="headerlink" title="CMDB"></a>CMDB</h5><p>配置数据库<br>mongodb、Elasticsearch<br>运维事实库，，与mops数据同步，订阅。。<br>数据重复。。问题排查</p>
-<h5 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h5><p>作业平台，特权机+脚本下发<br>运维入口</p>
-<h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>自动化运维&#x3D;》LLM作为“大脑”负责思考和规划，MCP等框架提供标准化的“工具库”，而强大的权限与安全体系则扮演着“交通警察”和“紧箍咒”的角色。这三者的有机结合，使得Agent既能智能地帮我们一步步完成复杂任务，又能被有效地约束在安全、可控的边界之内，从而真正成为一位可靠的数字助手。<br>Serval raises $52M in funding. Learn More <a target="_blank" rel="noopener" href="https://www.serval.com/updates/series-a">https://www.serval.com/updates/series-a</a><br>Spring AI Alibaba 1.0 GA 正式发布，Java智能体开发进入新时代 <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1666891">https://developer.aliyun.com/article/1666891</a></p>
 <h2 id="7-17-Mops-CMDB发版"><a href="#7-17-Mops-CMDB发版" class="headerlink" title="7.17 Mops &amp; CMDB发版"></a>7.17 Mops &amp; CMDB发版</h2><p>“一个Java系统开发完了，是怎么跑起来…”  <a target="_blank" rel="noopener" href="https://yb.tencent.com/s/jj0KGxxEGgzU">https://yb.tencent.com/s/jj0KGxxEGgzU</a><br>“IDEA调试、线上运行，Maven、SpringCloud…”  <a target="_blank" rel="noopener" href="https://yb.tencent.com/s/GB2sYz5WPHbB">https://yb.tencent.com/s/GB2sYz5WPHbB</a><br>集成，部署 “所谓的微服务实际上是怎么部署的呢…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos">https://yuanbao.tencent.com/bot/app/share/chat/gt96bRkSxuos</a><br>K8S&amp;微服务部署方案 “k8s和springcloud是如何关联…”  <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1">https://yuanbao.tencent.com/bot/app/share/chat/H2FtlSdK24y1</a></p>
 <h4 id="MOPS-开发，测试，发版流程"><a href="#MOPS-开发，测试，发版流程" class="headerlink" title="MOPS 开发，测试，发版流程"></a>MOPS 开发，测试，发版流程</h4><ol>
 <li>开发阶段<ul>
@@ -702,12 +696,12 @@
 </ol>
 <h4 id="CMDB-部署指令"><a href="#CMDB-部署指令" class="headerlink" title="CMDB 部署指令"></a>CMDB 部署指令</h4><ol>
 <li>下发介质（jar包）<br>将服务的可执行文件（通常是一个 .jar ）下发目标服务器。这个 .jar 文件是通过构建工具（如 Maven 或 Gradle）打包生成，包含了应用程序的所有代码、依赖库和资源文件。</li>
-<li>停止旧服务<br><code>ps aux | grep $&#123;package_name&#125; | grep java | grep -v grep | awk &#39;&#123;print $2&#125;&#39; | xargs kill -15</code><br>停止正在运行的旧版本服务，释放端口和资源。ps aux：列出所有进程。grep ${package_name}：过滤出与服务相关的进程。kill -15：优雅地终止进程，避免强制终止（kill -9）可能导致数据丢失或资源未释放。</li>
+<li>停止旧服务<br>停止正在运行的旧版本服务，释放端口和资源。kill -15：优雅地终止进程，避免强制终止（kill -9）可能导致数据丢失或资源未释放。</li>
 <li>检查进程<br>确认服务进程是否已经成功停止。ps -ef：列出所有进程及其详细信息。grep ${package_name}：过滤出与服务相关的进程。</li>
-<li>备份文件<br>在部署新版本之前，备份旧版本的 .jar 文件和相关配置文件，以便在新版本出现问题时可以快速回滚。</li>
+<li>备份文件<br>在部署新版本之前，cp 备份旧版本的 .jar 文件和相关配置文件，以便在新版本出现问题时可以快速回滚。</li>
 <li>下发 OneAgent（监控工具）</li>
 <li>配置服务（生成配置文件）<br>通过 Shell 脚本动态生成服务的配置文件（如 application.yml），用于定义服务的端口、文件路径、Redis 配置等。可以根据环境（如开发、测试、生产）动态调整配置。</li>
-<li>启动服务<br><code>nohup /usr/bin/java $&#123;C_CMDB_XXL_JOB_EXECUTOR_ONEAGENT_OPTS&#125; -Xms8g -Xmx8g -jar -Dspring.config.location=$&#123;package_path&#125;/application.yml -Djasypt.encryptor.password=abcdefg $&#123;package_path&#125;/$&#123;package_name&#125;.jar &gt; $&#123;package_path&#125;/$&#123;package_name&#125;.log 2&gt;&amp;1 &amp;</code><br>启动 Java 服务，并将日志输出到指定文件。<br>nohup：允许服务在后台运行，即使关闭终端，服务也不会停止。<br>-Xms8g：设置 JVM 的初始堆内存为 8GB。<br>-Xmx8g：设置 JVM 的最大堆内存为 8GB。<br>-Dspring.config.location：指定 Spring Boot 的配置文件路径。<br>-Djasypt.encryptor.password：指定加密配置的解密密码。<br>${package_path}&#x2F;${package_name}.jar：指定要运行的 .jar 文件。<br>日志输出：&gt; ${package_path}&#x2F;${package_name}.log：将标准输出重定向到日志文件。2&gt;&amp;1：将标准错误输出重定向到标准输出。</li>
+<li>启动服务<br><code>nohup /usr/bin/java $&#123;C_CMDB_XXL_JOB_EXECUTOR_ONEAGENT_OPTS&#125; -Xms8g -Xmx8g -jar -Dspring.config.location=xx/application.yml -Djasypt.encryptor.password=xx xx.jar &gt; xx.log 2&gt;&amp;1 &amp;</code><br>启动 Java 服务，并将日志输出到指定文件。<br>允许服务在后台运行，即使关闭终端，服务也不会停止。设置 JVM 的初始堆内存为 8GB，设置 JVM 的最大堆内存为 8GB。<br>指定 Spring Boot 的配置文件路径，-Djasypt.encryptor.password：指定加密配置的解密密码，指定要运行的 .jar 文件。将标准输出重定向到日志文件，将标准错误输出重定向到标准输出。</li>
 <li>ps检查服务是否启动成功</li>
 </ol>
 <h4 id="新增微服务"><a href="#新增微服务" class="headerlink" title="新增微服务"></a>新增微服务</h4><p>“springcloud微服务架构里，每个微服务是单独开发，部署的吗，如何互相发现、调用？如果要新增一个微服务，要做什么工作？有没有“主服务”的概念，所有微服务都要记在主服务的配置文件中？”<a target="_blank" rel="noopener" href="https://yb.tencent.com/s/oL2XPesIhuCx">https://yb.tencent.com/s/oL2XPesIhuCx</a></p>
@@ -738,6 +732,25 @@
 <li>机器资源不足。。</li>
 </ol>
 <h4 id="CMDB消费视图偶现API-Runtimeout"><a href="#CMDB消费视图偶现API-Runtimeout" class="headerlink" title="CMDB消费视图偶现API Runtimeout"></a>CMDB消费视图偶现API Runtimeout</h4><p>1、调cmdb域名<a target="_blank" rel="noopener" href="http://cmdbuat.midea.com/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9Cthe">http://cmdbuat.midea.com/ops-data-access/view/direct，偶现“the</a> upstream server is timing out”，nginx报错但不一定其本身出错<br>2、调网关<a target="_blank" rel="noopener" href="http://10.16.115.110:7004/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9CZuulException%E2%80%9D%E5%B9%B6%E4%B8%94%E6%97%B6%E9%97%B4%E9%83%BD%E6%98%AF1min%EF%BC%8C%E6%80%80%E7%96%91%E6%98%AF%E4%B8%8B%E6%B8%B8ops-data-access%E6%9C%8D%E5%8A%A1%E5%87%BA%E9%94%99">http://10.16.115.110:7004/ops-data-access/view/direct，偶现“ZuulException”并且时间都是1min，怀疑是下游ops-data-access服务出错</a><br>3、直接调服务ip:port上的数据连接器接口：<a target="_blank" rel="noopener" href="http://10.16.64.39:7119/view/direct%EF%BC%8C%E4%B8%A4%E4%B8%AAip%EF%BC%8C%E5%8F%91%E7%8E%B0%E5%85%B6%E4%B8%AD%E8%BF%99%E4%B8%80%E4%B8%AA%E4%B8%8D%E8%A1%8C%EF%BC%8C%E6%80%80%E7%96%91%E6%98%AF%E8%BF%99%E4%B8%AA%E8%8A%82%E7%82%B9%E6%9C%8D%E5%8A%A1%E6%8C%82%E4%BA%86/%E8%BF%9B%E7%A8%8B%E8%B5%B7%E6%9D%A5%E4%BA%86%E4%BD%86%E6%9C%8D%E5%8A%A1%E6%B2%A1%E8%B5%B7%E6%9D%A5%EF%BC%8C%E9%87%8D%E5%90%AFnohup">http://10.16.64.39:7119/view/direct，两个ip，发现其中这一个不行，怀疑是这个节点服务挂了/进程起来了但服务没起来，重启nohup</a> java…，jps检查<br>&#x3D;》思路：CMDB组件很多，逐步排查，一般是提供接口的服务本身出错，如果是nginx&#x2F;网关出错的影响面会更大</p>
+<h4 id="Kafka消息堆积"><a href="#Kafka消息堆积" class="headerlink" title="Kafka消息堆积"></a>Kafka消息堆积</h4><p>本次故障现象：Kafka Topic 消息持续堆积，写入正常、消费停滞。排查链路：</p>
+<ol>
+<li>锁定异常 Topic，确认生产端写入正常（无生产报错、流量正常），判定问题出在消费端。</li>
+<li>溯源 Topic 的生产、消费对应业务 Java 服务，定位消费服务。</li>
+<li>发现宿主机发生 HA 虚拟机重启，导致消费 Java 进程异常退出。（ZK 临时节点未清理造成假在线消费者）</li>
+<li>服务重启尝试失败，初步误判为 Zookeeper 分片 &#x2F; 节点问题，执行了清理 ZK 节点、重启 ZK 操作（几乎无用）。</li>
+<li>最终发现残留僵尸 Java 进程，手动 Kill 残留进程后，服务重启成功，消息堆积瞬间下降。（新进程拿到部分分区，正常消费）</li>
+<li>遗留问题：恢复后堆积再次上涨，说明仅解决表层问题，未找到根因。（要么还有未清理干净的 ZK 异常节点，剩余分区无法消费；要么队列里存在脏数据 &#x2F; 代码阻塞，消费卡在某条消息上；）</li>
+</ol>
+<p>完整升级版排查 SOP（优先级从高到低）</p>
+<ol>
+<li>看监控：生产 QPS 正常、消费 QPS&#x3D;0 &#x2F; 极低 → 锁定消费端</li>
+<li>查进程：是否僵尸进程、端口占用、多进程冲突，kill -9 所有残留消费进程</li>
+<li>查消费者组：在线实例、分区分配、offset 是否卡住</li>
+<li>查服务日志：消费报错、重试死循环、业务阻塞</li>
+<li>查 ZK 状态：残留临时消费者节点、集群异常</li>
+<li>查 Topic 分区：分区 Leader 异常、ISR 缺失、副本同步失败</li>
+<li>兜底排查：消息脏数据、序列化异常、批量消费阻塞，持续观察 10–20 分钟 Lag 曲线</li>
+</ol>
 <h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong></p>
 <ol>
 <li>当F5设备被配置为该域名的权威DNS服务器时，nslookup查询才会最终指向它。<br>一个域名的权威DNS服务器信息（NS记录）是由其上一级域名注册商管理的（比如.com域名的注册商）。当你在注册商处将域名的NS记录指向你的F5设备（或其管理的DNS服务）后，一个完整的解析流程如下：<br>本地输入 nslookup <a target="_blank" rel="noopener" href="http://www.yourdomain.com/">www.yourdomain.com</a> &#x3D;》本地DNS服务器会从根域名服务器开始，一路查询到.com服务器，最终获知你的域名的权威DNS服务器是你的F5设备 &#x3D;》本地DNS服务器随后向你的F5设备发起查询，并获得F5上配置的IP地址（VIP）返回给用户。</li>
@@ -772,27 +785,7 @@
 
 
 <h2 id="11-30-CMDB-项目运营"><a href="#11-30-CMDB-项目运营" class="headerlink" title="11.30 CMDB 项目运营"></a>11.30 CMDB 项目运营</h2><h4 id="深度参与策略"><a href="#深度参与策略" class="headerlink" title="深度参与策略"></a>深度参与策略</h4><p>接手CMDB,,从做需求-&gt;做系统 <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm">https://yuanbao.tencent.com/bot/app/share/chat/920NVAbsqwtm</a><br>最大化CMDB项目的学习价值,, <a target="_blank" rel="noopener" href="https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88">https://yuanbao.tencent.com/bot/app/share/chat/SzQrsGlsuz88</a></p>
-<ul>
-<li>理解CMDB系统本质与行业实践<ul>
-<li>核心价值：CMDB（配置管理数据库）是IT服务的“中枢神经”，存储所有配置项（CI）及其关系，唯一事实库，支撑运维自动化、变更管理等场景。</li>
-<li>主流竞品参考：ServiceNow CMDB，企业级SaaS方案，强在ITSM流程集成。腾讯Blue King。开源方案：iTop、CMDBuild。</li>
-<li>自研系统关键模块：数据采集 –&gt; 数据建模 –&gt; 关系拓扑 –&gt; API服务–&gt; 可视化平台</li>
-</ul>
-</li>
-<li>通过CMDB项目深挖技术栈，Java底层实践场景：<ul>
-<li>高并发设计：自动发现引擎需处理海量设备扫描（学习Netty异步IO、Disruptor队列）。</li>
-<li>JVM调优实战：配置项关系计算需避免Full GC（分析G1日志，调整Eden&#x2F;Survivor比例）。</li>
-<li>分布式事务：CI数据跨服务同步（基于Seata AT模式或消息最终一致性）。</li>
-</ul>
-</li>
-<li>云原生技术落地：<ul>
-<li>微服务架构：Apache(SSO登录)-NGINX(反向代理+静态资源)-eruka(服务发现)-zuul(网关分发请求)-各微服务-mongodb主数据库-es(同步数据用于检索)</li>
-<li>容器化部署：将CMDB模块拆分为微服务，用Docker打包，K8s调度（学习Pod滚动升级、HPA弹性伸缩）。</li>
-<li>可观测性建设：集成Prometheus监控API延迟，Grafana展示拓扑关系健康度。</li>
-</ul>
-</li>
-<li><strong>以CMDB为杠杆撬动技术纵深</strong>：CMDB是运维体系的“核心数据枢纽”，其复杂场景（数据一致性、分布式调度）是修炼Java底层和云原生的绝佳沙盒。</li>
-<li>📊 <strong>项目经验如何写入简历</strong><table>
+<table>
 <thead>
 <tr>
 <th><strong>简历模块</strong></th>
@@ -816,8 +809,6 @@
 <td>通过拓扑影响分析模块，故障定位时效从30min缩短至5min，年止损运维成本200万+</td>
 </tr>
 </tbody></table>
-</li>
-</ul>
 <blockquote>
 <p>💡 简历筛选口诀：<strong>“技术深度×业务影响”双突出</strong>——避免写“增删改查”，聚焦架构设计、性能优化、跨系统集成。</p>
 </blockquote>
@@ -1423,17 +1414,18 @@
 <p>hr talk</p>
 <ol>
 <li>您好，关于本次团队调动我已知悉，整体愿意配合公司人事安排。</li>
-<li>title，汇报对象，上半年绩效怎么打，新团队业务方向、定岗分工，正式生效时间、工位调整、系统信息变更节点</li>
-<li>我理解是业务需要导致的变动，我在运维平台两年也积累了不少项目经验与工作成果，和Steven同步产出和对其期望的时候也获得了积极的评价。</li>
-<li>我有个核心顾虑想坦诚沟通。过去两年我的工作产出、个人成长方向，一直都和原团队充分对齐确认。年初我也主动跟原领导表达过希望争取晋升，之后也一直针对性补齐短板，踏实完成各项工作产出。后续转入新团队，彼此熟悉度不足，我担心过往积累的工作贡献无法被充分考量，原本既定的晋升预期会受到影响，个人参评优先级被延后。</li>
-<li>希望公司在后续晋升评审中，能够综合考量我的整体资历与过往产出，给到和团队同等资历人员公平的晋升机会，我也会尽快适应新岗位，全力完成本职工作。</li>
+<li>想明确本次调整后的title，汇报对象，新团队业务方向、定岗分工，正式生效时间、工位调整、系统信息变更节点</li>
+<li>我清楚这次调动是基于整体业务规划做出的安排。过去两年在原团队，我也积累了不少业务与技术经验，工作产出也得到了一些积极的评价，后续我也会把这份经验和状态带到新团队，尽快融入、做好本职工作。</li>
+<li>我有个核心顾虑想坦诚沟通。年初我主动表达过希望争取晋升，之后也一直针对性补齐短板，踏实完成各项工作产出，积极和原领导对齐成长节奏。转入新团队后，双方彼此还需要磨合熟悉，我担心过往的持续产出、阶段性成长无法被完整看见，原本的晋升节奏受到影响。加上我入职以来薪资本身偏低，也希望个人的付出能被客观看待。</li>
+<li>所以由衷希望公司在后续晋升评审中，能够综合参考我过往整体的工作资历、持续产出与成长表现，给到我公平、客观的评审机会。我也会尽快适应新岗位，全力完成本职工作。</li>
 </ol>
 <p>新boss 一对一完整沟通方案</p>
 <ol>
-<li>开场表态（沉稳、服从、有思考，不被动）<br>“领导，这次部门业务拆分、运维平台划归监控团队，我已经认真梳理过了。我完全服从团队安排，也理解这是公司底层基建整合的战略调整。<br>我自己复盘了一下，其实对我个人是非常好的机会。之前半年我更多聚焦在业务需求交付、平台迭代和用户对接上，细碎事务比较多，一直缺少底层架构、K8s、监控稳定性这一块的深耕，刚好这次调整补齐我的技术短板。”</li>
-<li>自我介绍核心能力（给对方定你的价值）<br>“我在前团队主要负责运维平台全链路的开发、私有化交付、事故复盘治理，同时独立落地了<strong>CMDB智能问数、用户智能提单</strong>这类AI赋能运维的落地尝试，有一点智能运维的实践积累。接下来转到新团队，我希望不再停留在表层业务交付，想沉下心深耕底层基建和架构设计。”</li>
-<li>核心诉求1：对齐未来工作重心（规避杂活）<br>“想跟您对齐一下，接下来我的核心工作优先级：<br>我优先配合做好现有工作交接，同时希望<strong>主要精力投入到底层架构梳理、K8s运维、中间件稳定性治理</strong>这一块，补齐架构层面的思考，这也是我接下来最想突破的方向。”</li>
-<li>核心诉求2：保留AI智能运维赛道（关键！防止丢特色）<br>“另外我有个自己的小规划想跟您同步：<br>我之前一直在探索AI+运维的落地，也是我个人很想长期深耕的方向。<br>我了解咱们团队侧重底层基建，可能没有现成的AI项目资源。但我想后续<strong>利用空余时间、结合咱们监控、运维场景，做一些轻量化的智能优化小迭代</strong>，比如日志智能分析、异常智能识别这类贴合团队业务的小创新。<br>想问问您，后续我可以在不影响主线工作的前提下，自主尝试、向您同步进度吗？希望能保留这个技术探索方向。”</li>
+<li>开场表态（沉稳、服从、有思考，不被动）<br>“领导，本次业务调整和团队调动，我完全了解和配合。<br>我自己复盘了一下，其实对我个人是非常好的机会。过去我更多聚焦在业务需求交付、平台迭代和用户对接上，细碎事务比较多，一直缺少底层架构、组件、稳定性这一块的深耕，刚好这次调整补齐我的技术短板。”</li>
+<li>自我介绍核心能力（给对方定你的价值）<br>“我之前主要负责的是，运维平台网络和备份自动化开发，Opspace私有化交付，负责CMDB的日常数据运营、私有化迭代，落地了CMDB智能问数，还做过半年的数据库服务化开发。接下来转到新团队，”</li>
+<li>核心诉求1：对齐未来工作重心（规避杂活）<br>“想跟您对齐一下，接下来我的核心工作优先级：<br>负责运维平台的网络管理模块，也承担一些作业平台、脚本的任务，但我希望不再停留在表层业务交付，想进一步深耕底层基建和架构设计。。一方面主动负责各种告警，中间件治理，一方面参与架构搭建，CMDBSpace也愿意参与。。我自己也得到突破。”</li>
+<li>核心诉求2：保留AI智能运维赛道（关键！防止丢特色）<br>“另外，我们之前就在在探索AI+运维的落地，初步上线了CMDB智能问数，<br>我了解咱们团队AI投入如何？”</li>
+<li>晋升期望对齐<br>另外想跟您聊聊我个人的成长规划。我本科进来快两年了，年初我主动和Steven表达过希望争取晋升，之后也一直补齐不足，尽力做好手上的活。<br>现在来到新团队，想问问您对我接下来的工作，个人成长有哪些期望？如果想把握住晋升机会，您建议我后续重点往哪些方向努力？</li>
 <li>收尾：表态度、求指导、立上进心（为晋升铺路）<br>“接下来两个月我会快速吃透团队底层业务，补齐架构思维，踏实做好本职工作。<br>我目前处在职级成长和晋升冲刺的阶段，非常希望在新团队，在您的带领下做出新的技术沉淀和成果，后续也麻烦领导多指点我的不足、帮我把控成长方向。”</li>
 </ol>
 <p>沟通核心目标（最重要）</p>
