@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-05-25T17:28:09.741Z">
+<meta property="article:modified_time" content="2026-06-02T16:52:35.799Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -1255,12 +1255,137 @@
 <li>主动抛出：我想在新团队延续智能运维AI方向，求指导、求小落地空间</li>
 <li>让新领导快速对你建立「<strong>有想法、肯深耕、有创新、可培养、能晋升</strong>」的优质印象</li>
 </ol>
-<h2 id="5-21-2026年中"><a href="#5-21-2026年中" class="headerlink" title="5.21 2026年中"></a>5.21 2026年中</h2><ol>
-<li><p>MOPS<br>1）MOPS 需求开发（DNS自动化全场景&amp;优化项梳理&amp;代码重构，备份慢sql优化）<br>2）MOPS 域名解析 &amp; 负载均衡相关需求支持<br>3）OPSpace 定制化开发&amp;交付（NBU整机备份&amp;WindowsDNS下发改造，客户环境部署&amp;使用指引）</p>
+<h2 id="5-31-Kafka-消息积压-SOP【待实践】"><a href="#5-31-Kafka-消息积压-SOP【待实践】" class="headerlink" title="5.31 Kafka 消息积压 SOP【待实践】"></a>5.31 Kafka 消息积压 SOP【待实践】</h2><h4 id="Kafka核心概念快速复盘"><a href="#Kafka核心概念快速复盘" class="headerlink" title="Kafka核心概念快速复盘"></a>Kafka核心概念快速复盘</h4><ul>
+<li>逻辑层（业务视角：收发消息）<ol>
+<li><strong>Topic</strong>：逻辑消息载体，生产者写入、消费者读取的统一标识，业务按模块拆分Topic。</li>
+<li><strong>Partition(分区)<strong>：Topic数据分片，</strong>Kafka并发核心</strong><ul>
+<li>规则：同一个消费组内，<strong>1个分区同一时间仅能被1个消费实例消费</strong>，<strong>有x个分区&#x3D;该topic可以一个消费者组中的最多x个消费者并发（行？）消费</strong>。</li>
+<li>作用：多分区→多实例并行消费，提升吞吐。。</li>
+</ul>
 </li>
-<li><p>CMDB<br>1）CMDB 问数（知识梳理，多轮定制化开发调试）<br>2）CMDB 产品化交付（数据对接，部署问题处理）<br>3）CMDB 私有化版本迭代，出包<br>4）CMDB 运营（用户问题，告警）</p>
+<li><strong>ConsumerGroup消费者组</strong>：一组同名消费实例，共用一组offset；不同消费组相互独立，各自从头消费。</li>
+<li><strong>Offset</strong>：分区内消息唯一序号，LAG&#x3D;LogEndOffset(分区最新消息位置)-CurrentOffset(消费端已成功提交位点) → <strong>堆积量，指标核心</strong>，LAG持续上涨&#x3D;真实堆积。</li>
+</ol>
+</li>
+<li>物理层（集群存储视角）<ol>
+<li><strong>Broker</strong>：Kafka集群单台服务节点，集群由多台Broker组成。</li>
+<li><strong>分区副本</strong>：每个分区配置N副本（线上常规3副本），分两类角色<ul>
+<li>Leader副本：所有生产、消费请求只走Leader；</li>
+<li>Follower副本：仅异步同步Leader数据，故障时竞选新Leader，不承接业务读写。</li>
+</ul>
+</li>
+<li>物理部署规则<ul>
+<li>同一个Topic的不同分区分散在多台Broker，打散IO压力；</li>
+<li>同一分区的主&#x2F;从副本<strong>禁止部署在同一Broker</strong>，防止单机宕机整分区数据丢失。</li>
+</ul>
+</li>
+<li>有序性关键结论<ul>
+<li>单个分区内：消息严格按生产顺序；</li>
+<li>多分区：Topic全局无序；有序业务只能单分区，天然限制并发。</li>
+</ul>
 </li>
 </ol>
+</li>
+<li>堆积本质一句话：<strong>消息生产速率 &gt; 消费处理速率 → Offset追赶不上 → LAG持续上涨 &#x3D; 消息堆积</strong></li>
+</ul>
+<h4 id="消息堆积四大故障分类（先定性故障类型，再定向排查）"><a href="#消息堆积四大故障分类（先定性故障类型，再定向排查）" class="headerlink" title="消息堆积四大故障分类（先定性故障类型，再定向排查）"></a>消息堆积四大故障分类（先定性故障类型，再定向排查）</h4><ol>
+<li>生产端突发暴涨（本次故障场景，偶发）<ul>
+<li>现象：短时间QPS突增数倍，LAG短期快速拉升，无报错日志，消费实例运行正常、资源占用平稳；流量回落之后堆积自动慢慢消化。</li>
+<li>诱因：定时任务批量上报、活动峰值、上游业务异常狂刷消息、瞬时脉冲流量。</li>
+</ul>
+</li>
+<li>消费实例故障&#x2F;离线（高频）<ul>
+<li>现象：部分分区LAG飙升，其余分区正常；消费组实例数变少，部分进程宕机、OOM被杀、服务重启。</li>
+<li>诱因：应用部署异常、服务器资源耗尽（CPU&#x2F;内存&#x2F;磁盘满）、网络断连、健康检查失败被K8s驱逐。</li>
+</ul>
+</li>
+<li>消费处理逻辑阻塞（最高发，常态化缓慢堆积）<ul>
+<li>现象：全分区稳步涨堆积，消费实例在线，但消费吞吐极低；应用日志大量报错、超时、慢SQL、下游接口超时。</li>
+<li>诱因：消费内同步调用DB&#x2F;第三方接口卡顿、坏消息死循环重试、单条消息体过大处理耗时、死信未配置导致卡死分区。</li>
+</ul>
+</li>
+<li>Kafka集群自身异常（全集群多Topic同步堆积）<ul>
+<li>现象：集群多个Topic同步出现堆积，非单个业务；Broker磁盘IO打满、CPU飙高、分区Leader频繁切换、副本同步异常。</li>
+<li>诱因：Broker磁盘故障、副本同步阻塞、集群带宽跑满、集群节点下线。</li>
+</ul>
+</li>
+</ol>
+<h4 id="应急分级规则"><a href="#应急分级规则" class="headerlink" title="应急分级规则"></a>应急分级规则</h4><ol>
+<li>P1紧急（堆积持续暴涨、磁盘即将打满）：优先限流生产者+扩容消费，止损优先；</li>
+<li>P2常规（缓慢堆积，不影响磁盘）：排查消费阻塞&#x2F;实例异常，优化代码；</li>
+<li>P3波动（短时堆积自动回落）：记录峰值时间，优化流量预案，无需紧急操作。</li>
+</ol>
+<h4 id="分级排查SOP"><a href="#分级排查SOP" class="headerlink" title="分级排查SOP"></a>分级排查SOP</h4><blockquote>
+<p>前置环境变量：<code>BK=xxx:9092</code>（集群地址，替换成实际集群）、<code>TOPIC=xxx</code>、<code>GROUP=xxx</code></p>
+</blockquote>
+<ol>
+<li>前置校验（1min，确认基础信息）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.查看全量消费组，找到异常Topic绑定的消费组</span></span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server <span class="variable">$BK</span> --list | grep <span class="variable">$TOPIC</span></span><br><span class="line"><span class="comment">#2.查看Topic分区信息，确认分区数量、副本状态</span></span><br><span class="line">kafka-topics.sh --bootstrap-server <span class="variable">$BK</span> --describe --topic <span class="variable">$TOPIC</span></span><br></pre></td></tr></table></figure>
+输出关注点：分区数、副本数、有无under-replicated（副本异常）</li>
+<li>查看堆积明细，定性故障（2min，核心命令）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看消费组全分区堆积LAG、消费位点、绑定消费实例</span></span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server <span class="variable">$BK</span> --describe --group <span class="variable">$GROUP</span></span><br></pre></td></tr></table></figure>
+关键字段：LAG（堆积数）、CONSUMER-ID（在线实例）<br>1、全分区LAG同步上涨→偏向生产突增&#x2F;消费阻塞；<br>2、个别分区LAG暴涨、其余正常→实例掉线、分区分配异常；<br>3、全集群多Topic堆积→Kafka集群故障。</li>
+<li>分故障定向排查&amp;应急处置<ul>
+<li>场景1：突发生产流量激增（本次故障）<ul>
+<li>排查：监控查看Topic生产QPS曲线，确认峰值时间段；</li>
+<li>短期应急：<ul>
+<li>临时扩容消费实例，提升并发消化存量；</li>
+<li>极端突发：上游临时限流生产，防止磁盘打爆；</li>
+</ul>
+</li>
+<li>根治：上游削峰、拆分Topic分流超大流量、评估长期扩容消费节点。</li>
+</ul>
+</li>
+<li>场景2：消费实例宕机&#x2F;数量不足<ul>
+<li>排查：<ul>
+<li>查看CONSUMER-ID字段在线实例数量，对比Topic分区数；实例数＜分区数→并发上限不足；</li>
+<li>登陆业务服务器&#x2F;K8s查看pod状态：<code>kubectl get pods -n 业务ns | grep 服务名</code>，查看是否CrashLoopBackOff；</li>
+</ul>
+</li>
+<li>应急：重启异常实例、新增pod扩容；</li>
+<li>根治：补齐实例至接近分区数，设置资源告警（OOM、CPU超限）。</li>
+</ul>
+</li>
+<li>场景3：消费逻辑阻塞（代码慢&#x2F;报错）<ul>
+<li>排查：查看消费应用运行日志，筛选error、timeout、Exception；</li>
+<li>应急：<ul>
+<li>紧急隔离脏消息：配置死信Topic，异常消息投递DLQ，不再重复重试阻塞；</li>
+<li>临时方案：存量堆积过大可重置offset跳到最新位点丢弃存量（谨慎！）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#重置到最新，跳过堆积存量，生产操作前确认业务允许丢历史消息</span></span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server <span class="variable">$BK</span> --group <span class="variable">$GROUP</span> --topic <span class="variable">$TOPIC</span> --reset-offsets --to-latest --execute</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>根治：消费逻辑异步化（消息落库&#x2F;调用下游丢线程池）、优化DB索引、限制重试次数。</li>
+</ul>
+</li>
+<li>场景4：Kafka集群故障<ul>
+<li>排查：查看Broker服务器磁盘使用率、IO、CPU；查看异常分区副本状态；</li>
+<li>应急：下线故障Broker、修复异常磁盘，待副本同步恢复；</li>
+<li>根治：扩容集群节点、更换高速磁盘。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事后复盘&amp;预防配置<ul>
+<li>配置监控告警：LAG堆积阈值告警、消费实例离线告警、生产QPS突增告警；</li>
+<li>容量预留：峰值消费实例预留30%冗余资源；</li>
+<li>规范：所有消费业务强制配置死信队列。</li>
+</ul>
+</li>
+<li>补充高频应急备用指令（附使用场景）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.扩容Topic分区（提升最大并发，分区只能加不能减）</span></span><br><span class="line">kafka-topics.sh --bootstrap-server <span class="variable">$BK</span> --alter --topic <span class="variable">$TOPIC</span> --partitions 新数值</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.控制台临时消费，验证消息能否正常拉取</span></span><br><span class="line">kafka-console-consumer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span> --group test-group</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.控制台生产测试消息，验证生产链路</span></span><br><span class="line">kafka-console-producer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="6-4-2026年中述职"><a href="#6-4-2026年中述职" class="headerlink" title="6.4 2026年中述职"></a>6.4 2026年中述职</h2><ol>
+<li>个人贡献<ul>
+<li>MOPS 迭代优化<br> • 持续负责 MOPS 负载均衡与域名解析自动化模块的迭代开发，工单数累计1100+，线上支持紧急问题2次。<br> • 完整梳理 DNS 自动化全链路业务场景、代码逻辑与边界 Case，识别5个存量缺失场景与潜在风险点（如引入元数据解决平台记录不可信问题），输出完整优化方案并推动落地。<br> • 备份模块慢sql治理。（有效提升了平台运行效率和稳定性）</li>
+<li>OPSpace 大洋交付<br> • 域名解析与备份自动化在大洋 UAT&#x2F;PRD 部署，拉通用户验收并输出使用指引。<br> • 针对大洋定制化诉求，实现 Windows DNS 脚本优化（充分考虑边界 &#x2F; 前后校验）、顶级域名可配置化改造，以及NBU 整机备份、备份通报等能力。</li>
+<li>CMDB 开发与运维<br> • CMDB 智能问数项目上线，参与包括从内部知识梳理、用户问题收集、多轮问数定制化开发调优，到应用服务的搭建上线。<br> • CMDB 产品化交付工作，排查并闭环部署问题 8 项，保障产品化交付顺利推进。<br> • 负责私有化迭代与出包工作。<br> • 平台运维与告警处理。（data-center日志定时备份清理，kafka消息积压等各类告警问题）</li>
+</ul>
+</li>
+<li>团队赋能<br>• MOPS 负载均衡&amp;域名解析需求评审5+次，开发经验沉淀 skills<br>• 更多承担了运维平台日常值班、发版事务</li>
+<li>服务客户<br>• MOPS 用户群问题响应<br>• CMDB 日常运营，支持业务方数据运营<br>• Opspace 大洋电机用户答疑，问题跟进10+，从验收到上线全程陪跑</li>
+</ol>
+<blockquote>
+<ol>
+<li>可量化、可落地的工作：2 次、5 个、8 项、10 +，数据支撑足</li>
+<li>有具体思路和操作，不是“我做了什么”，而是“我解决了什么”</li>
+</ol>
+</blockquote>
 <h2 id="6-xx-DataAgent沉淀"><a href="#6-xx-DataAgent沉淀" class="headerlink" title="6.xx DataAgent沉淀"></a>6.xx DataAgent沉淀</h2><p>不用框架，只用通用模型+上下文工程+skills(提示词工程)??</p>
 <p>理解：ClaudeCode常规来看是一个CodingAgent，是大模型+编程skills+编程cli，如果替换为大模型+问数skills+问数cli → 问数Agent ??</p>
 <hr>
