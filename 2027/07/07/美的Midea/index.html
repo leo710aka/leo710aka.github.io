@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-06-23T16:54:11.674Z">
+<meta property="article:modified_time" content="2026-06-24T17:26:15.414Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -591,11 +591,16 @@
 <li>确认副本集状态和主节点<br>用 MongoDB Compass 连接集群，在 Compass Shell 执行：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.<span class="title function_">hello</span>()</span><br><span class="line"><span class="comment">// 看 primary 字段，确认主节点 IP</span></span><br><span class="line"><span class="comment">// isWritablePrimary: true 表示当前连的就是主节点</span></span><br></pre></td></tr></table></figure>
 <strong>注意</strong>：3节点中若有一个不在 <code>hosts</code> 列表里，通常是仲裁节点（Arbiter），不存数据，无需关注。</li>
 <li><strong>在主节点</strong>上建复合索引，会自动同步从节点。<strong>Compass 界面操作 或 Shell 操作（等价）：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.目标表名.<span class="title function_">createIndex</span>(</span><br><span class="line">  &#123; <span class="attr">field1</span>: <span class="number">1</span>, <span class="attr">field2</span>: <span class="number">1</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">background</span>: <span class="literal">true</span> &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
-<li>验证复合索引 <code>ip_1_source_1</code> 生效，在 Compass <strong>Explain Plan</strong> 标签，填入原始 filter: { “ip”: “172.23.135.194”, “source”: “操作系统-其他IP-采集” }，Explain 确认 <code>COLLSCAN → IXSCAN</code>，<code>docsExamined: 213667 → 0</code>，耗时 <code>5097ms → 0ms</code><blockquote>
-<p>数据量越大，建索引耗时越长，<strong>建议在业务低峰期（凌晨）执行</strong>。</p>
-</blockquote>
-</li>
+<li>验证复合索引 <code>ip_1_source_1</code> 生效，在 Compass <strong>Explain Plan</strong> 标签，填入原始 filter: { “ip”: “172.23.135.194”, “source”: “操作系统-其他IP-采集” }，Explain 确认 <code>COLLSCAN → IXSCAN</code>，<code>docsExamined: 213667 → 0</code>，耗时 <code>5097ms → 0ms</code></li>
 </ol>
+<h4 id="2026-06-25-CMDB-数据连接器-视图卡顿排查-SOP"><a href="#2026-06-25-CMDB-数据连接器-视图卡顿排查-SOP" class="headerlink" title="2026.06.25 CMDB 数据连接器&#x2F;视图卡顿排查 SOP"></a>2026.06.25 CMDB 数据连接器&#x2F;视图卡顿排查 SOP</h4><p>服务：<code>ops-data-access</code>（对外接口）PRD | 端口：7119<br>关联：&#96;ops-synapplication（实际入库）、MongoDB、Redis</p>
+<ol>
+<li>看现象定方向 ??<br>写入慢 + 查询也 500  →  看线程监控，<strong>Tomcat 线程被写入占满</strong><br>只有查询慢&#x2F;报错  →  ops-syn 查询接口 RT 是否异常 |<br>只有写入慢  →  本次批量数据量 × ops-syn RT，看是哪个大 |</li>
+<li>ops-data-access Tomcat 线程监控<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">最大繁忙线程数</span><br><span class="line">  &lt; 80   ✅ 正常</span><br><span class="line">  ≥ 90   ⚠️  预警，需关注</span><br><span class="line">  = 100  🔴 已打满，新请求被直接拒绝（accept-count=0）</span><br><span class="line"></span><br><span class="line">**打满时的连锁反应：**</span><br><span class="line">/storages 批量写入占满 100 个线程</span><br><span class="line">    → /view 查询请求进来没有线程可用</span><br><span class="line">    → accept-count=0，不排队，直接拒绝</span><br><span class="line">    → 调用方收到 500</span><br></pre></td></tr></table></figure></li>
+<li>ops-syn 对比基线  ？？？<br>ops-syn RT 正常 → 问题在本服务（并发量&#x2F;批量条数太多）<br>ops-syn RT 升高 → 问题在 ops-syn 或其 MongoDB</li>
+<li>定位元凶调用方<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MongoDB 审计表，找大批量写入请求</span></span><br><span class="line">db.<span class="property">convertViewRecording</span>.<span class="title function_">find</span>(&#123;</span><br><span class="line">    <span class="attr">createtime</span>: &#123; <span class="attr">$gte</span>: <span class="string">&quot;2026-06-23 15:00:00&quot;</span>, <span class="attr">$lte</span>: <span class="string">&quot;2026-06-23 16:30:00&quot;</span> &#125;,</span><br><span class="line">    <span class="attr">type</span>: <span class="number">0</span>   <span class="comment">// 0=写入</span></span><br><span class="line">&#125;, &#123; <span class="attr">sysName</span>:<span class="number">1</span>, <span class="attr">number</span>:<span class="number">1</span>, <span class="attr">createtime</span>:<span class="number">1</span>, <span class="attr">endtime</span>:<span class="number">1</span> &#125;)</span><br><span class="line">.<span class="title function_">sort</span>(&#123; <span class="attr">number</span>: -<span class="number">1</span> &#125;)  <span class="comment">// 按数据量排序</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>todo：了解 tomcat…</p>
 <h4 id="2026-06-23-服务内存异常事故报告"><a href="#2026-06-23-服务内存异常事故报告" class="headerlink" title="2026.06.23 服务内存异常事故报告"></a>2026.06.23 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
 <ol>
 <li>事故概述<ol>
@@ -827,8 +832,10 @@
 </li>
 <li>核心业务理解<ul>
 <li>mongo 一主一从一哨兵?? </li>
-<li>查询&#x2F;视图接口慢，，加索引</li>
+<li>读写，，控制并发，流量多少？？</li>
+<li>查询&#x2F;视图接口慢，，服务负载高，内存高，tomcat，线程池满了,,数据库慢加索引</li>
 <li>全文搜索，，Monstache mongo→es,,</li>
+<li>数据订阅，，oplog</li>
 </ul>
 </li>
 </ul>
@@ -1461,7 +1468,7 @@
 <blockquote>
 <p>1）可量化、可落地的工作：2 次、5 个、8 项、10 +，数据支撑足<br>2）有具体思路和操作，不是“我做了什么”，而是“我解决了什么”</p>
 </blockquote>
-<h2 id="6-7-Kafka-消息积压-SOP【doing】"><a href="#6-7-Kafka-消息积压-SOP【doing】" class="headerlink" title="6.7 Kafka 消息积压 SOP【doing】"></a>6.7 Kafka 消息积压 SOP【doing】</h2><h4 id="Kafka核心概念快速复盘"><a href="#Kafka核心概念快速复盘" class="headerlink" title="Kafka核心概念快速复盘"></a>Kafka核心概念快速复盘</h4><ul>
+<h2 id="6-7-Kafka-消息积压-SOP"><a href="#6-7-Kafka-消息积压-SOP" class="headerlink" title="6.7 Kafka 消息积压 SOP"></a>6.7 Kafka 消息积压 SOP</h2><h4 id="Kafka核心概念快速复盘"><a href="#Kafka核心概念快速复盘" class="headerlink" title="Kafka核心概念快速复盘"></a>Kafka核心概念快速复盘</h4><ul>
 <li>逻辑层（业务视角：收发消息）<ol>
 <li><strong>Topic</strong>：逻辑消息载体，生产者写入、消费者读取的统一标识，业务按模块拆分Topic。</li>
 <li><strong>Partition(分区)<strong>：Topic数据分片，</strong>Kafka并发核心</strong><ul>
@@ -1711,12 +1718,6 @@
 <li><p><strong>为什么tob，为什么2c？中台？</strong><br>不局限tob&#x2F;c，但是要持续学习，保持好奇。做中台就像一个螺丝钉，不断修修补补，比较无趣（运维场景深度待挖掘）</p>
 </li>
 <li><p>对AI的使用<br>AI Coding使用的主要场景有 1、有过往代码可参考的新需求 2、有API文档的需求<br>运维Agent</p>
-</li>
-</ul>
-<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><ul>
-<li>字节跳动·巨量广告<ul>
-<li>面试辅导<br>  为什么捞出一年经验的校招生，有什么期待？</li>
-</ul>
 </li>
 </ul>
 
