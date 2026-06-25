@@ -782,7 +782,7 @@
 <li>定位元凶调用方<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MongoDB 审计表，找大批量写入请求</span></span><br><span class="line">db.<span class="property">convertViewRecording</span>.<span class="title function_">find</span>(&#123;</span><br><span class="line">    <span class="attr">createtime</span>: &#123; <span class="attr">$gte</span>: <span class="string">&quot;2026-06-23 15:00:00&quot;</span>, <span class="attr">$lte</span>: <span class="string">&quot;2026-06-23 16:30:00&quot;</span> &#125;,</span><br><span class="line">    <span class="attr">type</span>: <span class="number">0</span>   <span class="comment">// 0=写入</span></span><br><span class="line">&#125;, &#123; <span class="attr">sysName</span>:<span class="number">1</span>, <span class="attr">number</span>:<span class="number">1</span>, <span class="attr">createtime</span>:<span class="number">1</span>, <span class="attr">endtime</span>:<span class="number">1</span> &#125;)</span><br><span class="line">.<span class="title function_">sort</span>(&#123; <span class="attr">number</span>: -<span class="number">1</span> &#125;)  <span class="comment">// 按数据量排序</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>todo：了解 tomcat…</p>
-<h4 id="2026-06-23-服务内存异常事故报告"><a href="#2026-06-23-服务内存异常事故报告" class="headerlink" title="2026.06.23 服务内存异常事故报告"></a>2026.06.23 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
+<h4 id="20260623-服务内存异常事故报告"><a href="#20260623-服务内存异常事故报告" class="headerlink" title="20260623 服务内存异常事故报告"></a>20260623 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
 <ol>
 <li>事故概述<ol>
 <li>问题描述<br>   在执行日志文件清空操作时，触发系统内存暴涨导致 Swap 打满，引发 Swap 抖动，最终导致 data-center 服务 OOM 崩溃。</li>
@@ -812,8 +812,7 @@
 </ul>
 </li>
 <li>服务崩溃（04:08）<ul>
-<li><strong>直接原因</strong>：data-center 服务 OOM</li>
-<li><strong>触发链</strong>： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Java GC 触发，需要扫描整个堆</span><br><span class="line">  ↓</span><br><span class="line">部分对象在 Swap 里 → 触发大量 Swap In</span><br><span class="line">  ↓</span><br><span class="line">GC 暂停时间从毫秒级延长到秒级</span><br><span class="line">  ↓</span><br><span class="line">内存仍然不足 → OOM Killer 启动</span><br><span class="line">  ↓</span><br><span class="line">data-center 进程被杀（PID 2129767）</span><br></pre></td></tr></table></figure>
+<li><strong>直接原因</strong>：data-center 服务 OOM <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">## **触发链**</span><br><span class="line">Java GC 触发，需要扫描整个堆</span><br><span class="line">  ↓</span><br><span class="line">部分对象在 Swap 里 → 触发大量 Swap In</span><br><span class="line">  ↓</span><br><span class="line">GC 暂停时间从毫秒级延长到秒级</span><br><span class="line">  ↓</span><br><span class="line">内存仍然不足 → OOM Killer 启动</span><br><span class="line">  ↓</span><br><span class="line">data-center 进程被杀（PID 2129767）</span><br></pre></td></tr></table></figure>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># **日志证据**</span></span><br><span class="line">[2026-06-23 04:08:08] [ERROR] org.apache.zookeeper.KeeperException<span class="variable">$ConnectionLossException</span></span><br><span class="line">Background operation retry gave up</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -837,7 +836,7 @@
 </li>
 </ol>
 </li>
-<li>根因分析<ol>
+<li>根因分析<ul>
 <li>直接原因——<strong>错误的日志清空方式</strong>：使用 <code>cat /dev/null &gt; data-center-1.0.log</code> 清空 50GB 日志文件。<br> ✅ 正确：只修改文件元数据，不触发内存暴涨，用 <code>truncate -s 0 data-center-1.0.log</code> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">**触发机制**：</span><br><span class="line">1. `cat /dev/null &gt;` 使用 `O_TRUNC` 标志截断文件</span><br><span class="line">2. Linux 内核需要处理 50GB 文件的所有脏页（dirty pages）</span><br><span class="line">3. 触发强制刷盘，瞬间占用大量内存作为 I/O buffer</span><br><span class="line">4. 内存不足，内核启动 LRU（Least Recently Used）回收算法</span><br><span class="line">5. **将 Java 服务的 7GB 活跃数据错误地换出到 Swap**（本应只换出冷数据）</span><br></pre></td></tr></table></figure></li>
 <li>根本原因——<strong>系统内存配置接近极限，长期依赖 Swap 维持运行</strong></li>
 <li><strong>正常状态下的内存分配（稳态）</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">物理内存 13.65GB（91% 使用率）：</span><br><span class="line">  Java 活跃堆 + 堆外内存:  10GB</span><br><span class="line">  ilogtail（活跃部分）:    2.5GB</span><br><span class="line">  OS + buff/cache:        1.15GB</span><br><span class="line"></span><br><span class="line">Swap 1.1GB（14% 使用率）：</span><br><span class="line">  Java 老年代僵尸对象:  0.6GB  ← 几天不访问一次（冷数据）</span><br><span class="line">  ilogtail 历史缓存:    0.3GB  ← 已归档日志（冷数据）</span><br><span class="line">  其他冷数据:           0.2GB</span><br><span class="line"></span><br><span class="line">────────────────────────────</span><br><span class="line">实际总需求: 13.65 + 1.1 = 14.75GB ✓</span><br></pre></td></tr></table></figure>
@@ -876,7 +875,7 @@
 </tbody></table>
 </li>
 <li>触发链路 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat /dev/null &gt; 50GB 文件 → Page Cache 临时占用 8GB</span><br><span class="line">    ↓</span><br><span class="line">物理内存不足（13.65GB 活跃数据 + 8GB 临时 = 21.65GB &gt; 15GB）</span><br><span class="line">    ↓</span><br><span class="line">内核 LRU 算法将 7GB Java/ilogtail 活跃数据换出到 Swap（Swap: 1.1GB → 8GB）</span><br><span class="line">    ↓</span><br><span class="line">Page Cache 处理完成（2分钟后），临时 8GB 释放，但热数据已被困在 Swap 里</span><br><span class="line">    ↓</span><br><span class="line">Java/ilogtail 频繁访问 Swap 里的热数据 → si/so 同时暴涨 → Swap 抖动（Thrashing）</span><br><span class="line">    ↓</span><br><span class="line">Load 飙升 15+，Java GC 暂停从 ms 级延长到秒级</span><br><span class="line">    ↓</span><br><span class="line">OOM Killer 启动 → data-center 进程被杀</span><br></pre></td></tr></table></figure></li>
-</ol>
+</ul>
 </li>
 <li>处理过程<ol>
 <li>初步诊断（02:30 ~ 03:00）<ul>
@@ -936,9 +935,53 @@
 </li>
 <li>整改措施<ol>
 <li>部署日志备份脚本到生产 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 crontab</span></span><br><span class="line">0 2 * * * sh /apps/devops/data-center/data-center-log-backup.sh</span><br></pre></td></tr></table></figure></li>
-<li>配置 Logback 自动按天切割 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 修改 logback-spring.xml：按天滚动 + 大小限制 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;log.directory&#125;/%d&#123;yyyy-MM-dd&#125;/$&#123;log.context.name&#125;-log.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>500MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>20GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>升级服务器内存或迁移 ilogtail<br> <strong>方案 A</strong>：升级内存到 32GB<br> <strong>方案 B</strong>：将 ilogtail 迁移到其他机器</li>
+<li>配置 Logback 自动按天切割 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 修改 logback-spring.xml：按天滚动 + 大小限制 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>xx.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>500MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>20GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>升级服务器内存（到 32GB）或迁移 ilogtail（到其他机器）</li>
 </ol>
+</li>
+</ol>
+<h4 id="20260626-线程池满导致接口pending"><a href="#20260626-线程池满导致接口pending" class="headerlink" title="20260626 线程池满导致接口pending"></a>20260626 线程池满导致接口pending</h4><ol>
+<li>故障现象<br>validatePorts 接口响应持续 pending，最终超时报错；持续时间约 2 小时，有用户主动投诉，定级：P2</li>
+<li>直接原因<br><code>checkPort</code> 方法使用了 7+ 个模块共享的线程池 <code>queryCmdbValidIpExecutor</code>（核心线程数 15）。高峰期其他模块的长耗时任务占满了全部 15 个核心线程，<code>checkPort</code> 的任务只能排队等待，而上层 <code>validatePorts</code> 调用的是 <code>Future.join()</code>（无超时阻塞），导致 API 处理线程永久 pending，直到客户端超时。</li>
+<li>根本原因<br><strong>线程池设计违反了隔离原则</strong>：不同业务域、不同 SLA 要求的任务共享同一线程池，高负载时相互干扰，快速任务被慢任务”饿死”。<br>同时，服务三节点每个 JVM 节点线程池独立，要避免大量请求同时打到同一节点。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">API 请求</span><br><span class="line">  └─ validatePorts()</span><br><span class="line">       └─ checkPort(ip, port)  ← 提交到共享线程池</span><br><span class="line">            └─ CompletableFuture.join()  ← 无超时阻塞</span><br><span class="line">                 └─ 线程池满，任务排队</span><br><span class="line">                      └─ API 线程永久 pending</span><br></pre></td></tr></table></figure></li>
+<li>自定义线程池解读<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor queryCmdbValidIpExecutor() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(15,                    // 核心线程：15，应该调高</span><br><span class="line">            100,                                         // 最大线程：100</span><br><span class="line">            15L, TimeUnit.MINUTES,                       // keepAlive：非核心线程空闲</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(2000),             // 有界队列，最多 2000 个任务排队，应该调低</span><br><span class="line">            ThreadUtil.createThreadFactory(&quot;queryCmdbValidIpExecutor-&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ps. Spring Boot 默认线程池<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>作用</th>
+<th>线程数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tomcat 线程池</td>
+<td>处理 HTTP 请求（你的 API 接口就跑在这里）</td>
+<td>核心 10，最大 200</td>
+</tr>
+<tr>
+<td>@Async 线程池</td>
+<td>处理 @Async 注解的异步方法</td>
+<td>SimpleAsyncTaskExecutor（每次新建线程，无复用）</td>
+</tr>
+<tr>
+<td>@Scheduled 线程池</td>
+<td>定时任务</td>
+<td>单线程</td>
+</tr>
+</tbody></table>
+</li>
+<li>并发设计 SOP —— 线程池使用规范<ul>
+<li>原则一：按业务域隔离线程池<br> 反例 → 所有异步任务共用一个通用线程池<br> 正例 → 每个业务域独立线程池，如 <code>portCheckExecutor</code>、<code>cmdbQueryExecutor</code><blockquote>
+<p><strong>判断标准</strong>：只要两类任务的执行时间量级不同（ms 级 vs 秒级），或 SLA 要求不同，就必须隔离。</p>
+</blockquote>
+</li>
+<li>原则二：所有阻塞等待必须有超时 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁止</span></span><br><span class="line">future.join();</span><br><span class="line">future.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 必须</span></span><br><span class="line">future.get(N, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+ 超时时间参考：纯内存计算 → 100ms，本地网络（同机房） → 3~5s</li>
+<li>原则三：理解线程池的任务调度模型 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">提交任务</span><br><span class="line">  → 核心线程有空？→ 直接执行</span><br><span class="line">  → 核心线程满？  → 进队列等待</span><br><span class="line">  → 队列满？      → 创建非核心线程（直到 maxPoolSize）</span><br><span class="line">  → maxPoolSize 满？→ 触发拒绝策略</span><br><span class="line"></span><br><span class="line">**核心线程永不释放**（默认），执行完任务立刻复用，不存在&quot;执行完不释放&quot;问题。</span><br></pre></td></tr></table></figure></li>
+<li>原则四：线上卡死的应急处置顺序<br> 1 <strong>摘流量</strong>：把卡死节点从负载均衡摘掉，优先止血<br> 2 <strong>重启节点</strong>：释放所有排队任务，快速恢复<br> 3 <strong>动态扩容</strong>（如有 Hippo4j）：临时调大线程数，不重启<br> 4 <strong>事后分析</strong>：看监控确认线程数、队列积压情况，定位根因</li>
+<li>原则五：CompletableFuture cancel 的局限性<br> 注意：正在执行的任务无法被中断（原生 IO 不响应 interrupt），只能等其自身超时后自然结束。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">future.cancel(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// ✓ 还在队列中的任务：可以取消，不会执行</span></span><br><span class="line"><span class="comment">// ✗ 已在执行 Socket.connect 的任务：cancel 无效，跑完 1000ms 才结束</span></span><br></pre></td></tr></table></figure>
+ 超时后调用方放弃等待（<code>TimeoutException</code>），但线程池里的任务<strong>仍然继续执行</strong>，只是结果无人消费。这是 <code>CompletableFuture</code> 与线程池解耦的本质——调用方的取消意图无法传递给线程池。</li>
+</ul>
 </li>
 </ol>
 <hr>
