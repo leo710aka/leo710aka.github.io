@@ -984,9 +984,21 @@ ps. Spring Boot 默认线程池<table>
 </ul>
 </li>
 </ol>
+<h4 id="20260630-Tomcat监控配置开启"><a href="#20260630-Tomcat监控配置开启" class="headerlink" title="20260630 Tomcat监控配置开启"></a>20260630 Tomcat监控配置开启</h4><ol>
+<li>问题描述<br>监控平台无法拉取 <code>mops-platform-backend</code> 服务的 Tomcat 线程池指标（活跃线程数、连接数、请求数等），导致线上出现线程池堆积问题时缺乏可观测性，只能依赖业务告警被动发现。</li>
+<li>根因<br>Spring Boot 内嵌 Tomcat 默认<strong>不向 JMX 注册 MBean</strong>，监控探针无数据可抓。</li>
+<li>处置<br>在 <code>application.yml</code> 主配置中添加一行：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">tomcat:</span></span><br><span class="line">    <span class="attr">mbeanregistry:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+生效链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">application.yml</span><br><span class="line">  └─ ServerProperties 读取配置</span><br><span class="line">       └─ TomcatServletWebServerFactory 创建 Tomcat 实例</span><br><span class="line">            └─ 注册 MBean 到 JVM 的 MBeanServer</span><br><span class="line">                 └─ 监控平台 JMX Exporter 定期抓取</span><br><span class="line">                      └─ 监控大盘展示线程数、连接数、请求数等指标</span><br></pre></td></tr></table></figure></li>
+<li>涉及思想与知识点<ul>
+<li>约定优于配置（Convention over Configuration）<br> Spring Boot 的核心设计哲学。框架为每个配置项预设了合理默认值，开发者无需关心即可运行，只有需要改变默认行为时才显式配置。<br> 本案例体现：MBean 注册默认关闭，内嵌 Tomcat 默认引入（默认行为，开箱即用），<code>mbeanregistry.enabled=true</code> 覆盖默认值（显式覆盖默认行为）</li>
+<li>自动装配（Auto Configuration）<br> ?? <code>@EnableAutoConfiguration</code> 扫描 classpath，检测到 <code>tomcat-embed-core</code> 存在，自动创建嵌入式 Tomcat Bean，无需任何 XML 配置。这是”约定”的底层实现机制。</li>
+<li>反射？？</li>
+</ul>
+</li>
+</ol>
 <hr>
 
-<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong></p>
+<h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong><br>6.30：变更&#x2F;回收前同步“元数据”，用于变更&#x2F;回收脚本下发和一键回退，认为平台值不可信；至此DNS场景基本覆盖完善</p>
 <ol>
 <li>当F5设备被配置为该域名的权威DNS服务器时，nslookup查询才会最终指向它。<br>一个域名的权威DNS服务器信息（NS记录）是由其上一级域名注册商管理的（比如.com域名的注册商）。当你在注册商处将域名的NS记录指向你的F5设备（或其管理的DNS服务）后，一个完整的解析流程如下：<br>本地输入 nslookup <a target="_blank" rel="noopener" href="http://www.yourdomain.com/">www.yourdomain.com</a> &#x3D;》本地DNS服务器会从根域名服务器开始，一路查询到.com服务器，最终获知你的域名的权威DNS服务器是你的F5设备 &#x3D;》本地DNS服务器随后向你的F5设备发起查询，并获得F5上配置的IP地址（VIP）返回给用户。</li>
 <li>如果不指定记录类型（直接 nslookup example.com），默认查询的是A记录。要查询特定类型，需使用 -qt&#x3D;类型参数</li>
@@ -1297,12 +1309,15 @@ ps. Spring Boot 默认线程池<table>
 </li>
 </ul>
 <h4 id="完整流量链路"><a href="#完整流量链路" class="headerlink" title="完整流量链路"></a>完整流量链路</h4><p>外部用户访问 → 域名 DNS 解析 → Ingress Controller（ingress-nginx 命名空间）<br>→ 匹配 Ingress 规则（demo 命名空间） → 转发到 Service（demo 命名空间，固定 IP）<br>→ Service 负载均衡（DNAT） → 转发到某个 Pod（demo 命名空间，私网 IP）<br>→ Pod 内 Java 容器处理请求 → 返回数据</p>
-<h4 id="K8s-微服务-完整流量路径图"><a href="#K8s-微服务-完整流量路径图" class="headerlink" title="K8s&amp;微服务 完整流量路径图"></a>K8s&amp;微服务 完整流量路径图</h4><p>微服务架构中，有到网关微服务，负责选具体服务的节点<br>？？网关不再找注册中心，直接访问 Service 名字即可</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">🌍 用户浏览器</span><br><span class="line">请求：https://api.xxx.com/order/create</span><br><span class="line"></span><br><span class="line">↓ ① 本地 DNS 解析</span><br><span class="line">得到：K8s 公网 LB IP / 任意一台节点机器 IP</span><br><span class="line"></span><br><span class="line">↓ ② 网络路由</span><br><span class="line">流量打到：【某一台 K8s 节点 IP:80/443】</span><br><span class="line"></span><br><span class="line">┌─────────────────────────────────────────────┐</span><br><span class="line">│ 🏢 节点机器（操作系统层面）                  │</span><br><span class="line">│  80/443 端口被 Ingress Controller 占用      │</span><br><span class="line">└───────────────────┬─────────────────────────┘</span><br><span class="line">                    ↓ ③ 进入统一入口</span><br><span class="line"></span><br><span class="line">🛡️  Ingress Controller（Nginx）</span><br><span class="line">读取请求头里的 Host = api.xxx.com（不是靠 IP，也不是靠重新解析）</span><br><span class="line">匹配 Ingress 规则：api.xxx.com  → 转发到 gateway-svc</span><br><span class="line"></span><br><span class="line">                    ↓ ④ 转发到网关 Service</span><br><span class="line"></span><br><span class="line">🔌 网关 Service（gateway-svc）</span><br><span class="line">虚拟IP + 负载均衡</span><br><span class="line">↓ 自动选一个网关 Pod IP</span><br><span class="line"></span><br><span class="line">🚪 网关 Pod（Spring Cloud Gateway）</span><br><span class="line">识别路径 /order/**</span><br><span class="line">知道要调用：order 微服务</span><br><span class="line"></span><br><span class="line">                    ↓ ⑤ 网关调用业务微服务</span><br><span class="line"></span><br><span class="line">📦 订单微服务 Service（order-svc）</span><br><span class="line">内部DNS：order-svc.default.svc.cluster.local</span><br><span class="line">↓ 负载均衡到某个业务 Pod</span><br><span class="line"></span><br><span class="line">💻 业务 Pod（你的 Java 服务）</span><br><span class="line">执行 Controller 接口</span><br><span class="line">返回结果 → 原路返回用户</span><br></pre></td></tr></table></figure>
+<h4 id="K8s-微服务-完整流量路径图"><a href="#K8s-微服务-完整流量路径图" class="headerlink" title="K8s&amp;微服务 完整流量路径图"></a>K8s&amp;微服务 完整流量路径图</h4><p>微服务架构中，有到网关微服务，负责选具体服务的节点</p>
+<ul>
+<li>？？网关不再找注册中心，直接访问 Service 名字即可<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">🌍 用户浏览器</span><br><span class="line">请求：https://api.xxx.com/order/create</span><br><span class="line"></span><br><span class="line">↓ ① 本地 DNS 解析</span><br><span class="line">得到：K8s 公网 LB IP / 任意一台节点机器 IP</span><br><span class="line"></span><br><span class="line">↓ ② 网络路由</span><br><span class="line">流量打到：【某一台 K8s 节点 IP:80/443】</span><br><span class="line"></span><br><span class="line">┌─────────────────────────────────────────────┐</span><br><span class="line">│ 🏢 节点机器（操作系统层面）                  │</span><br><span class="line">│  80/443 端口被 Ingress Controller 占用      │</span><br><span class="line">└───────────────────┬─────────────────────────┘</span><br><span class="line">                    ↓ ③ 进入统一入口</span><br><span class="line"></span><br><span class="line">🛡️  Ingress Controller（Nginx）</span><br><span class="line">读取请求头里的 Host = api.xxx.com（不是靠 IP，也不是靠重新解析）</span><br><span class="line">匹配 Ingress 规则：api.xxx.com  → 转发到 gateway-svc</span><br><span class="line"></span><br><span class="line">                    ↓ ④ 转发到网关 Service</span><br><span class="line"></span><br><span class="line">🔌 网关 Service（gateway-svc）</span><br><span class="line">虚拟IP + 负载均衡</span><br><span class="line">↓ 自动选一个网关 Pod IP</span><br><span class="line"></span><br><span class="line">🚪 网关 Pod（Spring Cloud Gateway）</span><br><span class="line">识别路径 /order/**</span><br><span class="line">知道要调用：order 微服务</span><br><span class="line"></span><br><span class="line">                    ↓ ⑤ 网关调用业务微服务</span><br><span class="line"></span><br><span class="line">📦 订单微服务 Service（order-svc）</span><br><span class="line">内部DNS：order-svc.default.svc.cluster.local</span><br><span class="line">↓ 负载均衡到某个业务 Pod</span><br><span class="line"></span><br><span class="line">💻 业务 Pod（你的 Java 服务）</span><br><span class="line">执行 Controller 接口</span><br><span class="line">返回结果 → 原路返回用户</span><br></pre></td></tr></table></figure></li>
+</ul>
 <p>一句话极简链路：<strong>浏览器 → DNS → 节点IP:80 → Ingress Controller → 网关Service → 网关Pod → 业务Service → 业务Pod</strong></p>
 <h4 id="底座拉起"><a href="#底座拉起" class="headerlink" title="底座拉起"></a>底座拉起</h4><p>datamars拉起<br>数据初始化？？<br>K8s环境服务访问，相互调用</p>
+<p>轻量化??</p>
 <p>todo：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></p>
-<h2 id="4-27-【慢-SQL】排查-SOP"><a href="#4-27-【慢-SQL】排查-SOP" class="headerlink" title="4.27 【慢 SQL】排查 SOP"></a>4.27 【慢 SQL】排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
+<h2 id="4-27-【慢SQL】排查-SOP"><a href="#4-27-【慢SQL】排查-SOP" class="headerlink" title="4.27 【慢SQL】排查 SOP"></a>4.27 【慢SQL】排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
 <thead>
 <tr>
 <th>阈值</th>
@@ -1465,8 +1480,8 @@ ps. Spring Boot 默认线程池<table>
 <blockquote>
 <p>⚠️ <strong>LEFT JOIN 改写不一定更快</strong>：如果主表没有先缩小范围就做全量 JOIN，反而会更慢（本次实验验证过）</p>
 </blockquote>
-<h4 id="5-验证效果"><a href="#5-验证效果" class="headerlink" title="5. 验证效果"></a>5. 验证效果</h4><p>– 改完后重新 EXPLAIN，对比关键列变化<br>– 重点确认：<br>– 1. DEPENDENT SUBQUERY 是否消失或 rows 大幅减少<br>– 2. type&#x3D;ALL 是否变为 ref（索引等值查找）&#x2F; range（索引范围扫描）<br>– 3. key&#x3D;NULL 是否命中了索引</p>
-<p>– 再实际执行计时，和改前对比</p>
+<h4 id="5-验证效果"><a href="#5-验证效果" class="headerlink" title="5. 验证效果"></a>5. 验证效果</h4><p>改完后重新 EXPLAIN，对比关键列变化<br>重点确认：<br>1  DEPENDENT SUBQUERY 是否消失或 rows 大幅减少<br>2  type&#x3D;ALL 是否变为 ref（索引等值查找）&#x2F; range（索引范围扫描）<br>3  key&#x3D;NULL 是否命中了索引</p>
+<p>再实际执行计时，和改前对比</p>
 <p>&#x2F;&#x2F; todo: 多次实践</p>
 <hr>
 
@@ -1834,7 +1849,232 @@ ps. Spring Boot 默认线程池<table>
 <p>负责 CMDB 数据运营，对接业务方数据写入和查询需求，辅助业务问题排查。承担日常值班工作，并将自助运维经验沉淀为 skills 上架技能广场。负责系统运维，协同排查服务高负载、接口查询缓慢、Kafka 堆积等故障，现阶段保障存量业务稳定，并协助业务迁移至新版 CMDB。<br>完成 CMDB 智能问数项目落地，参与从内部知识库构建、多轮问数定制化开发调优，到应用服务的搭建上线全流程；以及在大洋电机交付工作中，排查并闭环部署问题 8 项，保障交付进度。</p>
 <p>四、InfluxDB 数据库服务化开发</p>
 <p>参与 InfluxDB 服务化能力建设，实现实例备份与恢复、父子实例改造、节点重启与变配能力开发，完成 Data 节点迁移调研与前期开发，积累了数据库与容器化开发经验。</p>
-<h2 id="6-9-手搓-Java"><a href="#6-9-手搓-Java" class="headerlink" title="6.9 手搓 Java"></a>6.9 手搓 Java</h2><p>…</p>
+<h2 id="6-30-【Java-服务卡顿】问题排查-SOP"><a href="#6-30-【Java-服务卡顿】问题排查-SOP" class="headerlink" title="6.30 【Java 服务卡顿】问题排查 SOP"></a>6.30 【Java 服务卡顿】问题排查 SOP</h2><blockquote>
+<p>适用：带数据库查询的 Java Web 服务（Spring Boot + Tomcat + 关系型&#x2F;文档型数据库）</p>
+</blockquote>
+<p>排查顺序总览：① Tomcat 线程  →  ② CPU&#x2F;内存&#x2F;GC  →  ③ 外部调用 RT  →  ④ 数据库连接池  →  ⑤ 慢查询 （每步的结论决定下一步的方向</p>
+<h4 id="第①步：Tomcat-线程（最优先）"><a href="#第①步：Tomcat-线程（最优先）" class="headerlink" title="第①步：Tomcat 线程（最优先）"></a>第①步：Tomcat 线程（最优先）</h4><p><strong>判断：服务自身撑不住，还是在等别人？</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>正常</th>
+<th>危险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最大繁忙线程数</td>
+<td>&lt; max 的 70%</td>
+<td>&#x3D; max（打满过）</td>
+</tr>
+<tr>
+<td>当前处理中请求数</td>
+<td>波动正常</td>
+<td>持续居高不下</td>
+</tr>
+<tr>
+<td>待处理请求数</td>
+<td>0</td>
+<td>&gt; 0（在排队）</td>
+</tr>
+</tbody></table>
+<p>根据结果判断：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">处理中线程数高 + CPU 高   → 第②步，计算密集或 GC 问题</span><br><span class="line">处理中线程数高 + CPU 正常 → 第③步，线程在等 IO（最常见）</span><br><span class="line">线程数正常     + 服务慢   → 第③步，单请求慢但没有并发压力</span><br></pre></td></tr></table></figure>
+
+<p>三个关键参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类比标准线程池</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>min-spare-threads</code></td>
+<td>corePoolSize</td>
+<td>最小空闲线程数，始终保活，应对突发流量</td>
+</tr>
+<tr>
+<td><code>max-connections</code></td>
+<td>maximumPoolSize</td>
+<td>Worker 线程上限 &#x3D; 最大并发处理请求数</td>
+</tr>
+<tr>
+<td><code>accept-count</code></td>
+<td>队列长度</td>
+<td>线程满后 TCP 层的等待缓冲，0 &#x3D; 满了直接拒绝连接</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>与标准线程池的关键差异</strong>：标准线程池”先排队再扩线程”，Tomcat”先扩线程再排队”，目的是让请求尽快被执行而不是队列里等。</li>
+<li>Tomcat Worker 线程就是执行业务代码的线程，对应 OS 线程，N 个线程竞争 M 个 CPU 核心。<br><strong>线程有三种状态，只有 RUNNABLE 才占 CPU：</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RUNNABLE  → 等待 OS 调度，可以拿 CPU（计算中）</span><br><span class="line">BLOCKED   → 等锁（synchronized），不占 CPU，但占着线程槽位</span><br><span class="line">WAITING   → 等 IO / Feign 响应 / sleep，不占 CPU，但占着线程槽位</span><br></pre></td></tr></table></figure>
+这是”线程池满但 CPU 很低”的根本原因：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Feign 调用 / 等数据库连接</span><br><span class="line">    → 线程状态 = WAITING</span><br><span class="line">    → 不参与 CPU 调度，CPU 监控显示正常</span><br><span class="line">    → 但线程槽位被占用，无法处理新请求</span><br><span class="line">    → 线程池慢慢耗尽 → 后续请求 500</span><br></pre></td></tr></table></figure></li>
+<li>NIO 模式下为什么线程还会不够？<br>NIO 解决的是<strong>网络 I&#x2F;O 等待</strong>不占线程（Acceptor&#x2F;Poller 异步处理网络读写），但业务代码里的<strong>同步阻塞</strong>（Feign 调用、JDBC 查询、锁等待）依然会让 Worker 线程进入 WAITING&#x2F;BLOCKED 状态，线程槽位被占满。</li>
+</ul>
+<h4 id="第②步：CPU-内存-GC"><a href="#第②步：CPU-内存-GC" class="headerlink" title="第②步：CPU &#x2F; 内存 &#x2F; GC"></a>第②步：CPU &#x2F; 内存 &#x2F; GC</h4><p>CPU 高的常见原因：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大对象 JSON 序列化</td>
+<td>RT 高，CPU 持续高，内存同步上涨</td>
+</tr>
+<tr>
+<td>正则&#x2F;加解密密集计算</td>
+<td>CPU 高，特定接口慢</td>
+</tr>
+<tr>
+<td>线程数过多导致上下文切换</td>
+<td>CPU sys 占比高</td>
+</tr>
+<tr>
+<td>Full GC</td>
+<td>CPU 出现周期性尖刺，服务周期性卡顿几秒后恢复</td>
+</tr>
+</tbody></table>
+<p><strong>Full GC</strong>导致卡顿的特征：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">内存使用率持续攀升，接近堆上限</span><br><span class="line">    → JVM 触发 Full GC</span><br><span class="line">    → Stop-The-World：所有业务线程暂停 1~10s</span><br><span class="line">    → 这段时间内所有请求超时</span><br><span class="line">    → GC 结束后瞬间恢复</span><br><span class="line">    → CPU 出现尖刺，内存出现断崖式下降</span><br><span class="line"></span><br><span class="line">**判断方法**：看内存曲线是否有&quot;锯齿形&quot;周期性下降，配合 GC 日志中 Full GC 的 pause 时间。</span><br></pre></td></tr></table></figure>
+
+<p>CPU&#x2F;内存正常但服务慢（最隐蔽）→ 这种情况监控无告警，唯一证据是 Tomcat 处理中线程数升高：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">线程挂起等待 IO（DB 连接 / Feign 调用 / 分布式锁）</span><br><span class="line">    → 线程不做计算，CPU ≈ 0</span><br><span class="line">    → 内存不涨</span><br><span class="line">    → 但线程池慢慢耗尽</span><br><span class="line">    → 后续请求 500 或排队</span><br></pre></td></tr></table></figure>
+
+<h4 id="第③步：外部调用-RT"><a href="#第③步：外部调用-RT" class="headerlink" title="第③步：外部调用 RT"></a>第③步：外部调用 RT</h4><p><strong>判断：慢在哪个下游？</strong></p>
+<p>查看 APM 中本服务对外的调用耗时，重点对比<strong>问题时段 vs 正常时段</strong>的 RT 基线：</p>
+<ul>
+<li>某个下游 RT 升高 → 问题在该下游，继续排查下游</li>
+<li>所有下游 RT 正常 → 问题在本服务内部（回到第②步，或看连接池）</li>
+<li>数据库 RT 升高 → 进入第④步</li>
+</ul>
+<h4 id="第④步：数据库连接池（应用侧）"><a href="#第④步：数据库连接池（应用侧）" class="headerlink" title="第④步：数据库连接池（应用侧）"></a>第④步：数据库连接池（应用侧）</h4><p><strong>判断：是连接池耗尽，还是 SQL 本身慢？</strong></p>
+<table>
+<thead>
+<tr>
+<th>关键指标</th>
+<th>含义</th>
+<th>危险信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>active connections</td>
+<td>当前占用的连接数</td>
+<td>接近 max-pool-size</td>
+</tr>
+<tr>
+<td>pending threads</td>
+<td>等待获取连接的线程数</td>
+<td><strong>&gt; 0</strong></td>
+</tr>
+<tr>
+<td><strong>connection acquire time</strong></td>
+<td>获取连接耗时</td>
+<td><strong>&gt; 0ms（正常应接近 0）</strong></td>
+</tr>
+<tr>
+<td>connection timeout 次数</td>
+<td>等连接超时失败数</td>
+<td>&gt; 0 说明已出现获取失败</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong><code>acquire time &gt; 0ms</code> 是最早的信号</strong>：连接池空闲时获取连接几乎是瞬间的，一旦出现等待，说明连接池在某个时刻已经被耗尽。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>如何区分 →</th>
+<th>连接池耗尽</th>
+<th>慢查询</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>acquire time</td>
+<td>飙升</td>
+<td>≈ 0</td>
+</tr>
+<tr>
+<td>受影响的 SQL</td>
+<td>全部 DB 请求都慢</td>
+<td>只有特定 SQL 慢</td>
+</tr>
+<tr>
+<td>active connections</td>
+<td>&#x3D; max-pool-size</td>
+<td>正常范围</td>
+</tr>
+<tr>
+<td>慢查询日志</td>
+<td>无（SQL 还没执行就卡住了）</td>
+<td>有记录</td>
+</tr>
+<tr>
+<td>根因</td>
+<td>连接池设太小 &#x2F; 有慢 SQL 长时间占用连接</td>
+<td>缺索引 &#x2F; 数据量暴增</td>
+</tr>
+</tbody></table>
+<h4 id="第⑤步：慢查询分析"><a href="#第⑤步：慢查询分析" class="headerlink" title="第⑤步：慢查询分析"></a>第⑤步：慢查询分析</h4><ul>
+<li>数据库侧指标<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>危险信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>慢查询数</td>
+<td>突然增多</td>
+</tr>
+<tr>
+<td>活跃连接数</td>
+<td>接近 max_connections</td>
+</tr>
+<tr>
+<td>锁等待次数</td>
+<td>&gt; 0</td>
+</tr>
+<tr>
+<td>索引命中率</td>
+<td>突然下降</td>
+</tr>
+</tbody></table>
+</li>
+<li>慢查询常见根因<table>
+<thead>
+<tr>
+<th>根因</th>
+<th>判断方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>缺索引</td>
+<td>EXPLAIN 查看执行计划，type&#x3D;ALL 表示全表扫描</td>
+</tr>
+<tr>
+<td>数据量暴增</td>
+<td>对比表行数历史趋势</td>
+</tr>
+<tr>
+<td>查询条件不走索引</td>
+<td>索引字段被函数包裹、隐式类型转换</td>
+</tr>
+<tr>
+<td>锁竞争</td>
+<td>查锁等待日志，找持锁 session</td>
+</tr>
+<tr>
+<td>返回数据量太大</td>
+<td>分页参数过大、缺 limit</td>
+</tr>
+</tbody></table>
+</li>
+<li>完整影响链路示意<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">根因（任选其一）</span><br><span class="line">├─ 慢查询（缺索引）</span><br><span class="line">│      ↓ SQL 执行时间 10ms → 3000ms</span><br><span class="line">│      ↓ 连接长时间被占用</span><br><span class="line">│      ↓ 连接池 active = max，acquire time 飙升</span><br><span class="line">│      ↓ Worker 线程等连接，CPU=0 内存不涨</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 新请求 500，调用方重试，流量翻倍</span><br><span class="line">│      ↓ 雪崩</span><br><span class="line">│</span><br><span class="line">├─ 下游服务变慢（Feign 同步阻塞）</span><br><span class="line">│      ↓ Worker 线程挂起等响应</span><br><span class="line">│      ↓ CPU=0，内存不涨，无告警</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 其他接口被殃及（线程池污染）</span><br><span class="line">│</span><br><span class="line">└─ Full GC</span><br><span class="line">       ↓ Stop-The-World，所有线程暂停</span><br><span class="line">       ↓ 周期性卡顿几秒后恢复</span><br><span class="line">       ↓ CPU 周期性尖刺，内存锯齿形下降</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="7-1-手搓-Java"><a href="#7-1-手搓-Java" class="headerlink" title="7.1 手搓 Java"></a>7.1 手搓 Java</h2><p>…</p>
 <h2 id="6-xx-Java-架构"><a href="#6-xx-Java-架构" class="headerlink" title="6.xx Java 架构"></a>6.xx Java 架构</h2><p>单体<br>单体多实例<br>分布式</p>
 <p>主机<br>容器</p>
 <p>流量入口<br>服务发现</p>
