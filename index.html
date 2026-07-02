@@ -781,7 +781,6 @@
 <li>ops-syn 对比基线  ？？？<br>ops-syn RT 正常 → 问题在本服务（并发量&#x2F;批量条数太多）<br>ops-syn RT 升高 → 问题在 ops-syn 或其 MongoDB</li>
 <li>定位元凶调用方<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MongoDB 审计表，找大批量写入请求</span></span><br><span class="line">db.<span class="property">convertViewRecording</span>.<span class="title function_">find</span>(&#123;</span><br><span class="line">    <span class="attr">createtime</span>: &#123; <span class="attr">$gte</span>: <span class="string">&quot;2026-06-23 15:00:00&quot;</span>, <span class="attr">$lte</span>: <span class="string">&quot;2026-06-23 16:30:00&quot;</span> &#125;,</span><br><span class="line">    <span class="attr">type</span>: <span class="number">0</span>   <span class="comment">// 0=写入</span></span><br><span class="line">&#125;, &#123; <span class="attr">sysName</span>:<span class="number">1</span>, <span class="attr">number</span>:<span class="number">1</span>, <span class="attr">createtime</span>:<span class="number">1</span>, <span class="attr">endtime</span>:<span class="number">1</span> &#125;)</span><br><span class="line">.<span class="title function_">sort</span>(&#123; <span class="attr">number</span>: -<span class="number">1</span> &#125;)  <span class="comment">// 按数据量排序</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>todo：了解 tomcat…</p>
 <h4 id="20260623-服务内存异常事故报告"><a href="#20260623-服务内存异常事故报告" class="headerlink" title="20260623 服务内存异常事故报告"></a>20260623 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
 <ol>
 <li>事故概述<ol>
@@ -933,56 +932,18 @@
 </li>
 </ol>
 </li>
-<li>整改措施<ol>
+<li>整改措施<ul>
 <li>部署日志备份脚本到生产 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 crontab</span></span><br><span class="line">0 2 * * * sh /apps/devops/data-center/data-center-log-backup.sh</span><br></pre></td></tr></table></figure></li>
 <li>配置 Logback 自动按天切割 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 修改 logback-spring.xml：按天滚动 + 大小限制 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>xx.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>500MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>20GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li>升级服务器内存（到 32GB）或迁移 ilogtail（到其他机器）</li>
-</ol>
+</ul>
 </li>
 </ol>
 <h4 id="20260626-线程池满导致接口pending"><a href="#20260626-线程池满导致接口pending" class="headerlink" title="20260626 线程池满导致接口pending"></a>20260626 线程池满导致接口pending</h4><ol>
-<li>故障现象<br>validatePorts 接口响应持续 pending，最终超时报错；持续时间约 2 小时，有用户主动投诉，定级：P2</li>
+<li>故障现象<br>validatePorts 接口响应持续 pending，最终超时报错；持续时间约 2 小时，有用户主动投诉，定级：<strong>P2</strong></li>
 <li>直接原因<br><code>checkPort</code> 方法使用了 7+ 个模块共享的线程池 <code>queryCmdbValidIpExecutor</code>（核心线程数 15）。高峰期其他模块的长耗时任务占满了全部 15 个核心线程，<code>checkPort</code> 的任务只能排队等待，而上层 <code>validatePorts</code> 调用的是 <code>Future.join()</code>（无超时阻塞），导致 API 处理线程永久 pending，直到客户端超时。</li>
-<li>根本原因<br><strong>线程池设计违反了隔离原则</strong>：不同业务域、不同 SLA 要求的任务共享同一线程池，高负载时相互干扰，快速任务被慢任务”饿死”。<br>同时，服务三节点每个 JVM 节点线程池独立，要避免大量请求同时打到同一节点。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">API 请求</span><br><span class="line">  └─ validatePorts()</span><br><span class="line">       └─ checkPort(ip, port)  ← 提交到共享线程池</span><br><span class="line">            └─ CompletableFuture.join()  ← 无超时阻塞</span><br><span class="line">                 └─ 线程池满，任务排队</span><br><span class="line">                      └─ API 线程永久 pending</span><br></pre></td></tr></table></figure></li>
-<li>自定义线程池解读<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor queryCmdbValidIpExecutor() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(15,                    // 核心线程：15，应该调高</span><br><span class="line">            100,                                         // 最大线程：100</span><br><span class="line">            15L, TimeUnit.MINUTES,                       // keepAlive：非核心线程空闲</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(2000),             // 有界队列，最多 2000 个任务排队，应该调低</span><br><span class="line">            ThreadUtil.createThreadFactory(&quot;queryCmdbValidIpExecutor-&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-ps. Spring Boot 默认线程池<table>
-<thead>
-<tr>
-<th>类别</th>
-<th>作用</th>
-<th>线程数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>tomcat 线程池</td>
-<td>处理 HTTP 请求（你的 API 接口就跑在这里）</td>
-<td>核心 10，最大 200</td>
-</tr>
-<tr>
-<td>@Async 线程池</td>
-<td>处理 @Async 注解的异步方法</td>
-<td>SimpleAsyncTaskExecutor（每次新建线程，无复用）</td>
-</tr>
-<tr>
-<td>@Scheduled 线程池</td>
-<td>定时任务</td>
-<td>单线程</td>
-</tr>
-</tbody></table>
-</li>
-<li>并发设计 SOP —— 线程池使用规范<ul>
-<li>原则一：按业务域隔离线程池<br> 反例 → 所有异步任务共用一个通用线程池<br> 正例 → 每个业务域独立线程池，如 <code>portCheckExecutor</code>、<code>cmdbQueryExecutor</code><blockquote>
-<p><strong>判断标准</strong>：只要两类任务的执行时间量级不同（ms 级 vs 秒级），或 SLA 要求不同，就必须隔离。</p>
-</blockquote>
-</li>
-<li>原则二：所有阻塞等待必须有超时 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁止</span></span><br><span class="line">future.join();</span><br><span class="line">future.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 必须</span></span><br><span class="line">future.get(N, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
- 超时时间参考：纯内存计算 → 100ms，本地网络（同机房） → 3~5s</li>
-<li>原则三：理解线程池的任务调度模型 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">提交任务</span><br><span class="line">  → 核心线程有空？→ 直接执行</span><br><span class="line">  → 核心线程满？  → 进队列等待</span><br><span class="line">  → 队列满？      → 创建非核心线程（直到 maxPoolSize）</span><br><span class="line">  → maxPoolSize 满？→ 触发拒绝策略</span><br><span class="line"></span><br><span class="line">**核心线程永不释放**（默认），执行完任务立刻复用，不存在&quot;执行完不释放&quot;问题。</span><br></pre></td></tr></table></figure></li>
-<li>原则四：线上卡死的应急处置顺序<br> 1 <strong>摘流量</strong>：把卡死节点从负载均衡摘掉，优先止血<br> 2 <strong>重启节点</strong>：释放所有排队任务，快速恢复<br> 3 <strong>动态扩容</strong>（如有 Hippo4j）：临时调大线程数，不重启<br> 4 <strong>事后分析</strong>：看监控确认线程数、队列积压情况，定位根因</li>
-<li>原则五：CompletableFuture cancel 的局限性<br> 注意：正在执行的任务无法被中断（原生 IO 不响应 interrupt），只能等其自身超时后自然结束。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">future.cancel(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// ✓ 还在队列中的任务：可以取消，不会执行</span></span><br><span class="line"><span class="comment">// ✗ 已在执行 Socket.connect 的任务：cancel 无效，跑完 1000ms 才结束</span></span><br></pre></td></tr></table></figure>
- 超时后调用方放弃等待（<code>TimeoutException</code>），但线程池里的任务<strong>仍然继续执行</strong>，只是结果无人消费。这是 <code>CompletableFuture</code> 与线程池解耦的本质——调用方的取消意图无法传递给线程池。</li>
-</ul>
-</li>
+<li>根本原因<br><strong>线程池设计违反了隔离原则</strong> → 不同业务域、不同 SLA 要求的任务共享同一线程池，高负载时相互干扰，快速任务被慢任务”饿死”。<br>同时，服务三节点每个 JVM 节点线程池独立，要避免大量请求同时打到同一节点。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">API 请求</span><br><span class="line">  └─ validatePorts()</span><br><span class="line">       └─ checkPort(ip, port)  ← 提交到共享线程池</span><br><span class="line">            └─ CompletableFuture.join()  ← 无超时阻塞</span><br><span class="line">                 └─ 线程池满，任务排队</span><br><span class="line">                      └─ API 线程永久 pending</span><br></pre></td></tr></table></figure></li>
+<li>自定义线程池解读<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor queryCmdbValidIpExecutor() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(15,                    // 核心线程：15，应该调高</span><br><span class="line">            100,                                         // 最大线程：100</span><br><span class="line">            15L, TimeUnit.MINUTES,                       // keepAlive：非核心线程空闲</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(2000),             // 有界队列，最多 2000 个任务排队，应该调低</span><br><span class="line">            ThreadUtil.createThreadFactory(&quot;queryCmdbValidIpExecutor-&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="20260630-Tomcat监控配置开启"><a href="#20260630-Tomcat监控配置开启" class="headerlink" title="20260630 Tomcat监控配置开启"></a>20260630 Tomcat监控配置开启</h4><ol>
 <li>问题描述<br>监控平台无法拉取 <code>mops-platform-backend</code> 服务的 Tomcat 线程池指标（活跃线程数、连接数、请求数等），导致线上出现线程池堆积问题时缺乏可观测性，只能依赖业务告警被动发现。</li>
@@ -995,6 +956,20 @@ ps. Spring Boot 默认线程池<table>
 <li>反射？？</li>
 </ul>
 </li>
+</ol>
+<h4 id="20260702-CMDB全文检索异常"><a href="#20260702-CMDB全文检索异常" class="headerlink" title="20260702 CMDB全文检索异常"></a>20260702 CMDB全文检索异常</h4><ol>
+<li><strong>现象：</strong>  CMDB数据检索偶尔失败，<code>queryUserResource</code> 接口偶发 500，错误信息 “ES查询失败”</li>
+<li>故障原因<br><code>httpcomponents</code> JAR 包版本冲突。<code>elasticsearch-rest-high-level-client 7.17.23</code> 需要 <code>httpcore-nio 4.4.14+</code>，但 <code>Spring Boot 1.5.10</code> 将其降级到 <code>4.4.6</code>。ES 服务端今天 10:22 主动断开连接时，客户端处理断连逻辑触发了缺失的构造方法，导致 I&#x2F;O reactor 线程崩溃且无法自愈，此后所有 ES 请求全部失败。<br><strong>为什么重启就恢复、ES 断连后就连不上：</strong>正常情况下 <code>RestHighLevelClient</code> 有连接池和自动重连机制，ES 服务端断连后客户端会自动重建连接，不需要重启。但本次由于版本冲突，reactor 在<strong>处理断连的过程中</strong>自己崩溃了——不是断连本身导致连不上，而是处理断连时抛出 <code>NoSuchMethodError</code> 导致整个客户端实例废掉。<br>reactor 的状态是单向不可逆的（<code>RUNNING → STOPPED</code>），没有自愈路径，只能通过重启服务重新创建 <code>RestHighLevelClient</code> 实例来恢复。修复版本冲突后，断连会走正常处理流程，不再触发崩溃。</li>
+<li>临时处置：<strong>重启异常服务节点</strong>，恢复正常。</li>
+<li>排查思路<ul>
+<li><strong>第一阶段：定位报错来源</strong><br> 通过调用链上下文（ops-cmdb → Feign → qz-elasticsearch），明确真正的异常在 qz-elasticsearch 侧。</li>
+<li><strong>第二阶段：查日志卡住</strong><br> 在 <code>INFO.0.log</code> 里搜查询 es接口的错误日志 <code>Error executing search request</code> 没有结果，<strong>卡在这里</strong>。<br> 关键转折：直接搜具体错误关键词容易因为日志时间窗口、级别分文件等原因漏掉。并不是调查询接口异常，而是都无法成功发起调用。改为搜 <code>ERROR</code> 级别所有日志，反而一次性暴露了两个现象——大量 <code>I/O reactor status: STOPPED</code> 和少量 <code>callPaasError</code>，并且从时间戳上看出 STOPPED 在前、<code>callPaasError</code> 在后，有明确的因果关系。</li>
+<li><strong>第三阶段：溯源 reactor 崩溃原因</strong><br> 通过 <code>grep -n</code> 定位 STOPPED 第一次出现的行号，再用 <code>sed -n</code> 取该行前后的日志，找到崩溃的直接异常 <code>NoSuchMethodError</code>，再往前一屏找到触发原因 <code>ConnectionClosedException: Connection closed unexpectedly</code>。</li>
+<li><strong>第四阶段：确认版本冲突</strong><br> <code>NoSuchMethodError</code> 是版本冲突的典型特征。结合 <code>pom.xml</code> 中 <code>elasticsearch 7.17.23</code> + <code>Spring Boot 1.5.10</code> 的组合，直接锁定冲突的 JAR 包和版本差异。</li>
+<li><strong>第五阶段：解释为什么今天才出现</strong><br> 版本冲突代码路径只在处理连接断开时触发。服务长期运行连接稳定，炸弹一直未引爆。今天 ES 服务端主动断连是第一次触发，同时日志里找不到服务启动记录，说明服务已长期运行未重启，也印证了之前从未触发过的判断。</li>
+</ul>
+</li>
+<li>故障链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">10:22:00  ES 服务端主动断开连接</span><br><span class="line">              ↓</span><br><span class="line">          客户端处理断连，调用 ConnectionClosedException() 无参构造</span><br><span class="line">              ↓</span><br><span class="line">          NoSuchMethodError（httpcore-nio 版本冲突）</span><br><span class="line">              ↓</span><br><span class="line">          I/O reactor 线程崩溃 → STOPPED，ES 客户端永久不可用</span><br><span class="line">              ↓</span><br><span class="line">10:22:08  所有 ES 请求抛 RuntimeException: I/O reactor status: STOPPED</span><br><span class="line">              ↓</span><br><span class="line">          ESUtil.search() 吞掉异常，返回 null</span><br><span class="line">              ↓</span><br><span class="line">          InnerSearchController:76 → searchResponse.getHits() → NullPointerException</span><br><span class="line">              ↓</span><br><span class="line">          catch 到 NPE → return RetEntity.error(...)  [code != 200]</span><br><span class="line">              ↓</span><br><span class="line">          ops-cmdb IhrController → &quot;ES查询失败&quot; → 用户看到 500</span><br></pre></td></tr></table></figure></li>
 </ol>
 <hr>
 
@@ -1819,7 +1794,7 @@ ps. Spring Boot 默认线程池<table>
 <li>排查：查看消费应用运行日志，筛选error、timeout、Exception；</li>
 <li>应急：<ul>
 <li>紧急隔离脏消息：配置死信Topic，异常消息投递DLQ，不再重复重试阻塞；</li>
-<li>临时方案：存量堆积过大可重置offset跳到最新位点丢弃存量（谨慎！）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#重置到最新，跳过堆积存量，生产操作前确认业务允许丢历史消息</span></span><br><span class="line">kafka-consumer-groups.sh --bootstrap-server <span class="variable">$BK</span> --group <span class="variable">$GROUP</span> --topic <span class="variable">$TOPIC</span> --reset-offsets --to-latest --execute</span><br></pre></td></tr></table></figure></li>
+<li>临时方案：存量堆积过大可重置offset跳到最新位点丢弃存量（谨慎！生产操作前确认业务允许丢历史消息）<br>  <code>kafka-consumer-groups.sh --bootstrap-server $BK --group $GROUP --topic $TOPIC --reset-offsets --to-latest --execute</code></li>
 </ul>
 </li>
 <li>根治：消费逻辑异步化（消息落库&#x2F;调用下游丢线程池）、优化DB索引、限制重试次数。</li>
@@ -1837,9 +1812,9 @@ ps. Spring Boot 默认线程池<table>
 <li>配置监控告警：LAG堆积阈值告警、消费实例离线告警、生产QPS突增告警；</li>
 <li>容量预留：峰值消费实例预留30%冗余资源；</li>
 <li>规范：所有消费业务强制配置死信队列。</li>
+<li>补充高频应急备用指令（附使用场景） <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.扩容Topic分区（提升最大并发，分区只能加不能减）</span></span><br><span class="line">kafka-topics.sh --bootstrap-server <span class="variable">$BK</span> --alter --topic <span class="variable">$TOPIC</span> --partitions 新数值</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.控制台临时消费，验证消息能否正常拉取</span></span><br><span class="line">kafka-console-consumer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span> --group test-group</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.控制台生产测试消息，验证生产链路</span></span><br><span class="line">kafka-console-producer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>补充高频应急备用指令（附使用场景）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.扩容Topic分区（提升最大并发，分区只能加不能减）</span></span><br><span class="line">kafka-topics.sh --bootstrap-server <span class="variable">$BK</span> --alter --topic <span class="variable">$TOPIC</span> --partitions 新数值</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.控制台临时消费，验证消息能否正常拉取</span></span><br><span class="line">kafka-console-consumer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span> --group test-group</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.控制台生产测试消息，验证生产链路</span></span><br><span class="line">kafka-console-producer.sh --bootstrap-server <span class="variable">$BK</span> --topic <span class="variable">$TOPIC</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="6-16-【两年度】工作总结"><a href="#6-16-【两年度】工作总结" class="headerlink" title="6.16 【两年度】工作总结"></a>6.16 【两年度】工作总结</h2><p>一、自动化运维平台能力建设</p>
 <p>主导 F5 负载均衡、DNS 域名解析、NBU 备份自动化搭建。完善负载均衡变更、回收自动化链路，减少手工运维成本与操作风险；覆盖 DNS 各类域名申请、变更、回收自动化场景，近半年工单数1000+，创新打造一键回退功能，支持临时域名快速回收、变更故障回滚场景，收获业务方认可。<br>日常承担平台发版、值班、系统调优等团队事务，负责 F5、DNS 模块需求方案评审，协同团队落地负载均衡变更一键回退、DNS 自动采集、续期盘点等功能。后续将承接防火墙模块，负责网络管理模块迭代。</p>
@@ -1849,6 +1824,70 @@ ps. Spring Boot 默认线程池<table>
 <p>负责 CMDB 数据运营，对接业务方数据写入和查询需求，辅助业务问题排查。承担日常值班工作，并将自助运维经验沉淀为 skills 上架技能广场。负责系统运维，协同排查服务高负载、接口查询缓慢、Kafka 堆积等故障，现阶段保障存量业务稳定，并协助业务迁移至新版 CMDB。<br>完成 CMDB 智能问数项目落地，参与从内部知识库构建、多轮问数定制化开发调优，到应用服务的搭建上线全流程；以及在大洋电机交付工作中，排查并闭环部署问题 8 项，保障交付进度。</p>
 <p>四、InfluxDB 数据库服务化开发</p>
 <p>参与 InfluxDB 服务化能力建设，实现实例备份与恢复、父子实例改造、节点重启与变配能力开发，完成 Data 节点迁移调研与前期开发，积累了数据库与容器化开发经验。</p>
+<h2 id="6-26-Java-线程池使用设计"><a href="#6-26-Java-线程池使用设计" class="headerlink" title="6.26 Java 线程池使用设计"></a>6.26 Java 线程池使用设计</h2><ol>
+<li><p>自定义线程池</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor queryCmdbValidIpExecutor() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(</span><br><span class="line">            15,                                               // corePoolSize 核心线程</span><br><span class="line">            100,                                              // maximumPoolSize 最大线程</span><br><span class="line">            15L,                                              // keepAlive 非核心线程空闲</span><br><span class="line">            TimeUnit.MINUTES,                                 // unit 时间单位</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(2000),                  // 有界队列，最多 2000 个任务排队</span><br><span class="line">            ThreadUtil.createThreadFactory(&quot;aaaExecutor-&quot;)),  // 线程工厂（创建线程、设置线程名）</span><br><span class="line">            new ThreadPoolExecutor.CallerRunsPolicy()         // 拒绝策略：主线程执行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">任务执行流程（必背）</span><br><span class="line">1. 提交任务，当前运行线程数 &lt; 核心线程数 → 创建**核心线程**执行任务；</span><br><span class="line">2. 核心线程已满，新任务进入**阻塞队列**排队；</span><br><span class="line">3. 队列也放满了，总线程数 &lt; 最大线程数 → 创建**非核心线程**执行任务；</span><br><span class="line">4. 总线程达到最大线程数，队列也满了 → 触发**拒绝策略**。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>生产规范：<strong>禁止直接使用Executors创建线程池，必须手动new ThreadPoolExecutor，指定有界队列+合理拒绝策略</strong>，防止无限任务&#x2F;线程引发OOM。</p>
+</blockquote>
+</li>
+<li><p>参数该怎么合理设置？（业务实战经验）</p>
+<ul>
+<li>CPU密集型（大量计算、报表统计）<br> 公式：<code>核心线程数 = CPU核心数 + 1</code><br> CPU尽量打满，减少上下文切换。</li>
+<li>IO密集型（数据库查询、RPC调用、Kafka消费、文件读写）<br> 公式：<code>核心线程数 = CPU核心数 * 2</code> 或者 <code>CPU核心数/(1-0.9)</code><br> IO等待时间长，CPU空闲，可以多开线程提升并发。</li>
+<li>阻塞队列<br> 一定要用<code>ArrayBlockingQueue</code>设置固定容量，根据业务峰值预估，不要用无界队列。</li>
+<li>拒绝策略选型<br> 内部重要业务：<code>CallerRunsPolicy</code>，不丢数据，让调用方限流；<br> 允许少量丢弃的统计类任务：<code>DiscardPolicy</code>；<br> 前端接口类：默认<code>AbortPolicy</code>，捕获异常返回业务繁忙。</li>
+</ul>
+</li>
+<li><p>?? 常用使用方式</p>
+<ul>
+<li>方式1：无返回任务 Runnable <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pool.execute(() -&gt; &#123;</span><br><span class="line">    <span class="comment">// 批量业务逻辑</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>方式2：有返回任务 Callable + Future <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;String&gt; future = pool.submit(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;执行结果&quot;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> future.get(); <span class="comment">// 阻塞获取结果</span></span><br></pre></td></tr></table></figure></li>
+<li>方式3：结合CompletableFuture（主流异步编排） <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> rpcCall();</span><br><span class="line">&#125;, pool);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Spring Boot 默认线程池</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>作用</th>
+<th>线程数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tomcat 线程池</td>
+<td>处理 HTTP 请求（你的 API 接口就跑在这里）</td>
+<td>核心 10，最大 200</td>
+</tr>
+<tr>
+<td>@Async 线程池</td>
+<td>处理 @Async 注解的异步方法</td>
+<td>SimpleAsyncTaskExecutor（每次新建线程，无复用）</td>
+</tr>
+<tr>
+<td>@Scheduled 线程池</td>
+<td>定时任务</td>
+<td>单线程</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>并发设计 SOP —— 线程池使用规范</p>
+<ul>
+<li>原则一：按业务域隔离线程池<br> 反例 → 所有异步任务共用一个通用线程池<br> 正例 → 每个业务域独立线程池，如 <code>portCheckExecutor</code>、<code>cmdbQueryExecutor</code><blockquote>
+<p><strong>判断标准</strong>：只要两类任务的执行时间量级不同（ms 级 vs 秒级），或 SLA 要求不同，就必须隔离。</p>
+</blockquote>
+</li>
+<li>原则二：所有阻塞等待必须有超时 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁止</span></span><br><span class="line">future.join();</span><br><span class="line">future.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 必须</span></span><br><span class="line">future.get(N, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+ 超时时间参考：纯内存计算 → 100ms，本地网络（同机房） → 3~5s</li>
+<li>原则三：理解线程池的任务调度模型 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">提交任务</span><br><span class="line">  → 核心线程有空？→ 直接执行</span><br><span class="line">  → 核心线程满？  → 进队列等待</span><br><span class="line">  → 队列满？      → 创建非核心线程（直到 maxPoolSize）</span><br><span class="line">  → maxPoolSize 满？→ 触发拒绝策略</span><br><span class="line"></span><br><span class="line">**核心线程永不释放**（默认），执行完任务立刻复用，不存在&quot;执行完不释放&quot;问题。</span><br></pre></td></tr></table></figure></li>
+<li>原则四：线上卡死的应急处置顺序<br> 1 <strong>摘流量</strong>：把卡死节点从负载均衡摘掉，优先止血<br> 2 <strong>重启节点</strong>：释放所有排队任务，快速恢复<br> 3 <strong>动态扩容</strong>（如有 Hippo4j）：临时调大线程数，不重启<br> 4 <strong>事后分析</strong>：看监控确认线程数、队列积压情况，定位根因</li>
+<li>原则五：CompletableFuture cancel 的局限性<br> 注意：正在执行的任务无法被中断（原生 IO 不响应 interrupt），只能等其自身超时后自然结束。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">future.cancel(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// ✓ 还在队列中的任务：可以取消，不会执行</span></span><br><span class="line"><span class="comment">// ✗ 已在执行 Socket.connect 的任务：cancel 无效，跑完 1000ms 才结束</span></span><br></pre></td></tr></table></figure>
+ 超时后调用方放弃等待（<code>TimeoutException</code>），但线程池里的任务<strong>仍然继续执行</strong>，只是结果无人消费。这是 <code>CompletableFuture</code> 与线程池解耦的本质——调用方的取消意图无法传递给线程池。</li>
+</ul>
+</li>
+</ol>
 <h2 id="6-30-【Java-服务卡顿】问题排查-SOP"><a href="#6-30-【Java-服务卡顿】问题排查-SOP" class="headerlink" title="6.30 【Java 服务卡顿】问题排查 SOP"></a>6.30 【Java 服务卡顿】问题排查 SOP</h2><blockquote>
 <p>适用：带数据库查询的 Java Web 服务（Spring Boot + Tomcat + 关系型&#x2F;文档型数据库）</p>
 </blockquote>
@@ -2075,36 +2114,34 @@ ps. Spring Boot 默认线程池<table>
 <li>完整影响链路示意<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">根因（任选其一）</span><br><span class="line">├─ 慢查询（缺索引）</span><br><span class="line">│      ↓ SQL 执行时间 10ms → 3000ms</span><br><span class="line">│      ↓ 连接长时间被占用</span><br><span class="line">│      ↓ 连接池 active = max，acquire time 飙升</span><br><span class="line">│      ↓ Worker 线程等连接，CPU=0 内存不涨</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 新请求 500，调用方重试，流量翻倍</span><br><span class="line">│      ↓ 雪崩</span><br><span class="line">│</span><br><span class="line">├─ 下游服务变慢（Feign 同步阻塞）</span><br><span class="line">│      ↓ Worker 线程挂起等响应</span><br><span class="line">│      ↓ CPU=0，内存不涨，无告警</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 其他接口被殃及（线程池污染）</span><br><span class="line">│</span><br><span class="line">└─ Full GC</span><br><span class="line">       ↓ Stop-The-World，所有线程暂停</span><br><span class="line">       ↓ 周期性卡顿几秒后恢复</span><br><span class="line">       ↓ CPU 周期性尖刺，内存锯齿形下降</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="7-1-手搓-Java"><a href="#7-1-手搓-Java" class="headerlink" title="7.1 手搓 Java"></a>7.1 手搓 Java</h2><p>…</p>
-<h2 id="6-xx-Java-架构"><a href="#6-xx-Java-架构" class="headerlink" title="6.xx Java 架构"></a>6.xx Java 架构</h2><p>单体<br>单体多实例<br>分布式</p>
+<h2 id="…-Java-架构"><a href="#…-Java-架构" class="headerlink" title="… Java 架构"></a>… Java 架构</h2><p>单体<br>单体多实例<br>分布式</p>
 <p>主机<br>容器</p>
 <p>流量入口<br>服务发现</p>
-<h2 id="6…-Redis的应用"><a href="#6…-Redis的应用" class="headerlink" title="6… Redis的应用??"></a>6… Redis的应用??</h2><p>login拿token</p>
-<h2 id="6…-DataAgent沉淀"><a href="#6…-DataAgent沉淀" class="headerlink" title="6… DataAgent沉淀"></a>6… DataAgent沉淀</h2><p>不用框架，只用通用模型+上下文工程+skills(提示词工程)??</p>
+<h2 id="…-Redis的应用"><a href="#…-Redis的应用" class="headerlink" title="… Redis的应用??"></a>… Redis的应用??</h2><p>login拿token</p>
+<h2 id="…-DataAgent沉淀"><a href="#…-DataAgent沉淀" class="headerlink" title="… DataAgent沉淀"></a>… DataAgent沉淀</h2><p>不用框架，只用通用模型+上下文工程+skills(提示词工程)??</p>
 <p>理解：ClaudeCode常规来看是一个CodingAgent，是大模型+编程skills+编程cli，如果替换为大模型+问数skills+问数cli → 问数Agent ??</p>
 <hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
-<li><strong>教育经历</strong><ul>
+<li><strong>教育经历</strong><br><em>华南理工大学</em> 网络工程 <sup>2020.09 - 2024.07</sup><ul>
 <li>在校经历：曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。</li>
 <li>荣誉奖项：五粮液优秀学生奖学金(2023.10)，华南理工大学三等奖学金(2022.09)，广东省第十一届大运会“优秀志愿者”(22.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”</li>
 </ul>
 </li>
-<li><strong>工作经历</strong><br><em>Midea</em> 后端开发工程师-Java <sup>2024.7~</sup></li>
-<li><strong>项目经验</strong><ol>
-<li>自动化运维平台（MOPS）自动化骨干<ul>
+<li><strong>工作经历</strong><br><em>Midea</em> 后端开发工程师-Java <sup>2024.7~</sup><ol>
+<li>自动化运维平台（MOPS）核心成员<ul>
 <li>负责网络管理模块，防火墙、负载均衡、域名解析的自动化能力建设，全流程可追溯，运维数据闭环</li>
 <li>负载均衡自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性。海内外 全集团使用，自动化20%-&gt;80%</li>
-<li>DNS 自动化：支持 A、CNAME、MX 等记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。    </li>
-<li>CMDB 负责人，，日常数据运营，用户答疑</li>
-<li>作业平台优化。。</li>
-<li>脚本负责人。。</li>
+<li>DNS 自动化：支持 A、CNAME、MX 等记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。</li>
+<li>作业平台优化。。脚本负责人。。</li>
 <li>NBU 备份自动化：通过 Ansible 脚本部署备份客户端，集成备份平台 API，提升备份任务效率 50%。 </li>
-<li>华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，通过调 API 和作业平台接口，减少70%人工</li>
+<li>华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，通过调 API 和作业平台接口，减少70%人工 </li>
+<li>Opspace 私有化交付：对接dayang，实现负责功能的交付，支持答疑，定制开发；掌握容器化，k8s部署经验</li>
 </ul>
 </li>
-<li>Opspace 私有化交付<ul>
-<li>实现负责功能的交付，支持答疑，定制开发</li>
-<li>掌握容器化，k8s部署经验</li>
+<li>CMDB 平台管理员    <ul>
+<li>日常数据运营，用户答疑</li>
+<li>故障排查</li>
 </ul>
 </li>
 <li>CMDB-Agent <ul>
@@ -2120,6 +2157,11 @@ ps. Spring Boot 默认线程池<table>
 <li>了解k8s云原生环境运维开发？具备常见数据库运维能力，，oom，慢sql，主从切换异常，，</li>
 </ul>
 </li>
+</ol>
+</li>
+<li><strong>项目经验</strong><ol>
+<li>手搓Java监控服务</li>
+<li>手搓Java秒杀系统</li>
 </ol>
 </li>
 <li><strong>专业技能</strong><br>• 后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式。<br>• 数据库与中间件：<br>  • 关系数据库：MySQL、Oracle（事务、索引优化、SQL调优）。<br>  • NoSQL：InfluxDB（集群部署、备份恢复、数据迁移）。<br>  • 消息队列：RabbitMQ（异步任务解耦）。<br>• 运维与云原生：<br>  • 熟练使用 Kubernetes（Pod、StatefulSet、Service）、Docker 部署和管理应用。<br>  • 熟悉自动化运维工具：Ansible（脚本编写）、Jenkins（CI&#x2F;CD流水线）。<br>  • 云平台：华为云、Azure（API集成与资源管理）。<br>• 学习<br>  • 读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..<br>  • 学《mysql45讲》，通过OBCA？？</li>
