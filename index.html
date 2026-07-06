@@ -2123,38 +2123,35 @@
 <hr>
 
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
-<li><strong>教育经历</strong><br><em>华南理工大学</em> 网络工程 <sup>2020.09 - 2024.07</sup><ul>
-<li>在校经历：曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。</li>
-<li>荣誉奖项：五粮液优秀学生奖学金(2023.10)，华南理工大学三等奖学金(2022.09)，广东省第十一届大运会“优秀志愿者”(22.06)<br>2022—2023学年度 “三好学生”×，校级“优秀公益组织骨干”，”青马工程”班优秀学员<br>2021—2022学年度 “三好学生”，“两优两红优秀共青团员”</li>
-</ul>
-</li>
+<li><strong>教育经历</strong><br><em>华南理工大学</em> 网络工程 <sup>2020.09 - 2024.07</sup><br>在校经历：曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。</li>
 <li><strong>工作经历</strong><br><em>Midea</em> 后端开发工程师-Java <sup>2024.7~</sup><ol>
 <li>自动化运维平台（MOPS）核心成员<ul>
 <li>负责网络管理模块，防火墙、负载均衡、域名解析的自动化能力建设，全流程可追溯，运维数据闭环</li>
-<li>负载均衡自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性。海内外 全集团使用，自动化20%-&gt;80%</li>
-<li>DNS 自动化：支持 A、CNAME、MX 等记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。</li>
+<li>F5 自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性。集团使用自动化20%-&gt;80%</li>
+<li>DNS 自动化：支持各种记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。</li>
 <li>作业平台优化。。脚本负责人。。</li>
 <li>NBU 备份自动化：通过 Ansible 脚本部署备份客户端，集成备份平台 API，提升备份任务效率 50%。 </li>
-<li>华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，通过调 API 和作业平台接口，减少70%人工 </li>
+<li>华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，减少70%人工 </li>
 <li>Opspace 私有化交付：对接dayang，实现负责功能的交付，支持答疑，定制开发；掌握容器化，k8s部署经验</li>
 </ul>
 </li>
 <li>CMDB 平台管理员    <ul>
-<li>日常数据运营，用户答疑</li>
-<li>故障排查</li>
+<li>日常平台运营，数据对接（表结构维护，数据读写，错误数据跟踪）</li>
+<li>日常运维，故障排查（系统卡顿，读写异常）</li>
+<li>系统调优（限流？高可用？异步？）</li>
+<li>私有化交付（打包交付，服务拉起，宕机演练）</li>
 </ul>
 </li>
 <li>CMDB-Agent <ul>
-<li>Alibaba Data-Agent开源项目学习，</li>
-<li>业余时间用通用Agent来搭建（ClaudeCode不写代码，不用框架，只用通用模型+上下文工程+skills(提示词工程)??）</li>
+<li>Alibaba Data-Agent二开，Nl2Sql</li>
+<li>不用框架，用通用Agent来搭建（ClaudeCode，不写代码，不用框架，只用通用模型+上下文工程+skills(提示词工程)??）</li>
 </ul>
 </li>
 <li>InfluxDB 服务化开发  <ul>
-<li>调研开发基于开源influxdb的服务化功能，对齐mariadb，支持创建回收、备份恢复、重启、节点迁移等功能  </li>
+<li>调研开发基于开源influxdb的服务化功能，对齐mariadb，支持创建回收、备份恢复、重启、节点迁移等功能，了解k8s云原生环境运维开发</li>
 <li>备份恢复功能：集成 OSS 存储和 K8s 运维能力，实现实例级备份恢复，保障高可用性。  </li>
 <li>集群管理：完成 InfluxDB 父子实例改造，支持 Data&#x2F;Meta 节点独立变配和迁移。  </li>
 <li>数据迁移与恢复：设计“热分片截断-冷副本恢复”方案，解决开源工具在增量数据场景下的丢失问题（通过 2000 points&#x2F;s 压力测试验证）。</li>
-<li>了解k8s云原生环境运维开发？具备常见数据库运维能力，，oom，慢sql，主从切换异常，，</li>
 </ul>
 </li>
 </ol>
@@ -2162,9 +2159,32 @@
 <li><strong>项目经验</strong><ol>
 <li>手搓Java监控服务</li>
 <li>手搓Java秒杀系统</li>
+<li>dataagent</li>
+<li>xxljob <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-job">https://github.com/xuxueli/xxl-job</a></li>
 </ol>
 </li>
-<li><strong>专业技能</strong><br>• 后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式。<br>• 数据库与中间件：<br>  • 关系数据库：MySQL、Oracle（事务、索引优化、SQL调优）。<br>  • NoSQL：InfluxDB（集群部署、备份恢复、数据迁移）。<br>  • 消息队列：RabbitMQ（异步任务解耦）。<br>• 运维与云原生：<br>  • 熟练使用 Kubernetes（Pod、StatefulSet、Service）、Docker 部署和管理应用。<br>  • 熟悉自动化运维工具：Ansible（脚本编写）、Jenkins（CI&#x2F;CD流水线）。<br>  • 云平台：华为云、Azure（API集成与资源管理）。<br>• 学习<br>  • 读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..<br>  • 学《mysql45讲》，通过OBCA？？</li>
+<li><strong>专业技能</strong><ul>
+<li>后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式。</li>
+<li>设计模式 ？？</li>
+<li>数据库与中间件：  <ul>
+<li>关系数据库：MySQL、Oracle（事务、索引优化、SQL调优）。  </li>
+<li>NoSQL：InfluxDB（集群部署、备份恢复、数据迁移）。  </li>
+<li>消息队列：RabbitMQ（异步任务解耦）。</li>
+</ul>
+</li>
+<li>运维与云原生：  <ul>
+<li>熟练使用 Kubernetes（Pod、StatefulSet、Service）、Docker 部署和管理应用。  </li>
+<li>熟悉自动化运维工具：Ansible（脚本编写）、Jenkins（CI&#x2F;CD流水线）。  </li>
+<li>云平台：华为云、Azure（API集成与资源管理）。</li>
+</ul>
+</li>
+<li>学习<ul>
+<li>读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..</li>
+<li>学《mysql45讲》，通过OBCA？？</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="0"><a href="#0" class="headerlink" title="0"></a>0</h3><ul>
 <li><p>自我介绍。<br>面试官您好，我是蔡枫，本科毕业于华南理工大学计算机学院，一年多以来在美的集团从事Java后端开发的工作。<br>我主要接触两方面的工作，目前正在做的是自动化运维平台的开发，面向整个集团的用户提供主机、网络管理相关的服务，类似的竞品有嘉为蓝鲸，我们的工作就是把以往通过管理员手动下发的工作实现流程化、自动化，保证可追溯和甚至可逆。另外，还做了半年的数据库服务化开发，建设InfluxDB的“数据库即服务”（DBaaS）能力，基于开源Influxdb Cluster支持了备份恢复、变配、迁移等功能，但是后期随着对开源数据库的可靠性存在顾虑中断了。</p>
