@@ -971,6 +971,7 @@
 </li>
 <li>故障链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">10:22:00  ES 服务端主动断开连接</span><br><span class="line">              ↓</span><br><span class="line">          客户端处理断连，调用 ConnectionClosedException() 无参构造</span><br><span class="line">              ↓</span><br><span class="line">          NoSuchMethodError（httpcore-nio 版本冲突）</span><br><span class="line">              ↓</span><br><span class="line">          I/O reactor 线程崩溃 → STOPPED，ES 客户端永久不可用</span><br><span class="line">              ↓</span><br><span class="line">10:22:08  所有 ES 请求抛 RuntimeException: I/O reactor status: STOPPED</span><br><span class="line">              ↓</span><br><span class="line">          ESUtil.search() 吞掉异常，返回 null</span><br><span class="line">              ↓</span><br><span class="line">          InnerSearchController:76 → searchResponse.getHits() → NullPointerException</span><br><span class="line">              ↓</span><br><span class="line">          catch 到 NPE → return RetEntity.error(...)  [code != 200]</span><br><span class="line">              ↓</span><br><span class="line">          ops-cmdb IhrController → &quot;ES查询失败&quot; → 用户看到 500</span><br></pre></td></tr></table></figure></li>
 </ol>
+<p>^^</p>
 <hr>
 
 <h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong><br>6.30：变更&#x2F;回收前同步“元数据”，用于变更&#x2F;回收脚本下发和一键回退，认为平台值不可信；至此DNS场景基本覆盖完善</p>
@@ -1289,7 +1290,7 @@
 <li>？？网关不再找注册中心，直接访问 Service 名字即可<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">🌍 用户浏览器</span><br><span class="line">请求：https://api.xxx.com/order/create</span><br><span class="line"></span><br><span class="line">↓ ① 本地 DNS 解析</span><br><span class="line">得到：K8s 公网 LB IP / 任意一台节点机器 IP</span><br><span class="line"></span><br><span class="line">↓ ② 网络路由</span><br><span class="line">流量打到：【某一台 K8s 节点 IP:80/443】</span><br><span class="line"></span><br><span class="line">┌─────────────────────────────────────────────┐</span><br><span class="line">│ 🏢 节点机器（操作系统层面）                  │</span><br><span class="line">│  80/443 端口被 Ingress Controller 占用      │</span><br><span class="line">└───────────────────┬─────────────────────────┘</span><br><span class="line">                    ↓ ③ 进入统一入口</span><br><span class="line"></span><br><span class="line">🛡️  Ingress Controller（Nginx）</span><br><span class="line">读取请求头里的 Host = api.xxx.com（不是靠 IP，也不是靠重新解析）</span><br><span class="line">匹配 Ingress 规则：api.xxx.com  → 转发到 gateway-svc</span><br><span class="line"></span><br><span class="line">                    ↓ ④ 转发到网关 Service</span><br><span class="line"></span><br><span class="line">🔌 网关 Service（gateway-svc）</span><br><span class="line">虚拟IP + 负载均衡</span><br><span class="line">↓ 自动选一个网关 Pod IP</span><br><span class="line"></span><br><span class="line">🚪 网关 Pod（Spring Cloud Gateway）</span><br><span class="line">识别路径 /order/**</span><br><span class="line">知道要调用：order 微服务</span><br><span class="line"></span><br><span class="line">                    ↓ ⑤ 网关调用业务微服务</span><br><span class="line"></span><br><span class="line">📦 订单微服务 Service（order-svc）</span><br><span class="line">内部DNS：order-svc.default.svc.cluster.local</span><br><span class="line">↓ 负载均衡到某个业务 Pod</span><br><span class="line"></span><br><span class="line">💻 业务 Pod（你的 Java 服务）</span><br><span class="line">执行 Controller 接口</span><br><span class="line">返回结果 → 原路返回用户</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>一句话极简链路：<strong>浏览器 → DNS → 节点IP:80 → Ingress Controller → 网关Service → 网关Pod → 业务Service → 业务Pod</strong></p>
-<h4 id="底座拉起"><a href="#底座拉起" class="headerlink" title="底座拉起"></a>底座拉起</h4><p>datamars拉起<br>数据初始化？？<br>K8s环境服务访问，相互调用</p>
+<p>K8s环境服务访问，相互调用</p>
 <p>轻量化??</p>
 <p>todo：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></p>
 <h2 id="4-27-【慢SQL】排查-SOP"><a href="#4-27-【慢SQL】排查-SOP" class="headerlink" title="4.27 【慢SQL】排查 SOP"></a>4.27 【慢SQL】排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
@@ -1607,7 +1608,7 @@
 <hr>
 
 
-<h2 id="5-11-【运维产品】沉淀"><a href="#5-11-【运维产品】沉淀" class="headerlink" title="5.11 【运维产品】沉淀"></a>5.11 【运维产品】沉淀</h2><h4 id="1-自动化运维平台"><a href="#1-自动化运维平台" class="headerlink" title="1. 自动化运维平台"></a>1. 自动化运维平台</h4><p>MOPS &amp; CMDB &amp; Ansible（运维平台，数据底座 + 运维作业）<br>MOPS：通过<strong>工单</strong>触发一个申请&#x2F;变更&#x2F;回收流程，通过生成的<strong>记录</strong>映射到的实际平台上的策略，用API&#x2F;script做自动化，运维数据落到 CMDB。。流程 可靠（可追溯、可回滚），运维数据全流程闭环，，<br>作业平台：高并发，高可用？？三个节点，100个任务，怎么调度，怎么等待？？<br>CMDB：运维事实库，本质就是如何把数据写入，如何供外部使用，日常&#x2F;私有化迭代（只做热点运维工作，日常用户答疑，没有深耕功能和组件）<br>CMDB Copilot：基于CMDB数据源的nl2sql问数服务。。搞容器化 → 不用框架，只用通用模型+上下文工程+skills(提示词工程) 怎么实现？？<br>嘉为蓝鲸，Azure 智能运维<br>价值，用户，钱</p>
+<h2 id="5-11-【运维产品】沉淀"><a href="#5-11-【运维产品】沉淀" class="headerlink" title="5.11 【运维产品】沉淀"></a>5.11 【运维产品】沉淀</h2><h4 id="1-自动化运维平台"><a href="#1-自动化运维平台" class="headerlink" title="1. 自动化运维平台"></a>1. 自动化运维平台</h4><p>MOPS &amp; CMDB &amp; Ansible（运维平台，数据底座 + 运维作业）<br>MOPS：通过<strong>工单</strong>触发一个申请&#x2F;变更&#x2F;回收流程，通过生成的<strong>记录</strong>映射到的实际平台上的策略，用API&#x2F;script做自动化，运维数据落到 CMDB。。流程 可靠（可追溯、可回滚），运维数据全流程闭环，，<br>作业平台：免密ssh下发(执行机root存私钥,目标机mdauto存公钥)，高并发，高可用？？三个节点，100个任务，怎么调度，怎么等待？？<br>CMDB：运维事实库，本质就是如何把数据写入，如何供外部使用，日常&#x2F;私有化迭代（只做热点运维工作，日常用户答疑，没有深耕功能和组件）<br>CMDB Copilot：基于CMDB数据源的nl2sql问数服务。。搞容器化 → 不用框架，只用通用模型+上下文工程+skills(提示词工程) 怎么实现？？<br>嘉为蓝鲸，Azure 智能运维<br>价值，用户，钱</p>
 <h4 id="2-私有化输出"><a href="#2-私有化输出" class="headerlink" title="2. 私有化输出"></a>2. 私有化输出</h4><p>ToB：流程和稳定（业务复杂，数据准确，并发要求低），超出客户期待<br>中立云：目标客户→对成本重视的企业の数量级&gt;&gt;对成本不重视的，对公有云降维打击，占领云计算的农村<br>迭代：私有化主干分支 feature&#x2F;product_output 或 poc（区别于内部main分支，两个分别维护，短期方便但长期废人力），私有化迭代分支 feature&#x2F;priv1.x.0（初期从主干拉出，迭代开发私有化功能），私有化Release版本（中期从主干拉出，私有feature测完后合入，出正式的私有化镜像包）<br>单一master分支改造：大洋代码合回内部主分支，后续迭代考虑如何一套代码跑多个环境。。客户适应系统，而不是系统适配客户？？</p>
 <h4 id="3-系统思考"><a href="#3-系统思考" class="headerlink" title="3. 系统思考"></a>3. 系统思考</h4><p>MOPS：懂关键能力实现&amp;组件原理，，慢sql治理？？线上问题，服务、DB、中间件不可用？？<br>运维作业：流量大怎么做（分批，下班时间），失败怎么做（重试？保证数据一致性；考虑如果失败的堆积到一起重试流量太大。。）<br>稳定性建设：四大类检查<br>故障复盘</p>
 <h4 id="4-独当一面"><a href="#4-独当一面" class="headerlink" title="4. 独当一面"></a>4. 独当一面</h4><p>运维产品<br>数据库运维</p>
@@ -2113,7 +2114,8 @@
 </li>
 <li>完整影响链路示意<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">根因（任选其一）</span><br><span class="line">├─ 慢查询（缺索引）</span><br><span class="line">│      ↓ SQL 执行时间 10ms → 3000ms</span><br><span class="line">│      ↓ 连接长时间被占用</span><br><span class="line">│      ↓ 连接池 active = max，acquire time 飙升</span><br><span class="line">│      ↓ Worker 线程等连接，CPU=0 内存不涨</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 新请求 500，调用方重试，流量翻倍</span><br><span class="line">│      ↓ 雪崩</span><br><span class="line">│</span><br><span class="line">├─ 下游服务变慢（Feign 同步阻塞）</span><br><span class="line">│      ↓ Worker 线程挂起等响应</span><br><span class="line">│      ↓ CPU=0，内存不涨，无告警</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 其他接口被殃及（线程池污染）</span><br><span class="line">│</span><br><span class="line">└─ Full GC</span><br><span class="line">       ↓ Stop-The-World，所有线程暂停</span><br><span class="line">       ↓ 周期性卡顿几秒后恢复</span><br><span class="line">       ↓ CPU 周期性尖刺，内存锯齿形下降</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="7-1-手搓-Java"><a href="#7-1-手搓-Java" class="headerlink" title="7.1 手搓 Java"></a>7.1 手搓 Java</h2><p>…</p>
+<h2 id="…-【Java-oom-fullgc】排查"><a href="#…-【Java-oom-fullgc】排查" class="headerlink" title="… 【Java oom &amp; fullgc】排查"></a>… 【Java oom &amp; fullgc】排查</h2><p>^^</p>
+<h2 id="…-手搓-Java"><a href="#…-手搓-Java" class="headerlink" title="… 手搓 Java"></a>… 手搓 Java</h2><p>…</p>
 <h2 id="…-Java-架构"><a href="#…-Java-架构" class="headerlink" title="… Java 架构"></a>… Java 架构</h2><p>单体<br>单体多实例<br>分布式</p>
 <p>主机<br>容器</p>
 <p>流量入口<br>服务发现</p>
@@ -2125,24 +2127,28 @@
 <h1 id="02-2027"><a href="#02-2027" class="headerlink" title="02&#x2F;2027"></a>02&#x2F;2027</h1><h3 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h3><ul>
 <li><strong>教育经历</strong><br><em>华南理工大学</em> 网络工程 <sup>2020.09 - 2024.07</sup><br>在校经历：曾获学校与企业奖学金, “三好学生”等荣誉，发表 EI 会议论文一篇。曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的志愿活动和学生组织经历。</li>
 <li><strong>工作经历</strong><br><em>Midea</em> 后端开发工程师-Java <sup>2024.7~</sup><ol>
-<li>自动化运维平台（MOPS）核心成员<ul>
-<li>负责网络管理模块，防火墙、负载均衡、域名解析的自动化能力建设，全流程可追溯，运维数据闭环</li>
-<li>F5 自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性。集团使用自动化20%-&gt;80%</li>
-<li>DNS 自动化：支持各种记录类型的增删改，集成多平台（Windows DNS产品化），实现一键申请和回退。</li>
-<li>作业平台优化。。脚本负责人。。</li>
-<li>NBU 备份自动化：通过 Ansible 脚本部署备份客户端，集成备份平台 API，提升备份任务效率 50%。 </li>
-<li>华为云&#x2F;Azure 主机生命周期管理：实现云主机的创建、开关机、重启自动化，减少70%人工 </li>
-<li>Opspace 私有化交付：对接dayang，实现负责功能的交付，支持答疑，定制开发；掌握容器化，k8s部署经验</li>
+<li>MOPS 核心成员<ul>
+<li>网络管理模块负责人：对接集团防火墙、负载均衡、域名解析的自动化能力运维建设，全流程可追溯，运维数据闭环<ul>
+<li>F5 自动化：设计蓝绿发布流程，支持参数动态变更和回滚，处理并发场景下的数据一致性(?)</li>
+<li>DNS 自动化：支持各记录类型的申请、变更、回收，集成多平台（Windows DNS产品化），实现一键回退，采集元数据替代不可信的平台值</li>
+<li>防火墙自动化：策略生成算法，自动采集，，</li>
+</ul>
+</li>
+<li>备份管理：落地 NBU 备份申请自动化，通过 Ansible 脚本部署备份客户端，集成备份平台 API 下发备份策略；每日备份任务执行情况采集 </li>
+<li>作业平台（熟悉常规运维脚本。。平台调度优化。。）</li>
+<li>私有化交付：Opspace对接外部客户，实现负责功能的交付，支持答疑，定制开发；故障演练；掌握容器化，k8s部署经验</li>
+<li>美的数字人对接（运维子agent接入AIOps..）</li>
 </ul>
 </li>
 <li>CMDB 平台管理员    <ul>
-<li>日常平台运营，数据对接（表结构维护，数据读写，错误数据跟踪）</li>
-<li>日常运维，故障排查（系统卡顿，读写异常）</li>
+<li>平台运营（数据维护，全文检索，数据连接器，消费视图，自动采集，数据订阅）</li>
+<li>数据对接（表结构维护，数据读写，错误数据追踪）</li>
+<li>系故障排查（系统卡顿，读写异常）</li>
 <li>系统调优（限流？高可用？异步？）</li>
 <li>私有化交付（打包交付，服务拉起，宕机演练）</li>
 </ul>
 </li>
-<li>CMDB-Agent <ul>
+<li>CMDB-Agent 定制化开发<ul>
 <li>Alibaba Data-Agent二开，Nl2Sql</li>
 <li>不用框架，用通用Agent来搭建（ClaudeCode，不写代码，不用框架，只用通用模型+上下文工程+skills(提示词工程)??）</li>
 </ul>
@@ -2164,23 +2170,23 @@
 </ol>
 </li>
 <li><strong>专业技能</strong><ul>
-<li>后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式。</li>
-<li>设计模式 ？？</li>
+<li>后端开发：熟练掌握 Java、Spring Boot、Spring Cloud、MyBatis，熟悉微服务架构和设计模式</li>
+<li>设计模式 ..</li>
 <li>数据库与中间件：  <ul>
-<li>关系数据库：MySQL、Oracle（事务、索引优化、SQL调优）。  </li>
+<li>MySQL（事务、索引优化、SQL调优）。  </li>
+<li>MongoDB（文档型数据库，适用基础配置数据库。。）</li>
 <li>NoSQL：InfluxDB（集群部署、备份恢复、数据迁移）。  </li>
-<li>消息队列：RabbitMQ（异步任务解耦）。</li>
+<li>Kafka：业务（生产消费削峰异步），排障（堆积。。）</li>
 </ul>
 </li>
 <li>运维与云原生：  <ul>
 <li>熟练使用 Kubernetes（Pod、StatefulSet、Service）、Docker 部署和管理应用。  </li>
-<li>熟悉自动化运维工具：Ansible（脚本编写）、Jenkins（CI&#x2F;CD流水线）。  </li>
-<li>云平台：华为云、Azure（API集成与资源管理）。</li>
+<li>熟悉自动化运维工具：Ansible（脚本编写）、CI&#x2F;CD流水线</li>
 </ul>
 </li>
 <li>学习<ul>
 <li>读《马斯克传》后感：.. 读《阿里巴巴Java开发手册》..</li>
-<li>学《mysql45讲》，通过OBCA？？</li>
+<li>学《mysql45讲》，《深入剖析 Kubernetes》，，</li>
 </ul>
 </li>
 </ul>
