@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-07-13T15:24:28.015Z">
+<meta property="article:modified_time" content="2026-07-14T17:02:28.650Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -1112,7 +1112,7 @@
 <p>K8s环境服务访问，相互调用</p>
 <p>轻量化??</p>
 <p>todo：<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100015201?tab=catalog">https://time.geekbang.org/column/intro/100015201?tab=catalog</a></p>
-<h2 id="4-27-【慢SQL】排查-SOP"><a href="#4-27-【慢SQL】排查-SOP" class="headerlink" title="4.27 【慢SQL】排查 SOP"></a>4.27 【慢SQL】排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
+<h2 id="4-27-【慢-SQL】排查-SOP"><a href="#4-27-【慢-SQL】排查-SOP" class="headerlink" title="4.27 【慢 SQL】排查 SOP"></a>4.27 【慢 SQL】排查 SOP</h2><h4 id="1-确认是否慢-SQL"><a href="#1-确认是否慢-SQL" class="headerlink" title="1. 确认是否慢 SQL"></a>1. 确认是否慢 SQL</h4><table>
 <thead>
 <tr>
 <th>阈值</th>
@@ -1489,7 +1489,7 @@
 <li>主动抛出：我想在新团队延续智能运维AI方向，求指导、求小落地空间</li>
 <li>让新领导快速对你建立「<strong>有想法、肯深耕、有创新、可培养、能晋升</strong>」的优质印象</li>
 </ol>
-<h2 id="6-4-2026年中述职"><a href="#6-4-2026年中述职" class="headerlink" title="6.4 2026年中述职"></a>6.4 2026年中述职</h2><ol>
+<h2 id="6-4-2026-年中述职"><a href="#6-4-2026-年中述职" class="headerlink" title="6.4 2026 年中述职"></a>6.4 2026 年中述职</h2><ol>
 <li>个人贡献<ul>
 <li>MOPS 迭代优化（第一，持续深耕…）<br> • 持续负责 MOPS 负载均衡与域名解析自动化模块的迭代开发，（上半年承接）工单数累计1100+，支持线上紧急问题2次。（保障平台核心功能稳定运行）<br> • （同时我）完整梳理 DNS 自动化全链路业务场景、代码逻辑与边界 Case，识别5个（排查多个）存量缺失场景与潜在风险点（如引入元数据解决平台记录不可信问题），输出完整优化方案并推动落地。</li>
 <li>OPSpace 大洋交付（第二，全程跟进…）<br> • 完成域名解析与备份自动化在大洋 UAT&#x2F;PRD 部署，拉通用户验收并输出使用指引。<br> • （同时）针对大洋定制化诉求，实现 Windows DNS 脚本优化（充分考虑边界 &#x2F; 前后校验）、顶级域名可配置化改造，以及（新增）NBU 整机备份、备份通报等能力。（以匹配客户的差异化需求）</li>
@@ -1933,12 +1933,109 @@
 </li>
 <li>完整影响链路示意<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">根因（任选其一）</span><br><span class="line">├─ 慢查询（缺索引）</span><br><span class="line">│      ↓ SQL 执行时间 10ms → 3000ms</span><br><span class="line">│      ↓ 连接长时间被占用</span><br><span class="line">│      ↓ 连接池 active = max，acquire time 飙升</span><br><span class="line">│      ↓ Worker 线程等连接，CPU=0 内存不涨</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 新请求 500，调用方重试，流量翻倍</span><br><span class="line">│      ↓ 雪崩</span><br><span class="line">│</span><br><span class="line">├─ 下游服务变慢（Feign 同步阻塞）</span><br><span class="line">│      ↓ Worker 线程挂起等响应</span><br><span class="line">│      ↓ CPU=0，内存不涨，无告警</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 其他接口被殃及（线程池污染）</span><br><span class="line">│</span><br><span class="line">└─ Full GC</span><br><span class="line">       ↓ Stop-The-World，所有线程暂停</span><br><span class="line">       ↓ 周期性卡顿几秒后恢复</span><br><span class="line">       ↓ CPU 周期性尖刺，内存锯齿形下降</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="…-【Java-oom-fullgc】排查"><a href="#…-【Java-oom-fullgc】排查" class="headerlink" title="… 【Java oom &amp; fullgc】排查"></a>… 【Java oom &amp; fullgc】排查</h2><p>^^</p>
+<h2 id="7-14-【Java-Full-GC】排查"><a href="#7-14-【Java-Full-GC】排查" class="headerlink" title="7.14 【Java Full GC】排查"></a>7.14 【Java Full GC】排查</h2><p>^^</p>
+<h2 id="7-14-【CPU-高】排查-SOP"><a href="#7-14-【CPU-高】排查-SOP" class="headerlink" title="7.14 【CPU 高】排查 SOP"></a>7.14 【CPU 高】排查 SOP</h2><h4 id="基础概念澄清"><a href="#基础概念澄清" class="headerlink" title="基础概念澄清"></a>基础概念澄清</h4><ul>
+<li>主机CPU vs Java进程CPU<ol>
+<li>我们平时看到的服务器整机CPU（<code>top</code>命令展示的），是<strong>整机所有进程的CPU总和</strong>，包括内核、MySQL、Kafka、Java应用、Nginx等。</li>
+<li>Java进程本身也有独立CPU占用：<code>top</code>按下大写 P，能看到java进程单独占用的CPU百分比。<br>  Linux中所有线程（包括Java线程）全部由操作系统统一调度。<strong>Java没有独立的CPU配额管理器</strong>，JVM不限制CPU，Java线程和系统里其他线程平等竞争CPU时间片。</li>
+</ol>
+</li>
+<li>OS 核心原理<ol>
+<li>一个Java线程本质上就是操作系统的一个轻量级线程(LWP)。</li>
+<li>多核CPU上，操作系统调度器会把不同线程分发到不同CPU核心执行。</li>
+<li>一个线程同一时刻只能运行在<strong>单个CPU核心</strong>上；如果是CPU‑密集型运算，会持续占用该核心，造成该核心100%。</li>
+<li>Java应用开启越多执行线程，争抢CPU时间片越激烈，整机CPU占用就越高。<blockquote>
+<p>举例子：4核机器。Java开启8个CPU密集型线程，8个线程竞争4个核，会出现大量上下文切换，整机CPU直接打满。IO‑密集型（等待数据库、网络、Kafka响应）：线程大部分时间阻塞休眠，几乎不消耗CPU。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>两种CPU过高类型<ol>
+<li><strong>CPU‑密集型（单个&#x2F;多个线程死循环、无限计算）</strong><br>线程一直在运算，持续占用CPU核心，单个线程可以打满一整个CPU核心。<br>典型场景：死循环、正则回溯、大量循环计算。</li>
+<li>频繁Full‑GC</li>
+<li><strong>上下文切换过高</strong><br>线程数量过多，操作系统不停切换线程，内核CPU占比飙升，业务代码本身逻辑并不复杂。</li>
+</ol>
+</li>
+<li>高频易错点<ol>
+<li>单个Java线程最多打满<strong>一个CPU核心</strong>；如果4核服务器，一个死循环线程最多占用25%CPU；当Java进程占用100%以上CPU，代表有多个线程在消耗CPU；</li>
+<li>IO阻塞的线程不会占用CPU；只有运算逻辑、自旋锁、GC才会消耗CPU；</li>
+<li>不要混淆整机CPU、Java进程CPU、单个Java线程CPU。</li>
+</ol>
+</li>
+</ul>
+<h4 id="Java服务CPU高排查标准SOP（线上可直接照做）"><a href="#Java服务CPU高排查标准SOP（线上可直接照做）" class="headerlink" title="Java服务CPU高排查标准SOP（线上可直接照做）"></a>Java服务CPU高排查标准SOP（线上可直接照做）</h4><ul>
+<li>整体排查链路<br><code>top（定位Java进程PID）</code> → <code>top‑H‑p PID（查看哪些Java线程占用CPU）</code> → <code>jstack（导出线程栈）</code> → 把十六进制TID在线程栈中定位代码 → 定位代码问题；<br>如果是GC导致CPU高，则使用<code>jstat</code>、<code>jmap</code>排查GC情况。</li>
+<li>步骤1：使用top命令，定位消耗CPU最高的Java进程<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+  按P键，按照CPU降序排序，记录java进程PID，例如PID&#x3D;28940。<br>  观察：<ul>
+<li>us（用户态CPU）高：业务代码在疯狂运算；</li>
+<li>sy（内核态CPU）高：线程过多，上下文切换频繁；</li>
+<li>wa：IO等待高，不属于CPU问题，是磁盘或网络阻塞。</li>
+</ul>
+</li>
+<li>步骤2：查看该进程内部哪些线程占用CPU（关键步骤）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -H 展示线程，-p 指定进程</span></span><br><span class="line">top -H -p 28940</span><br></pre></td></tr></table></figure>
+这里会列出Java内部所有线程(LWP)，记下CPU最高的线程ID，假设线程ID&#x3D;29065。<br>将十进制线程ID转为十六进制（jstack使用十六进制）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">&quot;%x\n&quot;</span> 29065</span><br><span class="line"><span class="comment">#输出结果：7189</span></span><br></pre></td></tr></table></figure></li>
+<li>步骤3：打印Java线程栈，定位代码位置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jstack 28940 &gt; jstack.txt</span><br><span class="line"><span class="built_in">cat</span> jstack.txt | grep -A 20 0x7189</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分支A：CPU高由业务代码导致（us高）<ul>
+<li>问题案例：<ol>
+<li>代码中存在无限while死循环；</li>
+<li>批量处理逻辑未做分页，一次性遍历全部数据；</li>
+<li>复杂正则表达式回溯，CPU暴涨；</li>
+<li>并发下自旋锁无限循环（LockSupport自旋）。</li>
+</ol>
+</li>
+<li>解决：优化循环逻辑、增加休眠、分页、限制循环次数。</li>
+</ul>
+</li>
+<li>分支B：CPU高由GC频繁导致（GC 线程（VM‑Thread, G1 Concurrent Mark‑Thread）占用CPU）<ul>
+<li><code>jstat -gc 28940 500</code> 每500毫秒打印一次GC情况，重点观察：YGC、FGC发生频率是否极高；Old区内存快速上涨</li>
+<li>常见诱因：<ol>
+<li>内存泄漏（集合、静态变量无限存放对象，无法回收）；</li>
+<li>短生命周期对象过多（循环内不停创建对象，造成Minor‑GC爆发）；</li>
+<li>堆内存设置过小。</li>
+</ol>
+</li>
+<li>后续排查命令：<code>jmap -dump:format=b,live,file=heap.hprof 28940</code> 导出堆快照，事后使用 MAT 工具分析。</li>
+</ul>
+</li>
+<li>分支C：sy内核CPU占比过高，上下文切换频繁<ul>
+<li>现象：top里sy占比很高，业务线程本身CPU占用并不突出。</li>
+<li>原因：<ol>
+<li>线程池线程数量设置过大；</li>
+<li>大量短任务，线程频繁唤醒、阻塞；</li>
+<li>大量synchronized同步锁竞争，频繁阻塞唤醒。</li>
+</ol>
+</li>
+<li>排查：<ol>
+<li>jstack查看大量线程处于BLOCKED状态；</li>
+<li>检查线程池参数，缩减最大线程数；</li>
+<li>优化锁逻辑，减少同步竞争，改用CompletableFuture、异步逻辑。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>步骤4：临时应急手段（线上紧急降CPU）<ol>
+<li>若是死循环逻辑：重启服务临时恢复；</li>
+<li>GC问题：临时增大JVM堆内存(-Xmx、‑Xms)；</li>
+<li>线程过多：临时调整线程池参数，缩减线程数量；</li>
+<li>K8s环境：临时扩容节点，分散流量。</li>
+</ol>
+</li>
+</ul>
 <h2 id="…-手搓-Java"><a href="#…-手搓-Java" class="headerlink" title="… 手搓 Java"></a>… 手搓 Java</h2><p>…</p>
+<h2 id="…数据库事务编程要重点掌握："><a href="#…数据库事务编程要重点掌握：" class="headerlink" title="…数据库事务编程要重点掌握："></a>…数据库事务编程要重点掌握：</h2><ol>
+<li>事务分为本地事务和分布式事物两种概念：分布式事务用的java企业版里面的两阶段提交协议，性能差，不能绝对保证成功，用的比较少，现实中用补偿方式实现。 本地事务用的是 Connecton的setAutoCommit（false）来实现</li>
+<li>jdbc的概念：java链接数据库的规范，让开发人员对不同的数据库采用统一的api，对于数据库供应商实现相应的driver接口</li>
+<li>jdbc编程的步骤：1. 注册驱动程序 2. 获取数据库连接对象 Connection 3.获取Statement和PrepareStatement对象4. 执行sql语句或者获取ResultSet对象读取数据，最后关闭对象。</li>
+<li>Connection对象不支持多线程并发调用，需要用到连接池技术。我们用的Druid连接池（阿里巴巴开源），还有c3p0，dbcp等等。</li>
+<li>事务的隔离级别需要掌握。</li>
+<li>Spring采用AOP实现事务，spring的声明式事务需要掌握。</li>
+</ol>
 <h2 id="…-Java-架构"><a href="#…-Java-架构" class="headerlink" title="… Java 架构"></a>… Java 架构</h2><p>单体<br>单体多实例<br>分布式</p>
 <p>主机<br>容器</p>
 <p>流量入口<br>服务发现</p>
-<h2 id="…-Redis的应用"><a href="#…-Redis的应用" class="headerlink" title="… Redis的应用??"></a>… Redis的应用??</h2><p>login拿token</p>
 <h2 id="…-DataAgent沉淀"><a href="#…-DataAgent沉淀" class="headerlink" title="… DataAgent沉淀"></a>… DataAgent沉淀</h2><p>不用框架，只用通用模型+上下文工程+skills(提示词工程)??</p>
 <p>理解：ClaudeCode常规来看是一个CodingAgent，是大模型+编程skills+编程cli，如果替换为大模型+问数skills+问数cli → 问数Agent ??</p>
 <hr>
@@ -2048,6 +2145,16 @@
 <li><p><strong>为什么tob，为什么2c？中台？</strong><br>不局限tob&#x2F;c，但是要持续学习，保持好奇。做中台就像一个螺丝钉，不断修修补补，比较无趣（运维场景深度待挖掘）</p>
 </li>
 <li><p>对AI的使用<br>AI Coding使用的主要场景有 1、有过往代码可参考的新需求 2、有API文档的需求<br>运维Agent</p>
+</li>
+</ul>
+<h3 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><ul>
+<li><p>CMDB 数据维护？<br>读写，限流<br>MongoDB慢sql加索引<br>提供接口查询所有IP</p>
+</li>
+<li><p>CMDB 功能维护<br>全文检索<br>自动采集<br>zk拉起</p>
+</li>
+<li><p>CMDB 运维<br>kafka<br>java</p>
+</li>
+<li><p>运维平台？<br>企业运维自动化<br>先自动化，后智能化</p>
 </li>
 </ul>
 
