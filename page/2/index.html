@@ -69,6 +69,80 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Golang" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/22/Golang/" class="article-date">
+  <time class="dt-published" datetime="2024-09-22T05:17:33.000Z" itemprop="datePublished">2024-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/22/Golang/">Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 0 0 30%;">
+    <img src="https://www.runoob.com/wp-content/uploads/2015/06/go128.png" alt="" style="max-width: 100%;">
+  </div>
+  <div style="flex: 1; padding-left: 10px;">
+    <p><em>Go 是一个开源的编程语言，它能让构造简单、可靠且高效的软件变得容易。<br>Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。 对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</em></p>
+  </div>
+</div>
+
+
+<p>除了OOP外，近年出现了一些小众的编程哲学，Go语言对这些思想亦有所吸收。例如，Go语言接受了函数式编程的一些想法，支持匿名函数与闭包。再如，Go语言接受了以Erlang语言为代表的面向消息编程思想，支持goroutine和通道，并推荐使用消息而不是共享内存来进行并发编程。总体来说，Go语言是一个非常现代化的语言，精小但非常强大。</p>
+<h3 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h3><ul>
+<li>Go 语言最主要的特性<br>自动垃圾回收 更丰富的内置类型 函数多返回值 错误处理 匿名函数和闭包 类型和接口 并发编程 反射 语言交互性<br><a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">https://www.runoob.com/go/go-tutorial.html</a></li>
+<li>Go 和 Java 有很多共同之处<br>C 系列 (强类型，括号) 静态类型 垃圾收集 内存安全 (nil 引用，运行时边界检查) 变量总是初始化 (zero&#x2F;nil&#x2F;false)<br>方法 接口 类型断言 (实例) 反射</li>
+<li>Go 与 Java 的不同之处<br>代码程序直接编译成机器码，没有 VM<br>静态链接二进制 内存布局控制 函数值和词法闭包 内置字符串 (UTF-8) 内置泛型映射和数组&#x2F;片段 内置并发 </li>
+<li>Go 特意去掉了大量的特性<br>没有类 没有构造器 没有继承 没有 final 没有异常 没有注解 没有自定义泛型</li>
+<li>为 Java 程序员准备的 Go 语言入门 PPT <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/go-for-java-programmers.html">https://www.runoob.com/w3cnote/go-for-java-programmers.html</a></li>
+</ul>
+<h3 id="Go-项目构建"><a href="#Go-项目构建" class="headerlink" title="Go 项目构建"></a>Go 项目构建</h3><ul>
+<li>Module：是 Go 语言用于管理项目依赖和版本的一种机制。go.mod 文件定义了模块的元数据和依赖关系。<br><code>go.mod</code> 文件是声明依赖的地方，记录了项目的依赖关系。如果项目中没有 go.mod，需要先运行 <code>go mod init</code> 来初始化模块。然后使用 <code>go get</code>（或其他命令）来引入依赖，下载到本地缓存（<code>~/go/pkg/mod</code>），并更新 go.mod，添加对应的模块路径和版本要求。</li>
+<li>Makefile：是一个用于自动化构建、测试和其他任务的工具。它允许你定义复杂的构建流程和依赖关系。<br>Makefile 可以包含多个targets，例如 build、test、clean 等。make 命令会查找当前目录下的 Makefile 并执行指定的目标。<br>构建过程本身不负责引入依赖，它假定所有必要的依赖已经通过 <code>go.mod</code> 文件声明并被解析（否则报错），将编译代码并链接所有必要的依赖来生成最终的可执行文件或库文件。如果 go.mod 中声明的依赖尚未下载，Go 工具链会自动为你下载这些依赖。如果你的项目中没有 go.mod，go build 将无法正确识别和下载依赖（除非是 Go 1.11 前的版本）</li>
+<li>项目构建…<ul>
+<li>对于一个带有 <code>go.mod</code> 文件的 Go 项目，项目所需的依赖<strong>不会</strong>自动下载到本地环境中。需要手动运行 <code>go mod download</code> 或 <code>go mod tidy</code> 来下载依赖，或者直接运行 <code>go build</code> 以触发依赖的下载。</li>
+<li>如果本地已有的依赖版本与 <code>go.mod</code> 文件中声明的版本不同，Go 工具链会优先使用 <code>go.mod</code> 文件中指定的版本。Go 会从远程仓库下载与 <code>go.mod</code> 兼容的依赖版本，并将其存储在本地缓存目录（通常是 <code>~/go/pkg/mod</code>）中。</li>
+<li>Go 项目使用的依赖是项目特定的，存储在项目的本地缓存中，而不是全局的 GOPATH 或者 GOROOT 目录。这意味着不同的项目可以依赖同一库的不同版本，而不会发生冲突。其实际工作目录<code>go env</code>中的配置（看上去是如果配置全局 PATH&#x3D;%GOPATH%\bin 就使用 GOPATH 中的go.exe和pkg）</li>
+<li>对于复杂的构建流程和依赖关系，有时还需要根据 <code>Makefile</code> 文件，执行 build来构建项目。</li>
+</ul>
+</li>
+<li><strong>VSCode</strong> 连接 WSL的Linux环境 开发 Go 项目（先用ubuntu开发，后再centos验证）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">D:\Users\caifeng7&gt;wsl -l -v</span><br><span class="line">  NAME                   STATE           VERSION</span><br><span class="line">* Ubuntu                 Running         2</span><br><span class="line">  CentOS7                Running         2</span><br><span class="line"></span><br><span class="line">D:\Users\caifeng7&gt;wsl  <span class="comment"># 管理员cmd进入wsl的默认linux发行版</span></span><br><span class="line">root@caifeng7138:/mnt/d/Users/caifeng7<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+安装go到linux，配置ubuntu上的golang开发环境（centos使用yum管理包）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install golang-go</span><br></pre></td></tr></table></figure>
+将GOPATH&#x2F;bin添加到的PATH环境变量中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=$PATH:/root/go/bin&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">root@caifeng7138:/mnt/c/Windows/system32<span class="comment"># go env</span></span><br><span class="line">GO111MODULE=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOARCH=<span class="string">&#x27;amd64&#x27;</span></span><br><span class="line">GOBIN=<span class="string">&#x27;&#x27;</span>  <span class="comment"># 编译后的二进制文件的存放位置</span></span><br><span class="line">GOCACHE=<span class="string">&#x27;/root/.cache/go-build&#x27;</span>  <span class="comment"># Go编译缓存的路径</span></span><br><span class="line">GOENV=<span class="string">&#x27;/root/.config/go/env&#x27;</span></span><br><span class="line">GOEXE=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOEXPERIMENT=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOFLAGS=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOHOSTARCH=<span class="string">&#x27;amd64&#x27;</span></span><br><span class="line">GOHOSTOS=<span class="string">&#x27;linux&#x27;</span></span><br><span class="line">GOINSECURE=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOMODCACHE=<span class="string">&#x27;/root/go/pkg/mod&#x27;</span></span><br><span class="line">GONOPROXY=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GONOSUMDB=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOOS=<span class="string">&#x27;linux&#x27;</span></span><br><span class="line">GOPATH=<span class="string">&#x27;/root/go&#x27;</span>  <span class="comment"># Go工作空间的根目录，用于存放你的Go项目和依赖。</span></span><br><span class="line">GOPRIVATE=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOPROXY=<span class="string">&#x27;https://proxy.golang.org,direct&#x27;</span>  <span class="comment"># 修改代理 export GOPROXY=https://goproxy.cn,direct</span></span><br><span class="line">GOROOT=<span class="string">&#x27;/usr/lib/go-1.22&#x27;</span>  <span class="comment"># Go语言的安装目录，包含了Go的编译器、标准库和工具。</span></span><br><span class="line">GOSUMDB=<span class="string">&#x27;sum.golang.org&#x27;</span></span><br><span class="line">GOTMPDIR=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOTOOLCHAIN=<span class="string">&#x27;auto&#x27;</span></span><br><span class="line">GOTOOLDIR=<span class="string">&#x27;/usr/lib/go-1.22/pkg/tool/linux_amd64&#x27;</span></span><br><span class="line">GOVCS=<span class="string">&#x27;&#x27;</span></span><br><span class="line">GOVERSION=<span class="string">&#x27;go1.22.2&#x27;</span></span><br><span class="line">GCCGO=<span class="string">&#x27;gccgo&#x27;</span></span><br><span class="line">GOAMD64=<span class="string">&#x27;v1&#x27;</span></span><br><span class="line">AR=<span class="string">&#x27;ar&#x27;</span></span><br><span class="line">CC=<span class="string">&#x27;gcc&#x27;</span></span><br><span class="line">CXX=<span class="string">&#x27;g++&#x27;</span></span><br><span class="line">CGO_ENABLED=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">GOMOD=<span class="string">&#x27;/dev/null&#x27;</span></span><br><span class="line">GOWORK=<span class="string">&#x27;&#x27;</span></span><br><span class="line">CGO_CFLAGS=<span class="string">&#x27;-O2 -g&#x27;</span></span><br><span class="line">CGO_CPPFLAGS=<span class="string">&#x27;&#x27;</span></span><br><span class="line">CGO_CXXFLAGS=<span class="string">&#x27;-O2 -g&#x27;</span></span><br><span class="line">CGO_FFLAGS=<span class="string">&#x27;-O2 -g&#x27;</span></span><br><span class="line">CGO_LDFLAGS=<span class="string">&#x27;-O2 -g&#x27;</span></span><br><span class="line">PKG_CONFIG=<span class="string">&#x27;pkg-config&#x27;</span></span><br><span class="line">GOGCCFLAGS=<span class="string">&#x27;-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -ffil...&#x27;</span></span><br></pre></td></tr></table></figure>
+VSCode使用WSL：Remote Explorer选择linux发行版，使用Ubuntu环境打开Go项目目录： <code>/mnt/d/code/datamars-agent/</code><br>此时自动下载了项目go.mod要求的go版本? 项目中的环境变量发生变化 ↓<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@caifeng7138:/mnt/d/code/datamars-agent<span class="comment"># go env</span></span><br><span class="line"><span class="comment"># 个人用户的Go工作空间。用于存放Go项目和依赖</span></span><br><span class="line">GOPATH=<span class="string">&#x27;/root/go&#x27;</span>  </span><br><span class="line"><span class="comment"># Go的安装目录，指向通过模块系统安装的一个特定版本（1.22.4），而不是 /usr/lib/go(全局路径)</span></span><br><span class="line">GOROOT=<span class="string">&#x27;/root/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.4.linux-amd64&#x27;</span></span><br><span class="line"><span class="comment"># Go工具链的安装目录</span></span><br><span class="line">GOTOOLDIR=<span class="string">&#x27;/root/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.4.linux-amd64/pkg/tool/linux_amd64&#x27;</span>  </span><br><span class="line">GOVERSION=<span class="string">&#x27;go1.22.4&#x27;</span></span><br><span class="line"><span class="comment"># Go模块缓存的路径</span></span><br><span class="line">GOMOD=<span class="string">&#x27;/mnt/d/code/datamars-agent/go.mod&#x27;</span>  </span><br></pre></td></tr></table></figure>
+在WSL中，安装protoc，添加到PATH；<br>执行make，通过makefile中的配置构建项目，编译proto文件，生成Go，grpc程序<br><strong>Protobuf</strong> 是一种由 Google 开发的用于序列化结构化数据的语言中立、平台中立的可扩展机制，Protoc 可以将 定义了数据结构和序列化规则的 .proto 文件编译生成包括 Go，Java的多种语言。用于grpc请求的数据同步。。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/09/22/Golang/" data-id="cmnun42120006m0v51yfgcse2" data-title="Golang" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-理财" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/08/18/%E7%90%86%E8%B4%A2/" class="article-date">
@@ -6471,79 +6545,11 @@ Api方法中：XXXRequest、XXXResponse
 
 
   
-    <article id="post-Pytorch_Colab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/07/10/Pytorch_Colab/" class="article-date">
-  <time class="dt-published" datetime="2023-07-10T03:58:39.000Z" itemprop="datePublished">2023-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/07/10/Pytorch_Colab/">Pytorch</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>PyTorch是一个开源的Python机器学习库，基于Torch库，底层由C++实现，应用于人工智能领域，如计算机视觉和自然语言处理。它最初由Meta Platforms的人工智能研究团队开发，现在属于Linux基金会的一部分。它是在修改后的BSD许可证下发布的自由及开放源代码软件。</p>
-<p>许多深度学习软件都是基于 PyTorch 构建的，包括特斯拉自动驾驶、Uber的Pyro、Hugging Face的Transformers、 PyTorch Lightning。</p>
-<h3 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard"></a>TensorBoard</h3><p>打开localhost:6006，访问TensorBoard，查看TensorFlow模型的图形、损失函数、精度等信息。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;xxx&quot;</span>)               <span class="comment"># 在文件夹里新建一个abc文件夹</span></span><br><span class="line">writer.add_scalar(<span class="string">&quot;y=2i&quot;</span>, <span class="number">2</span>*i, i)           <span class="comment"># 加坐标</span></span><br><span class="line">writer.add_images(<span class="string">&quot;test_data&quot;</span>, imgs, step)  <span class="comment"># 加图</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pycharm -&gt; Terminal</span></span><br><span class="line">PS C:\Users\cf\Documents\Visual Studio Code\Python\learn_pytorch&gt; tensorboard --logdir=<span class="string">&quot;xxx&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="nn-Module"><a href="#nn-Module" class="headerlink" title="nn.Module"></a>nn.Module</h3><p>基本神经网络</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">cf</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__int__</span>(<span class="params">self</span>):   <span class="built_in">super</span>().__init__()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):      <span class="comment"># 必须重写forword()</span></span><br><span class="line">        output = <span class="built_in">input</span> + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
-
-<p><strong>输入层（Input Layer）：</strong>接受原始图像或数据作为输入。<br><strong>卷积层（Convolutional Layer）：</strong>进行特征提取。通过卷积操作，利用卷积核（或过滤器）从输入图像中提取特定的特征，如边缘、纹理等。卷积核会在整个图像上滑动，产生特征图。<br>卷积核的输入通道数与输入数据的通道数对应，卷积核的输出通道数与卷积核的数量对应。<br>卷积操作在神经网络中扮演着关键的角色，它通过特征提取、参数共享、空间局部性和参数数量控制等方面，使得卷积神经网络成为图像处理和计算机视觉任务中非常有效的工具。<br><strong>池化层（Pooling Layer）</strong>【最大ceil, 最小floor】：降采样和减少参数，避免过拟合。池化操作对特征图进行降采样，减少特征图的尺寸，并保留重要的特征信息。常用的池化方式为最大池化（Max Pooling）和平均池化（Average Pooling）。<br><strong>非线性激活：</strong>线性变换（如全连接层）在神经网络中只能实现线性映射，而现实世界中的数据和任务通常都是非线性的。为了解决这个问题，需要在网络中引入非线性激活函数，以增加网络的表达能力和灵活性。 给网络中引入非线性特征，以训练出符合各种曲线的模型。<br>·ReLU（Rectified Linear Unit）：f(x) &#x3D; max(0, x)，它在x大于0时是线性的，小于等于0时为0，能够有效地解决梯度消失问题。<br>·Sigmoid：f(x) &#x3D; 1 &#x2F; (1 + exp(-x))，它将输入映射到[0, 1]区间，用于二分类问题。<br>·Tanh：f(x) &#x3D; (exp(x) - exp(-x)) &#x2F; (exp(x) + exp(-x))，它将输入映射到[-1, 1]区间，也用于解决梯度消失问题。<br><strong>正则化层（Regularization Layer）：</strong>正则化层用于防止过拟合。过拟合是指模型在训练数据上表现良好，但在未见过的测试数据上表现较差的现象。正则化层通过添加一些额外的约束或惩罚项来控制模型的复杂度，以避免过度拟合。<br>·L1正则化：将参数的绝对值加入到损失函数中，使得模型倾向于产生稀疏的权重矩阵。<br>·L2正则化：将参数的平方加入到损失函数中，限制权重的大小，防止权重过大造成过拟合。<br>·Dropout正则化：随机在训练过程中丢弃一部分神经元，减少神经元之间的共适应性，提高泛化能力。<br><strong>全连接层（Fully Connected Layer）：</strong>将特征矩阵集合向量化。与卷积层不同，全连接层的神经元排成一列，这些神经元与前一层神经元通过权值互连，呈全连接结构。全连接层的层数以及每层神经元数并不固定。通常层数越高，神经元数目越少。<br>功能：进行分类。在卷积和池化层之后，通过全连接层将得到的特征映射转换为一维向量，并通过一系列的全连接神经元进行分类操作，将输入映射到对应的类别概率。<br><strong>输出层（Output Layer）：</strong>经过多层特征提取后，最后一层输出层可视为分类器，预测输入样本的类别。通常使用Softmax函数将全连接层的输出转换为类别概率分布，确定输入图像最可能属于哪个类别。<br><img src="https://leo710aka.github.io/bk/nn.png"></p>
-<p>Sequential</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">self.model1 = Sequential(</span><br><span class="line">            Conv2d(in_channels=<span class="number">3</span>, out_channels=<span class="number">32</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(kernel_size=<span class="number">2</span>, ceil_mode=<span class="literal">True</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),     <span class="comment"># 二维卷积层</span></span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(<span class="number">1024</span>, <span class="number">64</span>),</span><br><span class="line">            Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
-
-<p>一次训练+验证：准备数据 - 加载数据 - 准备模型 - 设置损失函数 - 设置优化器 - 开始训练 - 验证 - 聚合展示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):  <span class="comment"># 共20轮训练</span></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> dataloader:  <span class="comment"># 对数据进行一轮学习</span></span><br><span class="line">        imgs, targets = data</span><br><span class="line">        output = fc(imgs)</span><br><span class="line">        result_loss = loss(output, targets)  <span class="comment"># 计算损失</span></span><br><span class="line">        optim.zero_grad()  <span class="comment"># 优化器中，梯度置0</span></span><br><span class="line">        result_loss.backward()  <span class="comment"># 损失函数求梯度，反向传播</span></span><br><span class="line">        optim.step()  <span class="comment"># 优化器，优化卷积核参数</span></span><br><span class="line">        running_loss = running_loss + result_loss</span><br><span class="line">    <span class="built_in">print</span>(running_loss)</span><br></pre></td></tr></table></figure>
-
-<h1 id="Colab"><a href="#Colab" class="headerlink" title="Colab"></a>Colab</h1><p><strong>Google Colab</strong>是谷歌提供的免费<strong>Jupyter</strong>笔记本环境，不需要配置环境（本质是<strong>Linux虚拟机</strong>），可以加!运行bash命令。提供一定免费的GPU，可以跑 Tensorflow、Pytorch 等深度学习框架。Google Colab提供的资源量是受限制的，所有 Colab 运行时都会在一段时间后重置。Colab Pro 订阅者的使用量仍会受到限制，但相比非订阅者可享有的限额要多出大约一倍。Colab Pro+ 订阅者还可获享更高的稳定性。</p>
-<p>使用Colab训练比较重要的是处理好路径的关系，找到哪个文件在哪里，文件夹的执行目录在哪里，就可以比较简单的运行起程序了，不过Colab确实存在断线问题，我们需要时刻保存好文件，因此我将权值直接保存在云盘上，这样也不会丢失。<br><strong>12h</strong>的限额比较难受，有时候没到时间就限额了。因此需要及时保存训练的模型，长时间不用gpu的情况下也会被限额（Pro版也一样），因此训练完建议及时改成gpu或停止。</p>
-<h3 id="Google-Drive"><a href="#Google-Drive" class="headerlink" title="Google Drive"></a>Google Drive</h3><p>谷歌云盘，谷歌云端硬盘。免费用户可以获取15G的空间，付费用户根据套餐可以选择最大20TB的储存空间。<br><strong>虚拟机根目录为 &#x2F;content，谷歌云盘地址为 &#x2F;content&#x2F;Drive&#x2F;MyDrive</strong></p>
-<h3 id="深度学习库的下载"><a href="#深度学习库的下载" class="headerlink" title="深度学习库的下载"></a>深度学习库的下载</h3><p>使用git clone指令进行下载，然后通过cd指令将根目录转移到了xx文件夹。<strong>此时根目录为 &#x2F;content&#x2F;xx</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!git <span class="built_in">clone</span> https://github.com/xx/xx.git</span><br><span class="line">%<span class="built_in">cd</span> xx/</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据集与预训练权重的上传"><a href="#数据集与预训练权重的上传" class="headerlink" title="数据集与预训练权重的上传"></a>数据集与预训练权重的上传</h3><p>数据集压缩，上传Google Drive，在colab中打开的jupyter文件（等于打开了一个Linux<strong>虚拟机本地</strong>）中挂载Google Drive；将数据集从Drive中复制到当前根目录，解压。<strong>直接将数据集布置在谷歌云盘会导致大量的云盘数据传输，且谷歌云盘和虚拟机之间存在通信带宽，速度远不及本地(虚拟机)文件，因此需要将数据集复制解压到本地(虚拟机)里进行处理。</strong> (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_44791964/article/details/123659637?spm=1001.2014.3001.5501</a>)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">cp</span> /content/Drive/MyDrive/xx.zip ./</span><br><span class="line">!unzip ./xx.zip -d ./</span><br></pre></td></tr></table></figure>
-<p>预训练权重存放在 &#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx，然后创建logs和model_data。model_data放置的是预训练文件,logs放置的是网络训练过程中产生的权值。</p>
-<h3 id="保存路径设置"><a href="#保存路径设置" class="headerlink" title="保存路径设置"></a>保存路径设置</h3><p>如果将权值保存在当前根目录下的logs文件夹（&#x2F;content&#x2F;xx&#x2F;logs），发生断线网络就白训练了，浪费大量的时间。<br>可以将google云盘软连接到根目录下，那么即使断线，权值也保留在云盘中。<br>本文之前在云盘中创建了logs文件夹（&#x2F;content&#x2F;Drive&#x2F;MyDrive&#x2F;Models&#x2F;xx&#x2F;logs），将该文件夹链接到当前根目录下的logs文件夹中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="built_in">ln</span> -s /content/Drive/MyDrive/Models/xx/logs logs   <span class="comment"># 即/content/xx/logs</span></span><br></pre></td></tr></table></figure>
-<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>1、标注文件的处理<br>2、训练文件的处理<br>1）预训练文件的使用。<br>2）保存周期的设置，这个设置是因为云盘的存储空间有限，每代都保存会导致存储空间满出。<br>3、开始训练：!python train.py</p>
-<h3 id="常用-colab-命令"><a href="#常用-colab-命令" class="headerlink" title="常用 colab 命令"></a>常用 colab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import shutil</span><br><span class="line">shutil.copytree(<span class="string">&quot;复制的文件夹&quot;</span>,<span class="string">&quot;目标路径+目标路径下的文件夹&quot;</span>)  <span class="comment"># 复制路径下的文件夹</span></span><br><span class="line">shutil.copytree(<span class="string">&quot;/content/drive/My Drive/channel&quot;</span>,<span class="string">&quot;/content/drive/My Drive/channel10&quot;</span>) <span class="comment"># ex</span></span><br><span class="line">shutil.rmtree(<span class="string">&quot;移除路径下的文件夹&quot;</span>) <span class="comment"># 移除路径下的文件夹</span></span><br><span class="line">shutil.copy(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>) <span class="comment"># 复制单个文件的命令  同上</span></span><br><span class="line"><span class="comment"># 删除单个文件可以右键删除</span></span><br><span class="line">!<span class="built_in">pwd</span> <span class="comment"># 显示当前目录, /content 为根目录</span></span><br><span class="line">import os </span><br><span class="line">os.chdir(<span class="string">&quot;/content/federated-learning&quot;</span>) <span class="comment"># 变更根目录操作</span></span><br><span class="line">!python <span class="string">&quot;/content/federated-learning/main_nn.py&quot;</span> <span class="comment"># 运行python 文件</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/10/Pytorch_Colab/" data-id="cmnun421h000jm0v575p10yxk" data-title="Pytorch" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -6576,7 +6582,7 @@ Api方法中：XXXRequest、XXXResponse
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2027/07/">July 2027</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/12/">December 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2046/08/">August 2046</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2027/07/">July 2027</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">November 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">April 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">January 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">December 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
     </div>
   </div>
 
@@ -6601,6 +6607,10 @@ Api方法中：XXXRequest、XXXResponse
           </li>
         
           <li>
+            <a href="/2026/11/11/%E7%A4%BE%E6%8B%9B2027/">社 招 2027</a>
+          </li>
+        
+          <li>
             <a href="/2026/04/11/Maven/">Maven</a>
           </li>
         
@@ -6622,10 +6632,6 @@ Api方法中：XXXRequest、XXXResponse
         
           <li>
             <a href="/2024/09/22/InfluxDB/">InfluxDB</a>
-          </li>
-        
-          <li>
-            <a href="/2024/09/22/Golang/">Golang</a>
           </li>
         
       </ul>
