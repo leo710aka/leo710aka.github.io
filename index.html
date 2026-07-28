@@ -712,14 +712,14 @@
 <li>线程导致<br>找出排查cpu高的线程对应的方法：<br>1）top。找出对应的高cpu的pid<br>2）top -Hp pid。打印出pid里的线程，找出对应的cpu高的线程tid<br>3）jstack -l pid &gt; jstack.txt。打印对应的进程堆栈信息<br>4）printf “%x\n” <TID>。找出对应16进制的线程id<br>5）vi jstack.txt。搜索第4步的线程id，看其方法</li>
 <li>机器资源不足</li>
 </ol>
-<h4 id="2025-11-30-Zookeeper磁盘占用过高的SOP"><a href="#2025-11-30-Zookeeper磁盘占用过高的SOP" class="headerlink" title="2025.11.30 Zookeeper磁盘占用过高的SOP"></a>2025.11.30 Zookeeper磁盘占用过高的SOP</h4><ol>
+<h4 id="2025-11-30-CMDB-Zookeeper磁盘占用过高的SOP"><a href="#2025-11-30-CMDB-Zookeeper磁盘占用过高的SOP" class="headerlink" title="2025.11.30 CMDB Zookeeper磁盘占用过高的SOP"></a>2025.11.30 CMDB Zookeeper磁盘占用过高的SOP</h4><ol>
 <li>告警确认<br>• 监控告警内容：磁盘使用率&gt;80%<br>• 初步排查：通过跳板机连接CMDB主机（FinalShell + SSH）逐层定位，确认Zookeeper目录为占用源头（如&#x2F;apps&#x2F;zookeeper&#x2F;v2）</li>
 <li>清理旧日志，并且再次运行 df -h 确认使用率下降。告警解除。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 确认分区使用率</span></span><br><span class="line"> 97    2025-07-18 17:38:17   <span class="built_in">df</span> -h</span><br><span class="line"> <span class="comment"># 找到top5磁盘占用的子目录</span></span><br><span class="line"> 98    2025-07-18 17:38:19   <span class="built_in">du</span> -sh /apps/* | <span class="built_in">sort</span> -rh | <span class="built_in">head</span> -n 5</span><br><span class="line"> <span class="comment"># 逐步排查子目录 tab自动补齐路径</span></span><br><span class="line"> 99    2025-07-18 17:38:29   <span class="built_in">du</span> sh /apps/svr/*</span><br><span class="line">100    2025-07-18 17:38:38   <span class="built_in">du</span> sh /apps/svr/zookeeper-3.4.6/*</span><br><span class="line">101    2025-07-18 17:38:44   <span class="built_in">cd</span> /apps/svr/zookeeper-3.4.6/data</span><br><span class="line">106    2025-07-18 17:39:16   <span class="built_in">du</span> -sh *</span><br><span class="line">107    2025-07-18 17:39:22   <span class="built_in">cd</span> version-2/</span><br><span class="line"><span class="comment"># 分析日志文件（每日日志61MB积累2个月未清理）</span></span><br><span class="line">108    2025-07-18 17:39:26   ll</span><br><span class="line"><span class="comment"># 删除两个月前的日志 检查效果</span></span><br><span class="line">109    2025-07-18 17:39:52   find . -<span class="built_in">type</span> f -name <span class="string">&quot;snapshot.*&quot;</span> -mtime +60 -<span class="built_in">exec</span> <span class="built_in">rm</span> -f &#123;&#125; \;</span><br><span class="line">110    2025-07-18 17:39:57   ll</span><br><span class="line">112    2025-07-18 17:40:03   <span class="built_in">df</span> -h</span><br><span class="line">123    2025-07-20 21:50:41   <span class="built_in">history</span></span><br></pre></td></tr></table></figure></li>
 <li>Zookeeper日志管理优化<br>配置自动清理：zoo.cfg中启用参数 autopurge.purgeInterval&#x3D;24（每24h清理），autopurge.snapRetainCount&#x3D;7（保留7个快照）<br>日志轮转，集成Logrotate：配置日志按大小&#x2F;时间切割并压缩：<code>/etc/logrotate.d/zookeeper</code> 中设置 daily, rotate 30, compress<br>自动化清理脚本：编写定时任务，每月清理旧日志（保留30天）  &#x3D;&gt;  0 3 * * * find &#x2F;apps&#x2F;zookeeper&#x2F;version-2 -mtime +30 -delete</li>
 <li>为什么df看到 <code>/apps</code> 比 <code>/</code> 还大?<br>逻辑上，层级上，所有目录都在根目录&#x2F;下面，包括&#x2F;apps。<br>但&#x2F;apps很可能是一个独立的「挂载点」(单独分区)。可以理解成电脑有一块系统盘挂在&#x2F;（系统分区，空间小），又插了一块数据盘挂在&#x2F;apps（数据分区，空间大），它们物理上是两块盘。可以通过 mount | grep apps 进行验证。。</li>
 </ol>
-<h4 id="2026-6-12-data-center微服务单日志持续写入60G"><a href="#2026-6-12-data-center微服务单日志持续写入60G" class="headerlink" title="2026.6.12 data-center微服务单日志持续写入60G"></a>2026.6.12 data-center微服务单日志持续写入60G</h4><ol>
-<li>现象：线上 Java 应用写入单个日志文件，持续膨胀、磁盘使用率告警，日志内容可清理</li>
+<h4 id="2026-6-12-CMDB-微服务单日志持续写入60G"><a href="#2026-6-12-CMDB-微服务单日志持续写入60G" class="headerlink" title="2026.6.12 CMDB 微服务单日志持续写入60G"></a>2026.6.12 CMDB 微服务单日志持续写入60G</h4><ol>
+<li>现象：data-center 服务写入单个日志文件，持续膨胀、磁盘使用率告警，日志内容可清理</li>
 <li>OS 核心概念<ul>
 <li>文件名：存在目录里，只是一个「名字标签」，用来让人 &#x2F; 命令行找到文件&#x2F;inode，不是句柄。</li>
 <li>inode：文件的本体，存真实数据、权限、大小、磁盘块地址，数据真正存在这里。</li>
@@ -737,9 +737,9 @@
 <strong>优点：</strong> <code>mv</code> 瞬间完成，不占额外磁盘空间，无翻倍风险， 适合超大日志文件场景<br><strong>缺点：</strong> 脚本复杂，<code>kill -HUP</code> 到 Logback 真正重新 open 之间有极短窗口，新日志仍写入备份文件（inode-A）</li>
 <li>Java日志系统<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">业务代码</span><br><span class="line">  log.info(...)        ← 调用 SLF4J 接口</span><br><span class="line">       ↓</span><br><span class="line">    SLF4J              ← 门面，转发给具体实现</span><br><span class="line">       ↓</span><br><span class="line">    Logback            ← 实际写文件，读 logback-spring.xml 配置</span><br><span class="line">       ↓</span><br><span class="line">  data-center-1.0.log  ← 磁盘文件</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="CMDB消费视图偶现API-Runtimeout"><a href="#CMDB消费视图偶现API-Runtimeout" class="headerlink" title="CMDB消费视图偶现API Runtimeout"></a>CMDB消费视图偶现API Runtimeout</h4><p>1、调cmdb域名<a target="_blank" rel="noopener" href="http://cmdbuat.midea.com/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9Cthe">http://cmdbuat.midea.com/ops-data-access/view/direct，偶现“the</a> upstream server is timing out”，nginx报错但不一定其本身出错<br>2、调网关<a target="_blank" rel="noopener" href="http://10.16.115.110:7004/ops-data-access/view/direct%EF%BC%8C">http://10.16.115.110:7004/ops-data-access/view/direct，</a> 偶现“ZuulException”并且时间都是1min，怀疑是下游ops-data-access服务出错<br>3、直接调服务ip:port上的数据连接器接口：<a target="_blank" rel="noopener" href="http://10.16.64.39:7119/view/direct%EF%BC%8C">http://10.16.64.39:7119/view/direct，</a> 两个ip 发现其中这一个不行，怀疑是这个节点服务挂了&#x2F;进程起来了但服务没起来，重启nohup java…，jps检查<br>&#x3D;》思路：CMDB组件很多，逐步排查，一般是提供接口的服务本身出错，如果是nginx&#x2F;网关出错的影响面会更大</p>
+<h4 id="CMDB-消费视图偶现API-Runtimeout"><a href="#CMDB-消费视图偶现API-Runtimeout" class="headerlink" title="CMDB 消费视图偶现API Runtimeout"></a>CMDB 消费视图偶现API Runtimeout</h4><p>1、调cmdb域名<a target="_blank" rel="noopener" href="http://cmdbuat.midea.com/ops-data-access/view/direct%EF%BC%8C%E5%81%B6%E7%8E%B0%E2%80%9Cthe">http://cmdbuat.midea.com/ops-data-access/view/direct，偶现“the</a> upstream server is timing out”，nginx报错但不一定其本身出错<br>2、调网关<a target="_blank" rel="noopener" href="http://10.16.115.110:7004/ops-data-access/view/direct%EF%BC%8C">http://10.16.115.110:7004/ops-data-access/view/direct，</a> 偶现“ZuulException”并且时间都是1min，怀疑是下游ops-data-access服务出错<br>3、直接调服务ip:port上的数据连接器接口：<a target="_blank" rel="noopener" href="http://10.16.64.39:7119/view/direct%EF%BC%8C">http://10.16.64.39:7119/view/direct，</a> 两个ip 发现其中这一个不行，怀疑是这个节点服务挂了&#x2F;进程起来了但服务没起来，重启nohup java…，jps检查<br>&#x3D;》思路：CMDB组件很多，逐步排查，一般是提供接口的服务本身出错，如果是nginx&#x2F;网关出错的影响面会更大</p>
 <p>todo：网关，nginx 理解，，</p>
-<h4 id="CMDB-Kafka重启后消息堆积"><a href="#CMDB-Kafka重启后消息堆积" class="headerlink" title="CMDB-Kafka重启后消息堆积"></a>CMDB-Kafka重启后消息堆积</h4><p>本次故障现象：Kafka Topic 消息持续堆积，写入正常、消费停滞。排查链路：</p>
+<h4 id="CMDB-Kafka重启后消息堆积"><a href="#CMDB-Kafka重启后消息堆积" class="headerlink" title="CMDB Kafka重启后消息堆积"></a>CMDB Kafka重启后消息堆积</h4><p>本次故障现象：Kafka Topic 消息持续堆积，写入正常、消费停滞。排查链路：</p>
 <ol>
 <li>锁定异常 Topic，确认生产端写入正常（无生产报错、流量正常），判定问题出在消费端。</li>
 <li>溯源 Topic 的生产、消费对应业务 Java 服务，定位消费服务。</li>
@@ -758,12 +758,12 @@
 <li>查 Topic 分区：分区 Leader 异常、ISR 缺失、副本同步失败</li>
 <li>兜底排查：消息脏数据、序列化异常、批量消费阻塞，持续观察 10–20 分钟 Lag 曲线</li>
 </ol>
-<h4 id="2026-6-7-Kafka偶发性消息堆积"><a href="#2026-6-7-Kafka偶发性消息堆积" class="headerlink" title="2026.6.7 Kafka偶发性消息堆积"></a>2026.6.7 Kafka偶发性消息堆积</h4><ol>
+<h4 id="2026-6-7-CMDB-Kafka偶发性消息堆积"><a href="#2026-6-7-CMDB-Kafka偶发性消息堆积" class="headerlink" title="2026.6.7 CMDB Kafka偶发性消息堆积"></a>2026.6.7 CMDB Kafka偶发性消息堆积</h4><ol>
 <li>现象：每周日2:30出现某topic消息堆积，1h后开始下降恢复到正常</li>
 <li>根因：CMDB主机采集入库定时任务触发大量CMDB消息订阅回调，Kafka消息生产激增，但该topic的6分区只有1消费者组的1个消费实例在消费，生产 &gt; 消费 → 堆积</li>
 <li>处理：虽然堆积激增，但最终能够消费掉，并且broker磁盘容量健康，无需调整消费示例，可以调高告警条件→消息堆积数&gt;1000k</li>
 </ol>
-<h4 id="2026-6-22-CMDB-MongoDB实例异常重启排查SOP"><a href="#2026-6-22-CMDB-MongoDB实例异常重启排查SOP" class="headerlink" title="2026.6.22 CMDB-MongoDB实例异常重启排查SOP"></a>2026.6.22 CMDB-MongoDB实例异常重启排查SOP</h4><ol>
+<h4 id="2026-6-22-CMDB-MongoDB实例异常重启排查SOP"><a href="#2026-6-22-CMDB-MongoDB实例异常重启排查SOP" class="headerlink" title="2026.6.22 CMDB MongoDB实例异常重启排查SOP"></a>2026.6.22 CMDB MongoDB实例异常重启排查SOP</h4><ol>
 <li>登录崩溃节点，找到对应时间段的日志文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /apps/logs/mongodb/archive/</span><br></pre></td></tr></table></figure>
 确认是否为进程崩溃 <code>Got signal: 6 (Aborted)</code>（而非被外部 kill - <code>Got signal: 15 (Terminated)</code>）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;Got signal&quot;</span> /apps/logs/mongodb/archive/mongod30000.log.20XX-XX-XXT17-00-0X</span><br></pre></td></tr></table></figure></li>
 <li>提取崩溃前后日志窗口，定位最严重的慢查询<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 替换为实际告警时间，格式：T小时:分</span></span><br><span class="line">grep <span class="string">&quot;2026-06-21T07:0[0-1]&quot;</span> /apps/logs/mongodb/archive/mongod30000.log.2026-06-21T17-00-01 &gt; /tmp/crash_window.log</span><br><span class="line"><span class="built_in">cat</span> /tmp/crash_window.log</span><br></pre></td></tr></table></figure>
@@ -781,7 +781,7 @@
 <li>ops-syn 对比基线  ？？？<br>ops-syn RT 正常 → 问题在本服务（并发量&#x2F;批量条数太多）<br>ops-syn RT 升高 → 问题在 ops-syn 或其 MongoDB</li>
 <li>定位元凶调用方<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MongoDB 审计表，找大批量写入请求</span></span><br><span class="line">db.<span class="property">convertViewRecording</span>.<span class="title function_">find</span>(&#123;</span><br><span class="line">    <span class="attr">createtime</span>: &#123; <span class="attr">$gte</span>: <span class="string">&quot;2026-06-23 15:00:00&quot;</span>, <span class="attr">$lte</span>: <span class="string">&quot;2026-06-23 16:30:00&quot;</span> &#125;,</span><br><span class="line">    <span class="attr">type</span>: <span class="number">0</span>   <span class="comment">// 0=写入</span></span><br><span class="line">&#125;, &#123; <span class="attr">sysName</span>:<span class="number">1</span>, <span class="attr">number</span>:<span class="number">1</span>, <span class="attr">createtime</span>:<span class="number">1</span>, <span class="attr">endtime</span>:<span class="number">1</span> &#125;)</span><br><span class="line">.<span class="title function_">sort</span>(&#123; <span class="attr">number</span>: -<span class="number">1</span> &#125;)  <span class="comment">// 按数据量排序</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="20260623-服务内存异常事故报告"><a href="#20260623-服务内存异常事故报告" class="headerlink" title="20260623 服务内存异常事故报告"></a>20260623 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
+<h4 id="20260623-CMDB-服务内存异常事故报告"><a href="#20260623-CMDB-服务内存异常事故报告" class="headerlink" title="20260623 CMDB 服务内存异常事故报告"></a>20260623 CMDB 服务内存异常事故报告</h4><p><strong>事故时间</strong>：2026-06-23 02:30 ~ 04:50<br><strong>影响服务</strong>：data-center（CMDB 数据中心服务）<br><strong>事故等级</strong>：P1（服务中断）  </p>
 <ol>
 <li>事故概述<ol>
 <li>问题描述<br>   在执行日志文件清空操作时，触发系统内存暴涨导致 Swap 打满，引发 Swap 抖动，最终导致 data-center 服务 OOM 崩溃。</li>
@@ -836,18 +836,23 @@
 </ol>
 </li>
 <li>根因分析<ul>
-<li>直接原因——<strong>错误的日志清空方式</strong>：使用 <code>cat /dev/null &gt; data-center-1.0.log</code> 清空 50GB 日志文件。<br> ✅ 正确：只修改文件元数据，不触发内存暴涨，用 <code>truncate -s 0 data-center-1.0.log</code> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">**触发机制**：</span><br><span class="line">1. `cat /dev/null &gt;` 使用 `O_TRUNC` 标志截断文件</span><br><span class="line">2. Linux 内核需要处理 50GB 文件的所有脏页（dirty pages）</span><br><span class="line">3. 触发强制刷盘，瞬间占用大量内存作为 I/O buffer</span><br><span class="line">4. 内存不足，内核启动 LRU（Least Recently Used）回收算法</span><br><span class="line">5. **将 Java 服务的 7GB 活跃数据错误地换出到 Swap**（本应只换出冷数据）</span><br></pre></td></tr></table></figure></li>
-<li>根本原因——<strong>系统内存配置接近极限，长期依赖 Swap 维持运行</strong></li>
-<li><strong>正常状态下的内存分配（稳态）</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">物理内存 13.65GB（91% 使用率）：</span><br><span class="line">  Java 活跃堆 + 堆外内存:  10GB</span><br><span class="line">  ilogtail（活跃部分）:    2.5GB</span><br><span class="line">  OS + buff/cache:        1.15GB</span><br><span class="line"></span><br><span class="line">Swap 1.1GB（14% 使用率）：</span><br><span class="line">  Java 老年代僵尸对象:  0.6GB  ← 几天不访问一次（冷数据）</span><br><span class="line">  ilogtail 历史缓存:    0.3GB  ← 已归档日志（冷数据）</span><br><span class="line">  其他冷数据:           0.2GB</span><br><span class="line"></span><br><span class="line">────────────────────────────</span><br><span class="line">实际总需求: 13.65 + 1.1 = 14.75GB ✓</span><br></pre></td></tr></table></figure>
+<li>直接原因——<strong>错误的日志清空方式</strong>：使用 <code>cat /dev/null &gt; data-center-1.0.log</code> 清空 50GB 日志文件。<ul>
+<li>✅ 正确：只修改文件元数据，不触发内存暴涨，用 <code>truncate -s 0 data-center-1.0.log</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">**触发机制**：</span><br><span class="line">1. `cat /dev/null &gt;` 使用 `O_TRUNC` 标志截断文件</span><br><span class="line">2. Linux 内核需要处理 50GB 文件的所有脏页（dirty pages）</span><br><span class="line">3. 触发强制刷盘，瞬间占用大量内存作为 I/O buffer</span><br><span class="line">4. 内存不足，内核启动 LRU（Least Recently Used）回收算法</span><br><span class="line">5. **将 Java 服务的 7GB 活跃数据错误地换出到 Swap**（本应只换出冷数据）</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>根本原因——<strong>系统内存配置接近极限，长期依赖 Swap 维持运行</strong><ul>
+<li><strong>正常状态下的内存分配（稳态）</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">物理内存 13.65GB（91% 使用率）：</span><br><span class="line">  Java 活跃堆 + 堆外内存:  10GB</span><br><span class="line">  ilogtail（活跃部分）:    2.5GB</span><br><span class="line">  OS + buff/cache:        1.15GB</span><br><span class="line"></span><br><span class="line">Swap 1.1GB（14% 使用率）：</span><br><span class="line">  Java 老年代僵尸对象:  0.6GB  ← 几天不访问一次（冷数据）</span><br><span class="line">  ilogtail 历史缓存:    0.3GB  ← 已归档日志（冷数据）</span><br><span class="line">  其他冷数据:           0.2GB</span><br><span class="line"></span><br><span class="line">────────────────────────────</span><br><span class="line">实际总需求: 13.65 + 1.1 = 14.75GB ✓</span><br></pre></td></tr></table></figure>
  <strong>关键点</strong>：<ul>
 <li>物理内存 15GB 能够容纳所有<strong>活跃数据</strong>（13.65GB）</li>
 <li>Swap 里的 1.1GB 是<strong>内核主动换出的冷数据</strong>（性能优化，不是内存不足）</li>
 <li>这些冷数据几乎不会被访问，所以不会触发 Swap In，系统稳定</li>
 </ul>
 </li>
-<li>异常状态下的内存分配（失衡）<br> <code>cat /dev/null &gt;</code> 执行瞬间，内核处理 50GB 文件截断，Page Cache 临时占用 8GB。物理内存不足（13.65GB + 8GB &#x3D; 21.65GB &gt; 15GB），内核 LRU 算法在需要腾出 8GB 时，把刚用过几分钟的 Java&#x2F;ilogtail 数据也当”冷数据”换出——**这是”误判”**：正常只需换出 1.1GB 冷数据，这次却换出了包含 4GB 活跃对象的 7GB 数据，Swap 从 1.1GB 暴涨到 8GB。<br> 约 2 分钟后 Page Cache 处理完成，临时占用的 8GB 释放，但后遗症已经形成…</li>
-<li><strong>为什么无法自动恢复</strong>： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">异常状态（02:32 之后）：</span><br><span class="line"></span><br><span class="line">Swap 8GB 的内容：</span><br><span class="line">  Java/ilogtail 热数据:  4GB  ← 每秒被访问几十次</span><br><span class="line">  原有冷数据:           1.1GB</span><br><span class="line">  其他数据:             2.9GB</span><br><span class="line"></span><br><span class="line">问题：</span><br><span class="line">  1. 热数据被频繁访问 → 触发 Swap In → 内存又满了</span><br><span class="line">  2. 内存满了 → 再次 Swap Out → 把其他数据挤出去</span><br><span class="line">  3. 被挤出的数据又被访问 → 再次 Swap In</span><br><span class="line">  4. （无限循环）</span><br><span class="line"></span><br><span class="line">内核无法判断哪 4GB 是热数据：</span><br><span class="line">  - 需要通过访问模式慢慢学习（LRU 算法）</span><br><span class="line">  - 但学习过程本身就在触发 Swap 抖动</span><br><span class="line">  - 因为物理内存只够容纳 13.65GB，4GB 热数据无论如何会有一部分在 Swap</span><br><span class="line">  - 系统陷入&quot;永久震荡&quot;</span><br></pre></td></tr></table></figure>
- <strong>此时系统整体需求</strong>：仍然是 <strong>14.75GB</strong>（和正常状态一样）<br> <strong>但问题是</strong>：数据分布完全乱了<table>
+</ul>
+</li>
+<li>异常状态下的内存分配（失衡）<br> <code>cat /dev/null &gt;</code> 执行瞬间，内核处理 50GB 文件截断，Page Cache 临时占用 8GB。物理内存不足（13.65GB + 8GB &#x3D; 21.65GB &gt; 15GB），内核 LRU 算法在需要腾出 8GB 时，把刚用过几分钟的 Java&#x2F;ilogtail 数据也当”冷数据”换出——**这是”误判”**：正常只需换出 1.1GB 冷数据，这次却换出了包含 4GB 活跃对象的 7GB 数据，Swap 从 1.1GB 暴涨到 8GB。<br> 约 2 分钟后 Page Cache 处理完成，临时占用的 8GB 释放，但后遗症已经形成…<ul>
+<li><strong>为什么无法自动恢复</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">异常状态（02:32 之后）：</span><br><span class="line"></span><br><span class="line">Swap 8GB 的内容：</span><br><span class="line">  Java/ilogtail 热数据:  4GB  ← 每秒被访问几十次</span><br><span class="line">  原有冷数据:           1.1GB</span><br><span class="line">  其他数据:             2.9GB</span><br><span class="line"></span><br><span class="line">问题：</span><br><span class="line">  1. 热数据被频繁访问 → 触发 Swap In → 内存又满了</span><br><span class="line">  2. 内存满了 → 再次 Swap Out → 把其他数据挤出去</span><br><span class="line">  3. 被挤出的数据又被访问 → 再次 Swap In</span><br><span class="line">  4. （无限循环）</span><br><span class="line"></span><br><span class="line">内核无法判断哪 4GB 是热数据：</span><br><span class="line">  - 需要通过访问模式慢慢学习（LRU 算法）</span><br><span class="line">  - 但学习过程本身就在触发 Swap 抖动</span><br><span class="line">  - 因为物理内存只够容纳 13.65GB，4GB 热数据无论如何会有一部分在 Swap</span><br><span class="line">  - 系统陷入&quot;永久震荡&quot;</span><br></pre></td></tr></table></figure>
+<strong>此时系统整体需求</strong>：仍然是 <strong>14.75GB</strong>（和正常状态一样）<br><strong>但问题是</strong>：数据分布完全乱了<table>
 <thead>
 <tr>
 <th>状态</th>
@@ -873,7 +878,9 @@
 </tr>
 </tbody></table>
 </li>
-<li>触发链路 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat /dev/null &gt; 50GB 文件 → Page Cache 临时占用 8GB</span><br><span class="line">    ↓</span><br><span class="line">物理内存不足（13.65GB 活跃数据 + 8GB 临时 = 21.65GB &gt; 15GB）</span><br><span class="line">    ↓</span><br><span class="line">内核 LRU 算法将 7GB Java/ilogtail 活跃数据换出到 Swap（Swap: 1.1GB → 8GB）</span><br><span class="line">    ↓</span><br><span class="line">Page Cache 处理完成（2分钟后），临时 8GB 释放，但热数据已被困在 Swap 里</span><br><span class="line">    ↓</span><br><span class="line">Java/ilogtail 频繁访问 Swap 里的热数据 → si/so 同时暴涨 → Swap 抖动（Thrashing）</span><br><span class="line">    ↓</span><br><span class="line">Load 飙升 15+，Java GC 暂停从 ms 级延长到秒级</span><br><span class="line">    ↓</span><br><span class="line">OOM Killer 启动 → data-center 进程被杀</span><br></pre></td></tr></table></figure></li>
+<li>触发链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat /dev/null &gt; 50GB 文件 → Page Cache 临时占用 8GB</span><br><span class="line">    ↓</span><br><span class="line">物理内存不足（13.65GB 活跃数据 + 8GB 临时 = 21.65GB &gt; 15GB）</span><br><span class="line">    ↓</span><br><span class="line">内核 LRU 算法将 7GB Java/ilogtail 活跃数据换出到 Swap（Swap: 1.1GB → 8GB）</span><br><span class="line">    ↓</span><br><span class="line">Page Cache 处理完成（2分钟后），临时 8GB 释放，但热数据已被困在 Swap 里</span><br><span class="line">    ↓</span><br><span class="line">Java/ilogtail 频繁访问 Swap 里的热数据 → si/so 同时暴涨 → Swap 抖动（Thrashing）</span><br><span class="line">    ↓</span><br><span class="line">Load 飙升 15+，Java GC 暂停从 ms 级延长到秒级</span><br><span class="line">    ↓</span><br><span class="line">OOM Killer 启动 → data-center 进程被杀</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>处理过程<ol>
@@ -933,23 +940,23 @@
 </ol>
 </li>
 <li>整改措施<ul>
-<li>部署日志备份脚本到生产 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 crontab</span></span><br><span class="line">0 2 * * * sh /apps/devops/data-center/data-center-log-backup.sh</span><br></pre></td></tr></table></figure></li>
-<li>配置 Logback 自动按天切割 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 修改 logback-spring.xml：按天滚动 + 大小限制 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>xx.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>500MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>20GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>部署日志备份脚本到生产，配置 crontab：<code>0 2 * * * sh /apps/devops/data-center/data-center-log-backup.sh</code></li>
+<li>配置 Logback 自动按天切割：修改 logback-spring.xml 中 rollingPolicy 为按天滚动 + 大小限制</li>
 <li>升级服务器内存（到 32GB）或迁移 ilogtail（到其他机器）</li>
 </ul>
 </li>
 </ol>
-<h4 id="20260626-线程池满导致接口pending"><a href="#20260626-线程池满导致接口pending" class="headerlink" title="20260626 线程池满导致接口pending"></a>20260626 线程池满导致接口pending</h4><ol>
-<li>故障现象<br>validatePorts 接口响应持续 pending，最终超时报错；持续时间约 2 小时，有用户主动投诉，定级：<strong>P2</strong></li>
-<li>直接原因<br><code>checkPort</code> 方法使用了 7+ 个模块共享的线程池 <code>queryCmdbValidIpExecutor</code>（核心线程数 15）。高峰期其他模块的长耗时任务占满了全部 15 个核心线程，<code>checkPort</code> 的任务只能排队等待，而上层 <code>validatePorts</code> 调用的是 <code>Future.join()</code>（无超时阻塞），导致 API 处理线程永久 pending，直到客户端超时。</li>
+<h4 id="20260626-MOPS-线程池满导致接口pending"><a href="#20260626-MOPS-线程池满导致接口pending" class="headerlink" title="20260626 MOPS 线程池满导致接口pending"></a>20260626 MOPS 线程池满导致接口pending</h4><ol>
+<li>故障现象：validatePorts 接口响应持续 pending，最终超时报错；持续时间约 2 小时，有用户主动投诉，定级：<strong>P2</strong></li>
+<li>直接原因：<br><code>checkPort</code> 方法使用了 7+ 个模块共享的线程池 <code>queryCmdbValidIpExecutor</code>（核心线程数 15）。高峰期其他模块的长耗时任务占满了全部 15 个核心线程，<code>checkPort</code> 的任务只能排队等待，而上层 <code>validatePorts</code> 调用的是 <code>Future.join()</code>（无超时阻塞），导致 API 处理线程永久 pending，直到客户端超时。</li>
 <li>根本原因<br><strong>线程池设计违反了隔离原则</strong> → 不同业务域、不同 SLA 要求的任务共享同一线程池，高负载时相互干扰，快速任务被慢任务”饿死”。<br>同时，服务三节点每个 JVM 节点线程池独立，要避免大量请求同时打到同一节点。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">API 请求</span><br><span class="line">  └─ validatePorts()</span><br><span class="line">       └─ checkPort(ip, port)  ← 提交到共享线程池</span><br><span class="line">            └─ CompletableFuture.join()  ← 无超时阻塞</span><br><span class="line">                 └─ 线程池满，任务排队</span><br><span class="line">                      └─ API 线程永久 pending</span><br></pre></td></tr></table></figure></li>
 <li>自定义线程池解读<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor queryCmdbValidIpExecutor() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(15,                    // 核心线程：15，应该调高</span><br><span class="line">            100,                                         // 最大线程：100</span><br><span class="line">            15L, TimeUnit.MINUTES,                       // keepAlive：非核心线程空闲</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(2000),             // 有界队列，最多 2000 个任务排队，应该调低</span><br><span class="line">            ThreadUtil.createThreadFactory(&quot;queryCmdbValidIpExecutor-&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="20260630-Tomcat监控配置开启"><a href="#20260630-Tomcat监控配置开启" class="headerlink" title="20260630 Tomcat监控配置开启"></a>20260630 Tomcat监控配置开启</h4><ol>
-<li>问题描述<br>监控平台无法拉取 <code>mops-platform-backend</code> 服务的 Tomcat 线程池指标（活跃线程数、连接数、请求数等），导致线上出现线程池堆积问题时缺乏可观测性，只能依赖业务告警被动发现。</li>
-<li>根因<br>Spring Boot 内嵌 Tomcat 默认<strong>不向 JMX 注册 MBean</strong>，监控探针无数据可抓。</li>
-<li>处置<br>在 <code>application.yml</code> 主配置中添加一行：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">tomcat:</span></span><br><span class="line">    <span class="attr">mbeanregistry:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-生效链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">application.yml</span><br><span class="line">  └─ ServerProperties 读取配置</span><br><span class="line">       └─ TomcatServletWebServerFactory 创建 Tomcat 实例</span><br><span class="line">            └─ 注册 MBean 到 JVM 的 MBeanServer</span><br><span class="line">                 └─ 监控平台 JMX Exporter 定期抓取</span><br><span class="line">                      └─ 监控大盘展示线程数、连接数、请求数等指标</span><br></pre></td></tr></table></figure></li>
+<h4 id="20260630-MOPS-Tomcat监控配置开启"><a href="#20260630-MOPS-Tomcat监控配置开启" class="headerlink" title="20260630 MOPS Tomcat监控配置开启"></a>20260630 MOPS Tomcat监控配置开启</h4><ol>
+<li>问题描述：监控平台无法拉取 <code>mops-platform-backend</code> 服务的 Tomcat 线程池指标（活跃线程数、连接数、请求数等），导致线上问题缺乏可观测性。</li>
+<li>根因：Spring Boot 内嵌 Tomcat 默认<strong>不向 JMX 注册 MBean</strong>，监控探针无数据可抓。</li>
+<li>处置：在 <code>application.yml</code> 主配置中添加一行：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">tomcat:</span></span><br><span class="line">    <span class="attr">mbeanregistry:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">生效链路 →</span><br><span class="line">application.yml</span><br><span class="line">  └─ ServerProperties 读取配置</span><br><span class="line">       └─ TomcatServletWebServerFactory 创建 Tomcat 实例</span><br><span class="line">            └─ 注册 MBean 到 JVM 的 MBeanServer</span><br><span class="line">                 └─ 监控平台 JMX Exporter 定期抓取</span><br><span class="line">                      └─ 监控大盘展示线程数、连接数、请求数等指标</span><br></pre></td></tr></table></figure></li>
 <li>涉及思想与知识点<ul>
 <li>约定优于配置（Convention over Configuration）<br> Spring Boot 的核心设计哲学。框架为每个配置项预设了合理默认值，开发者无需关心即可运行，只有需要改变默认行为时才显式配置。<br> 本案例体现：MBean 注册默认关闭，内嵌 Tomcat 默认引入（默认行为，开箱即用），<code>mbeanregistry.enabled=true</code> 覆盖默认值（显式覆盖默认行为）</li>
 <li>自动装配（Auto Configuration）<br> ?? <code>@EnableAutoConfiguration</code> 扫描 classpath，检测到 <code>tomcat-embed-core</code> 存在，自动创建嵌入式 Tomcat Bean，无需任何 XML 配置。这是”约定”的底层实现机制。</li>
@@ -962,7 +969,7 @@
 <li>故障原因<br><code>httpcomponents</code> JAR 包版本冲突。<code>elasticsearch-rest-high-level-client 7.17.23</code> 需要 <code>httpcore-nio 4.4.14+</code>，但 <code>Spring Boot 1.5.10</code> 将其降级到 <code>4.4.6</code>。ES 服务端今天 10:22 主动断开连接时，客户端处理断连逻辑触发了缺失的构造方法，导致 I&#x2F;O reactor 线程崩溃且无法自愈，此后所有 ES 请求全部失败。<br><strong>为什么重启就恢复、ES 断连后就连不上：</strong>正常情况下 <code>RestHighLevelClient</code> 有连接池和自动重连机制，ES 服务端断连后客户端会自动重建连接，不需要重启。但本次由于版本冲突，reactor 在<strong>处理断连的过程中</strong>自己崩溃了——不是断连本身导致连不上，而是处理断连时抛出 <code>NoSuchMethodError</code> 导致整个客户端实例废掉。<br>reactor 的状态是单向不可逆的（<code>RUNNING → STOPPED</code>），没有自愈路径，只能通过重启服务重新创建 <code>RestHighLevelClient</code> 实例来恢复。修复版本冲突后，断连会走正常处理流程，不再触发崩溃。</li>
 <li>临时处置：<strong>重启异常服务节点</strong>，恢复正常。</li>
 <li>排查思路<ul>
-<li><strong>第一阶段：定位报错来源</strong><br> 通过调用链上下文（ops-cmdb → Feign → qz-elasticsearch），明确真正的异常在 qz-elasticsearch 侧。</li>
+<li><strong>第一阶段：定位报错来源</strong><br> 通过调用链上下文（ops-cmdb → Feign → qz-elasticsearch → es），明确真正的异常在 qz-elasticsearch 侧。</li>
 <li><strong>第二阶段：查日志卡住</strong><br> 在 <code>INFO.0.log</code> 里搜查询 es接口的错误日志 <code>Error executing search request</code> 没有结果，<strong>卡在这里</strong>。<br> 关键转折：直接搜具体错误关键词容易因为日志时间窗口、级别分文件等原因漏掉。并不是调查询接口异常，而是都无法成功发起调用。改为搜 <code>ERROR</code> 级别所有日志，反而一次性暴露了两个现象——大量 <code>I/O reactor status: STOPPED</code> 和少量 <code>callPaasError</code>，并且从时间戳上看出 STOPPED 在前、<code>callPaasError</code> 在后，有明确的因果关系。</li>
 <li><strong>第三阶段：溯源 reactor 崩溃原因</strong><br> 通过 <code>grep -n</code> 定位 STOPPED 第一次出现的行号，再用 <code>sed -n</code> 取该行前后的日志，找到崩溃的直接异常 <code>NoSuchMethodError</code>，再往前一屏找到触发原因 <code>ConnectionClosedException: Connection closed unexpectedly</code>。</li>
 <li><strong>第四阶段：确认版本冲突</strong><br> <code>NoSuchMethodError</code> 是版本冲突的典型特征。结合 <code>pom.xml</code> 中 <code>elasticsearch 7.17.23</code> + <code>Spring Boot 1.5.10</code> 的组合，直接锁定冲突的 JAR 包和版本差异。</li>
@@ -971,7 +978,99 @@
 </li>
 <li>故障链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">10:22:00  ES 服务端主动断开连接</span><br><span class="line">              ↓</span><br><span class="line">          客户端处理断连，调用 ConnectionClosedException() 无参构造</span><br><span class="line">              ↓</span><br><span class="line">          NoSuchMethodError（httpcore-nio 版本冲突）</span><br><span class="line">              ↓</span><br><span class="line">          I/O reactor 线程崩溃 → STOPPED，ES 客户端永久不可用</span><br><span class="line">              ↓</span><br><span class="line">10:22:08  所有 ES 请求抛 RuntimeException: I/O reactor status: STOPPED</span><br><span class="line">              ↓</span><br><span class="line">          ESUtil.search() 吞掉异常，返回 null</span><br><span class="line">              ↓</span><br><span class="line">          InnerSearchController:76 → searchResponse.getHits() → NullPointerException</span><br><span class="line">              ↓</span><br><span class="line">          catch 到 NPE → return RetEntity.error(...)  [code != 200]</span><br><span class="line">              ↓</span><br><span class="line">          ops-cmdb IhrController → &quot;ES查询失败&quot; → 用户看到 500</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>^^</p>
+<h4 id="0706-MOPS-备份任务查询慢-SQL-排查"><a href="#0706-MOPS-备份任务查询慢-SQL-排查" class="headerlink" title="0706 MOPS 备份任务查询慢 SQL 排查"></a>0706 MOPS 备份任务查询慢 SQL 排查</h4><ol>
+<li>背景：对备份任务定时采集每日执行情况，写入备份记录表，当前已累积约 <strong>35 万条</strong>记录。尚未到达分表的通用参考线 <strong>500 万行</strong>（根据InnoDB引擎特性计算，实际以查询性能和业务 SLA 为准），但已出现明显慢查询。<br>根因在于查询条件的构造方式，具体体现在两类问题上：<br>①<strong>双侧 LIKE</strong>：备份主机 IP、备份集路径、备份类型等所有字段均使用 <code>LIKE &#39;%值%&#39;</code>，无法利用 B-Tree 索引<br>②<strong>大量 IN</strong>：接口需要按用户权限过滤所属系统，将用户有权访问的所有系统名称拼入 <code>IN</code> 列表（可达数千条），在与 LIKE 并存时优化器会放弃索引改走全表扫</li>
+<li>接口链路<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /backup/getExecRecord</span><br><span class="line">  └─ BackupService.getExecRecord(req)</span><br><span class="line">       ├─ 权限系统填充 permitSystemNameEnList（用户有权限的系统列表）</span><br><span class="line">       └─ 条件查询构造 buildFilterWrapper（所有字段统一使用 `likeIfNotNull`，生成 `LIKE &#x27;%值%&#x27;`）</span><br><span class="line">        → SQL</span><br></pre></td></tr></table></figure></li>
+<li>现有索引状况<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KEY idx_system_name   (system_name)    <span class="comment">-- 仅无 LIKE 时有效</span></span><br><span class="line">KEY backup_set        (backup_set)     <span class="comment">-- %LIKE% 时失效，LIKE 右侧通配或 = 时有效</span></span><br><span class="line"><span class="comment">-- ip_address：无索引</span></span><br><span class="line"><span class="comment">-- backup_type：无索引</span></span><br></pre></td></tr></table></figure></li>
+<li>慢 SQL 根因分析<table>
+<thead>
+<tr>
+<th>场景矩阵</th>
+<th>isHomePage?</th>
+<th>有 LIKE?</th>
+<th>有 IN?</th>
+<th>是否慢?</th>
+<th>原因</th>
+<th>EXPLAIN</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户端默认进入，无过滤</td>
+<td>true</td>
+<td>否</td>
+<td>是（权限列表）</td>
+<td>否</td>
+<td><code>idx_system_name</code> 生效</td>
+<td>type&#x3D;ref  key&#x3D;idx_system_name  rows&#x3D;少量</td>
+</tr>
+<tr>
+<td>用户端 + LIKE + 权限 IN</td>
+<td>true</td>
+<td>是</td>
+<td>是（大量）</td>
+<td><strong>是</strong></td>
+<td>LIKE 导致 IN 索引被放弃</td>
+<td>id&#x3D;1  t           ALL   possible_keys&#x3D;idx_system_name  key&#x3D;NULL  rows&#x3D;1,868,591  Using where <br> id&#x3D;1  <subquery2> eq_ref distinct_key                             rows&#x3D;1 <br> id&#x3D;2  MATERIALIZED <derived3>                                     rows&#x3D;2726 <br> id&#x3D;3  DERIVED      No tables used</td>
+</tr>
+<tr>
+<td>管理端，仅 LIKE，无 IN</td>
+<td>false</td>
+<td>是</td>
+<td>否</td>
+<td><strong>最慢</strong></td>
+<td>无任何索引入口，全表扫</td>
+<td>type&#x3D;ALL  key&#x3D;NULL  rows&#x3D;3,405,177  Extra&#x3D;Using where</td>
+</tr>
+<tr>
+<td>管理端，LIKE + 少量 IN</td>
+<td>false</td>
+<td>是</td>
+<td>是（少量）</td>
+<td>有风险</td>
+<td>IN 列表很短时 idx_system_name 可能生效，但加了 %LIKE% 后优化器不稳定，数据量大时仍有慢查询风险</td>
+<td>~</td>
+</tr>
+</tbody></table>
+</li>
+<li>核心规律：<code>%LIKE%</code>会使优化器放弃 B-Tree 索引。<br>当同时存在大量 IN 条件时，优化器会对比”多次索引查找 + 回表”与”直接全表扫”的代价——IN 列表越长、LIKE 过滤越宽泛，越容易触发全表扫。管理端无 IN 兜底，是所有场景中最慢的：三个双侧 LIKE 无任何索引入口，全表扫约 35 万行。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- **关键 EXPLAIN 对比：**</span></span><br><span class="line"><span class="comment">-- 有 LIKE 时，idx_system_name 被优化器放弃</span></span><br><span class="line">type<span class="operator">=</span><span class="keyword">ALL</span>  key<span class="operator">=</span><span class="keyword">NULL</span>  <span class="keyword">rows</span><span class="operator">=</span><span class="number">350</span>,<span class="number">000</span>  Extra<span class="operator">=</span><span class="keyword">Using</span> <span class="keyword">where</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 无 LIKE 时，idx_system_name 正常生效</span></span><br><span class="line">type<span class="operator">=</span><span class="keyword">ref</span>  key<span class="operator">=</span>idx_system_name  <span class="keyword">rows</span><span class="operator">=</span>少量</span><br></pre></td></tr></table></figure></li>
+<li>优化方案<ul>
+<li>backup_type 改精确匹配，枚举下拉值前端只能选固定值，模糊匹配没有意义。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改前</span></span><br><span class="line">.likeIfNotNull(RecordPO::getBackupType, condition.getBackupType())</span><br><span class="line"><span class="comment">// 改后</span></span><br><span class="line">.eqIfNotNull(RecordPO::getBackupType, condition.getBackupType())</span><br></pre></td></tr></table></figure>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> backup_exec_record <span class="keyword">ADD</span> INDEX idx_backup_type (backup_type);</span><br></pre></td></tr></table></figure>
+ 效果：用户选了备份类型后，优化器先用 <code>idx_backup_type</code> 将候选集缩小到该类型的子集，后续 LIKE 在小集合上过滤，覆盖绝大多数查询场景。</li>
+<li>ip_address 有两种典型输入：完整 IP（精确查某台主机）和 IP 段前缀（查某个网段），按格式自动选择匹配方式： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.and(StrUtil.isNotEmpty(condition.getIpAddress()), w -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (condition.getIpAddress().matches(<span class="string">&quot;\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;\\.\\d&#123;1,3&#125;&quot;</span>)) &#123;</span><br><span class="line">        w.eq(RecordPO::getIpAddress, condition.getIpAddress());        <span class="comment">// 完整 IP，精确匹配</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        w.likeRight(RecordPO::getIpAddress, condition.getIpAddress()); <span class="comment">// IP 段，加索引，前缀匹配</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> backup_exec_record <span class="keyword">ADD</span> INDEX idx_ip_address (ip_address);</span><br></pre></td></tr></table></figure>
+ 效果：完整 IP 精确匹配结果降至个位数；IP 段前缀（如 <code>10.25.</code>）走索引范围扫描，避免全表扫。</li>
+<li>backup_set 改前缀匹配：备份集是文件路径，天然从根目录开始，具有从左到右的层次结构，用户搜索路径前缀是最常见的场景，去掉左侧 <code>%</code> 即可利用索引。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改前</span></span><br><span class="line">.likeIfNotNull(RecordPO::getBackupSet, condition.getBackupSet())</span><br><span class="line"><span class="comment">// 改后，并新增索引 `KEY backup_set`</span></span><br><span class="line">.likeRightIfNotNull(RecordPO::getBackupSet, condition.getBackupSet())</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h4 id="0712-syn-task-Full-GC-故障排查报告"><a href="#0712-syn-task-Full-GC-故障排查报告" class="headerlink" title="0712 syn-task Full GC 故障排查报告"></a>0712 syn-task Full GC 故障排查报告</h4><ol>
+<li>基本信息<br><strong>服务</strong>：采集代理服务（负责下发采集任务到 Kafka，并消费采集结果入库）<br><strong>影响</strong>：<strong>P1</strong>，时长 约 80 分钟 → Full GC 失控，Kafka 消费停止，采集任务入库全部失败。<br><strong>止血</strong>：扩堆至 -Xmx4g 重启后恢复。观察到 Kafka 重新消费（日志出现 Successfully joined，服务加入Kafka消费者组）<br><strong>根因</strong>：采集入库方法加了全局锁，持锁线程在锁内对每条采集记录反复反序列化 MB 级配置数据，大量对象在持锁期间无法被 GC 回收，1GB 堆打满后 Full GC STW 反过来让入库更慢、持锁时间更长，其余等锁线程也各自持有对象无法释放，最终陷入死循环。<ul>
+<li>故障时间线 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">T+0   定时任务每 5 分钟触发一次采集任务下发</span><br><span class="line">      接口响应 HTTP 200，但内部抛出异常被 catch 吞掉</span><br><span class="line">      任务状态停留在&quot;执行中&quot;，未告警</span><br><span class="line"></span><br><span class="line">T+5   APM Thread 监控：</span><br><span class="line">      裸线程（Thread-*）15 个，内存 193MB</span><br><span class="line">      线程池（pool-*-thread-*）12 个，内存极低（线程池空闲，未被使用）</span><br><span class="line">      → 说明入库走的是裸 new Thread()，线程池形同虚设</span><br><span class="line"></span><br><span class="line">T+17  APM Thread 详情快照（关键证据）：</span><br><span class="line">      Thread-BLOCKED，waiting on MessagePartitionServiceImpl 实例锁</span><br><span class="line">      持锁线程调用栈：resolvePartitionMessage() → union() → analysisAutoData()</span><br><span class="line">      → 锁竞争和持锁位置清晰定位</span><br><span class="line"></span><br><span class="line">T+18  Full GC 告警触发：</span><br><span class="line">      O=99.97%，E=100%，S0/S1=0%</span><br><span class="line">      FGC 每秒约 +2 次，单次 STW 约 600ms</span><br><span class="line">      12 分钟内 STW 占比约 78%</span><br><span class="line">      Full GC 后老年代占用无法下降 → 内存泄漏特征</span><br><span class="line"></span><br><span class="line">T+30  Kafka Coordinator Dead（第一次）</span><br><span class="line">      Full GC STW 导致心跳线程无法发送心跳</span><br><span class="line">      → 重连成功 → 4 分钟后再次 Dead</span><br><span class="line">      → 反复 Dead/重连，持续消费新消息，新线程持续创建</span><br><span class="line"></span><br><span class="line">T+39  FGC 累计 +1351 次（12 分钟内）</span><br><span class="line">      Old 区始终 99.97%，判断无法自动恢复，启动人工干预</span><br><span class="line"></span><br><span class="line">T+80  扩堆至 -Xmx4g 重启，Kafka 消费者重新加入消费组，服务恢复</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>根因分析<ul>
+<li>根因 1：全局锁 + 锁内重 IO（直接根因）定位思路⬇️ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">jstat → Old 区 99.97%，Full GC 无法释放内存</span><br><span class="line">  ↓ 什么对象占满了 Old 区？</span><br><span class="line">jstack → 大量线程 BLOCKED，全部卡在同一把锁上</span><br><span class="line">  ↓ 持锁线程在干什么？为什么不退出？</span><br><span class="line">grep &quot;locked &lt;锁地址&gt;&quot; jstack.txt → 持锁线程调用栈：</span><br><span class="line">  resolvePartitionMessage()（持锁）</span><br><span class="line">    → union() → analysisAutoData() → batchOperateResult()</span><br><span class="line">      → getCitFieldsInfoByAliasNameFromCache()</span><br><span class="line">        → JsonConvert.json2Obj()  ← 卡在 MB 级 JSON 反序列化</span><br><span class="line">  ↓</span><br><span class="line">heap dump → MAT Suspects 分析：</span><br><span class="line">  Thread-52454 单线程持有 757MB（占堆 86.92%）</span><br><span class="line">  内存全部来自 Jackson 反序列化字段配置表（citfieldsinfo）时创建的 HashMap 对象</span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 锁住整个 Service 实例，所有线程全局串行</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">resolvePartitionMessage</span><span class="params">(...)</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">        union(ip, thirdParams, instanceId, taskId);</span><br><span class="line">        <span class="comment">// union() → analysisAutoData()</span></span><br><span class="line">        <span class="comment">//   → 对每条采集记录调用 getCitFieldsInfoByAliasNameFromCache()</span></span><br><span class="line">        <span class="comment">//   → Redis 取出 MB 级 JSON → Jackson 反序列化</span></span><br><span class="line">        <span class="comment">//   → 产生大量 HashMap 对象，持锁期间无法 GC</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <strong>citfieldsinfo 是什么</strong>：字段配置表，包含所有字段定义、脚本映射、主键配置等元数据，单个文档 JSON 序列化后数百 KB 至数 MB。<code>analysisAutoData()</code> 对每条采集记录循环调用一次，在锁持有期间产生大量短生命周期大对象。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">证据链：</span><br><span class="line">| 多线程并发调用此方法 | 代码：Kafka 消费层每条消息 `new Thread()` |</span><br><span class="line">| 线程堵在这把锁上 | APM Thread 详情：BLOCKED，waiting on 同一实例 |</span><br><span class="line">| 持锁线程调用栈 | jstack：resolvePartitionMessage() → union() → analysisAutoData() |</span><br><span class="line">| 堵塞线程数量 | jstack：18 个线程 waiting to lock 同一对象 |</span><br><span class="line">| 内存元凶 | MAT heap dump：持锁线程持有 757MB，全部是 citfieldsinfo 反序列化的 HashMap |</span><br><span class="line">| 累计创建线程数 | jstack 线程编号：服务启动至故障累计创建约 6.7 万个裸线程 |</span><br><span class="line">| 最终结果 | jstat：Old 区 99.97%，Full GC 每次回收量为零 |</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Full GC STW（每次 600ms）恶性死循环</span><br><span class="line">  → MongoDB/Redis 响应更慢</span><br><span class="line">    → citfieldsinfo 反序列化耗时更长，持锁时间更久</span><br><span class="line">      → 更多线程 BLOCKED，持有对象无法被 GC 回收</span><br><span class="line">        → Old 区更满</span><br><span class="line">          → Full GC 更频繁、STW 更长</span><br><span class="line">            → （回到起点，无法自行终止）</span><br></pre></td></tr></table></figure></li>
+<li>根因 2：JVM 堆配置严重不足 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">故障时：-Xms512m -Xmx1g</span><br><span class="line">服务器：16GB 物理内存，可用约 10GB</span><br><span class="line"></span><br><span class="line">持锁线程峰值内存 757MB + 其余 18 个 BLOCKED 线程 + JVM 基础开销 &gt; 1GB</span><br></pre></td></tr></table></figure>
+ 若堆为 4GB，同样的锁竞争下有充足缓冲，不会这么快失控。堆配置是加剧因素，不是根因，但大幅降低了容错空间。</li>
+<li>根因 3：Kafka 消费层裸 new Thread()（加剧因素） <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每条 Kafka 消息创建一个新线程，无上限</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; operKafkaData(data)).start();</span><br></pre></td></tr></table></figure>
+ <strong>单独存在时不是根因</strong>：线程执行完 <code>operKafkaData()</code> 就退出，对象可以被 GC 回收。<br> <strong>叠加全局锁后成为加剧因素</strong>：线程因等锁 BLOCKED 无法退出，持有的对象持续积压，两者共同导致内存耗尽。</li>
+<li>为什么本次无法自动恢复<br> 根据 syn-task 服务日志 <code>Kafka Coordinator Dead</code> 后反复重连（而非彻底退出消费组），导致新消息持续涌入，新线程持续创建，内存压力持续增大。<br> 对比能自动恢复的场景：Coordinator Dead 后彻底退出消费组，没有新消息进来，存量线程自然执行完毕，内存得以释放，Old 区缓慢下降。</li>
+</ul>
+</li>
+<li>改进方案<ul>
+<li>P1：缩小锁粒度，将重 IO 移到锁外（！！<strong>TODO：核心理解点</strong>） <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 现状：全局锁，锁内执行数十秒重 IO</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">resolvePartitionMessage</span><span class="params">(...)</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">        union(...);  <span class="comment">// 包含 MB 级反序列化</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 改法：按 instanceId 细粒度加锁，只保护轻量的 Redis 原子操作</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ConcurrentHashMap&lt;String, Object&gt; instanceLocks = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">resolvePartitionMessage</span><span class="params">(String instanceId, ...)</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> instanceLocks.computeIfAbsent(instanceId, k -&gt; <span class="keyword">new</span> <span class="title class_">Object</span>());</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 只保留&quot;读+删 Redis 分片数据&quot;这个需要原子性的操作（毫秒级）</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            instanceLocks.remove(instanceId);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 入库和反序列化完全不需要锁，移到锁外并发执行</span></span><br><span class="line">    citAutoDataOperationService.analysisAutoData(...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 锁持有时间从数十秒（含入库+反序列化）缩短到毫秒级（只含 Redis 操作）。</li>
+<li>P2：Kafka 消费层改为有界线程池 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 现状：无上限裸线程</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; operKafkaData(data)).start();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 改法：有界线程池 + CallerRunsPolicy 形成自然背压</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ExecutorService</span> <span class="variable">kafkaWorkerPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">    <span class="number">10</span>, <span class="number">20</span>, <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;&gt;(<span class="number">100</span>),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.CallerRunsPolicy()  <span class="comment">// 满载时阻塞 Kafka 消费线程，背压</span></span><br><span class="line">);</span><br><span class="line">kafkaWorkerPool.submit(() -&gt; operKafkaData(data));</span><br></pre></td></tr></table></figure>
+ <code>CallerRunsPolicy</code> 的作用：线程池满时由 Kafka 消费线程自己执行任务，消费速度自动降低，形成背压，避免无限堆积。</li>
+<li>P3：Kafka offset 改为手动提交 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 现状：自动提交，重启会丢失已消费未入库的消息</span></span><br><span class="line"><span class="attr">enable-auto-commit:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 改法：手动提交，在 operKafkaData() 处理完成后显式提交</span></span><br><span class="line"><span class="attr">enable-auto-commit:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
+<li>P4：JVM 启动参数固化 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-Xms4g  -Xmx4g                          <span class="comment"># 堆大小，建议取可用内存 40~50%</span></span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError         <span class="comment"># OOM 时自动 dump</span></span><br><span class="line">-XX:HeapDumpPath=/tmp/heapdump_oom.hprof</span><br><span class="line">-XX:+ExitOnOutOfMemoryError             <span class="comment"># OOM 后立即退出，触发自动重启</span></span><br><span class="line">-Xloggc:/path/to/gc.log                 <span class="comment"># GC 日志持久化</span></span><br><span class="line">-XX:+PrintGCDateStamps</span><br><span class="line">-XX:+PrintGCDetails</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
 <hr>
 
 <h2 id="8-1-Mops需求：DNS变更自动化"><a href="#8-1-Mops需求：DNS变更自动化" class="headerlink" title="8.1 Mops需求：DNS变更自动化"></a>8.1 Mops需求：DNS变更自动化</h2><p>8.1：梳理变更场景，4种记录+2种平台，拆解为每种记录只有增删改三种操作，一步步实现即可<br>8.2-8.10：大假，昆明-大理-贵阳-深圳<br>8.11-8.15：收集＋验证现状，还需拉会议评审<br>8.17：后续每天定 <em><strong>每日计划</strong></em>…<br>0818：DNS变更，确定所有api&#x2F;script（√），方案评审（×）<br>0819：DNS变更主流程（80%）<br>0820：DNS变更主流程（90%）<br>0821：管理端加失败工单入库按钮，当日上线<br>0822-0824：DNS变更开发<br>0825：DNS变更自测(√)，CMDB安全组件安装流程确定(×)<br>0826：DNS变更sit(√)，CMDB安全组件安装(×)<br>0827：DNS变更全流程报错机制完善，1.流程节点失败就报错 2.ticket.setExecutionLog(+&#x3D;新日志) 那么可以全程操作溯源、、成功就直接加，失败throwE在catch里加e.getMessage()<br>0828：涉及定时任务调度&#x2F;异步的要考虑UserContext空指针；上线<br>0908：一键回退主流程开发<br>0916：一键回退上线<br>1016：全面支持mx+txt申请变更回收，通过workspace让AI“模仿”cname自动化来实现<br>1030：支持智能解析，todo-&gt;cmdb字段回写+移动审批带出<br>11.18：产品化需求-&gt;Windows DNS自动化下发，适配进常规DNS下发流程（midea生产和产品化环境通过前端开放不同入口，实现执行不同部分代码，下发不同platform的DNS配置）<br>1202：变更一键回退优化（直接挂回原pool），支持申请回退（即回收掉）<br>后续 → 交接给外包<br>4.9：<strong>不是一股脑交给外包，而是把握、控制好需求、功能后交给外包实现</strong><br>6.30：变更&#x2F;回收前同步“元数据”，用于变更&#x2F;回收脚本下发和一键回退，认为平台值不可信；至此DNS场景基本覆盖完善</p>
@@ -1637,7 +1736,7 @@
 <li>再观察一下、下次再升<br>我理解公司的评级标准，也接受客观评估。麻烦您明确告诉我，我目前还差哪些硬性条件、多长时间可以达标？我会针对性补齐短板，严格按照标准执行，希望下次评估能给到明确的晋升结果。</li>
 </ol>
 <h4 id="5-feedback"><a href="#5-feedback" class="headerlink" title="5. feedback"></a>5. feedback</h4><p>开发能力肯定ok<br>架构（服务拆分，中间件选择，高可用，数据库，微服务，服务治理）<br>代码规范（《重构》，学习优秀开源项目，Spring）<br>AI使用（主动学，窗口期1-2y，思考用ClaudeCode怎么做CMDB问数）<br>做AI运维（主动拓展scope，从日常的杂活中抽理出来，看别人的&#x3D;自己做了）<br>独当一面（一方面是能够解决热点问题，一方面是能从0到1落地项目）<br><strong>保持好奇心</strong></p>
-<h2 id="5-21-【转组】😓"><a href="#5-21-【转组】😓" class="headerlink" title="5.21 【转组】😓"></a>5.21 【转组】😓</h2><p>嫡系应届生专属深度谈心方案</p>
+<h2 id="5-21-😓-转组"><a href="#5-21-😓-转组" class="headerlink" title="5.21 😓 转组"></a>5.21 😓 转组</h2><p>嫡系应届生专属深度谈心方案</p>
 <ol>
 <li>这次把我跟着平台划转，我已经了解，是单纯业务需要。但是还是比较意外，因为前一天才对齐了一下未来的个人发展期望，也比较好奇 why me not xx？</li>
 <li>业务上，还是只做MOPS？但日常运转的人少了，负责的业务就多了，至少网络方面要接受防火墙。担心又陷入各种对接需求，迭代优化，杂活细活。AI智能运维这一块，后续团队是否有资源支撑的话？</li>
@@ -2114,7 +2213,6 @@
 </li>
 <li>完整影响链路示意<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">根因（任选其一）</span><br><span class="line">├─ 慢查询（缺索引）</span><br><span class="line">│      ↓ SQL 执行时间 10ms → 3000ms</span><br><span class="line">│      ↓ 连接长时间被占用</span><br><span class="line">│      ↓ 连接池 active = max，acquire time 飙升</span><br><span class="line">│      ↓ Worker 线程等连接，CPU=0 内存不涨</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 新请求 500，调用方重试，流量翻倍</span><br><span class="line">│      ↓ 雪崩</span><br><span class="line">│</span><br><span class="line">├─ 下游服务变慢（Feign 同步阻塞）</span><br><span class="line">│      ↓ Worker 线程挂起等响应</span><br><span class="line">│      ↓ CPU=0，内存不涨，无告警</span><br><span class="line">│      ↓ Tomcat 线程池耗尽</span><br><span class="line">│      ↓ 其他接口被殃及（线程池污染）</span><br><span class="line">│</span><br><span class="line">└─ Full GC</span><br><span class="line">       ↓ Stop-The-World，所有线程暂停</span><br><span class="line">       ↓ 周期性卡顿几秒后恢复</span><br><span class="line">       ↓ CPU 周期性尖刺，内存锯齿形下降</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="7-14-【Java-Full-GC】排查"><a href="#7-14-【Java-Full-GC】排查" class="headerlink" title="7.14 【Java Full GC】排查"></a>7.14 【Java Full GC】排查</h2><p>^^</p>
 <h2 id="7-14-【CPU-高】排查-SOP"><a href="#7-14-【CPU-高】排查-SOP" class="headerlink" title="7.14 【CPU 高】排查 SOP"></a>7.14 【CPU 高】排查 SOP</h2><h4 id="基础概念澄清"><a href="#基础概念澄清" class="headerlink" title="基础概念澄清"></a>基础概念澄清</h4><ul>
 <li>主机CPU vs Java进程CPU<ol>
 <li>我们平时看到的服务器整机CPU（<code>top</code>命令展示的），是<strong>整机所有进程的CPU总和</strong>，包括内核、MySQL、Kafka、Java应用、Nginx等。</li>
@@ -2203,6 +2301,86 @@
 <li>线程过多：临时调整线程池参数，缩减线程数量；</li>
 <li>K8s环境：临时扩容节点，分散流量。</li>
 </ol>
+</li>
+</ul>
+<h2 id="7-14-【Java-Full-GC】排查-SOP"><a href="#7-14-【Java-Full-GC】排查-SOP" class="headerlink" title="7.14 【Java Full GC】排查 SOP"></a>7.14 【Java Full GC】排查 SOP</h2><ul>
+<li><p>第一阶段：判断严重程度（2 分钟内）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认进程 PID</span></span><br><span class="line">jps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 GC 实时状态（每秒刷新，共 10 次）</span></span><br><span class="line">jstat -gcutil &lt;pid&gt; 1000 10</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>O 列</th>
+<th>FGC 增速</th>
+<th>单次 FGCT</th>
+<th>判断</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 80%</td>
+<td>偶发</td>
+<td>&lt; 200ms</td>
+<td>正常</td>
+<td>观察</td>
+</tr>
+<tr>
+<td>80~95%</td>
+<td>每分钟数次</td>
+<td>200~500ms</td>
+<td>警惕</td>
+<td>准备干预</td>
+</tr>
+<tr>
+<td>&gt; 99%</td>
+<td>每秒 1~2 次</td>
+<td>&gt; 500ms</td>
+<td>失控</td>
+<td>立即抓现场</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>第二阶段：抓取现场证据（5 分钟内）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先抓线程快照（几乎不影响进程）</span></span><br><span class="line">jstack &lt;pid&gt; &gt; /tmp/jstack_$(<span class="built_in">date</span> +%Y%m%d%H%M%S).txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再抓内存快照（会触发一次 Full GC + STW，故后抓）</span></span><br><span class="line">jmap -dump:format=b,file=/tmp/heap_$(<span class="built_in">date</span> +%Y%m%d%H%M%S).hprof &lt;pid&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录 GC 基准数据</span></span><br><span class="line">jstat -gc &lt;pid&gt; 1 1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>为什么先 jstack 再 jmap</strong>：jmap dump 会触发一次 Full GC + STW，可能导致进程短暂无响应，jstack 先拿到不受影响。</p>
+</blockquote>
+</li>
+<li><p>第三阶段：分析 jstack（5 分钟）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 线程总数 / BLOCKED 线程数</span></span><br><span class="line">grep <span class="string">&quot;java.lang.Thread.State&quot;</span> jstack.txt | <span class="built_in">wc</span> -l</span><br><span class="line">grep <span class="string">&quot;BLOCKED&quot;</span> jstack.txt | <span class="built_in">wc</span> -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找竞争最激烈的锁（核心命令）</span></span><br><span class="line">grep -A 5 <span class="string">&quot;BLOCKED&quot;</span> jstack.txt \</span><br><span class="line">  | grep <span class="string">&quot;waiting to lock\|locked &lt;&quot;</span> \</span><br><span class="line">  | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c | <span class="built_in">sort</span> -rn | <span class="built_in">head</span> -20</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找持锁线程的完整调用栈</span></span><br><span class="line">grep -B 5 <span class="string">&quot;locked &lt;0x锁地址&gt;&quot;</span> jstack.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第四阶段：止血重启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复查 GC 趋势</span></span><br><span class="line">jstat -gcutil &lt;pid&gt; 1000 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认可用内存（堆建议取可用内存 40~50%）</span></span><br><span class="line">free -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启（扩堆 + 关键 JVM 参数）</span></span><br><span class="line"><span class="built_in">nohup</span> java \</span><br><span class="line">  -Xms4g -Xmx4g \</span><br><span class="line">  -XX:+HeapDumpOnOutOfMemoryError \</span><br><span class="line">  -XX:HeapDumpPath=/tmp/heapdump_oom.hprof \</span><br><span class="line">  -XX:+ExitOnOutOfMemoryError \</span><br><span class="line">  -jar /path/to/app.jar \</span><br><span class="line">  &gt;&gt; /path/to/app.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证恢复</span></span><br><span class="line">jstat -gcutil &lt;新pid&gt; 1000 5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第五阶段：事后 heap dump 分析，用 Eclipse MAT 打开 <code>.hprof</code> 文件：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>File → Open Heap Dump</td>
+<td>加载文件</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Leak Suspects Report</td>
+<td>自动分析内存泄漏嫌疑，最快定位</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Dominator Tree</td>
+<td>找占用内存最大的对象树</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Thread Overview</td>
+<td>查看每个线程持有多少内存</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 <h2 id="…-手搓-Java"><a href="#…-手搓-Java" class="headerlink" title="… 手搓 Java"></a>… 手搓 Java</h2><p>…</p>
@@ -2312,10 +2490,6 @@
 </li>
 <li><p>工作一年以来对Java开发的理解。<br>整体比较符合预期，就是解决实际问题的根据，利用算法&amp;数据结构，实现具体的需求。目前不可避免的陷入在很小的领域（很具体的功能）编写杂七杂八的业务逻辑，但这是总来有执行者来做的工作，我觉得关键是前期方案设计时保证整体的可靠性和通用性（自动化场景1 2 3，平台1 2 3），做需求时总结出sop，或者直接交给AI来做</p>
 </li>
-<li><p>一次排查问题。<br>cpu飙升，发现是一个接口有io操作，并发大了就卡住了。。<br>首先，停掉回写接口，把cpu降下来，恢复服务<br>分析，不是计算型的，所以多线程没用，要考虑优化io查询，cmdb加索引。。<br>其次，如何降低并发，加缓存？异步？？</p>
-</li>
-<li><p>处理线上问题，处理偶现问题<br>先止血，后排查。。？</p>
-</li>
 <li><p>极海题库：<a target="_blank" rel="noopener" href="https://bitfree.cn/question">https://bitfree.cn/question</a></p>
 </li>
 <li><p>AI的使用，AI工作流<br>AI Coding<br>我的工作流就是将人类的战略思维（Strategy）与AI的战术执行（Tactics）分离。我负责定义‘做什么（What）’和‘为什么（Why）’，而AI负责‘怎么做（How）’，并通过 Hook 和 Review 机制确保结果的可控与高质量。</p>
@@ -2403,6 +2577,10 @@
 </li>
 <li><p>一个挑战。</p>
 </li>
+<li><p>处理线上问题，处理偶现问题<br>先止血，后排查。。？</p>
+</li>
+<li><p>一次排查问题。<br>cpu飙升，发现是一个接口有io操作，并发大了就卡住了。。<br>首先，停掉回写接口，把cpu降下来，恢复服务<br>分析，不是计算型的，所以多线程没用，要考虑优化io查询，cmdb加索引。。<br>其次，如何降低并发，加缓存？异步？？</p>
+</li>
 </ul>
 <h2 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><ul>
 <li><p>doubao文档 <a target="_blank" rel="noopener" href="https://www.doubao.com/docx/LBf3d5HhDo1GbBxiSpucIhmDnbb">https://www.doubao.com/docx/LBf3d5HhDo1GbBxiSpucIhmDnbb</a></p>
@@ -2451,7 +2629,7 @@
 <li><p>CMDB 大量选用 MongoDB，为什么初期没有选择 MySQL？你如何对比两种数据库？<br>选型原因：平台资产类型繁杂，不同设备属性差异大，需要频繁新增扩展字段；MySQL 频繁执行 DDL 修改表成本很高，MongoDB 文档模型可以灵活扩展字段，适配业务场景。<br>客观短板：MongoDB 不适合强事务、多表复杂关联的交易场景。<br>主动过渡话术：如果是订单类核心业务系统，MySQL 会更加合适，我近期系统学习 InnoDB MVCC、锁机制、索引优化等内容，能够胜任关系型数据库相关的开发与调优工作。</p>
 </li>
 </ul>
-<h2 id="2027"><a href="#2027" class="headerlink" title="2027"></a>2027</h2><p>~~</p>
+<h2 id="2027"><a href="#2027" class="headerlink" title="2027"></a>2027</h2><p>^^</p>
 
       
     </div>
