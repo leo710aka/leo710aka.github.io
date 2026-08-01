@@ -9,7 +9,7 @@
   <meta name="description" content="2023-07-31 10:25:07 Docker &#x2F;Docker 是一种开源平台，一种快速构建、运行和管理应用的工具。它使用容器化技术，使得应用程序及其依赖性可以打包到一个容器中，并在任何支持 Docker 的环境中运行。1 MobarXterm 通过 SSH 连接 linux虚拟机，操作虚拟机上的 Docker。2 Windows本地：通过wsl安装Linux发行版本，安装dock">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes">
-<meta property="og:url" content="http://example.com/2024/10/22/Docker_Kubernetes/index.html">
+<meta property="og:url" content="http://example.com/2024/10/22/Docker_K8s/index.html">
 <meta property="og:site_name" content="Qué miras Bobo">
 <meta property="og:description" content="2023-07-31 10:25:07 Docker &#x2F;Docker 是一种开源平台，一种快速构建、运行和管理应用的工具。它使用容器化技术，使得应用程序及其依赖性可以打包到一个容器中，并在任何支持 Docker 的环境中运行。1 MobarXterm 通过 SSH 连接 linux虚拟机，操作虚拟机上的 Docker。2 Windows本地：通过wsl安装Linux发行版本，安装dock">
 <meta property="og:locale" content="en_US">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://picx.zhimg.com/80/v2-97c6a4bf8b42a2fa3cf017d0c1392a53_720w.webp">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-1168bb8f95b88b76ef8678c25f27a007_720w.webp">
 <meta property="article:published_time" content="2024-10-22T02:25:07.000Z">
-<meta property="article:modified_time" content="2025-04-08T14:54:34.511Z">
+<meta property="article:modified_time" content="2026-08-01T08:04:19.485Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/leo710aka/bk/blob/main/docker.png?raw=true">
@@ -79,9 +79,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Docker_Kubernetes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Docker_K8s" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/10/22/Docker_Kubernetes/" class="article-date">
+    <a href="/2024/10/22/Docker_K8s/" class="article-date">
   <time class="dt-published" datetime="2024-10-22T02:25:07.000Z" itemprop="datePublished">2024-10-22</time>
 </a>
     
@@ -142,9 +142,9 @@
 <h3 id="容器编排-Orchestration-：运维人员"><a href="#容器编排-Orchestration-：运维人员" class="headerlink" title="容器编排(Orchestration)：运维人员"></a>容器编排(Orchestration)：运维人员</h3><p>容器编排是指在生产环境中管理和协调多个容器的过程。Docker 提供了 Docker Compose 工具，用于定义和运行多容器的应用。</p>
 <hr>
 
-<h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><h2 id="1-什么是Kubernetes"><a href="#1-什么是Kubernetes" class="headerlink" title="1. 什么是Kubernetes"></a>1. 什么是<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a></h2><p><a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>是一个开源的容器编排引擎，可以用来管理容器化的应用，包括容器的自动化的部署、扩容、缩容、升级、回滚等等；<br>它是Google在2014年开源的一个项目，它的前身是Google内部的Borg系统。</p>
+<h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><h2 id="什么是Kubernetes"><a href="#什么是Kubernetes" class="headerlink" title="什么是Kubernetes"></a>什么是<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a></h2><p><a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>是一个开源的容器编排引擎，可以用来管理容器化的应用，包括容器的自动化的部署、扩容、缩容、升级、回滚等等；<br>它是Google在2014年开源的一个项目，它的前身是Google内部的Borg系统。</p>
 <p>在<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>出现之前，我们一般都是使用Docker来管理容器化的应用，但是Docker只是一个单机的容器管理工具，它只能管理单个节点上的容器，当我们的应用程序需要运行在多个节点上的时候，就需要使用一些其他的工具来管理这些节点，比如Docker Swarm、Mesos、<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>等等；<br>这些工具都是容器编排引擎，它们可以用来管理多个节点上的容器，但是它们之间也有一些区别，比如Docker Swarm是Docker官方提供的一个容器编排引擎，它的功能比较简单，适合于一些小型的、简单的场景，而Mesos和<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>则是比较复杂的容器编排引擎；<br>Mesos是Apache基金会的一个开源项目，而<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a>是Google在2014年开源的，目前已经成为了CNCF（Cloud Native Computing Foundation）的一个顶级项目，基本上已经成为了容器编排引擎的事实标准了。</p>
-<h2 id="2-1-Kubernetes-资源对象"><a href="#2-1-Kubernetes-资源对象" class="headerlink" title="2.1 Kubernetes 资源对象"></a>2.1 Kubernetes 资源对象</h2><img src="https://pic1.zhimg.com/80/v2-ec15257b9a678f4ebe90217363e75d4a_720w.webp" width="450" height="300" alt="">
+<h2 id="Kubernetes-资源对象"><a href="#Kubernetes-资源对象" class="headerlink" title="Kubernetes 资源对象"></a>Kubernetes 资源对象</h2><img src="https://pic1.zhimg.com/80/v2-ec15257b9a678f4ebe90217363e75d4a_720w.webp" width="450" height="300" alt="">
 
 <p><strong>Node</strong>：k8s集群节点，可以是物理机&#x2F;虚拟机<br><strong>Pod</strong>：k8s最小调度单元，容器(运行app&#x2F;数据库&#x2F;..镜像)的抽象，可以是一&#x2F;多个容器的组合，但除非高度耦合，一个pod只运行一个容器<br><strong>Service</strong>：将一组pod封装成一个服务并且提供统一访问入口（解决了一组数据库pod中一个重建后ip变化的问题，类似于“服务发现”）<br>Ingress：为了对外提供服务，将外部请求路由转发到内部集群的service上</p>
 <div style="display: flex; justify-content: space-around;">
@@ -159,13 +159,13 @@
 </div>
 
 <p><strong>Deployment</strong>：部署无状态应用程序，将一&#x2F;多个Pod组合到一起；冗余备份，相当于对Pod的抽象；具有副本控制、滚动更新、自动扩缩容等功能，实现应用程序的高可用<br><strong>Statefulset</strong>：部署有状态应用程序，如DB、MQ、缓存以及保留会话状态的应用程序</p>
-<h2 id="2-2-Kubernetes-架构"><a href="#2-2-Kubernetes-架构" class="headerlink" title="2.2 Kubernetes 架构"></a>2.2 Kubernetes 架构</h2><img src="https://pic4.zhimg.com/80/v2-1168bb8f95b88b76ef8678c25f27a007_720w.webp" width="750" height="300" alt="">
+<h2 id="Kubernetes-架构"><a href="#Kubernetes-架构" class="headerlink" title="Kubernetes 架构"></a>Kubernetes 架构</h2><img src="https://pic4.zhimg.com/80/v2-1168bb8f95b88b76ef8678c25f27a007_720w.webp" width="750" height="300" alt="">
 
 <p>分为Master和Worker节点<br>apiserver：位于master节点上，是k8s集群的API接口；交互方式包括 <code>kubectl</code> 命令行、Dashboard界面或API接口</p>
-<h2 id="3-使用minikube搭建kubernetes集群环境"><a href="#3-使用minikube搭建kubernetes集群环境" class="headerlink" title="3. 使用minikube搭建kubernetes集群环境"></a>3. 使用<a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">minikube</a>搭建kubernetes集群环境</h2><p><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">minikube</a>是一个轻量级的kubernetes集群环境，可以用来在本地快速搭建一个单节点的kubernetes集群；<br><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tutorials/hello-minikube/">https://kubernetes.io/zh-cn/docs/tutorials/hello-minikube/</a> 你好，Minikube</p>
-<h2 id="4-使用Multipass和k3s搭建kubernetes集群环境"><a href="#4-使用Multipass和k3s搭建kubernetes集群环境" class="headerlink" title="4. 使用Multipass和k3s搭建kubernetes集群环境"></a>4. 使用<a target="_blank" rel="noopener" href="https://multipass.run/">Multipass</a>和<a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a>搭建kubernetes集群环境</h2><p><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/">minikube</a>只能用来在本地搭建一个单节点的kubernetes集群环境，<br>下面介绍如何使用<a target="_blank" rel="noopener" href="https://multipass.run/">Multipass</a>和<a target="_blank" rel="noopener" href="https://k3s.io/">k3s</a>来搭建一个多节点的kubernetes集群环境，</p>
-<h2 id="5-在线实验环境"><a href="#5-在线实验环境" class="headerlink" title="5. 在线实验环境"></a>5. 在线实验环境</h2><p><a target="_blank" rel="noopener" href="https://killercoda.com/">Killercoda</a> <a target="_blank" rel="noopener" href="https://labs.play-with-k8s.com/">Play-With-K8s</a></p>
-<h2 id="6-kubectl常用命令"><a href="#6-kubectl常用命令" class="headerlink" title="6. kubectl常用命令"></a>6. kubectl常用命令</h2><h3 id="6-1-基础使用"><a href="#6-1-基础使用" class="headerlink" title="6.1 基础使用"></a>6.1 基础使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">kubectl --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看API版本</span></span><br><span class="line">kubectl api-versions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看集群信息</span></span><br><span class="line">kubectl cluster-info</span><br></pre></td></tr></table></figure>
+<h2 id="k8s-存储"><a href="#k8s-存储" class="headerlink" title="k8s 存储"></a>k8s 存储</h2><p>pv<br>pvc<br>lvm</p>
+<h2 id="k8s-调度"><a href="#k8s-调度" class="headerlink" title="k8s 调度"></a>k8s 调度</h2><p>service<br>ingress</p>
+<p>集群间dns<br>外部访问</p>
+<h2 id="kubectl常用命令"><a href="#kubectl常用命令" class="headerlink" title="kubectl常用命令"></a>kubectl常用命令</h2><h3 id="6-1-基础使用"><a href="#6-1-基础使用" class="headerlink" title="6.1 基础使用"></a>6.1 基础使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">kubectl --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看API版本</span></span><br><span class="line">kubectl api-versions</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看集群信息</span></span><br><span class="line">kubectl cluster-info</span><br></pre></td></tr></table></figure>
 
 <h3 id="6-2-资源的创建和运行"><a href="#6-2-资源的创建和运行" class="headerlink" title="6.2 资源的创建和运行"></a>6.2 资源的创建和运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建并运行一个指定的镜像</span></span><br><span class="line">kubectl run NAME --image=image [params...]</span><br><span class="line"><span class="comment"># e.g. 创建并运行一个名字为nginx的Pod</span></span><br><span class="line">kubectl run nginx --image=nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据YAML配置文件或者标准输入创建资源</span></span><br><span class="line">kubectl create RESOURCE</span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line"><span class="comment"># 根据nginx.yaml配置文件创建资源</span></span><br><span class="line">kubectl create -f nginx.yaml</span><br><span class="line"><span class="comment"># 根据URL创建资源</span></span><br><span class="line">kubectl create -f https://k8s.io/examples/application/deployment.yaml</span><br><span class="line"><span class="comment"># 根据目录下的所有配置文件创建资源</span></span><br><span class="line">kubectl create -f ./dir</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过文件名或标准输入配置资源</span></span><br><span class="line">kubectl apply -f (-k DIRECTORY | -f FILENAME | stdin)</span><br><span class="line"><span class="comment"># e.g.</span></span><br><span class="line"><span class="comment"># 根据nginx.yaml配置文件创建资源</span></span><br><span class="line">kubectl apply -f nginx.yaml</span><br></pre></td></tr></table></figure>
 
@@ -182,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/10/22/Docker_Kubernetes/" data-id="cmnun42100002m0v51ukkgit3" data-title="Kubernetes" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/10/22/Docker_K8s/" data-id="cmsa32nqb00003ov53lr7byea" data-title="Kubernetes" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -288,7 +288,7 @@
           </li>
         
           <li>
-            <a href="/2024/10/22/Docker_Kubernetes/">Kubernetes</a>
+            <a href="/2024/10/22/Docker_K8s/">Kubernetes</a>
           </li>
         
           <li>
