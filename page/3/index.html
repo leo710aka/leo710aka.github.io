@@ -214,9 +214,14 @@
 
 
 <h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ul>
-<li>贮藏代码：当前代码没写完，要切换分支时，必须先提交当前代码或贮藏<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash    </span><br></pre></td></tr></table></figure></li>
-<li>版本回退<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;提交<span class="built_in">id</span>&gt;    <span class="comment"># 通过提交id切换版本</span></span><br><span class="line">$ git reflog                   <span class="comment"># 查看历史操作（已清除提交日志、版本切换日志。。。</span></span><br></pre></td></tr></table></figure></li>
-<li>分支变基：将一系列的提交从一个分支上 “移动” 到另一个分支的起点，并将它们重新应用（或重新播放）到目标分支上。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase   <span class="comment"># 可以让提交历史更线性、更简洁</span></span><br></pre></td></tr></table></figure></li>
+<li><p>贮藏代码：当前代码没写完，要切换分支时，必须先提交当前代码或贮藏</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash    </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git pop   <span class="comment"># 弹出暂存的修改后销毁</span></span><br><span class="line">$ git apply <span class="comment"># 可以反复使用某个暂存</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>版本回退</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;提交<span class="built_in">id</span>&gt;    <span class="comment"># 通过提交id切换版本</span></span><br><span class="line">$ git reflog                   <span class="comment"># 查看历史操作（已清除提交日志、版本切换日志。。。</span></span><br></pre></td></tr></table></figure></li>
+<li><p>分支变基：将一系列的提交从一个分支上 “移动” 到另一个分支的起点，并将它们重新应用（或重新播放）到目标分支上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase   <span class="comment"># 可以让提交历史更线性、更简洁</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
