@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-09-03T13:28:19.331Z">
+<meta property="article:modified_time" content="2026-09-20T14:31:09.046Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -2217,19 +2217,214 @@
 </li>
 <li><p>交接期间<br>个人项目总结&amp;收尾&amp;交接<br>相关材料（离职证明，解除、、、证明）<br>信息确定（社保交到哪天）</p>
 </li>
-<li><p>lastday<br>saygoodbye</p>
+<li><p>lastday</p>
 </li>
 </ul>
-<h2 id="…-手搓-Java"><a href="#…-手搓-Java" class="headerlink" title="… 手搓 Java"></a>… 手搓 Java</h2><p>…</p>
-<h2 id="…数据库事务编程要重点掌握："><a href="#…数据库事务编程要重点掌握：" class="headerlink" title="…数据库事务编程要重点掌握："></a>…数据库事务编程要重点掌握：</h2><ol>
-<li>事务分为本地事务和分布式事物两种概念：分布式事务用的java企业版里面的两阶段提交协议，性能差，不能绝对保证成功，用的比较少，现实中用补偿方式实现。 本地事务用的是 Connecton的setAutoCommit（false）来实现</li>
-<li>jdbc的概念：java链接数据库的规范，让开发人员对不同的数据库采用统一的api，对于数据库供应商实现相应的driver接口</li>
-<li>jdbc编程的步骤：1. 注册驱动程序 2. 获取数据库连接对象 Connection 3.获取Statement和PrepareStatement对象4. 执行sql语句或者获取ResultSet对象读取数据，最后关闭对象。</li>
-<li>Connection对象不支持多线程并发调用，需要用到连接池技术。我们用的Druid连接池（阿里巴巴开源），还有c3p0，dbcp等等。</li>
-<li>事务的隔离级别需要掌握。</li>
-<li>Spring采用AOP实现事务，spring的声明式事务需要掌握。</li>
+<h2 id="9-19-AI-Hot-0919"><a href="#9-19-AI-Hot-0919" class="headerlink" title="9.19 AI Hot 0919"></a>9.19 AI Hot 0919</h2><ol>
+<li>Agent 是什么？Agent &#x3D; LLM + Harness，我的理解是大模型的思考能力驱动智能体真正的完成一些人能做的事情。首先要能将手工操作拆分为可复现？的任务，更加适合完成重复性工作。</li>
+<li>Harness 是什么？Agent 中除了大模型，其余的影响到其稳定交付效果的内容，如会话管理、工具编排、失败重试、熔断机制。。从 AI 工程的发展来说，一开始对于一些短链路、单轮次的任务，做好提示词优化，“把任务讲清楚”，明显改变模型的输出效果；但随着 Agent 火起来，真正进入环境里做事，能够调 API、查数据，提示词工程（PE）达到了上限，转向上下文工程（CE），核心是 “要让模型在正确的时间拿到正确的信息”，包含所有会影响模型当前决策的信息总和，历史会话、背景上下文、用户输入、系统规则、过程中调用工具的返回、检索知识库结果等等，Prompt 只是 Context 的一部分，Context 是输入环境的工程化；随着 AI 更多的承担长链路任务，其工作的稳定性成为关键点，Harness Engineering（HE）解决的是 “让模型在真实执行中持续做对”，不仅要提供环境让 Agent 把任务做起来，还要持续盯着执行过程、检查最终结果、跑偏了要纠正、失败了能恢复。</li>
+<li>Langgraph → Agent？Graph&#x2F;Chain 是节点和路由编排的 workflow，本质上是业务逻辑的 if-else 实现，但在 Agent 的场景下，原来复杂的“状态机<br>被模型接管了，变成一个基于 ReAct 的 loop（原来的流程图坍缩为一个model-execute），Agent 基于 Prompt+Skills+Reasoning-Acting 自行调度拆解任务+逐步执行+分析结果（for 循环），自由度更高，而 Langgraph 稳定性更高，生产仍然可用于安全约束、审计校验等，但也存在问题（业务复杂导致节点难以维护，固定走全流程可能导致效率低）</li>
+<li>Multi-Agent 架构？适用于：一个复杂任务里存在多个相对独立的认知职责，这些职责需要不同的Context、工具、权限、目标或评测标准，且它们之间还需要协作；否则，就算是繁杂但场景类似的长任务，也可以通过一个 Agent+workflow+tool 实现。这样，可以避免不同环节、差异很大的 Context 堆积在一起，影响其中单 Agent 生成；避免不同的 tools、权限堆积，影响单 Agent 判断使用；可以实现没有前后依赖的 Agent 的并行 work；可以做到不同 Agent 的独立评测和迭代。</li>
+<li>通用 Agent &#x2F; 个人工作 Agent 化？我在 Codex 里有一个 career-os 项目，能够评价当前简历，沉淀个人求职能力事实，根据 JD 适配微调 cv，定时拉取招聘信息。。</li>
+<li>Skills？个人&#x2F;团队校验的抽象，帮助 AI 从通用型人才 → 专家型人才，披露式的 md文件，大模型自己判断需不需要加载。自己梳理的：纯知识类（CMDB平台答疑自助，内网 IT 排障指引），工具使用类（问数相关。。）</li>
+<li>MCP &#x2F; Tools？支持 AI 调用工具与外部交互。</li>
+<li>LLM。预训练（数据集→文字token化→训练(调整模型参数使其”学会下一个token是什么”)→得到基础模型(输入词→神经网络→下一个词)）→ 后训练→ 强化学习</li>
+<li>RAG？帮助 AI 补充内部知识到上下文。</li>
+<li>智能问数。nl2sql 帮助用户通过对话快速查询企业数据；引入新技术，实现旧系统重构，简单；实际落地，系统性工程，难。不仅要把已跑通、可复用的人工查数流程（澄清数据关系，统一查数口径，元数据治理，，这些规则约束，与“智能”无关的脏活累活才是关键），拆分成 AI 可理解、可执行的任务步骤，还要考虑失败重试、结果评价、、</li>
 </ol>
-<h2 id="…-读《重构》"><a href="#…-读《重构》" class="headerlink" title="… 读《重构》"></a>… 读《重构》</h2><p>Frank：方法简短、复用，逻辑正确，嵌套不要太深</p>
+<h2 id="9-20-CMDB-Agent-智能问数三次迭代演进与技术能力体系梳理"><a href="#9-20-CMDB-Agent-智能问数三次迭代演进与技术能力体系梳理" class="headerlink" title="9.20 CMDB-Agent 智能问数三次迭代演进与技术能力体系梳理"></a>9.20 CMDB-Agent 智能问数三次迭代演进与技术能力体系梳理</h2><blockquote>
+<p>整体背景：从原有基于阿里 DataAgent 的静态流程问数项目切入，伴随对 Agent 范式、运行时架构、多 Agent 分层的逐步深入，完成三次架构迭代；核心目标是从「配置化流程工具」走向「工程化 Agent 运行时」，强化 AI Agent 的工程设计与落地能力，而非单纯优化问答效果。</p>
+</blockquote>
+<h3 id="一、第一代（问数-1-0）：静态-Workflow-模式-静态-DAG-Graph-流程式-Agent（阿里-DataAgent-改造）"><a href="#一、第一代（问数-1-0）：静态-Workflow-模式-静态-DAG-Graph-流程式-Agent（阿里-DataAgent-改造）" class="headerlink" title="一、第一代（问数 1.0）：静态 Workflow 模式&#x2F;静态 DAG&#x2F;Graph 流程式 Agent（阿里 DataAgent 改造）"></a>一、第一代（问数 1.0）：静态 Workflow 模式&#x2F;静态 DAG&#x2F;Graph 流程式 Agent（阿里 DataAgent 改造）</h3><ul>
+<li>架构形态：人工预先定义完整业务 DAG 有向无环图，固定节点与跳转路由，本质是<strong>人编排流程，大模型只负责节点内单一任务</strong>。</li>
+<li>本质定位：核心是<strong>人工编排的有向工作流（DAG Workflow）</strong>，不是自驱动 Agent。大模型是每个节点的“执行器”，不是“决策者”。只有纯资产数据查询能力，整条链路强制走完：意图匹配 → 概念别名映射 → 表检索 → SQL生成 → SQL执行。</li>
+<li>知识库构建<table>
+<thead>
+<tr>
+<th>知识类型</th>
+<th>规模</th>
+<th>最佳实现方式</th>
+<th>是否需要RAG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>概念型知识</strong>（别名映射：小机&#x3D;主机）</td>
+<td>几百条</td>
+<td><strong>后端内存词典 + 字符串匹配</strong></td>
+<td>❌ 完全不需要</td>
+</tr>
+<tr>
+<td><strong>枚举型知识</strong>（系统枚举：MOPS、CMDB 等系统名、产品名）</td>
+<td>几万条</td>
+<td><strong>结构化模糊查询接口</strong>（like&#x2F;分词匹配）</td>
+<td>❌ 不需要向量RAG</td>
+</tr>
+</tbody></table>
+<ol>
+<li>两类知识完全没必要上向量 RAG：<ul>
+<li>概念型是精确同义词，词典匹配确定性最高、不耗 token、零延迟；用 RAG 反而会出现召回漏项、语义漂移。</li>
+<li>枚举型是结构化数据，适合做数据库层面的模糊关键词检索，向量 Embedding 反而丢失精确匹配能力。</li>
+</ul>
+</li>
+<li><strong>可以放在同一个「知识澄清 Skill」里</strong>，对外只暴露一个工具入口，内部自动走不同匹配逻辑：<ul>
+<li>先匹配概念词典，做术语标准化；</li>
+<li>再匹配枚举库，补全实体全称&#x2F;对应表；</li>
+<li>统一返回给大模型标准化后的业务术语。</li>
+<li>好处：大模型只需要调用一个工具就能完成知识澄清，减少工具选择成本，避免乱调用。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Workflow 模式的痛点<ol>
+<li><strong>全链路执行成本高</strong>：无论问题多简单，都要跑完所有节点，排查问题要逐节点核对，调一次 prompt 半小时。</li>
+<li><strong>扩展成本高</strong>：新增一类能力就要加节点、改路由，侵入主流程。</li>
+<li><strong>混合诉求处理能力弱</strong>：用户一句话同时包含答疑+查询，固定分支很难流畅衔接。</li>
+<li>优点也很明显：<strong>可控性极强，调优到位后效果上限很高</strong>，这也是你人工调完效果不错的原因。</li>
+<li>不是要无脑抛弃 workflow，想清楚再上 Agent。。</li>
+</ol>
+</li>
+</ul>
+<h3 id="二、第二代（问数-2-0）：基于-Harness-运行时的-ReAct-自驱动-Agent"><a href="#二、第二代（问数-2-0）：基于-Harness-运行时的-ReAct-自驱动-Agent" class="headerlink" title="二、第二代（问数 2.0）：基于 Harness 运行时的 ReAct 自驱动 Agent"></a>二、第二代（问数 2.0）：基于 Harness 运行时的 ReAct 自驱动 Agent</h3><p>当前工作的核心：<strong>用内部 Harness 平台做运行时底座，把人工 Workflow 改成大模型动态调度的 ReAct 循环</strong>。不是重新发明能力，而是把原有能力重新封装，交给 AI 按需调用。</p>
+<p>ps：以下内容还处于设计阶段，未评估，未落地！！</p>
+<ol>
+<li><p>核心设计思想</p>
+<ul>
+<li>底层：Harness 运行时统一提供会话管理、重试、熔断、循环控制、状态持久化。</li>
+<li>能力层：把原 Workflow 里的每个能力，从「固定节点」改造为「可被动态调用的 Skill」。</li>
+<li>决策层：大模型根据用户问题，自主判断要不要调用知识、要不要查表结构、要不要执行 SQL，走一步看一步。</li>
+<li>约束层：通过系统提示词 + Skill 描述 + 运行时边界，三层规训 AI 行为，防止乱调用、死循环。</li>
+<li>核心范式转变 ➡️ 从「人定流程」转向「大模型动态决策流程」，底层基于 <strong>ReAct（Reason 思考 → Act 调用工具 → Observe 观察结果）循环范式</strong>；平台提供类 Harness 运行时底座，统一管控会话、容错、状态，业务只注册 Skill。</li>
+<li>解决的核心问题 ➡️<ol>
+<li><strong>按需调用工具</strong>：纯答疑直接调用知识库结束，不触发 SQL 全链路，降低无效调用与 token 消耗。</li>
+<li><strong>天然支持混合诉求</strong>：可以先调用知识库解答权限问题，再继续调用查询工具完成数据检索，不需要预先配置分支。</li>
+<li><strong>扩展成本大幅降低</strong>：新增业务能力只需要注册新 Skill、补充提示词，不需要修改主执行流程</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>完整运转逻辑（ReAct 循环）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">用户输入 → 进入 ReAct 循环</span><br><span class="line">    ↓</span><br><span class="line">大模型 Reason 思考：</span><br><span class="line">  ① 这是什么类型的问题？（答疑 / 数据查询 / 混合）</span><br><span class="line">  ② 当前信息够不够？要不要调用工具？</span><br><span class="line">  ③ 该调用哪个工具？传什么参数？</span><br><span class="line">    ↓</span><br><span class="line">调用对应 Skill → Skill 内部调用底层 MCP → 返回结果</span><br><span class="line">    ↓</span><br><span class="line">结果写入会话上下文 → 再次交给大模型思考</span><br><span class="line">    ↓</span><br><span class="line">大模型判断：信息足够 → 输出最终答案；信息不足 → 继续循环</span><br><span class="line">    ↓</span><br><span class="line">运行时兜底：达到最大循环次数强制终止</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统提示词完整设计（直接可用）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">你是 CMDB 智能问数助手，负责解答 CMDB 平台使用问题，以及查询 CMDB 内的资产、配置、系统、部门等数据。</span><br><span class="line"></span><br><span class="line">【意图分类与处理原则】</span><br><span class="line">1. 平台使用类问题（权限申请、查不到数据、操作报错、字段含义、使用方法）：</span><br><span class="line">   - 调用 knowledge_clarify 工具获取知识库答案，整理后直接回复用户，不需要查询数据库。</span><br><span class="line">2. 资产数据查询类问题（查设备、配置、系统、统计）：</span><br><span class="line">   - 不确定业务术语对应关系时，先调用 knowledge_clarify 做概念对齐。</span><br><span class="line">   - 不清楚表结构、字段含义、表关联关系时，必须调用 get_table_schema 获取元数据。</span><br><span class="line">   - 生成 SQL 后调用 execute_sql 执行查询，拿到结果后整理返回。</span><br><span class="line">3. 混合类问题（既有疑问又要查数据）：先解答疑问，再执行数据查询。</span><br><span class="line"></span><br><span class="line">【工具使用规则】</span><br><span class="line">- 禁止编造表名、字段名、关联关系，所有表结构信息必须来自 get_table_schema。</span><br><span class="line">- 禁止编造运维答案，所有答疑内容必须来自 knowledge_clarify 返回结果。</span><br><span class="line">- 只允许生成 SELECT 查询语句，禁止任何修改、删除、建表操作。</span><br><span class="line">- 一次只调用一个工具，拿到结果后再决定下一步。</span><br><span class="line"></span><br><span class="line">【输出要求】</span><br><span class="line">- 数据查询结果用清晰的表格或条目呈现。</span><br><span class="line">- 查询不到数据时，说明可能原因，引导用户核对条件或权限。</span><br><span class="line">- 遇到无法解决的问题，引导用户联系管理员。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MCP 原子能力层设计（按能力域拆分，不按表拆分）<br>  底层 MCP 只做原子能力，不带业务语义，是 Skill 的执行底座。</p>
+<table>
+<thead>
+<tr>
+<th>MCP 名称</th>
+<th>能力说明</th>
+<th>入参</th>
+<th>核心职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mcp_knowledge_dict</td>
+<td>知识查询底层接口</td>
+<td>query</td>
+<td>内部同时处理概念词典匹配 + 枚举值模糊查询，统一返回标准化结果</td>
+</tr>
+<tr>
+<td>mcp_get_schema</td>
+<td>表元数据查询接口</td>
+<td>table_name（可选）</td>
+<td>返回表用途、字段、注释、表与表之间的外键关联关系</td>
+</tr>
+<tr>
+<td>mcp_execute_sql</td>
+<td>SQL 执行接口</td>
+<td>sql</td>
+<td>底层做安全校验（AST 解析、白名单、权限、行数限制），执行查询返回结果</td>
+</tr>
+<tr>
+<td>mcp_qa_search</td>
+<td>运维长文档知识库</td>
+<td>query</td>
+<td>向量检索运维手册、故障排查、权限流程等长文本答案</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<blockquote>
+<p>关键：<strong>查询类就一个通用 SQL 执行 MCP</strong>，所有单表、联表、统计都走它，联表逻辑交给大模型根据 schema 里的关联信息生成 SQL，数据库原生做 join。绝对不要一张表一个 MCP，也不要做“资产大类万能查询接口”。</p>
+</blockquote>
+<ol start="5">
+<li>Skill 业务能力层设计（对大模型友好的语义封装）<br>  Skill &#x3D; 给大模型看的「工具说明书」 + 入参校验 + 异常兜底 + 调用 MCP。<table>
+<thead>
+<tr>
+<th>Skill 名称</th>
+<th>给大模型的功能描述</th>
+<th>绑定 MCP</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>knowledge_clarify</td>
+<td>业务概念澄清与运维知识问答。当用户使用口语化术语、询问字段含义、平台使用问题、权限问题、报错排查时调用。</td>
+<td>mcp_knowledge_dict + mcp_qa_search</td>
+<td>答疑、术语对齐、概念澄清</td>
+</tr>
+<tr>
+<td>get_table_schema</td>
+<td>获取 CMDB 表的元数据信息，包括表用途、字段说明、表之间的关联关系。不确定表结构、字段、关联时必须调用。</td>
+<td>mcp_get_schema</td>
+<td>数据查询前的表信息获取</td>
+</tr>
+<tr>
+<td>execute_cmdb_sql</td>
+<td>执行 CMDB 数据查询 SQL，只支持 SELECT 语句。已经确认表结构、生成合法查询语句后调用。</td>
+<td>mcp_execute_sql</td>
+<td>最终数据查询执行</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<blockquote>
+<p>设计原则：Skill 数量尽量少而精，3 个核心工具足够。工具越多，大模型选错的概率越高。</p>
+</blockquote>
+<ol start="6">
+<li><p>关键分流逻辑：不用人工写 if-else 分支，靠三层约束自然分流</p>
+<ol>
+<li><strong>系统提示词明确定义</strong>：什么场景用什么工具，什么场景不要用什么工具。</li>
+<li><strong>Skill 描述强化边界</strong>：每个 Skill 的描述里明确写“适用场景”和“不适用场景”。</li>
+<li><strong>运行时反馈修正</strong>：如果大模型调错工具，Skill 返回明确的错误提示（“这是数据查询工具，答疑请使用 knowledge_clarify”），大模型拿到报错会自动修正，重新调用正确工具。</li>
+</ol>
+</li>
+<li><p>安全与兜底设计</p>
+<ol>
+<li><strong>运行时层</strong>：最大循环次数（比如 8 次）、单工具调用超时、整体会话超时。</li>
+<li><strong>Skill 层</strong>：入参校验、异常捕获、友好错误返回。</li>
+<li><strong>MCP 层</strong>：SQL 语法白名单、表权限、行级权限、返回行数上限、执行超时、全量日志审计。</li>
+</ol>
+</li>
+</ol>
+<h3 id="三、第三代（3-0）：手搓轻量化运行时（个人技术沉淀，非生产核心卖点）"><a href="#三、第三代（3-0）：手搓轻量化运行时（个人技术沉淀，非生产核心卖点）" class="headerlink" title="三、第三代（3.0）：手搓轻量化运行时（个人技术沉淀，非生产核心卖点）"></a>三、第三代（3.0）：手搓轻量化运行时（个人技术沉淀，非生产核心卖点）</h3><ul>
+<li>定位<ul>
+<li>不是生产项目的迭代方向，是<strong>个人技术深化的 Demo</strong>。</li>
+<li>目标：把第二代 Harness 平台封装好的运行时能力，通过 Java 显式手搓实现一遍，彻底理解 Agent 运行时的底层原理。</li>
+<li>附加亮点：在里面实现<strong>多专家子 Agent 串行流水线 + 模型分层调度</strong>（主 Agent 用 Pro，子 Agent 用 Flash），作为个人技术认知的差异化亮点。</li>
+</ul>
+</li>
+<li>和第二代的关系<ul>
+<li>第二代：生产落地，用公司内部 Harness 平台，重点是业务设计、Skill 封装、提示词工程。</li>
+<li>第三代：个人复刻，手搓迷你 Harness，重点是理解会话管理、ReAct 循环、子 Session 隔离、熔断重试这些运行时内核。</li>
+</ul>
+</li>
+<li>核心实现模块<ol>
+<li>Session 抽象 + Redis 持久化，支持父&#x2F;子 Session 上下文隔离</li>
+<li>Skill 接口定义 + 注册调度机制</li>
+<li>ReAct 主循环实现</li>
+<li>重试、熔断、最大循环次数兜底</li>
+<li>主-子 Agent 串行调度：主 Agent 统筹，SQL 生成、SQL 审查各为独立子 Agent</li>
+</ol>
+</li>
+</ul>
+<h3 id="四、下一步落地建议（先聚焦第二代生产重构）"><a href="#四、下一步落地建议（先聚焦第二代生产重构）" class="headerlink" title="四、下一步落地建议（先聚焦第二代生产重构）"></a>四、下一步落地建议（先聚焦第二代生产重构）</h3><ol>
+<li><strong>先跑最小闭环</strong>：先上线 3 个核心 Skill + 一套系统提示词，跑通“纯答疑”“纯查询”“混合问题”三类典型 case。</li>
+<li><strong>和第一代做对比验证</strong>：拿同一批问题，对比两代的：工具调用次数、响应时长、问题解决率、迭代成本。用数据证明 ReAct 模式在开放输入场景下的优势。</li>
+<li><strong>再和团队对齐粒度</strong>：重点对齐 MCP 安全策略、SQL 执行权限、表元数据规范，这三个是生产落地的核心卡点。</li>
+<li><strong>业余时间做第三代手搓 Demo</strong>：不影响主业的前提下，把运行时内核撸一遍，形成自己的 Agent 工程化认知。</li>
+</ol>
 
       
     </div>
