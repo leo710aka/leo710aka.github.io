@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
 <meta property="og:image" content="https://github.com/leo710aka/repo/blob/main/agent20260919.jpg?raw=true">
 <meta property="article:published_time" content="2026-11-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2026-09-20T13:18:12.639Z">
+<meta property="article:modified_time" content="2026-09-21T16:35:13.900Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
@@ -111,6 +111,50 @@ xxx</p>
 </div>
 
 
+<h3 id="cv-20260921"><a href="#cv-20260921" class="headerlink" title="cv-20260921"></a>cv-20260921</h3><ul>
+<li>教育经历<br>华南理工大学 网络工程 <sup>2020.09 - 2024.07</sup><br>在校经历：曾获学校与企业奖学金、”三好学生” 等荣誉，发表 EI 会议论文一篇；曾加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的活动组织和跨团队协作经验。</li>
+<li>工作经历<br>Midea｜后端开发工程师‑Java 2024.7~至今<ol>
+<li>MOPS 自动化运维平台<ul>
+<li>MOPS 是集团核心自动化运维底座，覆盖主机、网络、存储等模块资源运维能力，通过自动化、流程化替代人工运维操作。</li>
+<li>职责：负责网络与备份模块研发、线上稳定性及私有化交付，协同开发完成需求落地，并承担生产上线与问题闭环。<ul>
+<li><strong>F5 网络自动化建设</strong>：独立落地 DNS、负载均衡全流程自动化能力，覆盖资源申请、配置变更、回收及一键回退完整链路；围绕“配置可验证、状态可追踪、异常可恢复”设计事前校验、变更状态控制与配置快照机制，降低配置漂移及高风险变更带来的影响。全年累计承接 <strong>3k+ 生产工单</strong>，人工变更操作占比降低 **80%**，操作失误率降至 <strong>0</strong>。</li>
+<li><strong>防火墙下发策略优化</strong>：针对多节点定时调度下任务重复、串行执行效率低及策略重复下发问题，采用 <strong>Redis 分布式锁 + 数据库 CAS + EXECUTING 中间态</strong>分层保障任务互斥与策略执行正确性；通过专用线程池并行处理长耗时 IO 请求，并加入失败重试、超时控制及僵尸任务巡检机制，单批次下发效率提升 <strong>4 倍</strong>，策略重复下发率降至 <strong>0</strong>。</li>
+<li><strong>NBU 备份自动化落地</strong>：基于 Ansible 与 NBU API，将备份客户端远程安装、策略下发等人工运维动作平台化；Java 侧通过异步任务解耦调度与执行，底层依托 SSH、Linux 权限控制完成目标主机自动化部署，部署周期由小时级缩短至分钟级。</li>
+<li><strong>ToB 私有化交付：</strong>负责网络、备份两大模块的客户交付，完成需求对接、方案评审、定制开发、CI&#x2F;CD 打包、多环境 Bundle 适配、客户环境部署调试及上线验收；沉淀标准化交付文档与运维手册，完成从代码交付到客户环境运行的闭环。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CMDB 基础配置数据库<ul>
+<li>CMDB 是集团 IT 运维资产数据底座，承载上万台服务器及各类 IT 配置资产，为上层 AIOps、运维、监控等提供数据支撑。</li>
+<li>职责：作为系统 Owner，负责业务方数据接入、功能支持与线上运维；长期维护复杂微服务系统，深入梳理核心数据链路和线上运行机制；封装平台运营答疑经验为 Skill，支持用户通过数字人入口自助答疑。<ul>
+<li><strong>核心数据链路梳理：</strong>在业务接入与线上问题处理中，深入梳理数据接入、同步、存储等微服务链路，理解 MongoDB 元数据&#x2F;业务数据分层、资产主键 upsert 幂等、Redis 缓存表头元数据等关键机制，形成对企业级数据接入、并发写入及数据一致性问题的系统认知。</li>
+<li><strong>防火墙采集故障排查：</strong>负责线上 Full GC &#x2F; 内存压力故障闭环，按“GC 状态监控 → 线程栈定位阻塞点 → 堆内存分析根因”的流程排查，通过 JVM 参数调整与服务重启完成止血恢复；结合故障现场进一步定位表头元数据重复反序列化的核心诱因、梳理锁竞争与线程资源控制等潜在优化方向，形成稳定性排障与复盘闭环。</li>
+<li><strong>平台稳定性治理：</strong>长期负责线上 JVM 异常、中间件故障、接口卡顿等问题排查，形成“<strong>先止血恢复 → 现场取证 → 根因定位 → 验证复盘</strong>”的故障处置流程，并将常见排障路径沉淀为 Skill 并内部共享。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CMDB‑Agent 智能问数<ul>
+<li>基于 CMDB 资产数据构建自然语言问数能力，使用户通过自然语言完成资产查询与统计，降低运维数据查询门槛；既服务平台用户，也作为子 Agent 为上层 AIOps 根因分析 Agent 提供资产查询能力。</li>
+<li>职责：参与问数 1.0 全链路业务化开发、知识库构建与效果调优，并负责基于内部 Agent 平台的 2.0 重构。<ul>
+<li><strong>问数 1.0：</strong>基于阿里开源 DataAgent 完成运维场景定制化落地，围绕真实业务问题进行查询增强、表召回、SQL 生成等节点的 Prompt 调优，并手工梳理运维业务知识并搭建分层知识库，完成基础多轮上下文与问答效果优化；重点积累 NL2SQL、上下文管理、Prompt 调优及 Agent 业务落地经验。</li>
+<li><strong>Agent 2.0 重构：</strong>基于内部通用 Agent 平台完成问数 Agent 重构，将原先由人工预定义的 Graph&#x2F;Workflow 转向 LLM 动态决策 + Harness 运行时治理；通过 Harness 承担会话&#x2F;上下文管理，将原有业务能力抽象为可调用的 Skill&#x2F;Tool，探索基于 ReAct 的自主工具调度，使模型能够根据当前上下文按需选择知识、Schema、SQL 等能力，同时通过运行时边界控制长链路执行的重试、超时、循环及异常恢复等问题。</li>
+<li><strong>Agent 工程化方向：</strong>重点关注从“流程编排”向“Agent Runtime”演进过程中，如何拆分可调用能力、管理上下文、约束模型行为，并让 Agent 在真实生产环境中具备可控、可恢复、可持续运行的能力。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>专业技能<ul>
+<li>后端开发：熟练掌握 Java、SpringBoot、SpringCloud、MyBatis，掌握企业级工程化规范，具备 AI Coding 实践经验。</li>
+<li>数据库与中间件：熟悉 MySQL，具备 SQL 调优、索引优化、事务与锁机制等实践经验；熟悉 Redis、Kafka、Elasticsearch 中间件，具备缓存策略设计、消息队列治理、全文检索落地与线上故障排查经验。</li>
+<li>云原生与交付：熟悉 Docker、K8s 基础部署及 CI&#x2F;CD 发布流程，具备中间件服务化开发与 ToB 私有化产品交付经验。</li>
+<li>AI 工程化能力：具备 Agent 应用实际落地经验，熟悉 Prompt、上下文管理、Tool&#x2F;Skill、RAG 等技术；实践掌握 Harness、ReAct、工具编排及 Agent Runtime 稳定性治理能力。</li>
+</ul>
+</li>
+</ul>
 <h3 id="cv-20260912"><a href="#cv-20260912" class="headerlink" title="cv-20260912"></a>cv-20260912</h3><ul>
 <li>教育经历<br>华南理工大学 网络工程 <sup>2020.09 - 2024.07</sup><br>在校经历：曾获学校与企业奖学金、”三好学生” 等荣誉，发表 EI 会议论文一篇；加入学院青马工程班学习，担任华工青年志愿者指导中心宣传部副部长，有丰富的活动组织和跨团队协作经验。</li>
 <li>工作经历<br>Midea｜后端开发工程师‑Java 2024.7~至今<ol>
@@ -1244,7 +1288,14 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><p>反问</p>
 </li>
 </ul>
-<h2 id="2026-面试经历"><a href="#2026-面试经历" class="headerlink" title="2026 面试经历"></a>2026 面试经历</h2>
+<h2 id="2026-面试经历"><a href="#2026-面试经历" class="headerlink" title="2026 面试经历"></a>2026 面试经历</h2><ul>
+<li>start 9.21</li>
+<li>科大讯飞<ul>
+<li>性格评测 9.21<br>核心是前后选择作答的优先级统一？？</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
