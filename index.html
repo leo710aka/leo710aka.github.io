@@ -3849,21 +3849,148 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 </ul>
 <h2 id="2026-面试经历"><a href="#2026-面试经历" class="headerlink" title="2026 面试经历"></a>2026 面试经历</h2><ul>
-<li>start 9.21</li>
-<li>科大讯飞<ul>
+<li><p>start 9.21 lets goooo 🤑🤑</p>
+</li>
+<li><p>科大讯飞</p>
+<ul>
 <li>评测 9.21<br>情绪稳定 &gt; 理性&#x2F;责任 &gt; 乐观&#x2F;自信 &gt; 善意&#x2F;社交 &gt; 抗压&#x2F;适应 &gt;<br>保守&#x2F;谦虚 &gt; 创新 &gt; 好胜&#x2F;果断 &gt; 目光成员&#x2F;敏锐 &gt; 有领导意愿（核心是前后选择作答的优先级统一？！）</li>
 <li>一面 9.24<br>中级软件开发工程师</li>
 </ul>
 </li>
-<li>易点云<ul>
-<li>一面 9.23<br>Java工程师P5（中台）岗位</li>
-</ul>
+<li><p>易点云</p>
+<ul>
+<li>一面 9.23<br>Java工程师P5（中台）岗位<table>
+<thead>
+<tr>
+<th>面试问题</th>
+<th>你的原始回答&#x2F;表现</th>
+<th>更好的回答思路</th>
+<th>关键词 &#x2F; 引导方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. 自我介绍</strong></td>
+<td>整体比较标准，介绍 MOPS、CMDB、Agent 三段经历</td>
+<td>继续保持 <strong>2 分钟以内</strong>；重点突出“Java 后端 → 复杂系统 Owner → Agent 工程化”这条成长线</td>
+<td>Java后端、MOPS、CMDB Owner、Agent 2.0、Harness</td>
+</tr>
+<tr>
+<td><strong>2. CMDB 是做什么的？</strong></td>
+<td>非自研的系统，我今年接手，有很多坑</td>
+<td>先明确自己的角色：<strong>“我是系统 Owner&#x2F;维护负责人，不是原架构设计者”</strong>；再讲自己真正深入的链路</td>
+<td>Owner、业务接入、线上问题、数据链路、稳定性</td>
+</tr>
+<tr>
+<td><strong>3. CMDB 核心功能？</strong></td>
+<td>“本质是数据读写系统”，讲了Mongo 读写架构、通用采集模型、es 全文检索、Kafka 订阅等</td>
+<td><strong>只讲自己负责&#x2F;深入过的部分</strong>。不把话题带到了自己不够熟的模块</td>
+<td>“这块我熟悉的是……；这个模块是存量能力，我主要负责维护&#x2F;排障”</td>
+</tr>
+<tr>
+<td><strong>4. MongoDB 增量订阅怎么做？</strong></td>
+<td>讲了 Mongo Shake → MongoDB Oplog → Kafka → 订阅服务；但对 Mongo Shake 细节不深</td>
+<td>直接划边界：<strong>“这是已有模块，我主要维护，不是我设计的；知道它基于 Oplog 做增量获取，底层实现没深入。”</strong></td>
+<td>Mongo Shake、Oplog、Kafka、维护 vs 开发</td>
+</tr>
+<tr>
+<td><strong>5. 防火墙采集链路？</strong></td>
+<td>定时调度 → Kafka → 执行服务 → SSH → 文件读取 → 入库</td>
+<td>这个可以保留，但不要把它说成自己的架构设计；补一句 <strong>“我主要是在这条链路上负责问题排查和稳定性处理”</strong></td>
+<td>Scheduler、Kafka、SSH、采集、入库</td>
+</tr>
+<tr>
+<td><strong>6. 为什么发生 Full GC？</strong></td>
+<td>讲到了老年代打满、对象无法及时回收、表头重复反序列化、锁阻塞等</td>
+<td>最稳的版本是：<strong>先说线上现象 → 止血措施 → 排查过程 → 定位到的主要诱因 → 后续优化方向</strong>；不要把分析中的优化说成已经落地</td>
+<td>GC 监控、线程栈、Heap&#x2F;JVM、重复反序列化、JVM 参数、重启</td>
+</tr>
+<tr>
+<td><strong>7. Full GC 怎么排查？</strong></td>
+<td>有监控、登机看 JVM、GC 状态、线程栈等，但表达比较卡</td>
+<td>固定成一套套路：<strong>监控确认 → GC&#x2F;JVM 状态 → 线程栈 → 堆&#x2F;对象分析 → 止血 → 验证 → 复盘</strong></td>
+<td>“先止血，再取证，再定位，再验证”</td>
+</tr>
+<tr>
+<td><strong>8. synchronized 原理 &#x2F; 锁升级？</strong></td>
+<td>只能回答“保证并发写操作原子性”，明确表示不了解锁升级</td>
+<td>至少准备到：<strong>互斥 + 可见性&#x2F;有序性语义；Java 8 常见锁升级脉络</strong>。不确定版本细节就明确说“以 Java 8 HotSpot 经典实现来说”</td>
+<td>synchronized、对象监视器、Mark Word、锁升级</td>
+</tr>
+<tr>
+<td><strong>9. volatile 是什么？</strong></td>
+<td>能答可见性，但后面把“先读后改”和原子性混在一起</td>
+<td>固定一句：<strong>volatile 保证可见性和一定的有序性，不保证复合操作原子性</strong>；<code>count++</code> 是经典反例</td>
+<td>visibility、ordering、atomicity、count++</td>
+</tr>
+<tr>
+<td><strong>10. Java 类加载机制？</strong></td>
+<td>说很久没接触，无法回答</td>
+<td>不会时不要硬编：<strong>“这块我最近确实比较生疏，不想给您错误答案；我可以讲一下我工作中实际用到的 JVM 部分……”</strong> 然后转到熟悉方向</td>
+<td>加载、验证、准备、解析、初始化；ClassLoader</td>
+</tr>
+<tr>
+<td><strong>11. 除了 synchronized，还有什么线程安全方案？</strong></td>
+<td>尝试往 volatile 方向回答，但比较模糊</td>
+<td>建立分类：<strong>锁、CAS&#x2F;Atomic、volatile、并发容器、无锁&#x2F;消息串行化</strong>；再用实际项目举例</td>
+<td>Lock、CAS、Atomic、ConcurrentHashMap、线程安全</td>
+</tr>
+<tr>
+<td>12. 给我反馈？</td>
+<td>“把基础再学好点吧”</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 </li>
-<li>百度·智能云<ul>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>后续优化方向</strong></th>
+<th>补充内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目回答的固定结构</td>
+<td>背景 → 问题 → 我的职责 → 方案 → 为什么这么做 → 结果 → 复盘。不要一上来罗列技术名词。</td>
+</tr>
+<tr>
+<td>回答问题的合理结构</td>
+<td>练习“先结论、再 2～3 个点、然后停”</td>
+</tr>
+<tr>
+<td>不知道的问题怎么处理</td>
+<td>承认边界 → 不瞎编 → 转自己熟悉的相关问题。</td>
+</tr>
+<tr>
+<td>P0：Java 并发必须补</td>
+<td>synchronized，volatile，CAS，Atomic，ReentrantLock，AQS，ThreadLocal，ConcurrentHashMap，ThreadPoolExecutor，CompletableFuture，JMM &#x2F; happens-before</td>
+</tr>
+<tr>
+<td>P0：JVM 必须补</td>
+<td>JVM ，对象创建，类加载，Young GC &#x2F; Full GC，OOM，GC 排查，JVM 参数，Thread Dump &#x2F; Heap Dump</td>
+</tr>
+<tr>
+<td>P1：MySQL 深度</td>
+<td>B+Tree，联合索引，最左匹配，覆盖索引，回表，Explain，事务，MVCC，Redo &#x2F; Undo，行锁 &#x2F; 间隙锁 &#x2F; Next-Key Lock</td>
+</tr>
+<tr>
+<td>P1：Kafka 简单八股</td>
+<td>Topic &#x2F; Partition，Producer，Consumer Group，Offset，Rebalance，ISR，ACK，消息丢失，重复消费，顺序性，幂等</td>
+</tr>
+<tr>
+<td>P2：高并发</td>
+<td>先不要包装成“高 QPS 实战”。按真实经验准备：多节点任务调度、线程池、长 IO、并发控制、Redis 锁、CAS、限流、幂等、超时、重试、MQ。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>百度·智能云</p>
+<ul>
 <li>一面 9.28</li>
 </ul>
 </li>
-<li>字节跳动<ul>
+<li><p>字节跳动</p>
+<ul>
 <li>一面 9.29<br>后端研发工程师-电商营销 <a target="_blank" rel="noopener" href="https://job.toutiao.com/s/B0lwM_8PFaA">https://job.toutiao.com/s/B0lwM_8PFaA</a></li>
 </ul>
 </li>
