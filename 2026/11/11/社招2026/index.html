@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
 <meta property="og:image" content="https://github.com/leo710aka/repo/blob/main/agent20260919.jpg?raw=true">
 <meta property="article:published_time" content="2026-11-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2026-09-23T17:59:57.066Z">
+<meta property="article:modified_time" content="2026-09-25T04:14:47.750Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
@@ -149,7 +149,7 @@ xxx</p>
 </li>
 <li>专业技能<ul>
 <li>后端开发：熟练掌握 Java、SpringBoot、SpringCloud、MyBatis，掌握企业级工程化规范，具备 AI Coding 实践经验。</li>
-<li>数据库与中间件：熟悉 MySQL，具备 SQL 调优、索引优化、事务与锁机制等实践经验；熟悉 Redis、Kafka、Elasticsearch 中间件，具备缓存策略设计、消息队列治理、全文检索落地与线上故障排查经验。</li>
+<li>数据库与中间件：熟悉 MySQL，具备 SQL 调优、索引优化、事务与锁机制等实践经验；熟悉 Redis、Kafka 中间件，具备缓存策略设计、消息队列治理与线上故障排查经验。</li>
 <li>云原生与交付：熟悉 Docker、K8s 基础部署及 CI&#x2F;CD 发布流程，具备中间件服务化开发与 ToB 私有化产品交付经验。</li>
 <li>AI 工程化能力：具备 Agent 应用实际落地经验，熟悉 Prompt、上下文管理、Tool&#x2F;Skill、RAG 等技术；实践掌握 Harness、ReAct、工具编排及 Agent Runtime 稳定性治理能力。</li>
 </ul>
@@ -1303,9 +1303,11 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <h2 id="2026-面试经历"><a href="#2026-面试经历" class="headerlink" title="2026 面试经历"></a>2026 面试经历</h2><ul>
 <li><p>start 9.21 lets goooo 🤑🤑</p>
 </li>
+<li><p>评测 （核心是前后选择作答的优先级统一！）<br><strong>情绪稳定 &gt; 理性&#x2F;责任 &gt; 乐观&#x2F;自信 &gt; 善意&#x2F;社交 &gt; 抗压&#x2F;适应 &gt;</strong><br><strong>保守&#x2F;谦虚 &gt; 创新 &gt; 好胜&#x2F;果断 &gt; 目光成员&#x2F;敏锐 &gt; 有领导意愿</strong></p>
+</li>
 <li><p>易点云</p>
 <ul>
-<li>一面 9.23<br>Java工程师P5（中台）岗位<table>
+<li>一面 9.23<br>Java工程师P5（中台）<table>
 <thead>
 <tr>
 <th>面试问题</th>
@@ -1351,8 +1353,8 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <td>GC 监控、线程栈、Heap&#x2F;JVM、重复反序列化、JVM 参数、重启</td>
 </tr>
 <tr>
-<td><strong>7. Full GC 怎么排查？</strong></td>
-<td>有监控、登机看 JVM、GC 状态、线程栈等，但表达比较卡</td>
+<td><strong>7. Full GC 有什么情况？怎么排查？</strong></td>
+<td>几种？？有监控、登机看 JVM、GC 状态、线程栈等，但表达比较卡</td>
 <td>固定成一套套路：<strong>监控确认 → GC&#x2F;JVM 状态 → 线程栈 → 堆&#x2F;对象分析 → 止血 → 验证 → 复盘</strong></td>
 <td>“先止血，再取证，再定位，再验证”</td>
 </tr>
@@ -1432,9 +1434,192 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>科大讯飞</p>
 <ul>
-<li>评测 9.21（核心是前后选择作答的优先级统一！）<br><strong>情绪稳定 &gt; 理性&#x2F;责任 &gt; 乐观&#x2F;自信 &gt; 善意&#x2F;社交 &gt; 抗压&#x2F;适应 &gt;</strong><br><strong>保守&#x2F;谦虚 &gt; 创新 &gt; 好胜&#x2F;果断 &gt; 目光成员&#x2F;敏锐 &gt; 有领导意愿</strong></li>
-<li>一面 9.24<br>中级软件开发工程师</li>
+<li>一面 9.24<br>中级软件开发工程师（AI应用）<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>原始回答&#x2F;表现</th>
+<th>更好的回答思路</th>
+<th>关键词 &#x2F; 引导方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. 自我介绍</strong></td>
+<td>Java 2 年、MOPS、CMDB、Agent 都讲到了，也主动强调 Agent</td>
+<td>保持现在结构，但减少“工作内容罗列”，突出一条主线：<strong>Java 后端工程 → 自动化&#x2F;稳定性 → Agent 工程化</strong></td>
+<td>Java、MOPS、CMDB、Agent</td>
+</tr>
+<tr>
+<td><strong>2. F5 自动化怎么做？难点是什么？</strong></td>
+<td>讲了工单&#x2F;记录模型 → 生产配置、事前校验、事务控制、快照回滚</td>
+<td>不只讲“做了什么”，补一句<strong>核心技术问题是什么</strong>：如何保证配置与平台状态一致、失败可恢复</td>
+<td>状态控制、配置快照、回滚、幂等、一致性</td>
+</tr>
+<tr>
+<td><strong>3. 防火墙为什么要优化？</strong></td>
+<td>定时任务执行慢，新批次可能与旧批次重复执行，造成重复下发&#x2F;配置漂移</td>
+<td>先一句话给问题本质：<strong>“这是一个多节点定时调度 + 长 IO 导致的任务并发控制问题。”</strong> 再讲方案</td>
+<td>多节点、任务重复、长 IO、并发控制</td>
+</tr>
+<tr>
+<td><strong>4. 为什么使用线程池？</strong></td>
+<td>原来串行慢，因此用专用线程池；核心 8、最大 20</td>
+<td>先讲<strong>为什么能并行</strong>：策略之间没有顺序依赖；再讲线程池是为了控制并发，而不是单纯提速</td>
+<td>IO 型任务、线程池、并发上限、下游承压</td>
+</tr>
+<tr>
+<td><strong>5. 为什么是 8 核心 &#x2F; 20 最大？</strong></td>
+<td>结合设备压力设置，避免防火墙承受过多并发</td>
+<td>如果没有严格压测数据，不要把数字讲成理论最优；说成<strong>业务约束下的经验参数</strong>更稳</td>
+<td>下游承载、并发度、经验参数</td>
+</tr>
+<tr>
+<td><strong>6. 分布式锁为什么需要？</strong></td>
+<td>防止多个节点同时执行任务</td>
+<td>继续补：<strong>锁解决的是调度层互斥；EXECUTING&#x2F;CAS 解决任务状态正确性。</strong></td>
+<td>Redis Lock、DB CAS、EXECUTING</td>
+</tr>
+<tr>
+<td><strong>7. 锁为什么不能提前释放？</strong></td>
+<td>说任务执行时间要短于锁释放时间</td>
+<td>更完整：<strong>锁 TTL 应覆盖任务执行时间，并结合超时&#x2F;续期&#x2F;异常场景保证不会出现两个执行者同时运行。</strong> 不熟具体实现时不要继续吹</td>
+<td>Lock TTL、Timeout、并发一致性</td>
+</tr>
+<tr>
+<td><strong>8. Agent 1.0 怎么做？</strong></td>
+<td>Workflow（具体提一下SpringAIAlibaba的Graph），拆成意图识别、增强检索、SQL 等节点，减少上下文幻觉</td>
+<td>这个回答方向对，但可以强调：<strong>1.0 是“确定流程约束模型”，而不是模型自主决定全部步骤。</strong></td>
+<td>Workflow、Intent、Schema&#x2F;Table Retrieval、NL2SQL</td>
+</tr>
+<tr>
+<td><strong>9. Agent 2.0 做了什么？</strong></td>
+<td>Harness、ReAct、Skill、MCP、System Prompt（前提是有要求Agent全部迁移到AgentSpace上）</td>
+<td>重点不是堆名词，而是讲<strong>为什么改</strong>：1.0 流程固定 → 2.0 希望动态决策 → Runtime 负责执行控制</td>
+<td>Workflow → Agent Runtime、ReAct、Skill、MCP</td>
+</tr>
+<tr>
+<td><strong>10. 为什么拆多个 Skill？</strong></td>
+<td>澄清问题、SQL 生成等能力拆开</td>
+<td>用“单一职责 + 能力边界”解释：<strong>让 Agent 可以按任务选择能力，也便于独立治理和复用。</strong></td>
+<td>Skill Boundary、Tool、复用、职责单一</td>
+</tr>
+<tr>
+<td><strong>11. MCP 在项目里做什么？</strong></td>
+<td>将物理机、网络等资产查询接口封装成 MCP 给模型调用</td>
+<td>进一步明确：<strong>MCP 是能力暴露&#x2F;调用接口层，不等于模型本身；真正执行仍由后端能力完成。</strong></td>
+<td>MCP、Tool、API、结构化调用</td>
+</tr>
+<tr>
+<td><strong>12. ReAct 是不是你自己实现的？</strong></td>
+<td>说明直接复用内部平台能力，通过 System Prompt 引导</td>
+<td>这是正确的边界控制。以后可以直接说：<strong>“底层 Runtime&#x2F;ReAct 不是我们从零开发，主要做业务能力封装和场景适配。”</strong></td>
+<td>平台复用、业务适配、边界</td>
+</tr>
+<tr>
+<td><strong>13. Agent 效果怎么评估？</strong></td>
+<td>讲了表检索、SQL 生成、结果相关性，用数十个真实问题测试（应该是两方面：sql生成是否符合用户问题，sql执行是否成功）</td>
+<td>可以形成固定评估框架：<strong>数据集 → 意图正确率 → Schema&#x2F;表召回 → SQL 正确率 → 最终答案正确率</strong> （需要研究下）</td>
+<td>Evaluation Set、Recall、SQL Accuracy、End-to-End</td>
+</tr>
+<tr>
+<td><strong>14. CMDB 有什么技术亮点？</strong></td>
+<td>强调系统复杂、自己接手、稳定性维护，但没有提炼出明显技术亮点</td>
+<td>这里其实暴露了面试官反馈的问题。不要把“系统复杂”当亮点，应主动聚焦 <strong>Full GC 故障闭环 + 复杂系统排障能力</strong></td>
+<td>JVM、GC、链路排障、线上稳定性</td>
+</tr>
+<tr>
+<td><strong>15. CMDB 体量？美的 IT 体系？</strong></td>
+<td>讲了美的是制造业规模最大的，整体数字化程度高，AI基建好。。</td>
+<td>这里可能要介绍 MOPS&#x2F;CMDB 是如何承接美的“庞大”的IT运维需求的。。</td>
+<td>提炼系统的特点</td>
+</tr>
+<tr>
+<td><strong>16. Full GC 怎么排查？</strong></td>
+<td>先看监控&#x2F;JStack&#x2F;JMap，再止血，最后定位重复反序列化</td>
+<td>形成固定叙事：<strong>现象 → 影响 → 快速止血 → 现场取证 → 根因 → 验证</strong>。比单纯讲工具更有技术含量</td>
+<td>GC、Thread Dump、Heap Dump、根因、复盘</td>
+</tr>
+<tr>
+<td><strong>17. Eureka 怎么做服务发现？</strong></td>
+<td>能讲服务注册、网关根据请求找到服务</td>
+<td>基础回答够，但不要主动往负载均衡深挖；如果被问，再讲 Eureka Registry、心跳、实例上下线</td>
+<td>Eureka、Registry、Heartbeat</td>
+</tr>
+<tr>
+<td><strong>18. 多实例怎么负载均衡？</strong></td>
+<td>只知道轮询、权重、健康检查，对底层不深</td>
+<td>不确定时直接划边界：<strong>“业务侧我主要使用这一层能力，具体负载均衡实现我没有深入研究。”</strong></td>
+<td>不瞎编、知识边界</td>
+</tr>
+<tr>
+<td><strong>19. Docker&#x2F;K8s 做过什么？</strong></td>
+<td>讲了 MOPS 私有化交付、容器打包、解压、重启</td>
+<td>不要说成 K8s 专家；定位为<strong>具备基础部署和排障能力</strong></td>
+<td>Docker、K8s、CI&#x2F;CD、ToB</td>
+</tr>
+<tr>
+<td><strong>20. 反问：我在面试中核心应该表达出什么？！</strong></td>
+<td>技术亮点现场表达能力！！（具体的技术深度没有体现，排障经验没有提醒明晰的思路，为什么大家都会做，你做的是不是更好呢）</td>
+<td>以后准备固定答案：<strong>防火墙并发控制、CMDB Full GC 排障、Agent 1→2 架构演进</strong>，每个都能在 30 秒内讲出“问题→方案→结果”</td>
+<td>技术亮点、问题本质、方案、结果</td>
+</tr>
+</tbody></table>
+</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>后续强化方向</th>
+<th>需要补 &#x2F; 打磨的内容</th>
+<th>优先级 &#x2F; 目标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. 技术亮点表达</strong></td>
+<td>每个项目提炼 <strong>1 个核心技术问题 + 1 套方案 + 1 个结果</strong>，不要只讲业务流程</td>
+<td><strong>P0</strong>：以后被问“技术难点是什么”不能再现场找</td>
+</tr>
+<tr>
+<td><strong>2. 防火墙项目</strong></td>
+<td>Redis Lock、DB CAS、EXECUTING、线程池、拒绝策略、Timeout、Retry、为什么能并行、为什么这样设置线程数</td>
+<td><strong>P0</strong>：这是你目前最成熟的后端项目</td>
+</tr>
+<tr>
+<td><strong>3. CMDB 故障排查</strong></td>
+<td>Full GC 排查流程、Thread Dump、Heap Dump、对象分配、老年代、OOM、止血与根因的区别（锁粒度）</td>
+<td><strong>P0</strong></td>
+</tr>
+<tr>
+<td><strong>4. JVM</strong></td>
+<td>JVM 内存区域、对象创建、类加载、GC、Young GC、Full GC、OOM、JVM 参数、Thread Dump &#x2F; Heap Dump</td>
+<td><strong>P0</strong></td>
+</tr>
+<tr>
+<td><strong>5. Java 并发</strong></td>
+<td>synchronized、volatile、CAS、Atomic、ReentrantLock、AQS、ConcurrentHashMap、JMM、happens-before</td>
+<td><strong>P0</strong>；昨天&#x2F;今天都验证了短板</td>
+</tr>
+<tr>
+<td><strong>6. ThreadPoolExecutor</strong></td>
+<td>核心参数、任务提交流程、队列、拒绝策略、CPU&#x2F;IO 密集型区别</td>
+<td><strong>P0</strong>；实际项目直接相关</td>
+</tr>
+<tr>
+<td><strong>13. Agent Evaluation</strong></td>
+<td>建立真实问题集、意图&#x2F;召回&#x2F;SQL&#x2F;最终答案分层评估</td>
+<td><strong>P1</strong>；以后项目表达很有用</td>
+</tr>
+<tr>
+<td><strong>16. 表达训练</strong></td>
+<td><strong>先结论 → 2～3 个点 → 停</strong>；不要边想边讲、不要一次说完所有细节</td>
+<td><strong>P0</strong></td>
+</tr>
+<tr>
+<td><strong>19. AI Coding</strong></td>
+<td>Claude Code、Cursor、内部 Workspace 怎么实际使用，能举真实例子</td>
+<td><strong>P2</strong></td>
+</tr>
+</tbody></table>
 </li>
 <li><p>百度·智能云</p>
 <ul>
@@ -1444,6 +1629,11 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><p>字节跳动</p>
 <ul>
 <li>一面 9.29<br>后端研发工程师-电商营销 <a target="_blank" rel="noopener" href="https://job.toutiao.com/s/B0lwM_8PFaA">https://job.toutiao.com/s/B0lwM_8PFaA</a></li>
+</ul>
+</li>
+<li><p>长鑫存储 </p>
+<ul>
+<li>一面 9.30</li>
 </ul>
 </li>
 </ul>
