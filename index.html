@@ -2664,11 +2664,11 @@ xxx</p>
 <li>工作经历<br>Midea｜后端开发工程师‑Java 2024.7~至今<ol>
 <li>MOPS 自动化运维平台<ul>
 <li>MOPS 是集团核心自动化运维底座，覆盖主机、网络、存储等模块资源运维能力，通过自动化、流程化替代人工运维操作。</li>
-<li>职责：负责网络与备份模块研发、线上稳定性及私有化交付，协同开发完成需求落地，并承担生产上线与问题闭环。<ul>
+<li>职责：负责网络与备份模块后端研发、线上稳定性及私有化交付，协同开发完成需求落地，并承担生产上线与问题闭环。<ul>
 <li><strong>F5 网络自动化建设</strong>：独立落地 DNS、负载均衡全流程自动化能力，覆盖资源申请、配置变更、回收及一键回退完整链路；围绕“配置可验证、状态可追踪、异常可恢复”设计事前校验、变更状态控制与配置快照机制，降低配置漂移及高风险变更带来的影响。全年累计承接 <strong>3k+ 生产工单</strong>，人工变更操作占比降低 **80%**，操作失误率降至 <strong>0</strong>。</li>
 <li><strong>防火墙下发策略优化</strong>：针对多节点定时调度下任务重复、串行执行效率低及策略重复下发问题，采用 <strong>Redis 分布式锁 + 数据库 CAS + EXECUTING 中间态</strong>分层保障任务互斥与策略执行正确性；通过专用线程池并行处理长耗时 IO 请求，并加入失败重试、超时控制及僵尸任务巡检机制，单批次下发效率提升 <strong>4 倍</strong>，策略重复下发率降至 <strong>0</strong>。</li>
 <li><strong>NBU 备份自动化落地</strong>：基于 Ansible 与 NBU API，将备份客户端远程安装、策略下发等人工运维动作平台化；Java 侧通过异步任务解耦调度与执行，底层依托 SSH、Linux 权限控制完成目标主机自动化部署，部署周期由小时级缩短至分钟级。</li>
-<li><strong>ToB 私有化交付：</strong>负责网络、备份两大模块的客户交付，完成需求对接、方案评审、定制开发、CI&#x2F;CD 打包、多环境 Bundle 适配、客户环境部署调试及上线验收；沉淀标准化交付文档与运维手册，完成从代码交付到客户环境运行的闭环。</li>
+<li><strong>ToB 私有化交付：</strong>牵头网络、备份两大模块客户交付，完成需求对接、方案评审、定制开发、多环境 Bundle 适配、客户环境部署调试及上线验收；沉淀标准化交付文档与运维手册，完成从代码交付到客户环境运行的闭环。</li>
 </ul>
 </li>
 </ul>
@@ -2676,8 +2676,8 @@ xxx</p>
 <li>CMDB 基础配置数据库<ul>
 <li>CMDB 是集团 IT 运维资产数据底座，承载上万台服务器及各类 IT 配置资产，为上层 AIOps、运维、监控等提供数据支撑。</li>
 <li>职责：作为系统 Owner，负责业务方数据接入、功能支持与线上运维；深入梳理核心数据链路和线上运行机制，持续开展平台稳定性治理，并将常见运营答疑经验沉淀为 Skill，支持用户通过数字人入口自助答疑。<ul>
-<li><strong>核心数据链路梳理：</strong>在业务接入与线上问题处理中，深入梳理数据接入、同步、存储等微服务链路，理解 MongoDB 元数据&#x2F;业务数据分层、资产主键 upsert 幂等、Redis 缓存表头元数据等关键机制，形成对企业级数据接入、并发写入及数据一致性问题的系统认知。</li>
-<li><strong>防火墙采集故障排查：</strong>负责线上 Full GC &#x2F; 内存压力故障闭环，按“GC 状态监控 → 线程栈定位阻塞点 → 堆内存分析根因”的流程排查，通过 JVM 参数调整与服务重启完成止血恢复；结合故障现场进一步定位表头元数据重复反序列化的核心诱因、梳理锁竞争与线程资源控制等潜在优化方向，形成稳定性排障与复盘闭环。</li>
+<li><strong>核心数据链路梳理：</strong>深入梳理数据接入、同步、存储等微服务链路，理解 MongoDB 元数据&#x2F;业务数据分层、资产主键 upsert 幂等、Redis 缓存表头元数据等关键机制，形成对企业级数据接入、并发写入及数据一致性问题的系统认知。</li>
+<li><strong>防火墙采集故障排查：</strong>负责线上 Full GC &#x2F; 内存压力故障闭环，按“<strong>GC 状态监控 → 线程栈定位阻塞点 → 堆内存分析根因</strong>”的流程排查，通过 JVM 参数调整与服务重启完成止血恢复；结合故障现场进一步定位表头元数据重复反序列化的核心诱因、梳理锁竞争与线程资源控制等潜在优化方向，形成稳定性排障与复盘闭环。</li>
 <li><strong>平台稳定性治理：</strong>长期负责线上 JVM 异常、中间件故障、接口卡顿等问题排查，形成“<strong>先止血恢复 → 现场取证 → 根因定位 → 验证复盘</strong>”的故障处置流程，并将常见排障路径沉淀为 Skill 并内部共享。</li>
 </ul>
 </li>
@@ -2699,7 +2699,7 @@ xxx</p>
 <li>后端开发：熟练掌握 Java、SpringBoot、SpringCloud、MyBatis，掌握企业级工程化规范，具备 AI Coding 实践经验。</li>
 <li>数据库与中间件：熟悉 MySQL，具备 SQL 调优、索引优化、事务与锁机制等实践经验；熟悉 Redis、Kafka 中间件，具备缓存策略设计、消息队列治理与线上故障排查经验。</li>
 <li>云原生与交付：熟悉 Docker、K8s 基础部署及 CI&#x2F;CD 发布流程，具备中间件服务化开发与 ToB 私有化产品交付经验。</li>
-<li>AI 工程化能力：具备 Agent 应用实际落地经验，熟悉 Prompt、上下文管理、Tool&#x2F;Skill、RAG 等技术；实践掌握 Harness、ReAct、工具编排及 Agent Runtime 稳定性治理能力。</li>
+<li>AI 工程化能力：具备 Agent 应用实际落地经验，熟悉 Prompt、Tool&#x2F;Skill、RAG 等技术；具备 Harness、ReAct、工具编排实践经验。</li>
 </ul>
 </li>
 </ul>
@@ -2915,10 +2915,12 @@ xxx</p>
 <ul>
 <li><p><strong>一个挑战。&#x2F; 讲一个最复杂线上问题。</strong><br>“比起 MOPS 的平稳迭代，更大的挑战是 CMDB 原来的负责人交接给我时，团队中的其他成员对其代码实现了解不高，而且故障多。。<br>今年，我逐渐接手了这个系统，后来主要负责业务方的数据接入、线上问题以及日常维护。因为它本身是一个比较复杂的微服务系统，所以我后面花了比较多时间把核心数据链路梳理清楚，包括数据接入、同步、MongoDB 存储、Redis 元数据缓存等。”<br>“CMDB 这块我的角色更多是系统 Owner 和线上维护，不是最初架构的设计者。我比较深入的是核心数据链路、问题定位和线上稳定性。比如业务接入出现问题时，我需要从接口一直追到数据同步、数据库以及缓存这一层，定位到底是哪一层出了问题。”</p>
 </li>
-<li><p>“你简历里 Agent 是怎么做的？”<br>“这个项目其实经历了两个阶段。1.0 更偏传统的 Workflow&#x2F;Graph 编排，2.0 我们现在正在往 Agent Runtime 的方向重构。”<br>“1.0 是基于阿里开源 DataAgent 做的运维场景定制，核心任务是让用户通过自然语言查询 CMDB 数据。我们主要做了表召回、SQL 生成、Prompt 调优、知识库以及基础多轮上下文。”<br>“2.0 的思路发生了比较明显的变化。原来是人工把 Graph&#x2F;Workflow 定义好，让模型在预设流程里执行；现在希望把这些业务能力拆成 Skill&#x2F;Tool，由 LLM 根据当前上下文动态决定调用哪个能力，Harness 负责会话、上下文以及运行时约束。”<br>“所以我现在比较关注的，是怎么让 Agent 在真实业务环境里稳定运行。”</p>
+<li><p>CMDB 的 FullGC 当时是怎么处理的？</p>
+</li>
+<li><p>“你简历里 Agent 是怎么做的？”<br>“这个项目其实经历了两个阶段。1.0 更偏传统的 Workflow&#x2F;Graph 编排，2.0 我们现在正在往 Agent Runtime 的方向重构。”<br>1.0 是基于阿里开源 DataAgent 做的运维场景定制，核心任务是让用户通过自然语言查询 CMDB 数据。我们主要做了表召回、SQL 生成、Prompt 调优、知识库以及基础多轮上下文。<br>2.0 的思路发生了比较明显的变化。原来是人工把 Graph&#x2F;Workflow 定义好，让模型在预设流程里执行；现在希望把这些业务能力拆成 Skill&#x2F;Tool，由 LLM 根据当前上下文动态决定调用哪个能力，Harness 负责会话、上下文以及运行时约束。”<br>“所以我现在比较关注的，是怎么让 Agent 在真实业务环境里稳定运行。”</p>
 </li>
 <li><p>Agent 项目要同时准备“技术价值”和“业务价值”两条线</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">技术线：</span><br><span class="line"></span><br><span class="line">Workflow → 意图 → 检索 → SQL → Agent 2.0。</span><br><span class="line"></span><br><span class="line">“为什么非要做 Agent？”</span><br><span class="line"></span><br><span class="line">为什么做？降低资产数据查询门槛。</span><br><span class="line"></span><br><span class="line">为什么自然语言而不是表单？复杂、多表、非固定查询更灵活；普通用户不需要理解系统结构。</span><br><span class="line"></span><br><span class="line">为什么做 SQL？SQL 是查询能力的执行表达，模型负责把自然语言映射为结构化查询。</span><br><span class="line"></span><br><span class="line">为什么 2.0？1.0 流程固定、能力绑定；2.0 抽象 Skill/MCP，让能力可复用、动态编排、后续扩展更容易。</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">技术线：Workflow → 意图 → 检索 → SQL → Agent 2.0</span><br><span class="line"></span><br><span class="line">为什么要做 Agent？降低资产数据查询门槛。同时问数也是 AI 落地的经典场景。</span><br><span class="line"></span><br><span class="line">为什么做 SQL？SQL 是查询能力的执行表达，模型负责把自然语言映射为结构化查询。</span><br><span class="line"></span><br><span class="line">为什么自然语言而不是表单？复杂、多表、非固定查询更灵活；普通用户不需要理解系统结构</span><br><span class="line"></span><br><span class="line">为什么 2.0？1.0 流程固定、能力绑定；2.0 抽象 Skill/MCP，让能力可复用、动态编排、后续扩展更容易。</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>为什么你一个 Java 后端想做 Agent？<br>“我觉得 Agent 对我来说并不是完全跨领域转行。<br>我原来做 Java 后端，比较多解决的是确定性系统的问题，比如任务调度、并发控制、数据一致性、异常恢复和线上稳定性。<br>现在 Agent 引入了 LLM 以后，系统的决策变得不完全确定，但它依然需要解决很多工程问题，比如上下文管理、工具调用、超时、重试、状态管理和异常恢复。<br>所以我比较感兴趣的是把原来的后端工程能力应用到 Agent 上，让模型能力真正变成一个稳定可运行的业务系统。”</p>
 </li>
@@ -3820,10 +3822,172 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>JDK7中的扩容是每个Segment内部进行扩容，不会影响其他Segment，而JDK8中的扩容和HashMap的扩容类似，只不过支持了多线程扩容，并且保证了线程安全</li>
 </ol>
 </li>
-<li><p>ConcurrentHashMap是如何保证并发安全的？<br>JDK1.7中ConcurrentHashMap是通过ReentrantLock+CAS+分段思想来保证的并发安全的。ConcurrentHashMap的put方法会通过CAS的方式，把一个Segment对象存到Segment数组中一个Segment内部存在一个HashEntry数组，相当于分段的HashMap，Segment继承了ReentrantLock，每段put开始会加锁。<br>JDK1.8通过CAS+synchronized +锁桶的思想来保证并发安全的.它将每个桶（数组中的每个位置）作为独立的锁单位, 当操作不同的桶时，线程无需竞争同一把锁。锁的粒度更细了. 并发度更高。synchronized 锁头节点：插入或修改数据时，仅对当前桶的头节点加锁, 也就是只锁桶. </p>
+<li><p>ConcurrentHashMap是如何保证并发安全的？<br>JDK1.7中ConcurrentHashMap是通过ReentrantLock+CAS+分段思想来保证的并发安全的。ConcurrentHashMap的put方法会通过CAS的方式，把一个Segment对象存到Segment数组中一个Segment内部存在一个HashEntry数组，相当于分段的HashMap，Segment继承了ReentrantLock，每段put开始会加锁。<br>JDK1.8通过CAS+synchronized +锁桶的思想来保证并发安全的.它将每个桶（数组中的每个位置）作为独立的锁单位, 当操作不同的桶时，线程无需竞争同一把锁。锁的粒度更细了. 并发度更高。synchronized 锁头节点：插入或修改数据时，仅对当前桶的头节点加锁, 也就是只锁桶.</p>
 </li>
-<li><p>ThreadPoolExecutor构造函数 (高)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="type">int</span> corePoolSize,</span><br><span class="line">                  <span class="type">int</span> maximumPoolSize,</span><br><span class="line">                  <span class="type">long</span> keepAliveTime,</span><br><span class="line">                  TimeUnit unit,</span><br><span class="line">                  BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                  ThreadFactory threadFactory,</span><br><span class="line">                  RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure>
+</ul>
+<h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><ol>
+<li><p>什么是线程不安全？并发场景下会引发哪三类核心问题？<br> 线程不安全的本质是：多个线程并发访问同一份共享资源时，操作不满足<strong>原子性、可见性、有序性</strong>，最终导致数据结果不符合预期。</p>
+<ul>
+<li>原子性：复合操作（如<code>i++</code>）中途会被打断，造成更新丢失</li>
+<li>可见性：一个线程修改了变量，其他线程因CPU缓存看不到最新值</li>
+<li>有序性：编译器&#x2F;CPU重排指令，多线程场景下逻辑出错</li>
+</ul>
+</li>
+<li><p>什么是死锁？产生死锁的四个必要条件是什么？常见的避免手段有哪些？<br>死锁是指两个或多个线程互相持有对方需要的锁，又都永久等待对方释放，程序卡住无法推进。<br>四个必要条件：<strong>互斥、请求并保持、不可剥夺、循环等待</strong>。<br>常见避免手段：统一加锁顺序（破坏循环等待）、使用超时锁（破坏请求并保持）、主动释放锁。</p>
+</li>
+<li><p>Java的锁按核心思想分哪两大类？本质区别是什么？分别适用于什么场景？</p>
+<ul>
+<li>悲观锁：默认并发冲突一定会发生，操作前必须先加锁，同一时间只能一个线程操作。适合写多、冲突频繁的场景。</li>
+<li>乐观锁：默认并发冲突很少，全程不加锁，提交更新时校验数据有没有被修改。适合读多、冲突少的场景。</li>
+</ul>
+</li>
+<li><p>synchronized 有哪三种用法？分别锁什么对象？作用范围有什么区别？<br>本质都是<strong>锁对象</strong>（对象是共享资源的载体），区别只在于锁的对象不同，互斥范围不同。</p>
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>锁的对象</th>
+<th>作用范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通同步方法</td>
+<td>当前实例<code>this</code></td>
+<td>同一个实例的所有同步方法互斥，不同实例互不影响</td>
+</tr>
+<tr>
+<td>静态同步方法</td>
+<td>类的<code>Class</code>对象（全类唯一）</td>
+<td>所有静态同步方法互斥，和实例方法完全不冲突（是两个锁）；适合用于操作静态对象</td>
+</tr>
+<tr>
+<td>同步代码块</td>
+<td>括号内指定的任意对象</td>
+<td>只包裹代码块内逻辑，粒度最细，可多资源独立加锁</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>synchronized 的锁升级过程是怎样的？每一级分别有什么特点？</p>
+<ol>
+<li><strong>无锁</strong>：对象刚创建，对象头存哈希码、分代年龄等基础信息；锁只能升级、不能降级</li>
+<li><strong>偏向锁</strong>：单线程首次获取锁，对象头直接记录线程ID，下次同线程进入无需CAS，几乎零开销</li>
+<li><strong>轻量级锁</strong>：出现多线程竞争，偏向锁撤销，线程用CAS自旋抢对象头的锁标记，线程不阻塞，开销小</li>
+<li><strong>重量级锁</strong>：自旋次数超限或竞争激烈，升级为Monitor管理，线程挂起阻塞，交给操作系统调度，开销大</li>
+</ol>
+</li>
+<li><p>重量级锁 Monitor 的完整获取与释放流程是什么？它和 wait&#x2F;notify 是什么关系？<br> Monitor内部有两套独立队列，分别对应抢锁和条件协作。</p>
+<ol>
+<li><strong>正常抢锁流程（对应EntryList入口队列）</strong><ul>
+<li>获取：线程先尝试占Monitor的<code>_owner</code>标记，成功则执行；重入则计数器+1；失败则进入EntryList阻塞</li>
+<li>释放：退出同步块时计数器-1，减到0则释放锁，自动唤醒EntryList队头线程；被唤醒线程重新参与竞争</li>
+</ul>
+</li>
+<li><strong>条件协作流程（对应WaitSet等待集 + wait&#x2F;notify）</strong><ul>
+<li><code>wait()</code>：持有锁的线程主动释放锁，进入WaitSet休眠，等待业务条件满足</li>
+<li><code>notify()</code>：从WaitSet随机唤醒一个线程，它会先进入EntryList重新排队抢锁，不是直接执行</li>
+<li>两者是完全独立的机制：EntryList存等锁的线程，WaitSet存等条件的线程。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>synchronized 是公平锁吗？为什么？<br>不是公平锁。<br>偏向锁、轻量级锁阶段都是谁抢到是谁的；重量级锁释放时，新进来的线程可以直接插队抢锁，不用排队，不保证先来先到。</p>
+</li>
+<li><p>ReentrantLock 是什么？底层是怎么实现的？<br>ReentrantLock是JUC包下的<strong>显式可重入锁</strong>，纯Java代码实现，底层基于AQS（抽象队列同步器），需要手动调用<code>lock()</code>加锁、<code>unlock()</code>释放锁，支持公平&#x2F;非公平两种模式。更加灵活。</p>
+</li>
+<li><p>AQS（抽象队列同步器）的核心原理是什么？<br> AQS是JUC几乎所有锁和同步工具的通用底层模板。<br> 核心两大组件：</p>
+<ul>
+<li>一个<code>volatile</code>修饰的<code>state</code>状态变量：标记锁的占用状态和重入次数</li>
+<li>一个CLH双向等待队列：抢锁失败的线程封装成节点，排到队尾阻塞等待<br> 上层锁只需要定义「抢锁、释放锁」的规则，排队、阻塞、唤醒等通用逻辑全部由AQS实现。</li>
+</ul>
+</li>
+<li><p>ReentrantLock 和 synchronized 的核心区别是什么？</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>synchronized</th>
+<th>ReentrantLock</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现层面</td>
+<td>JVM内置关键字，C++底层实现</td>
+<td>JDK纯Java代码实现，基于AQS</td>
+</tr>
+<tr>
+<td>使用方式</td>
+<td>自动加锁、自动释放</td>
+<td>手动<code>lock()/unlock()</code>，必须写在<code>finally</code>里</td>
+</tr>
+<tr>
+<td>公平性</td>
+<td>仅非公平锁</td>
+<td>支持公平&#x2F;非公平锁切换</td>
+</tr>
+<tr>
+<td>功能特性</td>
+<td>仅基础互斥</td>
+<td>支持超时抢锁、可中断抢锁、绑定多个Condition条件</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>低竞争下更优</td>
+<td>高竞争下性能更稳定可控</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>公平锁和非公平锁的区别是什么？分别有什么优缺点？</p>
+<ul>
+<li><strong>非公平锁（默认）</strong>：线程进来先直接CAS抢锁，抢不到再排队。优点：吞吐量高；缺点：可能出现线程饥饿</li>
+<li><strong>公平锁</strong>：所有线程一律先排队，严格先来先到。优点：绝对公平；缺点：吞吐量稍低</li>
+</ul>
+</li>
+<li><p>volatile 关键字的两个核心作用是什么？</p>
+<ol>
+<li><strong>保证可见性</strong>：写操作立即强制刷回主内存，读操作直接从主内存读取，跳过CPU本地缓存</li>
+<li><strong>保证有序性</strong>：禁止编译器和CPU对指令进行重排序，保证执行顺序和代码书写顺序一致</li>
+</ol>
+</li>
+<li><p>为什么 volatile 能保证可见性，但不能保证原子性？举一个简单的例子说明。<br>volatile只保证单步读、写操作的可见性，但<strong>复合操作（如<code>i++</code>的读-改-写三步）中间会被其他线程打断</strong>，而原子性要求整个操作全程不可分割，volatile做不到。<br>例子：两个线程同时对volatile修饰的<code>count</code>各执行1000次<code>count++</code>，最终结果一定小于2000，因为三步操作中间会插入其他线程，造成更新丢失。</p>
+</li>
+<li><p>CAS 是什么？它的执行逻辑是怎样的？有哪些优缺点？<br>CAS全称Compare And Swap（比较并交换），是CPU硬件级原子指令，是乐观锁的核心实现。<br>执行逻辑：包含三个要素——内存地址V、预期旧值A、新值B。只有V的当前值等于A时，才将V更新为B并返回成功；否则返回失败。<br>优点：全程不加锁，并发度高，开销小；<br>缺点：存在ABA问题、竞争激烈时自旋浪费CPU、只能保证单个变量的原子性。</p>
+</li>
+<li><p>CAS 已经保证了操作的原子性，为什么锁的状态变量还要搭配 volatile 使用？</p>
+<ul>
+<li>CAS保证「比较+交换」这个动作本身不可分割，管<strong>改的过程不被抢</strong></li>
+<li>volatile保证所有线程读到的状态值是主存最新值，管<strong>看到的值不过期</strong><br>两者解决完全不同的问题，缺一不可；缺了volatile，线程读到的是本地缓存的过期值，CAS比较的基准从一开始就错了，会直接导致锁失效。Java中所有用CAS的并发变量，本质都是「volatile + CAS」的组合。</li>
+</ul>
+</li>
+<li><p>Java 创建线程有哪几种常用方式？</p>
+<ul>
+<li>继承<code>Thread</code>类，重写<code>run()</code>方法（本质上就这一种）</li>
+<li>实现<code>Runnable</code>接口，重写<code>run()</code>方法，传给Thread对象执行</li>
+<li>实现<code>Callable</code>接口，配合<code>FutureTask</code>，可获取任务返回值和异常</li>
+</ul>
+</li>
+<li><p>线程的 start() 方法和 run() 方法有什么本质区别？</p>
+<ul>
+<li><code>start()</code>：真正启动新线程，让线程进入就绪状态等待CPU调度，调度到后自动执行<code>run()</code>方法</li>
+<li><code>run()</code>：只是普通的方法调用，直接在当前线程执行方法体，不会开启新线程</li>
+</ul>
+</li>
+<li><p>线程的生命周期有哪几种状态？之间是怎么流转的？</p>
+<ol>
+<li><strong>新建（New）</strong>：线程对象创建，还未调用start()</li>
+<li><strong>就绪（Runnable）</strong>：调用start()后，等待CPU调度</li>
+<li><strong>阻塞（Blocked）</strong>：等待锁时进入该状态</li>
+<li><strong>等待（Waiting）</strong>：调用wait()、join()等方法，无限等待</li>
+<li><strong>超时等待（Timed Waiting）</strong>：调用sleep()、超时wait等，有时长限制的等待</li>
+<li><strong>终止（Terminated）</strong>：任务执行完成或异常退出<br>流转：新建→就绪→运行→（阻塞&#x2F;等待&#x2F;超时等待）→就绪→终止。</li>
+</ol>
+</li>
+<li><p>为什么要使用线程池？线程池的七大核心参数是什么？</p>
+<ul>
+<li>使用线程池的好处：复用线程减少创建销毁开销、控制并发数避免资源耗尽、统一管理线程生命周期。</li>
+<li>七大核心参数：核心线程数、最大线程数、空闲线程存活时间、时间单位、工作队列、线程工厂、拒绝策略。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="type">int</span> corePoolSize,</span><br><span class="line">                  <span class="type">int</span> maximumPoolSize,</span><br><span class="line">                  <span class="type">long</span> keepAliveTime,</span><br><span class="line">                  TimeUnit unit,</span><br><span class="line">                  BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                  ThreadFactory threadFactory,</span><br><span class="line">                  RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure>
+<strong>核心线程</strong>：默认长期存活，即使空闲也不会被回收，优先执行新任务<br><strong>非核心线程</strong>：队列满了才会创建，空闲超过存活时间会被回收，用来应对突发流量高峰</li>
+<li>线程池线程数如何设置?<br>CPU密集型: 任务需要大量计算, 很少阻塞, CPU一直处于忙碌状态. CPU核数 + 1<br>IO密集型: 任务需要频繁的IO操作(与磁盘, 网络交互), CPU经常等待IO完成. CPU核数 * 2</li>
+</ul>
 </li>
 <li><p>提交一个新任务到线程池时，具体的执行流程 &#x2F; 线程池的工作流程 (高)</p>
 <ol>
@@ -3833,19 +3997,104 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>如果达到maximumPoolSize，阻塞队列还是满的状态，那么将根据不同的拒绝策略对应处理</li>
 </ol>
 </li>
-<li><p>线程池线程数如何设置? (高)<br>CPU密集型: 任务需要大量计算, 很少阻塞, CPU一直处于忙碌状态. CPU核数 + 1<br>IO密集型: 任务需要频繁的IO操作(与磁盘, 网络交互), CPU经常等待IO完成. CPU核数 * 2</p>
-</li>
-<li><p>线程池的拒绝策略 (中)</p>
+<li><p>线程池有哪四种默认拒绝策略？分别适用于什么场景？</p>
 <ol>
-<li>AbortPolicy：抛出RejectedExecutionException异常。</li>
-<li>CallerRunsPolicy：调用者线程自己执行任务。</li>
-<li>DiscardPolicy：直接丢弃任务，不处理。</li>
-<li>DiscardOldestPolicy：丢弃队列中最旧的任务，然后重新尝试提交当前任务。</li>
-<li>自定义拒绝策略，通过实现RejectedExecutionHandler接口，并重写rejectedExecution方法来实现自定义逻辑</li>
+<li><strong>AbortPolicy（默认）</strong>：直接抛出异常。适用于核心交易链路，失败明确可感知</li>
+<li><strong>CallerRunsPolicy</strong>：提交任务的线程自己执行任务，起到反压降速作用。适用于后台批量任务，任务不能丢</li>
+<li><strong>DiscardPolicy</strong>：静默丢弃新任务。适用于非核心埋点、日志，丢失不影响主流程</li>
+<li><strong>DiscardOldestPolicy</strong>：丢弃队列里最老的任务，加入新任务。适用于状态更新类场景，旧任务可被新任务覆盖</li>
 </ol>
 </li>
+<li><p>常见的四种默认线程池是什么？分别有什么潜在问题？</p>
+<ol>
+<li><strong>FixedThreadPool</strong>：固定线程数，无界队列，高并发下任务堆积可能引发OOM</li>
+<li><strong>CachedThreadPool</strong>：缓存线程池，无界最大线程数，高并发下创建大量线程耗尽系统资源</li>
+<li><strong>SingleThreadExecutor</strong>：单线程池，无界队列，同样存在任务堆积OOM风险</li>
+<li><strong>ScheduledThreadPool</strong>：定时线程池，无界队列，任务堆积风险<br>生产环境推荐自定义线程池，不直接使用JDK默认实现。</li>
+</ol>
+</li>
+</ol>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
+<li><p>内存结构</p>
+</li>
+<li><p>垃圾回收</p>
+</li>
+<li><p>类加载</p>
+</li>
 </ul>
-<h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><ul>
+<h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><ul>
+<li><p>数据库存储引擎有哪些 (高)</p>
+<ul>
+<li>innodb<br>  事务, 外键, 行级锁<br>  适合事务要求高, 数据完整性高的场景<br>  InnoDB 支持数据库异常崩溃后的安全恢复, 依赖于redo log ,而MyISAM不支持<br>  innodb支持MVCC, MyISAM不支持</li>
+<li>MyISAM<br>  全表锁, 不支持事务, 不支持外键, 并发性低<br>  适合对事务要求不高, 数据完整性要求不高, 并发性要求不高的场景</li>
+<li>memory<br>  全表锁<br>  数据存储在内存中, 默认使用hash索引, 检索速度非常高.<br>  适合做缓存 (被redis代替)</li>
+</ul>
+</li>
+<li><p>MySQL中的索引类型 (高)</p>
+<ul>
+<li>逻辑维度<ul>
+<li>主键索引: 针对表主键的索引, 默认创建, 只能有一个</li>
+<li>唯一索引: 避免一个表中的索引重复, 可以多个</li>
+<li>常规索引: 快速定位数据, 可以多个</li>
+<li>前缀索引: 在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度. 但是数值类型不 能指定长度</li>
+<li>联合索引: 多个列组合的索引 (最左前缀匹配原则, 索引下推, 避免回表, select *)</li>
+<li>全文索引: 查找文本中的关键词. 像es一样. 可以多个</li>
+</ul>
+</li>
+<li>innodb中根据索引的物理存储形式, 又可以分为两种<ul>
+<li>聚集索引: 一般主键索引就是聚集索引, 且只有一个. 索引的叶子节点是id, id下挂了行数据.</li>
+<li>二级索引: 索引的叶子节点是该列的值, 下面挂了id<br>如果走二级索引, 那么就先从二级索引中拿到id, 再根据id从聚集索引中查行数据. 这个过程叫回表, 一般要避免回表(不要使用select *).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>为什么InnoDB存储引擎选择使用B+树索引结构？<br>相对于二叉树，层级更少，搜索效率高；<br>B树无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低；<br>相对Hash索引，B+树支持范围匹配及排序操作；</p>
+</li>
+<li><p>什么是覆盖索引&#x2F;什么是回表 (高)</p>
+</li>
+<li><p>索引的使用原则&#x2F;索引失效场景 (高)</p>
+</li>
+<li><p>explain执行计划 (高)</p>
+</li>
+<li><p>发现查询速度很慢，怎么解决 (高)</p>
+</li>
+<li><p>什么是数据库事务&#x2F;事务四大特性 (高)<br>事务: 一系列sql语句, 要么全成功, 要么全失败.<br>原子性 (Atomicity): 事务是不可分割的最小单元, n个连续操作失败了一个, 前面的操作回滚 (要么都成功, 要么都失败)；原子性通过undolog回滚来实现<br>一致性(Consistency): 执行事务前后，数据总量保持一致. 例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；保证了其他三个特性, 一致性就自然实现<br>持久性 (Durability): 持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的, 无法撤销；redolog来实现<br>隔离性 (Isolation): 多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离, 保证每个事务不受并发影响, 独立执行；mvcc+锁 配合undolog来实现</p>
+</li>
+<li><p>隔离性产生的问题 (高)</p>
+<ul>
+<li>脏读: 一个事务读取到另一个事务未提交的数据<br>1. 在事务A执行过程中，事务A对数据资源进行了修改，事务B读取了事务A修改后的数据。<br>2. 由于某些原因，事务A并没有完成提交，发生了RollBack操作，则事务B读取的数据就是脏数据。</li>
+<li>不可重复读:<ul>
+<li>事务B读取了两次数据资源，在这两次读取的过程中事务A修改了数据，导致事务B在这两次读取出来的数据不一致。</li>
+<li>这种在同一个事务中，前后两次读取的数据不一致的现象就是不可重复读(Nonrepeatable Read)。</li>
+</ul>
+</li>
+<li>幻读:<ul>
+<li>事务A按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻觉。(由于解决了不可重复读, 所以该事务读取不到别的事务已提交的数据)</li>
+<li>幻读和不可重复读有些类似，但是幻读强调的是集合的增减，而不是单条数据的更新。(比如第一次读是有0条数据, 但是第二次读却有了1条数据).<br>  不可重复读和幻读区别: 不可重复读的重点是修改比如多次读取一条记录发现其中某些列的值被修改，幻读的重点在于新增或者删除比如多次读取一条记录发现记录增多或减少了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事务的隔离级别 (高)</p>
+<ul>
+<li>为了解决以上的问题，主流的关系型数据库都会提供四种事务的隔离级别。事务隔离级别从低到高分别是：读未提交、读已提交、可重复读、串行化。<br>  事务隔离级别等级越高，越能保证数据的一致性和完整性，但是执行效率也越低。<br>  所以在设置数据库的事务隔离级别时需要做一下权衡，MySQL默认是可重复读的级别。</li>
+<li>读未提交<br>  读未提交(Read Uncommitted)，是最低的隔离级别，所有的事务都可以看到其他未提交的事务的执行结果。不能解决脏读，可重复读，幻读，所以很少应用于实际项目。</li>
+<li>读已提交<br>  读已提交(Read Committed)， 在该隔离级别下，一个事务的更新操作结果只有在该事务提交之后，另一个事务才可能读取到同一笔数据更新后的结果。<br>  可以防止脏读，但是不能解决可重复读和幻读的问题。</li>
+<li>可重复读 (mysql默认隔离级别)<br>  可重复读(Repeatable Read)，MySQL默认的隔离级别。<br>  可重复读是快照读, 在该隔离级别下，一个事务多次读同一个数据, 实际上读的是数据快照, 其他事务修改数据在当前事务是不可见的, 这样就可以保证在同一个事务内两次读到的数据是一样的。<br>  可以防止脏读、不可重复读、第一类更新丢失、第二类更新丢失的问题，不过还是会出现幻读。</li>
+<li>串行化<br>  串行化(Serializable)，这是最高的隔离级别。<br>  它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行(会阻塞)。<br>  在这个级别，可以解决上面提到的所有并发问题，但可能导致大量的超时现象和锁竞争，通常不会用这个隔离级别</li>
+</ul>
+</li>
+<li><p>什么是 MVCC (中)<br>MVCC, 多版本并发控制<br>指维护一个数据的多个版本，使得读写操作没有冲突, 具体实现就是快照读, 快照读为MySQL实现MVCC提供了一个非阻塞读功能<br>MVCC的具体实现，还需要依赖于数据库记录中的隐式字段、undolog日志、readView。</p>
+</li>
+<li><p>三大日志 (高)</p>
+<ul>
+<li>undo log（回滚日志）：主要用于事务回滚和 MVCC, 实现了事务中的原子性<br>  Undo Log（回滚日志）记录了事务操作前的数据状态，确保事务回滚时能恢复原始数据，并为并发事务提供数据的历史版本。<br>  事务回滚（Rollback）：当事务执行失败或显式调用 ROLLBACK 时，通过 Undo Log 将数据恢复到修改前的状态。<br>  MVCC（多版本并发控制）：提供数据的历史版本，使其他事务能读取到一致的快照（Read View），避免读写冲突。</li>
+<li>redo log（重做日志）：主要用于掉电重启等故障恢复, 实现了事务中的持久性<br>  redo log重做日志，记录的是事务提交时数据页的物理修改，是用来实现事务的持久性. 它让MySQL拥有了崩溃恢复能力. </li>
+<li>binlog （归档日志&#x2F;二进制日志）：主要用于数据备份和主从复制；<br>  binlog, 即二进制日志, 主要记录了对 MySQL 数据库执行了更改的所有操作(数据库执行的所有 DDL 和 DML 语句)<br>  包括表结构变更（CREATE、ALTER、DROP TABLE…），表数据修改（INSERT、UPDATE、DELETE…），但不包括 SELECT、SHOW 这类不会对数据库造成更改的操作。<br>  数据库的数据备份、主备、主从需要依靠binlog来同步数据，保证数据一致性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><ul>
 <li><p>MQ有什么作用&#x2F;为什么使用MQ (高)</p>
 <ul>
 <li>消息队列的本质其实就是一个阻塞队列, 只是在阻塞队列的基础上增加了重试, 消息持久化等等功能.</li>
