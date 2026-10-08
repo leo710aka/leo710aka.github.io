@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
 <meta property="og:image" content="https://github.com/leo710aka/repo/blob/main/agent20260919.jpg?raw=true">
 <meta property="article:published_time" content="2026-11-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2026-10-07T14:23:36.412Z">
+<meta property="article:modified_time" content="2026-10-08T16:46:15.503Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
@@ -1241,18 +1241,18 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>&#x3D;&#x3D; 和 equals() 的区别 (高)<br>&#x3D;&#x3D; 对于基本类型和引用类型的作用效果是不同的，对于基本数据类型来说，&#x3D;&#x3D; 比较的是值；对于引用数据类型来说，&#x3D;&#x3D; 比较的是对象的内存地址<br>equals() 方法存在两种使用情况。类没有重写 equals() 方法 ：通过equals()比较该类的两个对象时，等价于通过“&#x3D;&#x3D;”比较这两个对象，使用的默认是 Object类equals()方法。类重写了 equals() 方法 ：一般我们都重写 equals()方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回 true(即，认为这两个对象相等)。<br>String 中的 equals 方法是被重写过的，因为 Object 的 equals 方法是比较的对象的内存地址，而 String 的 equals 方法比较的是对象的值。</p>
 </li>
-<li><p>String的不可变性 (中)<br>String类中包含一个数组, 储存数组的每一个字符: private final byte[] value;<br>final数组, 地址不能改变, 导致长度不能改变<br>private, 数组中的内容不能改变</p>
+<li><p>String的不可变性 (中)<br>String类中包含一个数组, 储存数组的每一个字符: private final byte[] value;<br>final数组, 地址不能改变, 导致长度不能改变<br>private, 数组中的内容不能改变<br>每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。StringBuffer 或 StringBuilder 每次都会对 StringBuffer 或 StringBuilder 对象本身进行操作，而不是生成新的对象并改变对象引用。</p>
 </li>
-<li><p>String和StringBuffer和StringBuilder区别 (高)<br>String：字符串变量，private final修饰，不可变！<br>StringBuilder：字符串变量（线程不安全,可变） 没有使用final 和 private 关键字修饰<br>StringBuffer：字符串变量（线程安全,可变） 没有使用 final和 private 关键字修饰（StringBuilder是StringBuffer的简易版，更快！）<br>每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。StringBuffer 或 StringBuilder 每次都会对 StringBuffer 或 StringBuilder 对象本身进行操作，而不是生成新的对象并改变对象引用。</p>
+<li><p>String和StringBuffer和StringBuilder区别 (高)<br>String：字符串变量，private final修饰，不可变！<br>StringBuilder：字符串变量（线程不安全,可变） 没有使用final 和 private 关键字修饰<br>StringBuffer：字符串变量（线程安全,可变） 没有使用 final和 private 关键字修饰（StringBuilder是StringBuffer的简易版，更快！）<br>为什么StringBuffer是线程安全的？因为 StringBuffer 的很多修改字符串的方法都加了 synchronized 例如 public synchronized StringBuffer append(String str) {}，同一时刻只能有一个线程进入这个 synchronized 方法，因此多个线程并发修改同一个 StringBuffer 时能够保证操作的互斥性和数据一致性。</p>
 </li>
 <li><p>HashMap (高)</p>
 <ul>
 <li>HashMap和Hashtabe的区别<br>只关注一点就行了, HashMap线程不安全, Hashtabe线程安全<br>Hashtabe的线程安全是大量使用synchronized加锁, 性能差, 已经不会使用了<br>并发环境下建议使用ConcurrentHashMap, 它的性能更好.</li>
-<li>HashMap底层数据结构, 1.7的HashMap是哈希表, 数组 + 链表；1.8的HashMap是数组 + (链表 或 红黑树)</li>
-<li>HashMap什么时候进行扩容<br>HashMap 默认的初始化大小为16, 默认负载因子为0.75.当hashmap中的元素个数超过数组大小*负载因子(loadFactor)<br>时，就会进行数组扩容.之后每次扩充，容量变为原来的 2 倍</li>
+<li>HashMap底层数据结构<br>1.7 HashMap 是哈希表, 数组 + 链表；<br>1.8 HashMap 是数组 + (链表 或 红黑树)</li>
+<li>HashMap什么时候进行扩容<br>HashMap 默认的初始化大小为16, 默认负载因子为0.75.当hashmap中的元素个数超过数组大小*负载因子(loadFactor)  时，就会进行数组扩容.之后每次扩充，容量变为原来的 2 倍</li>
 <li>HashMap为什么要使用红黑树, 为啥不用平衡二叉树<br>当某个位置, Hash冲突严重, 则链表的长度会很长. 那么查找的时候依次比较, 效率会很低 O(n).<br>将链表转为红黑树, 因为红黑树是排序树, 查找效率一般是O(logN), 使用红黑树就提高了查找效率.<br>平衡二叉树追求绝对平衡，每次插入新节点之后需要旋转的次数不能预知, 自平衡效率低<br>红黑树放弃了追求完全平衡，追求大致平衡，在与平衡二叉树的时间复杂度相差不大的情况下，自平衡的效率高<br>什么时候会树化？要满足两个条件：链表长度超过树化阈值8，数组长度大于等于64</li>
 <li>为何树化阈值为8<br>红黑树是为了防止链表超长时性能下降，树化应当是偶然情况.长度超过8的链表出现几率非常小, 选择8就是为了让树化几率足够小<br>hash表的查找, 更新的时间复杂度是O(1). 而红黑树的查找, 更新的时间复杂度是O(log2n), TreeNode占用空间也比普通Node的大，所以如非必要，尽量还是使用链表</li>
-<li>索引如何计算? hashCode有了, 为何还有hash()方法?数组容量为何是2^n?<br>索引计算方式：对任何一个对象调用其hashCode()方法会获得其原始hash值.对原始hash值再调用HashMap的hash方法进行二次hash, 获取到二次hash值.二次hash值对数组容量进行取余操作获取到存放的数组下标.<br>为何需要二次hash?二次hash是为了让hash值分布更加均匀, 减少hash冲突, 从而使链表更短, 因此提升了查找效率.<br>数组容量为何是2^n?计算索引时，如果是2的n次方可以使用位与运算代替取模运算, 效率更高。数组容量为质数会使hash值分布均匀, 但是2^n计算索引的效率更高.<br>index &#x3D; hash % capacity &#x3D; hash &amp; (capacity - 1)</li>
+<li>索引如何计算? hashCode有了, 为何还有hash()方法? 数组容量为何是2^n?<br>索引计算方式：对任何一个对象调用其hashCode()方法会获得其原始hash值.对原始hash值再调用HashMap的hash方法进行二次hash, 获取到二次hash值.二次hash值对数组容量进行取余操作获取到存放的数组下标.<br>为何需要二次hash?二次hash是为了让hash值分布更加均匀, 减少hash冲突, 从而使链表更短, 因此提升了查找效率.<br>数组容量为何是2^n?计算索引时，如果是2的n次方可以使用位与运算代替取模运算, 效率更高。数组容量为质数会使hash值分布均匀, 但是2^n计算索引的效率更高.<br>index &#x3D; hash % capacity &#x3D; hash &amp; (capacity - 1)</li>
 <li>HashMap的put()方法流程<ol>
 <li>HashMap 是懒惰创建数组的，首次使用才创建数组</li>
 <li>调用hashcode, 然后再调用hash(), 二次hash来计算索引（桶下标）</li>
@@ -1263,9 +1263,13 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 </ul>
 </li>
-<li><p>ConcurrentHashMap (高)<br>ConcurrentHashMap是HashMap的升级版，区别是线程安全。<br>Hashtable也是线程安全的，整个Hashtable对应一把锁，同一时刻，只能有一个线程操作它, 并发性低<br>1.7的ConcurrentHashMap使用分段锁, 也就是Segment+HashEntry数组+链表的结构，相当于将数组切分为多个<br>Segment. 每个Segment对应一把锁，如果多个线程访问不同的Segment, 则不会冲突.<br>1.8开始 ConcurrentHashMap将链表的每个头节点或者红黑树的根节点作为锁(锁桶)，如果多个线程访问的头节点不同，则不会冲突. 也就是说, 只要没有hash冲突, 多个线程就可以同时访问ConcurrentHashMap. </p>
+<li><p>多线程操作HashMap会出现什么问题？<br>知道hashMap是线程不安全即可. 具体并发性会出现什么问题了解即可.<br>扩容死链 (1.7)<br>扩容的时候线程切换, 两个线程都要进行扩容.因为1.7是头插法, 进行数组扩容的时候, 需要链表迁移. 在并发环境下, 会出现循环链表, 造成扩容死链问题.<br>数据错乱 (1.7, 1.8)<br>??</p>
 </li>
-<li><p>JDK8的ConcurrentHashMap和JDK7的ConcurrentHashMap有什么区别？</p>
+<li><p>ConcurrentHashMap (高)<br>ConcurrentHashMap是HashMap的升级版，区别是线程安全。<br>Hashtable也是线程安全的，整个Hashtable对应一把锁，同一时刻，只能有一个线程操作它, 并发性低<br>1.7的ConcurrentHashMap使用分段锁, 也就是Segment+HashEntry数组+链表的结构，相当于将数组切分为多个 Segment. 每个Segment对应一把锁，如果多个线程访问不同的Segment, 则不会冲突.<br>1.8开始 ConcurrentHashMap将链表的每个头节点或者红黑树的根节点作为锁(锁桶)，如果多个线程访问的头节点不同，则不会冲突. 也就是说, 只要没有hash冲突, 多个线程就可以同时访问ConcurrentHashMap. </p>
+</li>
+<li><p>ConcurrentHashMap 是如何保证并发安全的？<br>JDK1.7中ConcurrentHashMap是通过ReentrantLock+CAS+分段思想来保证的并发安全的。ConcurrentHashMap的put方法会通过CAS的方式，把一个Segment对象存到Segment数组中一个Segment内部存在一个HashEntry数组，相当于分段的HashMap，Segment继承了ReentrantLock，每段put开始会加锁。<br>JDK1.8通过CAS+synchronized +锁桶的思想来保证并发安全的.它将每个桶（数组中的每个位置）作为独立的锁单位, 当操作不同的桶时，线程无需竞争同一把锁。锁的粒度更细了. 并发度更高。synchronized 锁头节点：插入或修改数据时，仅对当前桶的头节点加锁, 也就是只锁桶. </p>
+</li>
+<li><p>JDK8 的 ConcurrentHashMap 和 JDK7 的 ConcurrentHashMap 有什么区别？</p>
 <ol>
 <li>JDK8中新增了红黑树</li>
 <li>JDK7中使用的是头插法，JDK8中使用的是尾插法</li>
@@ -1274,16 +1278,31 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>JDK7中的扩容是每个Segment内部进行扩容，不会影响其他Segment，而JDK8中的扩容和HashMap的扩容类似，只不过支持了多线程扩容，并且保证了线程安全</li>
 </ol>
 </li>
-<li><p>ConcurrentHashMap是如何保证并发安全的？<br>JDK1.7中ConcurrentHashMap是通过ReentrantLock+CAS+分段思想来保证的并发安全的。ConcurrentHashMap的put方法会通过CAS的方式，把一个Segment对象存到Segment数组中一个Segment内部存在一个HashEntry数组，相当于分段的HashMap，Segment继承了ReentrantLock，每段put开始会加锁。<br>JDK1.8通过CAS+synchronized +锁桶的思想来保证并发安全的.它将每个桶（数组中的每个位置）作为独立的锁单位, 当操作不同的桶时，线程无需竞争同一把锁。锁的粒度更细了. 并发度更高。synchronized 锁头节点：插入或修改数据时，仅对当前桶的头节点加锁, 也就是只锁桶.</p>
+<li><p>面向对象的三大特征 (中)</p>
+<ul>
+<li>封装<br>  为了提高代码的安全性，隐藏对象的内部细节，封装将对象的内部状态（字段、属性）隐藏起来，并通过定义公共的方法（接口）来操作对象<br>  外部代码只需要知道如何使⽤这些⽅法而无需了解内部实现</li>
+<li>继承<br>  允许一个类（子类）继承另⼀个类（父类）的属性和⽅法的机制<br>  子类可以重用父类的代码，并且可以通过添加新的方法或修改（重写）已有的方法来扩展或改进功能<br>  提高了代码的可重用性和可扩展性</li>
+<li>多态<br>  多态是指相同的操作或方法法可以在不同的对象上产生不同的行为，通过方法的重载和重写实现<br>  多态允许以一致的方式式处理不同类型的对象，提高了代码的灵活性<br>  子类其实是⼀种特殊的父类，因此Java允许把⼀个子类对象直接赋给⼀个父类引用变量，无须任何类型转换， 或者被称为向上转型，向上转型由系统自动完成。当把⼀个子类对象直接赋给父类引用变量时，例如 FatherObj o &#x3D; new SonObj() , 这个 编译时类型是 FatherObj，而运行时类型是 SonObj，当运行时调其方法时，其方法行为实际是子类的行为, 也就是SonObj的行为.这就可能出现：相同类型的变量、调用同一个方法时出现不同的行为，这就是所谓的多态</li>
+</ul>
+</li>
+<li><p>面向对象和面向过程的区别 (中)<br>面向过程: 直接将解决问题的步骤分析出来，然后用函数把步骤一步一步实现，然后再依次调用就可以了. 面向过程思想偏向于我们做一件事的流程，首先做什么，其次做什么，最后做什么。<br>面向对象: 将构成问题的事物，分解成若干个对象，建立对象的目的不是为了完成一个步骤，而是为了描述某个事物在解决问题过程中的行为。 需要完成什么事情, 直接让某个对象来干即可. </p>
+</li>
+<li><p>方法的重载和重写有什么区别 (中)</p>
+<ol>
+<li>重载方法法的重载指的是在同⼀个类中，方法名相同但参数列表不同</li>
+<li>重写是在子类中重新定义⽗类中已有的方法，方法名和参数列表必须相同</li>
+</ol>
+</li>
+<li><p>反射的基本思想 (中) ？？</p>
+<ul>
+<li>反射机制是在运行时，能够动态获取类的所有属性和方法；动态调用对象任意方法, 动态的创建对象<br>  但是反射需要在运行时动态解析类、方法、字段的元数据信息, 性能较差</li>
+<li>反射特性：<br>  运行时类信息访问：反射机制允许程序在运行时获取类的完整结构信息，包括类名、包名、父类、实现  的接口、构造函数、方法和字段等。<br>  动态对象创建：可以使用反射API动态地创建对象实例，即使在编译时不知道具体的类名。这是通过 Class类的newlnstance()方法或Constructor对象的 newlnstance()方法实现的。<br>  动态方法调用：可以在运行时动态地调用对象的方法，包括私有方法。这通过Method类的invoke()方法实现，允许你传入对象实例和参数值来执行方法。<br>  访问和修改字段值：反射还允许程序在运行时访问和修改对象的字段值，即使是私有的。这是通过 Field类的get()和set()方法完成的。</li>
+<li>你平时什么时候会用到反射 (中)<br>  当要从配置文件中读配置创建类对象时需要使用反射.<br>  配置文件配置某个类的全类名, 然后就需要读配置, 然后反射创建对象.<br>  使用工厂模式时, 往往也需要根据全类名来获取对象, 也会使用反射创建对象.<br>  当开发注解时, 往往需要反射来获取某个类&#x2F;字段的注解<br>  当使用spring, mybatis时, 这些框架底层会大量使用反射<br>  Spring 的IoC机制：会通过反射实例化 Bean、注入依赖<br>  Spring的AOP用到了动态代理, 也是大量使用反射<br>  MyBatis 的 Mapper 接口动态代理：反射生成接口的代理对象，执行 SQL 映射方法</li>
+</ul>
 </li>
 </ul>
 <h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><ol>
-<li><p>什么是线程不安全？并发场景下会引发哪三类核心问题？<br> 线程不安全的本质是：多个线程并发访问同一份共享资源时，操作不满足<strong>原子性、可见性、有序性</strong>，最终导致数据结果不符合预期。</p>
-<ul>
-<li>原子性：复合操作（如<code>i++</code>）中途会被打断，造成更新丢失</li>
-<li>可见性：一个线程修改了变量，其他线程因CPU缓存看不到最新值</li>
-<li>有序性：编译器&#x2F;CPU重排指令，多线程场景下逻辑出错</li>
-</ul>
+<li><p>什么是线程不安全？并发场景下会引发哪三类核心问题？<br>线程不安全的本质是：多个线程并发访问同一份共享资源时，操作不满足<strong>原子性、可见性、有序性</strong>，最终导致数据结果不符合预期。<br>1、原子性：复合操作（如<code>i++</code>）中途会被打断，造成更新丢失<br>2、可见性：一个线程修改了变量，其他线程因CPU缓存看不到最新值<br>3、有序性：编译器&#x2F;CPU重排指令，多线程场景下逻辑出错</p>
 </li>
 <li><p>什么是死锁？产生死锁的四个必要条件是什么？常见的避免手段有哪些？<br>死锁是指两个或多个线程互相持有对方需要的锁，又都永久等待对方释放，程序卡住无法推进。<br>四个必要条件：<strong>互斥、请求并保持、不可剥夺、循环等待</strong>。<br>常见避免手段：统一加锁顺序（破坏循环等待）、使用超时锁（破坏请求并保持）、主动释放锁。</p>
 </li>
@@ -1318,6 +1337,8 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <td>只包裹代码块内逻辑，粒度最细，可多资源独立加锁</td>
 </tr>
 </tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronied <span class="keyword">void</span> <span class="title function_">add</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// 语法糖，本质上是 synchronied(this) &#123;&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronied(lockA) &#123;</span><br><span class="line">  <span class="comment">// 同步代码块，粒度最细</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>synchronized 的锁升级过程是怎样的？每一级分别有什么特点？</p>
 <ol>
@@ -1402,7 +1423,13 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>为什么 volatile 能保证可见性，但不能保证原子性？举一个简单的例子说明。<br>volatile只保证单步读、写操作的可见性，但<strong>复合操作（如<code>i++</code>的读-改-写三步）中间会被其他线程打断</strong>，而原子性要求整个操作全程不可分割，volatile做不到。<br>例子：两个线程同时对volatile修饰的<code>count</code>各执行1000次<code>count++</code>，最终结果一定小于2000，因为三步操作中间会插入其他线程，造成更新丢失。</p>
 </li>
-<li><p>CAS 是什么？它的执行逻辑是怎样的？有哪些优缺点？<br>CAS全称Compare And Swap（比较并交换），是CPU硬件级原子指令，是乐观锁的核心实现。<br>执行逻辑：包含三个要素——内存地址V、预期旧值A、新值B。只有V的当前值等于A时，才将V更新为B并返回成功；否则返回失败。<br>优点：全程不加锁，并发度高，开销小；<br>缺点：存在ABA问题、竞争激烈时自旋浪费CPU、只能保证单个变量的原子性。</p>
+<li><p>CAS 是什么？它的执行逻辑是怎样的？有哪些优缺点？</p>
+<ul>
+<li>CAS全称Compare And Swap（比较并交换），是CPU硬件级原子指令，是乐观锁的核心实现。<br>  执行逻辑：包含三个要素——内存地址V、预期旧值A、新值B。只有V的当前值等于A时，才将V更新为B并返回成功；否则返回失败。最关键的是：<strong>“比较”和“修改”是一个不可分割的原子操作。</strong>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">    count = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 以上操作在有了 cas 后是一个原子操作</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">success</span> <span class="operator">=</span> atomicInteger.compareAndSet(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 只有一个线程可以拿到 success == true</span></span><br></pre></td></tr></table></figure></li>
+<li>优点：全程不加锁，并发度高，开销小；</li>
+<li>缺点：存在ABA问题、竞争激烈时自旋浪费CPU、只能保证单个变量的原子性。</li>
+<li>那为什么 CAS 并发高了会有问题？失效了？<br>  注意：CAS 不会“失效”。而是：竞争越激烈，CAS 失败的概率可能越高，于是重试次数增加。<br>  对于 CAS，如果竞争的进程多了，最终只有一个成功，其他都失败，可能造成大量的失败重试，占用资源<br>  对于锁，竞争失败后虽然排队，但：每个人基本只需要执行一次真正的修改。锁的优势是“冲突严重时可以让竞争者等待，而不是不停重试”。</li>
+</ul>
 </li>
 <li><p>CAS 已经保证了操作的原子性，为什么锁的状态变量还要搭配 volatile 使用？</p>
 <ul>
@@ -1600,7 +1627,8 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><p>消息的顺序性 (中)<br>kafka？？</p>
 </li>
 </ul>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h2 id="hr"><a href="#hr" class="headerlink" title="hr"></a>hr</h2><ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>^^</p>
+<h2 id="hr"><a href="#hr" class="headerlink" title="hr"></a>hr</h2><ul>
 <li><p>口头</p>
 <ul>
 <li>打招呼：您好，我是蔡枫，有 2 年 Java 后端 &#x2F; Agent 开发经验，主要负责企业内部平台研发、线上稳定性治理及 ToB 交付，近期重点参与 Agent 应用工程化实践。看到贵司岗位 JD 与我的经历比较匹配，方便的话附上简历，期待有机会进一步沟通。</li>
@@ -1625,7 +1653,7 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </ul>
 </li>
 </ul>
-<h2 id="2026-面试经历"><a href="#2026-面试经历" class="headerlink" title="2026 面试经历"></a>2026 面试经历</h2><ul>
+<h2 id="2026-Interview"><a href="#2026-Interview" class="headerlink" title="2026 Interview"></a>2026 Interview</h2><ul>
 <li><p>start 9.21 lets goooo 🤑🤑</p>
 </li>
 <li><p>评测 （核心是前后选择作答的优先级统一！）<br><strong>情绪稳定 &gt; 理性&#x2F;责任 &gt; 乐观&#x2F;自信 &gt; 善意&#x2F;社交 &gt; 抗压&#x2F;适应 &gt;</strong><br><strong>保守&#x2F;谦虚 &gt; 创新 &gt; 好胜&#x2F;果断 &gt; 目光成员&#x2F;敏锐 &gt; 有领导意愿</strong></p>
@@ -2184,9 +2212,11 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>融通供应链</p>
 </li>
+<li><p>顺丰同城</p>
+</li>
 <li><p>领星</p>
 </li>
-<li><p>顺丰同城</p>
+<li><p>安克创新</p>
 </li>
 <li><p>PDD</p>
 </li>
