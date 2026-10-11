@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
 <meta property="og:image" content="https://github.com/leo710aka/repo/blob/main/agent20260919.jpg?raw=true">
 <meta property="article:published_time" content="2026-11-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2026-10-10T05:22:30.991Z">
+<meta property="article:modified_time" content="2026-10-11T16:42:48.873Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
@@ -182,7 +182,12 @@ xxx</p>
 <li>对于新项目<ul>
 <li>创建事实库（背景介绍doc，渐进式披露，，）</li>
 <li>代码&#x2F;文档&#x2F;测试同步（同时纳入版本管理）</li>
-<li>Agent Review<br>AI 写完必须过 <strong>AI 评审 Agent</strong> 专门检查（避免在写代码的 Agent 里评审时“糊弄”？？） ⬇️<br>并发隐患<br>空指针风险<br>事务失效场景<br>SQL 全表扫描<br>参数未校验<br>重复代码、坏味道</li>
+<li>Agent Review<ul>
+<li>前期，配置好项目约束、编码约束，做好需求文档的评审</li>
+<li>开发中，及时生成 Test 类</li>
+<li>AI 写完必须过 <strong>AI 评审 Agent</strong> 专门检查（区别于写代码的 Agent，避免在评审时“糊弄”） ⬇️<br>并发隐患<br>空指针风险<br>事务失效场景<br>SQL 全表扫描<br>参数未校验<br>重复代码、坏味道</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>对于旧项目<ul>
@@ -225,7 +230,11 @@ xxx</p>
 </li>
 <li><p>Agent如何节省Token？<br>架构上，用Skill封装替代链式Tool调用，从根源上减少交互轮数；并设计模型路由，让大模型只处理复杂任务。<br>上下文上，通过摘要压缩历史对话，使用‘山顶洞人’模式精简输出，并极致优化提示词。<br>交互上，利用KV Cache避免重复计算，在多Agent场景下采用Latent Briefing技术进行高效通信。<br>基建上，部署语义缓存来拦截高频重复问题。</p>
 </li>
+<li><p>多 Agent、MCP、A2A<br>单 Agent 有天花板，长会话把上下文塞满，不同能力混杂造成大模型幻觉；<br>多 Agent 做了能力划分，每个子 Agent 有各自的上下文；<br>例子：Claude 做一个长任务时，会有一个 leader Agent 负责拆分下发任务，有多个组员 Agent 负责隔离地执行并将结果返回 leader 来汇总，还有专门的核对 Agent 来验证;<br>A2A 是 Agent to Agent 协议。</p>
+</li>
 <li><p>LLM相同，提词相同，输出结果一定一样吗？<br>结论先说：默认情况下一定不一样；只有严格锁死全部条件，才能做到每次输出完全相同</p>
+</li>
+<li><p>MCP、function Calling、Tools<br>对外交互<br>？</p>
 </li>
 <li><p>Skills？<br>“简单来说，Agent Skills 就是AI的标准化岗位说明书。它通过 SKILL.md 文件将领域知识、操作步骤和脚本封装起来。<br>最巧妙的是它采用了渐进式披露机制，只在需要时才加载详细内容，既保证了效果又节省 Token。如果说 Tool 是 AI 的手脚，那 Skill 就是 AI 的‘肌肉记忆’和‘工作经验’。在2026年，构建高质量的 Skills 库是企业级 AI 应用落地的关键。”<br>cf：skills提供业务知识，让llm从普通员工→该业务的资深员工，区别于预设好场景提前设计好Prompt模板供模型使用，Skills让LLM能按需自行构造Prompt?!</p>
 </li>
@@ -364,18 +373,47 @@ xxx</p>
 <li>核心记成一句话：我不仅能描述故障现象，还能通过不同工具逐层收集证据，并区分实际止血措施、主要问题原因和后续优化方向。</li>
 </ul>
 </li>
+<li><p>根因定位具体是怎么做的？<br>当时 CMDB 采集代理服务 Full GC 告警，我先通过 jstat 发现老年代几乎打满，Full GC、STW 非常频繁，而且回收后内存占用没有明显下降，说明存在严重的内存压力。<br>接着通过 APM 线程快照和 jstack 发现，约 18 个线程阻塞在同一把 Service 实例锁上。持锁线程的调用栈经过 resolvePartitionMessage()、union()、analysisAutoData()，最终进入字段配置的 JSON 反序列化逻辑。<br>然后我将 heap dump 导入 MAT，通过 Leak Suspects 分析，再结合线程保留堆内存和对象分布进行定位。报告显示，与一个处理线程关联的 retained heap 约为 757MB，占当时堆内存的约 86.92%；进一步查看对象结构，发现其中有大量 Jackson 反序列化产生的 HashMap，对应的正是防火墙策略字段配置 citfieldsinfo。<br>最后结合代码确认，处理每条采集记录时都会重复获取并反序列化相同的表头配置，在一个设备的大批量采集处理过程中重复创建和保留大量对象，造成了严重的堆内存压力。全局锁使入库逻辑长时间串行执行，Kafka 消费层逐条创建线程又进一步加剧了线程竞争和资源压力。<br>应急时先将堆上限从 1GB 调整到 4GB 并重启服务，恢复 Kafka 消费。根因定位之后，再针对表头配置重复解析进行处理，并评估了锁粒度和线程管理等后续优化方向。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>观察内容</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>打开 heap dump，运行 Leak Suspects</td>
+<td>可疑的内存占用及引用关系</td>
+<td>快速找到分析入口</td>
+</tr>
+<tr>
+<td>查看线程及其 retained heap</td>
+<td>与处理线程关联的保留堆内存约 757MB</td>
+<td>找出主要保留大量对象的引用链</td>
+</tr>
+<tr>
+<td>查看 Dominator Tree、对象类型及引用关系</td>
+<td>大量 HashMap 等对象</td>
+<td>确认主要内存由哪些对象构成</td>
+</tr>
+<tr>
+<td>对照 jstack 调用栈与业务代码</td>
+<td>json2Obj() 反序列化 citfieldsinfo</td>
+<td>把堆对象证据与重复反序列化逻辑对应起来</td>
+</tr>
+</tbody></table>
+</li>
 <li><p>“你简历里 Agent 是怎么做的？”<br>“这个项目其实经历了两个阶段。1.0 更偏传统的 Workflow&#x2F;Graph 编排，2.0 我们现在正在往 Agent Runtime 的方向重构。”<br>1.0 是基于阿里开源 DataAgent 做的运维场景定制，核心任务是让用户通过自然语言查询 CMDB 数据。我们主要做了表召回、SQL 生成、Prompt 调优、知识库以及基础多轮上下文。<br>2.0 的思路发生了比较明显的变化。原来是人工把 Graph&#x2F;Workflow 定义好，让模型在预设流程里执行；现在希望把这些业务能力拆成 Skill&#x2F;Tool，由 LLM 根据当前上下文动态决定调用哪个能力，Harness 负责会话、上下文以及运行时约束。<br>所以我现在比较关注的，是怎么让 Agent 在真实业务环境里稳定运行。”</p>
 </li>
 <li><p>Agent 项目要同时准备“技术价值”和“业务价值”两条线</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">技术线：Workflow → 意图 → 检索 → SQL → Agent 2.0</span><br><span class="line"></span><br><span class="line">为什么要做 Agent？降低资产数据查询门槛。同时问数也是 AI 落地的经典场景。</span><br><span class="line"></span><br><span class="line">为什么做 SQL？SQL 是查询能力的执行表达，模型负责把自然语言映射为结构化查询。</span><br><span class="line"></span><br><span class="line">为什么自然语言而不是表单？复杂、多表、非固定查询更灵活；普通用户不需要理解系统结构</span><br><span class="line"></span><br><span class="line">如何调优？面向业务方收集几十个问题，逐个节点全链路调试，所以最终下来效果都比较好，但是耗时也长</span><br><span class="line"></span><br><span class="line">效果怎么评价？一是生成 sql 是否符合用户问题，二是 sql 执行结果的准确性（有没有幻觉 / 语法错误）</span><br><span class="line"></span><br><span class="line">为什么 2.0？1.0 流程固定、能力绑定；2.0 抽象 Skill/MCP，让能力可复用、动态编排、后续扩展更容易。</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">技术线：Workflow → 意图 → 检索 → SQL → Agent 2.0</span><br><span class="line"></span><br><span class="line">为什么要做 Agent？降低资产数据查询门槛。同时问数也是 AI 落地的经典场景。</span><br><span class="line"></span><br><span class="line">为什么做 SQL？SQL 是查询能力的执行表达，模型负责把自然语言映射为结构化查询。</span><br><span class="line"></span><br><span class="line">为什么自然语言而不是表单？复杂、多表、非固定查询更灵活；普通用户不需要理解系统结构</span><br><span class="line"></span><br><span class="line">如何调优？面向业务方收集几十个问题，逐个节点全链路调试，所以最终下来效果都比较好，但是耗时也长</span><br><span class="line"></span><br><span class="line">效果怎么评价？一是生成 sql 是否符合用户问题，二是 sql 执行结果的准确性（有没有幻觉 / 语法错误）</span><br><span class="line"></span><br><span class="line">为什么 2.0？1.0 流程固定、能力绑定，调优流程慢；2.0 抽象 Skill/MCP，让能力可复用、动态编排、后续扩展更容易。</span><br><span class="line">有一个前提——用户问题是收敛的，所以问数 Agent 的能力边界可以预定义成工具；</span><br><span class="line">另外，内部也有迁移到平台的要求，搭建通用能力 Agent 并且更好的与其他 Agent 交互，包括作为子 Agent 提供能力。</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Agent 2.0 的设计，工作流？<br>先定能力边界 skill，mcp<br>后 react<br>？？</p>
 </li>
 <li><p>为什么你一个 Java 后端想做 Agent？<br>“我觉得 Agent 对我来说并不是完全跨领域转行。<br>我原来做 Java 后端，比较多解决的是确定性系统的问题，比如任务调度、并发控制、数据一致性、异常恢复和线上稳定性。<br>现在 Agent 引入了 LLM 以后，系统的决策变得不完全确定，但它依然需要解决很多工程问题，比如上下文管理、工具调用、超时、重试、状态管理和异常恢复。<br>所以我比较感兴趣的是把原来的后端工程能力应用到 Agent 上，让模型能力真正变成一个稳定可运行的业务系统。”</p>
 </li>
 <li><p>一次排查问题的思路<br>先止血，后排查。。（快速定位影响面和故障类型，对应获取证据，定位根因）<br>cpu飙升，发现是一个接口有io操作，并发大了就卡住了。。<br>首先，停掉回写接口，把cpu降下来，恢复服务<br>分析，不是计算型的，所以多线程没用，要考虑优化io查询，cmdb加索引。。<br>其次，如何降低并发，加缓存？异步？？</p>
-</li>
-<li><p>处理偶现问题</p>
 </li>
 <li><p><strong>技术亮点与难点</strong><br>分布式，高并发，，，？？不是重点<br>而是如何适配业务做场景的抽象，选用合适的技术栈来实现。。</p>
 </li>
@@ -1544,6 +1582,40 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>memory<br>  全表锁<br>  数据存储在内存中, 默认使用hash索引, 检索速度非常高.<br>  适合做缓存 (被redis代替)</li>
 </ul>
 </li>
+<li><p>索引的本质是什么？为什么能加速查询？<br>索引本质是<strong>排好序的快速查找数据结构</strong>，相当于书本的目录。核心作用是通过减少磁盘IO次数来加速查询，避免全表扫描。<br>数据库的数据持久化在磁盘上，没有索引就要逐行遍历（全表扫描），数据量大的时候IO次数爆炸；有了索引就能通过树结构快速定位到目标行，IO次数指数级下降。</p>
+</li>
+<li><p>为什么 InnoDB 选 B+ 树做索引，不用二叉树、红黑树、B 树？</p>
+<ul>
+<li>核心原因是<strong>B+树最适配磁盘IO特性，核心目标就是让树尽量矮，能最大程度减少IO次数，同时天然支持范围查询</strong>。</li>
+<li>对比其他结构：<ul>
+<li>二叉搜索树、红黑树：都是二叉结构，数据量大的时候树的层级很高，查一个数据要读很多层，对应磁盘IO次数太多。</li>
+<li>B树：非叶子节点也存完整数据，每个节点能存的索引键很少，树的层级还是高；而且范围查询需要中序遍历跨节点，效率很低。</li>
+<li>B+树的优势：<ol>
+<li>是多叉树，非叶子节点只存索引键、不存数据，单个节点能存几十上百个键，树的层级非常矮（千万级数据也就3-4层），磁盘IO次数极少。</li>
+<li>所有完整数据都存在叶子节点，并且叶子节点用双向链表串联，范围查询只要遍历链表就行，效率极高。</li>
+<li>每次查询都要走到叶子节点，查询性能稳定。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>聚簇索引和二级索引是什么？物理上怎么存储？</p>
+<ul>
+<li>这是 InnoDB 索引最核心的结构，两者都是B+树：<ul>
+<li><strong>聚簇索引（主键索引）</strong>：叶子节点存储<strong>完整的行数据</strong>，表数据本身就是聚簇索引的叶子节点。一张表只能有一个聚簇索引，默认就是主键。</li>
+<li><strong>二级索引（普通&#x2F;唯一&#x2F;联合索引都属于二级索引）</strong>：叶子节点只存储<strong>主键值</strong>，不存完整行数据。一张表可以有多个二级索引。</li>
+</ul>
+</li>
+<li>拿字典类比最清楚：<ul>
+<li>聚簇索引 &#x3D; 字典正文，按拼音排序，每一页就是完整的字词解释（完整行数据），你按拼音翻到对应页直接就能看到内容。</li>
+<li>二级索引 &#x3D; 偏旁部首索引，按偏旁排序，每一条只告诉你这个字在正文的第几页（主键值），你查完索引还得翻到正文对应页才能看到完整内容——这一步就是<strong>回表</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>什么是回表？什么是覆盖索引？<br><strong>回表</strong>：通过二级索引查到主键值后，还要回到聚簇索引里，根据主键查找完整行数据的过程。回表需要多走一次B+树查询，会额外消耗IO。<br><strong>覆盖索引</strong>：查询需要的所有字段，刚好都在二级索引里，不需要回表就能拿到结果，性能很高。比如联合索引(a,b)，查询<code>select a,b from table where a=1</code>，就是覆盖索引。</p>
+</li>
 <li><p>MySQL中的索引类型 (高)</p>
 <ul>
 <li>逻辑维度<ul>
@@ -1562,20 +1634,82 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 </ul>
 </li>
-<li><p>为什么InnoDB存储引擎选择使用B+树索引结构？<br>相对于二叉树，层级更少，搜索效率高；<br>B树无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低；<br>相对Hash索引，B+树支持范围匹配及排序操作；</p>
+<li><p>联合索引是什么？最左前缀原则是什么？什么情况会打破？</p>
+<ul>
+<li>联合索引是由多个字段按顺序组成的二级索引。B+树会先按第一个字段排序，第一个字段相同再按第二个字段排序，以此类推。所以把区分度大的字段排在前面性能会更高, 把性别这种区分度小的字段应该放在后面.</li>
+<li><strong>最左前缀原则</strong>：查询时必须从索引的最左字段开始匹配，不能跳过中间字段，否则后面的字段用不上索引。</li>
+<li>设置联合索引(a,b,c), 查询条件如下<ul>
+<li>where a&#x3D;1 and b&#x3D;2<br>会走联合索引, 符合最左前缀匹配法则</li>
+<li>where b&#x3D;2 and a&#x3D;1<br>会走联合索引, 符合最左前缀匹配法则. 注意, 最左前缀匹配法      则与sql书写顺序无关</li>
+<li>where b&#x3D;2 and c&#x3D;1<br>不会走联合索引, 不符合最左前缀匹配法则, 最左边的a不在      </li>
+<li>where a&#x3D;1 and c&#x3D;2<br>会走联合索引, 符合最左前缀匹配法则. 但是只会走a这部分的索引, 无法走c部分的索引, 因为没有b.</li>
+</ul>
 </li>
-<li><p>什么是覆盖索引&#x2F;什么是回表 (高)</p>
+<li>【理解思路】联合索引的排序逻辑就像“省-市-区”的地址排序：先按省排，省相同再按市排，市相同再按区排。你只查“市&#x3D;深圳”，没有省的条件，那全国所有叫深圳的区都要查，自然用不上这个排序索引，这就是最左前缀的本质。</li>
+</ul>
 </li>
-<li><p>索引的使用原则&#x2F;索引失效场景 (高)</p>
+<li><p>常见的索引失效场景有哪些？高频场景一共7个：</p>
+<ol>
+<li>like 左模糊匹配（%xxx）</li>
+<li>对索引列使用函数、算术运算</li>
+<li>隐式类型转换（比如字符串字段用数字查）</li>
+<li>where 里用 or 连接非索引列</li>
+<li>联合索引中，范围查询右边的列</li>
+<li>not in、not exists、!&#x3D; 部分场景</li>
+<li>数据量太小，优化器觉得全表扫比走索引更快</li>
+</ol>
 </li>
-<li><p>explain执行计划 (高)</p>
+<li><p>explain执行计划 (高)<br>？？</p>
 </li>
 <li><p>发现查询速度很慢，怎么解决 (高)</p>
-</li>
-<li><p>什么是数据库事务&#x2F;事务四大特性 (高)<br>事务: 一系列sql语句, 要么全成功, 要么全失败.<br>原子性 (Atomicity): 事务是不可分割的最小单元, n个连续操作失败了一个, 前面的操作回滚 (要么都成功, 要么都失败)；原子性通过undolog回滚来实现<br>一致性(Consistency): 执行事务前后，数据总量保持一致. 例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；保证了其他三个特性, 一致性就自然实现<br>持久性 (Durability): 持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的, 无法撤销；redolog来实现<br>隔离性 (Isolation): 多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离, 保证每个事务不受并发影响, 独立执行；mvcc+锁 配合undolog来实现</p>
-</li>
-<li><p>隔离性产生的问题 (高)</p>
 <ul>
+<li>分析查询语句：使用EXPLAIN命令分析SQL执行计划，找出慢查询的原因，比如是否使用了全表扫描，是否存在索引未被利用的情况等，并根据相应情况对索引进行适当修改。<br>  创建或优化索引：根据查询条件创建合适的索引，特别是经常用于WHERE子句的字段、Orderby排序的字段、Join连表查询的字典、groupby的字段，并且如果查询中经常涉及多个字段，考虑创建联合索引</li>
+<li>避免索引失效：比如不要用左模糊匹配、函数计算、表达式计算等等。</li>
+<li>查询优化：避免使用 SELECT * ,只查询真正需要的列；使用覆盖索引，即索引包含所有查询的字段；联表查询最好要以小表驱动大表，并且被驱动表的字段要有索引，当然最好通过穴余字段的设计，避免联表查询。</li>
+<li>分页优化：针对深分页的查询优化</li>
+<li>优化数据库表：如果单表的数据超过了千万级别，考虑是否需要将大表拆分为小表，减轻单个表的查询压力。也可以将字段多的表分解成多个表，有些字段使用频率高，有些低，数据量大时，会由于使用频率低的存在而变慢，可以考虑分开<br>  使用缓存技术：引入缓存, 存储热点数据和频繁查询的结果</li>
+</ul>
+</li>
+<li><p><strong>MySQL 事务</strong>（按照自己的梳理来理解！！）</p>
+<ol start="0">
+<li><strong>MySQL 事务核心逻辑链</strong><br>事务是数据操作的最小逻辑单元<br>→ 事务具备 ACID 四大特性<br>→ 原子性靠 undo log、隔离性靠 MVCC+锁、持久性靠 redo log 实现、保证了前三者就实现了一致性<br>→ 并发事务会产生脏读&#x2F;不可重复读&#x2F;幻读三类隔离性问题<br>→ 四个隔离级别是隔离性的强弱档位<br>→ 读已提交和可重复读靠不同时机的 ReadView 实现，串行化靠全锁实现</li>
+<li>基础确认：事务是最小执行单元<br>MySQL 中所有数据读写操作，都必须运行在事务里。。<br>单条 SQL 只是事务的最小形态，事务本质是「一组操作的逻辑单元」。<br>默认 <code>autocommit=1</code> 时，每一条 SQL 都会被自动包装成一个独立事务，执行完自动提交；<br>手动开启事务（<code>begin</code> &#x2F; <code>@Transactional</code>）时，多条 SQL 会被包裹在同一个事务里，统一提交&#x2F;回滚</li>
+<li>ACID 的定位与底层实现<br>核心结论：<strong>一致性是最终目标，原子性、隔离性、持久性是数据库提供的三个手段，三者共同保障一致性</strong>。<table>
+<thead>
+<tr>
+<th>事务的四大特性</th>
+<th>作用</th>
+<th>底层实现</th>
+<th>属于事务内&#x2F;事务间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>原子性A</strong></td>
+<td>事务内操作要么全成功，要么全回滚，没有中间态</td>
+<td>undo log（回滚日志）：修改前先存旧值，回滚时反向撤销</td>
+<td>事务内</td>
+</tr>
+<tr>
+<td><strong>隔离性I</strong></td>
+<td>多个并发事务之间的数据可见边界，互不干扰</td>
+<td>MVCC（快照读）+ 锁机制（当前读）</td>
+<td>事务间</td>
+</tr>
+<tr>
+<td><strong>持久性D</strong></td>
+<td>事务一旦提交，修改永久生效，宕机也不丢失</td>
+<td>redo log（重做日志）：预写日志落盘，崩溃后可重做恢复</td>
+<td>事务内</td>
+</tr>
+<tr>
+<td><strong>一致性C</strong></td>
+<td>事务执行前后，数据始终符合业务规则约束</td>
+<td>是最终目的，靠前三个特性+业务代码共同保证</td>
+<td>结果层面</td>
+</tr>
+</tbody></table>
+</li>
+<li>隔离性产生的问题 (并发事务读数据会出现 3 类问题)<ul>
 <li>脏读: 一个事务读取到另一个事务未提交的数据<br>1. 在事务A执行过程中，事务A对数据资源进行了修改，事务B读取了事务A修改后的数据。<br>2. 由于某些原因，事务A并没有完成提交，发生了RollBack操作，则事务B读取的数据就是脏数据。</li>
 <li>不可重复读:<ul>
 <li>事务B读取了两次数据资源，在这两次读取的过程中事务A修改了数据，导致事务B在这两次读取出来的数据不一致。</li>
@@ -1584,28 +1718,57 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li>幻读:<ul>
 <li>事务A按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻觉。(由于解决了不可重复读, 所以该事务读取不到别的事务已提交的数据)</li>
-<li>幻读和不可重复读有些类似，但是幻读强调的是集合的增减，而不是单条数据的更新。(比如第一次读是有0条数据, 但是第二次读却有了1条数据).<br>  不可重复读和幻读区别: 不可重复读的重点是修改比如多次读取一条记录发现其中某些列的值被修改，幻读的重点在于新增或者删除比如多次读取一条记录发现记录增多或减少了</li>
+<li>幻读和不可重复读有些类似，但是幻读强调的是数据量的增减，而不是单条数据的更新。出现在范围查询(比如第一次读是有0条数据, 但是第二次读却有了1条数据).</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>事务的隔离级别 (高)</p>
+<li>事务的隔离级别<ul>
+<li>为了解决以上的问题，主流的关系型数据库都会提供四种事务的隔离级别。<br> 事务隔离级别等级越高，越能保证数据的一致性和完整性，但是执行效率也越低。所以在设置数据库的事务隔离级别时需要做一下权衡，MySQL默认是可重复读的级别。</li>
+</ul>
+<ol>
+<li>读未提交<br> 读未提交(Read Uncommitted)，是最低的隔离级别，所有的事务都可以看到其他未提交的事务的执行结果。不能解决脏读，可重复读，幻读，所以很少应用于实际项目。</li>
+</ol>
 <ul>
-<li>为了解决以上的问题，主流的关系型数据库都会提供四种事务的隔离级别。事务隔离级别从低到高分别是：读未提交、读已提交、可重复读、串行化。<br>  事务隔离级别等级越高，越能保证数据的一致性和完整性，但是执行效率也越低。<br>  所以在设置数据库的事务隔离级别时需要做一下权衡，MySQL默认是可重复读的级别。</li>
-<li>读未提交<br>  读未提交(Read Uncommitted)，是最低的隔离级别，所有的事务都可以看到其他未提交的事务的执行结果。不能解决脏读，可重复读，幻读，所以很少应用于实际项目。</li>
-<li>读已提交<br>  读已提交(Read Committed)， 在该隔离级别下，一个事务的更新操作结果只有在该事务提交之后，另一个事务才可能读取到同一笔数据更新后的结果。<br>  可以防止脏读，但是不能解决可重复读和幻读的问题。</li>
-<li>可重复读 (mysql默认隔离级别)<br>  可重复读(Repeatable Read)，MySQL默认的隔离级别。<br>  可重复读是快照读, 在该隔离级别下，一个事务多次读同一个数据, 实际上读的是数据快照, 其他事务修改数据在当前事务是不可见的, 这样就可以保证在同一个事务内两次读到的数据是一样的。<br>  可以防止脏读、不可重复读、第一类更新丢失、第二类更新丢失的问题，不过还是会出现幻读。</li>
-<li>串行化<br>  串行化(Serializable)，这是最高的隔离级别。<br>  它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行(会阻塞)。<br>  在这个级别，可以解决上面提到的所有并发问题，但可能导致大量的超时现象和锁竞争，通常不会用这个隔离级别</li>
+<li>读已提交<br> 读已提交(Read Committed)， 在该隔离级别下，一个事务的更新操作结果只有在该事务提交之后，另一个事务才可能读取到同一笔数据更新后的结果。<br> 可以防止脏读，但是不能解决可重复读和幻读的问题。</li>
+<li>可重复读 (mysql默认隔离级别)<br> 可重复读(Repeatable Read)，MySQL默认的隔离级别。<br> 可重复读是快照读, 在该隔离级别下，一个事务多次读同一个数据, 实际上读的是数据快照, 其他事务修改数据在当前事务是不可见的, 这样就可以保证在同一个事务内两次读到的数据是一样的。<br> 可以防止脏读、不可重复读、第一类更新丢失、第二类更新丢失的问题，不过还是会出现幻读。</li>
+<li>串行化<br> 串行化(Serializable)，这是最高的隔离级别。<br> 它要求事务序列化执行，事务只能一个接着一个地执行，不能并发执行(会阻塞)。<br> 在这个级别，可以解决上面提到的所有并发问题，但可能导致大量的超时现象和锁竞争，通常不会用这个隔离级别</li>
 </ul>
+</li>
+<li>隔离级别的实现：读已提交 vs 可重复读的核心区别<br>两者底层都是 <strong>MVCC + undo 版本链 + ReadView</strong> 的组合，<strong>唯一区别就是 ReadView 的生成时机不同</strong>：<br><strong>读已提交（RC）</strong>：<strong>每执行一条 SELECT 语句，就重新生成一个全新的 ReadView</strong>。所以每次查询都能看到在它之前刚提交的事务修改，因此同一个事务内两次读同一行可能不一样。<br><strong>可重复读（RR）</strong>：<strong>事务执行第一条 SELECT 语句时，生成一个全局的 ReadView，整个事务后续所有查询都复用这一个</strong>。事务开始后其他事务提交的修改，都不在这个视图里，因此两次读结果永远一致。<br>补充：undo log 同时承担了两个角色——既是原子性回滚的依据，也是 MVCC 的历史版本链载体，快照读就是顺着 undo 版本链，找符合 ReadView 可见规则的旧版本。</li>
+<li>经典问题：MySQL 默认为什么选 RR 隔离级别？<br>性价比最高：在几乎不损失性能的前提下，解决了脏读、不可重复读，还通过临键锁解决了当前读的幻读，一致性足够满足绝大多数业务场景。</li>
+<li>快照读 vs 当前读（高频考点）<ul>
+<li><strong>快照读</strong>：普通的 <code>SELECT</code> 语句，读数据的历史版本，全程不加锁，性能高，靠 MVCC 实现。我们平时说的隔离级别效果，默认都是指快照读。<ul>
+<li>适合纯查询、对数据时效性要求不高的场景，典型场景：商品列表查询、订单列表展示、报表统计、详情页查询</li>
+<li>核心逻辑：只需要数据在当前事务内逻辑一致，不需要拿到绝对最新的值，也不会基于它去修改数据。</li>
+<li>优势：完全不加锁，读写不冲突，并发性能极高，是 MySQL 默认的读取模式。</li>
+</ul>
+</li>
+<li><strong>当前读</strong>：<code>SELECT ... FOR UPDATE</code> &#x2F; <code>INSERT</code> &#x2F; <code>UPDATE</code> &#x2F; <code>DELETE</code>，读数据的最新版本，会对操作的行加写锁，靠锁机制保证隔离，写写互斥。<ul>
+<li>适合「读 - 判断 - 写」的强一致业务场景；典型场景：商品扣库存、账户转账、优惠券核销、状态流转校验</li>
+<li>核心逻辑：必须基于<strong>最新的数据</strong>做判断，然后执行修改，并且要保证同一时间只有一个事务能操作这条数据，否则会出现超卖、透支、重复核销等并发问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>行锁、间隙锁、临键锁（锁机制高频考点）<ul>
+<li><strong>行锁</strong>：锁定单行索引记录，RC 和 RR 级别都有。<strong>本质就是悲观互斥锁</strong>，和 Java 的 <code>synchronized</code> 核心逻辑完全一致：同一时间只允许一个持有者操作资源，其他竞争者阻塞排队，释放后唤醒下一个，都是典型的「独占 + 阻塞」模式。（不用深扣）</li>
+<li><strong>间隙锁</strong>：锁定两个索引之间的空隙，防止其他事务插入新行，<strong>只有 RR 隔离级别才会开启</strong>。</li>
+<li><strong>临键锁</strong>：「行锁 + 间隙锁」的组合，左开右闭区间，是 InnoDB 行锁的默认算法。RR 级别下，就是靠临键锁锁住查询范围，解决了当前读场景下的幻读问题。</li>
+</ul>
+</li>
+</ol>
 </li>
 <li><p>什么是 MVCC (中)<br>MVCC, 多版本并发控制<br>指维护一个数据的多个版本，使得读写操作没有冲突, 具体实现就是快照读, 快照读为MySQL实现MVCC提供了一个非阻塞读功能<br>MVCC的具体实现，还需要依赖于数据库记录中的隐式字段、undolog日志、readView。</p>
 </li>
 <li><p>三大日志 (高)</p>
 <ul>
-<li>undo log（回滚日志）：主要用于事务回滚和 MVCC, 实现了事务中的原子性<br>  Undo Log（回滚日志）记录了事务操作前的数据状态，确保事务回滚时能恢复原始数据，并为并发事务提供数据的历史版本。<br>  事务回滚（Rollback）：当事务执行失败或显式调用 ROLLBACK 时，通过 Undo Log 将数据恢复到修改前的状态。<br>  MVCC（多版本并发控制）：提供数据的历史版本，使其他事务能读取到一致的快照（Read View），避免读写冲突。</li>
-<li>redo log（重做日志）：主要用于掉电重启等故障恢复, 实现了事务中的持久性<br>  redo log重做日志，记录的是事务提交时数据页的物理修改，是用来实现事务的持久性. 它让MySQL拥有了崩溃恢复能力. </li>
-<li>binlog （归档日志&#x2F;二进制日志）：主要用于数据备份和主从复制；<br>  binlog, 即二进制日志, 主要记录了对 MySQL 数据库执行了更改的所有操作(数据库执行的所有 DDL 和 DML 语句)<br>  包括表结构变更（CREATE、ALTER、DROP TABLE…），表数据修改（INSERT、UPDATE、DELETE…），但不包括 SELECT、SHOW 这类不会对数据库造成更改的操作。<br>  数据库的数据备份、主备、主从需要依靠binlog来同步数据，保证数据一致性。</li>
+<li>undo log（回滚日志）：InnoDB 引擎层，主要用于事务回滚和 MVCC, 实现了事务中的原子性<br>  Undo Log 记录了事务操作前的数据状态，确保事务回滚时能恢复原始数据，并为并发事务提供数据的历史版本。<br>  事务回滚（Rollback）：当事务执行失败或显式调用 ROLLBACK 时，通过 Undo Log 将数据恢复到修改前的状态。<br>  MVCC（多版本并发控制）：提供数据的历史版本，使其他事务能读取到一致的快照（Read View），避免读写冲突。</li>
+<li>redo log（重做日志）：InnoDB 引擎层，主要用于掉电重启等故障恢复, 实现了事务中的持久性<br>  redo log 记录的是事务提交时数据页的物理修改，是用来实现事务的持久性. 它让MySQL拥有了崩溃恢复能力. </li>
+<li>binlog （归档日志&#x2F;二进制日志）：Server 层，主要用于数据备份和主从复制；<br>  binlog, 即二进制日志, 主要记录了对 MySQL 数据库执行了更改的所有操作(数据库执行的所有 DDL 和 DML 语句)<br>  包括表结构变更（CREATE、ALTER、DROP TABLE…），表数据修改（INSERT、UPDATE、DELETE…），但不包括 SELECT、SHOW 这类不会对数据库造成更改的操作。<br>  数据库的数据备份、主备、主从需要依靠binlog来同步数据，保证数据一致性。</li>
 </ul>
+</li>
+<li><p>两阶段提交（2PC）<br>为了保证 redo log 和 binlog 两份日志的数据一致，事务提交时分两步：<br>1、 准备阶段：redo log 写完，标记为 prepare 状态<br>2、 提交阶段：binlog 写完，把 redo log 标记为 commit 状态<br>宕机重启时会校验两份日志的状态，保证要么都成功要么都回滚，不会出现两边不一致的情况。</p>
 </li>
 </ul>
 <h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><ul>
@@ -1681,6 +1844,91 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><p>缓存雪崩 (高)<br>同一时间大量的key都过期了, 或者redis宕机了, 导致大量请求访问数据库</p>
 </li>
 </ul>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><ul>
+<li><p>Spring Cloud：网关、Nacos、负载均衡、Sentinel 怎么协同？</p>
+<ul>
+<li>先记住一句话：&gt; Gateway 管入口和路由，Nacos 管服务发现，负载均衡选择实例，Sentinel 管限流和熔断降级。</li>
+<li>外部流量链路：外部请求（浏览器、前端或其他系统）➡️ Gateway 网关（统一入口、路由、鉴权、入口限流）➡️ 服务发现 + 负载均衡（Nacos 提供服务实例信息，负载均衡选择目标实例）➡️ 业务微服务（Sentinel 可对具体接口、方法或调用链路实施保护）</li>
+<li>RPC 是怎么调用的？<br>  如果服务 A 内部调用服务 B，常见的 Feign 调用链是：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">服务 A</span><br><span class="line">  → Feign 客户端代理</span><br><span class="line">  → 服务发现获取服务 B 的可用实例</span><br><span class="line">  → 负载均衡选择某个实例</span><br><span class="line">  → HTTP 请求到服务 B</span><br></pre></td></tr></table></figure></li>
+<li>突然流量暴增，怎么限流？<br>  Sentinel 的规则可以按 QPS 或并发线程数进行流量控制，也支持慢调用比例、异常比例等熔断策略。<br>  最常见的面试知识点是：<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>关键概念</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>某接口每秒只能处理一定请求量</td>
+<td>QPS 限流</td>
+<td>限制请求速率</td>
+</tr>
+<tr>
+<td>某接口最多同时处理 N 个请求</td>
+<td>并发数限制</td>
+<td>限制同时占用资源的请求数</td>
+</tr>
+<tr>
+<td>某接口被大量慢请求拖垮</td>
+<td>熔断降级</td>
+<td>达到条件后暂时拒绝调用，避免持续冲击不稳定服务</td>
+</tr>
+<tr>
+<td>某个用户或商品请求特别集中</td>
+<td>热点参数限流</td>
+<td>对特定参数值单独限流</td>
+</tr>
+<tr>
+<td>系统负载过高</td>
+<td>系统保护</td>
+<td>根据系统状态实施保护</td>
+</tr>
+</tbody></table>
+</li>
+<li>“如何让某个节点分配 20% 的流量？”是 Sentinel 吗？<br>  这通常属于加权负载均衡或灰度流量路由，不是 Sentinel 限流的核心职责。<br>  要分两种场景：<br>  按实例权重分流： 例如同一个服务有 5 个实例，按实例权重让不同实例接收不同比例的请求。这属于负载均衡。Nacos 的服务发现配置支持实例权重，权重越高，被选中的概率通常越大，但还需要配套的负载均衡实现正确使用这些权重。<br>  按用户或请求特征进行灰度发布： 例如让 20% 的用户访问新版本，其余用户访问旧版本。这一般通过网关路由规则、版本元数据、用户标识或灰度发布系统实现。<br>  限流回答“允许多少请求进入”，负载均衡回答“请求交给哪个实例”，灰度路由回答“哪些请求走哪个版本”。三个概念不要混为一谈。</li>
+<li>外部请求和内部 RPC，流量治理有什么区别？<br>  核心差异在于控制入口不同，但底层保护机制可以配合使用。<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>外部请求</th>
+<th>内部 RPC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>常见入口</td>
+<td>Gateway</td>
+<td>Feign 或其他客户端</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>网关根据路径、规则路由</td>
+<td>服务发现 + 客户端负载均衡</td>
+</tr>
+<tr>
+<td>限流位置</td>
+<td>网关入口、业务接口</td>
+<td>服务接口、具体调用资源</td>
+</tr>
+<tr>
+<td>降级场景</td>
+<td>接口过载或后端不可用</td>
+<td>下游服务慢、异常率高或不可用</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>避免外部流量冲击系统</td>
+<td>避免故障在微服务之间传播</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>  例如，外部流量突然从每秒 100 个请求增加到每秒 1000 个请求，可以在 Gateway 层限流；但即使入口已经限流，某个服务仍可能因为数据库很慢而耗尽线程。这时还需要服务级限流、超时、熔断和合理的线程池配置。<br>  反过来，内部 RPC 也不一定经过 Gateway，但仍可以通过 Sentinel 保护具体服务资源。</p>
+</li>
+<li><p>Sentinel 怎么工作？在服务端还是调用方？<br>11</p>
+</li>
+<li><p>设计模式<br>？？</p>
+</li>
+</ul>
 <h2 id="hr"><a href="#hr" class="headerlink" title="hr"></a>hr</h2><ul>
 <li><p>口头</p>
 <ul>
@@ -1702,6 +1950,7 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><p>反问</p>
 <ul>
 <li>业务</li>
+<li>技术挑战</li>
 <li>AI Coding &#x2F; AI 赋能</li>
 </ul>
 </li>
@@ -2265,18 +2514,131 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>融通供应链</p>
 <ul>
-<li>一面 10.9</li>
+<li>一面 10.9<table>
+<thead>
+<tr>
+<th>面试模块</th>
+<th>本次表现与复盘</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目介绍</td>
+<td>选择防火墙批量下发优化，能讲出线程池、Redis 锁、数据库状态、<code>allOf</code> 超时等机制，但新梳理的内容还不够熟练，容易在连续追问中支支吾吾。</td>
+<td>项目理解在进步，表达熟练度不足。<strong>要有意识的分层次回答，熟练地引流到熟悉的问题上。</strong></td>
+</tr>
+<tr>
+<td>分布式并发</td>
+<td>能解释调度互斥、策略认领、执行资源控制的区别，也意识到超时后子任务不会自动取消。但对 30 分钟锁租期、5 分钟调度周期、残留任务之间的关系仍有表述不严谨的地方。</td>
+<td>“一轮任务超时了，怎么处理？”➡️ 整轮任务有 1780 秒的等待上限。如果超时，主流程会退出等待并释放 Redis 锁，但已提交的子任务不会自动取消。策略状态机制可以避免仍处于 EXECUTING 的策略被下一轮重新扫描，不过这不代表旧任务已经结束。极端情况下仍可能出现跨轮次的残留任务，这是当前设计的一个边界。<br> “多轮任务同时跑怎么办？”➡️ Redis 锁控制的是调度主流程，正常情况下不允许多个节点同时进入持锁的批量调度流程。策略状态则进一步避免已经认领的策略被后续轮次重复扫描。但如果上一轮主流程因等待超时而释放锁，旧子任务仍可能运行，因此锁不能保证所有子任务在任何时刻都只有一个批次。</td>
+</tr>
+<tr>
+<td>CAS</td>
+<td>知道使用数据库条件 <code>UPDATE</code> 将状态从 <code>TODO</code> 改为 <code>EXECUTING</code>，也能意识到当前认领流程由分布式锁串行化。</td>
+<td>“CAS 是怎么做的？”➡️ 我们使用 MyBatis-Plus 的条件更新，将数据库中的策略状态从 TODO 更新成 EXECUTING，SQL 带有 WHERE status &#x3D; TODO 条件。数据库会原子执行这条条件更新，只有符合预期状态的记录才能成功更新。这是<strong>数据库层面的 CAS 式条件更新</strong>。当前认领流程由 Redis 锁保证在持锁线程内串行化，因此正常路径下竞争较少（实际上并非 CAS 的应用场景），但这个状态流转仍然承担了策略认领和防重复扫描的作用。</td>
+</tr>
+<tr>
+<td>Java 线程池</td>
+<td>能回答核心线程数、最大线程数、队列和拒绝策略；对其他参数，以及队列积压与 JVM 内存风险的解释不够完整。面试官的具体意图不能完全确定。</td>
+<td>“线程池中如何控制任务数量，避免造成服务压力？”➡️ 线程池的队列既是任务缓冲区，也决定了任务积压是否有界。无界队列在持续提交、消费跟不上的情况下可能带来内存风险；有界队列能限制积压规模，队列和工作线程都达到上限后，再通过拒绝策略进行处理。我们项目使用 CallerRunsPolicy，让提交线程执行被拒绝的任务，形成一定的反压。</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>不会回答事务隔离级别。</td>
+<td>明显的基础知识缺口，优先补齐！！！</td>
+</tr>
+<tr>
+<td>Spring Cloud RPC</td>
+<td>将网关、注册中心与服务调用过程混在一起，没有清晰说明服务发现、实例选择和远程调用各自的职责。</td>
+<td><strong>Gateway 管入口和路由，Nacos 管服务发现，负载均衡选择实例，Sentinel 管限流和熔断降级。</strong></td>
+</tr>
+<tr>
+<td>流量治理</td>
+<td>面对突发流量、限流、节点流量分配和降级等问题，无法组织出完整回答。</td>
+<td>需要重点区分限流、负载均衡、熔断降级和灰度路由。</td>
+</tr>
+<tr>
+<td>整体面试状态</td>
+<td>项目与并发问题的回答能力比之前有所提升，但基础八股和微服务体系在连续追问下容易暴露缺口。</td>
+<td>当前瓶颈正在从项目表达，转向基础知识覆盖面与体系化理解。</td>
+</tr>
+</tbody></table>
+</li>
 </ul>
 </li>
 <li><p>顺丰同城</p>
+<ul>
+<li>一面 10.10<table>
+<thead>
+<tr>
+<th>面试模块</th>
+<th>本次表现与复盘</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自我定位</td>
+<td>面试官质疑你的工作更偏运维。你解释了将手工运维操作抽象为平台能力、完成需求设计和代码落地，但没有获得充分展开的机会。</td>
+<td><strong>需要更早建立 Java 后端开发者的身份认知。</strong></td>
+</tr>
+<tr>
+<td>CMDB Full GC</td>
+<td>能说明 <code>jstat</code>、<code>jstack</code>、<code>jmap</code>、MAT 的排查过程，也能讲出重复反序列化和对象创建的问题。被追问 MAT 如何定位根因、后续如何优化上线时，对证据链和已实施措施的表达还不够紧凑。</td>
+<td>案例本身有价值，需要提高根因证据链的准确性。</td>
+</tr>
+<tr>
+<td>MySQL 索引</td>
+<td>对 B+ 树、聚簇索引与二级索引、联合索引、最左前缀掌握不牢。</td>
+<td>基础数据库知识存在明显缺口，需要系统补齐。</td>
+</tr>
+<tr>
+<td>SQL 性能</td>
+<td>不清楚 <code>LIMIT</code> 深分页为什么慢，也没有形成完整的 <code>EXPLAIN</code> 分析思路。</td>
+<td>需要把索引原理与 SQL 调优串成一个体系。</td>
+</tr>
+<tr>
+<td>流量与并发</td>
+<td>能诚实说明没有高 QPS 经验，并尝试引导到多节点调度、并发 IO 等实际项目。这一点没有必要包装成高并发经验。</td>
+<td>经历边界清楚，但要提高与岗位能力要求的衔接。</td>
+</tr>
+<tr>
+<td>Redis 分布式锁怎么释放的？</td>
+<td>知道缓存和分布式锁，但过期机制、锁租期和 watchdog 等概念不够完整。</td>
+<td>“我们项目使用 Redisson 获取锁时设置 leaseTime&#x3D;1800s，也就是显式指定了 30 分钟的租期。Redis 会根据 TTL 判断 key 是否过期，并通过访问时检查和后台主动过期机制清理过期 key。应用不需要自己再调用 DEL 来处理正常过期，也不会启用 Redisson 默认的 watchdog 自动续期机制。”</td>
+</tr>
+<tr>
+<td>设计模式与手撕</td>
+<td>对单例模式没有形成清晰的手写套路；后续通过接口和实现类表达了策略分发的基本思路，面试官接受后结束了这一部分。</td>
+<td>需要补齐几个常见设计模式和简单代码模板。</td>
+</tr>
+<tr>
+<td>整体表现</td>
+<td>项目经历有真实技术内容，但基础知识覆盖面和现场组织答案的能力限制了发挥；本次也没有充分展示你在需求抽象、工程落地方面的优势。</td>
+<td>当前短板是基础知识体系和表达稳定性，而不是缺少真实项目。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
 </li>
 <li><p>领星</p>
+<ul>
+<li>HR面 10.12</li>
+</ul>
 </li>
 <li><p>安克创新</p>
+<ul>
+<li>一面 10.12</li>
+</ul>
 </li>
 <li><p>PDD</p>
+<ul>
+<li>一面 10.13</li>
+</ul>
 </li>
 <li><p>TPLink-普联</p>
+<ul>
+<li>一面 10.14</li>
+</ul>
 </li>
 </ul>
 
