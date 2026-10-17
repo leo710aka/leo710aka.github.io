@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://www.helloimg.com/i/2025/12/14/693ec39628c6f.png">
 <meta property="og:image" content="https://github.com/leo710aka/bk/blob/main/agent.png?raw=true">
 <meta property="article:published_time" content="2027-07-07T02:58:11.000Z">
-<meta property="article:modified_time" content="2026-10-15T18:03:32.308Z">
+<meta property="article:modified_time" content="2026-10-17T11:49:53.502Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://leo710aka.github.io/bk/midea.jpg">
@@ -2430,7 +2430,7 @@
 </li>
 <li><p>对抗性审查：成品验证，让 AI 切换身份为一个专找 bug 的测试员，测试各种漏洞 &#x2F; 边界 &#x2F; 安全审查，不断和产品进行攻防战，解决发现的问题。</p>
 </li>
-<li><p>AI：我理解是在 LLM 有能力基于人类知识和经验做一些问题的思考，接入 Skill、MCP、Harness 后，Agent 真正做人的事。<br>对个人：把重复性、规则相对明确、结果可以检查的工作交给 AI，把时间转移到判断、设计、沟通、异常处理等高价值活动。<br>对团队：把少数人的经验沉淀为可复用的 Skills、工具接口、规则、测试样例和运行手册，使经验能够被其他人和 Agent 稳定复用。<br>AI Native 不是在每个环节都强行加入 AI，而是重新设计人与 AI、工具和流程的分工，在风险可控、结果可验证的前提下，让 AI 承担更多可委派的认知与执行工作。AI 可以大幅降低原来看起来成本很高的工作，曾经一些无法落地的创意也被重新拾起（人人 ai coding）</p>
+<li><p>AI：我理解是在 LLM 有能力基于人类知识和经验做一些问题的思考，接入 Skill、MCP、Harness 后，Agent 真正做人的事。<br>对个人：把重复性、规则相对明确、结果可以检查的工作交给 AI，把时间转移到判断、设计、沟通、异常处理等高价值活动。<br>对团队：把少数人的经验沉淀为可复用的 Skills、工具接口、规则、测试样例和运行手册，使经验能够被其他人和 Agent 稳定复用。<br><strong>AI Native 不是在每个环节都强行加入 AI，而是重新设计人与 AI、工具和流程的分工，在风险可控、结果可验证的前提下，让 AI 承担更多可委派的认知与执行工作。</strong>AI 可以大幅降低原来看起来成本很高的工作，曾经一些无法落地的创意也被重新拾起（人人 ai coding）</p>
 </li>
 <li><p>AI Coding：需求澄清 &amp; 方案设计、任务拆分 &amp; 限定上下文、AI 实现 &amp; 持续验证、独立 Review（project.md → plan.md 持续迭代 → AI 执行 → 代码 + md 一起在 PR 提交 Git）</p>
 </li>
@@ -2473,7 +2473,7 @@
 <li>AI Review 不取代自动化测试，更不取代人对 PR 的最终责任。<br>  自动化测试负责执行可验证的场景，Review 负责检查需求、设计和实现中的问题；两者结合，再由人处理高风险取舍，才是比较完整的工程闭环。</li>
 </ol>
 </li>
-<li><p>Agent 协同：单个 Agent 能解决就先用单个 Agent；只有在任务存在明确、可独立验证的分支时，再引入多 Agent 协同。并行的尽头是审查和整合。，一个实用的多 Agent 协同流程是：</p>
+<li><p>Agent 协同：单个 Agent 能解决就先用单个 Agent；只有在任务存在明确、可独立验证的分支时，再引入多 Agent 协同。并行的尽头是审查和整合。一个实用的多 Agent 协同流程是：</p>
 <ol>
 <li>由协调者拆分任务，定义依赖关系、接口、输出格式和验收标准。</li>
 <li>把真正独立的子任务并行交给不同 Agent；存在依赖的任务按顺序执行。</li>

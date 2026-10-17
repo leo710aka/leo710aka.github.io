@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
 <meta property="og:image" content="https://github.com/leo710aka/repo/blob/main/agent20260919.jpg?raw=true">
 <meta property="article:published_time" content="2026-11-11T03:11:00.000Z">
-<meta property="article:modified_time" content="2026-10-15T16:19:53.245Z">
+<meta property="article:modified_time" content="2026-10-17T17:33:00.235Z">
 <meta property="article:author" content="fengcai">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/leo710aka/bk/refs/heads/main/messi.jfif">
@@ -362,9 +362,13 @@ xxx</p>
 <ul>
 <li><p>如何把项目讲好？细节？<br>1 往岗位需求上倾向（包装）<br>2 具体怎么展开？为什么做（背景，不要说“老板要做的”），核心问题（一两个难点、如何解决），惊喜（额外思考、解决了什么）<br>3 面对质疑：您提出了一个稳定性&#x2F;架构层面的问题，可能当时没考虑到，而是在聚焦别的问题；未来可以。。</p>
 </li>
-<li><p><strong>“挑一个你做得比较有代表性的项目讲一下”</strong><br>“我比较有代表性的一个项目是 MOPS 里的防火墙策略批量下发优化。<br>这个场景本质上是一个<strong>多节点定时调度的批量 IO 任务</strong>：防火墙工单审批后生成待下发策略，由定时任务调度，在一轮任务中批量调用防火墙 API 执行下发。核心挑战如何<strong>提高批量下发效率、控制任务并发，以及避免重复下发</strong>。<br>原来的问题主要有两个，一个是单条策略下发比较慢，整批任务串行执行导致效率比较低；另一个是多节点定时调度下，如果多个节点同时扫描并执行同一批待下发策略，就会存在重复下发和配置漂移风险。<br>所以我们从三个层面做优化：执行层使用专用线程池，并行处理没有顺序依赖的策略；策略层通过 CAS + EXECUTING 中间态，防止已认领的策略被后续调度重复扫描；调度层通过 Redis 分布式锁，控制同时只有一个节点持有锁并执行调度主流程（本质是要保证任务并发的可控，防止下游的防火墙设备负载过高，但无法保证同时只有一个节点在跑任务，因为前一轮任务超时后不会取消已提交的子任务）<br>在异常处理上，单策略有最多 3 次重试，整轮任务通过 CompletableFuture.allOf 设置 1780 秒的等待上限，主流程结束同时释放分布式锁，同时还有针对异常 EXECUTING 状态的巡检兜底。<br>最终单批次下发效率提升大约 4 倍，策略重复下发率降到了 0。”</p>
+<li><p><strong>“挑一个你做得比较有代表性的项目讲一下”</strong><br>“我比较有代表性的一个项目是 MOPS 里的防火墙策略批量下发优化。<br>这个场景本质上是一个<strong>多节点定时调度的批量 IO 任务</strong>：对于系统里已经生成的待下发策略，由定时任务调度，在一轮任务中批量调用防火墙 API 执行下发。<br>原来的问题主要有两个。一个是一批任务串行下发防火墙策略，如果单条策略下发慢，会导致整体效率比较低；另一个是多节点调度下，如果不同节点同时扫描出同一批待下发策略，就会存在重复下发和配置漂移风险。<br>所以我们从三个层面做优化：<strong>执行层</strong>使用专用线程池，并行下发这些没有顺序依赖的策略；<strong>策略层</strong>通过 CAS 将待下发策略更新为 EXECUTING 中间态，防止已认领的策略被后续调度重复扫描；<strong>调度层</strong>通过 Redis 分布式锁，控制同时只有一个后端节点持有锁并执行调度主流程，本质是要保证整体任务并发的可控。<br>在异常处理上，单轮任务会通过 CompletableFuture.allOf 设置 1780 秒的等待上限，主流程结束同时释放分布式锁，同时还有针对异常 EXECUTING 状态的僵尸策略进行巡检兜底。<br>最终单批次下发效率提升大约 4 倍，策略重复下发率降到了 0。”</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">          防火墙策略批量下发（技术树）</span><br><span class="line">                    │</span><br><span class="line">      ┌─────────────┼─────────────┐</span><br><span class="line">      ↓             ↓             ↓</span><br><span class="line">     问题背景     核心方案       异常兜底</span><br><span class="line">      │             │             │</span><br><span class="line"> 多节点 + 长IO   三层分级优化     单策略 3 次 Retry</span><br><span class="line"> 串行效率低          │           Timeout: allOf 1780s &lt; 锁 leaseTine 1800s</span><br><span class="line"> 重复执行            │           Zombie Patrol 30min 巡检重试</span><br><span class="line">                    │</span><br><span class="line">    ┌───────────────┼────────────────┐</span><br><span class="line">    ↓               ↓                ↓</span><br><span class="line">执行层            调度层             状态层</span><br><span class="line">解决“太慢”       解决“多节点同时跑”   解决“策略重复领取”</span><br><span class="line">ThreadPool      Redis Lock          CAS + EXECUTING</span><br><span class="line">    │              │                  │</span><br><span class="line"> IO并行           互斥               策略认领</span><br><span class="line"> 8/150/20        TTL/Token          条件 UPDATE</span><br><span class="line"> Reject          Redisson           TODO→EXECUTING→DONE/FAIL</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 项目浓缩成一条“脑内主线”</span></span><br><span class="line"></span><br><span class="line">&gt; **这是一个多节点定时调度 + 长耗时 IO 的批量任务。**</span><br><span class="line"></span><br><span class="line">**问题：** 串行慢 + 多节点重复执行 + 异常任务卡死。</span><br><span class="line"></span><br><span class="line">**解决：**</span><br><span class="line">&gt; **ThreadPool** 提效率</span><br><span class="line">&gt; **Redis Lock** 控制调度入口的互斥</span><br><span class="line">&gt; **CAS + EXECUTING** 控策略领取</span><br><span class="line">&gt; **Retry / Timeout** 控异常</span><br><span class="line">&gt; **Zombie Patrol** 做最终兜底</span><br><span class="line"></span><br><span class="line">**核心设计：** 调度层控制批次启动，策略层控制任务认领，执行层控制本地并发，兜底层处理异常状态。</span><br><span class="line"></span><br><span class="line">**最值得深挖的原理：** ThreadPool → Redis Lock → CAS → Timeout 时序 → Retry 幂等 → Failure Recovery </span><br><span class="line">                  → Sharding 演进(❌️)</span><br><span class="line"></span><br><span class="line"><span class="comment">### ThreadPool</span></span><br><span class="line"></span><br><span class="line">├─ 实际配置：</span><br><span class="line">@Bean</span><br><span class="line">public ThreadPoolExecutor <span class="function"><span class="title">firewallRuleDispatchExecutor</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> new ThreadPoolExecutor(</span><br><span class="line">            8, 20, 5L, TimeUnit.MINUTES,</span><br><span class="line">            new LinkedBlockingQueue&lt;&gt;(150),</span><br><span class="line">            ThreadUtil.createThreadFactory(<span class="string">&quot;firewallRuleDispatch-&quot;</span>),</span><br><span class="line">            new ThreadPoolExecutor.CallerRunsPolicy());</span><br><span class="line">&#125; </span><br><span class="line">* Spring @Bean 默认是单例：每个 JVM 内有一个共享的 ThreadPoolExecutor，不会每次调度都重新创建</span><br><span class="line"></span><br><span class="line">├─ **core / max / queue**</span><br><span class="line">* 防火墙 API 属于**长耗时 IO**，策略之间没有顺序依赖，所以适合并行。</span><br><span class="line">* 线程数不能无限增：要考虑本机线程资源 + **下游防火墙承载能力**。可以大于 CPU 核数。</span><br><span class="line">* 核心：`core=8 / queue=150 / max=20`，8 是常态并发，queue 是缓冲，20 是理论上限。</span><br><span class="line">* 面试：**为什么 8/20？** → IO 型任务 + 业务方压测 + 防火墙设备承载能力，不要说成理论最优。</span><br><span class="line">* 面试最好说：“优化目标不是单纯提高线程数，而是在可控并发下提高吞吐。”</span><br><span class="line">* 注意：`queue=150` 正常情况是做缓冲作用，保证基础并发量为 8。</span><br><span class="line">* 极端情况下，一轮未结束又提交一轮任务，每个下发的子任务也不结束，确实可能打满，出发拒绝策略。</span><br><span class="line"></span><br><span class="line">└─ **CallerRuns**</span><br><span class="line">* 核心：**线程池拒绝策略，不是超时机制。**</span><br><span class="line">* 线程池 `worker + queue` 都满 → 提交任务的线程自己执行。</span><br><span class="line">* 本质：**反压**，不是“再开一个线程”，也不是“直接丢任务”。适合时效性要求不高，但不能丢任务的场景。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Redis Lock</span></span><br><span class="line"></span><br><span class="line">├─ **Redisson**</span><br><span class="line">RLock lock = redissonClient.getLock(</span><br><span class="line">        <span class="string">&quot;MOPS:LOCK:FIREWALL:RULE:DISPATCH&quot;</span>);</span><br><span class="line">lockAcquired = lock.tryLock(</span><br><span class="line">        0, 1800, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">* waitTime=0：非阻塞获取，抢不到立即返回。</span><br><span class="line">* leaseTime=1800s：指定 30 分钟的锁租期。</span><br><span class="line">* 指定租期后，本次调用不使用 Redisson 默认的 watchdog 自动续期机制。</span><br><span class="line">* 在 finally 中检查当前线程是否持有锁，再执行 unlock。避免释放别人的锁。</span><br><span class="line">* 面试说法：底层机制我理解为原子加锁 + 唯一标识 + TTL，具体续期/释放机制项目里使用 Redisson 封装。</span><br><span class="line"></span><br><span class="line">├─ **SET NX**</span><br><span class="line">* 核心：`SET key value NX PX/EX`。一条原子命令完成“key 不存在才设置”，而不是先 GET 再 SET。</span><br><span class="line">* 成功 → `OK`；已存在 → `nil`，Java 层可理解为获取锁失败。</span><br><span class="line">* 面试：**“Redis 锁解决什么？”** → **调度层互斥：保证同一轮任务不被多个节点同时启动。**</span><br><span class="line"></span><br><span class="line">├─ **TTL / LeaseTime**</span><br><span class="line">* `leaseTime=1800s`：锁的最终兜底生命周期。</span><br><span class="line">* `allOf=1780s`：防火墙策略下发专用线程池，主调度流程最长等待时间。</span><br><span class="line">* 核心约束：**`allOf <span class="built_in">timeout</span> &lt; leaseTime`**。</span><br><span class="line">* 设计意图是让主流程先结束等待，再通过 finally 主动释放锁，避免锁租期先到期、旧调度主流程仍在等待的情况。</span><br><span class="line">* 如果进程异常退出，无法执行 finally，锁也能在租期结束后自动失效。</span><br><span class="line">* 注意：但这只是主流程时序上的保护，不等于子任务生命周期的严格控制。另外，5 分钟是调度周期，不等于任务生命周期。</span><br><span class="line"></span><br><span class="line">├─ **Token**</span><br><span class="line">* 锁 value 要有唯一 token。</span><br><span class="line">* 目的：防止 A 的锁过期后 B 拿到新锁，A 完成时误删 B 的锁。</span><br><span class="line">* 面试关键词：**“释放锁时校验持有者身份。”**</span><br><span class="line"></span><br><span class="line">└─  **Lua**</span><br><span class="line">* 核心：复杂的“查 + 改”需要原子性时，可以 Lua 一次执行。</span><br><span class="line">* 经典例子：`GET token == myToken → DEL`。</span><br><span class="line">* 记忆：**SET NX = 原子抢锁；Lua = 复杂 Redis 原子逻辑。**</span><br><span class="line"></span><br><span class="line"><span class="comment">### CAS</span></span><br><span class="line"></span><br><span class="line">├─ 实际代码</span><br><span class="line"><span class="built_in">return</span> lambdaUpdate()</span><br><span class="line">    .eq(FirewallSecurityRulePO::getRuleName, rule.getRuleName())</span><br><span class="line">    .eq(FirewallSecurityRulePO::getExecStatus,</span><br><span class="line">            FirewallSecurityRuleExecStatus.TODO)</span><br><span class="line">    .<span class="built_in">set</span>(FirewallSecurityRulePO::getExecStatus,</span><br><span class="line">            FirewallSecurityRuleExecStatus.EXECUTING)</span><br><span class="line">    .<span class="built_in">set</span>(FirewallSecurityRulePO::getUpdateTime,</span><br><span class="line">            LocalDateTime.now())</span><br><span class="line">    .update();</span><br><span class="line"></span><br><span class="line">SQL 的核心语义是：</span><br><span class="line"></span><br><span class="line">UPDATE firewall_rule</span><br><span class="line">SET exec_status = <span class="string">&#x27;EXECUTING&#x27;</span></span><br><span class="line">WHERE rule_name = ?</span><br><span class="line">  AND exec_status = <span class="string">&#x27;TODO&#x27;</span>;</span><br><span class="line"></span><br><span class="line">更新成功则表示当前认领操作成功；如果不再满足 TODO 条件，通常不会更新成功。</span><br><span class="line">这里使用的是数据库条件更新，具有 CAS（Compare-And-Set）式的语义，不是 Java AtomicInteger 那种底层 CPU CAS。</span><br><span class="line">数据库的 UPDATE 语句本身由数据库保证原子执行，不需要先 SELECT 再决定是否 UPDATE。</span><br><span class="line">但实际上没有并发竞争，使用 CAS 本身没什么意义。</span><br><span class="line"></span><br><span class="line">├─ **Compare-And-Set**</span><br><span class="line">* 核心：**比较当前状态是否还是预期值，是才更新。**</span><br><span class="line">* 你的实际逻辑：UPDATE xxx  SET status = <span class="string">&#x27;EXECUTING&#x27;</span>  WHERE <span class="built_in">id</span> = ? AND status = <span class="string">&#x27;TODO&#x27;</span></span><br><span class="line">* affected rows = 1 → 我成功领取。</span><br><span class="line">* affected rows = 0 → 已被其他执行者处理。</span><br><span class="line"></span><br><span class="line">├─ **UPDATE WHERE status=TODO**</span><br><span class="line">* 作用：**策略级防重复领取/重复下发**。</span><br><span class="line">* 面试：Redis Lock 控制“这一轮谁来跑”；CAS + EXECUTING 控制“这条策略有没有被别人领取”。这是“分层保护”。</span><br><span class="line"></span><br><span class="line"><span class="comment">## 分层优化</span></span><br><span class="line"></span><br><span class="line">- 线程池解决的是：一轮任务内部，100条策略如何并行执行。</span><br><span class="line"></span><br><span class="line">- Redis锁解决的是：多轮任务之间，是否允许同时存在多个批量下发任务。</span><br><span class="line"></span><br><span class="line">- CAS/EXECUTING解决的是：单个策略是否会被重复执行。</span><br><span class="line"></span><br><span class="line">- “如果不加 Redis 分布式锁，多轮任务一起跑，CAS不是也能保证安全吗？”</span><br><span class="line">答案：</span><br><span class="line">数据安全，可以。系统稳定性，不一定。Redis 分布式锁的核心目的，不只是“避免线程池浪费”，</span><br><span class="line">而是控制整个防火墙批量下发任务的并发度，保证对下游设备的压力可控，同时保证任务级别的调度一致性。</span><br><span class="line">如果没有加锁，多轮任务同时跑，区别</span><br><span class="line">    1、所有任务共享线程池 ThreadPoolExecutor firewallExecutor; 多个任务会竞争线程池资源，可能会阻塞</span><br><span class="line">    2、每轮任务创建线程池 new ThreadPoolExecutor(); 根本没有限流作用，直接打爆服务。（实际应该用的是共享）</span><br><span class="line">CAS解决正确性问题，Redis锁解决资源和系统行为可控问题。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Timeout</span></span><br><span class="line"></span><br><span class="line">├─ **allOf 1780**</span><br><span class="line">* 它控制的是：**整轮批量任务，主调度流程最多等待多久。**</span><br><span class="line">* 1780 秒后：</span><br><span class="line">  * `TimeoutException`</span><br><span class="line">  * 主流程不再继续等待</span><br><span class="line">  * `finally` 释放 Redis 锁</span><br><span class="line">* **不会 cancel 已在线程池执行的子任务**，子任务继续完成并写 DONE/FAIL。</span><br><span class="line"></span><br><span class="line">├─ **leaseTime 1800**</span><br><span class="line">* 是 Redis 锁的**最终兜底过期时间**。</span><br><span class="line">* 正常情况：1780 秒先结束主流程并主动释放。</span><br><span class="line">* 异常情况：服务挂掉、代码没走到 finally → 1800 秒后 Redis 自动释放，避免死锁。</span><br><span class="line">* 关键记忆：</span><br><span class="line">  **1780 = 主流程等待上限**</span><br><span class="line">  **1800 = 锁生存上限**</span><br><span class="line"></span><br><span class="line">└─ **keepAliveTime ≠ task <span class="built_in">timeout</span>**</span><br><span class="line">* `ThreadPoolExecutor.keepAliveTime`：**空闲非核心线程多久后可以回收**。它不是“任务最多跑多久”。</span><br><span class="line">* 不要把：`allOf <span class="built_in">timeout</span>`，`Redis leaseTime`，`ThreadPool keepAliveTime`  混成一件事。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Retry</span></span><br><span class="line"></span><br><span class="line">├─ **3次**</span><br><span class="line">* 单策略 API 最多重试 3 次。</span><br><span class="line">* 场景：网络抖动、下游暂时性异常。</span><br><span class="line">* 3 次失败 → 策略 `FAIL`，避免卡在 `EXECUTING`。</span><br><span class="line"></span><br><span class="line">├─ **瞬时网络故障**</span><br><span class="line">* Retry 解决的是：  **“同一个执行者遇到暂时失败怎么办？”**</span><br><span class="line">* Redis Lock / EXECUTING 解决的是：  **“不同调度/执行者不要同时重复领取。”**</span><br><span class="line">* 两套机制解决的问题不同。</span><br><span class="line"></span><br><span class="line">└─ **API 幂等问题**</span><br><span class="line">* 这是进一步深挖的高级点：请求可能已经成功，但响应丢失 → Java 以为失败 → Retry → 外部 API 可能被调用两次。</span><br><span class="line">* 所以要区分：</span><br><span class="line">  * **调度级重复** → Lock + EXECUTING</span><br><span class="line">  * **请求级重复** → 看 API 是否幂等 / 是否支持 requestId / 状态回查</span><br><span class="line">* 这个点后续最好查清楚你们防火墙 API 的真实幂等语义。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Failure</span></span><br><span class="line"></span><br><span class="line">├─ **API失败**</span><br><span class="line">* `API失败 → Retry 3次 → FAIL`</span><br><span class="line">* 重点：最终必须落一个确定状态，正常路径不让 `EXECUTING` 永久滞留。</span><br><span class="line"></span><br><span class="line">├─ **allOf超时**</span><br><span class="line">* `1780s → TimeoutException → finally 释放锁`</span><br><span class="line">* 子任务不 cancel，继续跑完。</span><br><span class="line">* 下一轮只扫描 `TODO`，所以 `EXECUTING` 策略不会被重新领取。</span><br><span class="line"></span><br><span class="line">├─ **服务宕机**</span><br><span class="line">* 最危险的边界：`TODO → EXECUTING → 服务直接挂掉`，没机会回写结果 → 永久僵尸任务。</span><br><span class="line">* 兜底：30 分钟巡检 EXECUTING → 判定 Zombie → 重置 TODO → 下一轮重试。</span><br><span class="line"></span><br><span class="line">└─ **Redis异常**</span><br><span class="line">* `tryLock` 异常 → 本轮 XXL-JOB 执行失败。</span><br><span class="line">* Redis 锁能力暂时失效，但数据库 `CAS + EXECUTING` 仍然存在。</span><br><span class="line">* 重点表达：**锁故障主要影响调度能力/任务积压，不直接破坏策略状态正确性。**</span><br><span class="line">* 降级策略。。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Evolution</span></span><br><span class="line"></span><br><span class="line">├─ **XXL-JOB 分片**</span><br><span class="line">* Lock 和分片不是一个目的：</span><br><span class="line">  * Redis Lock → **互斥 / 正确性**</span><br><span class="line">  * XXL-JOB Sharding → **并行 / 吞吐**</span><br><span class="line">* 面试官问“为什么不用分片”时：</span><br><span class="line">  &gt; “当时首先需要解决多节点重复执行，所以优先用了全局互斥；如果规模继续扩大，可以进一步做任务分片。”</span><br><span class="line"></span><br><span class="line">├─ **缩小锁粒度**</span><br><span class="line">* 当前：</span><br><span class="line">  **整轮任务一把锁**</span><br><span class="line">* 演进：</span><br><span class="line">  **分片锁 / 子任务锁 / 更细粒度任务调度**</span><br><span class="line">* 目标：从“保证正确性”逐步走向“正确性 + 更高吞吐”。</span><br><span class="line"></span><br><span class="line">└─ **更精细的任务调度**</span><br><span class="line">* 后续可演进：</span><br><span class="line">  * 任务分片</span><br><span class="line">  * 任务状态机</span><br><span class="line">  * 更合理的超时/重试</span><br><span class="line">  * Zombie 任务恢复</span><br><span class="line">  * 更细的监控指标</span><br><span class="line">* 核心思想：</span><br><span class="line">  **从“一个大任务”演进为“可观测、可拆分、可恢复的任务系统”。**</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 项目浓缩成一条“脑内主线”</span></span><br><span class="line"></span><br><span class="line">&gt; **这是一个多节点定时调度 + 长耗时 IO 的批量任务。**</span><br><span class="line"></span><br><span class="line">**问题：** 串行慢 + 多节点重复执行 + 异常任务卡死。</span><br><span class="line"></span><br><span class="line">**解决：**</span><br><span class="line">&gt; **ThreadPool** 提效率</span><br><span class="line">&gt; **Redis Lock** 控制调度入口的互斥</span><br><span class="line">&gt; **CAS + EXECUTING** 控策略领取</span><br><span class="line">&gt; **Retry / Timeout** 控异常</span><br><span class="line">&gt; **Zombie Patrol** 做最终兜底</span><br><span class="line"></span><br><span class="line">**核心设计：** 调度层控制批次启动，策略层控制任务认领，执行层控制本地并发，兜底层处理异常状态。</span><br><span class="line"></span><br><span class="line">**最值得深挖的原理：** ThreadPool → Redis Lock → CAS → Timeout 时序 → Retry 幂等 → Failure Recovery </span><br><span class="line"></span><br><span class="line"><span class="comment">### ThreadPool</span></span><br><span class="line"></span><br><span class="line">├─ 实际配置：</span><br><span class="line">  @Bean</span><br><span class="line">  public ThreadPoolExecutor <span class="function"><span class="title">firewallRuleDispatchExecutor</span></span>() &#123;</span><br><span class="line">      <span class="built_in">return</span> new ThreadPoolExecutor(</span><br><span class="line">              8, 20, 5L, TimeUnit.MINUTES,</span><br><span class="line">              new LinkedBlockingQueue&lt;&gt;(150),</span><br><span class="line">              ThreadUtil.createThreadFactory(<span class="string">&quot;firewallRuleDispatch-&quot;</span>),</span><br><span class="line">              new ThreadPoolExecutor.CallerRunsPolicy());</span><br><span class="line">  &#125; </span><br><span class="line">* Spring @Bean 默认是单例：每个 JVM 内有一个共享的 ThreadPoolExecutor，不会每次调度都重新创建</span><br><span class="line"></span><br><span class="line">├─ **core / max / queue**</span><br><span class="line">* 防火墙 API 属于**长耗时 IO**，策略之间没有顺序依赖，所以适合并行。</span><br><span class="line">* 核心：`core=8 / queue=150 / max=20`，8 是下游压力 &amp; 下发策略的平衡考虑，20 是压测出来的常规上限。</span><br><span class="line">* 面试：“优化目标不是单纯提高线程数，而是在可控并发下提高吞吐。”要考虑本机资源 + 下游防火墙承载能力。</span><br><span class="line">* 注意：`queue=150` 正常情况是做缓冲作用，保证基础并发量为 8。</span><br><span class="line">* 极端情况下，一轮未结束又提交一轮任务，已提交的任务不会 cancel，理论上可能打满（实际无），触发拒绝策略。</span><br><span class="line"></span><br><span class="line">└─ **CallerRuns**</span><br><span class="line">* 核心：**线程池拒绝策略，不是超时机制。**</span><br><span class="line">* 线程池 `worker + queue` 都满 → 提交任务的线程自己执行。</span><br><span class="line">* 本质：**反压**，不是“再开一个线程”，也不是“直接丢任务”。适合时效性要求不高，但不能丢任务的场景。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Redis Lock</span></span><br><span class="line"></span><br><span class="line">├─ **Redisson**</span><br><span class="line">  RLock lock = redissonClient.getLock(<span class="string">&quot;MOPS:LOCK:FIREWALL:RULE:DISPATCH&quot;</span>);</span><br><span class="line">  lockAcquired = lock.tryLock(0, 1800, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">* waitTime=0：非阻塞获取，抢不到立即返回。</span><br><span class="line">* leaseTime=1800s：指定 30 分钟的锁租期。不使用 Redisson 默认的 watchdog 自动续期机制。</span><br><span class="line">* finally 中检查当前线程是否持有锁，再执行 unlock。避免释放别人的锁。</span><br><span class="line">* 面试说法：底层机制我理解为原子加锁 + 唯一标识 + TTL，具体续期/释放机制项目里使用 Redisson 封装。</span><br><span class="line"></span><br><span class="line">├─ **SET NX**</span><br><span class="line">* 核心：`SET key value NX PX/EX`。一条原子命令完成“key 不存在才设置”，而不是先 GET 再 SET。</span><br><span class="line">* 成功 → `OK`；已存在 → `nil`，Java 层可理解为获取锁失败。</span><br><span class="line">* 面试：**“Redis 锁解决什么？”** → **调度层互斥：保证只有一个节点同时启动新一轮任务。**</span><br><span class="line"></span><br><span class="line">├─ **TTL / LeaseTime**</span><br><span class="line">* `leaseTime=1800s`：分布式锁锁的最终兜底生命周期，在 Java 侧无响应时自动释放。</span><br><span class="line">* `allOf=1780s`：防火墙策略下发专用线程池，主调度流程最长等待时间，同步释放。</span><br><span class="line">* 核心约束：**`allOf <span class="built_in">timeout</span> &lt; leaseTime`**。</span><br><span class="line">* 设计意图是让主流程先结束等待，再通过 finally 主动释放锁，避免锁租期先到期、旧调度主流程仍在等待的情况。</span><br><span class="line">* 如果进程异常退出，无法执行 finally，锁也能在租期结束后自动失效。</span><br><span class="line">* 注意：但这只是主流程时序上的保护，不等于子任务生命周期的严格控制。ps, 5min是调度周期，不等于任务生命周期。</span><br><span class="line"></span><br><span class="line">├─ **Token**</span><br><span class="line">* 锁 value 要有唯一 token。</span><br><span class="line">* 目的：防止 A 的锁过期后 B 拿到新锁，A 完成时误删 B 的锁。</span><br><span class="line">* 面试关键词：**“释放锁时校验持有者身份。”**</span><br><span class="line"></span><br><span class="line">└─  **Lua**</span><br><span class="line">* 核心：复杂的“查 + 改”需要原子性时，可以 Lua 一次执行。</span><br><span class="line">* 经典例子：`GET token == myToken → DEL`。</span><br><span class="line">* 记忆：**SET NX = 原子抢锁；Lua = 复杂 Redis 原子逻辑。**</span><br><span class="line"></span><br><span class="line"><span class="comment">### CAS</span></span><br><span class="line"></span><br><span class="line">├─ 实际代码</span><br><span class="line"><span class="built_in">return</span> lambdaUpdate()</span><br><span class="line">    .eq(FirewallSecurityRulePO::getRuleName, rule.getRuleName())</span><br><span class="line">    .eq(FirewallSecurityRulePO::getExecStatus,</span><br><span class="line">            FirewallSecurityRuleExecStatus.TODO)</span><br><span class="line">    .<span class="built_in">set</span>(FirewallSecurityRulePO::getExecStatus,</span><br><span class="line">            FirewallSecurityRuleExecStatus.EXECUTING)</span><br><span class="line">    .<span class="built_in">set</span>(FirewallSecurityRulePO::getUpdateTime,</span><br><span class="line">            LocalDateTime.now())</span><br><span class="line">    .update();</span><br><span class="line"></span><br><span class="line">SQL 的核心语义是：</span><br><span class="line"></span><br><span class="line">UPDATE firewall_rule</span><br><span class="line">SET exec_status = <span class="string">&#x27;EXECUTING&#x27;</span></span><br><span class="line">WHERE rule_name = ?</span><br><span class="line">  AND exec_status = <span class="string">&#x27;TODO&#x27;</span>;</span><br><span class="line"></span><br><span class="line">更新成功则表示当前认领操作成功；如果不再满足 TODO 条件，通常不会更新成功。</span><br><span class="line">这里使用的是数据库条件更新，具有 CAS（Compare-And-Set）式的语义，不是 Java AtomicInteger 那种 CPU CAS。</span><br><span class="line">数据库的 UPDATE 语句本身由数据库保证原子执行，不需要先 SELECT 再决定是否 UPDATE。</span><br><span class="line">数据库侧可以认为用了 CAS 能力，但服务侧实际上没有并发竞争。</span><br><span class="line"></span><br><span class="line">├─ **Compare-And-Set**</span><br><span class="line">* 核心：**比较当前状态是否还是预期值，是才更新。**</span><br><span class="line">* 你的实际逻辑：UPDATE xxx  SET status = <span class="string">&#x27;EXECUTING&#x27;</span>  WHERE <span class="built_in">id</span> = ? AND status = <span class="string">&#x27;TODO&#x27;</span></span><br><span class="line">* 不是 affected rows = 0 / 1 的实现。</span><br><span class="line"></span><br><span class="line">├─ **UPDATE WHERE status=TODO**</span><br><span class="line">* 作用：**策略级防重复领取/重复下发**。</span><br><span class="line">* 面试：Redis Lock 控制“这一轮谁来跑”；CAS + EXECUTING 控制“这条策略有没有被别人领取”。这是“分层保护”。</span><br><span class="line"></span><br><span class="line"><span class="comment">## 分层优化</span></span><br><span class="line"></span><br><span class="line">- 线程池解决的是：一轮任务内部，100 条策略如何并行执行。</span><br><span class="line"></span><br><span class="line">- Redis 锁解决的是：多轮任务之间，是否允许同时存在多个批量下发任务。</span><br><span class="line"></span><br><span class="line">- CAS / EXECUTING 解决的是：单个策略是否会被重复执行。</span><br><span class="line"></span><br><span class="line">- “如果不加 Redis 分布式锁，多轮任务一起跑，CAS不是也能保证安全吗？”</span><br><span class="line">答案：</span><br><span class="line">数据安全，可以。系统稳定性，不一定。</span><br><span class="line">Redis 分布式锁的核心目的是控制整体下发任务的并发度，保证对下游设备的压力可控。</span><br><span class="line">Redis 锁负责调度级互斥，条件更新负责策略级认领，两者作用不同。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 边界情况</span></span><br><span class="line"></span><br><span class="line">├─ **allOf 1780**</span><br><span class="line">* 它控制的是：**整轮批量任务，主调度流程最多等待多久。**</span><br><span class="line">* 1780 秒后：</span><br><span class="line">  * `TimeoutException`</span><br><span class="line">  * 主流程不再继续等待</span><br><span class="line">  * `finally` 释放 Redis 锁</span><br><span class="line">* **不会 cancel 已在线程池执行的子任务**，子任务继续完成并写 DONE/FAIL。</span><br><span class="line"></span><br><span class="line">├─ **leaseTime 1800**</span><br><span class="line">* 是 Redis 锁的**最终兜底过期时间**。</span><br><span class="line">* 正常情况：1780 秒先结束主流程并主动释放。</span><br><span class="line">* 异常情况：服务挂掉、代码没走到 finally → 1800 秒后 Redis 自动释放，避免死锁。</span><br><span class="line">* 核心记忆：1780 控制主流程等待多久，1800 控制锁最长租期；二者都不是子任务的强制执行超时。</span><br><span class="line"></span><br><span class="line">├─  跨轮次与线程池共享</span><br><span class="line">* 同一个 JVM：下一轮和上一轮使用同一个 Spring 单例线程池，共享工作线程与队列。</span><br><span class="line">* 不同 JVM：各自有独立线程池，不共享线程与队列。</span><br><span class="line">* allOf 超时后：旧子任务继续运行，因此新轮次可能与旧子任务同时消耗资源。</span><br><span class="line">* 线程池最大线程数 20，是每个 JVM 的工作线程上限，不等于整个分布式系统的全局并发上限。</span><br><span class="line"></span><br><span class="line">└─ **keepAliveTime ≠ task <span class="built_in">timeout</span>**</span><br><span class="line">* `ThreadPoolExecutor.keepAliveTime`：**空闲非核心线程多久后可以回收**。它不是“任务最多跑多久”。</span><br><span class="line">* 不要把：`allOf <span class="built_in">timeout</span>`，`Redis leaseTime`，`ThreadPool keepAliveTime`  混成一件事。</span><br><span class="line"></span><br><span class="line">├─ **Retry * 3**</span><br><span class="line">* 单策略最多尝试 3 次，其中首次调用后最多再重试 2 次。3 次失败 → 策略 `FAIL`，避免卡在 `EXECUTING`。</span><br><span class="line">* 重试主要针对 Read timed out 异常，其他异常直接报错，状态置为 FAIL。</span><br><span class="line"></span><br><span class="line">└─ **API 幂等问题**</span><br><span class="line">* 单策略不是有可能重复下发吗，那为什么还要用 Redis 分布式锁做调度层的互斥？</span><br><span class="line">* 本质：一轮任务中单策略 Retry，和不同节点扫描出同一策略重复下发，效果上确实是一样的。</span><br><span class="line">* 区别：单策略 retry 认为是可控的，应对网络波动的重试；多节点，不同任务中的重复下发的不可控的。</span><br><span class="line">* ps，cas + 中间态做了策略级的互斥，防重复下发，redis 分布式锁更多是做任务并发量的控制。</span><br><span class="line"></span><br><span class="line">├─ **服务宕机与 Zombie Patrol**</span><br><span class="line">* 最危险的边界：`TODO → EXECUTING → 服务直接挂掉`，没机会回写结果 → 永久僵尸任务。</span><br><span class="line">* 兜底：30 分钟巡检 EXECUTING → 判定 Zombie → 重置 TODO → 下一轮重试。</span><br><span class="line"></span><br><span class="line">└─ **Redis异常**</span><br><span class="line">* `tryLock` 异常 → 本轮 XXL-JOB 执行失败。</span><br><span class="line">* Redis 故障自动降级能力。。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 效果</span></span><br><span class="line"></span><br><span class="line">├─ 怎么测的 “下发效率提升大约 4 倍，策略重复下发率降到了 0”？</span><br><span class="line">我这里说的下发效率提升 4 倍，指的是**单批次整体处理效率提升，而不是单条防火墙 API 的响应速度提升了 4 倍**。</span><br><span class="line">我们以同等数量的策略为比较口径，统计从开始批量下发到这一批策略处理完成的整体耗时。</span><br><span class="line">改造前主要是逐条串行下发，每条策略都要等待接口调用返回；</span><br><span class="line">改造后，对于没有顺序依赖的策略，通过专用线程池并行下发，减少了整批任务的总等待时间；</span><br><span class="line">综合**下发正常和下发较慢的策略批次统计**，整体处理效率约提升到原来的 估算约 4 倍。（🈚 具体秒数）</span><br><span class="line">重复下发率降到 0 则是另一项结果，主要来自分布式锁和数据库执行状态控制，和效率提升是两个独立的优化效果。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>F5 网络自动化介绍下。<br>本质上是把DNS&#x2F;负载均衡资源的手工操作做到平台上，覆盖申请、变更、回收和一键回退的全生命周期<br>111<br>主要是积累了运维场景下需求抽象、方案设计、功能落地的全套能力、、</p>
+</li>
+<li><p>CMDB 是做什么的？数据是怎么维护的？<br>核心是IT资产的集中存储，围绕这些数据提供读、写、界面操作、自动化采集等能力。<br>、、数据模型是两类表，，核心是支持IT资产表字段可灵活变更。。</p>
 </li>
 <li><p><strong>CMDB 的 FullGC 当时是怎么处理的？讲一个最复杂线上问题。</strong></p>
 <ul>
@@ -410,6 +414,8 @@ xxx</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">技术线：Workflow → 意图 → 检索 → SQL → Agent 2.0</span><br><span class="line"></span><br><span class="line">为什么要做 Agent？降低资产数据查询门槛。同时问数也是 AI 落地的经典场景。</span><br><span class="line"></span><br><span class="line">为什么做 SQL？SQL 是查询能力的执行表达，模型负责把自然语言映射为结构化查询。</span><br><span class="line"></span><br><span class="line">为什么自然语言而不是表单？复杂、多表、非固定查询更灵活；普通用户不需要理解系统结构</span><br><span class="line"></span><br><span class="line">如何调优？面向业务方收集几十个问题，逐个节点全链路调试，所以最终下来效果都比较好，但是耗时也长</span><br><span class="line"></span><br><span class="line">效果怎么评价？一是生成 sql 是否符合用户问题，二是 sql 执行结果的准确性（有没有幻觉 / 语法错误）</span><br><span class="line"></span><br><span class="line">为什么 2.0？1.0 流程固定、能力绑定，调优流程慢；2.0 抽象 Skill/MCP，让能力可复用、动态编排、后续扩展更容易。</span><br><span class="line">有一个前提——用户问题是收敛的，所以问数 Agent 的能力边界可以预定义成工具；</span><br><span class="line">另外，内部也有迁移到平台的要求，搭建通用能力 Agent 并且更好的与其他 Agent 交互，包括作为子 Agent 提供能力。</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Agent 2.0 的设计，工作流？<br>先定能力边界 skill，mcp<br>后 react<br>？？</p>
+</li>
+<li><p>如何评价 Agent 效果？<br>11</p>
 </li>
 <li><p>为什么你一个 Java 后端想做 Agent？<br>“我觉得 Agent 对我来说并不是完全跨领域转行。<br>我原来做 Java 后端，比较多解决的是确定性系统的问题，比如任务调度、并发控制、数据一致性、异常恢复和线上稳定性。<br>现在 Agent 引入了 LLM 以后，系统的决策变得不完全确定，但它依然需要解决很多工程问题，比如上下文管理、工具调用、超时、重试、状态管理和异常恢复。<br>所以我比较感兴趣的是把原来的后端工程能力应用到 Agent 上，让模型能力真正变成一个稳定可运行的业务系统。”</p>
 </li>
@@ -1335,6 +1341,8 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>你平时什么时候会用到反射 (中)<br>  当要从配置文件中读配置创建类对象时需要使用反射.<br>  配置文件配置某个类的全类名, 然后就需要读配置, 然后反射创建对象.<br>  使用工厂模式时, 往往也需要根据全类名来获取对象, 也会使用反射创建对象.<br>  当开发注解时, 往往需要反射来获取某个类&#x2F;字段的注解<br>  当使用spring, mybatis时, 这些框架底层会大量使用反射<br>  Spring 的IoC机制：会通过反射实例化 Bean、注入依赖<br>  Spring的AOP用到了动态代理, 也是大量使用反射<br>  MyBatis 的 Mapper 接口动态代理：反射生成接口的代理对象，执行 SQL 映射方法</li>
 </ul>
 </li>
+<li><p>设计模式<br>？？</p>
+</li>
 </ul>
 <h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><ol>
 <li><p>什么是线程不安全？并发场景下会引发哪三类核心问题？<br>线程不安全的本质是：多个线程并发访问同一份共享资源时，操作不满足<strong>原子性、可见性、有序性</strong>，最终导致数据结果不符合预期。<br>1、原子性：复合操作（如<code>i++</code>）中途会被打断，造成更新丢失<br>2、可见性：一个线程修改了变量，其他线程因CPU缓存看不到最新值<br>3、有序性：编译器&#x2F;CPU重排指令，多线程场景下逻辑出错</p>
@@ -1528,16 +1536,143 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </ol>
 </li>
 </ol>
-<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ol>
-<li><p>Full GC 是什么？常见触发原因有哪些？<br>Full GC 通常指对老年代及相关堆区域进行较完整的垃圾回收，不同垃圾回收器的实现有所不同，通常会带来比较明显的 STW 暂停。<br>常见原因包括老年代空间不足、对象晋升失败，以及显式调用 <code>System.gc()</code> 等。具体要结合所使用的垃圾回收器和 GC 日志判断。<br>如果线上频繁发生 Full GC，我会先看 GC 频率、老年代占用及每次 GC 后的回收效果，再结合堆快照定位原因。</p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><ul>
+<li><p>JVM 本质</p>
+<ul>
+<li>Java虚拟机，是Java程序的运行容器，一个Java进程对应一个JVM实例。核心职责：加载字节码、解释执行、内存管理、垃圾回收、线程调度。</li>
+<li>核心内存区域划分<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>归属</th>
+<th>作用</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Java虚拟机栈</strong></td>
+<td>线程私有</td>
+<td>每个线程对应一个栈，每个方法调用对应一个「栈帧」，存局部变量、操作数栈、方法出口</td>
+<td>方法执行完自动释放，无需GC；栈溢出会报StackOverflowError</td>
+</tr>
+<tr>
+<td><strong>本地方法栈</strong></td>
+<td>线程私有</td>
+<td>给native本地方法使用</td>
+<td>逻辑和虚拟机栈一致</td>
+</tr>
+<tr>
+<td><strong>程序计数器</strong></td>
+<td>线程私有</td>
+<td>记录当前线程执行的字节码位置</td>
+<td>唯一不会OOM的区域</td>
+</tr>
+<tr>
+<td><strong>堆（Heap）</strong></td>
+<td>线程共享</td>
+<td>存放所有new出来的对象实例、数组</td>
+<td>GC的主战场，分代回收的核心区域</td>
+</tr>
+<tr>
+<td><strong>元空间（Metaspace）</strong></td>
+<td>线程共享   （本地内存）</td>
+<td>存类信息、静态变量、常量、即时编译代码</td>
+<td>JDK8替代永久代，不占用堆内存，默认无上限</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>栈和堆的关系：方法里的局部变量（包括对象引用）存在栈里，真正的对象实体存在堆里；栈里的引用指向堆里的对象地址。线程结束，栈就销毁了，但堆里的对象不会立刻消失，等GC回收。</p>
+</blockquote>
 </li>
-<li><p>什么是 STW？为什么 Full GC 会让服务卡顿？<br>STW 是 Stop-The-World，指 JVM 在某些操作阶段暂停应用线程，让 GC 或其他运行时操作能够安全执行。<br>Full GC 通常涉及较大范围的内存回收，可能需要较长的暂停时间。如果频繁发生，接口响应就可能变慢甚至超时，严重时还会影响任务处理和消息消费。<br>因此，排查时不仅要关注 GC 次数，也要关注单次停顿时间以及业务延迟。</p>
+<li>堆内存分代结构（GC核心基础）<ul>
+<li><strong>年轻代</strong>：存放新创建的短生命周期对象。分为Eden区 + 两个Survivor区（默认8:1:1）。<br>对象流转：新对象优先分配在Eden → Minor GC后存活对象复制到其中一块Survivor → 每熬过一次GC年龄+1 → 达到晋升阈值（默认15岁）晋升到老年代。</li>
+<li><strong>老年代</strong>：存放长期存活的对象、大对象。</li>
+</ul>
 </li>
-<li><p>Java 堆内存怎么划分？对象什么时候进入老年代？<br>在 JDK 8 常见的 HotSpot 分代内存模型中，堆主要分为年轻代和老年代。年轻代包含 Eden 区和两个 Survivor 区。<br>大多数新对象最初在 Eden 分配。经过年轻代 GC 后仍然存活的对象，会在 Survivor 区之间转移；达到晋升条件的对象可能进入老年代。此外，一些大对象也可能根据具体收集器和配置直接进入老年代。</p>
+</ul>
 </li>
-<li><p>线上频繁 Full GC，怎么排查？<br>我一般分三步排查。<br>第一，通过 <code>jstat</code> 观察 GC 频率、各区域使用情况和回收效果，确认是否存在持续的内存压力。<br>第二，通过 <code>jstack</code> 查看线程状态、调用栈和锁等待情况，判断是否存在明显的线程阻塞。<br>第三，通过 <code>jmap</code> 导出堆快照，结合 MAT 等工具分析对象分布、引用关系和内存占用，再结合代码调用链定位原因。<br>排查过程中，我会区分内存问题和线程阻塞问题，避免仅凭某一个工具的结果就下结论。<code>jstat</code> 看现象，<code>jstack</code> 看线程，<code>jmap + MAT</code> 查对象，最后结合代码定位原因。</p>
+<li><p>GC 核心基础概念</p>
+<ol>
+<li>怎么判定对象是垃圾？<br>  用<strong>可达性分析算法</strong>：从「GC Roots根对象」（栈中局部变量、静态变量、常量、本地方法栈变量）出发，顺着引用链遍历，遍历不到的对象就是垃圾。<br>  面试注意：Java不用引用计数法，别答错。</li>
+<li>两类核心GC事件<ul>
+<li><strong>Minor GC（Young GC）</strong>：只回收年轻代。频率高、速度快、STW时间很短，属于正常现象。</li>
+<li><strong>Full GC</strong>：回收整个堆（年轻代+老年代）+ 元空间。速度慢、STW时间长（秒级），是GC优化的核心目标，尽量减少。</li>
+</ul>
 </li>
-<li><p>常见垃圾回收器有哪些？CMS 和 G1 有什么区别？<br>常见的 HotSpot 垃圾回收器包括 Serial、Parallel、CMS 和 G1 等。<br>CMS 主要通过并发标记和清除来减少老年代回收时的停顿，但会产生内存碎片，也可能因为并发回收跟不上内存分配而退化。<br>G1 将堆划分为多个 Region，通过优先回收收益较高的区域，并根据停顿时间目标安排回收。相比 CMS，它也提供了相对可控的停顿时间，但具体效果仍取决于堆大小、对象分布和负载。</p>
+<li>什么是STW？<br>  Stop The World，GC执行时会暂停所有业务线程，只保留GC线程工作。<br>  <strong>所有垃圾回收器都有STW，只是长短不同</strong>。Full GC的长时间STW是服务卡顿、任务堆积的核心原因。</li>
+<li>为什么要分代回收？<br>不同生命周期的对象存活率不同，适配不同算法，效率最高：<br>- 年轻代：对象朝生夕灭，存活率低，用<strong>标记-复制算法</strong>，只复制少量存活对象，效率高。<br>- 老年代：对象存活率高，没有额外空间做复制，用<strong>标记-整理算法</strong>，避免内存碎片。</li>
+</ol>
+</li>
+<li><p>垃圾回收器（重点Parallel GC + 对比G1）</p>
+<ol>
+<li>Parallel GC（你们项目在用，JDK8默认）<br>也叫<strong>吞吐量优先收集器</strong>，完美匹配CMDB采集这类后台批量任务。<br>- 年轻代：<code>Parallel Scavenge</code>，多线程并行 + 标记复制算法，回收时STW<br>- 老年代：<code>Parallel Old</code>，多线程并行 + 标记整理算法，回收时STW<br>- 核心特点：全程STW，但多线程并行回收，整体吞吐量最高；把CPU资源尽量让给业务，不追求单次低延迟。<br>- 适用场景：后台批量处理、离线计算、数据采集等对延迟不敏感、追求整体效率的场景。</li>
+<li>和 G1 收集器的核心区别（面试高频对比题）<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Parallel GC</th>
+<th>G1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心目标</td>
+<td>吞吐量优先</td>
+<td>兼顾吞吐量 + 可预测的低延迟</td>
+</tr>
+<tr>
+<td>内存结构</td>
+<td>物理连续的分代（年轻代&#x2F;老年代）</td>
+<td>把堆拆成多个Region，逻辑分代、物理不连续</td>
+</tr>
+<tr>
+<td>回收算法</td>
+<td>年轻代复制、老年代标记整理</td>
+<td>整体标记整理，局部复制</td>
+</tr>
+<tr>
+<td>STW特点</td>
+<td>单次GC时间长，频率低</td>
+<td>单次GC时间短、可控，频率稍高</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>后台批量任务</td>
+<td>Web接口、交互型服务，大内存场景</td>
+</tr>
+<tr>
+<td>版本定位</td>
+<td>JDK8默认</td>
+<td>JDK9及以后默认</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+<li><p>Full GC 核心问题（结合你的采集项目）</p>
+<ul>
+<li>如果线上频繁发生 Full GC，我会先看 GC 频率、老年代占用及每次 GC 后的回收效果，再结合堆快照定位原因。</li>
+<li>Parallel GC 触发Full GC的常见原因<ol>
+<li><strong>老年代空间不足（最常见）</strong></li>
+</ol>
+<ul>
+<li>批量采集产生大对象，直接绕过年轻代分配进老年代；</li>
+<li>短时间生成大量对象，Survivor区装不下，触发动态年龄判定，大批对象提前晋升老年代；</li>
+<li>采集结果缓存、连接池对象长期存活，累积占满老年代。</li>
+</ul>
+<ol start="2">
+<li><strong>元空间不足</strong>：采集服务大量使用反射、动态解析数据，加载的类过多。</li>
+<li><strong>空间分配担保失败</strong>：Minor GC前，老年代剩余连续空间小于年轻代所有对象总大小，担保失败触发Full GC。</li>
+<li><strong>主动触发</strong>：代码调用<code>System.gc()</code>。</li>
+</ol>
+</li>
+<li>你们项目的优化思路（面试直接说）<br>我们CMDB采集服务之前遇到过频繁Full GC的问题，主要是批量采集时短时间生成大量对象，Survivor区偏小，导致对象提前晋升老年代。<br>后来做了几点优化：<ol>
+<li>把<code>-Xms</code>和<code>-Xmx</code>设为相同值，避免运行时动态扩容；</li>
+<li>适当调大年轻代大小，让更多短生命周期对象在年轻代就被回收，减少晋升；</li>
+<li>优化采集逻辑，把大批次任务拆成小批次处理，避免大对象和批量对象集中晋升；</li>
+<li>排查缓存释放，避免无用对象长期存活在老年代。<br>优化后Full GC频率大幅下降，采集吞吐量也提升了。</li>
+</ol>
+</li>
+</ul>
 </li>
 <li><p>内存泄漏、内存溢出、频繁 GC 有什么区别？<br>内存泄漏是对象已经不再需要，但仍然被引用，导致 GC 无法回收；内存溢出是程序需要的内存无法满足分配要求；频繁 GC 则是一种运行现象，可能由大量临时对象创建、老年代压力或内存泄漏等原因导致。<br>频繁 GC 不等于内存泄漏；Full GC 也不等于已经 OOM。排查时，我会重点观察 GC 后的内存占用。如果回收后占用仍然较高，就进一步分析仍然存活的对象及其引用关系，但这本身还不能直接证明存在内存泄漏。</p>
 <table>
@@ -1561,6 +1696,8 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </tr>
 </tbody></table>
 </li>
+</ul>
+<ol start="7">
 <li><p>什么是类加载？简单说一下类加载的完整流程？<br>类加载就是 JVM 将磁盘上的 <code>.class</code> 字节码文件加载到内存，经过校验、解析、初始化，最终形成可以直接使用的 Java 类型的过程。<br>完整流程分为 5 个阶段：<strong>加载、验证、准备、解析、初始化</strong>，其中验证、准备、解析合称为「连接阶段」。<br>1、<strong>加载</strong>：通过类的全限定名读取字节码，将字节流转换成方法区的运行时数据结构，同时在堆中生成对应的 <code>Class</code> 对象，作为访问该类的入口。<br>2、<strong>验证</strong>：校验字节码的合法性，包括文件格式、元数据、字节码逻辑、符号引用四层校验，确保代码不会危害 JVM 安全。<br>3、<strong>准备</strong>：为类的静态变量分配内存，并设置<strong>默认零值</strong>（比如 <code>int</code> 默认为 0、引用类型默认为 <code>null</code>），此时还不会执行代码里写的初始赋值。<br>4、<strong>解析</strong>：把常量池中的符号引用（类名、方法名、字段名等符号）替换成直接引用（实际内存地址指针）。<br>5、<strong>初始化</strong>：真正执行类的静态代码块和静态变量的赋值语句，是类加载的最后一步，执行完成后类就完全可用了。</p>
 </li>
 <li><p>什么是类加载器？JDK 有哪些内置类加载器？分别加载什么？<br>类加载器就是负责执行类加载动作的组件，本质是用来加载 <code>.class</code> 文件。JDK8 经典内置三种类加载器，呈父子层级关系：<br><strong>启动类加载器（Bootstrap ClassLoader）</strong>：C++ 实现，是最顶层的加载器，加载 JRE&#x2F;lib 目录下的核心类库（比如 <code>rt.jar</code>）。<br><strong>扩展类加载器（Extension ClassLoader）</strong>：加载 JRE&#x2F;lib&#x2F;ext 目录下的扩展类库。<br>-<strong>应用程序类加载器（Application ClassLoader）</strong>：加载用户 classpath 下的业务类，是我们代码中默认使用的类加载器。</p>
@@ -1577,7 +1714,7 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><ul>
 <li><p>数据库存储引擎有哪些 (高)</p>
 <ul>
-<li>innodb<br>  事务, 外键, 行级锁<br>  适合事务要求高, 数据完整性高的场景<br>  InnoDB 支持数据库异常崩溃后的安全恢复, 依赖于redo log ,而MyISAM不支持<br>  innodb支持MVCC, MyISAM不支持</li>
+<li>innodb<br>  事务, 外键, 行级锁<br>  适合事务要求高, 数据完整性高的场景<br>  InnoDB 支持数据库异常崩溃后的安全恢复, 依赖于redo log ,而 MyISAM不支持<br>  innodb 支持 MVCC, MyISAM不支持</li>
 <li>MyISAM<br>  全表锁, 不支持事务, 不支持外键, 并发性低<br>  适合对事务要求不高, 数据完整性要求不高, 并发性要求不高的场景</li>
 <li>memory<br>  全表锁<br>  数据存储在内存中, 默认使用hash索引, 检索速度非常高.<br>  适合做缓存 (被redis代替)</li>
 </ul>
@@ -1600,24 +1737,13 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 </ul>
 </li>
-<li><p>聚簇索引和二级索引是什么？物理上怎么存储？</p>
-<ul>
-<li>这是 InnoDB 索引最核心的结构，两者都是B+树：<ul>
-<li><strong>聚簇索引（主键索引）</strong>：叶子节点存储<strong>完整的行数据</strong>，表数据本身就是聚簇索引的叶子节点。一张表只能有一个聚簇索引，默认就是主键。</li>
-<li><strong>二级索引（普通&#x2F;唯一&#x2F;联合索引都属于二级索引）</strong>：叶子节点只存储<strong>主键值</strong>，不存完整行数据。一张表可以有多个二级索引。</li>
-</ul>
-</li>
-<li>拿字典类比最清楚：<ul>
-<li>聚簇索引 &#x3D; 字典正文，按拼音排序，每一页就是完整的字词解释（完整行数据），你按拼音翻到对应页直接就能看到内容。</li>
-<li>二级索引 &#x3D; 偏旁部首索引，按偏旁排序，每一条只告诉你这个字在正文的第几页（主键值），你查完索引还得翻到正文对应页才能看到完整内容——这一步就是<strong>回表</strong>。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>什么是回表？什么是覆盖索引？<br><strong>回表</strong>：通过二级索引查到主键值后，还要回到聚簇索引里，根据主键查找完整行数据的过程。回表需要多走一次B+树查询，会额外消耗IO。<br><strong>覆盖索引</strong>：查询需要的所有字段，刚好都在二级索引里，不需要回表就能拿到结果，性能很高。比如联合索引(a,b)，查询<code>select a,b from table where a=1</code>，就是覆盖索引。</p>
-</li>
 <li><p>MySQL中的索引类型 (高)</p>
 <ul>
+<li>物理存储形式, 又可以分为两种<ul>
+<li>聚簇索引: 一般主键索引就是聚集索引, 且只有一个. 索引的叶子节点是id, id下挂了行数据.</li>
+<li>二级索引: 索引的叶子节点是该列的值 + 主键值（一般要避免回表，不要使用select *）</li>
+</ul>
+</li>
 <li>逻辑维度<ul>
 <li>主键索引: 针对表主键的索引, 默认创建, 只能有一个</li>
 <li>唯一索引: 避免一个表中的索引重复, 可以多个</li>
@@ -1627,11 +1753,35 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li>全文索引: 查找文本中的关键词. 像es一样. 可以多个</li>
 </ul>
 </li>
-<li>innodb中根据索引的物理存储形式, 又可以分为两种<ul>
-<li>聚集索引: 一般主键索引就是聚集索引, 且只有一个. 索引的叶子节点是id, id下挂了行数据.</li>
-<li>二级索引: 索引的叶子节点是该列的值, 下面挂了id<br>如果走二级索引, 那么就先从二级索引中拿到id, 再根据id从聚集索引中查行数据. 这个过程叫回表, 一般要避免回表(不要使用select *).</li>
 </ul>
 </li>
+<li><p>聚簇索引和二级索引是什么？物理上怎么存储？</p>
+<ul>
+<li>这是 InnoDB 索引最核心的结构，两者都是B+树：<ul>
+<li><strong>聚簇索引（主键索引）</strong>：叶子节点存储<strong>完整的行数据</strong>，表数据本身就是聚簇索引的叶子节点。一张表只能有一个聚簇索引，默认就是主键。</li>
+<li><strong>二级索引（普通&#x2F;唯一&#x2F;联合索引都属于二级索引）</strong>：叶子节点存储<strong>索引字段值+对应主键值</strong>，不存完整行数据。一张表可以有多个二级索引。</li>
+</ul>
+</li>
+<li>拿字典类比最清楚：<ul>
+<li>聚簇索引 &#x3D; 字典正文，按拼音排序，每一页就是完整的字词解释（完整行数据），你按拼音翻到对应页直接就能看到内容。</li>
+<li>二级索引 &#x3D; 偏旁部首索引，按偏旁排序，每一条只告诉你这个字在正文的第几页（主键值），你查完索引还得翻到正文对应页才能看到完整内容——这一步就是<strong>回表</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>什么是回表？什么是覆盖索引？<br><strong>回表</strong>：通过二级索引查到主键值后，还要回到聚簇索引里，根据主键查找完整行数据的过程。多走一次B+树查询，会额外消耗IO。<br><strong>覆盖索引</strong>：查询需要的所有字段，刚好都在二级索引里，不需要回表就能拿到结果，性能很高。比如联合索引(a,b)，查询<code>select a,b from table where a=1</code>，就是覆盖索引。</p>
+</li>
+<li><p>二级索引一定要回表吗？</p>
+<ul>
+<li>不是，回表只是「索引里的数据不够用」时的额外操作；覆盖索引本质就是一个数据刚好够用的二级索引，自然就不用回表。</li>
+<li>先明确：InnoDB 二级索引的叶子节点，存的是「<strong>索引字段的值 + 对应的主键值</strong>」。<br>  比如你给 <code>name</code> 字段建普通索引，那每个叶子节点里就存了 name 的值 + 这条数据的主键 id，仅此而已，不存其他字段。</li>
+<li>回表的触发条件只有一个：<strong>你查询需要的字段，在这个二级索引的叶子节点里找不全</strong>。<br>  这时候就必须拿着主键，再去聚簇索引里查完整的行数据，把缺的字段补回来。反过来，如果要查的所有字段，在二级索引里已经全都有了，直接从索引里拿数据就完事了，完全没必要再跑一趟聚簇索引——这就是<strong>覆盖索引</strong>。</li>
+<li>举个例子一眼对比<br>  用同一张表演示：表 <code>user(id 主键, name, age)</code>，给 <code>name</code> 建了普通二级索引<ol>
+<li>查询 <code>select id, name from user where name = &#39;张三&#39;</code><br>二级索引叶子里刚好有 name 和 id，要的字段全齐了，直接返回结果，<strong>不用回表</strong>，这就是覆盖索引。</li>
+<li>查询 <code>select id, name, age from user where name = &#39;张三&#39;</code><br>  二级索引里没有 age 字段，只能拿到 id，必须拿着 id 再去聚簇索引查 age，<strong>这就是回表</strong>。</li>
+</ol>
+</li>
+<li>覆盖索引最常用的载体是联合索引，比如建 <code>(name, age)</code> 联合索引，那查 <code>name、age</code> 就都能在索引里拿到，不用回表。这也是面试常考的优化手段：通过建立合适的联合索引，用覆盖索引避免回表，大幅提升查询性能。</li>
 </ul>
 </li>
 <li><p>联合索引是什么？最左前缀原则是什么？什么情况会打破？</p>
@@ -1774,68 +1924,126 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <h2 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h2><ul>
 <li><p>MQ有什么作用&#x2F;为什么使用MQ (高)</p>
 <ul>
-<li>消息队列的本质其实就是一个阻塞队列, 只是在阻塞队列的基础上增加了重试, 消息持久化等等功能.</li>
+<li>Kafka 是高吞吐的分布式消息队列，核心作用是<strong>解耦、削峰、异步</strong>，适合大数据采集、日志传输、异步解耦等场景。消息队列的本质其实就是一个阻塞队列, 只是在阻塞队列的基础上增加了重试, 消息持久化等等功能.</li>
 <li>优点就是: 异步 削峰 解耦</li>
 <li>缺点就是:<ul>
 <li>系统的可用性降低了: 新引入了MQ, 那么如果MQ挂了, 和MQ相关的服务就崩溃了</li>
 <li>系统复杂度提高了: 硬生生加个 MQ 进来，你怎么保证消息没有重复消费？怎么处理消息丢失的情况？ 怎么保证消息传递的顺序性？问题一大堆</li>
-<li>数据一致性问题: A 系统处理完了直接返回成功了，人都以为你这个请求就成功了；但是问题是，要是 BCD 三个系统那里，BD两个系统写库成功了，结果 C 系统写库失败了，咋整？你这数就不一致 了</li>
+<li>数据一致性问题: A 系统处理完了直接返回成功了，人都以为你这个请求就成功了；但是问题是，要是 BCD 三个系统那里，BD两个系统写库成功了，结果 C 系统写库失败了，咋整？你这数就不一致了</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>如何保证消息可靠性 (高)</p>
+<li><p>Kafka 架构（按自己的思路理解^^）</p>
 <ul>
-<li>消息丢失的几种情况<ul>
-<li>发送时丢失<br>生产者发送消息到交换机的过程中丢失了 (消息确认 confirm机制)<br>交换机分发消息到队列的过程中丢失了 (return机制)</li>
-<li>MQ宕机<br>队列已经接收到了消息, 但未持久化, MQ宕机就会丢失消息(消息持久化以及MQ集群, 保证高可用)</li>
-<li>消费时丢失<br>消费者拿到消息后未消费消息就丢失了 (消费者手动ACK)</li>
+<li>逻辑上<br><strong>Topic</strong> 消息的逻辑分类，相当于消息的主题容器<br><strong>Producer</strong> 消息生产者，往 Topic 的分区里写消息<br><strong>Consumer Group</strong> 消费者组，消费的基本单位；一个组内多个消费者实例，共同消费一个 Topic 的全部分区</li>
+<li>物理上<br>一个 Kafka 有多个 Broker 节点，是消息的物理载体；<br><strong>Partition</strong> 是 Topic 的物理分片，一个 Topic 拆成多个分区，分散在不同 Broker 上，是并行吞吐的基础；<strong>单个分区内消息严格有序，Topic 全局无法保证有序</strong><br><strong>Offset</strong>  是消息在分区内的唯一递增序号，标记消费位置；</li>
 </ul>
 </li>
-<li>confirm机制, 发送者确认<br>消息成功投递到交换机，返回ack<br>消息未投递到交换机，返回nack<br>在生产者那里设置开启confirm模 式之后，你每次写的消息都会分  配一个唯一的 id，然后如果写入了 RabbitMQ 中，RabbitMQ 会给你回传一个ack消息，告诉你说这个消息 ok 了。如果 RabbitMQ 没  能处理这个消息，会回调你一个 nack接口，告诉你这个消息接收失败，你可以重试。</li>
-<li>return, 发送者回执<br>消息投递到交换机了，但是没有路由到队列。返回ACK,及路由失败原因。<br>消息成功从交换机路由到队列, 则不返回任何东西.<br>项目中配置ConfirmCallback和ReturnCallback. ConfirmCallback就是设置消息未成功投递到交换机, 要做什么, 比如记录日志之类的.ReturnCallback消息没有从交换机路由到队列时触发的回调, 可以记录一下日志.</li>
-<li>消息持久化: 开启 RabbitMQ 的持久化，就是消息写入之后会持久化到磁盘，哪怕是 RabbitMQ 自己挂了，恢复之后会自动读取之前存储的数据，一般数据不会丢.</li>
-<li>消费者ACK: 消费者确认机制，即：消费者处理消息后可以向MQ发送ack回执，MQ收到ack回执后才会删除该消息。</li>
-</ul>
-</li>
-<li><p>死信队列? 如何导致死信 (中)<br>死信，顾名思义就是无法被消费的消息. 当一个队列中的消息满足下列情况之一时，可以成为死信（dead letter):<br>1、消息被拒绝消费<br>2、消息TTL到期，超时无人消费<br>3、要投递的队列消息堆积满了，最早的消息可能成为死信<br>如果该队列配置了dead-letter-exchange属性，指定了一个交换机，那么队列中的死信就会投递到这个交换机中, 而这个交换机称为死信交换机<br>死信队列是队列将死信(无法被消费的消息放到死信交换机中)：死信队列可以像republish一样作为消息消费失败的兜底方案，在死信队列里面可以对我们的异常消息进行MySQL&#x2F;Redis持久化，然后人工处理等操作；另一方面可以处理消息超时无人消费以及队列满了的问题</p>
-</li>
-<li><p>消息的幂等性 (高)</p>
+<li><p>消费机制</p>
 <ul>
-<li>网络不好的时候, A向队列发送一条消息, 消息发送成功, 队列将消息给B服务, 但是由于网络原因A服务一直未收到ack, 此时A服务重发了消息, 队列又将消息给B服务, 此时就出现了消息重复消费.<br>或者说MQ向B服务发送了消息, 凡是网络原因, B服务没有能向MQ发送ack, 所以将消息重复发送一遍, 产生了重复消费.<br>消息重复消费是无法避免的, 所以要做消息的幂等. 幂等性的处理方式如下: </li>
-<li>唯一约束<br>如果从MQ拿到数据是要存到数据库，那么可以根据数据创建唯一约束<br>同样的数据从MQ发送过来之后，当插入数据库的时候，会报违反唯一约束，不会插入成功的。<br>或者可以先查一次，是否在数据库中已经保存了，如果能查到，那就直接丢弃就好了(在高并发的情况下，有数据库写入<br>的瓶颈)</li>
-<li>消息唯一id<br>让生产者发送消息时，每条消息加一个全局的唯一id，然后消费时，将该id保存到redis里面<br>下次再消费时先去redis里面查一下有么有，没有再消费</li>
+<li>消费者组和 topic 的对应关系？<br>  一个消费者组可以同时订阅多个 Topic，组内的消费者会共同分摊所有订阅 Topic 的全部分区。生产中通常把同业务域、同优先级的 Topic 订阅到同一个消费者组，统一管理消费进度和位移。</li>
+<li>消费者组和 partition 的对应关系？<ul>
+<li>一个分区只能被<strong>同一个消费者组内的一个消费者</strong>消费。</li>
+<li>一个消费者可以消费一或多个分区。</li>
+<li>不同消费者组之间完全独立，互不影响，各自消费完整的消息。</li>
 </ul>
 </li>
-<li><p>消息积压如何处理 (中)</p>
-<ul>
-<li>当生产者发送消息的速度超过了消费者处理消息的速度, 或者如果消费者因为某些原因持续阻塞，就会导致队列中的消息堆积，直到队列存储消息达到上限。最早接收到的消息，可能就会成为死信，会被丢弃，这就是消息堆积问题</li>
-<li>解决消息堆积<br>增加更多消费者，提高消费速度<br>提高单个消息者的处理能力, 在消费者内开启线程池加快消息处理速度<br>缺点: 消息太多就会开启太多新线程, cpu压力大</li>
-<li>如果是bug导致几百万消息持续积压几小时。有如何处理呢？</li>
+<li>Rebalance（重平衡）是什么？触发条件？有什么问题？<ul>
+<li>定义：消费者组内，分区所有权的重新分配过程。</li>
+<li>触发条件：组内消费者新增&#x2F;宕机、订阅的 Topic 数量变化、Topic 分区数变化。</li>
+<li>问题：Rebalance 期间整个消费者组会<strong>暂停消费</strong>，直到分配完成，会造成消息延迟、消费卡顿，还可能引发重复消费。</li>
 </ul>
+</li>
+<li>消费者的 offset 存在哪里？<br>  新版本 Kafka 存在内置的 <code>__consumer_offsets</code> 主题中；老版本存在 ZooKeeper 里。</li>
+</ul>
+</li>
+<li><p>高可用</p>
+<ul>
+<li>存储架构：分区 + 副本机制<ul>
+<li>每个 Topic 拆成多个 Partition，分散在不同 Broker 节点，实现水平扩展。</li>
+<li>每个 Partition 有多个副本（1个leader + N个follower）：<ul>
+<li>所有读写请求都走 <strong>leader 副本</strong>，follower 只同步数据、做冗余备份，不对外提供服务。</li>
+<li>副本分散在不同 Broker，单节点宕机不丢失数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>核心靠 <strong>ISR 同步副本列表 + Leader 自动选举</strong>：<ul>
+<li>ISR：和 leader 数据同步进度达标的副本集合，只有 ISR 内的副本才有资格当选新 leader。</li>
+<li>leader 宕机后，自动从 ISR 中选举新 leader，接管读写请求，实现故障自动转移。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>有序性</p>
 <ol>
-<li>先修复consumer消费者的bug，以确保其恢复消费速度，然后将现有consumer都停掉</li>
-<li>新建一个topic, partition是原来的10倍，临时建立好原先10倍的queue数量</li>
-<li>然后写一个临时的分发数据的consumer程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的10倍数量的queue</li>
-<li>接着临时征用10倍的机器来部署consumer,每一批consumer消费一个临时queue的数据</li>
-<li>这种做法相当于是临时将queue资源和consumer资源扩大10倍，以正常的10倍速度来消费数据</li>
-<li>等快速消费完积压数据之后，得恢复原先部署的架构，重新用原先的consumer机器来消费消息</li>
+<li><strong>分区内天然有序</strong>：单个分区内的消息按 offset 严格递增，天然保证顺序。</li>
+<li><strong>业务级有序</strong>：给消息指定业务 key（比如任务ID、设备ID），生产者按 key 哈希路由到固定分区，保证同一个业务 key 的消息永远在同一个分区，自然就保证了该业务维度的顺序。<blockquote>
+<p>补充：全局有序只能把分区数设为1，吞吐量极低，生产环境几乎不用。</p>
+</blockquote>
+</li>
 </ol>
 </li>
-<li><p>消息的顺序性 (中)<br>kafka？？</p>
+<li><p>可靠性 &#x2F; 怎么保证消息不丢失？</p>
+<ol>
+<li><strong>生产端</strong>：配置 <code>acks=all（-1）</code>（最强可靠性，leader写入且所有ISR副本同步完成才返回成功），配合失败自动重试。</li>
+<li><strong>Broker 端</strong>：配置至少3副本，合理设置 ISR 同步阈值，避免不同步副本参与选举。</li>
+<li><strong>消费端</strong>：关闭自动提交 offset，改用<strong>手动提交</strong>：先处理完业务逻辑，再提交消费位移，避免消息没处理完就提交导致丢失。</li>
+</ol>
+</li>
+<li><p>幂等性 &#x2F; 重复消费怎么解决？<br>  Kafka 默认是 <strong>At Least Once（至少送达一次）</strong> 语义，网络重试、offset 提交失败都会导致重复消费，必须在<strong>消费端做幂等处理</strong>。<br>  常用方案：</p>
+<ol>
+<li>业务唯一键去重：用消息内的业务主键（如订单ID、采集任务ID），处理前先校验是否已处理。</li>
+<li>数据库唯一键约束：把业务主键设为唯一键，重复插入直接报错。</li>
+<li>单独维护去重表，记录已处理的消息ID。让生产者发送消息时，每条消息加一个全局的唯一id，然后消费时，将该id保存到redis里面；下次再消费时先去redis里面查一下有么有，没有再消费</li>
+</ol>
+</li>
+<li><p>Kafka 为什么快（4个核心优化）</p>
+<ol>
+<li><strong>顺序写磁盘</strong>：消息追加写入日志文件末尾，纯顺序 IO，性能接近内存。</li>
+<li><strong>零拷贝</strong>：数据直接从磁盘发到网卡，跳过用户态&#x2F;内核态的反复拷贝。</li>
+<li><strong>分区并行</strong>：多分区分散在多节点，生产消费均可并行处理，吞吐量随节点水平扩展。</li>
+<li><strong>批量处理</strong>：生产批量发送、消费批量拉取，大幅减少网络 IO 次数。</li>
+</ol>
+</li>
+<li><p>消息积压了怎么处理？</p>
+<ul>
+<li>当生产者发送消息的速度超过了消费者处理消息的速度, 或者如果消费者因为某些原因持续阻塞，就会导致队列中的消息堆积，直到队列存储消息达到上限。最早接收到的消息，可能就会成为死信，会被丢弃，这就是消息堆积问题</li>
+<li>基本思路<ol>
+<li><strong>先恢复消费速度</strong>：如果消费瓶颈在消费者侧，可以临时增加消费者实例，提升消费并行度；或者，考虑提高单个消息者的处理能力, 在消费者内开启线程池加快消息处理速度。如果消费者数量已经等于分区数，先扩容分区数，再对应增加消费者。</li>
+<li><strong>再定位根因</strong>：排查消费逻辑是否变慢（如外部接口超时、数据库慢），优化消费逻辑；如果是突发流量，后续做削峰限流。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>死信队列? 如何导致死信 (中)<br>死信，顾名思义就是无法被消费的消息. 当一个队列中的消息满足下列情况之一时，可以成为死信（dead letter）<br>1、消息被拒绝消费<br>2、消息TTL到期，超时无人消费<br>3、要投递的队列消息堆积满了，最早的消息可能成为死信<br>如果该队列配置了dead-letter-exchange属性，指定了一个交换机，那么队列中的死信就会投递到这个交换机中, 而这个交换机称为死信交换机<br>死信队列是队列将死信(无法被消费的消息放到死信交换机中)：死信队列可以像republish一样作为消息消费失败的兜底方案，在死信队列里面可以对我们的异常消息进行MySQL&#x2F;Redis持久化，然后人工处理等操作；另一方面可以处理消息超时无人消费以及队列满了的问题</p>
 </li>
 </ul>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
-<li><p>redis为什么这么快 (高)<br>纯内存操作, 比磁盘要快<br>单线程操作, 避免了频繁的线程上下文切换<br>采用了非阻塞I&#x2F;O多路复用机制<br>Redis 内置了多种优化过后的数据结构实现. 如跳表</p>
+<li><p>Redis 为什么这么快 (高)<br>纯内存操作, 比磁盘要快<br>单线程操作, 避免了频繁的线程上下文切换<br>采用了非阻塞I&#x2F;O多路复用机制<br>Redis 内置了多种优化过后的数据结构实现. 如跳表</p>
 </li>
-<li><p>redis高性能怎么实现的?</p>
+<li><p>Redis高性能怎么实现的?</p>
 <ul>
 <li>性能一般基于两个方面, 一个是计算操作, 一个是读写操作.</li>
-<li>计算操作, 由于redis是基于内存的, 所以计算操作(命令执行)很快, 然后单线程执行命令比较快. 所以redis的性能瓶颈不在计算操作,而在于网络io<br>  单线程执行为啥快，那是因为单线程执行的话你就不需要加锁来控制了，锁是很重的很耗费资源.多线程的话, 也需要线程上下文切换, 这样的话性能也会降低.</li>
-<li>读写操作, 无非就是网络io和磁盘io<br>  磁盘io优化: rdb持久化时, 会创建一个子进程来生成 RDB 文件，这样可以避免主线程的阻塞. 这也是一种写入时复制的思想<br>  网络io优化:io多路复用: select epoll, 可以同时监听多个socket连接请求</li>
+<li>计算操作, 由于redis是基于内存的, 所以计算操作(命令执行)很快, 然后单线程执行命令比较快. 所以redis的性能瓶颈不在计算操作,而在于网络io</li>
+<li>读写操作, 无非就是网络io和磁盘io<br>  磁盘io优化: rdb持久化时, 会创建一个子进程来生成 RDB 文件，这样可以避免主线程的阻塞. 这也是一种写入时复制的思想<br>  网络io优化: io多路复用: select epoll, 可以同时监听多个socket连接请求</li>
 </ul>
 </li>
-<li><p>Redis常用的数据结构有哪些？ (高)<br>5种基础数据类型：String(字符串）、List(列表）、Set(集合）、Hash(散列）、Zset(有序集合）<br>4种特殊数据类型：HyperLogLogs(基数统计）、Bitmap(位存储）、geo(地理位置) 、stream（消息队列）</p>
+<li><p>Redis 单线程？</p>
+<ul>
+<li><strong>核心结论：命令执行层是严格单线程串行的，所有读写指令排队按顺序执行；</strong>这是 Redis 并发安全的基础，也是单条命令天然原子性的根源。</li>
+<li><strong>不是全进程单线程（面试易错点）</strong>：网络 IO 处理、数据持久化（RDB 生成、AOF 刷盘）、集群数据同步、过期键清理这些后台任务，是由额外的后台线程&#x2F;子进程跑的。</li>
+<li><strong>为什么单线程还这么快？</strong> Redis 的瓶颈是内存和网络，不是 CPU。单线程反而避免了多线程上下文切换、锁竞争的开销，纯内存操作下单线程也能跑满万级 QPS，性价比极高。</li>
+<li>Redis 本身有没有并发风险？<ol>
+<li><strong>单个命令：没有任何并发风险</strong>。比如单个 <code>set</code>&#x2F;<code>get</code>&#x2F;<code>del</code>，因为是单线程串行执行，天然就是原子的，要么全成要么全败，不会执行到一半被别的命令打断。</li>
+<li><strong>多步业务组合：有并发风险</strong>。这种「多步操作之间的竞态」是业务层面的并发问题，Redis 本身的单线程不解决这个。</li>
+<li>Lua 脚本的核心作用：就是把多步 Redis 命令打包成一个<strong>原子执行块</strong>。整个 Lua 脚本会被当成一条“大命令”，放到 Redis 的单线程执行队列里，从头到尾一口气跑完，中间不会被任何其他客户端的命令打断，天然保证整段逻辑的原子性。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Redis 常用的数据结构有哪些？ (高)<br>5种基础数据类型：String（字符串）、List（列表）、Set（集合）、Hash（散列）、Zset（有序集合）<br>4种特殊数据类型：HyperLogLogs（基数统计）、Bitmap（位存储）、geo(地理位置) 、stream（消息队列）</p>
 </li>
 <li><p>缓存击穿 (高)<br>一个被高并发访问并且缓存重建业务较复杂的key突然失效了，无数的请求访问会在瞬间给数据库带来巨大的冲击。</p>
 </li>
@@ -1843,8 +2051,19 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </li>
 <li><p>缓存雪崩 (高)<br>同一时间大量的key都过期了, 或者redis宕机了, 导致大量请求访问数据库</p>
 </li>
+<li><p>Redis 分布式锁 &amp; 锁过期 &amp; watch dog</p>
+<ul>
+<li>Redis 分布式锁本质是 SET key value NX EX time，用 Redission 封装</li>
+<li>Redis 怎么知道键过期了？<br>Redis 会把所有设置了过期时间的键，单独维护在一个叫 <code>expires</code> 的字典里：key 是键名，value 是该键过期的<strong>毫秒级时间戳</strong><br>判断过期非常直接：拿当前系统时间戳，和字典里存的过期时间戳对比，当前时间 &gt; 过期时间，就判定为过期。<br>核心：Redis 的过期键删除策略，并不是“到期立刻删除”，也不是全量定时扫描，而是用 <strong>定期删除 + 惰性删除</strong> 两种策略配合，在 CPU 性能和内存占用之间做平衡。<ol>
+<li>惰性删除：客户端访问某个键的时候，Redis 先去 <code>expires</code> 字典校验是否过期；<br>没过期：正常返回值，过期了：当场删除这个键，返回空（nil）</li>
+<li>定期删除：Redis 默认每秒执行 10 次过期检查</li>
+</ol>
+</li>
+<li>watch dog “看门狗自动续期”<br>  <strong>Redisson 这类客户端框架</strong>的功能，原生 Redis 本身没有自动延期过期时间的机制。<br>  Redisson 的看门狗本质是：客户端后台起一个定时任务，快到期了就主动给键重新设置过期时间，和 Redis 服务端的过期删除是两回事。</li>
 </ul>
-<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><ul>
+</li>
+</ul>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><ul>
 <li><p>Spring Cloud：网关、Nacos、负载均衡、Sentinel 怎么协同？</p>
 <ul>
 <li>先记住一句话：&gt; Gateway 管入口和路由，Nacos 管服务发现，负载均衡选择实例，Sentinel 管限流和熔断降级。</li>
@@ -1924,12 +2143,55 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 </ul>
 <p>  例如，外部流量突然从每秒 100 个请求增加到每秒 1000 个请求，可以在 Gateway 层限流；但即使入口已经限流，某个服务仍可能因为数据库很慢而耗尽线程。这时还需要服务级限流、超时、熔断和合理的线程池配置。<br>  反过来，内部 RPC 也不一定经过 Gateway，但仍可以通过 Sentinel 保护具体服务资源。</p>
 </li>
-<li><p>Sentinel 怎么工作？在服务端还是调用方？<br>11</p>
+<li><p>熔断&#x2F;降级&#x2F;限流 + Sentinel </p>
+<ul>
+<li>三个机制的核心区别<br>  一句话区分：限流是「不让太多请求进来」，熔断是「不去调用有问题的下游」，降级是「不行就给个兜底结果」。<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>本质</th>
+<th>解决的问题</th>
+<th>触发场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>限流</strong></td>
+<td>设流量天花板，控制请求量</td>
+<td>突发流量超过服务承载上限，把服务打垮</td>
+<td>QPS、线程数超过阈值</td>
+</tr>
+<tr>
+<td><strong>熔断</strong></td>
+<td>故障隔离，暂时切断下游调用</td>
+<td>下游服务故障&#x2F;变慢，故障沿调用链向上蔓延（雪崩效应），拖死上游服务</td>
+<td>错误率、慢调用比例超过阈值</td>
+</tr>
+<tr>
+<td><strong>降级</strong></td>
+<td>兜底方案，故障时返回妥协结果</td>
+<td>熔断&#x2F;限流触发时，直接报错影响用户体验，保证核心功能可用</td>
+<td>熔断、限流触发后执行</td>
+</tr>
+</tbody></table>
 </li>
-<li><p>设计模式<br>？？</p>
+<li>Sentinel 的工作原理 + 作用端（核心考点）<ol>
+<li>核心实现逻辑<br> 通过<strong>拦截器&#x2F;过滤器</strong>对所有调用请求做埋点，请求经过时先做规则校验；所有规则都可以动态配置，不用重启服务。<ul>
+<li>符合规则：请求正常通行</li>
+<li>触发规则：直接执行降级逻辑，返回兜底结果或抛出异常</li>
+</ul>
+</li>
+<li>到底作用在调用端还是服务端？（高频坑点）<br> <strong>两端都能用，但核心场景完全不同，别搞反：</strong><ul>
+<li><strong>限流：主要配在服务提供端（服务端）</strong>  保护自身服务，控制入口流量，防止自己被请求打垮。比如所有调用库存服务的请求，都在库存服务侧做限流。</li>
+<li><strong>熔断：主要配在服务调用端（客户端）</strong>  保护自身服务，控制出口调用，防止下游故障拖死自己。比如订单服务调用库存服务，熔断规则配在订单服务侧，库存出问题了订单服务直接熔断，不再发请求。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>典型 Spring Cloud Alibaba 调用链路：<br>  调用方 → Sentinel 客户端拦截校验熔断规则 → 从 Nacos 拉取下游实例列表 → 选实例发起调用 → 下游服务的 Sentinel 拦截器校验限流规则 → 执行业务逻辑</li>
+</ul>
 </li>
 </ul>
-<h2 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h2><p>反问对方的系统&#x2F;业务时，可以进行常见后端系统分类 + 深度判断<br>按业务属性分成 5 大类，每类附上「核心定位、技术深度标志、面试一句话探深浅」，对方一描述你就能快速对应上，还能判断团队的技术分量。</p>
+<h2 id="常见后端系统-业务"><a href="#常见后端系统-业务" class="headerlink" title="常见后端系统 &#x2F; 业务"></a>常见后端系统 &#x2F; 业务</h2><p>反问对方的系统&#x2F;业务时，可以进行常见后端系统分类 + 深度判断<br>按业务属性分成 5 大类，每类附上「核心定位、技术深度标志、面试一句话探深浅」，对方一描述你就能快速对应上，还能判断团队的技术分量。</p>
 <h4 id="一、企业管理类（ToB-内部系统，整体偏业务建模，技术深度中等）"><a href="#一、企业管理类（ToB-内部系统，整体偏业务建模，技术深度中等）" class="headerlink" title="一、企业管理类（ToB&#x2F;内部系统，整体偏业务建模，技术深度中等）"></a>一、企业管理类（ToB&#x2F;内部系统，整体偏业务建模，技术深度中等）</h4><p>这类系统核心是把线下流程线上化，本质是表单+流程+数据，纯CRUD居多，深度上限取决于业务复杂度和规模。</p>
 <ol>
 <li>CRM（客户关系管理系统）<ul>
@@ -2068,6 +2330,7 @@ waitTime&#x3D;0代表抢不到锁不会阻塞等待，直接返回结束本轮�
 <li><strong>技术深度标志</strong>：有海量日志存储分析、智能告警、故障根因定位、AIOps</li>
 </ul>
 </li>
+<li>数据平台（datamars &#x2F; dbspace）</li>
 </ol>
 <h4 id="五、数据与AI应用类（新兴方向，差异化强）"><a href="#五、数据与AI应用类（新兴方向，差异化强）" class="headerlink" title="五、数据与AI应用类（新兴方向，差异化强）"></a>五、数据与AI应用类（新兴方向，差异化强）</h4><ol>
 <li>报表 &#x2F; BI系统<ul>
